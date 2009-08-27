@@ -333,3 +333,492 @@ Mysql::Error (Access denied for user 'db40161_20'@'127.0.0.3' (using password: Y
 Rendered c:/ruby/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/templates/rescues/_trace (312.0ms)
 Rendered c:/ruby/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/templates/rescues/_request_and_response (0.0ms)
 Rendering c:/ruby/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/templates/rescues/layout.erb (internal_server_error)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (15.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (94.0ms)[0m   [0mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (78.0ms)[0m   [0;1mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateStudmodules (20090826130629)
+  [4;35;1mCategory Load (0.0ms)[0m   [0mMysql::Error: Table 'modulmanager_dev.categories' doesn't exist: SELECT * FROM `categories` WHERE (name = 'Grundkurse') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateStudmodules (20090826130629)
+  [4;36;1mSQL (94.0ms)[0m   [0;1mCREATE TABLE `studmodules` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `credits` int(11), `short` varchar(255), `description` text, `category_id` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20090826130629')[0m
+Migrating to CreateCategories (20090826130716)
+  [4;36;1mSQL (63.0ms)[0m   [0;1mCREATE TABLE `categories` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `category_id` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20090826130716')[0m
+Migrating to AddDataToCategories (20090827093532)
+  [4;36;1mCategory Columns (15.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Bachelor-Arbeit', '2009-08-27 09:41:28', NULL, '2009-08-27 09:41:28')[0m
+  [4;35;1mSQL (31.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Kerncurriculum', '2009-08-27 09:41:28', NULL, '2009-08-27 09:41:28')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (16.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Kerncurriculum') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Pflichtmodule', '2009-08-27 09:41:28', 2, '2009-08-27 09:41:28')[0m
+  [4;36;1mSQL (16.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Grundkurse', '2009-08-27 09:41:28', 3, '2009-08-27 09:41:28')[0m
+  [4;36;1mSQL (31.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Praktika', '2009-08-27 09:41:28', 3, '2009-08-27 09:41:28')[0m
+  [4;36;1mSQL (63.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Mathematik', '2009-08-27 09:41:28', 3, '2009-08-27 09:41:28')[0m
+  [4;36;1mSQL (62.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierung', '2009-08-27 09:41:28', NULL, '2009-08-27 09:41:28')[0m
+  [4;35;1mSQL (63.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierung') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Wahlpflichtmodule', '2009-08-27 09:41:28', 7, '2009-08-27 09:41:28')[0m
+  [4;35;1mSQL (47.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Wahlpflichtmodule') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierungsbereich', '2009-08-27 09:41:28', 8, '2009-08-27 09:41:28')[0m
+  [4;35;1mSQL (62.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierungsbereich') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierungspraktikum', '2009-08-27 09:41:28', 9, '2009-08-27 09:41:28')[0m
+  [4;35;1mSQL (63.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierungsbereich') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mMysql::Error: Incorrect string value: '\xFChrung...' for column 'name' at row 1: INSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Einführungen', '2009-08-27 09:41:28', 9, '2009-08-27 09:41:28')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (93.0ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateStudmodules (20090826130629)
+Migrating to CreateCategories (20090826130716)
+Migrating to AddDataToCategories (20090827093532)
+  [4;36;1mCategory Columns (0.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Bachelor-Arbeit', '2009-08-27 09:43:42', NULL, '2009-08-27 09:43:42')[0m
+  [4;35;1mSQL (31.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Kerncurriculum', '2009-08-27 09:43:42', NULL, '2009-08-27 09:43:42')[0m
+  [4;36;1mSQL (62.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (16.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Kerncurriculum') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Pflichtmodule', '2009-08-27 09:43:42', 2, '2009-08-27 09:43:42')[0m
+  [4;36;1mSQL (16.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Grundkurse', '2009-08-27 09:43:42', 3, '2009-08-27 09:43:42')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Praktika', '2009-08-27 09:43:42', 3, '2009-08-27 09:43:42')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (16.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Mathematik', '2009-08-27 09:43:42', 3, '2009-08-27 09:43:42')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierung', '2009-08-27 09:43:43', NULL, '2009-08-27 09:43:43')[0m
+  [4;35;1mSQL (62.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierung') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Wahlpflichtmodule', '2009-08-27 09:43:43', 7, '2009-08-27 09:43:43')[0m
+  [4;35;1mSQL (47.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Wahlpflichtmodule') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierungsbereich', '2009-08-27 09:43:43', 8, '2009-08-27 09:43:43')[0m
+  [4;35;1mSQL (46.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierungsbereich') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierungspraktikum', '2009-08-27 09:43:43', 9, '2009-08-27 09:43:43')[0m
+  [4;35;1mSQL (47.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierungsbereich') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mMysql::Error: Incorrect string value: '\xFChrung...' for column 'name' at row 1: INSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Einführungen', '2009-08-27 09:43:43', 9, '2009-08-27 09:43:43')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateStudmodules (20090826130629)
+Migrating to CreateCategories (20090826130716)
+Migrating to AddDataToCategories (20090827093532)
+  [4;36;1mCategory Columns (0.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Bachelor-Arbeit', '2009-08-27 09:46:17', NULL, '2009-08-27 09:46:17')[0m
+  [4;35;1mSQL (94.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Kerncurriculum', '2009-08-27 09:46:17', NULL, '2009-08-27 09:46:17')[0m
+  [4;36;1mSQL (16.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Kerncurriculum') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Pflichtmodule', '2009-08-27 09:46:17', 22, '2009-08-27 09:46:17')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Grundkurse', '2009-08-27 09:46:17', 23, '2009-08-27 09:46:17')[0m
+  [4;36;1mSQL (46.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Praktika', '2009-08-27 09:46:17', 23, '2009-08-27 09:46:17')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Mathematik', '2009-08-27 09:46:17', 23, '2009-08-27 09:46:17')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierung', '2009-08-27 09:46:17', NULL, '2009-08-27 09:46:17')[0m
+  [4;35;1mSQL (47.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierung') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Wahlpflichtmodule', '2009-08-27 09:46:17', 27, '2009-08-27 09:46:17')[0m
+  [4;35;1mSQL (62.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Wahlpflichtmodule') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierungsbereich', '2009-08-27 09:46:17', 28, '2009-08-27 09:46:17')[0m
+  [4;35;1mSQL (63.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierungsbereich') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierungspraktikum', '2009-08-27 09:46:17', 29, '2009-08-27 09:46:17')[0m
+  [4;35;1mSQL (47.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierungsbereich') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mMysql::Error: Incorrect string value: '\xFChrung...' for column 'name' at row 1: INSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Einführungen', '2009-08-27 09:46:17', 29, '2009-08-27 09:46:17')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateStudmodules (20090826130629)
+Migrating to CreateCategories (20090826130716)
+Migrating to AddDataToCategories (20090827093532)
+  [4;36;1mCategory Columns (0.0ms)[0m   [0;1mSHOW FIELDS FROM `categories`[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Bachelor-Arbeit', '2009-08-27 09:47:34', NULL, '2009-08-27 09:47:34')[0m
+  [4;35;1mSQL (15.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Kerncurriculum', '2009-08-27 09:47:34', NULL, '2009-08-27 09:47:34')[0m
+  [4;36;1mSQL (63.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Kerncurriculum') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Pflichtmodule', '2009-08-27 09:47:34', 32, '2009-08-27 09:47:34')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Grundkurse', '2009-08-27 09:47:34', 33, '2009-08-27 09:47:34')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Praktika', '2009-08-27 09:47:34', 33, '2009-08-27 09:47:34')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (16.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Pflichtmodule') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Mathematik', '2009-08-27 09:47:34', 33, '2009-08-27 09:47:34')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierung', '2009-08-27 09:47:34', NULL, '2009-08-27 09:47:34')[0m
+  [4;35;1mSQL (62.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierung') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Wahlpflichtmodule', '2009-08-27 09:47:34', 37, '2009-08-27 09:47:34')[0m
+  [4;35;1mSQL (47.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Wahlpflichtmodule') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierungsbereich', '2009-08-27 09:47:34', 38, '2009-08-27 09:47:34')[0m
+  [4;35;1mSQL (62.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierungsbereich') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezialisierungspraktikum', '2009-08-27 09:47:34', 39, '2009-08-27 09:47:34')[0m
+  [4;35;1mSQL (47.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierungsbereich') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Einf&uuml;hrungen', '2009-08-27 09:47:34', 39, '2009-08-27 09:47:34')[0m
+  [4;35;1mSQL (47.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Spezialisierungsbereich') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Spezielle Themen', '2009-08-27 09:47:34', 39, '2009-08-27 09:47:34')[0m
+  [4;35;1mSQL (47.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Wahlpflichtmodule') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Profilierungsbereich', '2009-08-27 09:47:34', 38, '2009-08-27 09:47:34')[0m
+  [4;35;1mSQL (47.0ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO `categories` (`name`, `updated_at`, `category_id`, `created_at`) VALUES('Schl&uuml;sselkompetenzen', '2009-08-27 09:47:34', NULL, '2009-08-27 09:47:34')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mSQL (16.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20090827093532')[0m
+Migrating to AddDataToStudmodules (20090827093856)
+  [4;36;1mCategory Load (16.0ms)[0m   [0;1mSELECT * FROM `categories` WHERE (name = 'Grundkurse') LIMIT 1[0m
+  [4;35;1mStudmodule Columns (0.0ms)[0m   [0mSHOW FIELDS FROM `studmodules`[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Physik I', '2009-08-27 09:47:34', NULL, 34, 9, 'B.Phy.101', '2009-08-27 09:47:34')[0m
+  [4;36;1mSQL (31.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Grundkurse') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Physik II', '2009-08-27 09:47:34', NULL, 34, 9, 'B.Phy.102', '2009-08-27 09:47:34')[0m
+  [4;36;1mSQL (63.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Grundkurse') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Physik III', '2009-08-27 09:47:35', NULL, 34, 6, 'B.Phy.103', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (31.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Grundkurse') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Physik IV', '2009-08-27 09:47:35', NULL, 34, 6, 'B.Phy.104', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (32.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Grundkurse') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Analytische Mechanik', '2009-08-27 09:47:35', NULL, 34, 8, 'B.Phy.201', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (32.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Grundkurse') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Quantenmechanik I', '2009-08-27 09:47:35', NULL, 34, 8, 'B.Phy.202', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Grundkurse') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Statistische Physik', '2009-08-27 09:47:35', NULL, 34, 8, 'B.Phy.203', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Praktika') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Physikalisches Grundpraktikum', '2009-08-27 09:47:35', NULL, 35, 12, 'B.Phy.410', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (46.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Praktika') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Physikalisches Fortgeschrittenenpraktikum', '2009-08-27 09:47:35', NULL, 35, 3, 'B.Phy.402', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Mathematik') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Mathematik f&uuml;r Physiker I', '2009-08-27 09:47:35', NULL, 36, 9, 'B.Phy.303', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Mathematik') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (15.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Mathematik f&uuml;r Physiker II', '2009-08-27 09:47:35', NULL, 36, 6, 'B.Phy.304', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Mathematik') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Basismodul Analysis I', '2009-08-27 09:47:35', NULL, 36, 9, 'B.Phy.011', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Mathematik') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Basismodul AGLA I', '2009-08-27 09:47:35', NULL, 36, 9, 'B.Phy.012', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezialisierungspraktikum') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezialisierungspraktikum Nanostrukturphysik', '2009-08-27 09:47:35', NULL, 40, 6, 'B.Phy.403', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezialisierungspraktikum') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezialisierungspraktikum Betreuung von Netzwerken und Netzwerknutzern', '2009-08-27 09:47:35', NULL, 40, 6, 'B.Phy.404', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezialisierungspraktikum') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezialisierungspraktikum Astro- und Geophysik', '2009-08-27 09:47:35', NULL, 40, 6, 'B.Phy.405', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezialisierungspraktikum') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezialisierungspraktikum Biophysik und Physik komplexer Systeme', '2009-08-27 09:47:35', NULL, 40, 6, 'B.Phy.406', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (46.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezialisierungspraktikum') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezialisierungspraktikum Festk&ouml;rper- und Materialphysik', '2009-08-27 09:47:35', NULL, 40, 6, 'B.Phy.407', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (16.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezialisierungspraktikum') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezialisierungspraktikum Kern- und Teilchenphysik', '2009-08-27 09:47:35', NULL, 40, 6, 'B.Phy.408', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (62.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Einf&uuml;hrungen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Einf&uuml;hrung in die Astro- und Geophysik', '2009-08-27 09:47:35', NULL, 41, 6, 'B.Phy.501', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (32.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Einf&uuml;hrungen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Einf&uuml;hrung in die Biophysik und Phsyik komplexer Systeme', '2009-08-27 09:47:35', NULL, 41, 6, 'B.Phy.502', '2009-08-27 09:47:35')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Einf&uuml;hrungen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Einf&uuml;hrung in die Festk&ouml;rper- und Materialphysik', '2009-08-27 09:47:36', NULL, 41, 6, 'B.Phy.503', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Einf&uuml;hrungen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Einf&uuml;hrung in die Kern- und Teilchenphysik', '2009-08-27 09:47:36', NULL, 41, 6, 'B.Phy.504', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Einf&uuml;hrungen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Mehrbenutzersysteme in der Praxis I', '2009-08-27 09:47:36', NULL, 41, 6, 'B.Phy.510', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Einf&uuml;hrungen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Mehrbenutzersysteme in der Praxis II', '2009-08-27 09:47:36', NULL, 41, 6, 'B.Phy.511', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Astro- und Geophysik I', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.551', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (46.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Astro- und Geophysik II', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.552', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Astro- und Geophysik III', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.553', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (15.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Astro- und Geophysik IV', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.554', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (32.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Biophysik und Physik komplexer Systeme I', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.561', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Biophysik und Physik komplexer Systeme II', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.562', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Biophysik und Physik komplexer Systeme III', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.563', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Biophysik und Physik komplexer Systeme IV', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.564', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (62.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Festk&ouml;rper- und Materialphysik I', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.571', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Festk&ouml;rper- und Materialphysik II', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.572', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (62.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Festk&ouml;rper- und Materialphysik III', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.573', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Festk&ouml;rper- und Materialphysik IV', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.574', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Kern- und Teilchenphysik I', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.581', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Kern- und Teilchenphysik II', '2009-08-27 09:47:36', NULL, 42, 6, 'B.Phy.582', '2009-08-27 09:47:36')[0m
+  [4;36;1mSQL (63.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Kern- und Teilchenphysik III', '2009-08-27 09:47:37', NULL, 42, 6, 'B.Phy.583', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (31.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der Kern- und Teilchenphysik IV', '2009-08-27 09:47:37', NULL, 42, 6, 'B.Phy.584', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (62.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der modernen Physik I', '2009-08-27 09:47:37', NULL, 42, 6, 'B.Phy.591', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (63.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (15.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der modernen Physik II', '2009-08-27 09:47:37', NULL, 42, 6, 'B.Phy.592', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der modernen Physik III', '2009-08-27 09:47:37', NULL, 42, 6, 'B.Phy.593', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (31.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Spezielle Themen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Spezielle Themen der modernen Physik IV', '2009-08-27 09:47:37', NULL, 42, 6, 'B.Phy.594', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (15.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Elektronikpraktikum f&uuml;r Naturwissenschaftler', '2009-08-27 09:47:37', NULL, 43, 6, 'B.Phy.606', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Mikrobiologie', '2009-08-27 09:47:37', NULL, 43, 10, 'B.Bio.118', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Biochemie', '2009-08-27 09:47:37', NULL, 43, 10, 'B.Bio.112', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Interne Unternehmensrechnung', '2009-08-27 09:47:37', NULL, 43, 6, 'B.Bwl.02', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Jahresabschluss', '2009-08-27 09:47:37', NULL, 43, 6, 'B.OPH.07', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Produktion und Logistik', '2009-08-27 09:47:37', NULL, 43, 6, 'B.Bwl.04', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Management der Informationssysteme', '2009-08-27 09:47:37', NULL, 43, 6, 'B.Win.01', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Informationsverarbeitung in Dienstleistungsbetrieben', '2009-08-27 09:47:37', NULL, 43, 6, 'B.Win.04', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (46.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Programmierung in C# (Grundlagen)', '2009-08-27 09:47:37', NULL, 43, 6, 'B.Win.23', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (31.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Allgemeine und Anorganische Chemie f&uuml;r Physiker', '2009-08-27 09:47:37', NULL, 43, 4, 'B.Che.9105', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (15.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Praktikum Allgemeine und Anorganische Chemie f&uuml;r Physiker', '2009-08-27 09:47:37', NULL, 43, 8, 'B.Che.9106', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (32.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Organische und makromolekulare Chemie f&uuml;r Physiker', '2009-08-27 09:47:37', NULL, 43, 3, 'B.Che.9108', '2009-08-27 09:47:37')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Chemisches Gleichgewicht f&uuml;r Physiker', '2009-08-27 09:47:38', NULL, 43, 6, 'B.Che.1302.1', '2009-08-27 09:47:38')[0m
+  [4;36;1mSQL (31.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Kinetik', '2009-08-27 09:47:38', NULL, 43, 6, 'B.Che.2301', '2009-08-27 09:47:38')[0m
+  [4;36;1mSQL (31.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Atombau und Chemische Bindung', '2009-08-27 09:47:38', NULL, 43, 4, 'B.Che.1401', '2009-08-27 09:47:38')[0m
+  [4;36;1mSQL (46.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Profilierungsbereich') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Grundlagen der Geowissenschaften f&uuml;r Naturwissenschaftler', '2009-08-27 09:47:38', NULL, 43, 12, 'B.Geo.402', '2009-08-27 09:47:38')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Schl&uuml;sselkompetenzen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Professionalisierungsseminar', '2009-08-27 09:47:38', NULL, 44, 4, 'B.Phy.602', '2009-08-27 09:47:38')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Schl&uuml;sselkompetenzen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (16.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Projektpraktikum', '2009-08-27 09:47:38', NULL, 44, 6, 'B.Phy.604', '2009-08-27 09:47:38')[0m
+  [4;36;1mSQL (47.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM `categories` WHERE (name = 'Schl&uuml;sselkompetenzen') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mStudmodule Create (0.0ms)[0m   [0mINSERT INTO `studmodules` (`name`, `updated_at`, `description`, `category_id`, `credits`, `short`, `created_at`) VALUES('Computergest&uuml;tztes wissenschaftliches Rechnen', '2009-08-27 09:47:38', NULL, 44, 8, 'B.Phy.605', '2009-08-27 09:47:38')[0m
+  [4;36;1mSQL (31.0ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20090827093856')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (16.0ms)[0m   [0mSHOW FIELDS FROM `categories`[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mdescribe `categories`[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSHOW KEYS FROM `categories`[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSHOW FIELDS FROM `studmodules`[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mdescribe `studmodules`[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSHOW KEYS FROM `studmodules`[0m
