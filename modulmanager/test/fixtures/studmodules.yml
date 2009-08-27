@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  credits: 1
+  short: MyString
+  description: MyText
+  category_id: 1
+
+two:
+  name: MyString
+  credits: 1
+  short: MyString
+  description: MyText
+  category_id: 1

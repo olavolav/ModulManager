@@ -1,0 +1,2 @@
+module AbfragenHelper
+end
