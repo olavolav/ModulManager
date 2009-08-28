@@ -31,6 +31,8 @@ class AddDataToCategories < ActiveRecord::Migration
 
   def self.down
     c = Category.all
-    c.destroy_all
+    c.each do |d|
+      d.destroy
+    end
   end
 end
