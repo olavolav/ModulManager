@@ -277,9 +277,5 @@ class AddDataToStudmodules < ActiveRecord::Migration
   end
 
   def self.down
-    s = Studmodule.all
-    s.each do |t|
-      t.destroy
-    end
   end
 end

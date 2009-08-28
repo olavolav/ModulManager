@@ -1,8 +1,13 @@
 class AddDataToCategories < ActiveRecord::Migration
   def self.up
-    Category.create :name => "Bachelor-Arbeit"
 
-    Category.create :name => "Kerncurriculum"
+    Category.create :name => "Bachelor"
+
+    Category.create :name => "Bachelor-Arbeit",
+      :category => Category.find(:first, :conditions => "name = 'Bachelor'")
+
+    Category.create :name => "Kerncurriculum",
+      :category => Category.find(:first, :conditions => "name = 'Bachelor'")
     Category.create :name => "Pflichtmodule",
       :category => Category.find(:first, :conditions => "name = 'Kerncurriculum'")
     Category.create :name => "Grundkurse",
@@ -12,7 +17,8 @@ class AddDataToCategories < ActiveRecord::Migration
     Category.create :name => "Mathematik",
       :category => Category.find(:first, :conditions => "name = 'Pflichtmodule'")
 
-    Category.create :name => "Spezialisierung"
+    Category.create :name => "Spezialisierung",
+      :category => Category.find(:first, :conditions => "name = 'Bachelor'")
     Category.create :name => "Wahlpflichtmodule",
       :category => Category.find(:first, :conditions => "name = 'Spezialisierung'")
     Category.create :name => "Spezialisierungsbereich",
@@ -26,7 +32,8 @@ class AddDataToCategories < ActiveRecord::Migration
     Category.create :name => "Profilierungsbereich",
       :category => Category.find(:first, :conditions => "name = 'Wahlpflichtmodule'")
 
-    Category.create :name => "Schl&uuml;sselkompetenzen"
+    Category.create :name => "Schl&uuml;sselkompetenzen",
+      :category => Category.find(:first, :conditions => "name = 'Bachelor'")
   end
 
   def self.down

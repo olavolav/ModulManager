@@ -78,7 +78,7 @@ class FillFocusStudmodules < ActiveRecord::Migration
     f = Focus.all
     f.each do |g|
       g.modules.each do |h|
-        h.remove
+        g.modules.delete h
       end
     end
   end
