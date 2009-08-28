@@ -9,6 +9,34 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20090828075501) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "foci_studmodules", :id => false, :force => true do |t|
+    t.integer "focus_id"
+    t.integer "studmodule_id"
+  end
+
+  create_table "focus", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "studmodules", :force => true do |t|
+    t.string   "name"
+    t.integer  "credits"
+    t.string   "short"
+    t.text     "description"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

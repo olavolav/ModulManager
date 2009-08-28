@@ -1,10 +1,9 @@
 class MainController < ApplicationController
 
-  # Stellt für den View vorerst alle Module in unsortierter Ordnung in @modules
-  # zur Verfügung
+  # Stellt fï¿½r den View vorerst alle Module in unsortierter Ordnung in @modules
+  # zur Verfï¿½gung
   def index
-    @modules = Studmodule.all
-    @categories = Category.all
+    
   end
 
 end
