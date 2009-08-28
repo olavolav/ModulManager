@@ -13,14 +13,16 @@ class AbfragenController < ApplicationController
 
   def add_to_selection
     m = Studmodule.find(params[:module_id])
-    current_selection.modules << m
+    s = current_selection
+    s.modules << m
     s.save
     redirect_to :action => "auswahl"
   end
 
   def remove_from_selection
     m = Studmodule.find(params[:id])
-    current_selection.modules.delete m
+    s = current_selection
+    s.modules.delete m
     s.save
     redirect_to :action => "auswahl"
   end
@@ -52,6 +54,11 @@ class AbfragenController < ApplicationController
       return parent.modules
     end
     return hash
+  end
+
+  def current_selection
+    session[:selection_id] ||= ModuleSelection.create.id
+    ModuleSelection.find session[:selection_id]
   end
 
 end
