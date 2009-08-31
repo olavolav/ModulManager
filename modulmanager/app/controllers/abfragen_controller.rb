@@ -28,34 +28,14 @@ class AbfragenController < ApplicationController
   end
 
   def pool
-    # @data = generate_right_list
-    # @categories = Category.all # nur zu Test-Zwecken
     @root = Category.find(:first, :conditions => "category_id IS null")
+    @schwerpunkte = Focus.all
     respond_to do |format|
-      # format.html
-      # format.xml { render :xml => @data.to_xml }
-      format.xml # rendert aus dem pool.builder
+      format.xml
     end
   end
 
   private
-
-  def generate_right_list
-    root = Category.find(:first, :conditions => "category_id IS null")
-    return rekursiv(root, Hash.new)
-  end
-
-  def rekursiv(parent, hash)
-    if(parent.categories != [])
-      parent.categories.each do |c|
-        hash[c.name] = Hash.new
-        hash[c.name] = rekursiv(c, hash[c.name])
-      end
-    else
-      return parent.modules
-    end
-    return hash
-  end
 
   def current_selection
     session[:selection_id] ||= ModuleSelection.create.id
