@@ -28,12 +28,13 @@ class AbfragenController < ApplicationController
   end
 
   def pool
-    @data = generate_right_list
+    # @data = generate_right_list
     # @categories = Category.all # nur zu Test-Zwecken
+    @root = Category.find(:first, :conditions => "category_id IS null")
     respond_to do |format|
       # format.html
-      format.xml { render :xml => @data.to_xml }
-      # format.xml # rendert aus dem poo.builder
+      # format.xml { render :xml => @data.to_xml }
+      format.xml # rendert aus dem pool.builder
     end
   end
 
