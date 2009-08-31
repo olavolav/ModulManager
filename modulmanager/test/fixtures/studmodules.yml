@@ -1,14 +1,26 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 one:
-  name: MyString
+  name: Module1
   credits: 1
   short: MyString
   description: MyText
   category_id: 1
 
 two:
-  name: MyString
+  name: Module2
+  credits: 1
+  short: MyString
+  description: MyText
+  category_id: 1
+
+three:
+  name: Module3
+  credits: 1
+  short: MyString
+  description: MyText
+  category_id: 1
+
+four:
+  name: Module4
   credits: 1
   short: MyString
   description: MyText

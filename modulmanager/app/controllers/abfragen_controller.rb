@@ -1,8 +1,19 @@
 class AbfragenController < ApplicationController
+
+  def test_add
+    redirect_to :action => "add_module_to_selection", :sem_count => 1, :mod_id => 3
+  end
+
+  def test_remove
+    redirect_to :action => "remove_module_from_selection", :mod_id => 12
+  end
   
   def ueberblick
   end
 
+  # Die Auswahl stellt den Hauptbereich der Arbeitsfläche dar und nimmt die
+  # Module auf. Hierhin können neue Module gezogen werden sowie alte ent-
+  # fernt.
   def auswahl
     sel = current_selection
     @modules = sel.modules
@@ -11,22 +22,8 @@ class AbfragenController < ApplicationController
     end
   end
 
-  def add_to_selection
-    m = Studmodule.find(params[:module_id])
-    s = current_selection
-    s.modules << m
-    s.save
-    redirect_to :action => "auswahl"
-  end
-
-  def remove_from_selection
-    m = Studmodule.find(params[:id])
-    s = current_selection
-    s.modules.delete m
-    s.save
-    redirect_to :action => "auswahl"
-  end
-
+  # Die Action Pool liefert eine XML-Response mit einer Baumartig untergliederten
+  # Liste der Module sowie die Schwerpunkte mit den von ihnen abhängigen Modulen.
   def pool
     @root = Category.find(:first, :conditions => "category_id IS null")
     @schwerpunkte = Focus.all
@@ -35,11 +32,43 @@ class AbfragenController < ApplicationController
     end
   end
 
+  # Die Methode muss mit den HTTP-Parametern "sem_count", für das Semester, in
+  # das hinzugefügt werden soll, und "mod_id" für die ID des hinzugefügten
+  # Modules aufgerufen werden. Die Methode speichert dann das übergebene Modul
+  # im entsprechenden Semester der Auswahl.
+  def add_module_to_selection
+    # Aktuelle zur Session passende Auswahl laden
+    selection = current_selection
+    # Entweder das passende Semester in der Auswahl finden...
+    unless semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
+      # ...oder ein neues mit der entsprechenden Zahl erstellen
+      semester = Semester.create(:count => params[:sem_count])
+      # und in der Auswahl speichern
+      selection.semesters << semester
+    end
+    # Zum passenden Semester das ausgewählte Modul hinzufügen
+    semester.modules << SelectedModule.create(:moduledata => Studmodule.find(params[:mod_id]))
+    # Umleitung zur Liste der aktuell ausgewählten Module
+    redirect_to :action => "auswahl"
+  end
+
+  # Die Methode muss mit dem HTTP-Parameter "mod_id" aufgerufen werden. Die
+  # Methode veranlasst dann eine Löschung des entsprechenden Moduls aus der
+  # Auswahl.
+  def remove_module_from_selection
+    SelectedModule.find(params[:mod_id]).delete
+    redirect_to :action => "auswahl"
+  end
+
   private
 
+  # Diese Hilfsmethode liefert die ID der aktuellen Auswahl aus dem Session-
+  # Cookie.
   def current_selection
     session[:selection_id] ||= ModuleSelection.create.id
     ModuleSelection.find session[:selection_id]
   end
+
+
 
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090828122737) do
+ActiveRecord::Schema.define(:version => 20090831121858) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -34,8 +34,22 @@ ActiveRecord::Schema.define(:version => 20090828122737) do
     t.datetime "updated_at"
   end
 
-  create_table "module_selections_studmodules", :id => false, :force => true do |t|
-    t.integer "module_selection_id"
+  create_table "selected_modules", :force => true do |t|
+    t.integer  "module_id"
+    t.integer  "semester_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "semesters", :force => true do |t|
+    t.integer  "selection_id"
+    t.integer  "count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "semesters_studmodules", :id => false, :force => true do |t|
+    t.integer "semester_id"
     t.integer "studmodule_id"
   end
 

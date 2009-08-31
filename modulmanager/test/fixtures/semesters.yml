@@ -1,0 +1,15 @@
+Semester1Selection1:
+  selection_id: 1
+  count: 1
+
+Semester2Selection1:
+  selection_id: 1
+  count: 2
+
+Semester1Selection2:
+  selection_id: 2
+  count: 1
+
+Semester2Selection2:
+  selection_id: 2
+  count: 2
