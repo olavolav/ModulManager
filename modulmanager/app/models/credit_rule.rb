@@ -1,0 +1,2 @@
+class CreditRule < Rule
+end
