@@ -1,8 +1,7 @@
+		var pool = function(){
 
-             			var pool = function(){
 
-
-                                                        var XML = $.ajax({
+                                                       var XML = $.ajax({
 
                                                                 type: 'GET',
                                                                 url: 'http://localhost:3000/abfragen/pool',
@@ -48,7 +47,7 @@
                                                                                                                 switch (name){
 
                                                                                                                         case "Bachelor":
-                                                                                                                                $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" + name + "</div>");
+                                                                                                                                $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" +"<a>" +name + "</a></div>");
                                                                                                                                 break;
 
                                                                                                                         case "Astro- und Geophysik":
@@ -104,14 +103,14 @@
                                                                                                                                 // Eben Bachelor Allgemein>Kern
 
                                                                                                                                 case "Pflichtmodule":
-                                                                                                                                        $("#pool .Bachelor .Kerncurriculum").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" + name + "</div>");
+                                                                                                                                        $("#pool .Bachelor .Kerncurriculum").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" +"<a>"+ name + "</a></div>");
 
                                                                                                                                         break;
 
                                                                                                                                         // Eben Bachelor Allgemein>Kern>Pflichtmodule
 
                                                                                                                                         case "Grundkurse":
-                                                                                                                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule").append("<div class='" + name +  "'  class='poolkategory' id='" + idnumber +  "' >" + name +"<ul></ul></div>");
+                                                                                                                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule").append("<div class='" + name +  "'  class='poolkategory' id='" + idnumber +  "' >"+name +"<ul></ul></div>");
 
                                                                                                                                         break;
 
@@ -170,7 +169,8 @@
 
                                                                                                                            case "Schl&uuml;sselkompetenzen":
                                                                                                                                 var neuname = name.replace(/Schl&uuml;sselkompetenzen/g,"schluesselkompetenzen");
-                                                                                                                                $("#pool .Bachelor").append("<div  class='" +neuname +  "'   class='poolkategory' id='" + idnumber +  "' >" + neuname + "<ul></ul></div>");
+																																
+                                                                                                                                $("#pool").append("<div  class='" +neuname +  "'   class='poolkategory' id='" + idnumber +  "' >" + name + "<ul></ul></div>");
 
                                                                                                                                 break;
 
@@ -202,6 +202,7 @@
                                                                                                                 case "Grundkurse":
 
                                                                                                                         $("#pool .Bachelor .Kerncurriculum .Pflichtmodule .Grundkurse ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
+																														
                                                                                                                         break;
 
                                                                                                                 case "Praktika":
@@ -241,7 +242,7 @@
 
 
                                                                                                                 case "Schl&uuml;sselkompetenzen":
-                                                                                                                        $("#pool .Bachelor .schluesselkompetenzen ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
+                                                                                                                        $("#pool .schluesselkompetenzen ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
                                                                                                                         break;
                                                                                                                 case "Nanostrukturphysik":
                                                                                                                         $("#pool .Nanostrukturphysik ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
@@ -307,24 +308,10 @@
 
 
                          }//ende pool
+						 
+		//////////////////////semesterhinzu/////////////////////////////////////
 
-
-
-
-
-
-
-
-
-
-
-                        
-
-                                    
-
-                        //////////////////////semesterhinzu/////////////////////////////////////
-
-                        $(function(){
+		$(function(){
 
                                 $('#semesterhinzu').live("click",function(){
                                         var n = $('#semester-content div').length+1;
@@ -341,26 +328,27 @@
                                                         $(this).append(ui.draggable);
                                                         $(ui.draggable).hide();
                                                         var xml=$.ajax({
-                                                        type: 'GET',
-                                                        url :'http://localhost:3000/abfragen/pool',
-                                                        dataType:'xml',
-                                                        cache:false,
-                                                        async :false,
-                                                        contentType:'application/x-www-form-urlencoded',
-                                                        success: function(msg){
+                                                        	type: 'GET',
+                                                        	url :'http://localhost:3000/abfragen/pool',
+                                                        	dataType:'xml',
+                                                        	cache:false,
+                                                        	async :false,
+                                                        	contentType:'application/x-www-form-urlencoded',
+                                                       		success: function(msg){
 
-                                                        },
-                                                        error: function (a,b,c){
+                                                       		 },
+                                                       		error: function (a,b,c){
                                                                 alert("Erorr");
-                                                        }
+                                                       		 }
 
-                                                }).responseXML;
+                                               			 }).responseXML;
 
 
                                                 }//ende Drop
                                         });//droppable
                                 });//ende live
-                        });//ende function
+		});//ende function
+
 
 
 
