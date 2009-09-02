@@ -1,0 +1,26 @@
+.Grundkurse,.Bachelor,.Kerncurriculum,
+.Pflichtmodule, .astro, .biophysik, .materialphysik, .teilchenphysik, .einfuehrungen, .spezielle,.Profilierungsbereich,
+.schluesselkompetenzen{
+        background-color :  #C0C0B2;
+		margin-bottom : 2px;
+}
+.Bachelor-Arbeit{
+	margin-left:10px;
+}
+.Kerncurriculum ,.Pflichtmodule,.Spezialisierung,.Wahlpflichtmodule,.Pflichtmodule,.Grundkurse,.Praktika,.Mathematik,
+.Spezialisierungsbereich,.Spezialisierungspraktikum,.einfuehrungen,.spezielle,.Profilierungsbereich{
+	
+	margin-left:10px;
+}
+
+
+
+
+
+
+.poolmodule {
+
+        background-color:#b0e0e6;
+		margin-bottom : 2px;
+		padding-left  : 10px;
+}
