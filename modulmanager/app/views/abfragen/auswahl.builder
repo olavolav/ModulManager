@@ -1,6 +1,7 @@
 xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
 
 xml.auswahl do
+  xml.focus(:id => @selection.focus.id, :name => @selection.focus.name) if @selection.focus
   xml.semesters do
     @selection.semesters.each do |s|
       xml.semester(:count => s.count) do
@@ -11,16 +12,6 @@ xml.auswahl do
             xml.short m.moduledata.short
           end
         end
-      end
-    end
-  end
-
-  xml.errors do
-    @errors.each do |e|
-      xml.error do
-        xml.rule_id e.rule_id
-        xml.rule_name e.rule_name
-        xml.description e.description
       end
     end
   end
