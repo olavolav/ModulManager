@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <%= stylesheet_link_tag "swapselect" %>
+    <%= stylesheet_link_tag "admin" %>
+    <%= javascript_include_tag "swapselect" %>
+    <title>Admin-Bereich</title>
+  </head>
+  <body>
+    <h1>Administration</h1>
+    <p>
+      <%= link_to "Gruppen", :action => "groups" %>
+      |
+      <%= link_to "Regeln", :action => "rules" %>
+    </p>
+    <hr />
+    <%= yield %>
+  </body>
+</html>

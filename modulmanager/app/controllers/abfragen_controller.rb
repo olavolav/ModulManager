@@ -15,10 +15,12 @@ class AbfragenController < ApplicationController
   # Module auf. Hierhin können neue Module gezogen werden sowie alte ent-
   # fernt.
   def auswahl
-    sel = current_selection
-    @modules = sel.modules
+    @selection = current_selection
+    @errors = Array.new
+    @errors.push Error.new :rule_id => 1, :rule_name => "Regel1"
+    @errors.push Error.new :rule_id => 2, :rule_name => "Regel2"
     respond_to do |format|
-      format.xml { render :xml => @modules.to_xml }
+      format.xml
     end
   end
 

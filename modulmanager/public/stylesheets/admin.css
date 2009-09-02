@@ -1,0 +1,51 @@
+body {
+
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    background-color: #ccccff;
+}
+
+a {
+
+    font-variant: normal;
+    font-style: normal;
+    text-decoration: none;
+    color: black;
+    border-right-style: dotted;
+    border-left-style: dotted;
+    border-bottom-style: dotted;
+    border-top-style: dotted;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+}
+
+a:hover {
+    
+    border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    background-color: #e6e4e4;
+}
+
+table tr td {
+
+    padding-right: 3px;
+    padding-left: 3px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+}

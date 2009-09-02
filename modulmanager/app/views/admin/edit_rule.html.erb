@@ -1,4 +1,4 @@
-<h1>Regel <%= @rule.id %></h1>
+<h2>Regel <%= @rule.id %></h2>
 <% form_for :rule, @rule, :url => {:action => "save_rule", :id => @rule.id} do |r| %>
 <p>
   Name:<br />
