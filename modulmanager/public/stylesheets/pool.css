@@ -14,13 +14,18 @@
 }
 
 
-
-
-
-
 .poolmodule {
 
         background-color:#b0e0e6;
 		margin-bottom : 2px;
 		padding-left  : 10px;
 }
+
+
+/*-----------Liste------------*/
+
+ul li {
+	list-style-type : none;
+	
+}
+ 
