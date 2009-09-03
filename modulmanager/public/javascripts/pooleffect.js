@@ -98,7 +98,24 @@ $(function(){
 				$(".schluesselkompetenzen ul").toggle("slow");
 			});
 
+	/*------------Nanostrukturphysik---------------------------------------------------------*/
 
+			$(".Nanostrukturphysik ul").hide();
+			$(".Nanostrukturphysik").live("click",function(){
+				$(".Nanostrukturphysik ul").toggle("slow");
+				
+				
+			});
+			
+			
+			
+	/*------------Physikinformatik---------------------------------------------------------*/
+
+			$(".Physikinformatik ul").hide();
+			$(".Physikinformatik ").live("click",function(){
+				$(".Physikinformatik  ul").toggle("slow");
+			});
+			
 	/*------------Astro- und Geophysik---------------------------------------------------------*/
 
 			$(".astro ul").hide();
@@ -138,6 +155,10 @@ $(function(){
 			revert : "invalid"
 			
 			
+		});
+		$(".auswahlmodul").draggable({
+			
+			revert : "invalid"
 		});
 		
 		
@@ -204,8 +225,17 @@ $(function(){
 															
 															// das Modul in entsprechenem Semester hineinfügen
 															
-															$("#"+semester).append("<div class='auswahlmodul'>"+name+" "+short+" "+credits+"</div>");
+															//$("#"+semester).append("<div class='auswahlmodul'>"+"<ul><li>"+name+"</li><li>"+" ("+short+") "+"</li><li class='credits'>"+credits+"C</li></ul></div>").fadeOut("fast").fadeIn("fast");
+															
+															//formatieren mit Table
+															
+															$("#"+semester).append("<div class='auswahlmodul'>"+"<table border='0'><tbody><colgroup><col width='570'><col width='50'></colgroup><tr><td>"+name+"("+short+")<span style='color:red ;font-weight:bold' class='modulloeschen'>[X]</span></td>"+"<td>"+credits+"C</td></tr></tbody></table></div>").fadeOut("fast").fadeIn("fast");
+															$(".auswahlmodul").draggable({
+																revert:"invalid"
+															});
+															
 														}
+														
 														
 														
 													});//ende each bei Suche nach ID von einem Modul
@@ -229,40 +259,22 @@ $(function(){
                                   });//ende droppable
 
 								
+	
+									
+	
+	
+								
 
 
-                                        $('.modul').draggable({
-                                                cursor: 'crosshair',
-                                                revert: 'invalid'
 
+                                      
 
-                                        });
-
-                                        /*$('li').draggable({
-                                                cursor: 'crosshair',
-                                                revert: 'invalid'
-
-                                        });*/
-
-                                        //reingezogene Module draggable
-                                        $('li.modul').live("click",function(){
-                                                $(this).draggable({
-                                                        revert: 'invalid'
-                                                });
-
-
-                                        });
-
-
-                                        /*$('#modul').sortable({
-                                                connectWith: '.semester'
-                                        });        */
+                                        
 
 
 
 
-
-                        });
+    });//ende function für AJAX-Aufruf
 	
 	
 	

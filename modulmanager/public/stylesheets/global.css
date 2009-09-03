@@ -106,16 +106,17 @@
 
 .semester{
 	
-	border: 1px black solid;
+	border: 2px #DEB887 solid;
 	width:500px;
-	background-color:gray;
+	background-color:#FFF68F;
+	padding-left: 25px;
+	padding-right:25px;
+	padding-bottom:25px;
+	margin-bottom: 10px;
 	
 }
 
-.drophover{
-	background-color: yellow;
-	
-}
+
 
 
 

@@ -1,7 +1,7 @@
-.Grundkurse,.Bachelor,.Kerncurriculum,
-.Pflichtmodule, .astro, .biophysik, .materialphysik, .teilchenphysik, .einfuehrungen, .spezielle,.Profilierungsbereich,
+.Grundkurse,.Kerncurriculum,.Bachelor,
+.Pflichtmodule,.Nanostrukturphysik,.Physikinformatik,.astro, .biophysik, .materialphysik, .teilchenphysik, .einfuehrungen, .spezielle,.Profilierungsbereich,
 .schluesselkompetenzen{
-        background-color :  #C0C0B2;
+        background-color :  #EEE8AA;
 		margin-bottom : 2px;
 }
 .Bachelor-Arbeit{
@@ -11,14 +11,16 @@
 .Spezialisierungsbereich,.Spezialisierungspraktikum,.einfuehrungen,.spezielle,.Profilierungsbereich{
 	
 	margin-left:10px;
+	cursor     : pointer;
 }
 
 
 .poolmodule {
-
-        background-color:#b0e0e6;
+		border: 1px blue solid;
+        background-color:#B2FFFF;
 		margin-bottom : 2px;
 		padding-left  : 10px;
+		cursor        : move;
 }
 
 
@@ -28,4 +30,30 @@ ul li {
 	list-style-type : none;
 	
 }
+
+a {
+	
+	cursor : pointer;
+}
+a:link {
+	text-decoration:underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  

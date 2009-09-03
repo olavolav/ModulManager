@@ -49,25 +49,36 @@
                                                                                                                         case "Bachelor":
                                                                                                                                 $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" +"<a>" +name + "</a></div>");
                                                                                                                                 break;
+																																
+																														case "Nanostrukturphysik":
+                                                                                                                                
+                                                                                                                                $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
+                                                                                                                                break;
+																																
+																														case "Physikinformatik":
+                                                                                                                                
+                                                                                                                                $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
+                                                                                                                                break;
+
 
                                                                                                                         case "Astro- und Geophysik":
                                                                                                                                 var neuname = name.replace(/Astro- und Geophysik/g,"astro");
-                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" + name + "<ul></ul></div>");
+                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
                                                                                                                                 break;
 
                                                                                                                         case "Biophysik und Physik komplexer Systeme":
                                                                                                                                 var neuname = name.replace(/Biophysik und Physik komplexer Systeme/g,"biophysik");
-                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" + name + "<ul></ul></div>");
+                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
                                                                                                                                 break;
 
                                                                                                                         case "Festk&ouml;rper- und Materialphysik":
                                                                                                                                 var neuname = name.replace(/Festk&ouml;rper- und Materialphysik/g,"materialphysik");
-                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" + name + "<ul></ul></div>");
+                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
                                                                                                                                 break;
 
                                                                                                                         case "Kern- und Teilchenphysik":
                                                                                                                                 var neuname = name.replace(/Kern- und Teilchenphysik/g,"teilchenphysik");
-                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" + name + "<ul></ul></div>");
+                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
                                                                                                                                 break;
 
                                                                                                                         default:
@@ -170,7 +181,7 @@
                                                                                                                            case "Schl&uuml;sselkompetenzen":
                                                                                                                                 var neuname = name.replace(/Schl&uuml;sselkompetenzen/g,"schluesselkompetenzen");
 																																
-                                                                                                                                $("#pool").append("<div  class='" +neuname +  "'   class='poolkategory' id='" + idnumber +  "' >" + name + "<ul></ul></div>");
+                                                                                                                                $("#pool").append("<div  class='" +neuname +  "'   class='poolkategory' id='" + idnumber +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
 
                                                                                                                                 break;
 
@@ -314,25 +325,62 @@
 		$(function(){
 
                                 $('#semesterhinzu').live("click",function(){
-                                        var n = $('#semester-content div').length+1;
-                                        var neu = "<br/><div class='semester' id='semester"+n+"'>"+"<h5>"+n+".Semester"+"</h5></div>";
-
+                                        var n = $('#semester-content div.semester').length+1;
+										
+										// var l für Löschen gedacht
+										var l = $('#semester-content div.semester').length+1;
+										
+										
+										
+										// neue Semester und Löschen reintun
+										// <div class="semester">
+										//		<div class='subsemester'> 
+										//				semester 10
+										//		</div>
+										//		<p>
+										//			Löschen
+										//		</p>
+										// </div>
+                                        var neu = "<div class='semester' id='semester"+n+"'>"+"<div class='subsemester'><h5>"+n+".Semester"+"</h5></div></div>";
+										
 
                                         $("#semester-content").append(neu);
-
-
+									
+										// "Löschen" wird immer in dem letzen Semester hinzufügen
+										// d.h: andere ""Löschen" werden weggemacht.
+										
+										if (n >= 3){
+											for ( i=2; i<n; i++ ){
+												$("#semester"+i+" p").remove();
+											}
+										}
+										$("#semester"+n).append("<p style='cursor:pointer' class='semesterloeschen'>L&ouml;schen</p>");
+										
+										
+										
+									
+										// ein Modul reinziehn
                                         $(".semester").droppable({
                                                 hoverClass:'drophover',
+												
                                                 drop: function(event,ui){
+													
+														var modulID = $(ui.draggable).attr("id"); 
+														
+														var semester = $(this).attr("id");
+														
+														
+														$(ui.draggable).hide();
 
-                                                        $(this).append(ui.draggable);
-                                                        $(ui.draggable).hide();
+                                                        
+                                                       
                                                         var xml=$.ajax({
-                                                        	type: 'GET',
+                                                        	type: 'POST',
                                                         	url :'http://localhost:3000/abfragen/pool',
                                                         	dataType:'xml',
+															data : "name:quan",
                                                         	cache:false,
-                                                        	async :false,
+                                                        	async :true,
                                                         	contentType:'application/x-www-form-urlencoded',
                                                        		success: function(msg){
 
@@ -342,6 +390,33 @@
                                                        		 }
 
                                                			 }).responseXML;
+														 
+														 //das reingezogenem Modul anzeigen
+														 
+														 var root = xml.documentElement;
+														 
+														 $(root).find("module").each(function(){
+														 	if ( $(this).find("id").text() == modulID ){
+																var name  = $(this).find("name").text();
+																
+																var short = $(this).find("short").text();
+																var credits = $(this).find("credits").text();
+																
+																//$("#"+semester).append("<div class='auswahlmodul'>"+name+" ("+short+") "+credits+"C"+"</div>").fadeOut("fast").fadeIn("fast");
+																
+																// formatieren mit Table
+																
+																$("#"+semester+" .subsemester").append("<div class='auswahlmodul'>"+"<table border='0'><tbody><colgroup><col width='570'><col width='50'></colgroup><tr><td>"+name+"("+short+")<span style='color:red ;font-weight:bold' class='modulloeschen'>[X]</span></td><td>"+credits+"C</td></tr></tbody></table></div>");
+																$("#"+semester).fadeOut("fast").fadeIn("fast");
+																$(".auswahlmodul").draggable({
+																	
+																	revert:"invalid"
+																});
+															}
+															
+														 	
+														 });//ende each bei suche nach ID-Modul
+														 
 
 
                                                 }//ende Drop
@@ -350,7 +425,53 @@
 		});//ende function
 
 
+		/////////////////////semester löschen//////////////////////////////////
+		
+		// "Löschen" wird geklick 
+		
+		$(function(){
 
-
+		
+		$(".semesterloeschen").live('click',function(){
+			var l = $(".semester").length;
+			if (l >= 3) {
+			
+				$("#semester" + l).remove();
+				$("#semester" + (l - 1)).append("<p style='cursor:pointer' class='semesterloeschen'>L&ouml;schen</p>");
+			}
+			else if (l==2){
+				$("#semester"+l).remove();
+				
+				
+			}								
+		});
+		}); //ende function
+		
+		///////////////////auswahlmodul loeschen///////////////////////////////
+		/// bei Click auf <span class="modulloeschen">
+		$(function(){
+			
+			$("span.modulloeschen").live("click",function(){
+				
+				$(this).remove();
+			});
+			
+			
+			
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 
