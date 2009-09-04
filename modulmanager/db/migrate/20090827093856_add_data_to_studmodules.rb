@@ -1,5 +1,10 @@
 class AddDataToStudmodules < ActiveRecord::Migration
   def self.up
+    # Bachelor-Arbeit
+      Studmodule.create :name => "Bachelor-Arbeit",
+        :credits => 12,
+        :short => "",
+        :category => Category.find(:first, :conditions => "name = 'Bachelor-Arbeit'")
     # Grundkurse
       Studmodule.create :name => "Physik I",
         :credits => 9,
