@@ -10,7 +10,9 @@ class ModuleSelection < ActiveRecord::Base
   def modules
     modules = Array.new
     self.semesters.each do |s|
-      modules.push s.modules
+      s.studmodules.each do |sm|
+        modules.push sm
+      end
     end
     modules
   end

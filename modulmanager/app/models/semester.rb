@@ -7,4 +7,8 @@ class Semester < ActiveRecord::Base
     :foreign_key => "semester_id",
     :dependent => :delete_all
 
+  has_many :studmodules,
+    :class_name => "Studmodule",
+    :through => :modules,
+    :source => :moduledata
 end

@@ -56,11 +56,11 @@ class AddDataToStudmodules < ActiveRecord::Migration
         :category => Category.find(:first, :conditions => "name = 'Mathematik'")
       Studmodule.create :name => "Basismodul Analysis I",
         :credits => 9,
-        :short => "B.Phy.011",
+        :short => "B.Mat.011",
         :category => Category.find(:first, :conditions => "name = 'Mathematik'")
       Studmodule.create :name => "Basismodul AGLA I",
         :credits => 9,
-        :short => "B.Phy.012",
+        :short => "B.Mat.012",
         :category => Category.find(:first, :conditions => "name = 'Mathematik'")
 
       # Wahlpflicht -> Spezialisierung -> Spez.Praktikum

@@ -1,15 +1,14 @@
 class AbfragenController < ApplicationController
 
-  def test_add
-    redirect_to :action => "add_module_to_selection", :sem_count => 1, :mod_id => 3
-  end
-
-  def test_remove
-    redirect_to :action => "remove_module_from_selection", :mod_id => 12
-  end
-  
   def ueberblick
     @errors = check_rules
+    respond_to do |format|
+      format.xml { render :action => "ueberblick", :layout => false }
+    end
+  end
+
+  def ueberblick_new
+    
   end
 
   # Die Auswahl stellt den Hauptbereich der Arbeitsfläche dar und nimmt die
@@ -18,7 +17,7 @@ class AbfragenController < ApplicationController
   def auswahl
     @selection = current_selection
     respond_to do |format|
-      format.xml
+      format.xml { render :action => "auswahl", :layout => false }
     end
   end
 
@@ -29,7 +28,7 @@ class AbfragenController < ApplicationController
     @schwerpunkte = Focus.all
     current_selection
     respond_to do |format|
-      format.xml
+      format.xml { render :action => "pool", :layout => false }
     end
   end
 
@@ -73,50 +72,87 @@ class AbfragenController < ApplicationController
   # Diese Hilfsmethode liefert die ID der aktuellen Auswahl aus dem Session-
   # Cookie.
   def current_selection
-    session[:selection_id] ||= ModuleSelection.create.id
+    session[:selection_id] ||= new_selection
     ModuleSelection.find session[:selection_id]
+  end
+
+  def new_selection(focus = nil)
+    ms = ModuleSelection.create
+    s1 = Semester.create :count => 1
+    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.101'")
+    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
+    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Mat.011'")
+    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Mat.012'")
+    ms.semesters << s1
+    s2 = Semester.create :count => 2
+    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.102'")
+    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
+    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.303'")
+    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
+    ms.semesters << s2
+    s3 = Semester.create :count => 3
+    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.103'")
+    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
+    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.304'")
+    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.201'")
+    ms.semesters << s3
+    s4 = Semester.create :count => 4
+    s4.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.104'")
+    s4.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.604'")
+    s4.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.202'")
+    ms.semesters << s4
+    s5 = Semester.create :count => 5
+    s5.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.402'")
+    s5.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.203'")
+    ms.semesters << s5
+    s6 = Semester.create :count => 6
+    s6.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.602'")
+    ms.semesters << s6
+    return ms.id
   end
 
   def check_rules
     errors = Array.new
-    selection = current_selection
     mr = ModuleRule.all
     cr = CreditRule.all
 
     cr.each do |r|
+      credits = sum_credits(r.groups)
       case r.relation
       when "min"
-        unless sum_credits(r.groups) >= r.count
+        
+        unless credits >= r.count
           errors.push Error.new :rule_id => 1,
-            :rule_name => "Regel 1",
-            :description => "Zu wenig Credits..."
-          # errors.push "Fehler! (Zu wenig Credits)"
+            :rule_name => "Regel #{r.id}",
+            :description => "Zu wenig Credits im Bereich \"#{r.name}\" (#{credits} von #{r.count}).",
+            :less => (r.count - credits)
         end
       when "max"
-        unless sum_credits(r.groups) <= r.count
+        unless credits <= r.count
           errors.push Error.new :rule_id => 2,
-            :rule_name => "Regel 2",
-            :description => "Zu viele Credits..."
-          # errors.push "Fehler! (Zu viele Credits)"
+            :rule_name => "Regel #{r.id}",
+            :description => "Zu viele Credits im Bereich \"#{r.name}\" (#{credits} von #{r.count}).",
+            :less => (credits - r.count)
         end
       end
     end
 
     mr.each do |r|
+      mods = sum_modules(r.groups)
       case r.relation
       when "min"
-        unless sum_modules(r.groups) >= r.count
+        unless mods >= r.count
           errors.push Error.new :rule_id => 3,
-            :rule_name => "Regel 3",
-            :description => "Zu wenig Module..."
-          # errors.push "Fehler! (Zu wenig Module)"
+            :rule_name => "Regel #{r.id}",
+            :description => "Zu wenig Module im Bereich \"#{r.name}\" (#{mods} von #{r.count}).",
+            :less => (r.count - mods)
         end
       when "max"
-        unless sum_modules(r.groups) < r.count
+        unless mods < r.count
           errors.push Error.new :rule_id => 4,
-            :rule_name => "Regel 4",
-            :description => "Zu viele Module..."
-          # errors.push "Fehler! (Zu viele Module)"
+            :rule_name => "Regel #{r.id}",
+            :description => "Zu viele Module im Bereich \"#{r.name}\" (#{mods} von #{r.count})",
+            :less => (mods - r.count)
         end
       end
     end
@@ -155,6 +191,10 @@ class AbfragenController < ApplicationController
       end
     end
     return modules.length
+  end
+
+  def check_rules_like_pool
+
   end
 
 end

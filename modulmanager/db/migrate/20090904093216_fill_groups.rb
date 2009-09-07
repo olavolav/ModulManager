@@ -176,7 +176,7 @@ class FillGroups < ActiveRecord::Migration
     ]
     add_shorts g, shorts
 
-    g = Group.create :name => "Schluesselkompetenzen"
+    g = Group.create :name => "Schlüsselkompetenzen"
     shorts = [
       "B.Phy.602", "B.Phy.604", "B.Phy.605"
     ]
