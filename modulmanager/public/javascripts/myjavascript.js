@@ -1,469 +1,703 @@
-		var pool = function(){
 
+/*----------------POOL anzeigen-----------------------------------------------------*/
+//---------------pool() wird in index.html aufrufen---------------------------------
+//              pool() ruft die poolrekursiv auf------------------------------------ 
+//              pool gibt XML-Datei zurück------------------------------------------         
 
-                                                       var XML = $.ajax({
+//----------------------------------------------------------------------------------
 
-                                                                type: 'GET',
-                                                                url: 'http://localhost:3000/abfragen/pool',
-                                                                async: false,
-                                                                contentType: 'application/x-www-form-urlencoded',
 
 
-                                                                error: function(a, b, c){
-                                                                        alert('Error');
-                                                                }
 
 
 
-                                                        }).responseXML; //ende AJAX
 
-                                                        var root = XML.documentElement;
-														
-														//+++++++++Rekursiv++++++++++++++++++++++++++++++++++++++++++
 
-                                                        var poolrekursiv = function(root){
-                                                            var allchildren = $(root).children();
 
-                                                                var children = allchildren.length; // anfang 7 Kinder
-                                                                        if(children ==0) {
-                                                                                return;
-                                                                        }
+//----Poolrekursive implementieren--------------------------------------
 
-                                                                        else {
+//+++++++++Rekursiv++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-                                                                                $(root).children().each(function(){
 
-                                                                                //alle Kinder in einem Konten durchlaufen
 
+var poolrekursiv = function(root){
+	
+		// photo path
+		var wahlpflichtbild = "<img src='images/Wahlpflicht.png' style='cursor:pointer'>";
+		var pflichtbild     = "<img src='images/Pflicht.png' style='cursor:pointer'>";
+		var wahlbild    = "<img src='images/Wahl.png' style='cursor:pointer' >";
+		var fragebild     = "<img src='images/Fragezeichen.png' style='cursor:pointer'>";
+		var ipunkt    = "<img src='images/iPunkt.png' style='cursor:pointer'>";
 
-                                                                                  if ($(this).attr("name")) {    //gibt es attr: name? ( module haben keine attr name)
+	
+	
+		
+       var allchildren = $(root).children();
 
-                                                                                                          var name = $(this).attr("name");    //attr name  in ein attr class  umwandeln
+            var children = allchildren.length; // anfang 7 Kinder
+            if(children ==0) {
+                    return;
+            }
 
-                                                                                                        if ($(this).attr("class")) {        // check class bei Allgemein und allen Schwerrpunk, modul hat kein
+            else {
 
-                                                                                                                var c = $(this).attr("class");
+	            $(root).children().each(function(){
+	
+	            //alle Kinder in einem Konten durchlaufen
+	
+	
+	              if ($(this).attr("name")) {    //gibt es attr: name? ( module haben keine attr name)
+	
+	                  var name = $(this).attr("name");    //attr name  in ein attr class  umwandeln
+	
+	                  if ($(this).attr("class")) {        // check class bei Allgemein und allen Schwerrpunk, modul hat kein
+	
+                        var c = $(this).attr("class");
 
-                                                                                                                switch (name){
+                        switch (name){
 
-                                                                                                                        case "Bachelor":
-                                                                                                                                $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" +"<a>" +name + "</a></div>");
-                                                                                                                                break;
-																																
-																														case "Nanostrukturphysik":
-                                                                                                                                
-                                                                                                                                $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
-                                                                                                                                break;
-																																
-																														case "Physikinformatik":
-                                                                                                                                
-                                                                                                                                $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
-                                                                                                                                break;
-
-
-                                                                                                                        case "Astro- und Geophysik":
-                                                                                                                                var neuname = name.replace(/Astro- und Geophysik/g,"astro");
-                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
-                                                                                                                                break;
-
-                                                                                                                        case "Biophysik und Physik komplexer Systeme":
-                                                                                                                                var neuname = name.replace(/Biophysik und Physik komplexer Systeme/g,"biophysik");
-                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
-                                                                                                                                break;
-
-                                                                                                                        case "Festk&ouml;rper- und Materialphysik":
-                                                                                                                                var neuname = name.replace(/Festk&ouml;rper- und Materialphysik/g,"materialphysik");
-                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
-                                                                                                                                break;
-
-                                                                                                                        case "Kern- und Teilchenphysik":
-                                                                                                                                var neuname = name.replace(/Kern- und Teilchenphysik/g,"teilchenphysik");
-                                                                                                                                $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
-                                                                                                                                break;
-
-                                                                                                                        default:
-                                                                                                                                break;
-
-                                                                                                                }
-
-
-
-                                                                                                        }
-
-                                                                                                        else {
-
-                                                                                                                var idnumber = $(this).attr("id");
-                                                                                                                switch (name){
-                                                                                                                        // name = attr ("name")
-                                                                                                                        // Eben Bachelor Allgemein
-
-
-
-                                                                                                                        case "Bachelor-Arbeit":
-
-                                                                                                                                $("#pool .Bachelor").append("<div class='" + name +  "'  class='poolkategory' id='" + idnumber +  "' >" + name + "</div>");
-
-                                                                                                                                //alert(name);
-                                                                                                                                break;
-
-                                                                                                                        case "Kerncurriculum":
-                                                                                                                                $("#pool .Bachelor").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" + name + "</div>");
-                                                                                                                                //alert(name);
-                                                                                                                                break;
-
-                                                                                                                                // Eben Bachelor Allgemein>Kern
-
-                                                                                                                                case "Pflichtmodule":
-                                                                                                                                        $("#pool .Bachelor .Kerncurriculum").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" +"<a>"+ name + "</a></div>");
-
-                                                                                                                                        break;
-
-                                                                                                                                        // Eben Bachelor Allgemein>Kern>Pflichtmodule
-
-                                                                                                                                        case "Grundkurse":
-                                                                                                                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule").append("<div class='" + name +  "'  class='poolkategory' id='" + idnumber +  "' >"+name +"<ul></ul></div>");
-
-                                                                                                                                        break;
-
-                                                                                                                                        case "Praktika":
-                                                                                                                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule").append("<div class='" + name +  "'  class='poolkategory' id='" + idnumber +  "' >" + name +"<ul></ul></div>");
-
-                                                                                                                                        break;
-
-                                                                                                                                        case "Mathematik":
-                                                                                                                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule").append("<div class='" + name +  "'  class='poolkategory' id='" + idnumber +  "' >" + name +"<ul></ul></div>");
-
-                                                                                                                                        break;
-
-                                                                                                                        case "Spezialisierung":
-                                                                                                                                $("#pool .Bachelor").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" + name + "</div>");
-
-                                                                                                                                break;
-
-                                                                                                                                // Eben Bachelor Allgemein>Spezialisierung***********************************
-
-                                                                                                                                case "Wahlpflichtmodule":
-                                                                                                                                        $("#pool .Bachelor .Spezialisierung").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" + name + "</div>");
-
-                                                                                                                                break;
-
-                                                                                                                                        // Eben Bachelor Allgemein>Spezialisierung>Wahlpflichtmodule*************************
-
-                                                                                                                                        case "Spezialisierungsbereich":
-                                                                                                                                                $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" + name + "</div>");
-                                                                                                                                        break;
-
-                                                                                                                                                // Eben Bachelor Allgemein>Spezialisierung>Wahlpflichtmodule>Spezialisierungsbereich*******************************
-
-                                                                                                                                                case "Spezialisierungspraktikum":
-                                                                                                                                                        $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" + name + "<ul></ul></div>");
-
-                                                                                                                                                break;
-
-                                                                                                                                                case "Einf&uuml;hrungen":
-                                                                                                                                                        var neuname = name.replace(/Einf&uuml;hrungen/g,"einfuehrungen");
-                                                                                                                                                        $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich").append("<div class='" + neuname +  "' class='poolkategory' id='" + idnumber +  "' >" + name + "<ul></ul></div>");
-
-                                                                                                                                                        break;
-
-                                                                                                                                                case "Spezielle Themen":
-                                                                                                                                                        var neuname = name.replace(/Spezielle Themen/g,"spezielle");
-                                                                                                                                                        $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich").append("<div class='" + neuname +  "' class='poolkategory' id='" + idnumber +  "' >" + name + "<ul></ul></div>");
-
-                                                                                                                                                break;
-
-
-                                                                                                                        case "Profilierungsbereich":
-                                                                                                                                                $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" + name + "<ul></ul></div>");
-                                                                                                                                        break;
-
-
-                                                                                                                           case "Schl&uuml;sselkompetenzen":
-                                                                                                                                var neuname = name.replace(/Schl&uuml;sselkompetenzen/g,"schluesselkompetenzen");
-																																
-                                                                                                                                $("#pool").append("<div  class='" +neuname +  "'   class='poolkategory' id='" + idnumber +  "' >" +"<a>"+ name + "</a><ul></ul></div>");
-
-                                                                                                                                break;
-
-
-
-
-
-                                                                                                                        default:
-                                                                                                                                break;
-                                                                                                                }
-
-
-
-                                                                                                        }
-
-
-
-
-
-
-                                                                                  }
-
-                                                                                  else if($(this).is("module")){  //nur module rausholen
-                                                                                                        var parent=$(this).parent().attr("name");
-                                                                                                        var name = $(this).find("name").text();
-                                                                                                        var id   = $(this).find("id").text();
-
-                                                                                                        switch (parent) {
-                                                                                                                case "Grundkurse":
-
-                                                                                                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule .Grundkurse ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-																														
-                                                                                                                        break;
-
-                                                                                                                case "Praktika":
-
-                                                                                                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule .Praktika ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-                                                                                                                        break;
-
-                                                                                                                case "Mathematik":
-
-                                                                                                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule .Mathematik ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-                                                                                                                        break;
-
-                                                                                                                case "Spezialisierungspraktikum":
-                                                                                                                        $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich .Spezialisierungspraktikum ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-
-
-                                                                                                                break;
-
-                                                                                                                case "Einf&uuml;hrungen":
-                                                                                                                        $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich .einfuehrungen ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-
-
-                                                                                                                break;
-
-                                                                                                                case "Spezielle Themen":
-                                                                                                                        $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich .spezielle ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-
-
-                                                                                                                break;
-
-                                                                                                                case "Profilierungsbereich":
-                                                                                                                        $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Profilierungsbereich ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-
-
-                                                                                                                break;
-
-
-
-                                                                                                                case "Schl&uuml;sselkompetenzen":
-                                                                                                                        $("#pool .schluesselkompetenzen ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-                                                                                                                        break;
-                                                                                                                case "Nanostrukturphysik":
-                                                                                                                        $("#pool .Nanostrukturphysik ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-                                                                                                                        break;
-
-                                                                                                                case "Physikinformatik":
-                                                                                                                        $("#pool .Physikinformatik ul").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-                                                                                                                        break;
-                                                                                                                        //alert(id);?????????????????
-
-                                                                                                                case "Astro- und Geophysik":
-
-
-                                                                                                                        $("#pool .astro ul ").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-                                                                                                                        break;
-
-                                                                                                                case "Biophysik und Physik komplexer Systeme":
-
-                                                                                                                        $("#pool .biophysik ul ").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-                                                                                                                        break;
-
-                                                                                                                case "Festk&ouml;rper- und Materialphysik":
-
-                                                                                                                        $("#pool .materialphysik ul ").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-                                                                                                                        break;
-
-                                                                                                                case "Kern- und Teilchenphysik":
-
-                                                                                                                        $("#pool .teilchenphysik ul ").append("<li class='poolmodule' id="+id+">"+name+"</li>");
-                                                                                                                        break;
-
-
-
-
-                                                                                                                default:
-                                                                                                                        break;
-                                                                                                        }
-
-
-
-
-                                                                                  }
-
-
-                                                                                poolrekursiv(this);
-
-
-
-
-
-                                                                                });//ende each
-
-
-                                                                        }//ende erste Else
-
-
-
-
-
-                                                        }//ende poolrekursiv
-
-                                                        poolrekursiv(root);
-
-
-                         }//ende pool
-						 
-		//////////////////////semesterhinzu/////////////////////////////////////
-
-		$(function(){
-
-                                $('#semesterhinzu').live("click",function(){
-                                        var n = $('#semester-content div.semester').length+1;
-										
-										// var l für Löschen gedacht
-										var l = $('#semester-content div.semester').length+1;
-										
-										
-										
-										// neue Semester und Löschen reintun
-										// <div class="semester">
-										//		<div class='subsemester'> 
-										//				semester 10
-										//		</div>
-										//		<p>
-										//			Löschen
-										//		</p>
-										// </div>
-                                        var neu = "<div class='semester' id='semester"+n+"'>"+"<div class='subsemester'><h5>"+n+".Semester"+"</h5></div></div>";
-										
-
-                                        $("#semester-content").append(neu);
+                            case "Bachelor":
+                                    $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" +"<a id='a_link_bachelor'><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+name + "</a></div>");
+                                    break;
 									
-										// "Löschen" wird immer in dem letzen Semester hinzufügen
-										// d.h: andere ""Löschen" werden weggemacht.
-										
-										if (n >= 3){
-											for ( i=2; i<n; i++ ){
-												$("#semester"+i+" p").remove();
-											}
-										}
-										$("#semester"+n).append("<p style='cursor:pointer' class='semesterloeschen'>L&ouml;schen</p>");
-										
-										
-										
+							case "Nanostrukturphysik":
+                                    
+                                    $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name + "</a><div class='divinternpoolmodul'></div></div>");
+                                    break;
 									
-										// ein Modul reinziehn
-                                        $(".semester").droppable({
-                                                hoverClass:'drophover',
-												
-                                                drop: function(event,ui){
-													
-														var modulID = $(ui.draggable).attr("id"); 
-														
-														var semester = $(this).attr("id");
-														
-														
-														$(ui.draggable).hide();
-
-                                                        
-                                                       
-                                                        var xml=$.ajax({
-                                                        	type: 'POST',
-                                                        	url :'http://localhost:3000/abfragen/pool',
-                                                        	dataType:'xml',
-															data : "name:quan",
-                                                        	cache:false,
-                                                        	async :true,
-                                                        	contentType:'application/x-www-form-urlencoded',
-                                                       		success: function(msg){
-
-                                                       		 },
-                                                       		error: function (a,b,c){
-                                                                alert("Erorr");
-                                                       		 }
-
-                                               			 }).responseXML;
-														 
-														 //das reingezogenem Modul anzeigen
-														 
-														 var root = xml.documentElement;
-														 
-														 $(root).find("module").each(function(){
-														 	if ( $(this).find("id").text() == modulID ){
-																var name  = $(this).find("name").text();
-																
-																var short = $(this).find("short").text();
-																var credits = $(this).find("credits").text();
-																
-																//$("#"+semester).append("<div class='auswahlmodul'>"+name+" ("+short+") "+credits+"C"+"</div>").fadeOut("fast").fadeIn("fast");
-																
-																// formatieren mit Table
-																
-																$("#"+semester+" .subsemester").append("<div class='auswahlmodul'>"+"<table border='0'><tbody><colgroup><col width='570'><col width='50'></colgroup><tr><td>"+name+"("+short+")<span style='color:red ;font-weight:bold' class='modulloeschen'>[X]</span></td><td>"+credits+"C</td></tr></tbody></table></div>");
-																$("#"+semester).fadeOut("fast").fadeIn("fast");
-																$(".auswahlmodul").draggable({
-																	
-																	revert:"invalid"
-																});
-															}
-															
-														 	
-														 });//ende each bei suche nach ID-Modul
-														 
+							case "Physikinformatik":
+                                    
+                                    $("#pool").append("<div class='" + name +  "' class='poolkategory' class='" + c +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name + "</a><div class='divinternpoolmodul'></div></div>");
+                                    break;
 
 
-                                                }//ende Drop
-                                        });//droppable
-                                });//ende live
-		});//ende function
+                            case "Astro- und Geophysik":
+                                    var neuname = name.replace(/Astro- und Geophysik/g,"astro");
+                                    $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name + "</a><div class='divinternpoolmodul'></div></div>");
+                                    break;
+
+                            case "Biophysik und Physik komplexer Systeme":
+                                    var neuname = name.replace(/Biophysik und Physik komplexer Systeme/g,"biophysik");
+                                    $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name + "</a><div class='divinternpoolmodul'></div></div>");
+                                    break;
+
+                            case "Festk&ouml;rper- und Materialphysik":
+                                    var neuname = name.replace(/Festk&ouml;rper- und Materialphysik/g,"materialphysik");
+                                    $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name + "</a><div class='divinternpoolmodul'></div></div>");
+                                    break;
+
+                            case "Kern- und Teilchenphysik":
+                                    var neuname = name.replace(/Kern- und Teilchenphysik/g,"teilchenphysik");
+                                    $("#pool").append("<div class='" + neuname +  "' class='poolkategory' class='" + c +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name + "</a><div class='divinternpoolmodul'></div></div>");
+                                    break;
+
+                            default:
+                                    break;
+
+                     }//ende 1.Switch
+	
+	
+	
+	                }
+					
+					// hier alle andere , die kein Schwerpunkt und Bachelor sind, durchlaufen
+					// name ist  attr name in einem Knot
+					// idnumber ist attr id in einem Knot
+	                else {
+	
+	                    var idnumber = $(this).attr("id");
+	                    switch (name){
+                        // name = attr ("name")
+                        // Eben Bachelor Allgemein
 
 
-		/////////////////////semester löschen//////////////////////////////////
-		
-		// "Löschen" wird geklick 
-		
-		$(function(){
 
-		
-		$(".semesterloeschen").live('click',function(){
-			var l = $(".semester").length;
-			if (l >= 3) {
-			
-				$("#semester" + l).remove();
-				$("#semester" + (l - 1)).append("<p style='cursor:pointer' class='semesterloeschen'>L&ouml;schen</p>");
+                        case "Bachelor-Arbeit":
+
+                                $("#pool .Bachelor").append("<div class='" + name +  "'  class='poolkategory' id='" + idnumber +  "' >"+"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>" + name +"</a>"+ "</div>");
+
+                                //alert(name);
+                                break;
+
+                        case "Kerncurriculum":
+                                $("#pool .Bachelor").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" +"<a id='a_link_kern'><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name +"</a>"+ "</div>");
+                                //alert(name);
+                                break;
+
+                                // Eben Bachelor Allgemein>Kern
+
+                                case "Pflichtmodule":
+                                        $("#pool .Bachelor .Kerncurriculum").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" +"<a id='a_link_pflichtmodul'><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name + "</a></div>");
+
+                                        break;
+
+                                        // Eben Bachelor Allgemein>Kern>Pflichtmodule
+
+                                        case "Grundkurse":
+                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule").append("<div class='" + name +  "'  class='poolkategory' id='" + idnumber +  "' >"+"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+name +"</a><div class='divinternpoolmodul'></div></div>");
+
+                                        break;
+
+                                        case "Praktika":
+                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule").append("<div class='" + name +  "'  class='poolkategory' id='" + idnumber +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name +"</a><div class='divinternpoolmodul'></div></div>");
+
+                                        break;
+
+                                        case "Mathematik":
+                                        $("#pool .Bachelor .Kerncurriculum .Pflichtmodule").append("<div class='" + name +  "'  class='poolkategory' id='" + idnumber +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name +"</a><div class='divinternpoolmodul'></div></div>");
+
+                                        break;
+
+                        case "Spezialisierung":
+                                $("#pool .Bachelor").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" +"<a id='a_link_spezialisierung'><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name +"</a>"+ "</div>");
+
+                                break;
+
+                                // Eben Bachelor Allgemein>Spezialisierung***********************************
+
+                                case "Wahlpflichtmodule":
+                                        $("#pool .Bachelor .Spezialisierung").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >"+"<a id='a_link_wahlpflicht'><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>" + name +"</a>"+ "</div>");
+
+                                break;
+
+                                        // Eben Bachelor Allgemein>Spezialisierung>Wahlpflichtmodule*************************
+
+                                        case "Spezialisierungsbereich":
+                                                $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" +"<a id='a_link_spezialisierungsbereich'><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name +"</a>"+ "</div>");
+                                        break;
+
+                                                // Eben Bachelor Allgemein>Spezialisierung>Wahlpflichtmodule>Spezialisierungsbereich*******************************
+
+                                                case "Spezialisierungspraktikum":
+                                                        $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name +"</a>"+ "<div class='divinternpoolmodul'></div></div>");
+
+                                                break;
+
+                                                case "Einf&uuml;hrungen":
+                                                        var neuname = name.replace(/Einf&uuml;hrungen/g,"einfuehrungen");
+                                                        $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich").append("<div class='" + neuname +  "' class='poolkategory' id='" + idnumber +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name +"</a>"+ "<div class='divinternpoolmodul'></div></div>");
+
+                                                        break;
+
+                                                case "Spezielle Themen":
+                                                        var neuname = name.replace(/Spezielle Themen/g,"spezielle");
+                                                        $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich").append("<div class='" + neuname +  "' class='poolkategory' id='" + idnumber +  "' >"+"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name + "</a>"+"<div class='divinternpoolmodul'></div></div>");
+
+                                                break;
+
+
+                        case "Profilierungsbereich":
+                                                $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule").append("<div class='" + name +  "' class='poolkategory' id='" + idnumber +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name +"</a>"+ "<div class='divinternpoolmodul'></div></div>");
+                                        break;
+
+
+                           case "Schl&uuml;sselkompetenzen":
+                                var neuname = name.replace(/Schl&uuml;sselkompetenzen/g,"schluesselkompetenzen");
+								
+                                $("#pool .Bachelor").append("<div  class='" +neuname +  "'   class='poolkategory' id='" + idnumber +  "' >" +"<a><span class='dreieck' style='display:inline; font-weight:bold; background-color:yellow'>> </span>"+ name + "</a><div class='divinternpoolmodul'></div></div>");
+
+                                break;
+
+
+
+
+
+                        default:
+                                break;
+                	}
+				}
 			}
-			else if (l==2){
-				$("#semester"+l).remove();
 				
-				
-			}								
-		});
-		}); //ende function
+				//nur module rausholen
+
+         		 else if($(this).is("module")){  
+         		 
+				 	//suche nach seinem Vaterknot
+	                var parent=$(this).parent().attr("name");
+					
+					//lese nach Inhalt des Moduls
+					var modulname;
+	                var modulid ;   
+					var short; 
+					var credits;
+					
+					
+					$(this).each(function(){
+						
+						 modulname = $(this).find("name").text();
+						 //alert(modulname);
+	                 	 modulid   = $(this).find("id").text();
+						 //alert(modulid);
+						 short= $(this).find("short").text();
+						 //alert(short);
+						 credits=$(this).find("credits").text();
+						 //alert(credits);
+						 
+					});
+					
+	
+	                switch (parent) {
+						
+						
+						
+	                    case "Grundkurse":
+	
+	                            $("#pool .Bachelor .Kerncurriculum .Pflichtmodule .Grundkurse .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+pflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+								
+	                            break;
+	
+	                    case "Praktika":
+	
+	                            $("#pool .Bachelor .Kerncurriculum .Pflichtmodule .Praktika .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+pflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	                            break;
+	
+	                    case "Mathematik":
+	
+	                            $("#pool .Bachelor .Kerncurriculum .Pflichtmodule .Mathematik .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+pflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	                            break;
+	
+	                    case "Spezialisierungspraktikum":
+	                            $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich .Spezialisierungspraktikum .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	
+	
+	                    break;
+	
+	                    case "Einf&uuml;hrungen":
+	                            $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich .einfuehrungen .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	
+	
+	                    break;
+	
+	                    case "Spezielle Themen":
+	                            $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Spezialisierungsbereich .spezielle .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	
+	
+	                    break;
+	
+	                    case "Profilierungsbereich":
+	                            $("#pool .Bachelor .Spezialisierung .Wahlpflichtmodule .Profilierungsbereich .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	
+	
+	                    break;
+	
+	
+	
+	                    case "Schl&uuml;sselkompetenzen":
+	                            $("#pool .Bachelor .schluesselkompetenzen .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	                            break;
+	                    case "Nanostrukturphysik":
+	                            $("#pool .Nanostrukturphysik .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	                            break;
+	
+	                    case "Physikinformatik":
+	                            $("#pool .Physikinformatik .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	                            break;
+	                            //alert(id);?????????????????
+	
+	                    case "Astro- und Geophysik":
+	
+	
+	                            $("#pool .astro .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	                            break;
+	
+	                    case "Biophysik und Physik komplexer Systeme":
+	
+	                            $("#pool .biophysik .divinternpoolmodul ").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	                            break;
+	
+	                    case "Festk&ouml;rper- und Materialphysik":
+	
+	                            $("#pool .materialphysik .divinternpoolmodul ").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+fragebild+"</span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+	                            break;
+	
+	                    case "Kern- und Teilchenphysik":
+	
+								//---original---   $("#pool .teilchenphysik ul ").append("<li class='poolmodule' id="+modulid+">"+"<span>"+wahlpflichtbild+"</span>"+modulname+"<span style='display:none'>("+short+")</span>"+"<span style='display:none;color:red; font-weight:bold' class='modulloeschen' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"<span>"+fragebild+"</span>"+credits+"</li>");
+								//$("#pool .teilchenphysik ul ").append("<li class='poolmodule' id="+modulid+">"+"<div style='float:left'>"+wahlpflichtbild+"</div>"+modulname+"<div class='shortXversteck' style='display:none; float: left'>("+short+")</div>"+"<div class='shortXversteck' style='display:none;color:red; font-weight:bold; float:left' class='modulloeschen' onclick='javascript:modulloeschen("+modulid+")'>[X]</div>"+"<div>"+fragebild+"</div>"+credits+"</li>");
+								
+								 $("#pool .teilchenphysik  .divinternpoolmodul").append("<div class='poolmodule' id="+modulid+">"+"<table style='font-size:12px'><tr><td>"+wahlpflichtbild+"</td><td>"+modulname+"</td>"+"<td><span class='short' style='display:none'>("+short+")</span></td>"+"<td><span class='X' style='display:none; color:red; font-weight:bold; cursor:pointer' onclick='javascript:modulloeschen("+modulid+")'>[X]</span>"+"</td><td><span class='fragebild' style='display:block'>"+"<a href='javascript:void(0)' onclick="+"document.getElementById('light').style.display='block'; document.getElementById('fade').style.display='block'"+">"+fragebild+"</a></span></td>"+"<td><span class='ipunkt' style='display:none'>"+ipunkt+"</span></td>"+"<td>"+credits+"C</td></tr></table></div>");
+						
+			
+						
+								
+	                            break;
+	
+	
+	
+	
+	                    default:
+	                            break;
+	                }
+	
+
+
+
+          }
+
+
+                     poolrekursiv(this);
+
+
+
+
+
+                    });//ende each
+
+
+             }//ende erste Else
+
+			
+
+
+
+    }//ende poolrekursiv
+
+
+
+
+
+////////POOL-Funktion gibt immer ganzen Module im POOL, und ----//////////////
+
 		
-		///////////////////auswahlmodul loeschen///////////////////////////////
+var pool = function(){
+
+	var XML = $.ajax({
+
+	    type: 'GET',
+	    url: 'http://localhost:3000/abfragen/pool',
+	    async: false,
+	    contentType: 'application/x-www-form-urlencoded',
+	
+	
+	    error: function(a, b, c){
+	            alert('Error');
+	    }
+	
+
+
+   }).responseXML; //ende AJAX
+
+    var root = XML.documentElement;
+	
+	aktuellePoolXml=XML;
+	
+	
+    poolrekursiv(root);
+
+
+}//ende pool
+
+
+
+
+//-----Implementierung der Funktion auswahlAnzeige() mit übergebenen Daten von UI-Draggable-
+	
+	var auswahlAnzeige = function (modulID,semester,modulinhalt){
+							
+							
+				//$("#"+semester).append("<div class='auswahlmodul' id='"+modulID+"'><table border='0'><tbody><colgroup><col width='570'><col width='50'></colgroup><tr><td>"+name+"("+short+")<span style='color:red ;font-weight:bold' class='modulloeschen' onclick='javascript:modulloeschen("+modulID+")'>[X]</span></td><td>"+credits+"C</td></tr></tbody></table></div>");
+				$("#"+semester+" .subsemester").append("<div class='auswahlmodul' id='"+modulID+"'>"
+																+modulinhalt+
+															"<div class='LVS' style='margin-left:150px' >"
+																+"<select style='width:200px'>"+
+																	"<option>Hallo LVS<option>"
+																+"</select>"+
+															"</div>"
+														+"</div>");
+				$(".auswahlmodul").draggable({
+					revert : "invalid"
+					
+				});
+	}//ende auswahlAnzeige
+	
+
+	
+
+
+//////-----bei DROP in erstem Semester-BOX---------------------------------------------------------------
+	
+	$(function(){
+
+
+        $('.semester').droppable({
+                //accept: 'li',
+                hoverClass: 'drophover',
+
+                drop: function(event, ui){
+						
+						
+						$(ui.draggable).hide();
+						
+						
+						/// wartezeit-------------- 
+						$('<div class="quick-alert">Bitte warten!</div>')
+						 .appendTo($(this))
+						 .fadeIn("fast")
+						 .animate({opacity:1.0},1000)
+						 .fadeOut("fast",function(){
+						 	$(this).remove();
+						 });	
+							
+							
+						
+						
+						// id von reingezogenem Modul und entsprechendem Semester holen
+						
+						var semester = $(this).attr("id");
+						
+						
+							
+						
+						
+						var modulID = $(ui.draggable).attr("id"); 
+						$(ui.draggable).find("span.short").css("display","block");
+						
+						$(ui.draggable).find("span.fragebild").css("display","none");
+						$(ui.draggable).find("span.ipunkt").css("display","block");
+						$(ui.draggable).find("span.X").css("display","block");
+						
+						var modulinhalt = $(ui.draggable).html();
+						
+						
+						//(leer) verstecken
+						$(this).find(".subsemester span.leer").css("display","none");
+						
+						
+						// immer noch bei DROP in DROPPABLE 
+						
+						
+						// Pool akktuallisieren
+						
+						
+						$("#pool").find("div#"+modulID).each(function(){
+							 $(this).hide();
+							
+						});
+						
+						
+						
+						// das reingezongen Modul mit der funktion auswahlAnzeige() zeigen
+						
+						
+						// DATEN mit Modul-ID und semester zum Server(action add_module_to_selection) schicken 
+						
+						
+                        $.ajax({
+							
+                                type: 'POST',
+								url  : 'http://localhost:3000/abfragen/add_module_to_selection',
+								cache:false,
+                                dataType:'xml',
+                                async :false,
+								data  : "sem_count=1&mod_id=5",
+								contentType:'application/x-www-form-urlencoded',
+								
+								success : function (msg){
+									
+								},
+								
+								
+								
+								error: function(a, b, c){
+								
+									alert("Erorr");
+									
+								}
+                        });//ende Ajax
+                        
+                        auswahlAnzeige(modulID,semester,modulinhalt);
+						
+						
+						
+						
+                        
+			}//ende Drop
+        });//ende droppable
+	});//ende global function
+	
+	
+
+//////////////////////semesterhinzu/////////////////////////////////////
+
+
+$(function(){
+
+    $('#semesterhinzu').live("click",function(){
+            var n = $('#semester-content div.semester').length+1;
+			
+			// var l für Löschen gedacht
+			var l = $('#semester-content div.semester').length+1;
+			
+			
+			
+			// neue Semester und Löschen reintun
+			// <div class="semester">
+			//		<div class='subsemester'> 
+			//				semester 10
+			//		</div>
+			//		<p>
+			//			Löschen
+			//		</p>
+			// </div>
+            var neu = "<div class='semester' id='"+n+"'>"+"<div class='subsemester'><h5>"+n+".Semester"+"</h5><span class='leer' style='display:block; color:red'>(leer)</span></div></div>";
+			
+
+            $("#semester-content").append(neu);
+		
+			// "Löschen" wird immer in dem letzen Semester hinzufügen
+			// d.h: andere ""Löschen" werden weggemacht.
+			
+			if (n >= 3){
+				for ( i=2; i<n; i++ ){
+					$(".semester"+"#"+i+" p").remove();
+				}
+			}
+			$(".semester"+"#"+n).append("<p style='cursor:pointer' class='semesterloeschen'>L&ouml;schen</p>");
+			
+			
+			
+		
+			// ein Modul reinziehn
+            $(".semester").droppable({
+                    hoverClass:'drophover',
+					
+                    drop: function(event,ui){
+						
+						$(ui.draggable).hide();
+						
+						/// wartezeit-------------- 
+						$('<div class="quick-alert">Bitte warten!</div>')
+						 .appendTo($(this))
+						 .fadeIn("fast")
+						 .animate({opacity:1.0},1000)
+						 .fadeOut("fast",function(){
+						 	$(this).remove();
+						 });	
+						
+						// Daten von reingezogenem Modul kopieren
+							
+						var semester = $(this).attr("id");
+						var modulID = $(ui.draggable).attr("id");
+						
+							
+						 
+						$(ui.draggable).find("span.short").css("display","block");
+						$(ui.draggable).find("span.fragebild").css("display","none");
+						$(ui.draggable).find("span.ipunkt").css("display","block");
+						$(ui.draggable).find("span.X").css("display","block");
+						
+						var modulinhalt = $(ui.draggable).html();
+						
+						
+						
+						$(this).find(".subsemester span.leer").css("display","none");
+						
+						// immer noch bei DROP in DROPPABLE 
+						// das reingezongen Modul mit der funktion auswahlAnzeige() zeigen
+						
+						
+						
+						
+						
+						//$("#"+semester+" .subsemester").append("<div class='auswahlmodul' id='"+modulID+"'><table border='0'><tbody><colgroup><col width='570'><col width='50'></colgroup><tr><td>"+name+"("+short+")<span style='color:red ;font-weight:bold' class='modulloeschen' onclick='javascript:modulloeschen("+modulID+")'>[X]</span></td><td>"+credits+"C</td></tr></tbody></table></div>");
+									
+						
+						// Pool akktuallisieren
+						
+						
+						$("#pool").find("div#"+modulID).each(function(){
+							 $(this).hide();
+							
+						});
+						
+						
+                        
+						
+						
+                            
+                        // Daten mit ID von regezogenem Modul und entsprechenm Semester zum Server schicken
+						   
+	                    $.ajax({
+	                    	type: 'POST',
+	                    	
+							url  : 'http://localhost:3000/abfragen/add_module_to_selection',
+	                    	dataType:'xml',
+							data : "sem_count=1&mod_id=4",
+	                    	cache:false,
+	                    	async :false,
+	                    	contentType:'application/x-www-form-urlencoded',
+	                   		success: function(msg){
+								//alert("OK with add_module_to_selection");
+	
+	                   		 },
+	                   		error: function (a,b,c){
+	                            alert("Erorr");
+	                   		 }
+	
+	           			 });// ende Ajax
+							 
+						auswahlAnzeige(modulID,semester,modulinhalt);	
+					 }//ende Drop
+					 
+            });//droppable
+    });//ende live
+});//ende function
+
+
+/////////////////////semester löschen//////////////////////////////////
+
+// "Löschen" bei SEMESTER wird geklick 
+
+$(function(){
+
+
+	$(".semesterloeschen").live('click',function(){
+		var l = $(".semester").length;
+		if (l >= 3) {
+		
+			$(".semester" +"#"+l).remove();
+			$(".semester" +"#"+(l - 1)).append("<p style='cursor:pointer' class='semesterloeschen'>L&ouml;schen</p>");
+		}
+		else if (l==2){
+			$(".semester"+"#"+l).remove();
+			
+			
+		}								
+	});
+}); //ende function
+
+		///////////////////auswahlmodul loeschen////////////////////////
 		/// bei Click auf <span class="modulloeschen">
-		$(function(){
-			
-			$("span.modulloeschen").live("click",function(){
-				
-				$(this).remove();
-			});
-			
-			
-			
-			
+
+var modulloeschen = function (modulID){
+	// check ob alles leer ist
+	//suche Vater <div class='subsemester'>
+	
+	var kinderanzahl = $("#"+modulID).parent().children().length;
+	var subsemester = $("#"+modulID).parent().children();
+	
+	
+	
+	if( kinderanzahl==3 ) {
+		$(subsemester).each(function(){
+			if($(this).is("span")){
+				$(this).css("display","block");
+			}
 		});
 		
+	
+
 		
+	}
+	
+	
+	$("#"+modulID).remove();
+	
+
+}
+
 		
-		
+
 		
 		
 		

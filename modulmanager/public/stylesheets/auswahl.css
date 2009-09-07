@@ -1,5 +1,69 @@
+
+
+/*---- Farbe bei Over auf einem Semester------------*/
+.drophover{
+	background-color: yellow;
+	
+}
+
+
 .auswahlmodul {
 
-        background-color : #f0f8ff;
+        background-color : #B2FFFF;
+		margin-bottom    : 10px;
+		border           : 1px blue solid;
+		cursor			 : move;
 
 }
+
+
+
+.auswahlmodul li {
+	float:left;
+	
+}
+
+.auswahlmodul li.credits {
+	float:right;
+	
+}
+/*------der erste DIV in semester-BOX--------------- */
+.semesterloeschen {
+	width  :60px;
+	border : 1px red solid;
+	margin-bottom : 10px;
+}
+
+
+
+/*--------Modul löschen*/
+.modulloeschen {
+	
+	cursor:pointer;
+	
+}
+
+/*   Ajax warte.......*/  
+.quick-alert {
+   
+         width: 80%;
+   
+         margin: 1em 0;
+   
+         padding: .5em;
+   
+         background: #ffa;
+   
+         border: 1px solid #a00;
+   
+         color: #a00;
+   
+         font-weight: bold;
+   
+         display: block;
+  
+ }
+
+
+
+
