@@ -1,5 +1,7 @@
 class AbfragenController < ApplicationController
 
+  # Überblick über alle Rgeln und deren Erfüllung. Darstellung orientiert sich
+  # an der Darstellung des Pools.
   def ueberblick
     @errors = check_rules
     respond_to do |format|
@@ -130,9 +132,10 @@ class AbfragenController < ApplicationController
         unless credits >= r.count
           # ...wird ein neuer Fehler hinzugefügt.
           errors.push Error.new :rule_id => 1,
-            :rule_name => "Regel #{r.id}",
+            #:rule_name => "Regel #{r.id}",
             :description => "Zu wenig Credits im Bereich \"#{r.name}\" (#{credits} von #{r.count}).",
-            :less => (r.count - credits)
+            :less => (r.count - credits),
+            :rule => r
         end
       # Maximalwert
       when "max"
@@ -140,9 +143,10 @@ class AbfragenController < ApplicationController
         unless credits <= r.count
           # ...wird ein Fehler hinzugefügt.
           errors.push Error.new :rule_id => 2,
-            :rule_name => "Regel #{r.id}",
+            #:rule_name => "Regel #{r.id}",
             :description => "Zu viele Credits im Bereich \"#{r.name}\" (#{credits} von #{r.count}).",
-            :less => (credits - r.count)
+            :less => (credits - r.count),
+            :rule => r
         end
       end
     end
@@ -160,9 +164,10 @@ class AbfragenController < ApplicationController
         unless mods >= r.count
           # ...wird ein Fehler hinzugefügt
           errors.push Error.new :rule_id => 3,
-            :rule_name => "Regel #{r.id}",
+            #:rule_name => "Regel #{r.id}",
             :description => "Zu wenig Module im Bereich \"#{r.name}\" (#{mods} von #{r.count}).",
-            :less => (r.count - mods)
+            :less => (r.count - mods),
+            :rule => r
         end
       # Maximalwert
       when "max"
@@ -170,9 +175,10 @@ class AbfragenController < ApplicationController
         unless mods < r.count
           # ...wird ein Fehler hinzugefügt
           errors.push Error.new :rule_id => 4,
-            :rule_name => "Regel #{r.id}",
+            #:rule_name => "Regel #{r.id}",
             :description => "Zu viele Module im Bereich \"#{r.name}\" (#{mods} von #{r.count})",
-            :less => (mods - r.count)
+            :less => (mods - r.count),
+            :rule => r
         end
       end
     end

@@ -19,18 +19,24 @@ module AbfragenHelper
     end
   end
 
-  def build_xml_rules_recursive(r, xml)
+  def build_xml_rules_recursive(r, xml, errors)
     if r.categories == [] && r.rules != []
       r.rules.each { |ru|
         xml.rule do
           xml.tag!("id", ru.id)
           xml.name(ru.name)
+          errors.each { |e|
+            if ru.id == e.rule.id
+              xml.alert(e.description)
+              # xml.less(e.less)
+            end
+          }
         end
       }
     elsif r.categories != []
       r.categories.each { |c|
         xml.category(:id => c.id, :name => c.name) do
-          build_xml_rules_recursive c, xml
+          build_xml_rules_recursive c, xml, errors
         end
       }
     end

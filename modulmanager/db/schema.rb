@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090908083121) do
+ActiveRecord::Schema.define(:version => 20090908093916) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(:version => 20090908083121) do
 
   create_table "errors", :force => true do |t|
     t.integer  "rule_id"
-    t.string   "rule_name"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
