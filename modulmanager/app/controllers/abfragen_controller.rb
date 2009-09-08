@@ -7,10 +7,6 @@ class AbfragenController < ApplicationController
     end
   end
 
-  def ueberblick_new
-    
-  end
-
   # Die Auswahl stellt den Hauptbereich der Arbeitsfläche dar und nimmt die
   # Module auf. Hierhin können neue Module gezogen werden sowie alte ent-
   # fernt.
@@ -26,7 +22,6 @@ class AbfragenController < ApplicationController
   def pool
     @root = Category.find(:first, :conditions => "category_id IS null")
     @schwerpunkte = Focus.all
-    current_selection
     respond_to do |format|
       format.xml { render :action => "pool", :layout => false }
     end
@@ -60,6 +55,7 @@ class AbfragenController < ApplicationController
     redirect_to :action => "ueberblick"
   end
 
+  # Entfernt ein Semester aus der aktuellen Auswahl. Dieses 
   def remove_semester_from_selection
     Semester.find(
       :first,
@@ -76,6 +72,7 @@ class AbfragenController < ApplicationController
     ModuleSelection.find session[:selection_id]
   end
 
+  # Erstellt eine neue Standardauswahl
   def new_selection(focus = nil)
     ms = ModuleSelection.create
     s1 = Semester.create :count => 1
@@ -111,24 +108,37 @@ class AbfragenController < ApplicationController
     return ms.id
   end
 
+  # Diese Methode liefert ein Array mit den Fehlern aus der Überpfürung der Regeln
+  # im Zusammenhang mit der aktuellen Auswahl an Modulen zurück
   def check_rules
+    # Container für die auszugebenden Fehlermeldungen
     errors = Array.new
+    # Alle Regeln, die mit der Anzahl der Module zu tun haben
     mr = ModuleRule.all
+    # Alle Regeln, die mit der Anzahl der Credits zu tun haben
     cr = CreditRule.all
 
+    # Jede Regel mit Bezug zu Credits muss gecheckt werden
     cr.each do |r|
+      # Die Summe der Credits in den relevanten Gruppen in der aktuellen Auswahl
       credits = sum_credits(r.groups)
+      # Auswahl, ob es sich um einen Minimal- oder Maximalwert handelt
       case r.relation
+      # Minimalwert
       when "min"
-        
+        # Wenn die Credits nicht mindestens die geforderte Anzahl erreichen...
         unless credits >= r.count
+          # ...wird ein neuer Fehler hinzugefügt.
           errors.push Error.new :rule_id => 1,
             :rule_name => "Regel #{r.id}",
             :description => "Zu wenig Credits im Bereich \"#{r.name}\" (#{credits} von #{r.count}).",
             :less => (r.count - credits)
         end
+      # Maximalwert
       when "max"
+        # Wenn die Credits nicht maximal die geforderte Anzahl sind...
         unless credits <= r.count
+          # ...wird ein Fehler hinzugefügt.
           errors.push Error.new :rule_id => 2,
             :rule_name => "Regel #{r.id}",
             :description => "Zu viele Credits im Bereich \"#{r.name}\" (#{credits} von #{r.count}).",
@@ -137,18 +147,28 @@ class AbfragenController < ApplicationController
       end
     end
 
+    # Es werden alle modulbezogenen Regeln durchlaufen
     mr.each do |r|
+      # Die Summe der Anzahl der Module in der aktuellen Auswahl, die für die
+      # gerade zu prüfende Regel relevant sind
       mods = sum_modules(r.groups)
+      # Auswahl, ob es sich um eine Minimal- oder Maximal-Anforderung handelt
       case r.relation
+      # Minimalwert
       when "min"
+        # Wenn die Anzahl der Module die geforderte Zahl nicht übersteigt...
         unless mods >= r.count
+          # ...wird ein Fehler hinzugefügt
           errors.push Error.new :rule_id => 3,
             :rule_name => "Regel #{r.id}",
             :description => "Zu wenig Module im Bereich \"#{r.name}\" (#{mods} von #{r.count}).",
             :less => (r.count - mods)
         end
+      # Maximalwert
       when "max"
+        # Wenn die Anzahl der Module die geforderte Höchstzahl nicht unterbietet...
         unless mods < r.count
+          # ...wird ein Fehler hinzugefügt
           errors.push Error.new :rule_id => 4,
             :rule_name => "Regel #{r.id}",
             :description => "Zu viele Module im Bereich \"#{r.name}\" (#{mods} von #{r.count})",
@@ -157,44 +177,51 @@ class AbfragenController < ApplicationController
       end
     end
 
+    # Ein Array mit den Fehlern wird zurückgeliefert
     return errors
-
   end
 
   # Errechnet die Summe der Credits in den ausgewählten Modulen und den über-
   # gebenen Gruppen.
   def sum_credits groups
-    modules = Array.new
-    current_selection.modules.each do |m|
-      m.groups.each do |g1|
-        groups.each do |g2|
-          modules.push m if g1.id == g2.id
-        end
-      end
-    end
+    # Container für die relevanten Module
+    modules = select_relevant_modules groups
     sum = 0
+    # Alle relevanten Module werden durchlaufen
     modules.each do |m|
+      # Die Credits des aktuellen Moduls werden zur Gesamtzahl der Credits
+      # hinzugezählt
       sum += m.credits
     end
+    # Liefert die Summe zurück
     return sum
   end
 
   # Errechnet die Anzahl der Module in der aktuellen Auswahl und den übergebenen
   # Gruppen.
   def sum_modules groups
+    modules = select_relevant_modules groups
+    return modules.length
+  end
+
+  # Liefert die für die übergebene Gruppenmenge relevanten Module der aktuellen
+  # Auswahl als Array zurück.
+  def select_relevant_modules groups
     modules = Array.new
+    # Alle Module der aktuellen Auswahl werden durchlaufen
     current_selection.modules.each do |m|
+      # Alle Gruppen des aktuellen Moduls werden durchlaufen
       m.groups.each do |g1|
+        # Alle übergebenen Gruppen werden durchlaufen
         groups.each do |g2|
+          # Sollte eine der übergebenen Gruppen mit einer Gruppe des
+          # aktuellen Moduls übereinstimmen, so wird dieses in den Container
+          # gelegt.
           modules.push m if g1.id == g2.id
         end
       end
     end
-    return modules.length
-  end
-
-  def check_rules_like_pool
-
+    return modules
   end
 
 end
