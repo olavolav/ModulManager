@@ -1,0 +1,13 @@
+## YAML Template.
+---
+Group1:
+  description: Gruppe der Pflichtmodule
+  modules:
+    - B.Phy.101
+    - B.Phy.102
+
+Group2:
+  description: Gruppe der Wahlpflichtmodule
+  modules:
+    - B.Mat.123
+    - B.Doof.666
