@@ -12,7 +12,7 @@ module AbfragenHelper
       }
     elsif c.categories != []
       c.categories.each { |d|
-        xml.category(:id => "category#{d.id}", :name => d.name) do
+        xml.category(:category_id => "category#{d.id}", :name => d.name) do
           build_xml_bachelor_recursive d, xml
         end
       }
