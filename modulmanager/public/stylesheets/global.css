@@ -37,7 +37,8 @@ body {
 
 #subnavi-ul li{
 	height:30px;
-	width:180px;
+	/*width:180px;*/
+	width:20%;
 	list-style-type:none;
 	border: 3px black double;
 	text-align:center;
@@ -80,18 +81,19 @@ body {
 #left{
 	
 	float: left;
-	width:22%;
+	width:15%;
 	background-color:white;
-	border-right-style: solid;
+	border-right:1px black solid;
 	height:500px;
 	
 }
 #middle{
 	
 	float: left;
-	width:45%;
+	width:44%;
 	background-color:white;
 	padding: 50px;
+	
 	
 }
 
@@ -100,13 +102,13 @@ body {
 	background-color: #CCFFCC;
 	margin-bottom:3px;
 	height: 50px;
-	margin-left: 50px;
-	margin-right:50px;
+	margin-left: 5px;
+	margin-right:5px;
 	
 	
 }
 .ajaxmodulausgeben{
-	width:500px;
+	width:50%;
 	height:50px;
 	background-color:red;
 	margin-top: 15px;
@@ -115,7 +117,7 @@ body {
 .semester{
 	
 	border: 2px #DEB887 solid;
-	width:500px;
+	width:100%;
 	background-color:#FFF68F;
 	padding-left: 25px;
 	padding-right:25px;
@@ -135,7 +137,7 @@ body {
 	float: right;
 	width:23%;
 	/*background-color:gray;*/
-	border-left-style: solid;
+	/*border-left-style: solid;*/
 	height:500px;
 	padding:2px;
 }

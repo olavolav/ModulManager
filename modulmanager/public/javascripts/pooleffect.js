@@ -6,413 +6,229 @@
 
 
 
-/*---------slideDown und slideUp für den Teil POOL--------------------------------------*/
 
-	$(function(){
-	
-	/*------------Bachelor--------------------------------------------------------------*/
-			
-			$(".Bachelor .Bachelor-Arbeit").hide();
-			$(".Bachelor .Kerncurriculum").hide();
-			$(".Bachelor .Spezialisierung").hide();
-			
-			$(".Bachelor .schluesselkompetenzen").hide();
-			
-			$(".Bachelor .Kerncurriculum .Pflichtmodule").hide();
-				
-				//$(".Bachelor .Spezialisierung .Wahlpflichtmodule").hide();
-			
-			
-			var flipBa=0;
-			$('.Bachelor a#a_link_bachelor').live("click",function(){
-				if(flipBa%2==0){
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".Bachelor .Bachelor-Arbeit").slideDown("slow");
-					$(".Bachelor .Kerncurriculum").slideDown("slow");
-					$(".Bachelor .Spezialisierung").slideDown("slow");
-					$(".Bachelor .schluesselkompetenzen").slideDown("slow");
-				
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".Bachelor .Bachelor-Arbeit").slideUp("slow");
-					$(".Bachelor .Kerncurriculum").slideUp("slow");
-					$(".Bachelor .Spezialisierung").slideUp("slow");
-					$(".Bachelor .schluesselkompetenzen").slideUp("slow");
-				
-				}
-				flipBa++;
-				
-				
-				
+
+
+
+
+
+
+
+
+
+
+/*---------- Drag and Drop----------------------------------------------------------*/
+
+
+//DROP in Auswahl--
+
+$(function(){
 		
-			});
+		//jedes Semester in Auswahl hat class="semester" und id
+	
+		$(".semester").droppable({
 			
-			
-	/*------------Kerncurriculum---------------------------------------------------------*/
-					
-			var flipkern=0;
-			$('.Bachelor .Kerncurriculum a#a_link_kern').live("click",function(){
-					if(flipkern%2==0){
-						$(this).find("span.dreieck").empty().text("v ");
-					}
-					else{
-						$(this).find("span.dreieck").empty().text("> ");
-					}
-					$(".Bachelor .Kerncurriculum .Pflichtmodule").toggle("slow");
-					flipkern++;
+			hoverClass : 'drophover',
+			 drop: function(event, ui){
+			 
+			 	$(ui.draggable).hide();
+			 
+			 	/// wartezeit-------------- 
+				$('<div class="quick-alert">Bitte warten!</div>')
+				 .appendTo($(this))
+				 .fadeIn("fast")
+				 .animate({opacity:1.0},1000)
+				 .fadeOut("fast",function(){
+				 	$(this).remove();
+				 });
+				 
+				 // id von reingezogenem Modul und entsprechendem Semester holen
+						
+				 var semester = $(this).attr("id");
+				 
+				 var modul_id = $(ui.draggable).attr("id"); 	
+				 var modulinhalt = $(ui.draggable).html();
+				 
+				 // Pool akktuallisieren
+						
+				 $("#pool").find("div#"+modul_id).each(function(){
 				
-			});
-			
-	
-	
-	/*------------Pflichtmodule----------------------------------------------------------*/
-	
-		$(".Grundkurse").hide();
-		$(".Praktika").hide();
-		$(".Mathematik").hide();
+					 $(this).hide();
+							
+				});
+			 
+			 
+			 
+			 	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
+				
+				ajax_to_server_by_add(modul_id,semester); 
+				
+				
+				// modul in Auswahl anzeigen
+				
+				auswahlAnzeige(modul_id,semester,modulinhalt);
+			 
+			 
+			 }// ende drop
+			 
+		});//ende droppable	
 		
-		var flippflichtmodul=0;
+		
+}); //ende function DROP in Auswahl
+
+
+
+
+//-----------------------------------------------------------------------------------
+//  mach ein pool_modul bei POOL draggable--
+//-----------------------------------------------------------------------------------
+
+$(function(){
+
+		$(".pool_module").draggable({
 			
-		$(".Bachelor .Kerncurriculum .Pflichtmodule a#a_link_pflichtmodul").live("click",function(){
-			
-			if (flippflichtmodul%2==0){
-				$(this).find("span.dreieck").empty().text("v ");
-			
-				$(".Grundkurse").slideDown("slow");
-				$(".Praktika").slideDown("slow");
-				$(".Mathematik").slideDown("slow");
-			}
-			else {
-				$(this).find("span.dreieck").empty().text("> ");
-				$(".Grundkurse").slideUp("slow");
-				$(".Praktika").slideUp("slow");
-				$(".Mathematik").slideUp("slow");
-				
-			}
-			flippflichtmodul++;	
+			revert : "invalid",
+			helper : "clone"
 			
 		});
-	
-		/*--------Grundkurse------------------------------------------------------------*/
-			var flip=0;
-			$(".Grundkurse  .divinternpoolmodul").hide();
-			$(".Bachelor .Kerncurriculum .Pflichtmodule .Grundkurse a").live("click",function(){
-				
-				if (flip % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".Grundkurse  .divinternpoolmodul").slideDown("slow");
-					
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".Grundkurse  .divinternpoolmodul").slideUp("slow");
-					
-					
-				}
-				flip++;
-			});
-	
-		/*--------Praktika-------------------------------------------------------------*/
-			
-			var flip1=0;
-			$(".Praktika .divinternpoolmodul").hide();
-			$('.Praktika a').live("click",function(){
-				if (flip1 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".Praktika .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".Praktika  .divinternpoolmodul").slideUp("slow");
-				}
-				flip1++;
-			});
-			
-		/*--------Mathematik----------------------------------------------------------*/
-			var flip2=0;
-			$(".Mathematik .divinternpoolmodul").hide();
-			$('.Mathematik a').live("click",function(){
-				if (flip2 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".Mathematik .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".Mathematik  .divinternpoolmodul").slideUp("slow");
-				}
-				flip2++;
-			});
-			
-	/*------------Spezialisierungsbereich---------------------------------------------*/
-	
-	/*------------Spezialisierung---------------------------------------------------------*/
-					
-			var flipspezial=0;
-			$(".Bachelor .Spezialisierung .Wahlpflichtmodule").hide();
-			
-			$('.Bachelor .Spezialisierung a#a_link_spezialisierung').live("click",function(){
-				
-					if(flipspezial%2==0){
-						$(this).find("span.dreieck").empty().text("v ");
-						
-					}
-					else{
-						$(this).find("span.dreieck").empty().text("> ");
-					}
-					$(".Bachelor .Spezialisierung .Wahlpflichtmodule").toggle("slow");
-					flipspezial++;
-				
-			});
-			
-			
-			
-			
-			
-	/*------------Wahlpflichtmodule---------------------------------------------------------*/
-					
-			var flipwahlpflicht=0;
-			$(".Spezialisierungsbereich").hide();
-			$(".Profilierungsbereich").hide();
-			
-			$('.Bachelor .Spezialisierung .Wahlpflichtmodule a#a_link_wahlpflicht').live("click",function(){
-				
-					if(flipwahlpflicht%2==0){
-						$(this).find("span.dreieck").empty().text("v ");
-						$(".Spezialisierungsbereich").slideDown("slow");
-						$(".Profilierungsbereich").slideDown("slow");
-						
-					}
-					else{
-						$(this).find("span.dreieck").empty().text("> ");
-						$(".Spezialisierungsbereich").slideUp("slow");
-						$(".Profilierungsbereich").slideUp("slow");
-					}
-					
-					flipwahlpflicht++;
-				
-			});
-	
-	
-	/*------------------------Spezialisierungsbereich------------------------------------*/
-	
-			var flipspebereich=0;
-			$(".Spezialisierungspraktikum ").hide();
-			$(".einfuehrungen").hide();
-			$(".spezielle").hide();
-			
-			$('.Spezialisierungsbereich a#a_link_spezialisierungsbereich').live("click",function(){
-				
-					if(flipspebereich%2==0){
-						$(this).find("span.dreieck").empty().text("v ");
-						$(".Spezialisierungspraktikum ").slideDown("slow");
-						$(".einfuehrungen").slideDown("slow");
-						$(".spezielle").slideDown("slow");
-						
-					}
-					else {
-						$(this).find("span.dreieck").empty().text("> ");
-						$(".Spezialisierungspraktikum ").slideUp("slow");
-						$(".einfuehrungen").slideUp("slow");
-						$(".spezielle").slideUp("slow");
-					}
-				
-					flipspebereich++;
-			});
-	
-	
-	
-	
-		/*--------Spezialisierungspraktikum-------------------------------------*/
 		
-			var flip2a=0;
-			$(".Spezialisierungspraktikum .divinternpoolmodul").hide();
+		$(".auswahlmodul").draggable({
 			
-			$(".Spezialisierungspraktikum a").live("click",function(){
-				if (flip2a % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".Spezialisierungspraktikum .divinternpoolmodul").slideDown("slow");
+			revert : "invalid"
+			
+		});
+		
+});
+
+
+//-----------------------
+
+//////////////////////semesterhinzu///////////-------------------------------------------
+
+
+$(function(){
+
+    $('#semesterhinzu').live("click",function(){
+            var n = $('#semester-content div.semester').length+1;
+			
+			// var l für Löschen gedacht
+			var l = $('#semester-content div.semester').length+1;
+			
+			
+			
+			// neue Semester und Löschen reintun
+			// <div class="semester">
+			//		<div class='subsemester'> 
+			//				semester 10
+			//		</div>
+			//		<p>
+			//			Löschen
+			//		</p>
+			// </div>
+            var neu = "<div class='semester' id='"+n+"'>"+"<div class='subsemester'><h5>"+n+".Semester"+"</h5><span class='leer' style='display:block; color:red'>(leer)</span></div></div>";
+			
+
+            $("#semester-content").append(neu);
+		
+			// "Löschen" wird immer in dem letzen Semester hinzufügen
+			// d.h: andere ""Löschen" werden weggemacht.
+			
+			if (n >= 3){
+				for ( i=2; i<n; i++ ){
+					$(".semester"+"#"+i+" p").remove();
 				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".Spezialisierungspraktikum .divinternpoolmodul").slideUp("slow");
+			}
+			$(".semester"+"#"+n).append("<p style='cursor:pointer' class='semesterloeschen'>L&ouml;schen</p>");
+			
+			
+			
+		
+			// ein Modul reinziehn
+            $(".semester").droppable({
+                    hoverClass:'drophover',
 					
-				}
-				flip2a++;
-			});
-			
-		/*--------Einfuehrungen-----------------------------------------------*/
-			var flip3=0;
-			$(".einfuehrungen .divinternpoolmodul").hide();
-			$(".einfuehrungen a").live("click",function(){
-				if (flip3 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".einfuehrungen .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".einfuehrungen .divinternpoolmodul").slideUp("slow");
-					
-				}
-				flip3++;
-			});
-			
-		/*--------Spezielle Themen-----------------------------------------------*/
-			var flip4=0;
-			$(".spezielle .divinternpoolmodul").hide();
-			$(".spezielle a").live("click",function(){
-				if (flip4 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
+                    drop: function(event,ui){
+						
+						$(ui.draggable).hide();
+						
+						/// wartezeit-------------- 
+						$('<div class="quick-alert">Bitte warten!</div>')
+						 .appendTo($(this))
+						 .fadeIn("fast")
+						 .animate({opacity:1.0},1000)
+						 .fadeOut("fast",function(){
+						 	$(this).remove();
+						 });	
+						
+						// Daten von reingezogenem Modul kopieren
+							
+						var semester = $(this).attr("id");
+						var modul_id = $(ui.draggable).attr("id");
+						var modulinhalt = $(ui.draggable).html();
+						
+						// immer noch bei DROP in DROPPABLE 
+						// das reingezongen Modul mit der funktion auswahlAnzeige() zeigen
+						
+						
+						// Pool akktuallisieren
+						
+						$("#pool").find("div#"+modul_id).each(function(){
+							 
+							 $(this).hide();
+							
+						});
+						
+						
+                        
+						
+						// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
 				
-					$(".spezielle .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".spezielle .divinternpoolmodul").slideUp("slow");
-				}
-				flip4++;
-			});
-			
-	////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	/*------------Profilierungsbereich---------------------------------------------------------*/
-			var flip5=0;
-			$(".Profilierungsbereich .divinternpoolmodul").hide();
-			$(".Profilierungsbereich a").live("click",function(){
-				if (flip5 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".Profilierungsbereich .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".Profilierungsbereich .divinternpoolmodul").slideUp("slow");
-				}
-				flip5++;
-			});
-			
-	/*------------Schlüsselkompetenzen---------------------------------------------------------*/
-	
-			var flipkom=0;
-			$(".Bachelor .schluesselkompetenzen .divinternpoolmodul").hide();
-			
-			$(".Bachelor .schluesselkompetenzen a").live("click",function(){
-				if (flipkom % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".schluesselkompetenzen .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".schluesselkompetenzen .divinternpoolmodul").slideUp("slow");
-					
-				}
-				flipkom++;
-			});
-
-	/*------------Nanostrukturphysik----------------------------------------------------------*/
-			
-			var flip6=0;
-			$(".Nanostrukturphysik .divinternpoolmodul").hide();
-			$(".Nanostrukturphysik a").live("click",function(){
-				if (flip6 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".Nanostrukturphysik .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".Nanostrukturphysik .divinternpoolmodul").slideUp("slow");
-				}
-				flip6++;
+						ajax_to_server_by_add(modul_id,semester); 
 				
-			});
-			
-			
-			
-	/*------------Physikinformatik---------------------------------------------------------*/
-			var flip7=0;
-			$(".Physikinformatik .divinternpoolmodul").hide();
-			$(".Physikinformatik a").live("click",function(){
-				if (flip7 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".Physikinformatik  .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".Physikinformatik  .divinternpoolmodul").slideUp("slow");
-				}
-				flip7++;
-			});
-			
-	/*------------Astro- und Geophysik---------------------------------------------------------*/
+						// modul in Auswahl anzeigen
+				
+						auswahlAnzeige(modul_id,semester,modulinhalt);
+						
+					 }//ende Drop
+					 
+            });//droppable
+    });//ende live
+});//ende function
 
-			var flip8=0;
-			$(".astro .divinternpoolmodul").hide();
-			$(".astro a").live("click",function(){
-				if (flip8 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".astro .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".astro .divinternpoolmodul").slideUp("slow");
-				}
-				flip8++;
-			});
-			
-	/*------------Biophysik und Physik komplexer Systeme----------------------------------------*/
 
-			var flip9=0;
-			$(".biophysik .divinternpoolmodul").hide();
-			$(".biophysik a").live("click",function(){
-				if (flip9 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".biophysik .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".biophysik .divinternpoolmodul").slideUp("slow");
-				}
-				flip9++;
-			});		
-			
-	/*------------Festkörper- und Materialphysik------------------------------------------------*/
 
-			var flip10=0;
-			$(".materialphysik .divinternpoolmodul").hide();
-			$(".materialphysik a").live("click",function(){
-				if (flip10 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".materialphysik .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".materialphysik .divinternpoolmodul").slideUp("slow");
-				}	
-				flip10++;
-			});	
+//-----------------------
+
+
+// "Löschen" bei SEMESTER wird geklick --------------------------------------------------
+
+$(function(){
+
+
+	$(".semesterloeschen").live('click',function(){
+		var l = $(".semester").length;
+		if (l >= 3) {
+		
+			$(".semester" +"#"+l).remove();
+			$(".semester" +"#"+(l - 1)).append("<p style='cursor:pointer' class='semesterloeschen'>L&ouml;schen</p>");
+		}
+		else if (l==2){
+			$(".semester"+"#"+l).remove();
 			
-	/*------------Kern- und Teilchenphysik------------------------------------------------------*/
-			var flip11=0;
-			$(".teilchenphysik .divinternpoolmodul").hide();
-			$(".teilchenphysik a").live("click",function(){
-				if (flip11 % 2 == 0) {
-					$(this).find("span.dreieck").empty().text("v ");
-					$(".teilchenphysik .divinternpoolmodul").slideDown("slow");
-				}
-				else {
-					$(this).find("span.dreieck").empty().text("> ");
-					$(".teilchenphysik .divinternpoolmodul").slideUp("slow");
-				}
-				flip11++;
-			});			
-					
 			
-	});//ende global function
+		}								
+	});
+}); //ende function
+
+
+
+
+
+
+//// mach unseres POOL droppable------------------
+$(function(){
 	
-
-/*----------POOL Drag and Drop----------------------------------------------------------*/
-	
-	$(function(){
-		// mach unseres POOL droppable
+		
 		$("#pool").droppable({
 			
 			accept     : '.auswahlmodul',

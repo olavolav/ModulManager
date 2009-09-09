@@ -1,4 +1,4 @@
-.Grundkurse,.Kerncurriculum,.Bachelor,
+/*.Grundkurse,.Kerncurriculum,.Bachelor,
 .Pflichtmodule,.Nanostrukturphysik,.Physikinformatik,.astro, .biophysik, .materialphysik, .teilchenphysik, .einfuehrungen, .spezielle,.Profilierungsbereich,
 .schluesselkompetenzen{
         background-color :  #EEE8AA;
@@ -12,15 +12,20 @@
 	
 	margin-left:10px;
 	cursor     : pointer;
-}
+}*/
 
 
-.poolmodule {
+.pool_modul {
 		border: 1px blue solid;
         background-color:#B2FFFF;
 		margin-bottom : 2px;
 		padding-left  : 10px;
 		cursor        : move;
+}
+.pool_category {
+		background-color :  #EEE8AA;
+		margin-bottom : 2px;
+	
 }
 
 
@@ -44,66 +49,6 @@ a:link {
 span.[X]{
 	cursor : pointer;
 }
-
-
-/*lightbox*/
-
-
-.black_overlay{
-
-            display: none;
-
-            position: absolute;
-
-            top: 0%;
-
-            left: 0%;
-
-            width: 100%;
-
-            height: 3000px;
-
-            background-color: black;
-
-            z-index:1001;
-
-            -moz-opacity: 0.4;
-
-            opacity:.80;
-
-            filter: alpha(opacity=80);
-
-        }
-
-.white_content {
-
-            display: none;
-
-            position: absolute;
-
-            top: 25%;
-
-            left: 25%;
-
-            width: 50%;
-
-            height: 50%;
-
-            padding: 16px;
-
-            border: 16px solid orange;
-
-            background-color: white;
-
-            z-index:1002;
-
-            overflow: auto;
-        }
-
-
-
-
-
 
 
 
