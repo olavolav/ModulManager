@@ -8,6 +8,7 @@ module AbfragenHelper
           xml.name(m.name)
           xml.short(m.short)
           xml.credits(m.credits)
+          xml.mode(m.randomness)
         end
       }
     elsif c.categories != []

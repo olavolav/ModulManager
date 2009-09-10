@@ -14,6 +14,7 @@ xml.root do
           xml.name m.name
           xml.short m.short
           xml.credits m.credits
+          xml.mode m.randomness
         end
       end
     end
