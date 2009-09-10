@@ -46,11 +46,11 @@ class AddDataToStudmodules < ActiveRecord::Migration
         :category => Category.find(:first, :conditions => "name = 'Praktika'")
 
       # Mathematik
-      Studmodule.create :name => "Mathematik f&uuml;r Physiker I",
+      Studmodule.create :name => "Mathematik für Physiker I",
         :credits => 9,
         :short => "B.Phy.303",
         :category => Category.find(:first, :conditions => "name = 'Mathematik'")
-      Studmodule.create :name => "Mathematik f&uuml;r Physiker II",
+      Studmodule.create :name => "Mathematik für Physiker II",
         :credits => 6,
         :short => "B.Phy.304",
         :category => Category.find(:first, :conditions => "name = 'Mathematik'")
@@ -80,7 +80,7 @@ class AddDataToStudmodules < ActiveRecord::Migration
         :credits => 6,
         :short => "B.Phy.406",
         :category => Category.find(:first, :conditions => "name = 'Spezialisierungspraktikum'")
-      Studmodule.create :name => "Spezialisierungspraktikum Festk&ouml;rper- und Materialphysik",
+      Studmodule.create :name => "Spezialisierungspraktikum Festkörper- und Materialphysik",
         :credits => 6,
         :short => "B.Phy.407",
         :category => Category.find(:first, :conditions => "name = 'Spezialisierungspraktikum'")
@@ -90,30 +90,30 @@ class AddDataToStudmodules < ActiveRecord::Migration
         :category => Category.find(:first, :conditions => "name = 'Spezialisierungspraktikum'")
 
       # Einf&uuml;hrungen
-      Studmodule.create :name => "Einf&uuml;hrung in die Astro- und Geophysik",
+      Studmodule.create :name => "Einführung in die Astro- und Geophysik",
         :credits => 6,
         :short => "B.Phy.501",
-        :category => Category.find(:first, :conditions => "name = 'Einf&uuml;hrungen'")
-      Studmodule.create :name => "Einf&uuml;hrung in die Biophysik und Phsyik komplexer Systeme",
+        :category => Category.find(:first, :conditions => "name = 'Einführungen'")
+      Studmodule.create :name => "Einführung in die Biophysik und Phsyik komplexer Systeme",
         :credits => 6,
         :short => "B.Phy.502",
-        :category => Category.find(:first, :conditions => "name = 'Einf&uuml;hrungen'")
-      Studmodule.create :name => "Einf&uuml;hrung in die Festk&ouml;rper- und Materialphysik",
+        :category => Category.find(:first, :conditions => "name = 'Einführungen'")
+      Studmodule.create :name => "Einführung in die Festkörper- und Materialphysik",
         :credits => 6,
         :short => "B.Phy.503",
-        :category => Category.find(:first, :conditions => "name = 'Einf&uuml;hrungen'")
-      Studmodule.create :name => "Einf&uuml;hrung in die Kern- und Teilchenphysik",
+        :category => Category.find(:first, :conditions => "name = 'Einführungen'")
+      Studmodule.create :name => "Einführung in die Kern- und Teilchenphysik",
         :credits => 6,
         :short => "B.Phy.504",
-        :category => Category.find(:first, :conditions => "name = 'Einf&uuml;hrungen'")
+        :category => Category.find(:first, :conditions => "name = 'Einführungen'")
       Studmodule.create :name => "Mehrbenutzersysteme in der Praxis I",
         :credits => 6,
         :short => "B.Phy.510",
-        :category => Category.find(:first, :conditions => "name = 'Einf&uuml;hrungen'")
+        :category => Category.find(:first, :conditions => "name = 'Einführungen'")
       Studmodule.create :name => "Mehrbenutzersysteme in der Praxis II",
         :credits => 6,
         :short => "B.Phy.511",
-        :category => Category.find(:first, :conditions => "name = 'Einf&uuml;hrungen'")
+        :category => Category.find(:first, :conditions => "name = 'Einführungen'")
 
       # Spezielle Themen
 
@@ -149,19 +149,19 @@ class AddDataToStudmodules < ActiveRecord::Migration
         :credits => 6,
         :short => "B.Phy.564",
         :category => Category.find(:first, :conditions => "name = 'Spezielle Themen'")
-      Studmodule.create :name => "Spezielle Themen der Festk&ouml;rper- und Materialphysik I",
+      Studmodule.create :name => "Spezielle Themen der Festkörper- und Materialphysik I",
         :credits => 6,
         :short => "B.Phy.571",
         :category => Category.find(:first, :conditions => "name = 'Spezielle Themen'")
-      Studmodule.create :name => "Spezielle Themen der Festk&ouml;rper- und Materialphysik II",
+      Studmodule.create :name => "Spezielle Themen der Festkörper- und Materialphysik II",
         :credits => 6,
         :short => "B.Phy.572",
         :category => Category.find(:first, :conditions => "name = 'Spezielle Themen'")
-      Studmodule.create :name => "Spezielle Themen der Festk&ouml;rper- und Materialphysik III",
+      Studmodule.create :name => "Spezielle Themen der Festkörper- und Materialphysik III",
         :credits => 6,
         :short => "B.Phy.573",
         :category => Category.find(:first, :conditions => "name = 'Spezielle Themen'")
-      Studmodule.create :name => "Spezielle Themen der Festk&ouml;rper- und Materialphysik IV",
+      Studmodule.create :name => "Spezielle Themen der Festkörper- und Materialphysik IV",
         :credits => 6,
         :short => "B.Phy.574",
         :category => Category.find(:first, :conditions => "name = 'Spezielle Themen'")
@@ -200,7 +200,7 @@ class AddDataToStudmodules < ActiveRecord::Migration
 
       # Profilierungsbereich
 
-      Studmodule.create :name => "Elektronikpraktikum f&uuml;r Naturwissenschaftler",
+      Studmodule.create :name => "Elektronikpraktikum für Naturwissenschaftler",
         :credits => 6,
         :short => "B.Phy.606",
         :category => Category.find(:first, :conditions => "name = 'Profilierungsbereich'")
@@ -236,19 +236,19 @@ class AddDataToStudmodules < ActiveRecord::Migration
         :credits => 6,
         :short => "B.Win.23",
         :category => Category.find(:first, :conditions => "name = 'Profilierungsbereich'")
-      Studmodule.create :name => "Allgemeine und Anorganische Chemie f&uuml;r Physiker",
+      Studmodule.create :name => "Allgemeine und Anorganische Chemie für Physiker",
         :credits => 4,
         :short => "B.Che.9105",
         :category => Category.find(:first, :conditions => "name = 'Profilierungsbereich'")
-      Studmodule.create :name => "Praktikum Allgemeine und Anorganische Chemie f&uuml;r Physiker",
+      Studmodule.create :name => "Praktikum Allgemeine und Anorganische Chemie für Physiker",
         :credits => 8,
         :short => "B.Che.9106",
         :category => Category.find(:first, :conditions => "name = 'Profilierungsbereich'")
-      Studmodule.create :name => "Organische und makromolekulare Chemie f&uuml;r Physiker",
+      Studmodule.create :name => "Organische und makromolekulare Chemie für Physiker",
         :credits => 3,
         :short => "B.Che.9108",
         :category => Category.find(:first, :conditions => "name = 'Profilierungsbereich'")
-      Studmodule.create :name => "Chemisches Gleichgewicht f&uuml;r Physiker",
+      Studmodule.create :name => "Chemisches Gleichgewicht für Physiker",
         :credits => 6,
         :short => "B.Che.1302.1",
         :category => Category.find(:first, :conditions => "name = 'Profilierungsbereich'")
@@ -260,7 +260,7 @@ class AddDataToStudmodules < ActiveRecord::Migration
         :credits => 4,
         :short => "B.Che.1401",
         :category => Category.find(:first, :conditions => "name = 'Profilierungsbereich'")
-      Studmodule.create :name => "Grundlagen der Geowissenschaften f&uuml;r Naturwissenschaftler",
+      Studmodule.create :name => "Grundlagen der Geowissenschaften für Naturwissenschaftler",
         :credits => 12,
         :short => "B.Geo.402",
         :category => Category.find(:first, :conditions => "name = 'Profilierungsbereich'")
@@ -270,15 +270,15 @@ class AddDataToStudmodules < ActiveRecord::Migration
       Studmodule.create :name => "Professionalisierungsseminar",
         :credits => 4,
         :short => "B.Phy.602",
-        :category => Category.find(:first, :conditions => "name = 'Schl&uuml;sselkompetenzen'")
+        :category => Category.find(:first, :conditions => "name = 'Schlüsselkompetenzen'")
       Studmodule.create :name => "Projektpraktikum",
         :credits => 6,
         :short => "B.Phy.604",
-        :category => Category.find(:first, :conditions => "name = 'Schl&uuml;sselkompetenzen'")
-      Studmodule.create :name => "Computergest&uuml;tztes wissenschaftliches Rechnen",
+        :category => Category.find(:first, :conditions => "name = 'Schlüsselkompetenzen'")
+      Studmodule.create :name => "Computergestütztes wissenschaftliches Rechnen",
         :credits => 8,
         :short => "B.Phy.605",
-        :category => Category.find(:first, :conditions => "name = 'Schl&uuml;sselkompetenzen'")
+        :category => Category.find(:first, :conditions => "name = 'Schlüsselkompetenzen'")
   end
 
   def self.down

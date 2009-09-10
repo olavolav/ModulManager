@@ -49,7 +49,7 @@ class FillFocusStudmodules < ActiveRecord::Migration
 
     f.save
 
-    f = Focus.find(:first, :conditions => "name = 'Festk&ouml;rper- und Materialphysik'")
+    f = Focus.find(:first, :conditions => "name = 'Festkörper- und Materialphysik'")
     shorts = [
       'B.Phy.503', 'B.Phy.407',
       'B.Phy.571', 'B.Phy.572',

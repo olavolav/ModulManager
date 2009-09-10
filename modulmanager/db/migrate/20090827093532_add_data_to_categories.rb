@@ -25,14 +25,14 @@ class AddDataToCategories < ActiveRecord::Migration
       :category => Category.find(:first, :conditions => "name = 'Wahlpflichtmodule'")
     Category.create :name => "Spezialisierungspraktikum",
       :category => Category.find(:first, :conditions => "name = 'Spezialisierungsbereich'")
-    Category.create :name => "Einf&uuml;hrungen",
+    Category.create :name => "Einführungen",
       :category => Category.find(:first, :conditions => "name = 'Spezialisierungsbereich'")
     Category.create :name => "Spezielle Themen",
       :category => Category.find(:first, :conditions => "name = 'Spezialisierungsbereich'")
     Category.create :name => "Profilierungsbereich",
       :category => Category.find(:first, :conditions => "name = 'Wahlpflichtmodule'")
 
-    Category.create :name => "Schl&uuml;sselkompetenzen",
+    Category.create :name => "Schlüsselkompetenzen",
       :category => Category.find(:first, :conditions => "name = 'Bachelor'")
   end
 
