@@ -134,13 +134,16 @@ var ajax_to_server_by_remove = function (modul_id){
 
 
 var auswahlAnzeige = function (modul_id,semester,modulinhalt){
-		
+	
+		//$("<div class='auswahl_modul'>Bitte warte</div>").appendTo($("#"+semester+" .subsemester")).fadeIn("fast").fadeOut("slow");
 							
 		$("#"+semester+" .subsemester").append("<div class='auswahl_modul' id='"+modul_id+"'>"
 														+modulinhalt+
 													"<div class='LVS' style='margin-left:150px' >"
-														+"<select style='width:200px'>"+
-															"<option>Hallo LVS<option>"
+														+"<select style='width:200px'>"
+														
+															+"<option>Hallo LVS<option>"
+															
 														+"</select>"+
 													"</div>"
 												+"</div>");
@@ -161,92 +164,103 @@ var auswahlAnzeige = function (modul_id,semester,modulinhalt){
 
 var poolrekursiv = function(root){
 	
-	   var allchildren = $(root).children();
-	   var laenge      = allchildren.length;  
-	   
-	   // durchsuche alle Kinder von root  
-	   
-	   $(root).children().each(function(){
-	   	
-			// check ob Modul oder Kategory
-			
-			var tagname=this.nodeName;
-			
-			//if check category----------------------------------------------------------
-			
-			if (tagname=="category"){
-				
-				var parent_name = $(this).parent().get(0).nodeName;
-				var parent      = $(this).parent().get(0);
-				
-				//check root
-				
-				if (parent_name == "root") {
-					
-					
-					var category_name = $(this).attr("name");
-					$("#pool").append("<div class='pool_category' id='"+trim(umwandeln(category_name))+"'>" + category_name + "</div>");
-					
-				}//ende if check root
-				
-				else {
-					
-					
-					var category_name = $(this).attr("name");
-					var parent = $(this).parent().get(0);
-					var parent_name = trim(umwandeln($(parent).attr("name")));
-					$("#pool"+" #"+parent_name).append("<div class='pool_category' id='"+trim(umwandeln(category_name))+"'>" + category_name + "</div>");
-					
-				}
-				
-				// rekursiv 
-				poolrekursiv(this);
-				
-			} // ende if check category
-			
-			
-			// else check modul------------------------------------------------------------
-			
-			else {
-				
-				var modul_name= $(this).find("name").text();
-				var credits   = $(this).find("credits").text();
-				var mudul_short     = $(this).find("short").text();
-				var modul_id     = $(this).find("id").text();
-				var parent    = $(this).parent().get(0);
-				var parent_name = trim(umwandeln($(parent).attr("name")));
-				
-				// suche nach parent_id ( also neue ID) im Pool
-				
-				$("#pool"+" #"+parent_name).append("<div class='pool_modul' id='"+modul_id+"'>"
-														+"<table style='font-size: 12px; width: 100%'>"
-															+"<tr>"
-																+"<td style=' width:10% '>"
-																	+pflichtbild
-																+"</td>"
-																+"<td style=' width:69% '>"
-																	+modul_name
-																+"</td>"
-																+"<td width:10%>"
-																	+fragebild
-																+"</td>"
-																+"<td style=' width:10%; font-weight:bold '>"
-																	+credits
-																+"</td>"
-															+"</tr>"
-														+"</table>"
-													+"</div>");
-				
-				$(".pool_modul").draggable({
-					
-					revert : "invalid"
-				});
-				return;
-			}
-			
-		});// ende Each für alle category
+	//var children = $(root).children();
+	//var laenge   = children.length;
 
+	// nach kinder suchen
+			
+	$(root).children().each(function(){
+				
+				
+			
+		var knoten_name=this.nodeName;
+		
+		if (knoten_name == "module"){
+			
+			var parent      = $(this).parent().get(0);
+			var parent_name = $(parent).attr("name");
+			var parent_id   = $(parent).attr("category_id");
+			
+			
+			var modul_name = $(this).find("name").text();
+			
+			var credits = $(this).find("credits").text();
+			var mudul_short = $(this).find("short").text();
+			var modul_id = $(this).attr("id");
+							
+			$("#pool #" +parent_id).append("<div class='pool_modul' id='" + modul_id + "'>" +
+							"<table style='font-size: 12px; width: 100%'>" +
+								"<tr>" +
+									"<td style=' width:10% '>" 
+										+pflichtbild+
+									"</td>" +
+									"<td style=' width:69% '>" +
+										modul_name +
+									"</td>" +
+									"<td width:10%>" +"<a href = \"javascript:void(0)\" onclick = \"document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'\">"
+										+fragebild +"</a>"+
+									"</td>" +
+									"<td style=' width:10%; font-weight:bold '>" +
+										credits +
+									"</td>" +
+								"</tr>" +
+							"</table>" +
+							"</div");
+							
+							
+							
+							$(".pool_modul").draggable({
+							
+								revert: "invalid"
+							});
+							
+			
+			
+		
+		
+			return;
+		}//ende check Module
+		
+		
+	
+		 else if (knoten_name == "category") {
+		 	
+			
+			var category_id   = $(this).attr("category_id");
+			var category_name = $(this).attr("name");
+			var parent = $(this).parent().get(0);
+			var parent_name = parent.nodeName;
+		
+			//check nach Schwerpunkt und Bachelor,also 1.te Ebene
+			if (parent_name == "root"){
+				
+	
+				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" + category_name + "</div>");
+			
+			}//ende Scherpunk
+		
+			else if (parent_name == "category"){
+			
+				// suche parend_id in #pool
+				
+				var parent_id   = $(parent).attr("category_id");
+				
+				$("#pool #"+parent_id).append("<div class='pool_category' id='" + category_id + "'>" + category_name + "</div>");
+			
+			}//ende else für andere Kategorie
+		
+		
+		//rekursiv
+		poolrekursiv(this);
+
+	}//ende else category
+	
+	
+ });// ende nach Children
+	
 }//ende poolrekursiv
+
+
 
 
 
@@ -272,7 +286,7 @@ var pool = function(){
 
     var root = XML.documentElement;
 	
-	aktuellePoolXml=XML;
+	//aktuellePoolXml=XML;
 	
 	
     poolrekursiv(root);

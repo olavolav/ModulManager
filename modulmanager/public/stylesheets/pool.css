@@ -21,10 +21,12 @@
 		margin-bottom : 2px;
 		padding-left  : 10px;
 		cursor        : move;
+		margin-right  :10px;
 }
 .pool_category {
 		background-color :  #EEE8AA;
 		margin-bottom : 2px;
+		cursor        : pointer;
 	
 }
 

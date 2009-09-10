@@ -37,7 +37,7 @@ $(function(){
 				$('<div class="quick-alert">Bitte warten!</div>')
 				 .appendTo($(this))
 				 .fadeIn("fast")
-				 .animate({opacity:1.0},1000)
+				 .animate({opacity:1.0},3000)
 				 .fadeOut("fast",function(){
 				 	$(this).remove();
 				 });
@@ -45,10 +45,11 @@ $(function(){
 				 // id von reingezogenem Modul und entsprechendem Semester holen
 						
 				 var semester = $(this).attr("id");
+				
 				 
 				 var modul_id = $(ui.draggable).attr("id"); 	
 				 var modulinhalt = $(ui.draggable).html();
-				 
+				
 				 // Pool akktuallisieren
 						
 				 $("#pool").find("div#"+modul_id).each(function(){
@@ -109,7 +110,9 @@ $(function(){
 $(function(){
 
     $('#semesterhinzu').live("click",function(){
+			
             var n = $('#semester-content div.semester').length+1;
+			
 			
 			// var l für Löschen gedacht
 			var l = $('#semester-content div.semester').length+1;
@@ -288,7 +291,7 @@ $(function(){
 		});
 		
 		
-	});//ende function
+});//ende function
 
 
 
