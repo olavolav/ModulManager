@@ -7,7 +7,7 @@ xml.root do
   end
 
   @schwerpunkte.each do |s|
-    xml.category(:name => s.name, :class => "Schwerpunkt", :category_id => "category#{s.id}") do
+    xml.category(:name => s.name, :class => "Schwerpunkt", :category_id => "focus#{s.id}") do
       s.modules.each do |m|
         xml.module(:id => m.id) do
           xml.tag! "id", m.id
