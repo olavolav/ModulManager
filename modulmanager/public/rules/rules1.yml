@@ -7,4 +7,7 @@
     rule: (mindestens 102 Credits) und (mindestens 11 Module) aus Gruppe Pflichtbereich
 
   - description: Es werden 2 Module aus dem Bereich "Spezielle Themen" benötigt.
-    rule: mindestens 2 Module aus Gruppe Spezielle Themen
+    rule: mindestens 2 Module aus Gruppe SpezielleThemen
+
+  - description: Es dürfen nicht mehr als 20 Credits aus dem Bereich "Nicht Physikalisch" belegt werden.
+    rule: hoechstens 20 Credits aus Gruppe NichtPhysikalisch
