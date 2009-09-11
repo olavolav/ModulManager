@@ -101,29 +101,14 @@ var auswahlAnzeige = function (modul_id,semester,modulinhalt){
 
 var modulloeschen = function (modulID){
 	
-	// check ob alles leer ist
-	//suche Vater <div class='subsemester'>
 	
-	/*var vater = $("#"+modulID).parent().get(0);
-	var x = $(vater).children().length;
-	
-	
-	var subsemester = $("#"+modulID).parent().children();
-	
-	
-	if( kinderanzahl==3 ) {
-		$(subsemester).each(function(){
-			if($(this).is("span")){
-				$(this).css("display","block");
-			}
-		});
-		
-	
-
-		
-	}*/
 	
 	$(".subsemester").find("div#"+modulID).hide();
+	
+	var div    = $(".subsemester").find("div#"+modulID);
+	var parent = $(div).parent().get(0);
+	
+	var laenge1 = $(parent).length;
 	
 
 }

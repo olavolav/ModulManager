@@ -45,7 +45,12 @@ $(function(){
 				 // id von reingezogenem Modul und entsprechendem Semester holen
 						
 				 var semester = $(this).attr("id");
-				 var modul_id = $(ui.draggable).attr("id"); 	
+				 var modul_id = $(ui.draggable).attr("id"); 
+				 
+				 // vesteck (leer) in erstem Semester
+				
+				 $(this).find(".subsemester span.leer").css("display", "none");
+				 	
 				 
 				 // display versteckte <span> in Pool-Modul, und remove andere 
 				 
@@ -106,6 +111,18 @@ $(function(){
 			
 		});
 		
+			
+		$("#pool").droppable({
+			
+			accept     : '.auswahl_modul',
+			hoverClass : 'drophover',
+			drop       : function(event,ui){
+				
+				$(ui.draggable).hide();
+		
+	  		  }//ende drop
+	  	});
+		
 });
 
 
@@ -152,7 +169,7 @@ $(function(){
 			
 			if (n >= 3) {
 				for (i = 2; i < n; i++) {
-					$(".semester" + "#" + i + " p").remove();
+					$(".semester" + "#" + i + " p").css("display","none");
 				}
 				
 			}
@@ -231,26 +248,32 @@ $(function(){
 
 
 
-//-----------------------
+//----------------------
 
 
-// "Löschen" bei SEMESTER wird geklick --------------------------------------------------
+// "Löschen" bei SEMESTER wird geklick -----------------------------------------------------
 
 $(function(){
 
-
+	
+	
 	$(".semesterloeschen").live('click',function(){
-		var l = $(".semester").length;
-		if (l >= 3) {
 		
-			$(".semester" +"#"+l).remove();
-			$(".semester" +"#"+(l - 1)).append("<p style='cursor:pointer; ' class='semesterloeschen'>L&ouml;schen</p>");
-		}
-		else if (l==2){
-			$(".semester"+"#"+l).remove();
-			
-			
-		}								
+		
+		var parent = $(this).parent().get(0);
+		$(parent).remove();
+		var laenge = $("#semester-content").children().length;
+		
+		var semester = $("#semester-content").find("div#"+laenge);
+		$(semester).find("p").css("display","block");
+		
+		
+		
+		
+		
+		
+		
+								
 	});
 }); //ende function
 
