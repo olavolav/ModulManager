@@ -37,11 +37,7 @@ var ajax_to_server_by_add = function (modul_id,semester){
             async :true,
 			data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
 			contentType:'application/x-www-form-urlencoded',
-			error: function(a, b, c){
 			
-				alert("Erorr");
-				
-			}
      });//ende Ajax
 
 	
@@ -60,11 +56,7 @@ var ajax_to_server_by_remove = function (modul_id){
             async :false,
 			data  : "mod_id="+modul_id,
 			contentType:'application/x-www-form-urlencoded',
-			error: function(a, b, c){
 			
-				alert("Erorr");
-				
-			}
      });//ende Ajax
 
 	
@@ -275,10 +267,8 @@ var pool = function(){
 	    type: 'GET',
 	    url: 'http://localhost:3000/abfragen/pool',
 	    async: false,
-	    contentType: 'application/x-www-form-urlencoded',
-		error: function(a, b, c){
-	            alert('Error');
-	    }
+	    contentType: 'application/x-www-form-urlencoded'
+		
 	
 
 
