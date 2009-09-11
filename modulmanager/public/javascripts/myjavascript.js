@@ -596,9 +596,6 @@ $(function(){
 						// das reingezongen Modul mit der funktion auswahlAnzeige() zeigen
 						
 						
-						
-						
-						
 						//$("#"+semester+" .subsemester").append("<div class='auswahlmodul' id='"+modulID+"'><table border='0'><tbody><colgroup><col width='570'><col width='50'></colgroup><tr><td>"+name+"("+short+")<span style='color:red ;font-weight:bold' class='modulloeschen' onclick='javascript:modulloeschen("+modulID+")'>[X]</span></td><td>"+credits+"C</td></tr></tbody></table></div>");
 									
 						
@@ -686,8 +683,6 @@ var modulloeschen = function (modulID){
 		});
 		
 	
-
-		
 	}
 	
 	

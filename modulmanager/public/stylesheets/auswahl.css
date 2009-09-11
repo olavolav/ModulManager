@@ -27,10 +27,15 @@
 	float:right;
 	
 }
+.semester {
+	
+	margin-bottom : 10px;
+	
+}
 /*------der erste DIV in semester-BOX--------------- */
 .semesterloeschen {
 	width  :60px;
-	border : 1px red solid;
+	border : 2px red solid;
 	margin-bottom : 10px;
 }
 

@@ -16,73 +16,13 @@
 	var wahlbild    = "<img src='images/Wahl.png' style='cursor:pointer' >";
 	var fragebild     = "<img src='images/Fragezeichen.png' style='cursor:pointer'>";
 	var ipunkt    = "<img src='images/iPunkt.png' style='cursor:pointer'>";
+	var rote_ipunkt    = "<img src='images/Ausrufezeichen.png' style='cursor:pointer'>";
 
 
 
 
-var trim = function (satz){
-	
-	var neusatz = satz.toString();
-	var tmp=[];
-	var newArray;
-	var laenge=neusatz.length;
-	
-	for (i=0; i<laenge; i++){
-		
-		sub=neusatz.substr(i,1);
-		if (sub !=" "){
-			
-			tmp.push(sub);
-		}
-	
-	}
-	
-	newArray=tmp.join("");
-	return newArray;
-	
-}
 
-
-var umwandeln = function(satz){
-
-	var neusatz = satz.toString();
-	var klein = neusatz.toLowerCase();
-	var suche = klein.search(/&.+/);
-	var ergebnis = "nicht";
 	
-	if (suche != -1) {
-	
-		var pos = klein.indexOf("&");
-		var umlaut = klein.substr(pos,6); // &uuml; 
-		
-		switch (umlaut) {
-		
-			case "&uuml;":
-				ergebnis = klein.replace(/&uuml;/g, "ue");
-				break;
-				
-			case "&ouml;":
-				ergebnis = klein.replace(/&ouml;/g, "oe");
-				break;
-				
-			case "&auml;":
-				
-				ergebnis = klein.replace(/&auml;/g, "ae");
-				break;
-				
-			default:
-				break;
-				
-		}
-		return ergebnis;
-	}//ende if
-	else {
-		return neusatz;
-	}
-	
-	
-}
-
 
 
 //   AJAX zum Server---------------------------------------------------------------------	
@@ -94,7 +34,7 @@ var ajax_to_server_by_add = function (modul_id,semester){
 			url  : 'http://localhost:3000/abfragen/add_module_to_selection',
 			cache:false,
             dataType:'xml',
-            async :false,
+            async :true,
 			data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
 			contentType:'application/x-www-form-urlencoded',
 			error: function(a, b, c){
@@ -156,6 +96,41 @@ var auswahlAnzeige = function (modul_id,semester,modulinhalt){
 
 
 
+///////////////////MODULLOESCHEN loeschen////////////////////////
+/// bei Click auf <span class="modulloeschen">
+
+var modulloeschen = function (modulID){
+	
+	// check ob alles leer ist
+	//suche Vater <div class='subsemester'>
+	
+	/*var vater = $("#"+modulID).parent().get(0);
+	var x = $(vater).children().length;
+	
+	
+	var subsemester = $("#"+modulID).parent().children();
+	
+	
+	if( kinderanzahl==3 ) {
+		$(subsemester).each(function(){
+			if($(this).is("span")){
+				$(this).css("display","block");
+			}
+		});
+		
+	
+
+		
+	}*/
+	
+	$(".subsemester").find("div#"+modulID).hide();
+	
+
+}
+
+		
+
+
 
 //----Poolrekursive implementieren-------------------------------------------------------
 
@@ -175,7 +150,45 @@ var poolrekursiv = function(root){
 			
 		var knoten_name=this.nodeName;
 		
-		if (knoten_name == "module"){
+		
+		
+		
+	
+		 if (knoten_name == "category") {
+		 	
+			
+			var category_id   = $(this).attr("category_id");
+			var category_name = $(this).attr("name");
+			var parent = $(this).parent().get(0);
+			var parent_name = parent.nodeName;
+		
+			//check nach Schwerpunkt und Bachelor,also 1.te Ebene
+			if (parent_name == "root"){
+				
+	
+				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" + category_name + "</div>");
+				
+			
+			}//ende Schwerpunkt
+		
+			else{
+			
+				// suche parend_id in #pool
+				
+				var parent_id   = $(parent).attr("category_id");
+				
+				$("#pool #"+parent_id).append("<div class='pool_category' id='" + category_id + "'>" + category_name + "</div>");
+			
+			}//ende else für andere Kategorie
+		
+		
+		//rekursiv
+		poolrekursiv(this);
+		
+	}
+		
+	else if (knoten_name == "module"){
+			
 			
 			var parent      = $(this).parent().get(0);
 			var parent_name = $(parent).attr("name");
@@ -183,29 +196,63 @@ var poolrekursiv = function(root){
 			
 			
 			var modul_name = $(this).find("name").text();
-			
+			var modul_mode = $(this).find("mode").text();
 			var credits = $(this).find("credits").text();
-			var mudul_short = $(this).find("short").text();
+			var modul_short = $(this).find("short").text();
+			
 			var modul_id = $(this).attr("id");
+			
+			//check Modul_ART : Pflicht? WP?
+			var bild;
+			if(modul_mode == "p"){
+				
+				bild = pflichtbild;
+			}
+			else {
+				
+				bild = wahlpflichtbild;
+			}
 							
-			$("#pool #" +parent_id).append("<div class='pool_modul' id='" + modul_id + "'>" +
-							"<table style='font-size: 12px; width: 100%'>" +
+			$("#pool #"+parent_id).append("<div class='pool_modul' id='" + modul_id + "'>" +
+						"<table style='font-size: 12px; width: 100%; border:1px'>" +
+							"<tbody>"+
 								"<tr>" +
-									"<td style=' width:10% '>" 
-										+pflichtbild+
+									"<td style=' width:3% '>"+ 
+										bild+
 									"</td>" +
-									"<td style=' width:69% '>" +
-										modul_name +
-									"</td>" +
-									"<td width:10%>" +"<a href = \"javascript:void(0)\" onclick = \"document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'\">"
-										+fragebild +"</a>"+
-									"</td>" +
-									"<td style=' width:10%; font-weight:bold '>" +
-										credits +
+									"<td style=' width:50%'>" +
+										"<span>"+modul_name+"</span>"+
+										
+									"</td>"+
+									"<td style=' width:20%'>" +
+										"<span class='modul_short' style='display:none'>"+"("+modul_short+")"+"</span>"+
+										
+									"</td>"+
+										
+									"<td style=' width:3%'>"+
+										"<span class='modul_loeschen' style='display:none;cursor:pointer; font-weight:bold; color:red' onclick='modulloeschen("+modul_id+")'>X</span>"+
+									"</td>"+
+									
+									
+									"<td style=' width:3%; '>" +
+										"<span class='fragebild' style='display:block'>"+ 
+											 fragebild+ 
+										"</span>"+
+									
+									"</td>"+
+									"<td style=' width:5%'>"+
+										"<span class='ipunkt' style='display:none'>"+ipunkt+"</span>"+
+									"</td>"+
+									"<td style=' width:15%'>"+
+										
+										
+											credits +" C"+
+										
 									"</td>" +
 								"</tr>" +
-							"</table>" +
-							"</div");
+							"</tbody>"+
+						"</table>" +
+						"</div");
 							
 							
 							
@@ -220,40 +267,8 @@ var poolrekursiv = function(root){
 		
 			return;
 		}//ende check Module
-		
-		
-	
-		 else if (knoten_name == "category") {
-		 	
-			
-			var category_id   = $(this).attr("category_id");
-			var category_name = $(this).attr("name");
-			var parent = $(this).parent().get(0);
-			var parent_name = parent.nodeName;
-		
-			//check nach Schwerpunkt und Bachelor,also 1.te Ebene
-			if (parent_name == "root"){
-				
-	
-				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" + category_name + "</div>");
-			
-			}//ende Scherpunk
-		
-			else if (parent_name == "category"){
-			
-				// suche parend_id in #pool
-				
-				var parent_id   = $(parent).attr("category_id");
-				
-				$("#pool #"+parent_id).append("<div class='pool_category' id='" + category_id + "'>" + category_name + "</div>");
-			
-			}//ende else für andere Kategorie
-		
-		
-		//rekursiv
-		poolrekursiv(this);
 
-	}//ende else category
+	
 	
 	
  });// ende nach Children
@@ -293,10 +308,6 @@ var pool = function(){
 
 
 }//ende pool
-
-
-
-
 
 
 		

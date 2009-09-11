@@ -44,13 +44,7 @@ a {
 	
 	cursor : pointer;
 }
-a:link {
-	text-decoration:underline;
-}
-
-span.[X]{
-	cursor : pointer;
-}
+img{border:0;} 
 
 
 

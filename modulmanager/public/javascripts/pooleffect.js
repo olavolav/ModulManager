@@ -45,9 +45,16 @@ $(function(){
 				 // id von reingezogenem Modul und entsprechendem Semester holen
 						
 				 var semester = $(this).attr("id");
-				
-				 
 				 var modul_id = $(ui.draggable).attr("id"); 	
+				 
+				 // display versteckte <span> in Pool-Modul, und remove andere 
+				 
+				 $(ui.draggable).find("span.modul_short").css("display","block");
+						
+				 $(ui.draggable).find("span.fragebild").css("display","none");
+				 $(ui.draggable).find("span.ipunkt").css("display","block");
+				 $(ui.draggable).find("span.modul_loeschen").css("display","block");
+						
 				 var modulinhalt = $(ui.draggable).html();
 				
 				 // Pool akktuallisieren
@@ -112,6 +119,7 @@ $(function(){
     $('#semesterhinzu').live("click",function(){
 			
             var n = $('#semester-content div.semester').length+1;
+		
 			
 			
 			// var l für Löschen gedacht
@@ -120,7 +128,7 @@ $(function(){
 			
 			
 			// neue Semester und Löschen reintun
-			// <div class="semester">
+			// <div class="semester" id="5">
 			//		<div class='subsemester'> 
 			//				semester 10
 			//		</div>
@@ -128,7 +136,13 @@ $(function(){
 			//			Löschen
 			//		</p>
 			// </div>
-            var neu = "<div class='semester' id='"+n+"'>"+"<div class='subsemester'><h5>"+n+".Semester"+"</h5><span class='leer' style='display:block; color:red'>(leer)</span></div></div>";
+            var neu = "<div class='semester' id='"+n+"'>"+
+							"<div class='subsemester'><h5>"
+									+n+".Semester"+
+								"</h5><span class='leer' style='display:block; color:red'>(leer)</span>"+
+							"</div>"+
+							"<p style='cursor:pointer; display:block' class='semesterloeschen'>L&ouml;schen</p>"
+					  "</div>";
 			
 
             $("#semester-content").append(neu);
@@ -136,12 +150,14 @@ $(function(){
 			// "Löschen" wird immer in dem letzen Semester hinzufügen
 			// d.h: andere ""Löschen" werden weggemacht.
 			
-			if (n >= 3){
-				for ( i=2; i<n; i++ ){
-					$(".semester"+"#"+i+" p").remove();
+			if (n >= 3) {
+				for (i = 2; i < n; i++) {
+					$(".semester" + "#" + i + " p").remove();
 				}
+				
 			}
-			$(".semester"+"#"+n).append("<p style='cursor:pointer' class='semesterloeschen'>L&ouml;schen</p>");
+			
+			
 			
 			
 			
@@ -169,6 +185,21 @@ $(function(){
 						var modul_id = $(ui.draggable).attr("id");
 						var modulinhalt = $(ui.draggable).html();
 						
+						$(ui.draggable).find("span.modul_short").css("display","block");
+						
+						$(ui.draggable).find("span.fragebild").css("display","none");
+						$(ui.draggable).find("span.ipunkt").css("display","block");
+						$(ui.draggable).find("span.modul_loeschen").css("display","block");
+						
+						var modulinhalt = $(ui.draggable).html();
+						
+						
+						//(leer) verstecken
+						$(this).find(".subsemester span.leer").css("display","none");
+
+						
+						
+						
 						// immer noch bei DROP in DROPPABLE 
 						// das reingezongen Modul mit der funktion auswahlAnzeige() zeigen
 						
@@ -195,7 +226,7 @@ $(function(){
 					 }//ende Drop
 					 
             });//droppable
-    });//ende live
+	});//ende live
 });//ende function
 
 
@@ -213,7 +244,7 @@ $(function(){
 		if (l >= 3) {
 		
 			$(".semester" +"#"+l).remove();
-			$(".semester" +"#"+(l - 1)).append("<p style='cursor:pointer' class='semesterloeschen'>L&ouml;schen</p>");
+			$(".semester" +"#"+(l - 1)).append("<p style='cursor:pointer; ' class='semesterloeschen'>L&ouml;schen</p>");
 		}
 		else if (l==2){
 			$(".semester"+"#"+l).remove();
