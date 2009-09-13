@@ -17,6 +17,7 @@
 	var fragebild     = "<img src='images/Fragezeichen.png' style='cursor:pointer'>";
 	var ipunkt    = "<img src='images/iPunkt.png' style='cursor:pointer'>";
 	var rote_ipunkt    = "<img src='images/Ausrufezeichen.png' style='cursor:pointer'>";
+	var loeschenbild = "<img src='images/Loeschen.png' style='cursor:pointer'>";
 
 
 
@@ -198,7 +199,7 @@ var poolrekursiv = function(root){
 										bild+
 									"</td>" +
 									"<td style=' width:50%'>" +
-										"<span>"+modul_name+"</span>"+
+										"<span'>"+modul_name+"</span>"+
 										
 									"</td>"+
 									"<td style=' width:20%'>" +
@@ -207,20 +208,22 @@ var poolrekursiv = function(root){
 									"</td>"+
 										
 									"<td style=' width:3%'>"+
-										"<span class='modul_loeschen' style='display:none;cursor:pointer; font-weight:bold; color:red' onclick='modulloeschen("+modul_id+")'>X</span>"+
+										"<span class='modul_loeschen' style='display:none;cursor:pointer; font-weight:bold; color:red' onclick='modulloeschen("+modul_id+")'>"+
+											loeschenbild+
+										"</span>"+
 									"</td>"+
 									
 									
 									"<td style=' width:3%; '>" +
 										"<span class='fragebild' style='display:block'>"+ 
-											 fragebild+ 
+											fragebild+ 
 										"</span>"+
 									
 									"</td>"+
 									"<td style=' width:5%'>"+
 										"<span class='ipunkt' style='display:none'>"+ipunkt+"</span>"+
 									"</td>"+
-									"<td style=' width:15%'>"+
+									"<td style='width:15%;text-align:right;font-weight:bold'>"+
 										
 										
 											credits +" C"+
