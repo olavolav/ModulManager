@@ -195,39 +195,38 @@ var poolrekursiv = function(root){
 						"<table style='font-size: 12px; width: 100%; border:1px'>" +
 							"<tbody>"+
 								"<tr>" +
-									"<td style=' width:3% '>"+ 
+									"<td style=' width:22px '>"+ 
 										bild+
 									"</td>" +
-									"<td style=' width:50%'>" +
+									"<td style=' width:99%'>" +
 										"<span'>"+modul_name+"</span>"+
 										
 									"</td>"+
-									"<td style=' width:20%'>" +
-										"<span class='modul_short' style='display:none'>"+"("+modul_short+")"+"</span>"+
-										
-									"</td>"+
-										
-									"<td style=' width:3%'>"+
-										"<span class='modul_loeschen' style='display:none;cursor:pointer; font-weight:bold; color:red' onclick='modulloeschen("+modul_id+")'>"+
-											loeschenbild+
-										"</span>"+
-									"</td>"+
+									// Kurzbezeichnung raus aus der Auswahl (OS)
+									// "<td style=' width:20%'>" +
+									// 	"<span class='modul_short' style='display:none'>"+"("+modul_short+")"+"</span>"+
+									// 	
+									// "</td>"+
 									
-									
-									"<td style=' width:3%; '>" +
+									"<td style=' width:22px; '>" +
 										"<span class='fragebild' style='display:block'>"+ 
 											fragebild+ 
 										"</span>"+
 									
 									"</td>"+
-									"<td style=' width:5%'>"+
+									
+									"<td style=' width:22px'>"+
+										"<span class='modul_loeschen' style='display:none;cursor:pointer;' onclick='modulloeschen("+modul_id+")'>"+
+											loeschenbild+
+										"</span>"+
+									"</td>"+
+									
+									"<td style=' width:22px'>"+
 										"<span class='ipunkt' style='display:none'>"+ipunkt+"</span>"+
 									"</td>"+
-									"<td style='width:15%;text-align:right;font-weight:bold'>"+
-										
-										
+									
+									"<td style='min-width:32px;text-align:right;font-weight:bold'>"+
 											credits +" C"+
-										
 									"</td>" +
 								"</tr>" +
 							"</tbody>"+
