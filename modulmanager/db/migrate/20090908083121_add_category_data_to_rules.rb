@@ -37,10 +37,10 @@ class AddCategoryDataToRules < ActiveRecord::Migration
     r.save
 
     r = Rule.find(:first, :conditions => "name = 'Einführungen11'")
-    r.category = Category.find(:first, :conditions => "name = 'Einf&uuml;hrungen'")
+    r.category = Category.find(:first, :conditions => "name = 'Einführungen'")
     r.save
     r = Rule.find(:first, :conditions => "name = 'Einführungen12'")
-    r.category = Category.find(:first, :conditions => "name = 'Einf&uuml;hrungen'")
+    r.category = Category.find(:first, :conditions => "name = 'Einführungen'")
     r.save
 
     r = Rule.find(:first, :conditions => "name = 'Spezielle Themen'")
@@ -60,7 +60,7 @@ class AddCategoryDataToRules < ActiveRecord::Migration
     r.save
 
     r = Rule.find(:first, :conditions => "name = 'Schlüsselkompetenzen'")
-    r.category = Category.find(:first, :conditions => "name = 'Schl&uuml;sselkompetenzen'")
+    r.category = Category.find(:first, :conditions => "name = 'Schlüsselkompetenzen'")
     r.save
   end
 
