@@ -5,7 +5,7 @@ class CreateStudmodules < ActiveRecord::Migration
       t.integer :credits
       t.string :short
       t.text :description
-      t.integer :category_id
+      # t.integer :category_id
 
       t.timestamps
     end

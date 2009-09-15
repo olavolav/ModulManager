@@ -1,7 +1,7 @@
 module AbfragenHelper
 
   def build_xml_bachelor_recursive(c, xml)
-    if c.categories == [] && c.modules != []
+    if c.sub_categories == [] && c.modules != []
       c.modules.each { |m|
         xml.module(:id => m.id) do
           # xml.tag!("id", m.id)
@@ -11,8 +11,8 @@ module AbfragenHelper
           xml.mode(m.randomness)
         end
       }
-    elsif c.categories != []
-      c.categories.each { |d|
+    elsif c.sub_categories != []
+      c.sub_categories.each { |d|
         xml.category(:category_id => "category#{d.id}", :name => d.name) do
           build_xml_bachelor_recursive d, xml
         end
@@ -21,7 +21,7 @@ module AbfragenHelper
   end
 
   def build_xml_rules_recursive(r, xml, errors)
-    if r.categories == [] && r.rules != []
+    if r.sub_categories == [] && r.rules != []
       r.rules.each { |ru|
         xml.rule do
           xml.tag!("id", ru.id)
@@ -34,8 +34,8 @@ module AbfragenHelper
           }
         end
       }
-    elsif r.categories != []
-      r.categories.each { |c|
+    elsif r.sub_categories != []
+      r.sub_categories.each { |c|
         xml.category(:id => c.id, :name => c.name) do
           build_xml_rules_recursive c, xml, errors
         end

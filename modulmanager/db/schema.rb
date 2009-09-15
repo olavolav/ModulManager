@@ -9,13 +9,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090908093916) do
+ActiveRecord::Schema.define(:version => 20090915121914) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "categories_rules", :id => false, :force => true do |t|
+    t.integer "category_id"
+    t.integer "rule_id"
+  end
+
+  create_table "categories_studmodules", :id => false, :force => true do |t|
+    t.integer "category_id"
+    t.integer "studmodule_id"
   end
 
   create_table "errors", :force => true do |t|
@@ -32,12 +42,6 @@ ActiveRecord::Schema.define(:version => 20090908093916) do
   end
 
   create_table "focus", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "groups", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -67,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20090908093916) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"
+    t.text     "description"
   end
 
   create_table "selected_modules", :force => true do |t|
@@ -83,19 +88,14 @@ ActiveRecord::Schema.define(:version => 20090908093916) do
     t.datetime "updated_at"
   end
 
-  create_table "semesters_studmodules", :id => false, :force => true do |t|
-    t.integer "semester_id"
-    t.integer "studmodule_id"
-  end
-
   create_table "studmodules", :force => true do |t|
     t.string   "name"
     t.integer  "credits"
     t.string   "short"
     t.text     "description"
-    t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "randomness"
   end
 
 end

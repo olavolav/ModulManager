@@ -1,13 +1,13 @@
 ## YAML Template.
 ---
-  - description: Es werden 180 Credits für den Abschluss Bachelor benötigt.
-    rule: mindestens 180 Credits aus allen Gruppen
+#  - description: Es werden 180 Credits für den Abschluss Bachelor benötigt.
+#    rule: mindestens 180 Credits aus allen Gruppen
 
   - description: Es werden 102 Credits und 11 Module aus dem Pflichtbereich benötigt.
-    rule: (mindestens 102 Credits) und (mindestens 11 Module) aus Gruppe Pflichtbereich
+    rule: (mindestens 102 Credits) und (mindestens 11 Module) aus Gruppe Grundkurse
 
   - description: Es werden 2 Module aus dem Bereich "Spezielle Themen" benötigt.
-    rule: mindestens 2 Module aus Gruppe SpezielleThemen
+    rule: mindestens 2 Module aus Gruppe SpezThemen
 
-  - description: Es dürfen nicht mehr als 20 Credits aus dem Bereich "Nicht Physikalisch" belegt werden.
-    rule: hoechstens 20 Credits aus Gruppe NichtPhysikalisch
+  - description: Es dürfen nicht mehr als 20 Credits aus dem Bereich "Praktika" belegt werden.
+    rule: hoechstens 20 Credits aus Gruppe Praktika

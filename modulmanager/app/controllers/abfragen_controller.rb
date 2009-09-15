@@ -123,7 +123,7 @@ class AbfragenController < ApplicationController
     # Jede Regel mit Bezug zu Credits muss gecheckt werden
     cr.each do |r|
       # Die Summe der Credits in den relevanten Gruppen in der aktuellen Auswahl
-      credits = sum_credits(r.groups)
+      credits = sum_credits(r.categories)
       # Auswahl, ob es sich um einen Minimal- oder Maximalwert handelt
       case r.relation
       # Minimalwert
@@ -155,7 +155,7 @@ class AbfragenController < ApplicationController
     mr.each do |r|
       # Die Summe der Anzahl der Module in der aktuellen Auswahl, die für die
       # gerade zu prüfende Regel relevant sind
-      mods = sum_modules(r.groups)
+      mods = sum_modules(r.categories)
       # Auswahl, ob es sich um eine Minimal- oder Maximal-Anforderung handelt
       case r.relation
       # Minimalwert
@@ -189,9 +189,9 @@ class AbfragenController < ApplicationController
 
   # Errechnet die Summe der Credits in den ausgewählten Modulen und den über-
   # gebenen Gruppen.
-  def sum_credits groups
+  def sum_credits categories
     # Container für die relevanten Module
-    modules = select_relevant_modules groups
+    modules = select_relevant_modules categories
     sum = 0
     # Alle relevanten Module werden durchlaufen
     modules.each do |m|
@@ -205,21 +205,21 @@ class AbfragenController < ApplicationController
 
   # Errechnet die Anzahl der Module in der aktuellen Auswahl und den übergebenen
   # Gruppen.
-  def sum_modules groups
-    modules = select_relevant_modules groups
+  def sum_modules categories
+    modules = select_relevant_modules categories
     return modules.length
   end
 
   # Liefert die für die übergebene Gruppenmenge relevanten Module der aktuellen
   # Auswahl als Array zurück.
-  def select_relevant_modules groups
+  def select_relevant_modules categories
     modules = Array.new
     # Alle Module der aktuellen Auswahl werden durchlaufen
     current_selection.modules.each do |m|
       # Alle Gruppen des aktuellen Moduls werden durchlaufen
-      m.groups.each do |g1|
+      m.categories.each do |g1|
         # Alle übergebenen Gruppen werden durchlaufen
-        groups.each do |g2|
+        categories.each do |g2|
           # Sollte eine der übergebenen Gruppen mit einer Gruppe des
           # aktuellen Moduls übereinstimmen, so wird dieses in den Container
           # gelegt.
