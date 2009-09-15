@@ -1,26 +1,23 @@
-/*--------------------------------------------------------------------------------------*/
-//	     diese Datei macht den POOL beweglich mit slideDown und slideUP    				*/
-// 		 und schickt die Daten modulID und entsprechenem Semester zum Server 			*/
-//       nachdem das gezogene Modul in Auswahl reingetan wurde                          */															*/
-/*--------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------
+ *	     diese Datei macht den POOL beweglich mit slideDown und slideUP    				
+ *		 und schickt die Daten modulID und entsprechenem Semester zum Server 			
+ *       nachdem das gezogene Modul in Auswahl reingetan wurde                          	
+ *								semesterhinzu
+ *								Ergreinis bei DROP in Auswahl
+ *								"Löschen" bei SEMESTER wird geklick 
+ *								mach unseres POOL droppable	
+ *								mach ein pool_modul bei POOL draggable--					
+ *-------------------------------------------------------------------------------------*/
 
 
 
 
 
 
+//---------- Drag and Drop----------------------------------------------------------
 
 
-
-
-
-
-
-
-/*---------- Drag and Drop----------------------------------------------------------*/
-
-
-//DROP in Auswahl--
+//Ergreinis bei DROP in Auswahl--
 
 $(function(){
 		
@@ -31,69 +28,26 @@ $(function(){
 			hoverClass : 'drophover',
 			 drop: function(event, ui){
 			 
-			 	$(ui.draggable).hide();
-			 
-			 	/// wartezeit-------------- 
-				$('<div class="quick-alert">Bitte warten!</div>')
-				 .appendTo($(this))
-				 .fadeIn("fast")
-				 .animate({opacity:1.0},3000)
-				 .fadeOut("fast",function(){
-				 	$(this).remove();
-				 });
+			 	// id von reingezogenem Modul und entsprechendem Semester holen
 				 
-				 // id von reingezogenem Modul und entsprechendem Semester holen
-						
+				 var ui_draggable = $(ui.draggable);
+				 var this_semester = $(this);		
 				 var semester = $(this).attr("id");
 				 var modul_id = $(ui.draggable).attr("id"); 
+				  
+				//  drop() ruft ajax_to_server() und auswahlanzeige() auf
 				 
-				 // vesteck (leer) in erstem Semester
-				
-				 $(this).find(".subsemester span.leer").css("display", "none");
-				 	
+				 drop_in_auswahl(modul_id,semester,ui_draggable,this_semester);
 				 
-				 // display versteckte <span> in Pool-Modul, und remove andere 
-				 
-				 $(ui.draggable).find("span.modul_short").css("display","block");
-						
-				 $(ui.draggable).find("span.fragebild").css("display","none");
-				 $(ui.draggable).find("span.ipunkt").css("display","block");
-				 $(ui.draggable).find("span.modul_loeschen").css("display","block");
-						
-				 var modulinhalt = $(ui.draggable).html();
-				
-				 // Pool akktuallisieren
-						
-				 $("#pool").find("div#"+modul_id).each(function(){
-				
-					 $(this).hide();
-							
-				});
-			 
-			 
-			 
-			 	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
-				
-				ajax_to_server_by_add(modul_id,semester); 
-				
-				
-				// modul in Auswahl anzeigen
-				
-				auswahlAnzeige(modul_id,semester,modulinhalt);
-			 
-			 
-			 }// ende drop
+			}// ende drop
 			 
 		});//ende droppable	
-		
 		
 }); //ende function DROP in Auswahl
 
 
-
-
 //-----------------------------------------------------------------------------------
-//  mach ein pool_modul bei POOL draggable--
+//  mach ein pool_modul bei POOL draggable-- und Ergreinis bei DROP in POOL
 //-----------------------------------------------------------------------------------
 
 $(function(){
@@ -117,16 +71,16 @@ $(function(){
 			accept     : '.auswahl_modul',
 			hoverClass : 'drophover',
 			drop       : function(event,ui){
+				var ui_draggable = $(ui.draggable);
+				var mod_id = $(ui.draggable).attr("id");
 				
-				$(ui.draggable).hide();
+				drop_in_pool(mod_id,ui_draggable);
 		
 	  		  }//ende drop
 	  	});
 		
 });
 
-
-//-----------------------
 
 //////////////////////semesterhinzu///////////-------------------------------------------
 
@@ -137,12 +91,9 @@ $(function(){
 			
             var n = $('#semester-content div.semester').length+1;
 		
-			
-			
 			// var l für Löschen gedacht
+			
 			var l = $('#semester-content div.semester').length+1;
-			
-			
 			
 			// neue Semester und Löschen reintun
 			// <div class="semester" id="5">
@@ -161,8 +112,7 @@ $(function(){
 							"<p style='cursor:pointer; display:block' class='semesterloeschen'>L&ouml;schen</p>"
 					  "</div>";
 			
-
-            $("#semester-content").append(neu);
+			$("#semester-content").append(neu);
 		
 			// "Löschen" wird immer in dem letzen Semester hinzufügen
 			// d.h: andere ""Löschen" werden weggemacht.
@@ -174,73 +124,27 @@ $(function(){
 				
 			}
 			
-			
-			
-			
-			
-		
 			// ein Modul reinziehn
+			
             $(".semester").droppable({
+				
                     hoverClass:'drophover',
 					
                     drop: function(event,ui){
 						
-						$(ui.draggable).hide();
+						// id von reingezogenem Modul und entsprechendem Semester holen
+				 
+						 var ui_draggable = $(ui.draggable);
+						 var this_semester = $(this);		
+						 var semester = $(this).attr("id");
+						 var modul_id = $(ui.draggable).attr("id"); 
+						  
+						//  drop() ruft ajax_to_server() und auswahlanzeige() auf
+						 
+						 drop_in_auswahl(modul_id,semester,ui_draggable,this_semester);
+								
 						
-						/// wartezeit-------------- 
-						$('<div class="quick-alert">Bitte warten!</div>')
-						 .appendTo($(this))
-						 .fadeIn("fast")
-						 .animate({opacity:1.0},1000)
-						 .fadeOut("fast",function(){
-						 	$(this).remove();
-						 });	
-						
-						// Daten von reingezogenem Modul kopieren
-							
-						var semester = $(this).attr("id");
-						var modul_id = $(ui.draggable).attr("id");
-						var modulinhalt = $(ui.draggable).html();
-						
-						$(ui.draggable).find("span.modul_short").css("display","block");
-						
-						$(ui.draggable).find("span.fragebild").css("display","none");
-						$(ui.draggable).find("span.ipunkt").css("display","block");
-						$(ui.draggable).find("span.modul_loeschen").css("display","block");
-						
-						var modulinhalt = $(ui.draggable).html();
-						
-						
-						//(leer) verstecken
-						$(this).find(".subsemester span.leer").css("display","none");
-
-						
-						
-						
-						// immer noch bei DROP in DROPPABLE 
-						// das reingezongen Modul mit der funktion auswahlAnzeige() zeigen
-						
-						
-						// Pool akktuallisieren
-						
-						$("#pool").find("div#"+modul_id).each(function(){
-							 
-							 $(this).hide();
-							
-						});
-						
-						
-                        
-						
-						// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
-				
-						ajax_to_server_by_add(modul_id,semester); 
-				
-						// modul in Auswahl anzeigen
-				
-						auswahlAnzeige(modul_id,semester,modulinhalt);
-						
-					 }//ende Drop
+					}//ende Drop
 					 
             });//droppable
 	});//ende live
@@ -248,10 +152,9 @@ $(function(){
 
 
 
-//----------------------
-
-
 // "Löschen" bei SEMESTER wird geklick -----------------------------------------------------
+
+
 
 $(function(){
 
@@ -261,6 +164,10 @@ $(function(){
 		
 		
 		var parent = $(this).parent().get(0);
+		
+		// paren_id ist semester-count
+		var parent_id = $(parent).attr("id");
+	
 		$(parent).remove();
 		var laenge = $("#semester-content").children().length;
 		
@@ -268,17 +175,13 @@ $(function(){
 		$(semester).find("p").css("display","block");
 		
 		
+		//ajax aufrufen
+		ajax_to_server_by_remove_semester(parent_id);
 		
 		
 		
-		
-		
-								
 	});
 }); //ende function
-
-
-
 
 
 
@@ -295,11 +198,7 @@ $(function(){
 				$(ui.draggable).hide();
 				
 				//suche nach ID von reingezogenem Modul, dann akktualisiere den Pool
-				var modulID = $(ui.draggable).attr("id");
-				
-				
-				
-				
+				var modul_id = $(ui.draggable).attr("id");
 				
 				$("#pool").find("#"+modulID).each(function(){
 					
@@ -309,41 +208,11 @@ $(function(){
 				
 				// DATEN mit Modul-ID und semester zum Server(action remove_module_from_selection) schicken
 				
-				 $.ajax({
-							
-                    type: 'POST',
-					url  : 'http://localhost:3000/abfragen/remove_module_from_selection',
-					cache:false,
-                    dataType:'xml',
-                    async :false,
-					data  : "mod_id=1",
-					contentType:'application/x-www-form-urlencoded',
-					success : function (msg){
-						alert("ok with remove_module_from_selection");
-					},
-					error: function(a, b, c){
-					
-						//alert("Erorr");
-						
-					}
-                 });//ende Ajax
+				 ajax_to_server_by_remove(modul_id);
 				
 				
 			}//ende Drop bei #pool droppable
 		});
-		
-		//  mach ein poolmodul bei POOL draggable
-		$(".poolmodule").draggable({
-			revert : "invalid",
-			helper : "clone"
-			
-			
-		});
-		$(".auswahlmodul").draggable({
-			
-			revert : "invalid"
-		});
-		
 		
 });//ende function
 

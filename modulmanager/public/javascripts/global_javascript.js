@@ -1,12 +1,20 @@
 
 /*--------------POOL anzeigen---------------------------------------------------------*/
-//--------------pool() wird in index.html aufgerufen------------------------------------
-//              pool() ruft die poolrekursiv auf---------------------------------------- 
-//              pool gibt XML-Datei zurück----------------------------------------------   
-//              trim() entleert Leerzeichen
-//              umwandeln() wandert &uuml; in Form ue usw.      
+//				pool() wird in index.html aufgerufen
+//              pool() ruft die poolrekursiv auf 
+//              pool gibt XML-Datei zurück  
+//              Diese Datei enthält folgende Funktionen: 
+//					session_auswahl(),
+//					drop_in_auswahl (),
+//					ajax_to_server_by_add(),
+//					ajax_to_server_by_remove(),
+//					auswahlAnzeige(),
+//					modulloeschen()
 //
 //--------------------------------------------------------------------------------------
+
+
+
 
 
 // photo path
@@ -17,16 +25,118 @@
 	var fragebild     = "<img src='images/Fragezeichen.png' style='cursor:pointer'>";
 	var ipunkt    = "<img src='images/iPunkt.png' style='cursor:pointer'>";
 	var rote_ipunkt    = "<img src='images/Ausrufezeichen.png' style='cursor:pointer'>";
-	var loeschenbild = "<img src='images/Loeschen.png' style='cursor:pointer'>";
+	var loeschenbild = "<img src='images/Loeschen.png' style='cursor:pointer; position:absolute; top:-13px; left:542px'>";
 
 
 
 
 
+
+// session_auswahl() implementieren. Die ruft action abfragen/auswahl per AJAX auf
+
+
+var session_auswahl_rekursiv = function(root){
 	
+	//var semester = $(root).find("semester");
+	var sem_content = $("#semester-content");
+	
+	
+	
+	 $(root).children().each( function(){
+	 	
+		var knoten_name = this.nodeName;
+		
+		
+		
+		
+		
+		// check Blätter
+		if (knoten_name == "module"){
+			
+			// parent besuchen
+			var parent = $(this).parent().get(0);
+			var parent_id = $(parent).attr("count");
+			
+			// modul_inhalt
+			var mod_id = $(this).attr("id");
+			var modul_name = $(this).find("name").text();
+			var credits = $(this).find("credits").text();
+			
+			// suche nach entsprechenem Semester  von Module.  
+			
+			$(sem_content).find("div.semester").each(function(){
+				var x= $(this).attr("id");
+				
+				if (parent_id == x){
+					$(this).append("<div class='auswahl_modul'>"+modul_name+credits+"</div>");
+				}
+			});
+			
+			
+			return;
+		}// ende Blätter
+		
+		//check semester
+		else  if ( knoten_name == "semester"){
+		 	
+			var sem_id = $(this).attr("count");
+			
+			$(sem_content).append("<div class='semester' id='"+sem_id+"'>"+sem_id+"</div>");
+			
+			
+			 
+		}
+		
+		session_auswahl_rekursiv(this);
+		
+		
+	 });//ende each
+	
+	
+}//ende 
+
+var session_auswahl = function (){
+	
+	
+	var XML = $.ajax({
+		
+		type : 'GET',
+		url  : 'abfragen/auswahl',
+		async: false,
+	    contentType: 'application/x-www-form-urlencoded',
+		error : function(a,b,c){
+			
+			alert("error mit abfragen/auswahl");
+		}
+		
+		}).responseXML;
+		
+	
+		
+	var root = XML.documentElement;
+	
+	
+	// rekursiv aufrufen und semester-content am Anfang leeren
+	var sem_content = $("#semester-content");
+	sem_content.empty();
+	session_auswahl_rekursiv(root);
+	
+	
+	
+}//ende 
+
+
+
+
+
+
+
+
 
 
 //   AJAX zum Server---------------------------------------------------------------------	
+
+
 var ajax_to_server_by_add = function (modul_id,semester){
 	
 	$.ajax({
@@ -38,6 +148,9 @@ var ajax_to_server_by_add = function (modul_id,semester){
             async :true,
 			data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
 			contentType:'application/x-www-form-urlencoded',
+			error :  function (a,b,c){
+				alert("problem with add_module_to_selection");
+			}
 			
      });//ende Ajax
 
@@ -51,18 +164,46 @@ var ajax_to_server_by_remove = function (modul_id){
 	$.ajax({
 							
             type: 'POST',
-			url  : 'http://localhost:3000/abfragen/remove_module_from_selection',
+			url  : 'abfragen/remove_module_from_selection',
 			cache:false,
             dataType:'xml',
             async :false,
 			data  : "mod_id="+modul_id,
 			contentType:'application/x-www-form-urlencoded',
+			error :  function (a,b,c){
+				alert("problem with remove_module_from_selection");
+			}
 			
      });//ende Ajax
 
 	
 	
+}// ende
+
+
+
+var ajax_to_server_by_remove_semester = function (sem_count){
+	
+	$.ajax({
+			
+			type: 'POST',
+			url : 'abfragen/remove_semester_from_selection',
+			cache : false,
+			async : false,
+			data  : "sem_count="+sem_count,
+			contentType:'application/x-www-form-urlencoded',
+			error : function (a,b,c){
+				alert("problem with abfragen/remove_semester_from_selection");
+			}
+		
+	});
+	
+	
 }
+
+
+
+//----------------------------
 
 
 
@@ -88,13 +229,101 @@ var auswahlAnzeige = function (modul_id,semester,modulinhalt){
 }//ende auswahlAnzeige
 
 
+// DROP in Auswahl
+
+var drop_in_auswahl = function (modul_id,semester,ui_draggable,this_semester){
+	
+	// pool_modul bei Drop in Auswahl verstecken
+	
+	    $(ui_draggable).hide();
+		
+		
+	// wartezeit anzeigen
+	
+		$('<div class="quick-alert">Bitte warten!</div>')
+			 .appendTo($(this_semester))
+			 .fadeIn("fast")
+			 .animate({opacity:1.0},3000)
+			 .fadeOut("fast",function(){
+			 	$(this).remove();
+		 });
+		 
+	
+	
+	// vesteck (leer) in erstem Semester
+				
+		$(this_semester).find(".subsemester span.leer").css("display", "none");
+		
+	// display versteckte <span> in Pool-Modul, und remove andere 
+	
+		$(ui_draggable).find("div#icon_loeschen").css("display","block");
+	
+	 	$(ui_draggable).find("span.modul_short").css("display","block");
+		$(ui_draggable).find("span.fragebild").css("display","none");
+		$(ui_draggable).find("span.ipunkt").css("display","block");
+		
+		
+	// verändertte modul_inhalten auslesen
+	
+		var modulinhalt = $(ui_draggable).html();
+		
+		
+			
+	// Pool akktuallisieren
+						
+		$("#pool").find("div#"+modul_id).each(function(){
+				
+			$(this).hide();
+							
+		});
+						
+	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
+			
+		ajax_to_server_by_add(modul_id,semester); 
+			
+	// modul in Auswahl anzeigen
+			
+		auswahlAnzeige(modul_id,semester,modulinhalt);
+		 
+}//ende drop in auswahl
+
+
+//-----Drop in POOL--------------------------------------------------------------------------
+
+
+var drop_in_pool = function(mod_id,ui_draggable){
+	
+	$(ui_draggable).remove();
+	
+	// TOp und Left des Modul auf Null zurücksetzen, damit sich das Modul wieder in POOL an den richtigen Ort befindet
+	
+	$("#pool").find("div").each(function(){
+		
+		var this_id = $(this).attr("id");
+		if(this_id == mod_id){
+			
+			$(this).css("display","block");
+			$(this).css("top","0px");
+			$(this).css("left","0px");
+			$(this).find("span.fragebild").css("display","block");
+			$(this).find("span.ipunkt").css("display","none");
+			$(this).find("#icon_loeschen").css("display","none");
+		}
+		
+	});
+	
+	//ajax aufrufen
+	
+	ajax_to_server_by_remove(mod_id);
+}//ende
+
+
+
 
 ///////////////////MODULLOESCHEN loeschen////////////////////////
 /// bei Click auf <span class="modulloeschen">
 
 var modulloeschen = function (modulID){
-	
-	
 	
 	$(".subsemester").find("div#"+modulID).hide();
 	
@@ -107,46 +336,47 @@ var modulloeschen = function (modulID){
 }
 
 		
-
-
-
 //----Poolrekursive implementieren-------------------------------------------------------
 
 
-//poolrekursive()  implementieren--------------------------------------------------------
+//poolrekursive()  implementieren
 
 var poolrekursiv = function(root){
 	
-	//var children = $(root).children();
-	//var laenge   = children.length;
-
 	// nach kinder suchen
 			
 	$(root).children().each(function(){
 				
-				
-			
 		var knoten_name=this.nodeName;
 		
-		
-		
-		
-	
-		 if (knoten_name == "category") {
+		if (knoten_name == "category") {
 		 	
-			
 			var category_id   = $(this).attr("category_id");
 			var category_name = $(this).attr("name");
 			var parent = $(this).parent().get(0);
 			var parent_name = parent.nodeName;
+			
+			// check ob seine Kinder Module sind. Wenn ja dann toggle kinder
+			var kinder = $(this).children()[0];
+			var namen  = kinder.nodeName;
 		
 			//check nach Schwerpunkt und Bachelor,also 1.te Ebene
 			if (parent_name == "root"){
 				
-	
-				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" + category_name + "</div>");
+				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" +
+						
+									">"+ category_name + 
+						 
+						 		"</div>");
+								
+				// hier noch mal :check ob seine Kinder Module sind. Wenn ja dann toggle kinder
 				
-			
+				if(namen == "module"){
+					
+					$("#pool").append("<script>$(function(){ $(\"#"+category_id+"\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").toggle();  });    })</script>");
+					
+				}				
+				
 			}//ende Schwerpunkt
 		
 			else{
@@ -155,7 +385,19 @@ var poolrekursiv = function(root){
 				
 				var parent_id   = $(parent).attr("category_id");
 				
-				$("#pool #"+parent_id).append("<div class='pool_category' id='" + category_id + "'>" + category_name + "</div>");
+				$("#pool #"+parent_id).append("<div style='margin-left:5px;' class='pool_category'  id='" + category_id + "'>" +
+												
+												 ">"+category_name +
+												 
+												"</div>");
+			
+				// hier noch mal :check ob seine Kinder Module sind. Wenn ja dann toggle kinder	
+   				if(namen == "module"){
+					
+					$("#pool").append("<script>$(function(){ $(\"#"+category_id+"\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").toggle();  });    })</script>");
+					
+				}				
+							
 			
 			}//ende else für andere Kategorie
 		
@@ -191,7 +433,9 @@ var poolrekursiv = function(root){
 				bild = wahlpflichtbild;
 			}
 							
-			$("#pool #"+parent_id).append("<div class='pool_modul' id='" + modul_id + "'>" +
+			$("#pool #"+parent_id).append("<div class='pool_modul' id='" + modul_id + "' >" +
+						"<div id='icon_loeschen' style='display:none ;cursor:pointer;position:absolute' onclick='modulloeschen("+modul_id+")'>"+loeschenbild+"</div>"+
+						
 						"<table style='font-size: 12px; width: 100%; border:1px'>" +
 							"<tbody>"+
 								"<tr>" +
@@ -216,8 +460,8 @@ var poolrekursiv = function(root){
 									"</td>"+
 									
 									"<td style=' width:22px'>"+
-										"<span class='modul_loeschen' style='display:none;cursor:pointer;' onclick='modulloeschen("+modul_id+")'>"+
-											loeschenbild+
+										"<span class='modul_loeschen'>"+
+											
 										"</span>"+
 									"</td>"+
 									
@@ -234,11 +478,19 @@ var poolrekursiv = function(root){
 						"</div");
 							
 							
+						// pool_modul beweglich
 							
-							$(".pool_modul").draggable({
+						$(".pool_modul").draggable({
 							
-								revert: "invalid"
-							});
+							revert : "invalid" 
+							
+							
+							
+						});
+						
+						// pool_ modul toggle
+						
+						
 							
 			
 			
@@ -255,11 +507,8 @@ var poolrekursiv = function(root){
 }//ende poolrekursiv
 
 
-
-
-
-
-////////POOL-Funktion gibt immer ganzen Module im POOL, und ------------------------------
+//POOL-Funktion gibt immer ganzen Module im POOL zurück, 
+//und ruft AJAX auf  ------------------------------
 
 		
 var pool = function(){

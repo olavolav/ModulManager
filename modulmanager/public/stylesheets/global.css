@@ -38,11 +38,12 @@ body {
 #subnavi-ul li{
 	height:30px;
 	/*width:180px;*/
-	width:20%;
+	width:10%;
 	list-style-type:none;
 	border: 3px black double;
 	text-align:center;
 	font-size:1.2em;
+	cursor : pointer;
 	
 	
 	
@@ -72,7 +73,13 @@ body {
 	
 	
 }
-
+#reload {
+	float:right;
+	border: 1px black double;
+	margin-left:10px;
+	
+	
+}
 
 #content{
 	/*background-color:red;*/
