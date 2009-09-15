@@ -162,22 +162,25 @@ $(function(){
 	
 	$(".semesterloeschen").live('click',function(){
 		
+		// confirm
+		var bestaetigen = confirm("wollen Sie das Semester wirklich loeschen?");
 		
-		var parent = $(this).parent().get(0);
-		
-		// paren_id ist semester-count
-		var parent_id = $(parent).attr("id");
-	
-		$(parent).remove();
-		var laenge = $("#semester-content").children().length;
-		
-		var semester = $("#semester-content").find("div#"+laenge);
-		$(semester).find("p").css("display","block");
-		
-		
-		//ajax aufrufen
-		ajax_to_server_by_remove_semester(parent_id);
-		
+		if (bestaetigen == true) {
+			var parent = $(this).parent().get(0);
+			
+			// paren_id ist semester-count
+			var parent_id = $(parent).attr("id");
+			
+			$(parent).remove();
+			var laenge = $("#semester-content").children().length;
+			
+			var semester = $("#semester-content").find("div#" + laenge);
+			$(semester).find("p").css("display", "block");
+			
+			//ajax aufrufen
+			ajax_to_server_by_remove_semester(parent_id);
+			
+		} // ende confirm
 		
 		
 	});

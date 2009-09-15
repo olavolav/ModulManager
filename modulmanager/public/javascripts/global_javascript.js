@@ -270,11 +270,15 @@ var drop_in_auswahl = function (modul_id,semester,ui_draggable,this_semester){
 		
 			
 	// Pool akktuallisieren
-						
-		$("#pool").find("div#"+modul_id).each(function(){
+					
+		$("#pool").find("div").each(function(){
+			var this_id = $(this).attr("id");
+			
+			if (this_id == modul_id) {
 				
-			$(this).hide();
-							
+				$(this).hide();
+				
+			}				
 		});
 						
 	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
@@ -323,14 +327,35 @@ var drop_in_pool = function(mod_id,ui_draggable){
 ///////////////////MODULLOESCHEN loeschen////////////////////////
 /// bei Click auf <span class="modulloeschen">
 
-var modulloeschen = function (modulID){
+var modulloeschen = function (mod_id){
 	
-	$(".subsemester").find("div#"+modulID).hide();
+	var div = $(".subsemester").find("div#"+mod_id);
 	
-	var div    = $(".subsemester").find("div#"+modulID);
-	var parent = $(div).parent().get(0);
+	// remove das Modul
+	$(div).remove();
 	
-	var laenge1 = $(parent).length;
+	// verstecktes Modul in Pool wieder anzegen
+	$("#pool").find("div").each(function(){
+		
+		var this_id = $(this).attr("id");
+		if(this_id == mod_id){
+			
+			$(this).css("display","block");
+			$(this).css("top","0px");
+			$(this).css("left","0px");
+			$(this).find("span.fragebild").css("display","block");
+			$(this).find("span.ipunkt").css("display","none");
+			$(this).find("#icon_loeschen").css("display","none");
+		}
+		
+	});
+	
+	//ajax aufrufen
+	
+	ajax_to_server_by_remove(modul_id);
+	
+	alert("ende");
+	
 	
 
 }
@@ -364,8 +389,8 @@ var poolrekursiv = function(root){
 			if (parent_name == "root"){
 				
 				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" +
-						
-									">"+ category_name + 
+
+									">"+ "<a>"+category_name +"</a>"+ 
 						 
 						 		"</div>");
 								
@@ -373,7 +398,7 @@ var poolrekursiv = function(root){
 				
 				if(namen == "module"){
 					
-					$("#pool").append("<script>$(function(){ $(\"#"+category_id+"\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").toggle();  });    })</script>");
+					$("#pool").append("<script>$(function(){ $(\"#"+category_id+" a\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").show('slow');  });    })</script>");
 					
 				}				
 				
@@ -392,9 +417,15 @@ var poolrekursiv = function(root){
 												"</div>");
 			
 				// hier noch mal :check ob seine Kinder Module sind. Wenn ja dann toggle kinder	
+				
+				var flip=0;
+				
    				if(namen == "module"){
 					
-					$("#pool").append("<script>$(function(){ $(\"#"+category_id+"\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").toggle();  });    })</script>");
+					$("#pool").append("<script>$(function(){ $(\"#"
+							+category_id+
+						"\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").toggle('slow'); "+
+													" });    })</script>");
 					
 				}				
 							
@@ -482,13 +513,16 @@ var poolrekursiv = function(root){
 							
 						$(".pool_modul").draggable({
 							
-							revert : "invalid" 
+							revert : "invalid", 
+							helper : "clone"
 							
 							
 							
 						});
 						
-						// pool_ modul toggle
+						// pool_ modul am Anfang verstecken mit hide()
+						
+						//$("#pool #"+parent_id+" .pool_modul").hide();
 						
 						
 							
