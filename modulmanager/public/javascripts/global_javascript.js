@@ -25,7 +25,7 @@
 	var fragebild     = "<img src='images/Fragezeichen.png' style='cursor:pointer'>";
 	var ipunkt    = "<img src='images/iPunkt.png' style='cursor:pointer'>";
 	var rote_ipunkt    = "<img src='images/Ausrufezeichen.png' style='cursor:pointer'>";
-	var loeschenbild = "<img src='images/Loeschen.png' style='cursor:pointer; position:absolute; top:-13px; left:542px'>";
+	var loeschenbild = "<img src='images/Loeschen.png' style='cursor:pointer; position:relative; top:-10px; left:10px'>";
 
 
 
@@ -213,12 +213,12 @@ var auswahlAnzeige = function (modul_id,semester,modulinhalt){
 							
 		$("#"+semester+" .subsemester").append("<div class='auswahl_modul' id='"+modul_id+"'>"
 														+modulinhalt+
-													"<div class='LVS' style='margin-left:150px' >"
-														+"<select style='width:200px'>"
-														
-															+"<option>Hallo LVS<option>"
-															
-														+"</select>"+
+													// "<div class='LVS' style='margin-left:150px' >"
+													// 	+"<select style='width:200px'>"
+													// 	
+													// 		+"<option>Hallo LVS<option>"
+													// 		
+													// 	+"</select>"+
 													"</div>"
 												+"</div>");
 		$(".auswahl_modul").draggable({
@@ -465,9 +465,11 @@ var poolrekursiv = function(root){
 			}
 							
 			$("#pool #"+parent_id).append("<div class='pool_modul' id='" + modul_id + "' >" +
-						"<div id='icon_loeschen' style='display:none ;cursor:pointer;position:absolute' onclick='modulloeschen("+modul_id+")'>"+loeschenbild+"</div>"+
+						"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:20px;height:0px;overflow:visible;' onclick='modulloeschen("+modul_id+")'>"+
+							loeschenbild+
+						"</div>"+
 						
-						"<table style='font-size: 12px; width: 100%; border:1px'>" +
+						"<table style='font-size: 12px; width: 100%; border:1px;'>" +
 							"<tbody>"+
 								"<tr>" +
 									"<td style=' width:22px '>"+ 
@@ -490,11 +492,11 @@ var poolrekursiv = function(root){
 									
 									"</td>"+
 									
-									"<td style=' width:22px'>"+
-										"<span class='modul_loeschen'>"+
-											
-										"</span>"+
-									"</td>"+
+									// "<td style=' width:22px'>"+
+									// 	"<span class='modul_loeschen'>"+
+									// 		
+									// 	"</span>"+
+									// "</td>"+
 									
 									"<td style=' width:22px'>"+
 										"<span class='ipunkt' style='display:none'>"+ipunkt+"</span>"+
