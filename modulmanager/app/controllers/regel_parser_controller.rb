@@ -1,5 +1,74 @@
 class RegelParserController < ApplicationController
 
+  def start
+    read_module_files Array.new(["public/rules/modules2.yml"])
+    read_group_files Array.new(["public/rules/groups2.yml"])
+    @modules = Studmodule.all
+    @groups = Category.all
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def clear
+    @rules = 0
+    @groups = 0
+    @modules = 0
+    Rule.all.each do |r|
+      r.destroy
+      @rules += 1
+    end
+    Category.all.each do |c|
+      c.destroy
+      @groups += 1
+    end
+    Studmodule.all.each do |m|
+      m.destroy
+      @modules += 1
+    end
+  end
+
+private
+
+  def read_module_files files
+    files.each do |filename|
+      puts "#{filename}\n"
+      file = File.open(filename)
+      y = YAML::load(file)
+      modules = Array.new
+      y.each do |m|
+        modules.push build_module m["name"], m["credits"], m["short"], m["description"]
+      end
+      modules.each do |m|
+        m.save
+      end
+    end
+  end
+
+  def read_group_files files
+    files.each do |filename|
+      puts "#{filename}\n"
+      file = File.open(filename)
+      y = YAML::load(file)
+      
+      parent_groups = Array.new
+      module_groups = Array.new
+
+      y.each do |element|
+        if element["sub-groups"] == nil
+          module_groups.push element
+          puts "#{element["name"]} zu module_groups hinzugefügt...\n"
+        elsif element["modules"] == nil
+          parent_groups.push element
+          puts "#{element["name"]} zu parent_groups hinzugefügt...\n"
+        end
+      end
+
+      module_groups.each { |mg| build_group_with_modules(mg["name"], mg["description"], mg["modules"]).save }
+      parent_groups.each { |pg| build_group_with_sub_groups(pg["name"], pg["description"], pg["sub-groups"]).save }
+    end
+  end
+
   # 
   def read_rule_files
     # Öffnet die Regel-Datei und stellt einen Handler zur Verfügung, mit dem
@@ -28,20 +97,6 @@ class RegelParserController < ApplicationController
       format.xml { render :file => "regel_parser/rules.builder" }
     end
   end
-
-  def read_group_files
-    groups = Array.new
-    file = File.open("public/rules/Groups1.yml")
-    y = YAML::load(file)
-    y.each do |element|
-      groups.push build_group element["name"], element["description"], element["modules"]
-    end
-    groups.each do |g|
-      g.save
-    end
-  end
-
-private
 
   #============================================================================#
   #================================Regel-Teil==================================#
@@ -250,21 +305,31 @@ private
   #==============================Gruppen-Teil==================================#
   #============================================================================#
 
-  def build_group name, description, modules
-    g = Group.new :name => name.upcase,
+  def build_group_with_modules name, description, modules
+    c = Category.new :name => name,
       :description => description
 
+    modules = modules.split(",")
     modules.each do |m|
-      begin
-        g.modules << Studmodule.find(:first, :conditions => "short = '#{m}'")
-      rescue ActiveRecord::RecordNotFound
-        puts "Record not found...\n"
-      rescue ActiveRecord::AssociationTypeMismatch
-        puts "Type mismatch...\n"
-      end
+      m.strip!
+      c.modules << Studmodule.find(:first, :conditions => "short = '#{m}'")
     end
 
-    return g
+    return c
+  end
+
+  def build_group_with_sub_groups name, description, sub_groups
+    c = Category.new :name => name,
+      :description => description
+
+    sub_groups = sub_groups.split(",")
+    sub_groups.each do |s|
+      s.strip!
+      puts "Suche #{s}...\n"
+      c.sub_categories << Category.find(:first, :conditions => "name = '#{s}'")
+    end
+    
+    return c
   end
 
   def put_group group
@@ -273,6 +338,18 @@ private
     group.modules.each do |m|
       puts m.name
     end
+  end
+
+  #============================================================================#
+  #==============================Modul-Teil====================================#
+  #============================================================================#
+
+  def build_module name, credits, short, description
+    s = Studmodule.new :name => name,
+      :credits => credits,
+      :short => short,
+      :description => description
+    return s
   end
 
 end

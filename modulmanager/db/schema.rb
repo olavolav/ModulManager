@@ -9,13 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090915121914) do
+ActiveRecord::Schema.define(:version => 20090916104001) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
   create_table "categories_rules", :id => false, :force => true do |t|
@@ -45,16 +46,6 @@ ActiveRecord::Schema.define(:version => 20090915121914) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "groups_rules", :id => false, :force => true do |t|
-    t.integer "group_id"
-    t.integer "rule_id"
-  end
-
-  create_table "groups_studmodules", :id => false, :force => true do |t|
-    t.integer "group_id"
-    t.integer "studmodule_id"
   end
 
   create_table "module_selections", :force => true do |t|
