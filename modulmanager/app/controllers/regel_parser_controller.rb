@@ -3,8 +3,10 @@ class RegelParserController < ApplicationController
   def start
     read_module_files Array.new(["public/rules/modules2.yml"])
     read_group_files Array.new(["public/rules/groups2.yml"])
+    read_focus_files Array.new(["public/rules/focus2.yml"])
     @modules = Studmodule.all
     @groups = Category.all
+    @foci = Focus.all
     respond_to do |format|
       format.html
     end
@@ -13,6 +15,7 @@ class RegelParserController < ApplicationController
   def clear
     @rules = 0
     @groups = 0
+    @foci = 0
     @modules = 0
     @sessions = 0
     Rule.all.each do |r|
@@ -22,6 +25,10 @@ class RegelParserController < ApplicationController
     Category.all.each do |c|
       c.destroy
       @groups += 1
+    end
+    Focus.all.each do |f|
+      f.destroy
+      @foci += 1
     end
     Studmodule.all.each do |m|
       m.destroy
@@ -34,6 +41,24 @@ class RegelParserController < ApplicationController
   end
 
 private
+
+  def read_focus_files files
+    files.each do |filename|
+      puts "#{filename}\n"
+      file = File.open(filename)
+      y = YAML::load(file)
+      # foci = Array.new
+      y.each do |f|
+        build_focus(
+          f["name"],
+          f["description"],
+          f["categories"]["Pflicht"],
+          f["categories"]["Spezielle Themen"],
+          f["categories"]["Profilierungsbereich"]
+          ).save
+      end
+    end
+  end
 
   def read_module_files files
     files.each do |filename|
@@ -355,6 +380,33 @@ private
       :short => short,
       :description => description
     return s
+  end
+
+  def build_focus name, description, pflicht, themen, profil
+    f = Focus.new :name => name,
+      :description => description
+    if pflicht != nil
+      pflicht = pflicht.split(",")
+      pflicht.each do |p|
+        p.strip!
+        f.pflicht << Studmodule.find(:first, :conditions => "short = '#{p}'")
+      end
+    end
+    if themen != nil
+      themen = themen.split(",")
+      themen.each do |t|
+        t.strip!
+        f.themen << Studmodule.find(:first, :conditions => "short = '#{t}'")
+      end
+    end
+    if profil != nil
+      profil = profil.split(",")
+      profil.each do |p|
+        p.strip!
+        f.profil << Studmodule.find(:first, :conditions => "short = '#{p}'")
+      end
+    end
+    return f
   end
 
 end

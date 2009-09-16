@@ -1,0 +1,41 @@
+---
+  - name: Nanostrukturphysik
+    description:
+    categories:
+      Pflicht: B.Phy.503, B.Phy.403
+      Spezielle Themen: B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574
+      Profilierungsbereich: B.Bwl.02, B.OPH.07, B.Bwl.04
+
+  - name: Physikinformatik
+    description:
+    categories:
+      Pflicht: B.Phy.510, B.Phy.511, B.Phy.404
+      Profilierungsbereich: B.Win.01, B.Win.04, B.Win.23
+
+  - name: Astro- und Geophysik
+    description:
+    categories:
+      Pflicht: B.Phy.501, B.Phy.405
+      Spezielle Themen: B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.554
+      Profilierungsbereich: B.Phy.502, B.Phy.504
+
+  - name: Biophysik und Physik komplexer Systeme
+    description:
+    categories:
+      Pflicht: B.Phy.502, B.Phy.406
+      Spezielle Themen: B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.564
+      Profilierungsbereich: B.Phy.501, B.Phy.503
+
+  - name: Festkörper- und Materialphysik
+    description:
+    categories:
+      Pflicht: B.Phy.503, B.Phy.407
+      Spezielle Themen: B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574
+      Profilierungsbereich: B.Phy.502, B.Phy.504
+
+  - name: Kern- und Teilchenphysik
+    description:
+    categories:
+      Pflicht: B.Phy.504, B.Phy.408
+      Spezielle Themen: B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.584
+      Profilierungsbereich: B.Phy.501, B.Phy.503

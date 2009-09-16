@@ -57,3 +57,41 @@
   </tr>
   <% end %>
 </table>
+
+<p>The following <%= @foci.length %> foci were created:</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Pflicht</th>
+    <th>Spezielle Themen</th>
+    <th>Profilierungsbereich</th>
+  </tr>
+  <% @foci.each do |f| %>
+  <tr>
+    <td>
+      <%= f.name %>
+    </td>
+    <td>
+      <% pflicht = Array.new %>
+      <% f.pflicht.each do |p| %>
+        <% pflicht.push p.short %>
+      <% end %>
+      <%= pflicht.join(", ") %>
+    </td>
+    <td>
+      <% themen = Array.new %>
+      <% f.themen.each do |t| %>
+        <% themen.push t.short %>
+      <% end %>
+      <%= themen.join(", ") %>
+    </td>
+    <td>
+      <% profil = Array.new %>
+      <% f.profil.each do |p| %>
+        <% profil.push p.short %>
+      <% end %>
+      <%= profil.join(", ") %>
+    </td>
+  </tr>
+  <% end %>
+</table>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090916104001) do
+ActiveRecord::Schema.define(:version => 20090916112620) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -37,7 +37,22 @@ ActiveRecord::Schema.define(:version => 20090916104001) do
     t.integer  "less"
   end
 
+  create_table "foci_pflicht", :id => false, :force => true do |t|
+    t.integer "focus_id"
+    t.integer "studmodule_id"
+  end
+
+  create_table "foci_profil", :id => false, :force => true do |t|
+    t.integer "focus_id"
+    t.integer "studmodule_id"
+  end
+
   create_table "foci_studmodules", :id => false, :force => true do |t|
+    t.integer "focus_id"
+    t.integer "studmodule_id"
+  end
+
+  create_table "foci_themes", :id => false, :force => true do |t|
     t.integer "focus_id"
     t.integer "studmodule_id"
   end
@@ -46,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20090916104001) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
   create_table "module_selections", :force => true do |t|
