@@ -32,6 +32,56 @@
 
 
 
+
+
+///////////////////MODULLOESCHEN loeschen////////////////////////
+/// bei Click auf <span class="modulloeschen">
+
+var modulloeschen = function (mod_id){
+	
+	
+	$("#semester-content").find("div#"+mod_id).each(function(){
+			
+			$(this).remove();	
+	});
+
+	
+	
+	// remove das Modul
+	//$(div).remove();
+	
+	// verstecktes Modul in Pool wieder anzegen
+	$("#pool").find("div").each(function(){
+		
+		var this_id = $(this).attr("id");
+		if(this_id == mod_id){
+			
+			$(this).css("display","block");
+			$(this).css("top","0px");
+			$(this).css("left","0px");
+			$(this).find("span.fragebild").css("display","block");
+			$(this).find("span.ipunkt").css("display","none");
+			$(this).find("span.noten").css("display","none");
+			$(this).find("#icon_loeschen").css("display","none");
+			
+		}
+		
+	});
+	
+	//ajax aufrufen
+	
+	ajax_to_server_by_remove(mod_id);
+	
+	
+	
+	
+
+}//ende
+
+
+
+
+
 // session_auswahl() implementieren. Die ruft action abfragen/auswahl per AJAX auf
 
 
@@ -53,25 +103,49 @@ var session_auswahl_rekursiv = function(root){
 		// check Blätter
 		if (knoten_name == "module"){
 			
-			// parent besuchen
+			// parent besuchen, parent_id ist semmester-count
 			var parent = $(this).parent().get(0);
-			var parent_id = $(parent).attr("count");
+			var parent_id = $(parent).attr("count");   
 			
-			// modul_inhalt
+			// modul_inhalt von  POOL in AUwahl kopieren.
+			// d.h: suche nach Modul_id in POOL. Dann verändere das Inhalt von pool_modul COPY mit clone()
+			// danach mach auswahl_modul draggble
+			
 			var mod_id = $(this).attr("id");
-			var modul_name = $(this).find("name").text();
-			var credits = $(this).find("credits").text();
 			
-			// suche nach entsprechenem Semester  von Module.  
-			
-			$(sem_content).find("div.semester").each(function(){
-				var x= $(this).attr("id");
+			$("#pool").find("div#"+mod_id).each(function(){
 				
-				if (parent_id == x){
-					$(this).append("<div class='auswahl_modul'>"+modul_name+credits+"</div>");
-				}
-			});
-			
+				var this_copy = $(this).clone(true);
+				// display versteckte <span> in Pool-Modul, und remove andere 
+	
+				$(this_copy).find("div#icon_loeschen").css("display","block");
+				$(this_copy).find("span.modul_short").css("display","block");
+				$(this_copy).find("span.fragebild").css("display","none");
+				$(this_copy).find("span.ipunkt").css("display","block");
+				$(this_copy).find("span.noten").css("display","block");
+				
+				/*$(this).find("div#icon_loeschen").css("display","block");
+				$(this).find("span.modul_short").css("display","block");
+				$(this).find("span.fragebild").css("display","none");
+				$(this).find("span.ipunkt").css("display","block");
+				$(this).find("span.noten").css("display","block");*/
+		
+				var modul_inhalt = $(this_copy).html();
+				
+				$(sem_content).find("div.semester").each(function(){
+					var x= $(this).attr("id");
+				
+					if (parent_id == x){
+						$(this).append("<div class='auswahl_modul'>"+modul_inhalt+"</div>");
+					}
+				});//ende each intern
+				
+				
+				// Pool akktuallisieren, also THIS verstecken
+					
+				$(this).hide();
+				
+			});//ende each
 			
 			return;
 		}// ende Blätter
@@ -81,19 +155,29 @@ var session_auswahl_rekursiv = function(root){
 		 	
 			var sem_id = $(this).attr("count");
 			
-			$(sem_content).append("<div class='semester' id='"+sem_id+"'>"+sem_id+"</div>");
+			$(sem_content).append("<div class='semester' id='"+sem_id+"'>"+
+										"<div class='subsemester'>"+
+											"<h5>"+sem_id+".Semester"+"</h5>"+
+										"</div>"+
+										
+								  "</div>");
 			
-			
-			 
 		}
 		
 		session_auswahl_rekursiv(this);
 		
 		
-	 });//ende each
+		
+	});//ende each
 	
-	
+	// hier mache den Semester-Box droppable und bei Drop rufe die funktion drop_in_auswahl auf
+	auswahl_droppable(".semester",".auswahl_modul");
 }//ende 
+
+
+
+
+//session_auswahl------------------------------------------------------------------------------------------
 
 var session_auswahl = function (){
 	
@@ -123,6 +207,14 @@ var session_auswahl = function (){
 	
 	
 	
+	
+	
+	
+				
+	
+	
+	
+	
 }//ende 
 
 
@@ -148,9 +240,9 @@ var ajax_to_server_by_add = function (modul_id,semester){
             async :true,
 			data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
 			contentType:'application/x-www-form-urlencoded',
-			error :  function (a,b,c){
-				alert("problem with add_module_to_selection");
-			}
+			//error :  function (a,b,c){
+			//	alert("problem with add_module_to_selection");
+			//}
 			
      });//ende Ajax
 
@@ -170,9 +262,9 @@ var ajax_to_server_by_remove = function (modul_id){
             async :false,
 			data  : "mod_id="+modul_id,
 			contentType:'application/x-www-form-urlencoded',
-			error :  function (a,b,c){
-				alert("problem with remove_module_from_selection");
-			}
+			//error :  function (a,b,c){
+			//	alert("problem with remove_module_from_selection");
+			//}
 			
      });//ende Ajax
 
@@ -261,6 +353,7 @@ var drop_in_auswahl = function (modul_id,semester,ui_draggable,this_semester){
 	 	$(ui_draggable).find("span.modul_short").css("display","block");
 		$(ui_draggable).find("span.fragebild").css("display","none");
 		$(ui_draggable).find("span.ipunkt").css("display","block");
+		$(ui_draggable).find("span.noten").css("display","block");
 		
 		
 	// verändertte modul_inhalten auslesen
@@ -311,6 +404,7 @@ var drop_in_pool = function(mod_id,ui_draggable){
 			$(this).css("left","0px");
 			$(this).find("span.fragebild").css("display","block");
 			$(this).find("span.ipunkt").css("display","none");
+			$(this).find("span.noten").css("display","none");
 			$(this).find("#icon_loeschen").css("display","none");
 		}
 		
@@ -324,41 +418,6 @@ var drop_in_pool = function(mod_id,ui_draggable){
 
 
 
-///////////////////MODULLOESCHEN loeschen////////////////////////
-/// bei Click auf <span class="modulloeschen">
-
-var modulloeschen = function (mod_id){
-	
-	var div = $(".subsemester").find("div#"+mod_id);
-	
-	// remove das Modul
-	$(div).remove();
-	
-	// verstecktes Modul in Pool wieder anzegen
-	$("#pool").find("div").each(function(){
-		
-		var this_id = $(this).attr("id");
-		if(this_id == mod_id){
-			
-			$(this).css("display","block");
-			$(this).css("top","0px");
-			$(this).css("left","0px");
-			$(this).find("span.fragebild").css("display","block");
-			$(this).find("span.ipunkt").css("display","none");
-			$(this).find("#icon_loeschen").css("display","none");
-		}
-		
-	});
-	
-	//ajax aufrufen
-	
-	ajax_to_server_by_remove(modul_id);
-	
-	alert("ende");
-	
-	
-
-}
 
 		
 //----Poolrekursive implementieren-------------------------------------------------------
@@ -398,7 +457,7 @@ var poolrekursiv = function(root){
 				
 				if(namen == "module"){
 					
-					$("#pool").append("<script>$(function(){ $(\"#"+category_id+" a\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").show('slow');  });    })</script>");
+					$("#pool").append("<script>$(function(){ $(\"#"+category_id+" a\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").slideToggle('slow');  });    })</script>");
 					
 				}				
 				
@@ -418,13 +477,13 @@ var poolrekursiv = function(root){
 			
 				// hier noch mal :check ob seine Kinder Module sind. Wenn ja dann toggle kinder	
 				
-				var flip=0;
+				
 				
    				if(namen == "module"){
 					
 					$("#pool").append("<script>$(function(){ $(\"#"
 							+category_id+
-						"\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").toggle('slow'); "+
+						"\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").slideToggle('slow'); "+
 													" });    })</script>");
 					
 				}				
@@ -492,11 +551,12 @@ var poolrekursiv = function(root){
 									
 									"</td>"+
 									
-									// "<td style=' width:22px'>"+
-									// 	"<span class='modul_loeschen'>"+
-									// 		
-									// 	"</span>"+
-									// "</td>"+
+									"<td style=' width:22px'>"+
+										"<span class='noten' style='display:none'>"+
+											"<input type='text' size='2' value='note' />"+
+											
+										"</span>"+
+									"</td>"+
 									
 									"<td style=' width:22px'>"+
 										"<span class='ipunkt' style='display:none'>"+ipunkt+"</span>"+
@@ -521,6 +581,13 @@ var poolrekursiv = function(root){
 							
 							
 						});
+						// noten focus
+						$("input").focus(function(){
+			
+							$(this).attr("value"," ");
+			
+						});
+		
 						
 						// pool_ modul am Anfang verstecken mit hide()
 						
@@ -567,6 +634,7 @@ var pool = function(){
 	
 	
     poolrekursiv(root);
+	session_auswahl();
 
 
 }//ende pool
