@@ -14,6 +14,7 @@ class RegelParserController < ApplicationController
     @rules = 0
     @groups = 0
     @modules = 0
+    @sessions = 0
     Rule.all.each do |r|
       r.destroy
       @rules += 1
@@ -25,6 +26,10 @@ class RegelParserController < ApplicationController
     Studmodule.all.each do |m|
       m.destroy
       @modules += 1
+    end
+    ModuleSelection.all.each do |m|
+      m.destroy
+      @sessions += 1
     end
   end
 
