@@ -8,15 +8,52 @@ xml.root do
 
   @schwerpunkte.each do |s|
     xml.category(:name => s.name, :class => "Schwerpunkt", :category_id => "focus#{s.id}") do
-      s.modules.each do |m|
-        xml.module(:id => m.id) do
-          xml.tag! "id", m.id
-          xml.name m.name
-          xml.short m.short
-          xml.credits m.credits
-          xml.mode m.randomness
+      if s.pflicht.length > 0
+        xml.category(:name => "Pflicht", :category_id => "pflicht#{s.id}") do
+          s.pflicht.each do |p|
+            xml.module(:id => p.id) do
+              xml.tag! "id", p.id
+              xml.name p.name
+              xml.short p.short
+              xml.credits p.credits
+            end
+          end
         end
       end
+      if s.themen.length > 0
+        xml.category(:name => "Spezielle Themen", :category_id => "themen#{s.id}") do
+          s.themen.each do |p|
+            xml.module(:id => p.id) do
+              xml.tag! "id", p.id
+              xml.name p.name
+              xml.short p.short
+              xml.credits p.credits
+            end
+          end
+        end
+      end
+      if s.profil.length > 0
+        xml.category(:name => "Profilierungsbereich", :category_id => "profil#{s.id}") do
+          s.profil.each do |p|
+            xml.module(:id => p.id) do
+              xml.tag! "id", p.id
+              xml.name p.name
+              xml.short p.short
+              xml.credits p.credits
+            end
+          end
+        end
+      end
+
+#      s.modules.each do |m|
+#        xml.module(:id => m.id) do
+#          xml.tag! "id", m.id
+#          xml.name m.name
+#          xml.short m.short
+#          xml.credits m.credits
+#          xml.mode m.randomness
+#        end
+#      end
     end
   end
   
