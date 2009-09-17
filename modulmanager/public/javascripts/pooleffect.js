@@ -19,11 +19,9 @@
 
 //Ergreinis bei DROP in Auswahl--
 
-$(function(){
-		
-		//jedes Semester in Auswahl hat class="semester" und id
+var auswahl_droppable = function(semester,auswahl_modul){
 	
-		$(".semester").droppable({
+	$(semester).droppable({
 			
 			hoverClass : 'drophover',
 			 drop: function(event, ui){
@@ -34,6 +32,7 @@ $(function(){
 				 var this_semester = $(this);		
 				 var semester = $(this).attr("id");
 				 var modul_id = $(ui.draggable).attr("id"); 
+				
 				  
 				//  drop() ruft ajax_to_server() und auswahlanzeige() auf
 				 
@@ -43,7 +42,25 @@ $(function(){
 			 
 		});//ende droppable	
 		
-}); //ende function DROP in Auswahl
+		
+		// auswahl_modul draggable machen
+		
+		$(auswahl_modul).draggable({
+			
+			revert : "invalid",
+			helper : "clone"
+			
+		});
+		
+		$("input").focus(function(){
+			
+			$(this).attr("value"," ");
+			
+		});
+	
+	
+	
+};
 
 
 //-----------------------------------------------------------------------------------
@@ -71,8 +88,10 @@ $(function(){
 			accept     : '.auswahl_modul',
 			hoverClass : 'drophover',
 			drop       : function(event,ui){
+				
 				var ui_draggable = $(ui.draggable);
 				var mod_id = $(ui.draggable).attr("id");
+				alert(mod_id);
 				
 				drop_in_pool(mod_id,ui_draggable);
 		
@@ -189,6 +208,9 @@ $(function(){
 
 
 //// mach unseres POOL droppable------------------
+
+
+/*
 $(function(){
 	
 		
@@ -197,7 +219,7 @@ $(function(){
 			accept     : '.auswahlmodul',
 			hoverClass : 'drophover',
 			drop       : function(event,ui){
-				
+				alert("drop");
 				$(ui.draggable).hide();
 				
 				//suche nach ID von reingezogenem Modul, dann akktualisiere den Pool
@@ -221,7 +243,7 @@ $(function(){
 
 
 
-	
+*/	
 	
 		
 		

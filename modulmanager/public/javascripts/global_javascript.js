@@ -38,9 +38,19 @@
 /// bei Click auf <span class="modulloeschen">
 
 var modulloeschen = function (mod_id){
+
+	
+	
+	
+	// such nach Vater, dann zähle die Kinder
+	//var subsem_vater  = $(this).parent().get(0);
+	
+	
+	
 	
 	
 	$("#semester-content").find("div#"+mod_id).each(function(){
+		
 			
 			$(this).remove();	
 	});
@@ -63,6 +73,10 @@ var modulloeschen = function (mod_id){
 			$(this).find("span.ipunkt").css("display","none");
 			$(this).find("span.noten").css("display","none");
 			$(this).find("#icon_loeschen").css("display","none");
+			$(this).draggable({
+				
+			 revert : "invalid"
+			});
 			
 		}
 		
@@ -107,7 +121,7 @@ var session_auswahl_rekursiv = function(root){
 			var parent = $(this).parent().get(0);
 			var parent_id = $(parent).attr("count");   
 			
-			// modul_inhalt von  POOL in AUwahl kopieren.
+			// modul_inhalt von  POOL in AUswahl kopieren.
 			// d.h: suche nach Modul_id in POOL. Dann verändere das Inhalt von pool_modul COPY mit clone()
 			// danach mach auswahl_modul draggble
 			
@@ -129,14 +143,22 @@ var session_auswahl_rekursiv = function(root){
 				$(this).find("span.fragebild").css("display","none");
 				$(this).find("span.ipunkt").css("display","block");
 				$(this).find("span.noten").css("display","block");*/
+				
+				
 		
-				var modul_inhalt = $(this_copy).html();
+				//var modul_inhalt = $(this).html();
+				var this_copy= $(this_copy);
+				
+				
+				
 				
 				$(sem_content).find("div.semester").each(function(){
 					var x= $(this).attr("id");
 				
 					if (parent_id == x){
-						$(this).append("<div class='auswahl_modul'>"+modul_inhalt+"</div>");
+						//$(this).append("<div class='auswahl_modul'>"+modul_inhalt+"</div>");
+						$(this).append(this_copy);
+						
 					}
 				});//ende each intern
 				
@@ -144,6 +166,7 @@ var session_auswahl_rekursiv = function(root){
 				// Pool akktuallisieren, also THIS verstecken
 					
 				$(this).hide();
+				
 				
 			});//ende each
 			
@@ -158,11 +181,12 @@ var session_auswahl_rekursiv = function(root){
 			$(sem_content).append("<div class='semester' id='"+sem_id+"'>"+
 										"<div class='subsemester'>"+
 											"<h5>"+sem_id+".Semester"+"</h5>"+
+											"<span style='display:none'>(leer)</span>"+
 										"</div>"+
 										
 								  "</div>");
 			
-		}
+		}// ende else if
 		
 		session_auswahl_rekursiv(this);
 		
@@ -171,13 +195,18 @@ var session_auswahl_rekursiv = function(root){
 	});//ende each
 	
 	// hier mache den Semester-Box droppable und bei Drop rufe die funktion drop_in_auswahl auf
+	
 	auswahl_droppable(".semester",".auswahl_modul");
+	
+	
 }//ende 
 
 
 
 
 //session_auswahl------------------------------------------------------------------------------------------
+
+
 
 var session_auswahl = function (){
 	
@@ -201,19 +230,13 @@ var session_auswahl = function (){
 	
 	
 	// rekursiv aufrufen und semester-content am Anfang leeren
-	var sem_content = $("#semester-content");
-	sem_content.empty();
+	//var sem_content = $("#semester-content");
+	//sem_content.empty();
+	
+	
 	session_auswahl_rekursiv(root);
 	
-	
-	
-	
-	
-	
-				
-	
-	
-	
+
 	
 }//ende 
 
@@ -239,7 +262,7 @@ var ajax_to_server_by_add = function (modul_id,semester){
             dataType:'xml',
             async :true,
 			data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
-			contentType:'application/x-www-form-urlencoded',
+			contentType:'application/x-www-form-urlencoded'
 			//error :  function (a,b,c){
 			//	alert("problem with add_module_to_selection");
 			//}
@@ -250,7 +273,12 @@ var ajax_to_server_by_add = function (modul_id,semester){
 	
 }
 
+
+
 	
+
+
+
 var ajax_to_server_by_remove = function (modul_id){
 	
 	$.ajax({
@@ -261,7 +289,7 @@ var ajax_to_server_by_remove = function (modul_id){
             dataType:'xml',
             async :false,
 			data  : "mod_id="+modul_id,
-			contentType:'application/x-www-form-urlencoded',
+			contentType:'application/x-www-form-urlencoded'
 			//error :  function (a,b,c){
 			//	alert("problem with remove_module_from_selection");
 			//}
@@ -479,14 +507,14 @@ var poolrekursiv = function(root){
 				
 				
 				
-   				if(namen == "module"){
+   				/*if(namen == "module"){
 					
 					$("#pool").append("<script>$(function(){ $(\"#"
 							+category_id+
 						"\").live('click', function(){ $(\"#"+category_id+" .pool_modul\").slideToggle('slow'); "+
 													" });    })</script>");
 					
-				}				
+				}*/		
 							
 			
 			}//ende else für andere Kategorie
@@ -580,13 +608,10 @@ var poolrekursiv = function(root){
 							
 							
 							
+							
 						});
 						// noten focus
-						$("input").focus(function(){
-			
-							$(this).attr("value"," ");
-			
-						});
+						
 		
 						
 						// pool_ modul am Anfang verstecken mit hide()
@@ -613,7 +638,7 @@ var poolrekursiv = function(root){
 //POOL-Funktion gibt immer ganzen Module im POOL zurück, 
 //und ruft AJAX auf  ------------------------------
 
-		
+	
 var pool = function(){
 
 	var XML = $.ajax({
@@ -621,7 +646,10 @@ var pool = function(){
 	    type: 'GET',
 	    url: 'http://localhost:3000/abfragen/pool',
 	    async: false,
-	    contentType: 'application/x-www-form-urlencoded'
+	    contentType: 'application/x-www-form-urlencoded',
+		error : function(a,b,c){
+			alert("problem with pool");
+		}
 		
 	
 
@@ -634,7 +662,7 @@ var pool = function(){
 	
 	
     poolrekursiv(root);
-	session_auswahl();
+ 	session_auswahl();
 
 
 }//ende pool
