@@ -3,7 +3,8 @@ class AbfragenController < ApplicationController
   # Überblick über alle Rgeln und deren Erfüllung. Darstellung orientiert sich
   # an der Darstellung des Pools.
   def ueberblick
-    @errors = check_rules
+    @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL")
+    @modules = current_selection.modules
     respond_to do |format|
       format.xml { render :action => "ueberblick", :layout => false }
     end
@@ -108,83 +109,6 @@ class AbfragenController < ApplicationController
     s6.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.602'")
     ms.semesters << s6
     return ms.id
-  end
-
-  # Diese Methode liefert ein Array mit den Fehlern aus der Überpfürung der Regeln
-  # im Zusammenhang mit der aktuellen Auswahl an Modulen zurück
-  def check_rules
-    # Container für die auszugebenden Fehlermeldungen
-    errors = Array.new
-    # Alle Regeln, die mit der Anzahl der Module zu tun haben
-    mr = ModuleRule.all
-    # Alle Regeln, die mit der Anzahl der Credits zu tun haben
-    cr = CreditRule.all
-
-    # Jede Regel mit Bezug zu Credits muss gecheckt werden
-    cr.each do |r|
-      # Die Summe der Credits in den relevanten Gruppen in der aktuellen Auswahl
-      credits = sum_credits(r.categories)
-      # Auswahl, ob es sich um einen Minimal- oder Maximalwert handelt
-      case r.relation
-      # Minimalwert
-      when "min"
-        # Wenn die Credits nicht mindestens die geforderte Anzahl erreichen...
-        unless credits >= r.count
-          # ...wird ein neuer Fehler hinzugefügt.
-          errors.push Error.new :rule_id => 1,
-            #:rule_name => "Regel #{r.id}",
-            :description => "Zu wenig Credits im Bereich \"#{r.name}\" (#{credits} von #{r.count}).",
-            :less => (r.count - credits),
-            :rule => r
-        end
-      # Maximalwert
-      when "max"
-        # Wenn die Credits nicht maximal die geforderte Anzahl sind...
-        unless credits <= r.count
-          # ...wird ein Fehler hinzugefügt.
-          errors.push Error.new :rule_id => 2,
-            #:rule_name => "Regel #{r.id}",
-            :description => "Zu viele Credits im Bereich \"#{r.name}\" (#{credits} von #{r.count}).",
-            :less => (credits - r.count),
-            :rule => r
-        end
-      end
-    end
-
-    # Es werden alle modulbezogenen Regeln durchlaufen
-    mr.each do |r|
-      # Die Summe der Anzahl der Module in der aktuellen Auswahl, die für die
-      # gerade zu prüfende Regel relevant sind
-      mods = sum_modules(r.categories)
-      # Auswahl, ob es sich um eine Minimal- oder Maximal-Anforderung handelt
-      case r.relation
-      # Minimalwert
-      when "min"
-        # Wenn die Anzahl der Module die geforderte Zahl nicht übersteigt...
-        unless mods >= r.count
-          # ...wird ein Fehler hinzugefügt
-          errors.push Error.new :rule_id => 3,
-            #:rule_name => "Regel #{r.id}",
-            :description => "Zu wenig Module im Bereich \"#{r.name}\" (#{mods} von #{r.count}).",
-            :less => (r.count - mods),
-            :rule => r
-        end
-      # Maximalwert
-      when "max"
-        # Wenn die Anzahl der Module die geforderte Höchstzahl nicht unterbietet...
-        unless mods < r.count
-          # ...wird ein Fehler hinzugefügt
-          errors.push Error.new :rule_id => 4,
-            #:rule_name => "Regel #{r.id}",
-            :description => "Zu viele Module im Bereich \"#{r.name}\" (#{mods} von #{r.count})",
-            :less => (mods - r.count),
-            :rule => r
-        end
-      end
-    end
-
-    # Ein Array mit den Fehlern wird zurückgeliefert
-    return errors
   end
 
   # Errechnet die Summe der Credits in den ausgewählten Modulen und den über-
