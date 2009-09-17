@@ -7,6 +7,7 @@ xml.rules do
     xml.rule(:id => s.id) do
       xml.evaluation s.evaluate @modules
       xml.connection s.class
+      xml.category
       xml.rules do
         s.child_rules.each do |cr|
           xml.rule(:id => cr.id) do

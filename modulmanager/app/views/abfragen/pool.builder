@@ -3,7 +3,7 @@ xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
 xml.root do
 
   xml.category(:name => "Bachelor", :class => "Allgemein", :category_id => "null") do
-    build_xml_bachelor_recursive(@root, xml)
+    build_xml_bachelor_recursive(@root, xml, false)
   end
 
   @schwerpunkte.each do |s|

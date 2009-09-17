@@ -1,6 +1,7 @@
 module AbfragenHelper
 
-  def build_xml_bachelor_recursive(c, xml)
+  def build_xml_bachelor_recursive(c, xml, pflicht)
+    pflicht = true if c.name == "Pflichtmodule"
     if c.sub_categories == [] && c.modules != []
       c.modules.each { |m|
         xml.module(:id => m.id) do
@@ -8,13 +9,13 @@ module AbfragenHelper
           xml.name(m.name)
           xml.short(m.short)
           xml.credits(m.credits)
-          xml.mode(m.randomness)
+          xml.mode("p") if pflicht
         end
       }
     elsif c.sub_categories != []
       c.sub_categories.each { |d|
         xml.category(:category_id => "category#{d.id}", :name => d.name) do
-          build_xml_bachelor_recursive d, xml
+          build_xml_bachelor_recursive d, xml, pflicht
         end
       }
     end
