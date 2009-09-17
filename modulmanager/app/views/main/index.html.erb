@@ -16,14 +16,13 @@
 				<script type="text/javascript" src="javascripts/jquery-ui-1.7.2.custom.min.js"></script>
 				<script type="text/javascript" src="javascripts/global_javascript.js"></script>
 			
-				<script type="text/javascript" src="javascripts/ueberblick.js"></script>
+				<!--<script type="text/javascript" src="javascripts/ueberblick.js"></script>-->
 				<script type="text/javascript" src="javascripts/auswahleffect.js"></script>
 				<script type="text/javascript" src="javascripts/pooleffect.js"></script>
 				<script type="text/javascript" src="javascripts/thickbox.js"></script>
 				
 				
-				   
-      
+      	
 				
 				
 				
@@ -35,16 +34,12 @@
 				
                 <div id="container">
 
-                        <div id="header">
-                        header
-
-                        </div>
+                      
                         <div id="subnavi">
 
                                 <ul id="subnavi-ul">
                                         <li id="return">Zur&uuml;ck</li>
-										<li id="reload" onClick=session_auswahl();>Reload</li>
-                                        <li id="help">Hilfe</li>
+										<li id="help">Hilfe</li>
                                         <li id="finish">Fertig</li>
                                         <div class="clear"></div>
                                 </ul>
@@ -57,7 +52,7 @@
                                 <div id="left">
                                 	<h3>&Uuml;berblick:</h3>
 									<div id="ueberblick"></div>
-									<script>ueberblick();</script>
+									
 								
 								</div>
 
@@ -66,12 +61,36 @@
                                 <div id="middle">
 
                                   <div id="semester-content">
-                                        <div class="semester" id="1">
-                                        	<div class="subsemester">
-                                                <h5>1.Semester</h5>
-												<span class='leer' style='display:block; color:red'>(leer)</span>
-											</div>
-										</div>
+                                  	<!--<div class="semester" id="1">
+                                  		<h5>1.Semester</h5>
+                                  		<span class="leer" style="display:none">(leer)</span>
+                                  	</div>
+                                  		
+                                  	<div class="semester" id="2">
+                                  		<h5>2.semester</h5>
+                                  		<span class="leer" style="display:none">(leer)</span>
+                                  	</div>
+									
+									<div class="semester" id="3">
+										<h5>3.semester</h5>
+                                  		<span class="leer" style="display:none">(leer)</span>
+                                  	</div>
+                                  		
+                                    <div class="semester" id="4">
+                                    	<h5>4.semester</h5>
+                                  		<span class="leer" style="display:none">(leer)</span>
+                                  	</div> 
+									  
+									<div class="semester" id="5">
+										<h5>5.semester</h5>
+                                  		<span class="leer" style="display:none">(leer)</span>
+                                  	</div>
+									
+									<div class="semester" id="6">
+										<h5>6.semester</h5>
+                                  		<span class="leer" style="display:none">(leer)</span>
+                                  	</div>-->
+									 
 								  </div>
                  				  <button id="semesterhinzu" >Semester hinzuf&uuml;gen</button>
                                   
@@ -108,7 +127,7 @@
 														</div>
 														
 														
-													<script type="text/javascript">
+													<script>
                                                           pool();
                                                 	</script>
                                                
