@@ -21,27 +21,102 @@ module AbfragenHelper
     end
   end
 
-  def build_xml_rules_recursive(r, xml, errors)
-    if r.sub_categories == [] && r.rules != []
-      r.rules.each { |ru|
-        xml.rule do
-          xml.tag!("id", ru.id)
-          xml.name(ru.name)
-          errors.each { |e|
-            if ru.id == e.rule.id
-              xml.alert(e.description)
-              # xml.less(e.less)
-            end
-          }
+  def build_rules_recursive r, xml
+    categories = Array.new
+    if r.child_rules != []
+      r.child_rules.each do |s|
+        categories.push s.category.name
+        xml.result(:id => "result#{s.id}") do
+          xml.tag! "id", s.id
+#          xml.category s.category.name
+#          xml.count s.count
+#          xml.relation s.relation
+          fullfilled = s.evaluate current_selection.modules
+          xml.fullfilled fullfilled
+          unless fullfilled
+            text = ""
+            s.relation == "min" ? text += "Du musst mehr als " : text += "Du darfst nicht mehr als "
+            text += "#{s.count} "
+            text += "Credits im Bereich \"#{s.category.name}\" haben (#{s.act_credits} von #{s.count})." if s.class == CreditRule
+            text += "Module im Bereich \"#{s.category.name}\" haben (#{s.act_modules} von #{s.count})." if s.class == ModuleRule
+            xml.text text
+            xml.category s.category.name
+          end
         end
-      }
-    elsif r.sub_categories != []
-      r.sub_categories.each { |c|
-        xml.category(:id => c.id, :name => c.name) do
-          build_xml_rules_recursive c, xml, errors
+      end
+    elsif r.child_connections != []
+      r.child_connections.each do |s|
+        xml.connection(:id => s.id) do
+          xml.evaluation s.evaluate current_selection.modules
+          categories.push build_rules_recursive(s, xml).uniq
+          xml.categories categories.join(", ")
         end
-      }
+      end
     end
+    return categories
+  end
+
+#  def build_xml_rules_recursive(r, xml, errors)
+#    if r.sub_categories == [] && r.rules != []
+#      r.rules.each { |ru|
+#        xml.rule do
+#          xml.tag!("id", ru.id)
+#          xml.name(ru.name)
+#          errors.each { |e|
+#            if ru.id == e.rule.id
+#              xml.alert(e.description)
+#              # xml.less(e.less)
+#            end
+#          }
+#        end
+#      }
+#    elsif r.sub_categories != []
+#      r.sub_categories.each { |c|
+#        xml.category(:id => c.id, :name => c.name) do
+#          build_xml_rules_recursive c, xml, errors
+#        end
+#      }
+#    end
+#  end
+
+  def current_selection
+    session[:selection_id] ||= new_selection
+    ModuleSelection.find session[:selection_id]
+  end
+
+  def new_selection(focus = nil)
+    ms = ModuleSelection.create
+    s1 = Semester.create :count => 1
+    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.101'")
+    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
+    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Mat.011'")
+    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Mat.012'")
+    ms.semesters << s1
+    s2 = Semester.create :count => 2
+    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.102'")
+    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
+    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.303'")
+    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
+    ms.semesters << s2
+    s3 = Semester.create :count => 3
+    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.103'")
+    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
+    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.304'")
+    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.201'")
+    ms.semesters << s3
+    s4 = Semester.create :count => 4
+    s4.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.104'")
+    s4.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.604'")
+    s4.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.202'")
+    ms.semesters << s4
+    s5 = Semester.create :count => 5
+    s5.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.402'")
+    s5.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.203'")
+    ms.semesters << s5
+    s6 = Semester.create :count => 6
+    s6.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.602'")
+    ms.semesters << s6
+    return ms.id
   end
 
 end

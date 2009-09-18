@@ -3,6 +3,11 @@ class ModuleRule < Rule
     :class_name => "Category",
     :foreign_key => "category_id"
 
+  @act_modules = 0
+
+  def act_modules
+    @act_modules
+  end
 
   def evaluate selected_modules
 
@@ -16,10 +21,12 @@ class ModuleRule < Rule
       end
     end
 
+    @act_modules = modules_in_selection
+
     if self.relation == "min"
-      return true if modules_in_selection > self.count
+      return true if modules_in_selection >= self.count
     elsif self.relation == "max"
-      return true if modules_in_selection < self.count
+      return true if modules_in_selection <= self.count
     end
 
     return false

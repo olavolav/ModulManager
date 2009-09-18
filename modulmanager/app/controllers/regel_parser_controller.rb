@@ -1,14 +1,22 @@
 class RegelParserController < ApplicationController
 
   def start
-    read_module_files Array.new(["public/rules/modules2.yml"])
-    read_group_files Array.new(["public/rules/groups2.yml"])
-    read_focus_files Array.new(["public/rules/focus2.yml"])
-    @modules = Studmodule.all
-    @groups = Category.all
-    @foci = Focus.all
-    respond_to do |format|
-      format.html
+    if Rule.all.length == 0 &&
+        Category.all.length == 0 &&
+        Focus.all.length == 0 &&
+        Studmodule.all.length == 0 &&
+        ModuleSelection.all.length == 0
+      read_module_files Array.new(["public/rules/modules2.yml"])
+      read_group_files Array.new(["public/rules/groups2.yml"])
+      read_focus_files Array.new(["public/rules/focus2.yml"])
+      @modules = Studmodule.all
+      @groups = Category.all
+      @foci = Focus.all
+      respond_to do |format|
+        format.html
+      end
+    else
+      redirect_to :action => "clear"
     end
   end
 
@@ -18,26 +26,11 @@ class RegelParserController < ApplicationController
     @foci = 0
     @modules = 0
     @sessions = 0
-    Rule.all.each do |r|
-      r.destroy
-      @rules += 1
-    end
-    Category.all.each do |c|
-      c.destroy
-      @groups += 1
-    end
-    Focus.all.each do |f|
-      f.destroy
-      @foci += 1
-    end
-    Studmodule.all.each do |m|
-      m.destroy
-      @modules += 1
-    end
-    ModuleSelection.all.each do |m|
-      m.destroy
-      @sessions += 1
-    end
+    Rule.all.each { |r| r.destroy; @rules += 1 }
+    Category.all.each { |c| c.destroy; @groups += 1 }
+    Focus.all.each { |f| f.destroy; @foci += 1 }
+    Studmodule.all.each { |m| m.destroy; @modules += 1 }
+    ModuleSelection.all.each { |m| m.destroy; @sessions += 1 }
   end
 
 private
@@ -407,6 +400,61 @@ private
       end
     end
     return f
+  end
+
+  class Sentence
+
+    @c = Array.new
+    
+    def initialize sentence
+      @c = sentence.split(//)
+      build_subs
+    end
+
+    def build_subs
+      sub = ""
+      subs = Array.new
+      i = 0
+      bracket_counter = 0
+      while i < @c.length
+        puts "#{i} : #{@c[i]}\n"
+
+        if @c[i] == "("
+          puts "A\n"
+          i += 1
+          while @c[i] != ")" && bracket_counter != 0
+            puts "B\n"
+            bracket_counter += 1 if @c[i] == "("
+            bracket_counter -= 1 if @c[i] == ")"
+            sub = sub + @c[i]
+            i += 1
+          end
+          subs.push sub
+          sub = ""
+        end
+
+        i += 1
+
+      end
+      subs.each { |e| puts "#{e}\n" }
+    end
+
+  end
+
+  class Word
+    @characters = Array.new
+
+    def initialize word
+      @characters = word.split(//)
+    end
+
+  end
+
+  public
+
+  def test
+    sentence = "((30 Credits aus A) und (2 Module aus B)) oder (5 Module aus C)"
+    s = Sentence.new sentence
   end
 
 end

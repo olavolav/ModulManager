@@ -3,6 +3,11 @@ class CreditRule < Rule
     :class_name => "Category",
     :foreign_key => "category_id"
 
+  @act_credits = 0
+
+  def act_credits
+    @act_credits
+  end
 
   def evaluate selected_modules
 
@@ -15,10 +20,12 @@ class CreditRule < Rule
       end
     end
 
+    @act_credits = credits_in_selection
+    
     if self.relation == "min"
-      return true if credits_in_selection > self.count
+      return true if credits_in_selection >= self.count
     elsif self.relation == "max"
-      return true if credits_in_selection < self.count
+      return true if credits_in_selection <= self.count
     end
 
     return false
