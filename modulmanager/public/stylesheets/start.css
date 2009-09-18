@@ -1,0 +1,78 @@
+
+
+#content {
+	
+	margin : 7% 15% 7% 15%;
+	border : 10px black solid;
+	background-color :  #dddddd;
+	
+}
+
+ul {
+	
+	text-align:center;
+	
+}
+
+ul li {
+	list-style-type : none;
+	border : 1px blue solid;
+	width  : 15%;
+	padding:20px;
+	margin : 10px 50px 10px 50px ;
+	text-align : center;
+	cursor : pointer;
+	
+}
+
+.schwerpunk_oben {
+	float : left;
+	
+	
+}
+
+.clear {
+	clear:both;
+}
+
+.schwerpunk_unten {
+	float : left;
+	
+	
+}
+
+select {
+	margin-left : 100px;
+	margin-top  : 10px;
+	
+}
+
+#footer {
+	margin-top : 30px;
+}
+
+
+a:link {
+	
+	color:blue;
+	text-decoration:underline; 
+}
+a:visited {
+	
+	color:blue;
+	 text-decoration:underline; 
+}
+
+#footer .foo{
+	border : 3px blue double;
+	width  : 10%;
+	margin : 15px;
+	text-align : center;
+	float : right;
+	background-color:#fffff0;
+	cursor :pointer;
+	
+}
+
+
+

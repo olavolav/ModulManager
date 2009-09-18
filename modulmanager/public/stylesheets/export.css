@@ -1,0 +1,25 @@
+                              
+#content {
+	border : 10px black solid;
+	margin : 7% 15% 7% 15%;
+	background-color :  #dddddd;
+	
+	
+}
+
+ul{
+	margin-left: 20%
+	
+	
+}
+
+ul li {
+	list-style-type : none;
+	border : 1px blue solid;
+	width  : 55%;
+	margin-top : 10px;
+	text-align : center;
+	cursor     :pointer;
+	
+	
+}
