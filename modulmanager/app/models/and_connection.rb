@@ -9,12 +9,12 @@ class AndConnection < Connection
   def evaluate selected_modules
     if self.child_connections.length > 0
       c = self.child_connections
-      c.each { |d| return false if !d.evaluate selected_modules }
+      c.each { |d| return -1 if d.evaluate(selected_modules) == -1 }
     elsif self.child_rules.length > 0
       c = self.child_rules
-      c.each { |d| return false if !d.evaluate selected_modules }
+      c.each { |d| return -1 if d.evaluate(selected_modules) == -1 }
     end
-    return true
+    return 1
   end
 
   def credits_needed

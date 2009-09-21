@@ -46,7 +46,7 @@ module AbfragenHelper
       end
     elsif r.child_connections != []
       r.child_connections.each do |s|
-        xml.category(:id => s.id, :credits_needed => s.credits_needed, :modules_needed => s.modules_needed) do
+        xml.category(:id => s.id, :credits_needed => s.credits_needed, :modules_needed => s.modules_needed, :name => s.name) do
           fullfilled = s.evaluate current_selection.modules
           xml.fullfilled fullfilled
           build_rules_recursive(s, xml)
@@ -82,10 +82,7 @@ module AbfragenHelper
 #    end
 #  end
 
-  def current_selection
-    session[:selection_id] ||= new_selection
-    ModuleSelection.find session[:selection_id]
-  end
+
 
   def new_selection(focus = nil)
     ms = ModuleSelection.create
