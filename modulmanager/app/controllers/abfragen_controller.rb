@@ -47,7 +47,8 @@ class AbfragenController < ApplicationController
     # Zum passenden Semester das ausgewählte Modul hinzufügen
     semester.modules << SelectedModule.create(:moduledata => Studmodule.find(params[:mod_id]))
     # Umleitung zur Liste der aktuell ausgewählten Module
-    render :action => "ueberblick", :layout => false
+    # render :action => "ueberblick", :layout => false
+    render :text => "Hallo Welt :-)"
   end
 
   # Die Methode muss mit dem HTTP-Parameter "mod_id" aufgerufen werden. Die
@@ -55,7 +56,7 @@ class AbfragenController < ApplicationController
   # Auswahl.
   def remove_module_from_selection
     SelectedModule.find(params[:mod_id]).delete
-    render :action => "ueberblick", :layout => false
+    # render :action => "ueberblick", :layout => false
   end
 
   # Entfernt ein Semester aus der aktuellen Auswahl. Dieses 
@@ -63,7 +64,7 @@ class AbfragenController < ApplicationController
     Semester.find(
       :first,
       :conditions => "selection_id = #{current_selection.id} AND count = #{params[:sem_count]}").delete
-    redirect_to :action => "ueberblick"
+    # redirect_to :action => "ueberblick"
   end
 
   private
