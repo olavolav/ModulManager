@@ -44,7 +44,11 @@ $(function(){
 		});
 		
 		
-	$(".pool_modul").draggable({
+		
+		
+		
+		
+	   $(".pool_modul").draggable({
 							
 				revert : "invalid",
 				helper : "clone"
@@ -100,7 +104,7 @@ $(function(){
 			
 				var ui_draggable = $(ui.draggable);
 				var mod_id = $(ui.draggable).attr("id");
-				alert(mod_id);
+				//alert(mod_id);
 				
 				drop_in_pool(mod_id, ui_draggable);
 				
@@ -146,7 +150,9 @@ $(function(){
 				 var ui_helper = $(ui.helper);
 				 var this_semester = $(this);		
 				 var semester = $(this).attr("id");
-				 var modul_id = $(ui.draggable).attr("id"); 
+				 var modul_id = $(ui.draggable).attr("id");
+				 
+				  
 				
 				  
 				//  drop() ruft ajax_to_server() und auswahlanzeige() auf

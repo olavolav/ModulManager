@@ -295,10 +295,10 @@ var ajax_to_server_by_add = function (modul_id,semester){
             dataType:'xml',
             async :true,
 			data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
-			contentType:'application/x-www-form-urlencoded'
-			//error :  function (a,b,c){
-			//	alert("problem with add_module_to_selection");
-			//}
+			contentType:'application/x-www-form-urlencoded',
+			error :  function (a,b,c){
+				alert("problem with add_module_to_selection");
+			}
 			
      });//ende Ajax
 
@@ -455,19 +455,6 @@ var drop_in_auswahl = function (modul_id,semester,ui_draggable,this_semester,ui_
 	$(ui_helper).remove();
 	$(ui_draggable).hide();
 	
-	
-	// Pool akktuallisieren
-					
-		/*$("#pool").find("div").each(function(){
-			var this_id = $(this).attr("id");
-			
-			if (this_id == modul_id) {
-				
-				$(this).hide();
-				
-			}				
-		});*/
-						
 	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
 			
 		ajax_to_server_by_add(modul_id,semester); 
@@ -513,7 +500,7 @@ var drop_in_pool = function(mod_id,ui_draggable){
 	
 	//ajax aufrufen
 	
-	//ajax_to_server_by_remove(mod_id);
+	ajax_to_server_by_remove(mod_id);
 	
 }//ende
 
@@ -740,7 +727,6 @@ var pool = function(){
 	
     poolrekursiv(root);
  	session_auswahl();
-	
 	
 	
 	
