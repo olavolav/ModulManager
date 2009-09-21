@@ -57,6 +57,7 @@ class AbfragenController < ApplicationController
   def remove_module_from_selection
     SelectedModule.find(:first, :conditions => "module_id = '#{params[:mod_id]}'").delete
     # render :action => "ueberblick", :layout => false
+    render :text => "Hallo Welt :-)"
   end
 
   # Entfernt ein Semester aus der aktuellen Auswahl. Dieses 
@@ -65,6 +66,7 @@ class AbfragenController < ApplicationController
       :first,
       :conditions => "selection_id = #{current_selection.id} AND count = #{params[:sem_count]}").delete
     # redirect_to :action => "ueberblick"
+    render :text => "Hallo Welt :-)"
   end
 
   private
