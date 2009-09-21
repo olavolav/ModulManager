@@ -38,8 +38,10 @@ module AbfragenHelper
             text += "Credits im Bereich \"#{s.category.name}\" haben (#{s.act_credits} von #{s.count})." if s.class == CreditRule
             text += "Module im Bereich \"#{s.category.name}\" haben (#{s.act_modules} von #{s.count})." if s.class == ModuleRule
             xml.text text
-            xml.category s.category.name
+          else
+            xml.text "Du hast alle Vorraussetzungen für diesen Bereich erfüllt."
           end
+          xml.category s.category.name
         end
       end
     elsif r.child_connections != []
@@ -49,7 +51,8 @@ module AbfragenHelper
           xml.fullfilled fullfilled
           build_rules_recursive(s, xml)
           unless fullfilled == 1
-            text = "Du benötigst in folgenden Kategorien"
+            text = "Du benötigst aus diesem Bereich #{s.credits_needed} Credits und #{s.modules_needed} Module."
+            xml.text text
           end
         end
       end
