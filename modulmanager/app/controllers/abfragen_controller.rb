@@ -55,7 +55,7 @@ class AbfragenController < ApplicationController
   # Methode veranlasst dann eine Löschung des entsprechenden Moduls aus der
   # Auswahl.
   def remove_module_from_selection
-    SelectedModule.find(params[:mod_id]).delete
+    SelectedModule.find(:first, :conditions => "module_id = '#{params[:mod_id]}'").delete
     # render :action => "ueberblick", :layout => false
   end
 
@@ -89,7 +89,7 @@ class AbfragenController < ApplicationController
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.102'")
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.303'")
-    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
+    # s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
     ms.semesters << s2
     s3 = Semester.create :count => 3
     s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.103'")
