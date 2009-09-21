@@ -23,12 +23,12 @@ class CreditRule < Rule
     @act_credits = credits_in_selection
     
     if self.relation == "min"
-      return true if credits_in_selection >= self.count
+      return 1 if credits_in_selection >= self.count
     elsif self.relation == "max"
-      return true if credits_in_selection <= self.count
+      return 1 if credits_in_selection <= self.count
     end
 
-    return false
+    return -1
 
   end
   

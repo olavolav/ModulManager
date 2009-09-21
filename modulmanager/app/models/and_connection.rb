@@ -17,4 +17,28 @@ class AndConnection < Connection
     return true
   end
 
+  def credits_needed
+    credits = 0
+    if self.child_connections.length > 0
+      c = self.child_connections
+      c.each { |d| credits += d.credits_needed }
+    elsif self.child_rules.length > 0
+      c = self.child_rules
+      c.each { |d| credits += d.count if d.class == CreditRule }
+    end
+    return credits
+  end
+
+  def modules_needed
+    modules = 0
+    if self.child_connections.length > 0
+      c = self.child_connections
+      c.each { |d| modules += d.modules_needed }
+    elsif self.child_rules.length > 0
+      c = self.child_rules
+      c.each { |d| modules += d.count if d.class == ModuleRule }
+    end
+    return modules
+  end
+
 end

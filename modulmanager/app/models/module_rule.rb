@@ -24,12 +24,12 @@ class ModuleRule < Rule
     @act_modules = modules_in_selection
 
     if self.relation == "min"
-      return true if modules_in_selection >= self.count
+      return 1 if modules_in_selection >= self.count
     elsif self.relation == "max"
-      return true if modules_in_selection <= self.count
+      return 1 if modules_in_selection <= self.count
     end
 
-    return false
+    return -1
 
   end
 
