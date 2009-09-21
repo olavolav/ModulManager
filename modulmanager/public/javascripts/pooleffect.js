@@ -17,18 +17,133 @@
 //---------- Drag and Drop----------------------------------------------------------
 
 
-//Ergreinis bei DROP in Auswahl--
 
-var auswahl_droppable = function(semester,auswahl_modul){
+
+
 	
-	$(semester).droppable({
+	
+
+
+
+
+
+//-----------------------------------------------------------------------------------
+//  mach ein pool_modul bei POOL draggable, den Pool-Baum beweglich-- und Ergreinis bei DROP in POOL
+//  also Pool_droppable
+//-----------------------------------------------------------------------------------
+
+$(function(){
+
+		
+		
+		$(".auswahl_modul").draggable({
+			
+			revert : "invalid",
+			helper : "clone"
+			
+		});
+		
+		
+	$(".pool_modul").draggable({
+							
+				revert : "invalid",
+				helper : "clone"
+				
+				
+				
+						
+							
+							
+		});		
+		
+	// am Anfang beim Seite-Laden alle Pool-modul verstecken.
+	// danach dynamisch auf- und zu machen. 
+
+	
+	$("#pool .pool_modul").hide();
+	
+	$("#pool .pool_modul").each(function(){
+			var parent = $(this).parent().get(0);
+			var parent_id = $(parent).attr("id");
+			//var parent_a  = $(parent).find("a");
+			var this_modul = $(this);
+		
+			$("#"+parent_id+" a").live("click", function(){
+				
+				// check span.imAuswahl. Wenn Ja dann vertecken mit hide()
+				
+				var imAuswahl = $(this_modul).find("span.imAuswahl");
+				var imAuswahl_text = $(imAuswahl).text();
+				
+				
+				if (imAuswahl_text == "ja") {
+					//alert(imAuswahl_text);
+					$(this_modul).hide();
+				}
+				else if (imAuswahl_text == "nein") {
+						
+						$(this_modul).toggle("fast");
+						
+					}
+			});
+		
+		});// ende each
+		
+		
+		// zurück in POOL , also mach #pool droppable
+		
+		$("#pool").droppable({
+							
+			accept     : '.auswahl_modul',// momentan gibt es nicht
+			hoverClass : 'drophover',
+			drop: function(event, ui){
+			
+				var ui_draggable = $(ui.draggable);
+				var mod_id = $(ui.draggable).attr("id");
+				alert(mod_id);
+				
+				drop_in_pool(mod_id, ui_draggable);
+				
+			}
+		
+		});
+		
+		
+		
+		
+	/*	$(".pool_modul").droppable({
+							
+			accept     : '.auswahl_modul',// momentan gibt es nicht
+			hoverClass : 'drophover',
+			drop: function(event, ui){
+			
+				var ui_draggable = $(ui.draggable);
+				var mod_id = $(ui.draggable).attr("id");
+				alert(mod_id);
+				
+				drop_in_pool(mod_id, ui_draggable);
+				
+			}
+		});*/
+		
+		
+		
+		//-------------semester-Droppable--------------------------------------//
+		//																	   //
+		/////////////////////////////////////////////////////////////////////////
+		
+		
+		$(".semester").droppable({
 			
 			hoverClass : 'drophover',
+			accept     : '.pool_modul ,.auswahl_modul',
 			 drop: function(event, ui){
-			 
+			 	
+			 	
 			 	// id von reingezogenem Modul und entsprechendem Semester holen
 				 
 				 var ui_draggable = $(ui.draggable);
+				 var ui_helper = $(ui.helper);
 				 var this_semester = $(this);		
 				 var semester = $(this).attr("id");
 				 var modul_id = $(ui.draggable).attr("id"); 
@@ -36,79 +151,40 @@ var auswahl_droppable = function(semester,auswahl_modul){
 				  
 				//  drop() ruft ajax_to_server() und auswahlanzeige() auf
 				 
-				 drop_in_auswahl(modul_id,semester,ui_draggable,this_semester);
+				 drop_in_auswahl(modul_id,semester,ui_draggable,this_semester,ui_helper);
 				 
 			}// ende drop
 			 
 		});//ende droppable	
 		
 		
-		// auswahl_modul draggable machen
 		
-		$(auswahl_modul).draggable({
-			
-			revert : "invalid",
-			helper : "clone"
-			
-		});
+		
+		
 		
 		$("input").focus(function(){
 			
 			$(this).attr("value"," ");
 			
 		});
+		
+		
+		
+		
+});//ende
+
+
+//////////////////////semesterhinzu////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
+
+var sem_hinzu = function(){
 	
-	
-	
-};
+	$(function(){
 
-
-//-----------------------------------------------------------------------------------
-//  mach ein pool_modul bei POOL draggable-- und Ergreinis bei DROP in POOL
-//-----------------------------------------------------------------------------------
-
-$(function(){
-
-		$(".pool_module").draggable({
-			
-			revert : "invalid",
-			helper : "clone"
-			
-		});
-		
-		$(".auswahlmodul").draggable({
-			
-			revert : "invalid"
-			
-		});
-		
-			
-		$("#pool").droppable({
-			
-			accept     : '.auswahl_modul',
-			hoverClass : 'drophover',
-			drop       : function(event,ui){
-				
-				var ui_draggable = $(ui.draggable);
-				var mod_id = $(ui.draggable).attr("id");
-				alert(mod_id);
-				
-				drop_in_pool(mod_id,ui_draggable);
-		
-	  		  }//ende drop
-	  	});
-		
-});
-
-
-//////////////////////semesterhinzu///////////-------------------------------------------
-
-
-$(function(){
-
-    $('#semesterhinzu').live("click",function(){
-			
-            var n = $('#semester-content div.semester').length+1;
+    	 var n = $('#semester-content div.semester').length+1;
 		
 			// var l für Löschen gedacht
 			
@@ -128,7 +204,7 @@ $(function(){
 									+n+".Semester"+
 								"</h5><span class='leer' style='display:block; color:red'>(leer)</span>"+
 							"</div>"+
-							"<p style='cursor:pointer; display:block' class='semesterloeschen'>L&ouml;schen</p>"
+							"<p style='cursor:pointer; display:block' class='semesterloeschen' onClick='javascrip:sem_loeschen()'>L&ouml;schen</p>"
 					  "</div>";
 			
 			$("#semester-content").append(neu);
@@ -166,21 +242,25 @@ $(function(){
 					}//ende Drop
 					 
             });//droppable
-	});//ende live
-});//ende function
+            
+	
+	});//ende function
+	
+}//ende
 
 
 
-// "Löschen" bei SEMESTER wird geklick -----------------------------------------------------
 
+///////////////////////////////////////////////////////////////////////////////////
+// "Löschen" bei SEMESTER wird geklick -------------------------------------------
+//   sem_loeschen()
+///////////////////////////////////////////////////////////////////////////////////
 
-
-$(function(){
-
+var sem_loeschen = function(){
 	
 	
-	$(".semesterloeschen").live('click',function(){
-		
+	$(function(){
+
 		// confirm
 		var bestaetigen = confirm("wollen Sie das Semester wirklich loeschen?");
 		
@@ -202,48 +282,18 @@ $(function(){
 		} // ende confirm
 		
 		
-	});
-}); //ende function
-
-
-
-//// mach unseres POOL droppable------------------
-
-
-/*
-$(function(){
 	
-		
-		$("#pool").droppable({
-			
-			accept     : '.auswahlmodul',
-			hoverClass : 'drophover',
-			drop       : function(event,ui){
-				alert("drop");
-				$(ui.draggable).hide();
-				
-				//suche nach ID von reingezogenem Modul, dann akktualisiere den Pool
-				var modul_id = $(ui.draggable).attr("id");
-				
-				$("#pool").find("#"+modulID).each(function(){
-					
-					$(this).show();
-					
-				});
-				
-				// DATEN mit Modul-ID und semester zum Server(action remove_module_from_selection) schicken
-				
-				 ajax_to_server_by_remove(modul_id);
-				
-				
-			}//ende Drop bei #pool droppable
-		});
-		
-});//ende function
+	}); //ende function
+	
+}//ende
 
 
 
-*/	
+
+
+
+
+
 	
 		
 		
