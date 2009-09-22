@@ -2,7 +2,7 @@ class RegelParserController < ApplicationController
 
   def start
     if (
-        # Rule.all.length == 0 &&
+        Rule.all.length == 0 &&
         Category.all.length == 0 &&
         Focus.all.length == 0 &&
         Studmodule.all.length == 0 &&
@@ -10,9 +10,12 @@ class RegelParserController < ApplicationController
       read_module_files Array.new(["public/rules/modules2.yml"])
       read_group_files Array.new(["public/rules/groups2.yml"])
       read_focus_files Array.new(["public/rules/focus2.yml"])
+      create_connections
       @modules = Studmodule.all
       @groups = Category.all
       @foci = Focus.all
+      @rules = Rule.all
+      @connections = Connection.all
       respond_to do |format|
         format.html
       end
@@ -22,12 +25,14 @@ class RegelParserController < ApplicationController
   end
 
   def clear
+    @connections = 0
     @rules = 0
     @groups = 0
     @foci = 0
     @modules = 0
     @sessions = 0
-    # Rule.all.each { |r| r.destroy; @rules += 1 }
+    Connection.all.each { |c| c.destroy; @connections += 1 }
+    Rule.all.each { |r| r.destroy; @rules += 1 }
     Category.all.each { |c| c.destroy; @groups += 1 }
     Focus.all.each { |f| f.destroy; @foci += 1 }
     Studmodule.all.each { |m| m.destroy; @modules += 1 }
@@ -436,6 +441,85 @@ private
 
   def build_rule satz
     puts "Regel bauen (#{satz})\n"
+  end
+
+  def create_connections
+    r1 = CreditRule.create :count => 54, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Grundkurs'")
+
+    r2 = ModuleRule.create :count => 7, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Grundkurs'")
+
+    grundkurs = AndConnection.create :name => "Grundkurs"
+    grundkurs.child_rules << r1
+    grundkurs.child_rules << r2
+
+    r1 = CreditRule.create :count => 15, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Praktika'")
+
+    r2 = ModuleRule.create :count => 2, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Praktika'")
+
+    praktika = AndConnection.create :name => "Praktika"
+    praktika.child_rules << r1
+    praktika.child_rules << r2
+
+    r1 = CreditRule.create :count => 33, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Mathematik'")
+
+    r2 = ModuleRule.create :count => 4, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Mathematik'")
+
+    mathematik = AndConnection.create :name => "Mathematik"
+    mathematik.child_rules << r1
+    mathematik.child_rules << r2
+
+    pflichtmodule = AndConnection.create :name => "Pflichtmodule"
+    pflichtmodule.child_connections << grundkurs
+    pflichtmodule.child_connections << praktika
+    pflichtmodule.child_connections << mathematik
+
+    r1 = CreditRule.create :count => 6, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Spezialisierungspraktikum'")
+
+    r2 = ModuleRule.create :count => 1, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Spezialisierungspraktikum'")
+
+    spezpraktikum = AndConnection.create :name => "Spezialisierungspraktikum"
+    spezpraktikum.child_rules << r1
+    spezpraktikum.child_rules << r2
+
+    r1 = CreditRule.create :count => 12, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Einführungen'")
+
+    r2 = ModuleRule.create :count => 2, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Einführungen'")
+
+    einfuehrungen = AndConnection.create :name => "Einführungen"
+    einfuehrungen.child_rules << r1
+    einfuehrungen.child_rules << r2
+
+    r1 = CreditRule.create :count => 12, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Spezielle Themen'")
+
+    spezthemen = AndConnection.create :name => "Spezielle Themen"
+    spezthemen.child_rules << r1
+
+    r1 = CreditRule.create :count => 18, :relation => "min",
+      :category => Category.find(:first, :conditions => "name = 'Profilierungsbereich'")
+
+    profilierung = AndConnection.create :name => "Profilierungsbereich"
+    profilierung.child_rules << r1
+
+    wahlpflicht = AndConnection.create :name => "Wahlpflichtbereich"
+    wahlpflicht.child_connections << spezpraktikum
+    wahlpflicht.child_connections << einfuehrungen
+    wahlpflicht.child_connections << spezthemen
+    wahlpflicht.child_connections << profilierung
+
+    bachelor = AndConnection.create :name => "Bachelor"
+    bachelor.child_connections << pflichtmodule
+    bachelor.child_connections << wahlpflicht
   end
 
   public

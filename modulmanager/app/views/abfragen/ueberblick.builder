@@ -8,11 +8,20 @@ xml.rules do
       xml.tag! "id", s.id
       xml.fullfilled fullfilled
       unless fullfilled == 1
-        xml.text "In dieser Kategorie werden mindesten #{s.credits_needed} Credits und #{s.modules_needed} Module benötigt."
+        xml.text "In dieser Kategorie werden mindestens #{s.credits_needed} Credits und #{s.modules_needed} Module benötigt."
       else
         xml.text "Du hast alle Vorraussetzungen in dieser Kategorie erfüllt."
       end
       build_rules_recursive(s, xml)
+    end
+  end
+
+  xml.modules do
+    xml.module(:id => "666", :fullfilled => 1) do
+      xml.result do
+        xml.fullfilled 1
+        xml.text "Ist das nicht schön, dass ich hier steh'...?"
+      end
     end
   end
 end

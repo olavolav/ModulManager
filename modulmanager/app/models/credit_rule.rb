@@ -10,7 +10,7 @@ class CreditRule < Rule
   end
 
   def evaluate selected_modules
-
+    puts "Regel #{self.id} wird ausgewertet...\n"
     credits_in_selection = 0
     selected_modules.each do |m|
       self.category.modules.each do |cm|

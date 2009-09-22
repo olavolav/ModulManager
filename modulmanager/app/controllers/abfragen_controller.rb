@@ -74,7 +74,7 @@ class AbfragenController < ApplicationController
   # Diese Hilfsmethode liefert die ID der aktuellen Auswahl aus dem Session-
   # Cookie.
   def current_selection
-    session[:selection_id] ||= new_selection
+    session[:selection_id] ||= new_selection params[:focus]
     ModuleSelection.find session[:selection_id]
   end
 
