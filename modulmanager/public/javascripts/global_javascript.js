@@ -34,6 +34,10 @@
 
 
 
+
+
+
+
 ///////////////////MODULLOESCHEN loeschen////////////////////////
 /// bei Click auf <span class="modulloeschen">
 
@@ -319,13 +323,13 @@ var ajax_to_server_by_add = function (modul_id,semester){
             type: 'POST',
 			url  : 'http://localhost:3000/abfragen/add_module_to_selection',
 			cache:false,
-            dataType:'xml',
+            dataType:'text',
             async :true,
 			data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
-			contentType:'application/x-www-form-urlencoded'
-			/*error :  function (a,b,c){
-				alert("problem with add_module_to_selection");
-			}*/
+			contentType:'application/x-www-form-urlencoded',
+			error :  function (a,b,c){
+				alert(b);
+			}
 			
      });//ende Ajax
 
@@ -346,13 +350,13 @@ var ajax_to_server_by_remove = function (modul_id){
             type: 'POST',
 			url  : 'abfragen/remove_module_from_selection',
 			cache:false,
-            dataType:'xml',
+            dataType:'text',
             async :false,
 			data  : "mod_id="+modul_id,
-			contentType:'application/x-www-form-urlencoded'
-			/*error :  function (a,b,c){
+			contentType:'application/x-www-form-urlencoded',
+			error :  function (a,b,c){
 				alert("problem with remove_module_from_selection");
-			}*/
+			}
 			
      });//ende Ajax
 
@@ -368,13 +372,14 @@ var ajax_to_server_by_remove_semester = function (sem_count){
 			
 			type: 'POST',
 			url : 'abfragen/remove_semester_from_selection',
+			dataType:'text',
 			cache : false,
 			async : false,
 			data  : "sem_count="+sem_count,
-			contentType:'application/x-www-form-urlencoded'
-			/*error : function (a,b,c){
+			contentType:'application/x-www-form-urlencoded',
+			error : function (a,b,c){
 				alert("problem with abfragen/remove_semester_from_selection");
-			}*/
+			}
 		
 	});
 	
@@ -529,7 +534,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 		
 	// ui_helper sowie ui_draggable sind versteck
 	$(ui_helper).remove();
-	//$(ui_draggable).hide();
+	$(ui_draggable).hide();
 	
 	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
 			
