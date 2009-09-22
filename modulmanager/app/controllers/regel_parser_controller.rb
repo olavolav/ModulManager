@@ -1,11 +1,12 @@
 class RegelParserController < ApplicationController
 
   def start
-    if Rule.all.length == 0 &&
+    if (
+        # Rule.all.length == 0 &&
         Category.all.length == 0 &&
         Focus.all.length == 0 &&
         Studmodule.all.length == 0 &&
-        ModuleSelection.all.length == 0
+        ModuleSelection.all.length == 0)
       read_module_files Array.new(["public/rules/modules2.yml"])
       read_group_files Array.new(["public/rules/groups2.yml"])
       read_focus_files Array.new(["public/rules/focus2.yml"])
@@ -26,11 +27,12 @@ class RegelParserController < ApplicationController
     @foci = 0
     @modules = 0
     @sessions = 0
-    Rule.all.each { |r| r.destroy; @rules += 1 }
+    # Rule.all.each { |r| r.destroy; @rules += 1 }
     Category.all.each { |c| c.destroy; @groups += 1 }
     Focus.all.each { |f| f.destroy; @foci += 1 }
     Studmodule.all.each { |m| m.destroy; @modules += 1 }
     ModuleSelection.all.each { |m| m.destroy; @sessions += 1 }
+    SelectedModule.all.each { |sm| sm.destroy }
   end
 
 private
@@ -402,59 +404,45 @@ private
     return f
   end
 
-  class Sentence
+  def rekursiv satz
 
-    @c = Array.new
-    
-    def initialize sentence
-      @c = sentence.split(//)
-      build_subs
+    untersaetze = Array.new
+    klammern = 0
+    satz_zaehler = 0
+    untersaetze[0] = Array.new
+    satz.each_char do |buchstabe|
+      if buchstabe == "("
+        untersaetze[satz_zaehler].push(buchstabe) if klammern > 0
+        klammern += 1
+      elsif buchstabe == ")"
+        if klammern == 1
+          satz_zaehler += 1
+          untersaetze[satz_zaehler] = Array.new
+        end
+        untersaetze[satz_zaehler].push(buchstabe) if klammern > 1
+        klammern -= 1
+      else
+        untersaetze[satz_zaehler].push(buchstabe)
+      end
     end
 
-    def build_subs
-      sub = ""
-      subs = Array.new
-      i = 0
-      bracket_counter = 0
-      while i < @c.length
-        puts "#{i} : #{@c[i]}\n"
-
-        if @c[i] == "("
-          puts "A\n"
-          i += 1
-          while @c[i] != ")" && bracket_counter != 0
-            puts "B\n"
-            bracket_counter += 1 if @c[i] == "("
-            bracket_counter -= 1 if @c[i] == ")"
-            sub = sub + @c[i]
-            i += 1
-          end
-          subs.push sub
-          sub = ""
-        end
-
-        i += 1
-
-      end
-      subs.each { |e| puts "#{e}\n" }
+    if satz_zaehler > 1
+      untersaetze.each { |u| rekursiv u.join }
+    else
+      build_rule untersaetze[0]
     end
 
   end
 
-  class Word
-    @characters = Array.new
-
-    def initialize word
-      @characters = word.split(//)
-    end
-
+  def build_rule satz
+    puts "Regel bauen (#{satz})\n"
   end
 
   public
 
   def test
     sentence = "((30 Credits aus A) und (2 Module aus B)) oder (5 Module aus C)"
-    s = Sentence.new sentence
+    rekursiv sentence
   end
 
 end
