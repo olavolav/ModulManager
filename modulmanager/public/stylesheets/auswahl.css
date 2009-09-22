@@ -9,13 +9,19 @@
 
 .auswahl_modul {
 
-        background-color : #B2FFFF;
-		margin-bottom    : 10px;
+        background-color : #D4EEF9;
+		margin-bottom    : 5px;
 		border           : 1px blue solid;
 		cursor			 : move;
-
+		/*min-height:24px;*/
 }
 
+.auswahl_modul td {
+	padding:0px;
+	margin:0px;
+	border:0px;
+	border-spacing:0px;
+}
 
 
 .auswahlmodul li {
@@ -29,7 +35,15 @@
 }
 .semester {
 	
-	margin-bottom : 10px;
+	margin-bottom : 5px;
+	border: 2px #DEB887 solid;
+	width:100%;
+	background-color:#FFF68F;
+	padding: 10px;
+/*	padding-left: 25px;
+	padding-right:25px;
+	padding-bottom:25px; */
+	margin-bottom: 5px;
 	
 }
 /*------der erste DIV in semester-BOX--------------- */

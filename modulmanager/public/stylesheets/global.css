@@ -3,7 +3,6 @@ body {
 	font-size: 12px;
 	font-weight: 400;
 	line-height: 16px;
-	
 }
 
 #container{
@@ -97,11 +96,10 @@ body {
 #middle{
 	
 	float: left;
-	width:44%;
+	width:50%;
 	background-color:white;
-	padding: 50px;
-	
-	
+	padding: 20px;
+	/* overflow-y:scroll; */
 }
 
 #middle li{
@@ -120,22 +118,6 @@ body {
 	background-color:red;
 	margin-top: 15px;
 }
-
-.semester{
-	
-	border: 2px #DEB887 solid;
-	width:100%;
-	background-color:#FFF68F;
-	padding-left: 25px;
-	padding-right:25px;
-	padding-bottom:25px;
-	margin-bottom: 10px;
-	
-}
-
-
-
-
 
 
 
