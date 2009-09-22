@@ -52,6 +52,15 @@ $(function(){
 							
 				revert : "invalid",
 				helper : "clone"
+				/*start  : function(event,ui){
+					var pos = $(ui.position;
+					alert("anfang");
+					alert("top="+pos.top);
+					alert("left="+pos.left);
+					var this_pos = $(ui.helper).css("position");
+					alert("position="+this_pos);
+					
+				}*/
 				
 				
 				
@@ -151,13 +160,16 @@ $(function(){
 				 var this_semester = $(this);		
 				 var semester = $(this).attr("id");
 				 var modul_id = $(ui.draggable).attr("id");
+				 var modul_class = $(ui.draggable).attr("class");
+				 
+				 
 				 
 				  
 				
 				  
 				//  drop() ruft ajax_to_server() und auswahlanzeige() auf
 				 
-				 drop_in_auswahl(modul_id,semester,ui_draggable,this_semester,ui_helper);
+				 drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 				 
 			}// ende drop
 			 

@@ -40,35 +40,34 @@
 var modulloeschen = function (mod_id){
 
 	
-	
-	
-	// such nach Vater, dann zähle die Kinder
-	//var subsem_vater  = $(this).parent().get(0);
-	
-	
-	
-	
-	
-	$("#semester-content").find("div#"+mod_id).each(function(){
+	$("#semester-content div.semester").find("div#"+mod_id).each(function(){
 		
 			
-			$(this).remove();	
+			$(this).hide();
+			
 	});
-
 	
+
 	
 	// remove das Modul
 	//$(div).remove();
 	
 	// verstecktes Modul in Pool wieder anzeigen
+	
 	$("#pool").find("div").each(function(){
-		
+		//var parent = $(this).parent().get(0);
 		var this_id = $(this).attr("id");
 		if(this_id == mod_id){
 			
-			$(this).css("display","block");
+			
+			
+			
 			$(this).css("top","0px");
 			$(this).css("left","0px");
+			$(this).css("display","block");
+			//$(this).css("position","absolute");
+			
+			
 			$(this).find("span.fragebild").css("display","block");
 			$(this).find("span.ipunkt").css("display","none");
 			$(this).find("span.noten").css("display","none");
@@ -76,15 +75,39 @@ var modulloeschen = function (mod_id){
 			
 			var this_span = $(this).find("span.imAuswahl");
 			$(this_span).text("nein");
-			$(this).hide();
-			/*$(this).draggable({
+			//$(this).hide();
+			
+			
+			var this_modul = $(this);
+			//$(this).hide();
+			
+			// check ob der Vater-Knote gerade offen ist 
+			// Wenn ja, dann mach $(this).show, sonst $(this).hide()
+			
+			var parent = $(this).parent().get(0);
+			//var text   = $(parent).text();
+			$(this_modul).css("display","none");
+			
+			$(parent).children().each(function(){
+				var this_display = $(this).css("display");
+				if (this_display=="block"){
+					
+					$(this_modul).css("display","block");	
+				}
+				
+				
+			});//ende parent
+			
+			
+			
+			$(this).draggable({
 				
 			 revert : "invalid"
-			});*/
+			});
 			
-		}
+		}//ende if
 		
-	});
+	});//ende each
 	
 	//ajax aufrufen
 	
@@ -137,7 +160,10 @@ var session_auswahl_rekursiv = function(root){
 			// kopieren und verändern class pool_modul zum auswahl_modul
 			
 			var this_copy = $(das_erste).clone(true);
+			
 			$(this_copy).attr("class","auswahl_modul");
+			
+			
 			
 			
 			$(this_copy).find("div#icon_loeschen").css("display","block");
@@ -286,7 +312,8 @@ var session_auswahl = function (){
 
 
 var ajax_to_server_by_add = function (modul_id,semester){
-	
+	//alert("mod_id="+modul_id+" und semester="+semester);
+	//alert("modul_id="+modul_id+"semester="+semester);
 	$.ajax({
 							
             type: 'POST',
@@ -313,7 +340,7 @@ var ajax_to_server_by_add = function (modul_id,semester){
 
 
 var ajax_to_server_by_remove = function (modul_id){
-	
+	//alert("mod_id="+modul_id);
 	$.ajax({
 							
             type: 'POST',
@@ -336,7 +363,7 @@ var ajax_to_server_by_remove = function (modul_id){
 
 
 var ajax_to_server_by_remove_semester = function (sem_count){
-	
+	//alert("sem_count="+sem_count);
 	$.ajax({
 			
 			type: 'POST',
@@ -381,79 +408,128 @@ var auswahlAnzeige = function (modul_id,semester,modulinhalt){
 
 // DROP in Auswahl
 
-var drop_in_auswahl = function (modul_id,semester,ui_draggable,this_semester,ui_helper){
+var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
 	
 	// wartezeit anzeigen
-	alert("drop in auswahl");
+	//alert("drop in auswahl");
 	
-		$('<div class="quick-alert">Bitte warten!</div>')
-			 .appendTo($(this_semester))
-			 .fadeIn("fast")
-			 .animate({opacity:1.0},3000)
-			 .fadeOut("fast",function(){
-			 	$(this).remove();
-		 });
+	$('<div class="quick-alert">Bitte warten!</div>')
+		 .appendTo($(this_semester))
+		 .fadeIn("fast")
+		 .animate({opacity:1.0},3000)
+		 .fadeOut("fast",function(){
+		 	$(this).remove();
+	 });
 		 
 	
 	
 	// vesteck (leer) in  Semester
 				
-		$(this_semester).find(".subsemester span.leer").css("display", "none");
+	//$(this_semester).find(".subsemester span.leer").css("display", "none");
 		
 	// display versteckte <span> in Pool-Modul, und remove andere 
 	// kopieren und verändern class pool_modul zum auswahl_modul
 	
 	var this_copy = $(ui_draggable).clone(true);
+	var this_copy_class = $(this_copy).attr("class");
+	//var this_helper_class = $(ui_helper).attr("class");
+	//alert(this_helper_class);
 	
-	$(this_copy).find("div#icon_loeschen").css("display","block");
-	$(this_copy).find("span.fragebild").css("display","none");
-	$(this_copy).find("span.ipunkt").css("display","block");
-	$(this_copy).find("span.noten").css("display","block");
+	// check ob das reingezogenem Modul aus POOL kommt.
+	// Wenn ja dann verändern inhalt, und versteck das Modul im POOL.
+	// Wenn nein ( also bereits im Auswahl) dann remove per AJAX erstmal das Modul aus SESSION,
+	// dann wieder add per AJAX
+	
+	/*if (this_helper_class =="pool_modul ui-draggable"){
+		//alert("hallo pool_modul");
+		$(ui_helper).find("div#icon_loeschen").css("display","block");
+		$(ui_helper).find("span.fragebild").css("display","none");
+		$(ui_helper).find("span.ipunkt").css("display","block");
+		$(ui_helper).find("span.noten").css("display","block");
+		$(ui_helper).attr("class","auswahl_modul ui-draggable");
 		
+		var this_span = $(ui_helper).find("span.imAuswahl");
+		$(this_span).text("ja");
+		
+		
+		
+	}//ende if pool_modul class
+	
+	else if (this_helper_class == "auswahl_modul ui-draggable"){
+		//alert("Hallo altes auswahl_modul");
+		ajax_to_server_by_remove(modul_id);
+		
+		
+	}//ende if auswahl_modul class
+	
+	*/
+	
+	
+	
+	
+	
+	if (this_copy_class =="pool_modul ui-draggable"){
+		//alert("hallo pool_modul");
+		$(this_copy).find("div#icon_loeschen").css("display","block");
+		$(this_copy).find("span.fragebild").css("display","none");
+		$(this_copy).find("span.ipunkt").css("display","block");
+		$(this_copy).find("span.noten").css("display","block");
+		$(this_copy).attr("class","auswahl_modul");
+		
+		var module_im_pool = $("#pool").find("div#"+modul_id);
+	
+		module_im_pool.each(function(){
+		var this_span = $(this).find("span.imAuswahl");
+			$(this_span).text("ja");
+	   
+	   });// ende pool_modul im Pool verstecken	
+		
+	}//ende if pool_modul class
+	
+	else if (this_copy_class == "auswahl_modul ui-draggable"){
+		//alert("Hallo altes auswahl_modul");
+		ajax_to_server_by_remove(modul_id);
+		
+		
+	}//ende if auswahl_modul class
+	
+	
+	
+	
 	var this_subsemester = $(this_semester).find("div.subsemester");
+	//$(ui_draggable).appendTo($(this_subsemester));
 	$(this_subsemester).append(this_copy);
 		
 	
 			
-	$(this_copy).attr("class","auswahl_modul");
 	
-	//var this_class = $(this_copy).attr("class");
-	//$(this_subsemester).append(this_class);	
 	
 	
 	/*$("#pool").append("<script>$(function(){"+
 						
-									"$(\".auswahl_modul\").draggable({ revert: \"invalid\",helper:\"clone\" });  })</script>");*/
+									"$(\"#"+modul_id+"\").draggable({ revert: \"invalid\",helper:\"clone\" });  })</script>");*/
+									
+	
 									
   
-										
+	// pool_modul bei Drop in Auswahl und in POOL verstecken
+	//POOL aktualliesieren
 	
-	$(".auswahl_modul").draggable({
+	
+	
+	// draggable 	
+	
+	$(".auswahl_modul ui-draggable").draggable({
 			
 			revert : "invalid",
 			helper : "clone"
 			
 		});
-	
-				
 		
-	// pool_modul bei Drop in Auswahl und in POOL verstecken
-	//POOL aktualliesieren
-	
-	var module_im_pool = $("#pool").find("div#"+modul_id);
-	
-	module_im_pool.each(function(){
-	var this_span = $(this).find("span.imAuswahl");
-		$(this_span).text("ja");
-	   
-	   
 		
-	});		
-	
-	
 	// ui_helper sowie ui_draggable sind versteck
 	$(ui_helper).remove();
-	$(ui_draggable).hide();
+	//$(ui_draggable).hide();
 	
 	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
 			
@@ -478,6 +554,7 @@ var drop_in_pool = function(mod_id,ui_draggable){
 	
 	$("#pool").find("div").each(function(){
 		
+		
 		var this_id = $(this).attr("id");
 		if(this_id == mod_id){
 			
@@ -491,7 +568,27 @@ var drop_in_pool = function(mod_id,ui_draggable){
 			
 			var this_span = $(this).find("span.imAuswahl");
 			$(this_span).text("nein");
-			$(this).hide();
+			var this_modul = $(this);
+			//$(this).hide();
+			
+			// check ob der Vater-Knote gerade offen ist 
+			// Wenn ja, dann mach $(this).show, sonst $(this).hide()
+			
+			var parent = $(this).parent().get(0);
+			//var text   = $(parent).text();
+			$(this_modul).css("display","none");
+			$(parent).children().each(function(){
+				var this_display = $(this).css("display");
+				if (this_display=="block"){
+					
+					$(this_modul).css("display","block");	
+				}
+				
+				
+			});
+			
+			
+			
 		}
 		
 	});
@@ -703,7 +800,7 @@ var poolrekursiv = function(root){
 //und ruft AJAX auf  ------------------------------
 
 	
-var pool = function(){
+ var pool = function(){
 
 	var XML = $.ajax({
 
@@ -729,12 +826,6 @@ var pool = function(){
  	session_auswahl();
 	
 	
-	
-	
-	
-	
-
-
 }//ende pool
 
 
