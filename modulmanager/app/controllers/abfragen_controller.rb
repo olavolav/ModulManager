@@ -6,7 +6,8 @@ class AbfragenController < ApplicationController
     @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL")
     @modules = current_selection.modules
     respond_to do |format|
-      format.xml { render :action => "ueberblick", :layout => false }
+      # format.xml { render :action => "ueberblick", :layout => false }
+      format.html { render :action => "ueberblick", :layout => false }
     end
   end
 
