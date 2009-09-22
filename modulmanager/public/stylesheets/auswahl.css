@@ -1,19 +1,13 @@
 
 
-/*---- Farbe bei Over auf einem Semester------------*/
-.drophover{
-	background-color: yellow;
-	
-}
 
 
 .auswahl_modul {
-
         background-color : #D4EEF9;
 		margin-bottom    : 5px;
 		border           : 1px blue solid;
 		cursor			 : move;
-		/*min-height:24px;*/
+		min-width        : 200px;
 }
 
 .auswahl_modul td {
@@ -34,11 +28,11 @@
 	
 }
 .semester {
-	
-	margin-bottom : 5px;
-	border: 2px #DEB887 solid;
+	/*border: 1px #DEB887 solid;*/
+	border: 1px #DEB887 solid;
 	width:100%;
-	background-color:#FFF68F;
+	/*background-color:#FFF68F;*/
+	background-color:#FFFFAF;
 	padding: 10px;
 /*	padding-left: 25px;
 	padding-right:25px;
@@ -64,25 +58,26 @@
 
 /*   Ajax warte.......*/  
 .quick-alert {
-   
-         width: 80%;
-   
+         width: 100%;
          margin: 1em 0;
-   
          padding: .5em;
-   
-         background: #ffa;
-   
          border: 1px solid #a00;
-   
          color: #a00;
-   
          font-weight: bold;
-   
          display: block;
-  
  }
 
+h3,h5 {
+	font-size: 12px;
+	margin-bottom: 5px;
+	font-weight: normal;
+}
 
-
+/*---- Farbe bei Over auf einem Semester------------*/
+/* Nicht hier weg bewegen, weil diese CSS-Datei nach global und pool geladen
+   wird und deswegen dieser Style die anderen "überschreibt" (OS) */
+.drophover{
+	background-color: #FFA0A0;
+	/*border: 1px solid red;*/
+}
 

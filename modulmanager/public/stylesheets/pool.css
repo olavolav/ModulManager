@@ -1,33 +1,15 @@
-/*.Grundkurse,.Kerncurriculum,.Bachelor,
-.Pflichtmodule,.Nanostrukturphysik,.Physikinformatik,.astro, .biophysik, .materialphysik, .teilchenphysik, .einfuehrungen, .spezielle,.Profilierungsbereich,
-.schluesselkompetenzen{
-        background-color :  #EEE8AA;
-		margin-bottom : 2px;
-}
-.Bachelor-Arbeit{
-	margin-left:10px;
-}
-.Kerncurriculum ,.Pflichtmodule,.Spezialisierung,.Wahlpflichtmodule,.Pflichtmodule,.Grundkurse,.Praktika,.Mathematik,
-.Spezialisierungsbereich,.Spezialisierungspraktikum,.einfuehrungen,.spezielle,.Profilierungsbereich,.schluesselkompetenzen{
-	
-	margin-left:10px;
-	cursor     : pointer;
-}*/
-
-
 .pool_modul {
-		border: 1px blue solid;
-        background-color:#B2FFFF;
-		margin-bottom : 2px;
-		padding-left  : 10px;
-		cursor        : move;
-		margin-right  :10px;
+        background-color : #D4EEF9;
+		margin-bottom    : 5px;
+		border           : 1px blue solid;
+		cursor			 : move;
+		min-width        : 200px;
 }
+
 .pool_category {
-		background-color :  #EEE8AA;
+		padding: 2px;
 		margin-bottom : 2px;
 		cursor        : pointer;
-	
 }
 
 

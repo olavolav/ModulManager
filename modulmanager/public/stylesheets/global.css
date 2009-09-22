@@ -1,8 +1,14 @@
-body {
+body, table {
 	font-family: Arial, sans-serif;
 	font-size: 12px;
 	font-weight: 400;
-	line-height: 16px;
+	/*line-height: 16px;*/
+}
+
+h2{
+	font-size: 15px;
+	font-weight: bold;
+	padding: 5px;
 }
 
 #container{
@@ -43,9 +49,6 @@ body {
 	text-align:center;
 	font-size:1.2em;
 	cursor : pointer;
-	
-	
-	
 }
 
 
@@ -98,7 +101,8 @@ body {
 	float: left;
 	width:50%;
 	background-color:white;
-	padding: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
 	/* overflow-y:scroll; */
 }
 
@@ -170,6 +174,14 @@ body {
 	
 }
 
+#subright-content{
+		/*border: 1px #DEB887 solid;*/
+		border: 1px #DEB887 solid;
+		/*background-color:#FFF68F;*/
+		background-color:#FFFFAF;
+		padding:2px;
+}
+
 #subright-content ul{
 	padding-right: 20px;
 	
@@ -192,5 +204,4 @@ body {
 	border: 1px black solid;
 	
 }
-
 

@@ -25,10 +25,12 @@
 	var fragebild     = "<img src='images/Fragezeichen.png' style='cursor:pointer'>";
 	var ipunkt    = "<img src='images/iPunkt.png' style='cursor:pointer'>";
 	var rote_ipunkt    = "<img src='images/Ausrufezeichen.png' style='cursor:pointer'>";
-	var loeschenbild = "<img src='images/Loeschen.png' style='cursor:pointer; position:relative; top:-10px; left:10px'>";
-
-
-
+	var loeschenbild = "<img src='images/Loeschen.png' style='cursor:pointer; position:relative; top:-5px; left:6px'>";
+	var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='cursor:pointer;padding-right:3px;'>";
+	var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='cursor:pointer;padding-right:3px;'>";
+	var warten_weiss = "<img src='images/Warten-HintergrundWeiss.gif' style='cursor:pointer;padding-right:3px;'>";
+	var warten_blau = "<img src='images/Warten-HintergrundBlau.gif' style='cursor:pointer;padding-right:3px;'>";
+	var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='cursor:pointer;padding-right:3px;'>";
 
 
 
@@ -251,7 +253,7 @@ var session_auswahl_rekursiv = function(root){
 			
 			$(sem_content).append("<div class='semester' id='"+sem_id+"'>"+
 										"<div class='subsemester'>"+
-											"<h5>"+sem_id+".Semester"+"</h5>"+
+											"<h3>"+sem_id+".Semester"+"</h3>"+
 											"<span style='display:none'>(leer)</span>"+
 										"</div>"+
 										
@@ -418,10 +420,10 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	// wartezeit anzeigen
 	//alert("drop in auswahl");
 	
-	$('<div class="quick-alert">Bitte warten!</div>')
+	$('<div class="quick-alert">'+warten_beige+'Bitte warten!</div>')
 		 .appendTo($(this_semester))
 		 .fadeIn("fast")
-		 .animate({opacity:1.0},3000)
+		 .animate({opacity:1.0},2000)
 		 .fadeOut("fast",function(){
 		 	$(this).remove();
 	 });
@@ -642,7 +644,9 @@ var poolrekursiv = function(root){
 				
 				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" +
 
-									">"+ "<a class='"+category_id+"'>"+category_name +"</a>"+ 
+									// "> "+
+									pfeil_rechts+
+									"<a class='"+category_id+"'>"+category_name +"</a>"+ 
 						 
 						 		"</div>");
 								
@@ -660,7 +664,9 @@ var poolrekursiv = function(root){
 			  
 				$("#pool #"+parent_id).append("<div style='margin-left:5px;' class='pool_category'  id='" + category_id + "'>" +
 												
-												 ">"+"<a class='"+category_id+"'>"+category_name +"</a>"+
+												// "> "+
+												pfeil_rechts+
+												"<a class='"+category_id+"'>"+category_name +"</a>"+
 												 
 												"</div>");
 				// verstecke untergeordneten Kategories
@@ -723,14 +729,14 @@ var poolrekursiv = function(root){
 			// hiet ist span.imAuswahl für die Besetzung eines Modul in Auswahl gedacht.
 							
 			$("#pool #"+parent_id).append("<div class='pool_modul' id='" + modul_id + "' >" +
-						"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:20px;height:0px;overflow:visible;' onclick='modulloeschen("+modul_id+")'>"+
+						"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modulloeschen("+modul_id+")'>"+
 							loeschenbild+
 						"</div>"+
 						"<span class='imAuswahl' style='display:none'>nein</span>"+
-						"<table style='font-size: 12px; width: 100%; border:1px;'>" +
+						"<table cellspacing=1 cellpadding=0 style='width: 100%; border:1px;'>" +
 							"<tbody>"+
 								"<tr>" +
-									"<td style=' width:22px '>"+ 
+									"<td style=' width:22px;padding:1px 2px 0px 2px; '>"+ 
 										bild+
 									"</td>" +
 									"<td style=' width:99%'>" +
@@ -744,7 +750,7 @@ var poolrekursiv = function(root){
 									// "</td>"+
 									
 									"<td style=' width:22px; '>" +
-										"<span class='fragebild' style='display:block'>"+ 
+										"<span class='fragebild' style='display:block;padding:1px 2px 0px 2px;'>"+ 
 											fragebild+ 
 										"</span>"+
 									
@@ -758,7 +764,7 @@ var poolrekursiv = function(root){
 									"</td>"+
 									
 									"<td style=' width:22px'>"+
-										"<span class='ipunkt' style='display:none'>"+ipunkt+"</span>"+
+										"<span class='ipunkt' style='display:none;padding:1px 2px 0px 2px;'>"+ipunkt+"</span>"+
 									"</td>"+
 									
 									"<td style='min-width:32px;text-align:right;font-weight:bold'>"+
