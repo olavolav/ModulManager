@@ -6,11 +6,7 @@ xml.auswahl(:id => @selection.id) do
     @selection.semesters.sort_by { |sem| sem.count }.each do |s| # sortiert die Semesters erst nach Stufe
       xml.semester(:count => s.count, :id => "sem#{s.id}") do
         s.modules.sort_by { |mod| mod.moduledata.short }.each do |m|
-          xml.module(:id => m.moduledata.id) do
-#            xml.name m.moduledata.name
-#            xml.credits m.moduledata.credits
-#            xml.short m.moduledata.short
-          end
+          xml.module(:id => m.moduledata.id)
         end
       end
     end

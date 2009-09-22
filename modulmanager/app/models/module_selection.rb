@@ -16,4 +16,15 @@ class ModuleSelection < ActiveRecord::Base
     end
     modules
   end
+
+  def selection_modules
+    mods = Array.new
+    self.semesters.each do |s|
+      s.modules.each do |sm|
+        mods.push sm
+      end
+    end
+    mods
+  end
+
 end

@@ -46,9 +46,12 @@ module AbfragenHelper
       end
     elsif r.child_connections != []
       r.child_connections.each do |s|
-        xml.category(:id => s.id, :credits_needed => s.credits_needed, :modules_needed => s.modules_needed, :name => s.name) do
-          fullfilled = s.evaluate current_selection.modules
-          xml.fullfilled fullfilled
+        xml.category(:id => s.id,
+          :credits_needed => s.credits_needed,
+          :modules_needed => s.modules_needed,
+          :name => s.name,
+          :fullfilled => fullfilled = s.evaluate(current_selection.modules)) do
+          # xml.fullfilled fullfilled
           build_rules_recursive(s, xml)
           unless fullfilled == 1
             text = "Du benötigst aus diesem Bereich #{s.credits_needed} Credits und #{s.modules_needed} Module."

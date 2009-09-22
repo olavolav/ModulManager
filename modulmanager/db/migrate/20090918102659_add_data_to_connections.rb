@@ -7,7 +7,7 @@ class AddDataToConnections < ActiveRecord::Migration
     r2 = ModuleRule.create :count => 7, :relation => "min",
       :category => Category.find(:first, :conditions => "name = 'Grundkurs'")
 
-    grundkurs = AndConnection.create
+    grundkurs = AndConnection.create :name => "Grundkurs"
     grundkurs.child_rules << r1
     grundkurs.child_rules << r2
 
@@ -17,7 +17,7 @@ class AddDataToConnections < ActiveRecord::Migration
     r2 = ModuleRule.create :count => 2, :relation => "min",
       :category => Category.find(:first, :conditions => "name = 'Praktika'")
 
-    praktika = AndConnection.create
+    praktika = AndConnection.create :name => "Praktika"
     praktika.child_rules << r1
     praktika.child_rules << r2
 
@@ -27,11 +27,11 @@ class AddDataToConnections < ActiveRecord::Migration
     r2 = ModuleRule.create :count => 4, :relation => "min",
       :category => Category.find(:first, :conditions => "name = 'Mathematik'")
 
-    mathematik = AndConnection.create
+    mathematik = AndConnection.create :name => "Mathematik"
     mathematik.child_rules << r1
     mathematik.child_rules << r2
 
-    pflichtmodule = AndConnection.create
+    pflichtmodule = AndConnection.create :name => "Pflichtmodule"
     pflichtmodule.child_connections << grundkurs
     pflichtmodule.child_connections << praktika
     pflichtmodule.child_connections << mathematik
@@ -42,7 +42,7 @@ class AddDataToConnections < ActiveRecord::Migration
     r2 = ModuleRule.create :count => 1, :relation => "min",
       :category => Category.find(:first, :conditions => "name = 'Spezialisierungspraktikum'")
 
-    spezpraktikum = AndConnection.create
+    spezpraktikum = AndConnection.create :name => "Spezialisierungspraktikum"
     spezpraktikum.child_rules << r1
     spezpraktikum.child_rules << r2
 
@@ -52,29 +52,29 @@ class AddDataToConnections < ActiveRecord::Migration
     r2 = ModuleRule.create :count => 2, :relation => "min",
       :category => Category.find(:first, :conditions => "name = 'Einführungen'")
 
-    einfuehrungen = AndConnection.create
+    einfuehrungen = AndConnection.create :name => "Einführungen"
     einfuehrungen.child_rules << r1
     einfuehrungen.child_rules << r2
 
     r1 = CreditRule.create :count => 12, :relation => "min",
       :category => Category.find(:first, :conditions => "name = 'Spezielle Themen'")
 
-    spezthemen = AndConnection.create
+    spezthemen = AndConnection.create :name => "Spezielle Themen"
     spezthemen.child_rules << r1
 
     r1 = CreditRule.create :count => 18, :relation => "min",
       :category => Category.find(:first, :conditions => "name = 'Profilierungsbereich'")
 
-    profilierung = AndConnection.create
+    profilierung = AndConnection.create :name => "Profilierungsbereich"
     profilierung.child_rules << r1
 
-    wahlpflicht = AndConnection.create
+    wahlpflicht = AndConnection.create :name => "Wahlpflichtbereich"
     wahlpflicht.child_connections << spezpraktikum
     wahlpflicht.child_connections << einfuehrungen
     wahlpflicht.child_connections << spezthemen
     wahlpflicht.child_connections << profilierung
 
-    bachelor = AndConnection.create
+    bachelor = AndConnection.create :name => "Bachelor"
     bachelor.child_connections << pflichtmodule
     bachelor.child_connections << wahlpflicht
   end
