@@ -322,10 +322,10 @@ var ajax_to_server_by_add = function (modul_id,semester){
             dataType:'xml',
             async :true,
 			data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
-			contentType:'application/x-www-form-urlencoded',
-			error :  function (a,b,c){
+			contentType:'application/x-www-form-urlencoded'
+			/*error :  function (a,b,c){
 				alert("problem with add_module_to_selection");
-			}
+			}*/
 			
      });//ende Ajax
 
@@ -349,10 +349,10 @@ var ajax_to_server_by_remove = function (modul_id){
             dataType:'xml',
             async :false,
 			data  : "mod_id="+modul_id,
-			contentType:'application/x-www-form-urlencoded',
-			error :  function (a,b,c){
+			contentType:'application/x-www-form-urlencoded'
+			/*error :  function (a,b,c){
 				alert("problem with remove_module_from_selection");
-			}
+			}*/
 			
      });//ende Ajax
 
@@ -371,10 +371,10 @@ var ajax_to_server_by_remove_semester = function (sem_count){
 			cache : false,
 			async : false,
 			data  : "sem_count="+sem_count,
-			contentType:'application/x-www-form-urlencoded',
-			error : function (a,b,c){
+			contentType:'application/x-www-form-urlencoded'
+			/*error : function (a,b,c){
 				alert("problem with abfragen/remove_semester_from_selection");
-			}
+			}*/
 		
 	});
 	
