@@ -46,9 +46,11 @@ module AbfragenHelper
     end
     credits_needed = r.credits_needed
     modules_needed = r.modules_needed
+    credits_earned = r.credits_earned current_selection.modules
+    modules_earned = r.modules_earned current_selection.modules
     id = r.id
-    info_text = "<div class='ueberblick_info_text' id='text##{id}' style='background-color: #{background_color};'>Du benötigst #{credits_needed} Credits und #{modules_needed} Module im Bereich #{name}.</div>"
-    element = "<div><table><tr><td class='ueberblick_name'>#{name}</td><td class='ueberblick_image'><div class='ueberblick_info_box'>#{image_tag image}#{info_text}</div></td><td class='ueberblick_credits'>#{credits_needed} C</td></tr></table></div>"
+    info_text = "<div class='ueberblick_info_text' id='text##{id}' style='background-color: #{background_color};'>Du benötigst #{credits_needed} Credits (z.Zt. #{credits_earned} Credits) und #{modules_needed} Module (z.Zt. #{modules_earned} Module) im Bereich #{name}.</div>"
+    element = "<div><table><tr><td class='ueberblick_name'>#{name}</td><td class='ueberblick_image'><div class='ueberblick_info_box'>#{image_tag image}#{info_text}</div></td><td class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</td></tr></table></div>"
 
     if r.child_connections != []
 

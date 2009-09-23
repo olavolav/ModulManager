@@ -5,6 +5,34 @@ class AndConnection < Connection
   has_many :child_connections, :foreign_key => "parent_id", :class_name => "Connection"
   has_many :child_rules, :foreign_key => "parent_id", :class_name => "Rule"
   belongs_to :parent, :foreign_key => "parent_id", :class_name => "Connection"
+
+  def credits_earned selected_modules
+    credits = 0
+    if self.child_connections.length > 0
+      self.child_connections.each do |cc|
+        credits += cc.credits_earned selected_modules
+      end
+    elsif self.child_rules.length > 0
+      self.child_rules.each do |cr|
+        credits += cr.act_credits(selected_modules) if cr.class == CreditRule
+      end
+    end
+    return credits
+  end
+
+  def modules_earned selected_modules
+    modules = 0
+    if self.child_connections.length > 0
+      self.child_connections.each do |cc|
+        modules += cc.modules_earned selected_modules
+      end
+    elsif self.child_rules.length > 0
+      self.child_rules.each do |cr|
+        modules += cr.act_modules(selected_modules) if cr.class == ModuleRule
+      end
+    end
+    return modules
+  end
   
   def evaluate selected_modules
     if self.child_connections.length > 0

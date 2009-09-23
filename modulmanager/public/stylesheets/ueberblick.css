@@ -15,9 +15,10 @@
       display: block;
   }
   .ueberblick_credits {
-    width: 40px;
-    min-width: 40px;
+    width: 60px;
+    min-width: 60px;
     text-align: right;
+    font-size: smaller;
   }
   .ueberblick_info_text {
       border: 1px outset white;

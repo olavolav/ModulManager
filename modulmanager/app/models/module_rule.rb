@@ -3,25 +3,21 @@ class ModuleRule < Rule
     :class_name => "Category",
     :foreign_key => "category_id"
 
-  @act_modules = 0
-
-  def act_modules
-    @act_modules
+  def act_modules selected_modules
+    modules = 0
+    self.category.modules.each do |cm|
+      selected_modules.each do |m|
+        if m.id == cm.id
+          modules += 1
+        end
+      end
+    end
+    return modules
   end
 
   def evaluate selected_modules
 
-    modules_in_selection = 0
-
-    self.category.modules.each do |cm|
-      selected_modules.each do |m|
-        if m.id == cm.id
-          modules_in_selection += 1
-        end
-      end
-    end
-
-    @act_modules = modules_in_selection
+    modules_in_selection = act_modules selected_modules
 
     if self.relation == "min"
       return 1 if modules_in_selection >= self.count
