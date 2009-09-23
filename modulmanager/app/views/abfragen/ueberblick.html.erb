@@ -1,65 +1,13 @@
-<style type="text/css">
-  p{
-    margin: 0;
-    padding: 0;
-  }
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .level1 li {
-    padding-left: 3px;
-  }
-  .level2 li {
-    padding-left: 10px;
-  }
-  .level3 li {
-    padding-left: 15px;
-  }
-</style>
-
-<table width="100%">
-  <% @super_rules.each do |s| %>
-  <%
-  if s.evaluate(@modules) == 1
-    image = "iPunkt.png"
-  else
-    image = "Ausrufezeichen.png"
-  end
-  %>
-  <tr>
-    <td width="90%"><%= s.name %></td>
-    <td width="20px"><%= image_tag image %></td>
-    <td width="50px">??? C</td>
-  </tr>
-  <% s.child_connections.each do |cc| %>
-  <%
-  if cc.evaluate(@modules) == 1
-    image = "iPunkt.png"
-  else
-    image = "Ausrufezeichen.png"
-  end
-  %>
-  <tr>
-    <td style="padding-left: 10px;"><%= cc.name %></td>
-    <td><%= image_tag image %></td>
-    <td>??? C</td>
-  </tr>
-  <% cc.child_connections.each do |cr| %>
-  <%
-  if cr.evaluate(@modules) == 1
-    image = "iPunkt.png"
-  else
-    image = "Ausrufezeichen.png"
-  end
-  %>
-  <tr>
-    <td style="padding-left: 20px;"><%= cr.name %></td>
-    <td><%= image_tag image %></td>
-    <td>??? C</td>
-  </tr>
-  <% end %>
-  <% end %>
-  <% end %>
-</table>
+<ul class="ueberblick">
+<% @super_rules.each do |s| %>
+<%#
+  Die folgende Methode erzeugt einen Baum mit den untergeordneten und
+  ausgewerteten Regeln. Argumente sind:
+    -> Die Wurzel-Regel
+    -> Der erste linksseitige Abstand
+    -> Die Menge, die bei jeder neuen Ebene auf den linksseitigen Absatnd
+       hinzuaddiert wird.
+%>
+<%= "<li>#{build_html_rules_recursive s, 5, 5}</li>" %>
+<% end %>
+</ul>

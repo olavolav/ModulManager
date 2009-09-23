@@ -21,6 +21,41 @@ module AbfragenHelper
     end
   end
 
+
+  def build_html_rules_recursive r, padding_left, padding_addition
+
+    name = r.name
+    fullfilled = r.evaluate current_selection.modules
+    image = ""
+    case fullfilled
+    when 1
+      image = "iPunkt.png"
+    when -1
+      image = "Ausrufezeichen.png"
+    when 0
+      image = "Fragezeichen.png"
+    end
+    credits_needed = r.credits_needed
+    modules_needed = r.modules_needed
+    info_text = "Du benötigst #{credits_needed} Credits und #{modules_needed} Module im Bereich #{name}."
+    element = "<div><table><tr><td class='ueberblick_name'>#{name}</td><td class='ueberblick_image'>#{image_tag image}</td><td class='ueberblick_credits'>#{credits_needed} C</td></tr></table></div>"
+
+    if r.child_connections != []
+
+      list = "#{element}<ul style='padding-left: #{padding_left}px'>"
+
+      r.child_connections.each do |cc|
+        list += "<li style='padding-right: #{padding_left}px'>#{build_html_rules_recursive(cc, (padding_left + padding_addition), padding_addition)}</li>"
+      end
+      list += "</ul>"
+      return list
+    elsif r.child_connections == []
+      return "#{element}"
+    end
+
+  end
+
+
   def build_rules_recursive r, xml
     if r.child_rules != []
       r.child_rules.each do |s|

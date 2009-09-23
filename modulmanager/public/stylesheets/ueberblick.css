@@ -1,4 +1,21 @@
-
+  ul.ueberblick, .ueberblick ul {
+    width: 100%;
+    list-style: none;
+    margin: 0;
+  }
+  .ueberblick_name {
+    min-width: 90%;
+    width: 90%;
+  }
+  .ueberblick_image {
+    width: 20px;
+    min-width: 20px;
+  }
+  .ueberblick_credits {
+    width: 40px;
+    min-width: 40px;
+    text-align: right;
+  }
 
 .ueberblick_category {
 	
