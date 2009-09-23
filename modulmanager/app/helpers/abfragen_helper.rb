@@ -35,10 +35,20 @@ module AbfragenHelper
     when 0
       image = "Fragezeichen.png"
     end
+    background_color = ""
+    case fullfilled
+    when 1
+      background_color = "green"
+    when -1
+      background_color = "red"
+    when 0
+      background_color = "gray"
+    end
     credits_needed = r.credits_needed
     modules_needed = r.modules_needed
-    info_text = "Du benötigst #{credits_needed} Credits und #{modules_needed} Module im Bereich #{name}."
-    element = "<div><table><tr><td class='ueberblick_name'>#{name}</td><td class='ueberblick_image'>#{image_tag image}</td><td class='ueberblick_credits'>#{credits_needed} C</td></tr></table></div>"
+    id = r.id
+    info_text = "<div class='ueberblick_info_text' id='text##{id}' style='background-color: #{background_color};'>Du benötigst #{credits_needed} Credits und #{modules_needed} Module im Bereich #{name}.</div>"
+    element = "<div><table><tr><td class='ueberblick_name'>#{name}</td><td class='ueberblick_image'><div class='ueberblick_info_box'>#{image_tag image}#{info_text}</div></td><td class='ueberblick_credits'>#{credits_needed} C</td></tr></table></div>"
 
     if r.child_connections != []
 

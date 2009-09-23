@@ -11,10 +11,22 @@
     width: 20px;
     min-width: 20px;
   }
+  .ueberblick_info_box:hover .ueberblick_info_text {
+      display: block;
+  }
   .ueberblick_credits {
     width: 40px;
     min-width: 40px;
     text-align: right;
+  }
+  .ueberblick_info_text {
+      border: 1px outset white;
+      position: fixed;
+      top: 5px;
+      left: 5px;
+      color: white;
+      background-color: green;
+      display: none;
   }
 
 .ueberblick_category {
