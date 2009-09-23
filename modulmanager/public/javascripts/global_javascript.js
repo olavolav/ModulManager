@@ -49,7 +49,16 @@ var modulloeschen = function (mod_id){
 	$("#semester-content div.semester").find("div#"+mod_id).each(function(){
 		
 			
-			$(this).hide();
+			//$(this).hide();
+			var this_id = $(this).attr("id");
+			var this_modul = $(this);
+			
+			// suche nach mod_id_parent im Pool
+			
+			$("#"+this_id+"_parent").each(function(){
+				
+				$(this).append($(this_modul));
+			});
 			
 	});
 	
@@ -60,6 +69,7 @@ var modulloeschen = function (mod_id){
 	
 	// verstecktes Modul in Pool wieder anzeigen
 	
+/*	
 	$("#pool").find("div").each(function(){
 		//var parent = $(this).parent().get(0);
 		var this_id = $(this).attr("id");
@@ -114,6 +124,9 @@ var modulloeschen = function (mod_id){
 		}//ende if
 		
 	});//ende each
+	
+	
+	*/
 	
 	//ajax aufrufen
 	
@@ -243,6 +256,8 @@ var session_auswahl_rekursiv = function(root){
 			});//ende each gloabal
 		*/
 			
+	
+	
 			return;
 		}// ende Blätter
 		
@@ -335,7 +350,7 @@ var ajax_to_server_by_add = function (modul_id,semester){
 			
      });//ende Ajax
 
-	
+	 ueberblick();
 	
 }
 
@@ -362,7 +377,7 @@ var ajax_to_server_by_remove = function (modul_id){
 			
      });//ende Ajax
 
-	
+	 ueberblick();
 	
 }// ende
 
@@ -437,9 +452,18 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	// display versteckte <span> in Pool-Modul, und remove andere 
 	// kopieren und verändern class pool_modul zum auswahl_modul
 	
-	var this_copy = $(ui_draggable).clone(true);
-	var this_copy_class = $(this_copy).attr("class");
-	//var this_helper_class = $(ui_helper).attr("class");
+	
+	//var this_copy = $(ui_draggable).clone(true);
+	//var this_copy_class = $(this_copy).attr("class");
+	
+	
+	
+	
+	var this_draggable_class = $(ui_draggable).attr("class");
+	
+	
+		
+	//var this_draggable_class = $(ui_draggable).attr("class");
 	//alert(this_helper_class);
 	
 	// check ob das reingezogenem Modul aus POOL kommt.
@@ -447,41 +471,54 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	// Wenn nein ( also bereits im Auswahl) dann remove per AJAX erstmal das Modul aus SESSION,
 	// dann wieder add per AJAX
 	
-	/*if (this_helper_class =="pool_modul ui-draggable"){
+	if (this_draggable_class =="pool_modul ui-draggable"){
 		//alert("hallo pool_modul");
-		$(ui_helper).find("div#icon_loeschen").css("display","block");
-		$(ui_helper).find("span.fragebild").css("display","none");
-		$(ui_helper).find("span.ipunkt").css("display","block");
-		$(ui_helper).find("span.noten").css("display","block");
-		$(ui_helper).attr("class","auswahl_modul ui-draggable");
+		$(ui_draggable).find("div#icon_loeschen").css("display","block");
+		$(ui_draggable).find("span.fragebild").css("display","none");
+		$(ui_draggable).find("span.ipunkt").css("display","block");
+		$(ui_draggable).find("span.noten").css("display","block");
+		$(ui_draggable).attr("class","auswahl_modul ");
 		
-		var this_span = $(ui_helper).find("span.imAuswahl");
+		var this_span = $(ui_draggable).find("span.imAuswahl");
 		$(this_span).text("ja");
 		
 		
 		
 	}//ende if pool_modul class
 	
-	else if (this_helper_class == "auswahl_modul ui-draggable"){
+	else if (this_draggable_class == "auswahl_modul ui-draggable"){
 		//alert("Hallo altes auswahl_modul");
 		ajax_to_server_by_remove(modul_id);
 		
 		
 	}//ende if auswahl_modul class
 	
-	*/
+	// append hier
+	var this_subsemester = $(this_semester).find("div.subsemester");
+	//$(ui_draggable).appendTo($(this_subsemester));
+	$(this_subsemester).append(ui_draggable);
 	
 	
 	
 	
-	
-	if (this_copy_class =="pool_modul ui-draggable"){
+	/*if (this_copy_class =="pool_modul ui-draggable"){
 		//alert("hallo pool_modul");
 		$(this_copy).find("div#icon_loeschen").css("display","block");
 		$(this_copy).find("span.fragebild").css("display","none");
 		$(this_copy).find("span.ipunkt").css("display","block");
 		$(this_copy).find("span.noten").css("display","block");
-		$(this_copy).attr("class","auswahl_modul");
+		//$(this_copy).attr("class","auswahl_modul");
+		$(this_copy).addClass("pool_modul_copy");
+	    $(this_copy).removeClass("pool_modul ui-draggable");
+		
+		// dynamisch draggable mit neuer Class
+		
+		$(".pool_modul_copy").draggable({
+			revert: "invalid"
+		});
+		
+		
+		
 		
 		var module_im_pool = $("#pool").find("div#"+modul_id);
 	
@@ -500,17 +537,19 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 		
 	}//ende if auswahl_modul class
 	
+	*/
 	
 	
 	
-	var this_subsemester = $(this_semester).find("div.subsemester");
-	//$(ui_draggable).appendTo($(this_subsemester));
-	$(this_subsemester).append(this_copy);
+	//vertecken die anderen gleichen Module
+	
+	$("#pool").find("div#"+modul_id).each(function(){
 		
-	
+		$(this).hide();
+	});
 			
 	
-	
+	 
 	
 	/*$("#pool").append("<script>$(function(){"+
 						
@@ -524,19 +563,14 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	
 	
 	
-	// draggable 	
+	// draggable 
 	
-	$(".auswahl_modul ui-draggable").draggable({
 			
-			revert : "invalid",
-			helper : "clone"
-			
-		});
-		
+	
+	
+	//$(ui_draggable).hide();	
 		
 	// ui_helper sowie ui_draggable sind versteck
-	$(ui_helper).remove();
-	$(ui_draggable).hide();
 	
 	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
 			
@@ -728,7 +762,7 @@ var poolrekursiv = function(root){
 			
 			// hiet ist span.imAuswahl für die Besetzung eines Modul in Auswahl gedacht.
 							
-			$("#pool #"+parent_id).append("<div class='pool_modul' id='" + modul_id + "' >" +
+			$("#pool #"+parent_id).append("<div id='"+modul_id+"_parent'><div class='pool_modul' id='" + modul_id + "' >" +
 						"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modulloeschen("+modul_id+")'>"+
 							loeschenbild+
 						"</div>"+
@@ -773,7 +807,7 @@ var poolrekursiv = function(root){
 								"</tr>" +
 							"</tbody>"+
 						"</table>" +
-						"</div");
+						"</div></div>");
 							
 							
 						// pool_modul beweglich

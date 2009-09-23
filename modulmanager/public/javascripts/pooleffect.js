@@ -43,12 +43,36 @@ $(function(){
 			
 		});
 		
-		
+		$(".auswahl_modul.ui-draggable").draggable({
+			
+			revert : "invalid"
+		});
 		
 		
 		
 		
 	   $(".pool_modul").draggable({
+							
+				revert : "invalid",
+				helper : "clone"
+				/*drag  : function(event,ui){
+					
+					alert("anfang");
+					alert("topOffset="+ui.offset.top);
+					alert("leftOffset="+ui.offset.left);
+					//var this_pos = $(ui.helper).css("position");
+					//alert("position="+this_pos);
+					
+				}*/
+				
+				
+				
+						
+							
+							
+		});		
+		
+		  $(".pool_modul.ui-draggable").draggable({
 							
 				revert : "invalid",
 				helper : "clone"
@@ -75,15 +99,37 @@ $(function(){
 	
 	$("#pool .pool_modul").hide();
 	
+	/*var parents = $("#pool .pool_modul").parent();
+	var par_parents = $(parents).parent();
+	
+	$(par_parents).each(function(){
+		var par_parent_id = $(par_parents).attr("id");
+			$("#"+par_parent_id+" a").live("click", function(){
+				alert("drin");
+				// check span.imAuswahl. Wenn Ja dann vertecken mit hide()
+				var parent_knoten = $(this).parent();
+				var this_children =$(parent_knoten).children();
+				$(this_children).find("div").each(function(){
+					
+					$(this).toggle();
+					
+			});
+
+		});
+	});*/
+	
 	$("#pool .pool_modul").each(function(){
 			var parent = $(this).parent().get(0);
-			var parent_id = $(parent).attr("id");
+			
+			var parent_parent=$(parent).parent().get(0);
+			var parent_parent_id = $(parent_parent).attr("id");
 			//var parent_a  = $(parent).find("a");
 			var this_modul = $(this);
 		
-			$("#"+parent_id+" a").live("click", function(){
+			$("#"+parent_parent_id+" a").live("click", function(){
 				
-				// check span.imAuswahl. Wenn Ja dann vertecken mit hide()
+				
+				
 				
 				var imAuswahl = $(this_modul).find("span.imAuswahl");
 				var imAuswahl_text = $(imAuswahl).text();
@@ -91,16 +137,20 @@ $(function(){
 				
 				if (imAuswahl_text == "ja") {
 					//alert(imAuswahl_text);
-					$(this_modul).hide();
+					$(this_modul).show();
 				}
 				else if (imAuswahl_text == "nein") {
 						
 						$(this_modul).toggle("fast");
 						
-					}
+				}
 			});
 		
-		});// ende each
+	});  //ende each
+	
+	
+	
+	
 		
 		
 		// zurück in POOL , also mach #pool droppable

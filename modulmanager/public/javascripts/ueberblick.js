@@ -122,8 +122,8 @@ var ueberblick_rekursiv = function(root){
 //----------------------------------------------------------------------------------
  
 var ueberblick = function(){
-	
-	var XML = $.ajax({
+	$("#ueberblick").empty();
+	var html = $.ajax({
 		
 		type : 'GET',
 		url  : '/abfragen/ueberblick',
@@ -138,13 +138,15 @@ var ueberblick = function(){
 		
 
 		
-	}).responseXML;
+	}).responseText;
 	
-	var root = XML.documentElement;
+	$("#ueberblick").append(html);
+	
+	//var root = XML.documentElement;
 	
 	// ueberblickrekursiv() aufrufen
 	
-	ueberblick_rekursiv(root);
+	//ueberblick_rekursiv(root);
 	
 	
 }// ende function
