@@ -2,7 +2,7 @@
 
 
 
-.auswahl_modul {
+.auswahl_modul,.auswahl_modul_clone {
         background-color : #D4EEF9;
 		margin-bottom    : 5px;
 		border           : 1px blue solid;

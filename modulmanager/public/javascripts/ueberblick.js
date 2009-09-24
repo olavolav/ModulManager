@@ -120,6 +120,19 @@ var ueberblick_rekursiv = function(root){
 
 
 //----------------------------------------------------------------------------------
+var  removeThickBoxEvents=function() {
+	//alert("hallo remove");
+        $('.thickbox').each(function(i) {
+            $(this).unbind('click');
+        });
+}
+
+var bindThickBoxEvents= function() {
+	//alert("hallo bind");
+        removeThickBoxEvents();
+        tb_init('a.thickbox, area.thickbox, input.thickbox');
+    }
+
  
 var ueberblick = function(){
 	$("#ueberblick").empty();
@@ -129,8 +142,12 @@ var ueberblick = function(){
 		url  : '/abfragen/ueberblick',
 		async: false,
 		contentType: 'application/x-www-form-urlencoded',
-		success : function(msg){ 
+		success : function(html){ 
 			
+			$("#ueberblick").html(html);
+			//bindThickBoxEvents();
+			tb_init('a.thickbox');
+
 		},
 		error: function(a,b,c){
 			alert("problem with /abfragen/ueberblick");
@@ -140,13 +157,12 @@ var ueberblick = function(){
 		
 	}).responseText;
 	
-	$("#ueberblick").append(html);
 	
-	//var root = XML.documentElement;
 	
-	// ueberblickrekursiv() aufrufen
 	
-	//ueberblick_rekursiv(root);
+	
+	
+	
 	
 	
 }// ende function

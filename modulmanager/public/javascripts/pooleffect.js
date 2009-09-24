@@ -34,9 +34,9 @@
 
 $(function(){
 
+		// pool();
 		
-		
-		$(".auswahl_modul").draggable({
+		$(".auswahl_modul,.auswahl_modul_clone").draggable({
 			
 			revert : "invalid",
 			helper : "clone"
@@ -72,26 +72,17 @@ $(function(){
 							
 		});		
 		
-		  $(".pool_modul.ui-draggable").draggable({
+		/*  $(".pool_modul.ui-draggable").draggable({
 							
 				revert : "invalid",
 				helper : "clone"
-				/*start  : function(event,ui){
-					var pos = $(ui.position;
-					alert("anfang");
-					alert("top="+pos.top);
-					alert("left="+pos.left);
-					var this_pos = $(ui.helper).css("position");
-					alert("position="+this_pos);
-					
-				}*/
 				
 				
 				
 						
 							
 							
-		});		
+		});	*/	
 		
 	// am Anfang beim Seite-Laden alle Pool-modul verstecken.
 	// danach dynamisch auf- und zu machen. 
@@ -118,7 +109,7 @@ $(function(){
 		});
 	});*/
 	
-	$("#pool .pool_modul").each(function(){
+	$("#pool .pool_modul,#pool .pool_modul.ui-draggable").each(function(){
 			var parent = $(this).parent().get(0);
 			
 			var parent_parent=$(parent).parent().get(0);
@@ -133,17 +124,18 @@ $(function(){
 				
 				var imAuswahl = $(this_modul).find("span.imAuswahl");
 				var imAuswahl_text = $(imAuswahl).text();
-				
+				//$(this_modul).toggle("fast");
 				
 				if (imAuswahl_text == "ja") {
 					//alert(imAuswahl_text);
-					$(this_modul).show();
+					$(this_modul).hide();
 				}
 				else if (imAuswahl_text == "nein") {
 						
 						$(this_modul).toggle("fast");
 						
 				}
+				
 			});
 		
 	});  //ende each
@@ -156,16 +148,17 @@ $(function(){
 		// zurück in POOL , also mach #pool droppable
 		
 		$("#pool").droppable({
-							
-			accept     : '.auswahl_modul',// momentan gibt es nicht
+					
+			accept     : '.auswahl_modul,.auswahl_modul_clone',// momentan gibt es nicht
 			hoverClass : 'drophover',
 			drop: function(event, ui){
-			
+				//alert("drop in pool");		
 				var ui_draggable = $(ui.draggable);
 				var mod_id = $(ui.draggable).attr("id");
-				//alert(mod_id);
+				var this_pool = $(this);
+				$(ui.helper).hide();
 				
-				drop_in_pool(mod_id, ui_draggable);
+				drop_in_pool(mod_id, ui_draggable,this_pool);
 				
 			}
 		
@@ -199,7 +192,7 @@ $(function(){
 		$(".semester").droppable({
 			
 			hoverClass : 'drophover',
-			accept     : '.pool_modul ,.auswahl_modul',
+			accept     : '.pool_modul ,.auswahl_modul,.auswahl_modul_clone',
 			 drop: function(event, ui){
 			 	
 			 	
@@ -220,6 +213,7 @@ $(function(){
 				//  drop() ruft ajax_to_server() und auswahlanzeige() auf
 				 
 				 drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+				
 				 
 			}// ende drop
 			 
