@@ -21,20 +21,58 @@ class MainController < ApplicationController
   end
 
   def get_file
-    @selection = current_selection
-    headers["Content-Type"] = "application/stpl"
+
     headers["Content-Disposition"] = "attachment; filename=export.stpl"
-    render :xml => "Hallo Welt!"
+    
+    respond_to do |format|
+      format.xml
+    end
+
+  end
+
+  def post_file
+    filename = ""
+
+    name = params[:data_file].original_filename
+    directory = "public/data"
+    path = File.join(directory, name)
+
+    File.open(path, "wb") { |f| f.write(params[:data_file].read); filename = f.path }
+
+    shredder filename
+
+    redirect_to :action => "index"
   end
 
   def import
   end
 
   private
-  
-  def current_selection
-    session[:selection_id] ||= new_selection
-    ModuleSelection.find session[:selection_id]
+
+  def shredder file
+    xml = File.read(file)
+    doc = REXML::Document.new(xml)
+
+    my_selection = ModuleSelection.create
+
+    doc.root.each_element('//semester') do |s|
+
+      my_semester = Semester.create :count => s.attributes['count']
+
+      s.elements.each do |m|
+
+        my_module = Studmodule.find(:first, :conditions => "short = '#{m.attributes['short']}'")
+
+        my_semester.studmodules << my_module
+
+      end
+
+      my_selection.semesters << my_semester
+
+    end
+
+    session[:selection_id] = my_selection.id
+
   end
 
 end

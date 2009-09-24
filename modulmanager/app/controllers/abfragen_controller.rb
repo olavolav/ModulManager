@@ -70,6 +70,14 @@ class AbfragenController < ApplicationController
     render :text => "Hallo Welt :-)"
   end
 
+  def info
+
+    id = params[:id]
+
+    render :text => "Hier ist der <b>Info-Text</b> für ID #{id}!"
+
+  end
+
   private
 
   # Diese Hilfsmethode liefert die ID der aktuellen Auswahl aus dem Session-
