@@ -1,7 +1,6 @@
 class MainController < ApplicationController
 
   def index
-    @schwerpunkt = current_selection.focus.name
     respond_to do |format|
       format.html { render :layout => "modulmanager" }
     end
