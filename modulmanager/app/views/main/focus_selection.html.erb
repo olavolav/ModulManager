@@ -1,0 +1,12 @@
+<ul>
+  <% i = 0 %>
+  <% @schwerpunkte.each do |s| %>
+    <% border_color = "blue" %>
+    <% border_color = "red" if current_selection.focus.name == s.name %>
+    <% i += 1 %>
+    <li class="schwerpunk_oben" style="border-color: <%= border_color %>;">
+      <%= link_to_remote s.name, :update => "schwerpunkt", :url => { :action => "focus_selection", :id => s.id }  %>
+    </li>
+    <%= "<div class='clear'>&nbsp;</div>" if i % 3 == 0 %>
+  <% end %>
+</ul>

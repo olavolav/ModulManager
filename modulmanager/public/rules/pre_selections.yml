@@ -1,0 +1,57 @@
+## YAML Template.
+---
+- name: standard
+  semester1: B.Phy.101, B.Mat.011, B.Mat.012, B.phy.605
+  semester2: B.Phy.102, B.Phy.410, B.Phy.303
+  semester3: B.Phy.103, B.Phy.304, B.Phy.201
+  semester4: B.Phy.104, B.Phy.604, B.Phy.202
+  semester5: B.Phy.402, B.Phy.203
+  semester6: B.Phy.602
+
+- name: Nanostrukturphysik
+  semester1: B.Phy.101, B.Mat.011, B.Mat.012, B.Phy.605
+  semester2: B.Phy.102, B.Phy.410, B.Phy.303
+  semester3: B.Phy.103, B.Phy.304, B.Phy.201
+  semester4: B.Phy.104, B.Phy.604, B.Phy.202
+  semester5: B.Phy.402, B.Phy.203, B.Phy.403, B.Phy.503
+  semester6: B.Phy.602
+
+- name: Physikinformatik
+  semester1: B.Phy.101, B.Mat.011, B.Mat.012, B.Phy.605
+  semester2: B.Phy.102, B.Phy.410, B.Phy.303
+  semester3: B.Phy.103, B.Phy.304, B.Phy.201, B.Phy.510
+  semester4: B.Phy.104, B.Phy.604, B.Phy.202, B.Phy.511
+  semester5: B.Phy.402, B.Phy.203, B.Phy.404
+  semester6: B.Phy.602
+
+- name: Astro- und Geophysik
+  semester1: B.Phy.101, B.Mat.011, B.Mat.012, B.Phy.605
+  semester2: B.Phy.102, B.Phy.410, B.Phy.303
+  semester3: B.Phy.103, B.Phy.304, B.Phy.201
+  semester4: B.Phy.104, B.Phy.604, B.Phy.202, B.Phy.501
+  semester5: B.Phy.402, B.Phy.203, B.Phy.405
+  semester6: B.Phy.602
+
+- name: Biophysik und Physik komplexer Systeme
+  semester1: B.Phy.101, B.Mat.011, B.Mat.012, B.Phy.605
+  semester2: B.Phy.102, B.Phy.410, B.Phy.303
+  semester3: B.Phy.103, B.Phy.304, B.Phy.201
+  semester4: B.Phy.104, B.Phy.604, B.Phy.202, B.Phy.502
+  semester5: B.Phy.402, B.Phy.203, B.Phy.406
+  semester6: B.Phy.602
+
+- name: Festkörper- und Materialphysik
+  semester1: B.Phy.101, B.Mat.011, B.Mat.012, B.Phy.605
+  semester2: B.Phy.102, B.Phy.410, B.Phy.303
+  semester3: B.Phy.103, B.Phy.304, B.Phy.201
+  semester4: B.Phy.104, B.Phy.604, B.Phy.202
+  semester5: B.Phy.402, B.Phy.203, B.Phy.407, B.Phy.503
+  semester6: B.Phy.602
+
+- name: Kern- und Teilchenphysik
+  semester1: B.Phy.101, B.Mat.011, B.Mat.012, B.Phy.605
+  semester2: B.Phy.102, B.Phy.410, B.Phy.303
+  semester3: B.Phy.103, B.Phy.304, B.Phy.201
+  semester4: B.Phy.104, B.Phy.604, B.Phy.202
+  semester5: B.Phy.402, B.Phy.203, B.Phy.408, B.Phy.504
+  semester6: B.Phy.602

@@ -13,18 +13,24 @@
 	
 		<div id="content">
 			<h3>Modul-Manager der Fakult&auml;t Physik</h3>
-			Bitte geben Sie Ihren Schwerpunkt an:<br/>
+			Bitte Schwerpunkt auswählen:<br/>
 			
 			<div id="schwerpunkt">
 				<ul>
-					<li class="schwerpunk_oben">Physik(Allgemein)</li>
-					<li class="schwerpunk_oben">Astrophysik</li>
-					<li class="schwerpunk_oben">Festk&ouml;rper-Physik</li>
-					<div class="clear">&nbsp</div>
-					<li class="schwerpunk_unten">Nanophysik</li>
-					<li class="schwerpunk_unten">Biophysik</li>
-					<li class="schwerpunk_unten">Statistische Physik</li>
-					<div class="clear">&nbsp</div>
+                                  <% i = 0 %>
+                                  <% @schwerpunkte.each do |s| %>
+                                    <% i += 1 %>
+                                    <li class="schwerpunk_oben"><%= link_to_remote s.name, :update => "schwerpunkt", :url => { :action => "focus_selection", :id => s.id }  %></li>
+                                    <%= "<div class='clear'>&nbsp;</div>" if i % 3 == 0 %>
+                                  <% end %>
+					<%#*<li class="schwerpunk_oben">Physik(Allgemein)</li>%>
+					<%#*<li class="schwerpunk_oben">Astrophysik</li>%>
+					<%#*<li class="schwerpunk_oben">Festk&ouml;rper-Physik</li>%>
+					<%#*<div class="clear">&nbsp</div>%>
+					<%#*<li class="schwerpunk_unten">Nanophysik</li>%>
+					<%#*<li class="schwerpunk_unten">Biophysik</li>%>
+					<%#*<li class="schwerpunk_unten">Statistische Physik</li>%>
+					<%#*<div class="clear">&nbsp</div>%>
 				</ul>
 			</div><!--Ende Schwerpunkt-->	
 			
@@ -41,8 +47,8 @@
 			<div id ="footer">
 				Alternative k&ouml;nnen Sie eine von Ihnen 
 				<a href="#">gespeicherte Modul-Kombination importieren</a>.<br/>
-				<div class="foo">OK</div>
-				<div class="foo">Abbruch</div>
+				<%= link_to "<div class='foo'>OK</div>", :action => "create_selection" %>
+				<%= link_to("<div class='foo'>Zurück</div>", :url => { :action => "index" }) unless session[:selection_id] == nil %>
 				<div class="clear">&nbsp</div>
 			</div>
 			

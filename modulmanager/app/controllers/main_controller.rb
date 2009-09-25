@@ -1,12 +1,14 @@
 class MainController < ApplicationController
 
   def index
+    @schwerpunkt = current_selection.focus.name
     respond_to do |format|
       format.html { render :layout => "modulmanager" }
     end
   end
 
   def start
+    @schwerpunkte = Focus.all
   end
 
   def help
@@ -46,6 +48,40 @@ class MainController < ApplicationController
   def import
   end
 
+  def focus_selection
+    focus = Focus.find(:first, :conditions => "id = '#{params[:id]}'")
+    selection = current_selection
+    selection.focus = focus
+    selection.save
+    @schwerpunkte = Focus.all
+    respond_to do |format|
+      format.html { render :action => "focus_selection", :layout => false }
+    end
+  end
+
+  def create_selection
+
+    selection = current_selection
+
+    found = false
+
+    Focus.all.each do |f|
+
+      if selection.focus == f
+        found = true
+        selection.semesters = create_pre_selection f.name
+        selection.save
+
+      end
+
+    end
+
+    create_pre_selection "standard" unless found
+
+    redirect_to :action => "index"
+
+  end
+
   private
 
   # Liest eine XML-Datei ein und erstellt aus ihren Elementen applikations-
@@ -73,6 +109,49 @@ class MainController < ApplicationController
     end
     # Verknüpft die Session mit der neu erstellten Auswahl
     session[:selection_id] = my_selection.id
+  end
+
+  def create_pre_selection focus_name
+
+    pre_selection_file = File.open("public/rules/pre_selections.yml")
+
+    y = YAML::load(pre_selection_file)
+
+    semesters = Array.new
+    return_array = Array.new
+
+    y.each do |p|
+
+      if p["name"] == focus_name
+
+        semesters.push p["semester1"]
+        semesters.push p["semester2"]
+        semesters.push p["semester3"]
+        semesters.push p["semester4"]
+        semesters.push p["semester5"]
+        semesters.push p["semester6"]
+
+        i = 0
+        semesters.each do |content|
+          
+          i += 1
+
+          shorts = content.split(", ")
+
+          s = Semester.new :count => i
+          shorts.each do |short|
+            puts short
+            m = Studmodule.find(:first, :conditions => "short = '#{short}'")
+            s.studmodules << m
+          end
+          s.save
+          return_array.push s
+        end
+
+      end
+
+    end
+    return return_array
   end
 
 end
