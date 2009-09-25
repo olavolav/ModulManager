@@ -145,7 +145,7 @@ var ueberblick = function(){
 		success : function(html){ 
 			
 			//bindThickBoxEvents();
-			tb_init('a.thickbox');
+			//tb_init('a.thickbox');
 
 		},
 		error: function(a,b,c){

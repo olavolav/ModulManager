@@ -245,7 +245,12 @@ $(function(){
 var sem_hinzu = function(){
 	
 	$(function(){
-
+		 var anzahl = $('#semester-content div.semester').length;
+		 alert("Anzahl semester box="+anzahl);
+		 
+		 
+		 
+		 
     	 var n = $('#semester-content div.semester').length+1;
 		
 			// var l für Löschen gedacht

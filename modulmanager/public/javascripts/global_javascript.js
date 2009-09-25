@@ -35,9 +35,18 @@
 
 
 
+// implementieren die Funktion pfeil_tauschen()
+//die wird in pool_rekursiv() benutzt
 
-
-
+var pfeil_tauschen = function(category_id){
+	
+	$("#pool").find("div#"+category_id).each(function(){
+		
+		alert("hallo "+category_id);
+	});
+	
+	return;
+}
 
 
 ///////////////////MODULLOESCHEN loeschen////////////////////////
@@ -630,8 +639,8 @@ var poolrekursiv = function(root){
 				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" +
 
 									// "> "+
-									pfeil_rechts+
-									"<a class='"+category_id+"'>"+category_name +"</a>"+ 
+									
+									"<a class='"+category_id+"' onclick='pfeil_tauschen("+category_id+")'>"+pfeil_rechts+category_name +"</a>"+ 
 						 
 						 		"</div>");
 								
@@ -650,8 +659,8 @@ var poolrekursiv = function(root){
 				$("#pool #"+parent_id).append("<div style='margin-left:5px;' class='pool_category'  id='" + category_id + "'>" +
 												
 												// "> "+
-												pfeil_rechts+
-												"<a class='"+category_id+"'>"+category_name +"</a>"+
+												
+												"<a class='"+category_id+"' onclick='pfeil_tauschen("+category_id+")'>"+pfeil_rechts+category_name +"</a>"+
 												 
 												"</div>");
 				// verstecke untergeordneten Kategories
