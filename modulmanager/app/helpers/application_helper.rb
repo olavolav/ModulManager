@@ -18,11 +18,12 @@ module ApplicationHelper
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.102'")
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.303'")
-    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
+#    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
     ms.semesters << s2
     s3 = Semester.create :count => 3
     s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.103'")
-    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
+    # Physikalisches Grundpraktikum / erstreckt sich über 2 Semester...
+#    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
     s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.304'")
     s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.201'")
     ms.semesters << s3
