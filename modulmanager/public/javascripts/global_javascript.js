@@ -332,7 +332,7 @@ var ajax_to_server_by_add = function (modul_id,semester){
 			url  : 'http://localhost:3000/abfragen/add_module_to_selection',
 			cache:false,
             dataType:'text',
-            async :true,
+            async :false,
 			data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
 			contentType:'application/x-www-form-urlencoded',
 			error :  function (a,b,c){
