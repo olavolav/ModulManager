@@ -90,9 +90,6 @@ class AbfragenController < ApplicationController
     modules_earned = regel.modules_earned modules
     modules_needed = regel.modules_needed
 
-    credits_earned > 1 ? credit_status = "wurden #{credits_earned} Credits" : credit_status = "wurde #{credits_earned} Credit"
-    modules_earned > 1 ? module_status = "wurden #{modules_earned} Module" : module_status = "wurde #{modules_earned} Modul"
-
     @credit_status = "Es wurden bereits #{credits_earned} Credits von #{credits_needed} Credits erbracht."
     @module_status = "Es wurden bereits #{modules_earned} Module von #{modules_needed} Modulen bestanden."
 
