@@ -135,7 +135,7 @@ var bindThickBoxEvents= function() {
 
  
 var ueberblick = function(){
-	$("#ueberblick").empty();
+	
 	var html = $.ajax({
 		
 		type : 'GET',
@@ -144,7 +144,6 @@ var ueberblick = function(){
 		contentType: 'application/x-www-form-urlencoded',
 		success : function(html){ 
 			
-			$("#ueberblick").html(html);
 			//bindThickBoxEvents();
 			tb_init('a.thickbox');
 
@@ -158,8 +157,8 @@ var ueberblick = function(){
 	}).responseText;
 	
 	
-	
-	
+	$("#ueberblick").empty();
+	$("#ueberblick").html(html);
 	
 	
 	
