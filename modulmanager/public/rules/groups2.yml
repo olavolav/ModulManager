@@ -25,9 +25,9 @@
 
   - name: Wahlpflichtmodule
     description: Die Modulmenge aller Wahlpflichtmodule
-    sub-groups: Spezialisierungspraktikum, Einführungen, Spezielle Themen, Profilierungsbereich
+    sub-groups: Spezialisierungs-Praktikum, Einführungen, Spezielle Themen, Profilierungsbereich
 
-  - name: Spezialisierungspraktikum
+  - name: Spezialisierungs-Praktikum
     description:
     modules: B.Phy.403, B.Phy.404, B.Phy.405, B.Phy.406, B.Phy.407, B.Phy.408
 

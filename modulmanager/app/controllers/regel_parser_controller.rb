@@ -480,12 +480,12 @@ private
     pflichtmodule.child_connections << mathematik
 
     r1 = CreditRule.create :count => 6, :relation => "min",
-      :category => Category.find(:first, :conditions => "name = 'Spezialisierungspraktikum'")
+      :category => Category.find(:first, :conditions => "name = 'Spezialisierungs-Praktikum'")
 
     r2 = ModuleRule.create :count => 1, :relation => "min",
-      :category => Category.find(:first, :conditions => "name = 'Spezialisierungspraktikum'")
+      :category => Category.find(:first, :conditions => "name = 'Spezialisierungs-Praktikum'")
 
-    spezpraktikum = AndConnection.create :name => "Spezialisierungspraktikum"
+    spezpraktikum = AndConnection.create :name => "Spezialisierungs-Praktikum"
     spezpraktikum.child_rules << r1
     spezpraktikum.child_rules << r2
 
