@@ -74,7 +74,31 @@ class AbfragenController < ApplicationController
 
     id = params[:id]
 
-    render :text => "Hier ist der <b>Info-Text</b> für ID #{id}!"
+    regel = Connection.find(:first, :conditions => "id = '#{id}'")
+
+    modules = current_selection.modules
+
+    fullfilled = regel.evaluate modules
+
+    @status = "Es sind keine Informationen über den aktuellen Stand verfügbar..."
+    @status = "Es sind alle Bedingungen erfüllt." if fullfilled == 1
+    @status = "Es sind noch nicht alle Bedingungen erfüllt." if fullfilled == -1 || fullfilled == 0
+
+    credits_earned = regel.credits_earned modules
+    credits_needed = regel.credits_needed
+
+    modules_earned = regel.modules_earned modules
+    modules_needed = regel.modules_needed
+
+    credits_earned > 1 ? credit_status = "wurden #{credits_earned} Credits" : credit_status = "wurde #{credits_earned} Credit"
+    modules_earned > 1 ? module_status = "wurden #{modules_earned} Module" : module_status = "wurde #{modules_earned} Modul"
+
+    @credit_status = "Es wurden bereits #{credits_earned} Credits von #{credits_needed} Credits erbracht."
+    @module_status = "Es wurden bereits #{modules_earned} Module von #{modules_needed} Modulen bestanden."
+
+    respond_to do |format|
+      format.html { render :action => "info", :layout => false }
+    end
 
   end
 
