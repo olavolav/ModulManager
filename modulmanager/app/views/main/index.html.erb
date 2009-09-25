@@ -8,9 +8,9 @@
                         <div id="subnavi">
 
                                 <ul id="subnavi-ul">
-                                        <li id="return">Zur&uuml;ck</li>
+                                        <li id="return"><%= link_to "Zurück", :action => "start" %></li>
 										<li id="help">Hilfe</li>
-                                        <li id="finish">Fertig</li>
+                                        <li id="finish"><%= link_to "Export", :action => "export" %></li>
                                         <div class="clear"></div>
                                 </ul>
 

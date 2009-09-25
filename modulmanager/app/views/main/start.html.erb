@@ -46,7 +46,7 @@
 			
 			<div id ="footer">
 				Alternative k&ouml;nnen Sie eine von Ihnen 
-				<a href="#">gespeicherte Modul-Kombination importieren</a>.<br/>
+				<%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.<br/>
 				<%= link_to "<div class='foo'>OK</div>", :action => "create_selection" %>
 				<%= link_to("<div class='foo'>Zurück</div>", :url => { :action => "index" }) unless session[:selection_id] == nil %>
 				<div class="clear">&nbsp</div>
