@@ -1,34 +1,38 @@
-  ul.ueberblick, .ueberblick ul {
-    width: 100%;
-    list-style: none;
-    margin: 0;
-  }
-  .ueberblick_name {
-    min-width: 90%;
-    width: 90%;
-  }
-  .ueberblick_image {
-    width: 20px;
-    min-width: 20px;
-  }
-  .ueberblick_info_box:hover .ueberblick_info_text {
-      display: block;
-  }
-  .ueberblick_credits {
-    width: 60px;
-    min-width: 60px;
-    text-align: right;
-    font-size: smaller;
-  }
-  .ueberblick_info_text {
-      border: 1px outset white;
-      position: fixed;
-      top: 5px;
-      left: 5px;
-      color: white;
-      background-color: green;
-      display: none;
-  }
+#ueberblick {
+  margin: 3px;
+  padding: 2px;	
+}
+
+ul.ueberblick, .ueberblick ul {
+  width: 100%;
+  list-style: none;
+}
+.ueberblick_name {
+  min-width: 90%;
+  width: 90%;
+}
+.ueberblick_image {
+  width: 20px;
+  min-width: 20px;
+}
+.ueberblick_info_box:hover .ueberblick_info_text {
+    display: block;
+}
+.ueberblick_credits {
+  width: 60px;
+  min-width: 60px;
+  text-align: right;
+  font-size: smaller;
+}
+.ueberblick_info_text {
+    border: 1px outset white;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    color: white;
+    background-color: green;
+    display: none;
+}
 
 .ueberblick_category {
 	

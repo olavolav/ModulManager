@@ -744,21 +744,21 @@ var poolrekursiv = function(root){
 									// "</td>"+
 									
 									"<td style=' width:22px; '>" +
-										"<span class='fragebild' style='display:block;padding:1px 2px 0px 2px;'>"+ 
+										"<span class='fragebild' style='display:block;padding:1px 2px 0px 7px;'>"+ 
 											fragebild+ 
 										"</span>"+
 									
 									"</td>"+
 									
-									"<td style=' width:22px'>"+
+									"<td style=' width:25px'>"+
 										"<span class='noten' style='display:none'>"+
-											"<input type='text' size='2' value='note' />"+
+											"<input class='noten_input' type='text' size='5' value='Note' />"+
 											
 										"</span>"+
 									"</td>"+
 									
 									"<td style=' width:22px'>"+
-										"<span class='ipunkt' style='display:none;padding:1px 2px 0px 2px;'>"+ipunkt+"</span>"+
+										"<span class='ipunkt' style='display:none;padding:1px 2px 0px 7px;'>"+ipunkt+"</span>"+
 									"</td>"+
 									
 									"<td style='min-width:32px;text-align:right;font-weight:bold'>"+

@@ -1,7 +1,7 @@
 .pool_modul , .pool_modul_copy {
-        background-color : #D4EEF9;
+        background-color : #d8eef7;
 		margin-bottom    : 5px;
-		border           : 1px blue solid;
+		border           : 1px #3b809d solid;
 		cursor			 : move;
 		min-width        : 200px;
 }

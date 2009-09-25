@@ -90,7 +90,7 @@ h2{
 #left{
 	
 	float: left;
-	width:20%;
+	width:22%;
 	background-color:white;
 	/*border-right:1px black solid;*/
 	height:500px;
@@ -99,7 +99,7 @@ h2{
 #middle{
 	
 	float: left;
-	width:50%;
+	width:49%;
 	background-color:white;
 	padding-left: 20px;
 	padding-right: 20px;
@@ -132,7 +132,7 @@ h2{
 	/*background-color:gray;*/
 	/*border-left-style: solid;*/
 	/*height:50000px;*/
-	padding:2px;
+	/* padding:2px; */
 }
 
 #subright{
@@ -179,6 +179,7 @@ h2{
 		border: 1px #DEB887 solid;
 		/*background-color:#FFF68F;*/
 		background-color:#FFFFAF;
+		margin: 3px;
 		padding:2px;
 		height:100%;
 }

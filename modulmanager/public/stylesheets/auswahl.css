@@ -6,9 +6,9 @@
 
 
 .auswahl_modul,.auswahl_modul_clone {
-        background-color : #D4EEF9;
+        background-color : #d8eef7;
 		margin-bottom    : 5px;
-		border           : 1px blue solid;
+		border           : 1px #3b809d solid;
 		cursor			 : move;
 		min-width        : 200px;
 }
@@ -30,6 +30,21 @@
 	float:right;
 	
 }
+
+.noten_input {
+	border: 1px solid #bdc7d8;
+	height: 15px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	cursor: auto;
+}
+
+.semester_content {
+	width: 100%;
+	margin: 3px;
+}
+
 .semester {
 	/*border: 1px #DEB887 solid;*/
 	border: 1px #DEB887 solid;
@@ -70,7 +85,7 @@
          display: block;
  }
 
-h3,h5 {
+h3,h4,h5 {
 	font-size: 12px;
 	margin-bottom: 5px;
 	font-weight: normal;
