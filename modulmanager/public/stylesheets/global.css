@@ -11,6 +11,17 @@ h2{
 	padding: 5px;
 }
 
+a:link {	
+	color:blue;
+	text-decoration:underline; 
+}
+
+a:visited {
+	
+	color:blue;
+	 text-decoration:underline; 
+}
+
 #container{
 	background-color:white;
 	/*height:3000px;*/

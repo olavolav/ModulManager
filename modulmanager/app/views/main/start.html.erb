@@ -4,6 +4,7 @@
 <title></title>
 <meta name="author" content="quan">
 <meta name="editor" content="html-editor phase 5">
+<%= stylesheet_link_tag 'global' %>
 <%= stylesheet_link_tag 'start' %>
 
 <script type="text/javascript" src="javascripts/start.js"></script>
@@ -17,11 +18,11 @@
 			
 			<div id="schwerpunkt">
 				<ul>
-                                  <% i = 0 %>
+                                  <%# i = 0 %>
                                   <% @schwerpunkte.each do |s| %>
-                                    <% i += 1 %>
-                                    <li class="schwerpunk_oben"><%= link_to_remote s.name, :update => "schwerpunkt", :url => { :action => "focus_selection", :id => s.id }  %></li>
-                                    <%= "<div class='clear'>&nbsp;</div>" if i % 3 == 0 %>
+                                    <%# i += 1 %>
+                                    <li class="schwerpunkt_oben"><%= link_to_remote s.name, :update => "schwerpunkt", :url => { :action => "focus_selection", :id => s.id }  %></li>
+                                    <%#= "<div class='clear'>&nbsp;</div>" if i % 3 == 0 %>
                                   <% end %>
 					<%#*<li class="schwerpunk_oben">Physik(Allgemein)</li>%>
 					<%#*<li class="schwerpunk_oben">Astrophysik</li>%>
@@ -44,12 +45,12 @@
 			</div>
 			
 			
-			<div id ="footer">
+			<div id ="bestaetigen">
 				Alternative k&ouml;nnen Sie eine von Ihnen 
 				<%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.<br/>
-				<%= link_to "<div class='foo'>OK</div>", :action => "create_selection" %>
-				<%= link_to("<div class='foo'>Zurück</div>", :url => { :action => "index" }) unless session[:selection_id] == nil %>
-				<div class="clear">&nbsp</div>
+				<%= link_to "<div class='buttons'>OK</div>", :action => "create_selection" %>
+				<%= link_to("<div class='buttons'>Zurück</div>", :url => { :action => "index" }) unless session[:selection_id] == nil %>
+				<div class="clear">&nbsp;</div>
 			</div>
 			
 		</div><!--ende content-->

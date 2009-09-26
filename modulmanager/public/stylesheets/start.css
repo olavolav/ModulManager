@@ -3,9 +3,10 @@
 #content {
 	
 	margin : 7% 15% 7% 15%;
-	border : 10px black solid;
-	background-color :  #dddddd;
-	
+	border : 1px black solid;
+	/* background-color :  #dddddd; */
+	background-color :  #F0F0F0;
+	padding: 1em;
 }
 
 ul {
@@ -16,63 +17,56 @@ ul {
 
 ul li {
 	list-style-type : none;
-	border : 1px blue solid;
-	width  : 15%;
-	padding:20px;
-	margin : 10px 50px 10px 50px ;
+	border : 1px #3b809d solid;
+	width  : 150px;
+	padding: 1em;
+	margin : 1em;
 	text-align : center;
-	cursor : pointer;
-	
+	cursor : auto;
+	float: left;
+	background: white;
 }
 
-.schwerpunk_oben {
-	float : left;
-	
-	
+ul li a:link {
+	color: black;
+	text-decoration: none;
 }
+
+/*.schwerpunkt_oben {
+	float : left;	
+} */
 
 .clear {
 	clear:both;
 }
 
-.schwerpunk_unten {
+.schwerpunkt_unten {
 	float : left;
 	
 	
 }
 
 select {
-	margin-left : 100px;
-	margin-top  : 10px;
+	margin: 1em;
 	
 }
 
-#footer {
+#pruefungsordnung {
+	clear: both;
+}
+
+#bestaetigen {
 	margin-top : 30px;
 }
 
-
-a:link {
-	
-	color:blue;
-	text-decoration:underline; 
-}
-a:visited {
-	
-	color:blue;
-	 text-decoration:underline; 
-}
-
-#footer .foo{
-	border : 3px blue double;
-	width  : 10%;
-	margin : 15px;
+.buttons {
+	border : 1px black solid;
+	min-width  : 15%;
+	margin : 1em;
+	padding: 1em;
 	text-align : center;
-	float : right;
-	background-color:#fffff0;
-	cursor :pointer;
-	
+	float: right;
+	background-color: #d8eef7;
+	cursor: pointer;
+	color: black;
 }
-
-
-
