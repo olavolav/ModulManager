@@ -48,6 +48,18 @@ var pfeil_tauschen = function(category_id){
 	return;
 }
 
+// Anzeigen bzw. verstecken der anfänglichen Hilfe und der Navigations-Knöpfe
+var show_navi = function(){
+	$("#navi_optional").slideDown();
+	$("#navimovedown").toggle()
+	$("#navimoveup").show()
+}
+var hide_navi = function(){
+	$("#navi_optional").slideUp();
+	$("#navimovedown").show()
+	$("#navimoveup").hide()
+}
+
 
 ///////////////////MODULLOESCHEN loeschen////////////////////////
 /// bei Click auf <span class="modulloeschen">
