@@ -1,17 +1,17 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title></title>
-<meta name="author" content="quan">
-<meta name="editor" content="html-editor phase 5">
-
-<%= stylesheet_link_tag 'import' %>
-
+	<title>ModulManager - Export</title>
+	<%= stylesheet_link_tag 'global' %>
+	<%= stylesheet_link_tag 'import' %>
 </head>
-<body text="#000000" bgcolor="#FFFFFF" link="#FF0000" alink="#FF0000" vlink="#FF0000">
+<body>
 
 	<div id="content">
-		<h5>Modul-Auswahl importieren</h5>
+		<h3>Modul-Auswahl importieren</h3>
+		
+		Wenn Sie zuvor eine Datei im ModulManager-Format (Dateiendung ???) gespeichert haben, können sie ihre Auswahl hier wieder herstellen:
+		
                 <form action="post_file" method="post" enctype="multipart/form-data">
                   <p><label for="">Bitte Datei zum Upload wählen:</label></p>
                   <p><input type="file" name="data_file" /></p>
