@@ -13,16 +13,16 @@
 							<p>Momentane Einstellungen: Schwerpunkt ???, Prüfungsordnungs-Version ???</p>
 							<p>Navigation zu anderen ModulManager-Seiten:</p>
 
-                                <ul id="subnavi-ul">
-                                        <li id="return"><%= link_to "Zurück zur Schwerpunkt- und Prüfungsordnungs-Auswahl", :action => "start" %></li>
-										<li id="help"><%= link_to "Hilfe", :action => "help" %></li>
-                                        <li id="finish"><%= link_to "Drucken und Export", :action => "export" %></li>
-                                        <div class="clear"></div>
-                                </ul>
-								
+                            <ul id="subnavi-ul">
+								<%= link_to "<li>Zurück zur Schwerpunkt- und Prüfungsordnungs-Auswahl</li>", :action => "start" %>
+								<%= link_to "<li>Hilfe</li>", :action => "help" %>
+                                <%= link_to "<li>Speichern und Drucken</li>", :action => "export" %>
+                                <div class="clear"></div>
+                            </ul>
+				
 							<p>Unten können Sie Module per Drag&amp;Drop von den zur Verfügung stehenden Modulen in das gewünschte Semester ziehen.</p>
 							</div>
-								<button id="navimoveup" onClick="javascript:hide_navi();">Navigation verstecken</button>
+								<button id="navimoveup" onClick="javascript:hide_navi();">Navigation ausblenden</button>
 
                         </div>
 
