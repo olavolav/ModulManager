@@ -26,8 +26,8 @@
 	var ipunkt    = "<img src='images/iPunkt.png' style='cursor:pointer'>";
 	var rote_ipunkt    = "<img src='images/Ausrufezeichen.png' style='cursor:pointer'>";
 	var loeschenbild = "<img src='images/Loeschen.png' style='cursor:pointer; position:relative; top:-5px; left:6px'>";
-	var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='cursor:pointer;padding-right:3px;'>";
-	var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='cursor:pointer;padding-right:3px;'>";
+	var pfeil_rechts = "<img src='http://localhost:3000/images/Pfeil-Rechts.png' style='cursor:pointer;padding-right:3px;'>";
+	var pfeil_unten = "<img src='http://localhost:3000/images/Pfeil-Unten.png' style='cursor:pointer;padding-right:3px;'>";
 	var warten_weiss = "<img src='images/Warten-HintergrundWeiss.gif' style='cursor:pointer;padding-right:3px;'>";
 	var warten_blau = "<img src='images/Warten-HintergrundBlau.gif' style='cursor:pointer;padding-right:3px;'>";
 	var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='cursor:pointer;padding-right:3px;'>";
@@ -39,13 +39,8 @@
 //die wird in pool_rekursiv() benutzt
 
 var pfeil_tauschen = function(category_id){
+	alert("drin");
 	
-	$("#pool").find("div#"+category_id).each(function(){
-		
-		alert("hallo "+category_id);
-	});
-	
-	return;
 }
 
 // Anzeigen bzw. verstecken der anfänglichen Hilfe und der Navigations-Knöpfe
@@ -97,6 +92,8 @@ var modulloeschen = function (mod_id){
 					
 					var das_span = $(this_modul).find("span.imAuswahl");
 					$(das_span).text("nein");
+					
+				
 					$(this).append(this_modul);
 					
 					
@@ -113,9 +110,9 @@ var modulloeschen = function (mod_id){
 					
 				}// ende if leer
 				else{
-					
+					//alert("nicht leer");
 					// remove this_modul weil das Original ist schon da
-					$(this_modul).remove();
+					//$(this_modul).remove();
 					var this_span = $(this).find("span.imAuswahl");// this hier ist mod_id_parent
 					var the_other_modul=$(this).find("#"+mod_id);
 					$(this_span).text("nein");
@@ -205,72 +202,13 @@ var session_auswahl_rekursiv = function(root){
 			
 				if (parent_id == x){
 					
-					$(this).append(auswahl_modul_clone);
-					
-					
-				}
-			});//ende each intern
-			
-			
-		/*	
-			// parent besuchen, parent_id ist semmester-count
-			var parent = $(this).parent().get(0);
-			var parent_id = $(parent).attr("count");   
-			
-			
-			var mod_id = $(this).attr("id");
-			
-			
-			 
-			// Anzeige in Auswahl.Achtung! redundan
-			// d.h.: wir holen nur das erste Modul in modul_im_pool
-			
-			var modul_im_pool = $("#pool").find("div#"+mod_id);
-			var das_erste = $(modul_im_pool).eq(0);
-			
-			
-			// verändern class pool_modul zum auswahl_modul und append
-			// und dann verstecken die anderen gleichen Module
-			
-			$(das_erste).attr("class","auswahl_modul");
-			$(das_erste).find("div#icon_loeschen").css("display","block");
-			$(das_erste).find("span.fragebild").css("display","none");
-			$(das_erste).find("span.ipunkt").css("display","block");
-			$(das_erste).find("span.noten").css("display","block");
-			$(das_erste).find("span.imAuswahl").text("ja");
-			
-			$(sem_content).find("div.semester").each(function(){
-				var x= $(this).attr("id");
-			
-				if (parent_id == x){
-					//$(this).append("<div class='auswahl_modul'>"+modul_inhalt+"</div>");
-					$(this).append(das_erste);
-					
+					$(this).find(".subsemester").append(auswahl_modul_clone);
 					
 				}
 			});//ende each intern
-				
-			// Pool akktuallisieren, also mod_id+"_parent" suchen
-			// setze span-imAuswahl im modul_im_pool auf "ja"
-			 //vertecken die anderen gleichen Module
-	
-				$("."+mod_id+"_parent").each(function(){
-					//alert("drin");
-					$(this).find("div.pool_modul").each(function(){
-						var das_span = $(this).find("span.imAuswahl");
-						var x = $(das_span).text();
-						//alert("span="+x);
-						if(x=="nein"){
-							$(this).hide();
-							$(das_span).text("ja");
-						}
-						
-					});
-					
-				});
 			
 			
-		*/	
+		
 			return;
 		}// ende Blätter
 		
@@ -286,10 +224,11 @@ var session_auswahl_rekursiv = function(root){
 			$(sem_content).append("<div class='semester' id='"+sem_id+"'>"+
 										"<div class='subsemester'>"+
 											"<h3>"+sem_id+".Semester"+"</h3>"+
-											"<span style='display:none'>(leer)</span>"+
+											"<span class='leer' style='display:none;color:red'>(leer)</span>"+
 										"</div>"+
-										
-								  "</div>");
+										"<p style='cursor:pointer; display:none;color:red' class='semesterloeschen' onClick='sem_loeschen("+sem_id+")'>L&ouml;schen</p>"+
+								  "</div>" );
+								 
 			
 		}// ende else if
 		
@@ -327,12 +266,14 @@ var session_auswahl = function (){
 	var root = XML.documentElement;
 	
 	
-	// rekursiv aufrufen und semester-content am Anfang leeren
-	//var sem_content = $("#semester-content");
-	//sem_content.empty();
+	// rekursiv aufrufen 
 	
 	
 	session_auswahl_rekursiv(root);
+	
+	// Loeschen anzeigen.Wir suchen das letzten Semester.
+	var last_semester = $("#semester-content div.semester:last");
+	$(last_semester).find("p.semesterloeschen").css("display","block");
 	
 
 	
@@ -411,7 +352,7 @@ var ajax_to_server_by_remove_semester = function (sem_count){
 			}
 		
 	});
-	
+	ueberblick();
 	
 }
 
@@ -586,7 +527,7 @@ var drop_in_pool = function(mod_id,ui_draggable,this_pool){
 		else{
 			
 			// remove ui-draggable weil das original schon da ist
-			$(ui_draggable).remove();
+			//$(ui_draggable).remove();
 			var this_span = $(this).find("span.imAuswahl");//this hier ist mod_id_parent
 			var the_other_modul = $(this).find("#"+mod_id);
 			$(this_span).text("nein");
@@ -602,9 +543,6 @@ var drop_in_pool = function(mod_id,ui_draggable,this_pool){
 			});
 		}
 		
-		
-		
-		
 	});//ende each
 	
 	
@@ -614,13 +552,7 @@ var drop_in_pool = function(mod_id,ui_draggable,this_pool){
 	
 }//ende
 
-
-
-
-
-		
 //----Poolrekursive implementieren-------------------------------------------------------
-
 
 //poolrekursive()  implementieren
 
@@ -637,6 +569,7 @@ var poolrekursiv = function(root){
 		if (knoten_name == "category") {
 		 	
 			var category_id   = $(this).attr("category_id");
+			
 			var category_name = $(this).attr("name");
 			
 			
@@ -648,14 +581,18 @@ var poolrekursiv = function(root){
 			//check nach Schwerpunkt und Bachelor,also 1.te Ebene
 			if (parent_name == "root" && $(this).children()[0]){
 				
+				
 				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" +
 
-									// "> "+
 									
-									"<a class='"+category_id+"' onclick='pfeil_tauschen("+category_id+")'>"+pfeil_rechts+category_name +"</a>"+ 
+									"<a id='id_"+category_id+"'>"+"<span class='bild'>"+pfeil_rechts+"</span>"+category_name +"</a>"+ 
 						 
 						 		"</div>");
+				$("#pool").append("<script>$(function(){ $(\"#"+category_id+" a#id_"+category_id+" \").live('click', function(){  $(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle(); var this_img=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('img'); var this_src=$(this_img).attr('src'); if(this_src=='http://localhost:3000/images/Pfeil-Rechts.png'){$(this_img).attr('src','http://localhost:3000/images/Pfeil-Unten.png')}else{$(this_img).attr('src','http://localhost:3000/images/Pfeil-Rechts.png')}             });});</script>");	
+				
 								
+								
+								 			
 				
 			}//ende Schwerpunkt
 		
@@ -665,14 +602,15 @@ var poolrekursiv = function(root){
 				
 				var parent_id   = $(parent).attr("category_id");
 				var parent_a    = $("#pool #"+parent_id).find("a");
-				var parent_a_class = $(parent_a).attr("class");
+				var parent_a_id = $(parent_a).attr("id");
+				
 				
 			  
 				$("#pool #"+parent_id).append("<div style='margin-left:5px;' class='pool_category'  id='" + category_id + "'>" +
 												
 												// "> "+
 												
-												"<a class='"+category_id+"' onclick='pfeil_tauschen("+category_id+")'>"+pfeil_rechts+category_name +"</a>"+
+												"<a id='id_"+category_id+"'>"+pfeil_rechts+category_name +"</a>"+
 												 
 												"</div>");
 				// verstecke untergeordneten Kategories
@@ -680,22 +618,51 @@ var poolrekursiv = function(root){
 				$("#pool #"+parent_id+" #"+category_id).hide();	
 				
 				
-				// 	untergeordneten Kategories wieder zeigen bei Click auf den Schwerpunkt-Vater						
-				$("#pool").append("<script>$(function(){ $(\"#" + parent_id + " ."+parent_a_class+"\").live('click', function(){ $(\"#" + parent_id + " #"+category_id+"\").toggle('slow');  });    })</script>");								
-												
-				// sind Kinder Bätter? wenn Ja dann toggle Blätter
-				/*if($(this).children()[0]){
-					var this_children = $(this).children()[0];
-					var child_name     = this_children.nodeName;
-					if(child_name == "module"){
-						$("#pool").append("<script>$(function(){ $(\"#pool #" + parent_id +" #"+category_id+ " ."+parent_a_class+"\").live('click', function(){ $(\"#pool #" + parent_id +" #"+category_id+ " .pool_modul\").toggle('slow');  });    })</script>");
-					}
+				// hier checken ob die Kategories die Blätter enthalten
+				// wenn nein dann macht untergeornete Kategories toggle
+				// wenn ja dann macht die Blätter toggle
+				// hier wird das Pfeil-Bildchen bei jedem Click verändert
+				
+				var this_children = $(this).children()[0];
+				var child_name    = this_children.nodeName;
+				if (child_name == "category"){
+					$("#pool").append("<script>"+
+									 "$(function(){"+   
 					
-				}*/
+										"$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
+												"var this_img=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('img'); var this_src=$(this_img).attr('src'); if(this_src=='http://localhost:3000/images/Pfeil-Rechts.png'){$(this_img).attr('src','http://localhost:3000/images/Pfeil-Unten.png');}else {$(this_img).attr('src','http://localhost:3000/images/Pfeil-Rechts.png')}"+
+												"$(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle();           "+
+										
+										"})"+
+								
+								
+									"})</script>");
+				}
+				else if(child_name == "module"){
+					$("#pool").append("<script>"+
+									 "$(function(){"+   
+					
+										"$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
+										
+												"$(\"#"+category_id+" .pool_modul \").each(function(){"+
+												
+														"var imAuswahl = $(this).find('span.imAuswahl');"+
+														"var imAuswahl_text = $(imAuswahl).text();"+
+														"if (imAuswahl_text == 'ja'){$(this).hide();}"+
+														"else if (imAuswahl_text == 'nein'){$(this).toggle('fast');}});"+
+														"var this_img=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('img'); var this_src=$(this_img).attr('src'); if(this_src=='http://localhost:3000/images/Pfeil-Rechts.png'){$(this_img).attr('src','http://localhost:3000/images/Pfeil-Unten.png');}else {$(this_img).attr('src','http://localhost:3000/images/Pfeil-Rechts.png')}         "+
+										"})"+
+								
+								
+									"})</script>");
+					
+					
+				}
 				
-				
-				
-			}//ende else für andere Kategorie
+				// 	untergeordneten Kategories wieder zeigen bei Click auf den Schwerpunkt-Vater						
+				//$("#pool").append("<script>$(function(){ $(\"#" + parent_id + " #"+parent_a_id+"\").live('click', function(){ $(\"#" + parent_id + " #"+category_id+"\").toggle('slow'); var this_img=$(\"#" + parent_id + " #"+parent_a_id+"\").find('img'); var this_src=$(this_img).attr('src'); if(this_src=='images/Pfeil-Rechts.png'){$(this_img).attr('src','images/Pfeil-Unten.png');}else {$(this_img).attr('src','images/Pfeil-Rechts.png');}                              }); })</script>");								
+												
+		}//ende else für andere Kategorie
 		
 		
 		//rekursiv
@@ -710,7 +677,8 @@ var poolrekursiv = function(root){
 			var parent_name = $(parent).attr("name");
 			var parent_id   = $(parent).attr("category_id");
 			var parent_a    = $("#pool #"+parent_id).find("a");
-			var parent_a_class = $(parent_a).attr("class");
+			//var parent_a_class = $(parent_a).attr("class");
+			var parent_a_id= $(parent_a).attr("id");
 			//alert(parent_a_class);
 			
 			
@@ -835,7 +803,7 @@ var poolrekursiv = function(root){
    }).responseXML; //ende AJAX
 
     var root = XML.documentElement;
-	
+	$("#pool").empty();
 	//aktuellePoolXml=XML;
 	
 	

@@ -36,17 +36,15 @@ $(function(){
 
 		// pool();
 		
-		$(".auswahl_modul,.auswahl_modul_clone").draggable({
+		$(".auswahl_modul,.auswahl_modul_clone,.auswahl_modul.ui-draggable").draggable({
 			
 			revert : "invalid",
-			helper : "clone"
+			helper : "clone",
+			cursorAt:{right:125,top:13}
 			
 		});
 		
-		$(".auswahl_modul.ui-draggable").draggable({
-			
-			revert : "invalid"
-		});
+		
 		
 		
 		
@@ -54,35 +52,12 @@ $(function(){
 	   $(".pool_modul").draggable({
 							
 				revert : "invalid",
-				helper : "clone"
-				/*drag  : function(event,ui){
-					
-					alert("anfang");
-					alert("topOffset="+ui.offset.top);
-					alert("leftOffset="+ui.offset.left);
-					//var this_pos = $(ui.helper).css("position");
-					//alert("position="+this_pos);
-					
-				}*/
+				helper : "clone",
+				cursorAt:{left:100,top:13}
 				
-				
-				
-						
-							
-							
 		});		
 		
-		/*  $(".pool_modul.ui-draggable").draggable({
-							
-				revert : "invalid",
-				helper : "clone"
-				
-				
-				
-						
-							
-							
-		});	*/	
+		
 		
 	// am Anfang beim Seite-Laden alle Pool-modul verstecken.
 	// danach dynamisch auf- und zu machen. 
@@ -90,26 +65,13 @@ $(function(){
 	
 	$("#pool .pool_modul").hide();
 	
-	/*var parents = $("#pool .pool_modul").parent();
-	var par_parents = $(parents).parent();
 	
-	$(par_parents).each(function(){
-		var par_parent_id = $(par_parents).attr("id");
-			$("#"+par_parent_id+" a").live("click", function(){
-				alert("drin");
-				// check span.imAuswahl. Wenn Ja dann vertecken mit hide()
-				var parent_knoten = $(this).parent();
-				var this_children =$(parent_knoten).children();
-				$(this_children).find("div").each(function(){
-					
-					$(this).toggle();
-					
-			});
-
-		});
-	});*/
 	
-	$("#pool .pool_modul,#pool .pool_modul.ui-draggable").each(function(){
+	
+	
+	
+	
+	/*$("#pool .pool_modul,#pool .pool_modul.ui-draggable").each(function(){
 			var parent = $(this).parent().get(0);
 			
 			var parent_parent=$(parent).parent().get(0);
@@ -136,12 +98,13 @@ $(function(){
 						
 				}
 				
+				
 			});
 		
 	});  //ende each
 	
 	
-	
+	*/
 	
 		
 		
@@ -245,13 +208,12 @@ $(function(){
 var sem_hinzu = function(){
 	
 	$(function(){
-		 var anzahl = $('#semester-content div.semester').length;
-		 alert("Anzahl semester box="+anzahl);
-		 
+		
 		 
 		 
 		 
     	 var n = $('#semester-content div.semester').length+1;
+		// alert(n);
 		
 			// var l für Löschen gedacht
 			
@@ -271,7 +233,7 @@ var sem_hinzu = function(){
 									+n+".Semester"+
 								"</h5><span class='leer' style='display:block; color:red'>(leer)</span>"+
 							"</div>"+
-							"<p style='cursor:pointer; display:block' class='semesterloeschen' onClick='javascrip:sem_loeschen()'>L&ouml;schen</p>"
+							"<p style='cursor:pointer; display:block' class='semesterloeschen' onClick='sem_loeschen("+l+")'>L&ouml;schen</p>"+
 					  "</div>";
 			
 			$("#semester-content").append(neu);
@@ -294,16 +256,22 @@ var sem_hinzu = function(){
 					
                     drop: function(event,ui){
 						
-						// id von reingezogenem Modul und entsprechendem Semester holen
+					 var ui_draggable = $(ui.draggable);
+					 var ui_helper = $(ui.helper);
+					 var this_semester = $(this);		
+					 var semester = $(this).attr("id");
+					 var modul_id = $(ui.draggable).attr("id");
+					 var modul_class = $(ui.draggable).attr("class");
+					 
 				 
-						 var ui_draggable = $(ui.draggable);
-						 var this_semester = $(this);		
-						 var semester = $(this).attr("id");
-						 var modul_id = $(ui.draggable).attr("id"); 
-						  
-						//  drop() ruft ajax_to_server() und auswahlanzeige() auf
-						 
-						 drop_in_auswahl(modul_id,semester,ui_draggable,this_semester);
+				 
+				  
+				
+				  
+					//  drop() ruft ajax_to_server() und auswahlanzeige() auf
+				 
+					 drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+				
 								
 						
 					}//ende Drop
@@ -323,34 +291,32 @@ var sem_hinzu = function(){
 //   sem_loeschen()
 ///////////////////////////////////////////////////////////////////////////////////
 
-var sem_loeschen = function(){
+var sem_loeschen = function(l){
 	
 	
-	$(function(){
+	  	//alert(l);
 
 		// confirm
 		var bestaetigen = confirm("wollen Sie das Semester wirklich loeschen?");
 		
 		if (bestaetigen == true) {
-			var parent = $(this).parent().get(0);
 			
-			// paren_id ist semester-count
-			var parent_id = $(parent).attr("id");
+			$("#semester-content #"+l).remove();
 			
-			$(parent).remove();
-			var laenge = $("#semester-content").children().length;
-			
-			var semester = $("#semester-content").find("div#" + laenge);
-			$(semester).find("p").css("display", "block");
-			
+			// Loeschen anzeigen.Wir suchen das letzten Semester.
+	
+			var last_semester = $("#semester-content div.semester:last");
+			$(last_semester).find("p.semesterloeschen").css("display","block");
+	
 			//ajax aufrufen
-			ajax_to_server_by_remove_semester(parent_id);
+			ajax_to_server_by_remove_semester(l);
+			
 			
 		} // ende confirm
 		
 		
 	
-	}); //ende function
+	
 	
 }//ende
 

@@ -11,6 +11,7 @@ var tb_pathToImage = "images/loadingAnimation.gif";
 
 //on page load call tb_init
 $(document).ready(function(){
+		//alert("hallo init");
         tb_init('a.thickbox, area.thickbox, input.thickbox');//pass where to apply thickbox
         imgLoader = new Image();// preload image
         imgLoader.src = tb_pathToImage;

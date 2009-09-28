@@ -145,7 +145,7 @@ var ueberblick = function(){
 		success : function(html){ 
 			
 			//bindThickBoxEvents();
-			//tb_init('a.thickbox');
+			
 
 		},
 		error: function(a,b,c){
@@ -156,9 +156,11 @@ var ueberblick = function(){
 		
 	}).responseText;
 	
-	
 	$("#ueberblick").empty();
-	$("#ueberblick").html(html);
+	
+	
+	$("#ueberblick").html(html+"<script>bindThickBoxEvents();</script>");
+	//$("#ueberblick").html(html);
 	
 	
 	
