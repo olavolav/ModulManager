@@ -65,7 +65,14 @@ $(function(){
 	
 	$("#pool .pool_modul").hide();
 	
-	
+	$("#voratbox").droppable({
+		
+		hoverClass:'drophover',
+		drop : function(event,ui){
+			$(this).append(ui.draggable);
+			
+		}
+	});
 	
 	
 	
@@ -231,7 +238,7 @@ var sem_hinzu = function(){
             var neu = "<div class='semester' id='"+n+"'>"+
 							"<div class='subsemester'><h5>"
 									+n+".Semester"+
-								"</h5><span class='leer' style='display:block; color:red'>(leer)</span>"+
+								"</h5><span class='leer' style='display:none; color:red'>(leer)</span>"+
 							"</div>"+
 							"<p style='cursor:pointer; display:block' class='semesterloeschen' onClick='sem_loeschen("+l+")'>L&ouml;schen</p>"+
 					  "</div>";
@@ -296,26 +303,58 @@ var sem_loeschen = function(l){
 	
 	  	//alert(l);
 
-		// confirm
-		var bestaetigen = confirm("wollen Sie das Semester wirklich loeschen?");
+		// confirm nur beim Semester >=2
 		
-		if (bestaetigen == true) {
+		if (parseInt(l) != "1") {
+			var bestaetigen = confirm("wollen Sie das Semester wirklich loeschen?");
+			if (bestaetigen == true) {
 			
-			$("#semester-content #"+l).remove();
-			
-			// Loeschen anzeigen.Wir suchen das letzten Semester.
-	
-			var last_semester = $("#semester-content div.semester:last");
-			$(last_semester).find("p.semesterloeschen").css("display","block");
-	
-			//ajax aufrufen
-			ajax_to_server_by_remove_semester(l);
-			
-			
-		} // ende confirm
+				//$("#semester-content #"+l);
+				var this_semester = $("#semester-content #" + l);
+				
+				//erstmal hide(), aber noch nicht remove()
+				$(this_semester).hide();
+				var this_children = $(this_semester).find("div.subsemester").children();
+				var this_length = $(this_children).length;
+				
+				// Module wieder im Pool anzeigen
+				// wieso >2? denn da ein für <h3>semster</h3> und ein für <span>leer</span>
+				
+				if(this_length > 2){
+					var i=2; // beginnen mit 3.tes Kind, also index i=2
+					
+					for(i ; i<this_length; i++){
+						var this_child = $(this_children)[i];
+						var mod_id     = $(this_child).attr("id");
+						
+						modulloeschen(mod_id);
+						
+						
+					}
+					
+				}
+				
+				
+				$(this_semester).remove();
+				// Loeschen anzeigen.Wir suchen das vorletzten Semester.
+				
+				if (parseInt(l) > 2) {
+					var last_semester = $("#semester-content div.semester:last");
+					$(last_semester).find("p.semesterloeschen").css("display", "block");
+					//ajax aufrufen
+					// wir rufen nur Ajax auf wenn es sich um ein nicht leer semester handelt.
+					//if (this_length != 2) {
+						ajax_to_server_by_remove_semester(l);
+					//}
+				}
+				
+				
+				
+				
+			} // ende confirm
+		}
 		
 		
-	
 	
 	
 }//ende
