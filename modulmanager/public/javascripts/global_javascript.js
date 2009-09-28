@@ -19,18 +19,18 @@
 
 // photo path
 
-	var wahlpflichtbild = "<img src='images/Wahlpflicht.png' style='cursor:pointer'>";
-	var pflichtbild     = "<img src='images/Pflicht.png' style='cursor:pointer'>";
-	var wahlbild    = "<img src='images/Wahl.png' style='cursor:pointer' >";
-	var fragebild     = "<img src='images/Fragezeichen.png' style='cursor:pointer'>";
-	var ipunkt    = "<img src='images/iPunkt.png' style='cursor:pointer'>";
-	var rote_ipunkt    = "<img src='images/Ausrufezeichen.png' style='cursor:pointer'>";
-	var loeschenbild = "<img src='images/Loeschen.png' style='cursor:pointer; position:relative; top:-5px; left:6px'>";
-	var pfeil_rechts = "<img src='http://localhost:3000/images/Pfeil-Rechts.png' style='cursor:pointer;padding-right:3px;'>";
-	var pfeil_unten = "<img src='http://localhost:3000/images/Pfeil-Unten.png' style='cursor:pointer;padding-right:3px;'>";
-	var warten_weiss = "<img src='images/Warten-HintergrundWeiss.gif' style='cursor:pointer;padding-right:3px;'>";
-	var warten_blau = "<img src='images/Warten-HintergrundBlau.gif' style='cursor:pointer;padding-right:3px;'>";
-	var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='cursor:pointer;padding-right:3px;'>";
+	var wahlpflichtbild = "<img src='images/Wahlpflicht.png'>";
+	var pflichtbild     = "<img src='images/Pflicht.png'>";
+	var wahlbild    = "<img src='images/Wahl.png'>";
+	var fragebild     = "<img src='images/Fragezeichen.png'>";
+	var ipunkt    = "<img src='images/iPunkt.png'>";
+	var rote_ipunkt    = "<img src='images/Ausrufezeichen.png'>";
+	var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-5px; left:6px;'>";
+	var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='padding-right:3px;'>";
+	var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='padding-right:3px;'>";
+	var warten_weiss = "<img src='images/Warten-HintergrundWeiss.gif' style='padding-right:3px;'>";
+	var warten_blau = "<img src='images/Warten-HintergrundBlau.gif' style='padding-right:3px;'>";
+	var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='padding-right:3px;'>";
 
 
 
