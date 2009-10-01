@@ -1,3 +1,5 @@
+custom_count = 0
+
 xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
 
 xml.auswahl(:id => @selection.id) do
@@ -5,8 +7,13 @@ xml.auswahl(:id => @selection.id) do
   xml.semesters do
     @selection.semesters.sort_by { |sem| sem.count }.each do |s| # sortiert die Semesters erst nach Stufe
       xml.semester(:count => s.count, :id => "sem#{s.id}") do
-        s.modules.sort_by { |mod| mod.moduledata.short }.each do |m|
-          xml.module(:id => m.moduledata.id)
+        s.modules.each do |m|
+          if m.type == "CustomModule"
+            xml.module(:id => "custom_#{custom_count}", :name => m.name, :credits => m.credits, :grade => m.grade)
+            custom_count += 1
+          else
+            xml.module(:id => m.moduledata.id, :grade => m.grade)
+          end
         end
       end
     end

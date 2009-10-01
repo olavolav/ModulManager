@@ -31,27 +31,6 @@ class AbfragenController < ApplicationController
     end
   end
 
-  def note
-    mods = params[:module]
-
-    i = 0
-    credits_gesamt = 0
-    mods.each do |id, note|
-      if note > 0
-        mod = Studmodule.find(:first, :conditions => "id = '#{id}'")
-        i = i + ( note * mod.credits )
-        credits_gesamt += mod.credits
-      end
-    end
-
-    i = i / credits_gesamt
-
-    respond_to do |format|
-      format.html { render :text => i }
-    end
-
-  end
-
   # Die Methode muss mit den HTTP-Parametern "sem_count", für das Semester, in
   # das hinzugefügt werden soll, und "mod_id" für die ID des hinzugefügten
   # Modules aufgerufen werden. Die Methode speichert dann das übergebene Modul
@@ -70,7 +49,26 @@ class AbfragenController < ApplicationController
     semester.modules << SelectedModule.create(:moduledata => Studmodule.find(params[:mod_id]))
     # Umleitung zur Liste der aktuell ausgewählten Module
     # render :action => "ueberblick", :layout => false
-    render :text => "Hallo Welt :-)"
+    render :text => "Module added successfully..."
+  end
+
+  def add_custom_module_to_selection
+
+    selection = current_selection
+
+    unless semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
+      semester = Semester.create(:count => params[:sem_count])
+      selection.semesters << semester
+    end
+
+    semester.modules << CustomModule.create(
+      :moduledata => nil,
+      :credits => params[:credits],
+      :name => params[:name]
+    )
+
+    render :text => "CostumModule created successfully..."
+
   end
 
   def save_module_grade
@@ -88,7 +86,7 @@ class AbfragenController < ApplicationController
       end
     end
 
-    render :text => "Hallo Welt!"
+    render :text => "Module grade saved successfully..."
 
   end
 
