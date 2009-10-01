@@ -31,6 +31,27 @@ class AbfragenController < ApplicationController
     end
   end
 
+  def note
+    mods = params[:module]
+
+    i = 0
+    credits_gesamt = 0
+    mods.each do |id, note|
+      if note > 0
+        mod = Studmodule.find(:first, :conditions => "id = '#{id}'")
+        i = i + ( note * mod.credits )
+        credits_gesamt += mod.credits
+      end
+    end
+
+    i = i / credits_gesamt
+
+    respond_to do |format|
+      format.html { render :text => i }
+    end
+
+  end
+
   # Die Methode muss mit den HTTP-Parametern "sem_count", für das Semester, in
   # das hinzugefügt werden soll, und "mod_id" für die ID des hinzugefügten
   # Modules aufgerufen werden. Die Methode speichert dann das übergebene Modul
@@ -52,6 +73,47 @@ class AbfragenController < ApplicationController
     render :text => "Hallo Welt :-)"
   end
 
+  def save_module_grade
+
+    selection = current_selection
+    module_id = params[:mod_id]
+    grade = params[:grade]
+
+    selection.semesters.each do |s|
+      s.modules.each do |m|
+        if m.module_id == module_id
+            m.grade = grade
+            m.save
+        end
+      end
+    end
+
+    render :text => "Hallo Welt!"
+
+  end
+
+  def get_examination_grade
+
+    selection = current_selection
+
+    grade = 0
+    credits = 0
+
+    selection.semesters.each do |s|
+      s.modules.each do |m|
+        if m.grade != nil
+          grade += (m.credits * m.grade)
+          credits += m.credits
+        end
+      end
+    end
+
+    grade = grade / credits
+
+    render :text => grade
+
+  end
+
   # Die Methode muss mit dem HTTP-Parameter "mod_id" aufgerufen werden. Die
   # Methode veranlasst dann eine Löschung des entsprechenden Moduls aus der
   # Auswahl.
@@ -63,9 +125,11 @@ class AbfragenController < ApplicationController
 
   # Entfernt ein Semester aus der aktuellen Auswahl. Dieses 
   def remove_semester_from_selection
-    Semester.find(
+    s1 = Semester.find(
       :first,
       :conditions => "selection_id = #{current_selection.id} AND count = #{params[:sem_count]}").destroy
+    modules = s1.modules
+    modules.each { |m| m.destroy }
     # redirect_to :action => "ueberblick"
     render :text => "Hallo Welt :-)"
   end
