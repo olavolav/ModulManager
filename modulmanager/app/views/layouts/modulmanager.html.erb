@@ -20,14 +20,65 @@
 				<script type="text/javascript" src="javascripts/auswahleffect.js"></script>
 				<script type="text/javascript" src="javascripts/pooleffect.js"></script>
 				<script type="text/javascript" src="javascripts/thickbox.js"></script>
-
-
-
-
-
-
-
-
+				<script type="text/javascript" src="javascripts/jquery.quicksearch.js"></script>
+				<script type="text/javascript" charset="utf-8">
+					
+					// es geht hier um unseres Quicksearch, das mit der Datei 
+					// jquery.quicksearch.js
+					
+					
+					
+					
+					$(document).ready(function () {				
+						var q = $('table#suche tbody tr').quicksearch({
+							stripeRowClass: ['odd', 'even'],
+							position: 'before',
+							attached: '#suche',
+							inputText:'...',
+							labelText: 'Search:',
+							loaderText:'loading',
+							delay:1000
+							
+						});	
+						
+						
+						
+						
+						
+						
+						
+						/*$('table#suche tbody tr').live('click',function(){
+							var this_class = $(this).attr('class');
+							
+							$('#pool .'+this_class+'_parent').each(function(){
+								
+								if($(this).find('.pool_modul')){
+									alert("hallo pool_modul");
+								}
+								else{
+									alert('kein pool_modul');
+								}
+								
+							});
+							
+							
+							
+							
+							
+						});
+					
+					*/
+					
+					
+					
+					
+					
+					
+					
+					})//ende function
+					
+				</script>
+				
 		</head>
         <body>
 
