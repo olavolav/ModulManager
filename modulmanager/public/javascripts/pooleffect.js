@@ -29,11 +29,21 @@
 
 //-----------------------------------------------------------------------------------
 //  mach ein pool_modul bei POOL draggable, den Pool-Baum beweglich-- und Ergreinis bei DROP in POOL
-//  also Pool_droppable
+//  also Pool_droppable. 
 //-----------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
 $(function(){
 
+		
+		
+		
 		// pool();
 		
 		$(".auswahl_modul,.auswahl_modul_clone,.auswahl_modul.ui-draggable").draggable({
@@ -53,7 +63,7 @@ $(function(){
 							
 				revert : "invalid",
 				helper : "clone",
-				cursorAt:{left:100,top:13}
+				cursorAt:{left:120,top:13}
 				
 		});		
 		

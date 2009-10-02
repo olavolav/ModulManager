@@ -39,7 +39,7 @@
 //die wird in pool_rekursiv() benutzt
 
 var pfeil_tauschen = function(category_id){
-	alert("drin");
+	//alert("drin");
 	
 }
 
@@ -56,6 +56,50 @@ var hide_navi = function(){
 }
 
 
+var modul_search = function(){
+	
+	$("#suche").show();
+	var this_tr = $("#suche").find("tr");
+	$(this_tr).each(function(){
+		var this_display = $(this).css("display");
+		if(this_display=="block"){
+			alert("ja");
+		}
+		
+	});
+		
+	
+	
+}//ende function
+
+/*
+var get_modul_by_search = function (mod_id){
+	//alert(mod_id);
+	
+	$("#pool ."+mod_id+"_parent").each(function(){
+		var la = $(this).children().length;
+		//alert(la);
+		if(la=="2"){
+			alert("hallo pool_modul");
+			var this_kind = $(this).children()[1];
+			var this_tex = $(this_kind).find("span.imAuswahl").text();
+			alert("span im Auswahl :"+this_tex);
+		}
+		else if (la=="1"){
+			alert("leider im Auswahl");
+		}
+		if($(this).find(".pool_modul")){
+			alert("hallo pool_modul");
+		}
+		else{
+			alert("kein pool_modul");
+		}
+		
+	});
+	
+}
+
+*/
 ///////////////////MODULLOESCHEN loeschen////////////////////////
 /// bei Click auf <span class="modulloeschen">
 
@@ -268,7 +312,7 @@ var session_auswahl = function (){
 	
 	// rekursiv aufrufen 
 	
-	
+	$("semester-content").empty();
 	session_auswahl_rekursiv(root);
 	
 	// Loeschen anzeigen.Wir suchen das letzten Semester.
@@ -473,7 +517,8 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	
 	
 	 
-	
+	// einbinden search function
+	//$("#pool").append("<script type='text/javascript'>$(document).ready(function () {		$('table#suche tbody tr').live('click',function(){  var this_class = $(this).attr('class'); $('#pool .'+this_class+'_parent').each(function(){  if($(this).find('.pool_modul')){alert('hallo pool_modul');}else{alert('kein pool_modul');}       });  }); })</script>");
 	
 	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
 			
@@ -583,13 +628,19 @@ var poolrekursiv = function(root){
 				
 				
 				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" +
-
-									
-									"<a id='id_"+category_id+"'>"+"<span class='bild'>"+pfeil_rechts+"</span>"+category_name +"</a>"+ 
-						 
-						 		"</div>");
-				$("#pool").append("<script>$(function(){ $(\"#"+category_id+" a#id_"+category_id+" \").live('click', function(){  $(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle(); var this_img=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('img'); var this_src=$(this_img).attr('src'); if(this_src=='http://localhost:3000/images/Pfeil-Rechts.png'){$(this_img).attr('src','http://localhost:3000/images/Pfeil-Unten.png')}else{$(this_img).attr('src','http://localhost:3000/images/Pfeil-Rechts.png')}             });});</script>");	
-				
+										"<a id='id_"+category_id+"'>"+"<span class='pfeil_rechts' style='display:inline'>"+
+																		pfeil_rechts+
+																 	  "</span>"+
+																	  "<span class='pfeil_unten' style='display:none'>"+
+																	  	pfeil_unten+
+																	  "</span>"+
+																	  category_name+
+										"</a>"+
+								  "</div>");
+								  
+								  
+					
+				  $("#pool").append("<script>$(function(){ $(\"#"+category_id+" a#id_"+category_id+" \").live('click', function(){  $(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle(); var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span'); $(this_span).each(function(){ var this_display = $(this).css('display'); if(this_display=='inline'){$(this).css('display','none');} else if(this_display=='none'){$(this).css('display','inline');}                 });             });});</script>");
 								
 								
 								 			
@@ -610,7 +661,14 @@ var poolrekursiv = function(root){
 												
 												// "> "+
 												
-												"<a id='id_"+category_id+"'>"+pfeil_rechts+category_name +"</a>"+
+												"<a id='id_"+category_id+"'>"+"<span class='pfeil_rechts' style='display:inline'>"+
+																				pfeil_rechts+
+																			  "</span>"+
+																			  "<span class='pfeil_unten' style='display:none'>"+
+																				pfeil_unten+
+																			  "</span>"+
+																				category_name +
+												"</a>"+
 												 
 												"</div>");
 				// verstecke untergeordneten Kategories
@@ -630,7 +688,7 @@ var poolrekursiv = function(root){
 									 "$(function(){"+   
 					
 										"$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
-												"var this_img=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('img'); var this_src=$(this_img).attr('src'); if(this_src=='http://localhost:3000/images/Pfeil-Rechts.png'){$(this_img).attr('src','http://localhost:3000/images/Pfeil-Unten.png');}else {$(this_img).attr('src','http://localhost:3000/images/Pfeil-Rechts.png')}"+
+												"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span'); $(this_span).each(function(){ var this_display = $(this).css('display'); if(this_display=='inline'){$(this).css('display','none');} else if(this_display=='none'){$(this).css('display','inline');}                 });"+
 												"$(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle();           "+
 										
 										"})"+
@@ -643,14 +701,18 @@ var poolrekursiv = function(root){
 									 "$(function(){"+   
 					
 										"$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
+												"var all_hide = true;"+
+												
 										
 												"$(\"#"+category_id+" .pool_modul \").each(function(){"+
-												
+														
+														
 														"var imAuswahl = $(this).find('span.imAuswahl');"+
 														"var imAuswahl_text = $(imAuswahl).text();"+
 														"if (imAuswahl_text == 'ja'){$(this).hide();}"+
-														"else if (imAuswahl_text == 'nein'){$(this).toggle('fast');}});"+
-														"var this_img=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('img'); var this_src=$(this_img).attr('src'); if(this_src=='http://localhost:3000/images/Pfeil-Rechts.png'){$(this_img).attr('src','http://localhost:3000/images/Pfeil-Unten.png');}else {$(this_img).attr('src','http://localhost:3000/images/Pfeil-Rechts.png')}         "+
+														// "else if (imAuswahl_text == 'nein'){$(this).toggle('fast');}});"+
+														"else if (imAuswahl_text == 'nein'){$(this).toggle(0);}});"+
+														"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span'); $(this_span).each(function(){ var this_display = $(this).css('display'); if(this_display=='inline'){$(this).css('display','none');} else if(this_display=='none'){$(this).css('display','inline');}                 });         "+
 										"})"+
 								
 								
@@ -701,7 +763,7 @@ var poolrekursiv = function(root){
 			}
 			
 			// hiet ist span.imAuswahl für die Besetzung eines Modul in Auswahl gedacht.
-							
+					
 			$("#pool #"+parent_id).append("<div class='"+modul_id+"_parent'><div class='nichtleer'></div><div class='pool_modul' id='" + modul_id + "' >" +
 						"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modulloeschen("+modul_id+")'>"+
 							loeschenbild+
@@ -714,7 +776,7 @@ var poolrekursiv = function(root){
 										bild+
 									"</td>" +
 									"<td style=' width:99%'>" +
-										"<span>"+modul_name+"</span>"+
+										modul_name+
 										
 									"</td>"+
 									// Kurzbezeichnung raus aus der Auswahl (OS)
@@ -750,23 +812,16 @@ var poolrekursiv = function(root){
 						"</div></div>");
 							
 							
-						// pool_modul beweglich
+						//kopieren das Modul in search_table  für die Suche
+						$("#suche tbody").append("<tr id='"+modul_id+"' style='display:none'>"+"<td>"+modul_id+"</td>"+"<td>"+modul_name+"</td>"+"</tr>");
 							
-						
+						//$("#suche tbody").append("<tr class='"+modul_id+"'>"+"<td>"+modul_id+"</td>"+"<td style='cursor:pointer' >"+modul_name+"</td>"+"</tr>");
 						
 						
 						
 		
 						
-						// pool_ modul am Anfang verstecken mit hide()
 						
-						//$("#pool #"+parent_id+" .pool_modul").hide();
-						
-						// toggle Blätter wenn die untergeordneten Kategories geklickt werden
-						//$("#pool").append("<script>$(function(){ $(\"#pool #" + parent_id + " ."+parent_a_class+"\").live('click', function(){ $(\"#pool #" + parent_id + " .pool_modul\").toggle('slow');  });    })</script>");
-						
-						//$(function(){ $("#pool #" + parent_id + " ."+parent_a_class).live('click', function(){ $("#pool #" + parent_id + " .pool_modul").toggle('slow');  });    });
-			
 			
 		
 		
@@ -808,6 +863,7 @@ var poolrekursiv = function(root){
 	
 	
     poolrekursiv(root);
+	$("#pool").append("");
  	session_auswahl();
 	ueberblick();
 	
