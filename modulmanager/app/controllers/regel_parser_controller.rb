@@ -70,6 +70,9 @@ private
         m["parts"] = 1 if m["parts"] < 1
         modules.push build_module m["name"], m["credits"], m["short"], m["description"], m["parts"]
       end
+      18.times do |i|
+        modules.push build_module nil, nil, "custom#{(i+1)}", nil, 1
+      end
       modules.each do |m|
         m.save
       end

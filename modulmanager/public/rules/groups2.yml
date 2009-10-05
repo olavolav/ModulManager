@@ -45,7 +45,7 @@
 
   - name: Profilierungsbereich
     description:
-    modules: B.Phy.606, B.Bio.118, B.Bio.112, B.Bwl.02, B.OPH.07, B.Bwl.04, B.Win.01, B.Win.04, B.Win.23, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402
+    modules: B.Phy.606, B.Bio.118, B.Bio.112, B.Bwl.02, B.OPH.07, B.Bwl.04, B.Win.01, B.Win.04, B.Win.23, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom13, custom14, custom15, custom16, custom17, custom18
 
   # ==========================
   # Sonstiges
