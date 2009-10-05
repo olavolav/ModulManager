@@ -4,7 +4,7 @@ class AbfragenController < ApplicationController
   # an der Darstellung des Pools.
   def ueberblick
     selection = current_selection
-    @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL AND focus = false")
+    @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL AND NOT focus")
     @focus_rules = Connection.find(:first, :conditions => "name = '#{selection.focus.name}'") unless selection.focus == nil
     @modules = selection.modules
     respond_to do |format|
