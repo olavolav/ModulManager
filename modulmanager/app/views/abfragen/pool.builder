@@ -44,16 +44,6 @@ xml.root do
           end
         end
       end
-
-#      s.modules.each do |m|
-#        xml.module(:id => m.id) do
-#          xml.tag! "id", m.id
-#          xml.name m.name
-#          xml.short m.short
-#          xml.credits m.credits
-#          xml.mode m.randomness
-#        end
-#      end
     end
   end
   

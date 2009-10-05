@@ -10,6 +10,7 @@ module AbfragenHelper
           xml.short(m.short)
           xml.credits(m.credits)
           xml.mode("p") if pflicht
+          xml.parts(m.parts)
         end
       }
     elsif c.sub_categories != []
