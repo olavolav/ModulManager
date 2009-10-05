@@ -63,11 +63,18 @@ class AbfragenController < ApplicationController
       selection.semesters << semester
     end
 
-    semester.modules << CustomModule.create(
-      :moduledata => nil,
-      :credits => params[:credits],
-      :name => params[:name]
-    )
+    unless my_module = CustomModule.find(:first, :conditions => "short = '#{params[:short]}'")
+      semester.modules << CustomModule.create(
+        :moduledata => nil,
+        :short => params[:short],
+        :credits => params[:credits],
+        :name => params[:name]
+      )
+    else
+      my_module.credits = params[:credits]
+      my_module.name = params[:name]
+      my_module.save
+    end
 
     render :text => "CostumModule created successfully..."
 
