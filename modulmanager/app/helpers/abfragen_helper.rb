@@ -5,7 +5,7 @@ module AbfragenHelper
     if c.sub_categories == [] && c.modules != []
       c.modules.each { |m|
         classification = "non-custom"
-        18.times { |i| classification = "custom" if m.short == "custom#{i}" }
+        18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
         xml.module(:id => m.id, :class => classification) do
           # xml.tag!("id", m.id)
           xml.name(m.name)
