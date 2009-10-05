@@ -6,7 +6,8 @@
  *								Ergreinis bei DROP in Auswahl
  *								"Löschen" bei SEMESTER wird geklick 
  *								mach unseres POOL droppable	
- *								mach ein pool_modul bei POOL draggable--					
+ *								mach ein pool_modul bei POOL draggable--		
+ *								Noten eingeben und schicken bei (".semester").droppable
  *-------------------------------------------------------------------------------------*/
 
 
@@ -21,12 +22,6 @@
 
 
 	
-	
-
-
-
-
-
 //-----------------------------------------------------------------------------------
 //  mach ein pool_modul bei POOL draggable, den Pool-Baum beweglich-- und Ergreinis bei DROP in POOL
 //  also Pool_droppable. 
@@ -42,7 +37,12 @@
 $(function(){
 
 		
-		
+		/* $("#dialog").dialog({
+		 	modal:true,
+			hide:'slide',
+			show:'slide'
+		 });
+		*/
 		
 		// pool();
 		
@@ -88,46 +88,9 @@ $(function(){
 	
 	
 	
-	/*$("#pool .pool_modul,#pool .pool_modul.ui-draggable").each(function(){
-			var parent = $(this).parent().get(0);
-			
-			var parent_parent=$(parent).parent().get(0);
-			var parent_parent_id = $(parent_parent).attr("id");
-			//var parent_a  = $(parent).find("a");
-			var this_modul = $(this);
+	// zurück in POOL , also mach #pool droppable
 		
-			$("#"+parent_parent_id+" a").live("click", function(){
-				
-				
-				
-				
-				var imAuswahl = $(this_modul).find("span.imAuswahl");
-				var imAuswahl_text = $(imAuswahl).text();
-				//$(this_modul).toggle("fast");
-				
-				if (imAuswahl_text == "ja") {
-					//alert(imAuswahl_text);
-					$(this_modul).hide();
-				}
-				else if (imAuswahl_text == "nein") {
-						
-						$(this_modul).toggle("fast");
-						
-				}
-				
-				
-			});
-		
-	});  //ende each
-	
-	
-	*/
-	
-		
-		
-		// zurück in POOL , also mach #pool droppable
-		
-		$("#pool").droppable({
+	$("#pool").droppable({
 					
 			accept     : '.auswahl_modul,.auswahl_modul_clone',// momentan gibt es nicht
 			hoverClass : 'drophover',
@@ -147,20 +110,7 @@ $(function(){
 		
 		
 		
-	/*	$(".pool_modul").droppable({
-							
-			accept     : '.auswahl_modul',// momentan gibt es nicht
-			hoverClass : 'drophover',
-			drop: function(event, ui){
-			
-				var ui_draggable = $(ui.draggable);
-				var mod_id = $(ui.draggable).attr("id");
-				alert(mod_id);
-				
-				drop_in_pool(mod_id, ui_draggable);
-				
-			}
-		});*/
+	
 		
 		
 		
@@ -186,11 +136,7 @@ $(function(){
 				 var modul_class = $(ui.draggable).attr("class");
 				 
 				 
-				 
-				  
-				
-				  
-				//  drop() ruft ajax_to_server() und auswahlanzeige() auf
+				 //  drop() ruft ajax_to_server() und auswahlanzeige() auf
 				 
 				 drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 				
@@ -203,12 +149,61 @@ $(function(){
 		
 		
 		
+		// hier ist die Note im input________________________NOTEN__________________________________________
+		// bei Focus: die Note eingeben
+		// beim Focus-Verlassen : die Event Change schickt die Note und Modul_ID per Ajax zum Server
 		
-		$("input").focus(function(){
-			
+		$("input[type='text']").focus(function(){
+			 
 			$(this).attr("value"," ");
 			
 		});
+		
+		$("input[type='text']").change(function(){
+				
+				var this_grade = $(this).val();
+				var modul_id = $(this).attr("rel");
+				
+				//checken Noten.Dann wandele String erstmal zum Float
+				
+				
+				var trim_grade = $.trim(this_grade);
+				var this_float = parseFloat(trim_grade);
+				if(isNaN(this_float)){
+					alert("Geben Sie bitte eine Zahl zwischen 1.0 und 4.0  ein!");
+				}
+				else{
+					//suche nach ',' in String trim_grade dann verwandel es zum '.'
+					
+					var new_trim_grade = trim_grade.replace(/,/,".");   //1,2-->1.2
+					//alert("neu String :"+new_trim_grade);
+					var new_float = parseFloat(new_trim_grade);
+					if(new_float < 1 || new_float > 4 ){
+						alert("Die Note muss eine Zahl zwischen von 1.0 und 4.0");
+						$(this).attr("value","");
+					}
+					else{
+						//alert(new_float+"ist OK");
+						// daten zum Server schicken
+						
+						//Noten bleib im FELD
+						$(this).attr("value",new_float);
+				
+						ajax_to_server_by_grade(modul_id,new_float);
+					}
+					
+					
+				}
+				
+				
+				
+				
+				
+				return false;
+		});
+		
+		
+		
 		
 		
 		

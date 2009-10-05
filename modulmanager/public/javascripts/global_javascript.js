@@ -5,9 +5,9 @@
 //              pool gibt XML-Datei zurück  
 //              Diese Datei enthält folgende Funktionen: 
 //					session_auswahl(),
-//					drop_in_auswahl (),
+//					drop_in_auswahl (),drop_in_pool()
 //					ajax_to_server_by_add(),
-//					ajax_to_server_by_remove(),
+//					ajax_to_server_by_remove(),ajax_to_server_by_grade(),
 //					auswahlAnzeige(),
 //					modulloeschen()
 //
@@ -55,6 +55,10 @@ var hide_navi = function(){
 	$("#navimoveup").hide()
 }
 
+var get_grade = function(this_input){
+	alert("hallo fet_grade");
+	
+};
 
 var modul_search = function(){
 	
@@ -335,7 +339,7 @@ var ajax_to_server_by_add = function (modul_id,semester){
 	$.ajax({
 							
             type: 'POST',
-			url  : 'http://localhost:3000/abfragen/add_module_to_selection',
+			url  : 'abfragen/add_module_to_selection',
 			cache:false,
             dataType:'text',
             async :false,
@@ -400,7 +404,25 @@ var ajax_to_server_by_remove_semester = function (sem_count){
 	
 }
 
-
+var ajax_to_server_by_grade = function(modul_id,grade){
+	
+	//alert(grade);
+	//alert(modul_id);
+	$.ajax({
+					type:"POST",
+					url :"abfragen/save_module_grade",
+					dataType:"text",
+					cache:false,
+					async:false,
+					data:"mod_id="+modul_id+"&"+"grade="+grade,
+					contentType:'application/x-www-form-urlencoded',
+					error : function(a,b,c){
+							alert ("error mit save_module_grade");
+					}
+	});
+				
+	
+}
 
 //----------------------------
 
@@ -794,7 +816,7 @@ var poolrekursiv = function(root){
 									
 									"<td style=' width:25px'>"+
 										"<span class='noten' style='display:none'>"+
-											"<input class='noten_input' type='text' size='5' value='Note' />"+
+											"<input class='noten_input' type='text' size='5' rel='"+modul_id+"' value='Note' />"+
 											
 										"</span>"+
 									"</td>"+
