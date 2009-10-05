@@ -10,6 +10,7 @@
 %>
 <%= "<li>#{build_html_rules_recursive s, 5, 5}</li>" %>
 <% end %>
+  <li style='height: 35px;'>&nbsp;</li>
 <% unless @focus_rules == nil %>
 <%= "<li>#{build_html_rules_recursive @focus_rules, 5, 5}</li>" %>
 <% end %>

@@ -4,7 +4,9 @@ module AbfragenHelper
     pflicht = true if c.name == "Pflichtmodule"
     if c.sub_categories == [] && c.modules != []
       c.modules.each { |m|
-        xml.module(:id => m.id) do
+        classification = "non-custom"
+        18.times { |i| classification = "custom" if m.short == "custom#{i}" }
+        xml.module(:id => m.id, :class => classification) do
           # xml.tag!("id", m.id)
           xml.name(m.name)
           xml.short(m.short)
