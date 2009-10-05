@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091005074459) do
+ActiveRecord::Schema.define(:version => 20091005124349) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20091005074459) do
     t.datetime "updated_at"
     t.string   "type"
     t.string   "name"
-    t.boolean  "focus"
+    t.integer  "focus"
   end
 
   create_table "errors", :force => true do |t|
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20091005074459) do
     t.string   "type"
     t.string   "name"
     t.integer  "credits"
+    t.string   "short"
   end
 
   create_table "semesters", :force => true do |t|

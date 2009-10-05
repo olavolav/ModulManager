@@ -4,7 +4,7 @@ class AbfragenController < ApplicationController
   # an der Darstellung des Pools.
   def ueberblick
     selection = current_selection
-    @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL AND NOT focus")
+    @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL AND focus = 0")
     @focus_rules = Connection.find(:first, :conditions => "name = '#{selection.focus.name}'") unless selection.focus == nil
     @modules = selection.modules
     respond_to do |format|
@@ -182,6 +182,7 @@ class AbfragenController < ApplicationController
   # Erstellt eine neue Standardauswahl
   def new_selection(focus = nil)
     ms = ModuleSelection.create
+    ms.focus = focus
     s1 = Semester.create :count => 1
     s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.101'")
     s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
@@ -192,11 +193,9 @@ class AbfragenController < ApplicationController
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.102'")
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.303'")
-    # s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
     ms.semesters << s2
     s3 = Semester.create :count => 3
     s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.103'")
-    # s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
     s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.304'")
     s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.201'")
     ms.semesters << s3

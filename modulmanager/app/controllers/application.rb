@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   # Erstellt eine neue Standardauswahl
   def new_selection(focus = nil)
     ms = ModuleSelection.create
+    ms.focus = focus
     s1 = Semester.create :count => 1
     s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.101'")
     s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")

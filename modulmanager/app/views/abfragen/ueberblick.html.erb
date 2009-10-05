@@ -1,17 +1,13 @@
 <ul class="ueberblick">
+
 <% @super_rules.each do |s| %>
-<%#
-  Die folgende Methode erzeugt einen Baum mit den untergeordneten und
-  ausgewerteten Regeln. Argumente sind:
-    -> Die Wurzel-Regel
-    -> Der erste linksseitige Abstand
-    -> Die Menge, die bei jeder neuen Ebene auf den linksseitigen Absatnd
-       hinzuaddiert wird.
-%>
 <%= "<li>#{build_html_rules_recursive s, 5, 5}</li>" %>
 <% end %>
+
   <li style='height: 35px;'>&nbsp;</li>
+
 <% unless @focus_rules == nil %>
 <%= "<li>#{build_html_rules_recursive @focus_rules, 5, 5}</li>" %>
 <% end %>
+
 </ul>
