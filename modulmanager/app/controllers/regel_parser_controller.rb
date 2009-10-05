@@ -62,12 +62,13 @@ private
 
   def read_module_files files
     files.each do |filename|
-      puts "#{filename}\n"
       file = File.open(filename)
       y = YAML::load(file)
       modules = Array.new
       y.each do |m|
-        modules.push build_module m["name"], m["credits"], m["short"], m["description"]
+        m["parts"] = m["parts"].to_i
+        m["parts"] = 1 if m["parts"] < 1
+        modules.push build_module m["name"], m["credits"], m["short"], m["description"], m["parts"]
       end
       modules.each do |m|
         m.save
@@ -374,11 +375,13 @@ private
   #==============================Modul-Teil====================================#
   #============================================================================#
 
-  def build_module name, credits, short, description
+  def build_module name, credits, short, description, parts = 1
+    puts "Baue Modul #{short}..."
     s = Studmodule.new :name => name,
       :credits => credits,
       :short => short,
-      :description => description
+      :description => description,
+      :parts => parts
     return s
   end
 
@@ -517,9 +520,275 @@ private
     wahlpflicht.child_connections << spezthemen
     wahlpflicht.child_connections << profilierung
 
-    bachelor = AndConnection.create :name => "Bachelor"
+    bachelor = AndConnection.create :name => "Bachelor", :focus => false
     bachelor.child_connections << pflichtmodule
     bachelor.child_connections << wahlpflicht
+
+
+    r1 = ModuleRule.create :count => 2, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.503'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.403'")
+
+    r2 = CreditRule.create :count => 12, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.503'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.403'")
+
+    pflicht = AndConnection.create :name => "Pflicht"
+    pflicht.child_rules << r1
+    pflicht.child_rules << r2
+
+    r1 = ModuleRule.create :count => 2, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.571'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.572'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.573'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.574'")
+
+    r2 = CreditRule.create :count => 12, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.571'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.572'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.573'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.574'")
+
+    themen = AndConnection.create :name => "Spezielle Themen"
+    themen.child_rules << r1
+    themen.child_rules << r2
+
+    r1 = ModuleRule.create :count => 1, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Bwl.02'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.OPH.07'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Bwl.04'")
+
+    r2 = CreditRule.create :count => 6, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Bwl.02'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.OPH.07'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Bwl.04'")
+
+    profil = AndConnection.create :name => "Profilierungsbereich"
+    profil.child_rules << r1
+    profil.child_rules << r2
+    
+    schwerpunkt = AndConnection.create :name => "Nanostrukturphysik", :focus => true
+    schwerpunkt.child_connections << pflicht
+    schwerpunkt.child_connections << themen
+    schwerpunkt.child_connections << profil
+
+    r1 = ModuleRule.create :count => 3, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.510'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.511'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.404'")
+
+    r2 = CreditRule.create :count => 18, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.510'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.511'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.404'")
+
+    pflicht = AndConnection.create :name => "Pflicht"
+    pflicht.child_rules << r1
+    pflicht.child_rules << r2
+
+    r1 = ModuleRule.create :count => 1, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Win.01'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Win.04'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Win.23'")
+
+    r2 = CreditRule.create :count => 6, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Win.01'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Win.04'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Win.23'")
+
+    profil = AndConnection.create :name => "Profilierungsbereich"
+    profil.child_rules << r1
+    profil.child_rules << r2
+
+    schwerpunkt = AndConnection.create :name => "Physikinformatik", :focus => true
+    schwerpunkt.child_connections << pflicht
+    schwerpunkt.child_connections << themen
+    schwerpunkt.child_connections << profil
+
+
+    r1 = ModuleRule.create :count => 2, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.501'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.405'")
+
+    r2 = CreditRule.create :count => 12, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.501'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.405'")
+
+    pflicht = AndConnection.create :name => "Pflicht"
+    pflicht.child_rules << r1
+    pflicht.child_rules << r2
+
+    r1 = ModuleRule.create :count => 2, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.551'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.552'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.553'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.554'")
+
+    r2 = CreditRule.create :count => 12, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.551'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.552'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.553'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.554'")
+
+    themen = AndConnection.create :name => "Spezielle Themen"
+    themen.child_rules << r1
+    themen.child_rules << r2
+
+    r1 = ModuleRule.create :count => 1, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.502'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.504'")
+
+    r2 = CreditRule.create :count => 6, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.502'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.504'")
+
+    profil = AndConnection.create :name => "Profilierungsbereich"
+    profil.child_rules << r1
+    profil.child_rules << r2
+
+    schwerpunkt = AndConnection.create :name => "Astro- und Geophysik", :focus => true
+    schwerpunkt.child_connections << pflicht
+    schwerpunkt.child_connections << themen
+    schwerpunkt.child_connections << profil
+
+
+    r1 = ModuleRule.create :count => 2, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.502'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.406'")
+
+    r2 = CreditRule.create :count => 12, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.502'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.406'")
+
+    pflicht = AndConnection.create :name => "Pflicht"
+    pflicht.child_rules << r1
+    pflicht.child_rules << r2
+
+    r1 = ModuleRule.create :count => 2, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.561'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.562'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.563'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.564'")
+
+    r2 = CreditRule.create :count => 12, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.561'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.562'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.563'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.564'")
+
+    themen = AndConnection.create :name => "Spezielle Themen"
+    themen.child_rules << r1
+    themen.child_rules << r2
+
+    r1 = ModuleRule.create :count => 1, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.501'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.503'")
+
+    r2 = CreditRule.create :count => 6, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.501'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.503'")
+
+    profil = AndConnection.create :name => "Profilierungsbereich"
+    profil.child_rules << r1
+    profil.child_rules << r2
+
+    schwerpunkt = AndConnection.create :name => "Biophysik und Physik komplexer Systeme", :focus => true
+    schwerpunkt.child_connections << pflicht
+    schwerpunkt.child_connections << themen
+    schwerpunkt.child_connections << profil
+
+
+    r1 = ModuleRule.create :count => 2, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.503'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.407'")
+
+    r2 = CreditRule.create :count => 12, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.503'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.407'")
+
+    pflicht = AndConnection.create :name => "Pflicht"
+    pflicht.child_rules << r1
+    pflicht.child_rules << r2
+
+    r1 = ModuleRule.create :count => 2, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.571'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.572'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.573'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.574'")
+
+    r2 = CreditRule.create :count => 12, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.571'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.572'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.573'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.574'")
+
+    themen = AndConnection.create :name => "Spezielle Themen"
+    themen.child_rules << r1
+    themen.child_rules << r2
+
+    r1 = ModuleRule.create :count => 1, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.502'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.504'")
+
+    r2 = CreditRule.create :count => 6, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.502'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.504'")
+
+    profil = AndConnection.create :name => "Profilierungsbereich"
+    profil.child_rules << r1
+    profil.child_rules << r2
+
+    schwerpunkt = AndConnection.create :name => "Festkörper- und Materialphysik", :focus => true
+    schwerpunkt.child_connections << pflicht
+    schwerpunkt.child_connections << themen
+    schwerpunkt.child_connections << profil
+
+
+    r1 = ModuleRule.create :count => 2, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.504'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.408'")
+
+    r2 = CreditRule.create :count => 12, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.504'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.408'")
+
+    pflicht = AndConnection.create :name => "Pflicht"
+    pflicht.child_rules << r1
+    pflicht.child_rules << r2
+
+    r1 = ModuleRule.create :count => 2, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.581'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.582'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.583'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.584'")
+
+    r2 = CreditRule.create :count => 12, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.581'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.582'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.583'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.584'")
+
+    themen = AndConnection.create :name => "Spezielle Themen"
+    themen.child_rules << r1
+    themen.child_rules << r2
+
+    r1 = ModuleRule.create :count => 1, :relation => "min"
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.501'")
+    r1.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.503'")
+
+    r2 = CreditRule.create :count => 6, :relation => "min"
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.501'")
+    r2.modules << Studmodule.find(:first, :conditions => "short = 'B.Phy.503'")
+
+    profil = AndConnection.create :name => "Profilierungsbereich"
+    profil.child_rules << r1
+    profil.child_rules << r2
+
+    schwerpunkt = AndConnection.create :name => "Kern- und Teilchenphysik", :focus => true
+    schwerpunkt.child_connections << pflicht
+    schwerpunkt.child_connections << themen
+    schwerpunkt.child_connections << profil
+
   end
 
   public

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090917131703) do
+ActiveRecord::Schema.define(:version => 20091005074459) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20090917131703) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
+    t.string   "name"
+    t.boolean  "focus"
   end
 
   create_table "errors", :force => true do |t|
@@ -89,11 +91,20 @@ ActiveRecord::Schema.define(:version => 20090917131703) do
     t.integer  "parent_id"
   end
 
+  create_table "rules_studmodules", :id => false, :force => true do |t|
+    t.integer "rule_id"
+    t.integer "studmodule_id"
+  end
+
   create_table "selected_modules", :force => true do |t|
     t.integer  "module_id"
     t.integer  "semester_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "grade"
+    t.string   "type"
+    t.string   "name"
+    t.integer  "credits"
   end
 
   create_table "semesters", :force => true do |t|
@@ -111,6 +122,8 @@ ActiveRecord::Schema.define(:version => 20090917131703) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "randomness"
+    t.string   "type"
+    t.integer  "parts"
   end
 
 end

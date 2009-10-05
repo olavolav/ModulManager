@@ -1,10 +1,5 @@
 ---
 
-  - name: Bachelor-Arbeit
-    credits: 12
-    short:
-    description:
-
   - name: Physik I
     credits: 9
     short: B.Phy.101
@@ -44,6 +39,7 @@
     credits: 12
     short: B.Phy.410
     description:
+    parts: 2
 
   - name: Physikalisches Fortgeschrittenenpraktikum
     credits: 3
@@ -323,4 +319,10 @@
   - name: Computergestütztes wissenschaftliches Rechnen
     credits: 8
     short: B.Phy.605
+    description:
+    parts: 2
+
+  - name: Bachelorarbeit
+    credits: 12
+    short: Bachelor
     description:

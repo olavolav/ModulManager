@@ -3,8 +3,10 @@ class AbfragenController < ApplicationController
   # Überblick über alle Rgeln und deren Erfüllung. Darstellung orientiert sich
   # an der Darstellung des Pools.
   def ueberblick
-    @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL")
-    @modules = current_selection.modules
+    selection = current_selection
+    @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL AND focus = 0")
+    @focus_rules = Connection.find(:first, :conditions => "name = '#{selection.focus.name}'") unless selection.focus == nil
+    @modules = selection.modules
     respond_to do |format|
       # format.xml { render :action => "ueberblick", :layout => false }
       format.html { render :action => "ueberblick", :layout => false }

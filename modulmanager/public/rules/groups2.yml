@@ -19,6 +19,10 @@
     description:
     modules: B.Phy.303, B.Phy.304, B.Mat.011, B.Mat.012
 
+  - name: Abschlussarbeit
+    description:
+    modules: Bachelor
+
   # ===========================
   # Wahlpflichtmodule
   # ===========================
@@ -53,4 +57,4 @@
 
   - name: Bachelor
     description:
-    sub-groups: Pflichtmodule, Wahlpflichtmodule
+    sub-groups: Pflichtmodule, Wahlpflichtmodule, Abschlussarbeit
