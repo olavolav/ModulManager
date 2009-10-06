@@ -3,7 +3,7 @@ class MainController < ApplicationController
   def index
     selection = current_selection
     @schwerpunkt = selection.focus
-    @version = selection.version
+    @selected_version = selection.version
     respond_to do |format|
       format.html { render :layout => "modulmanager" }
     end
@@ -11,6 +11,7 @@ class MainController < ApplicationController
 
   def start
     @schwerpunkte = Focus.all
+    @version = current_selection.version
   end
 
   def help
@@ -59,6 +60,16 @@ class MainController < ApplicationController
     respond_to do |format|
       format.html { render :action => "focus_selection", :layout => false }
     end
+  end
+
+  def version_selection
+    selection = current_selection
+    selection.version = params[:selected_version]
+    selection.save
+    render :text => selection.version
+#    respond_to do |format|
+#      format.html { render :text => selection.version }
+#    end
   end
 
   def create_selection

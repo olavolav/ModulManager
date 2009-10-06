@@ -1,45 +1,23 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title></title>
-<%= stylesheet_link_tag 'global' %>
-<%= stylesheet_link_tag 'start' %>
 
-<!-- <script type="text/javascript" src="javascripts/start.js"></script> -->
-
-</head>
-<body>
-	
 		<div id="content">
 			<h3>Modul-Manager der Fakult&auml;t Physik</h3>
 			Bitte Schwerpunkt auswählen:<br/>
 			
 			<div id="schwerpunkt">
 				<ul>
-                                  <%# i = 0 %>
                                   <% @schwerpunkte.each do |s| %>
-                                    <%# i += 1 %>
                                     <li class="schwerpunkt_oben"><%= link_to_remote s.name, :update => "schwerpunkt", :url => { :action => "focus_selection", :id => s.id }  %></li>
-                                    <%#= "<div class='clear'>&nbsp;</div>" if i % 3 == 0 %>
                                   <% end %>
-					<%#*<li class="schwerpunk_oben">Physik(Allgemein)</li>%>
-					<%#*<li class="schwerpunk_oben">Astrophysik</li>%>
-					<%#*<li class="schwerpunk_oben">Festk&ouml;rper-Physik</li>%>
-					<%#*<div class="clear">&nbsp</div>%>
-					<%#*<li class="schwerpunk_unten">Nanophysik</li>%>
-					<%#*<li class="schwerpunk_unten">Biophysik</li>%>
-					<%#*<li class="schwerpunk_unten">Statistische Physik</li>%>
-					<%#*<div class="clear">&nbsp</div>%>
 				</ul>
 			</div><!--Ende Schwerpunkt-->	
 			
 			
 			<div id="pruefungsordnung"> 
-				Bitte w&auml;hlen Sie die f&uuml;r Sie g&uuml;ltige Version der Pr&uuml;fungsordnung aus:<br/>
-				<select>
-					<option>Version vom 12.12.1995(aktuell)</option>
-					<option>Alte Version</option>
-				</select>
+				Aktuell ausgewählte Pr&uuml;fungsordnung: <strong><span id="version"><%= @selected_version %></span></strong><br/>
+                                <% form_remote_tag :update => "version", :url => { :action => "version_selection" } do %>
+                                <%= select_tag :selected_version, options_for_select([["Version vom 12.12.1995(aktuell)", "Aktuelle Version"], ["Alte Version", "Alte Version"]]) %>
+                                <%= submit_tag "Speichern" %>
+                                <% end %>
 			</div>
 			
 			
@@ -53,8 +31,3 @@
 			
 		</div><!--ende content-->
 	
-	
-	
-
-</body>
-</html>
