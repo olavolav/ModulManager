@@ -1,6 +1,9 @@
 class MainController < ApplicationController
 
   def index
+    selection = current_selection
+    @schwerpunkt = selection.focus
+    @version = selection.version
     respond_to do |format|
       format.html { render :layout => "modulmanager" }
     end

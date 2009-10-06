@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091005124349) do
+ActiveRecord::Schema.define(:version => 20091006133815) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20091005124349) do
     t.string   "type"
     t.string   "name"
     t.integer  "focus"
+    t.string   "version"
   end
 
   create_table "errors", :force => true do |t|
@@ -71,12 +72,14 @@ ActiveRecord::Schema.define(:version => 20091005124349) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
+    t.string   "version"
   end
 
   create_table "module_selections", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "focus_id"
+    t.string   "version"
   end
 
   create_table "rules", :force => true do |t|
@@ -125,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20091005124349) do
     t.string   "randomness"
     t.string   "type"
     t.integer  "parts"
+    t.string   "version"
   end
 
 end

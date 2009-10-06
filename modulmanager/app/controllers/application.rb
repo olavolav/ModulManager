@@ -5,14 +5,14 @@ class ApplicationController < ActionController::Base
   helper :all # just make sure to include all helpers
 
   def current_selection
-    session[:selection_id] ||= new_selection params[:focus]
+    session[:selection_id] ||= new_selection params[:version], params[:focus]
     ModuleSelection.find session[:selection_id]
   end
 
   # Erstellt eine neue Standardauswahl
-  def new_selection(focus = nil)
-    ms = ModuleSelection.create
-    ms.focus = focus
+  def new_selection(version = "God-Modus", focus = nil)
+    ms = ModuleSelection.create :version => version, :focus => focus
+#    ms.focus = focus
     s1 = Semester.create :count => 1
     s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.101'")
     s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
@@ -23,11 +23,9 @@ class ApplicationController < ActionController::Base
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.102'")
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
     s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.303'")
-    # s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
     ms.semesters << s2
     s3 = Semester.create :count => 3
     s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.103'")
-    # s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
     s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.304'")
     s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.201'")
     ms.semesters << s3
