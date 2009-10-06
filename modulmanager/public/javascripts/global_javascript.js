@@ -33,7 +33,9 @@
 	var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='padding-right:3px;'>";
 
 
-
+/* $(document).ready(function(){
+   alert("ready!");
+}); */
 
 // implementieren die Funktion pfeil_tauschen()
 //die wird in pool_rekursiv() benutzt
@@ -271,10 +273,10 @@ var session_auswahl_rekursiv = function(root){
 			
 			$(sem_content).append("<div class='semester' id='"+sem_id+"'>"+
 										"<div class='subsemester'>"+
-											"<h3>"+sem_id+".Semester"+"</h3>"+
-											"<span class='leer' style='display:none;color:red'>(leer)</span>"+
+											"<h5>"+sem_id+". Semester"+"</h5>"+
+											//"<span class='leer' style='display:none;color:red'></span>"+
 										"</div>"+
-										"<p style='cursor:pointer; display:none;color:red' class='semesterloeschen' onClick='sem_loeschen("+sem_id+")'>L&ouml;schen</p>"+
+										"<button style='display:none;' class='semesterloeschen' onClick='sem_loeschen("+sem_id+");'>L&ouml;schen</button>"+
 								  "</div>" );
 								 
 			
@@ -321,7 +323,7 @@ var session_auswahl = function (){
 	
 	// Loeschen anzeigen.Wir suchen das letzten Semester.
 	var last_semester = $("#semester-content div.semester:last");
-	$(last_semester).find("p.semesterloeschen").css("display","block");
+	$(last_semester).find("button.semesterloeschen").css("display","block");
 	
 
 	

@@ -21,7 +21,7 @@
 }
 
 
-.auswahlmodul li {
+/*.auswahlmodul li {
 	float:left;
 	
 }
@@ -30,7 +30,7 @@
 	float:right;
 	
 }
-
+*/
 .noten_input {
 	border: 1px solid #bdc7d8;
 	height: 15px;
@@ -59,13 +59,10 @@
 	
 }
 /*------der erste DIV in semester-BOX--------------- */
-.semesterloeschen {
-	width  :60px;
-	border : 2px red solid;
-	margin-bottom : 10px;
-}
-
-
+/* .semesterloeschen {
+	padding: 0.3em;
+	margin-top: 1em;
+} */
 
 /*--------Modul löschen*/
 .modulloeschen {

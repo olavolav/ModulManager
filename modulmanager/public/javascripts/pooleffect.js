@@ -225,11 +225,7 @@ var sem_hinzu = function(){
 		 
 		 
     	 var n = $('#semester-content div.semester').length+1;
-		// alert(n);
-		
-			// var l für Löschen gedacht
-			
-			var l = $('#semester-content div.semester').length+1;
+			// alert("Neues Semester bekommt ID: "+n);
 			
 			// neue Semester und Löschen reintun
 			// <div class="semester" id="5">
@@ -242,23 +238,19 @@ var sem_hinzu = function(){
 			// </div>
             var neu = "<div class='semester' id='"+n+"'>"+
 							"<div class='subsemester'><h5>"
-									+n+".Semester"+
-								"</h5><span class='leer' style='display:none; color:red'>(leer)</span>"+
+									+n+" .Semester"+
+								"</h5>"+
+								//"<span class='leer' style='display:none;'>(leer)</span>"+
 							"</div>"+
-							"<p style='cursor:pointer; display:block' class='semesterloeschen' onClick='sem_loeschen("+l+")'>L&ouml;schen</p>"+
+							"<button class='semesterloeschen' onClick='sem_loeschen("+n+");'>L&ouml;schen</button>"+
 					  "</div>";
 			
 			$("#semester-content").append(neu);
 		
 			// "Löschen" wird immer in dem letzen Semester hinzufügen
 			// d.h: andere ""Löschen" werden weggemacht.
-			
-			if (n >= 3) {
-				for (i = 2; i < n; i++) {
-					$(".semester" + "#" + i + " p").css("display","none");
-				}
-				
-			}
+			$(".semester[id="+(n-1)+"] button").css("display","none");
+			$(".semester[id="+n+"] button").css("display","block");
 			
 			// ein Modul reinziehn
 			
@@ -305,52 +297,44 @@ var sem_hinzu = function(){
 
 var sem_loeschen = function(l){
 	
-	
-	  	//alert(l);
+		lint = parseInt(l);
+		
+	  	// alert("Klick auf Loeschen-Knopf von Semester mit ID: "+lint);
 
 		// confirm nur beim Semester >=2
 		
 		if (parseInt(l) != "1") {
-			var bestaetigen = confirm("wollen Sie das Semester wirklich loeschen?");
+			var bestaetigen = confirm("Wollen Sie das Semester komplett entfernen?");
 			if (bestaetigen == true) {
 			
 				//$("#semester-content #"+l);
-				var this_semester = $("#semester-content #" + l);
+				var this_semester = $(".semester[id="+lint+"]");
 				
 				//erstmal hide(), aber noch nicht remove()
 				$(this_semester).hide();
-				var this_children = $(this_semester).find("div.subsemester").children();
-				var this_length = $(this_children).length;
 				
-				// Module wieder im Pool anzeigen
-				// wieso >2? denn da ein für <h3>semster</h3> und ein für <span>leer</span>
+				var this_modules = $(this_semester).find(".auswahl_modul,.auswahl_modul_clone");
+				// alert("Anzahl Module darin: "+this_modules.length);
 				
-				if(this_length > 2){
-					var i=2; // beginnen mit 3.tes Kind, also index i=2
-					
-					for(i ; i<this_length; i++){
-						var this_child = $(this_children)[i];
-						var mod_id     = $(this_child).attr("id");
-						
-						modulloeschen(mod_id);
-						
-						
-					}
-					
-				}
+				// Module wieder im Pool anzeigen (keine Ahnung wo das passiert, OS)
 				
+				this_modules.each(function(){
+					// alert("Modul mit ID "+$(this).attr("id")+" soll geloescht werden...");
+					$(this).css("display","none");
+					modulloeschen($(this).attr("id"));
+				});
 				
 				$(this_semester).remove();
 				// Loeschen anzeigen.Wir suchen das vorletzten Semester.
 				
-				if (parseInt(l) > 2) {
-					var last_semester = $("#semester-content div.semester:last");
-					$(last_semester).find("p.semesterloeschen").css("display", "block");
+				if (lint > 1) {
+					$(".semester[id="+(lint-1)+"] button").css("display","block");
+					
 					//ajax aufrufen
 					// wir rufen nur Ajax auf wenn es sich um ein nicht leer semester handelt.
-					//if (this_length != 2) {
-						ajax_to_server_by_remove_semester(l);
-					//}
+					if (this_modules.length > 0) {
+						ajax_to_server_by_remove_semester(lint);
+					}
 				}
 				
 				
