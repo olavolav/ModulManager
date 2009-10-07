@@ -7,4 +7,14 @@ class Studmodule < ActiveRecord::Base
   has_and_belongs_to_many :rules,
     :class_name => "Rule",
     :join_table => "rules_studmodules"
+
+  def self.get_array_from_module_string string
+    mod_array = Array.new
+    modules = string.split(",")
+    modules.each { |m|
+      m.strip!
+      mod_array.push Studmodule.find(:first, :conditions => "short = '#{m}'")
+    }
+    return mod_array
+  end
 end

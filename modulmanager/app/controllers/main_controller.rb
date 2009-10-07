@@ -2,7 +2,7 @@ class MainController < ApplicationController
 
   def index
     selection = current_selection
-    @schwerpunkt = selection.focus
+    selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = selection.focus.name
     @selected_version = selection.version
     respond_to do |format|
       format.html { render :layout => "modulmanager" }
