@@ -2,7 +2,7 @@
  *	     diese Datei macht den POOL beweglich mit slideDown und slideUP    				
  *		 und schickt die Daten modulID und entsprechenem Semester zum Server 			
  *       nachdem das gezogene Modul in Auswahl reingetan wurde                          	
- *								semesterhinzu
+ *								semesterhinzu,custom_check
  *								Ergreinis bei DROP in Auswahl
  *								"Löschen" bei SEMESTER wird geklick 
  *								mach unseres POOL droppable	
@@ -15,34 +15,91 @@
 
 
 
+//function für Form-Check bei Custom-Moul
+function updateTips(t,tips) {
+			tips.text(t).effect("highlight",{},1500);
+			
+		}
+
+
+var custom_check = function(name,credit,grade,tips,min,max){
+	
+	var this_val = credit.val();
+	var this_grade=grade.val();
+	var this_grade_trim=$.trim(this_grade);
+	var this_float=parseFloat(this_grade_trim);
+	
+
+	
+	
+	
+	if(name.val().length < min){
+		
+		name.addClass('ui-state-error');
+		updateTips("ModulName darf nich leer!",tips);
+		return false;
+	}
+	
+	if(this_val.length < min){
+		credit.addClass('ui-state-error');
+		updateTips("credit point darf nicht leer sein",tips);
+		return false;
+	}
+	
+	
+	return true;
+} 
+
+
+
+
+
+
+
+
+
 //---------- Drag and Drop----------------------------------------------------------
 
 
-
-
-
-	
 //-----------------------------------------------------------------------------------
 //  mach ein pool_modul bei POOL draggable, den Pool-Baum beweglich-- und Ergreinis bei DROP in POOL
 //  also Pool_droppable. 
 //-----------------------------------------------------------------------------------
 
 
-
-
-
-
-
-
 $(function(){
 
+		// teil Form -Check bei dummy Modul
+		var name=$("#name");
+		var credit=$("#credit");
 		
-		/* $("#dialog").dialog({
+		var tips =$("#validateTips");
+		var allFields = $([]).add(name).add(credit);
+		
+		$("#custom_dialog").dialog({
 		 	modal:true,
+			height:300,
+			width:500,
+			autoOpen:false,
 			hide:'slide',
-			show:'slide'
+			show:'slide',
+			buttons:{
+				"Fertig":function(){
+					var iValid=true;
+					allFields.removeClass('ui-state-error');
+
+					//alert("Fertig");
+					iValid = custom_check(name,credit,tips,1,4);
+					
+					if (iValid) {
+						
+						$(this).dialog('close');
+					}
+					
+				}
+			}
 		 });
-		*/
+		
 		
 		// pool();
 		
@@ -68,6 +125,7 @@ $(function(){
 		});		
 		
 		
+	   
 		
 	// am Anfang beim Seite-Laden alle Pool-modul verstecken.
 	// danach dynamisch auf- und zu machen. 
@@ -135,11 +193,18 @@ $(function(){
 				 var modul_id = $(ui.draggable).attr("id");
 				 var modul_class = $(ui.draggable).attr("class");
 				 
+				 //hier check nach dummy modul und normales Modul
 				 
-				 //  drop() ruft ajax_to_server() und auswahlanzeige() auf
-				 
-				 drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
-				
+				 var custom_text = $(ui.draggable).find("span.custom").text();
+				 if(custom_text == "non-custom"){
+				 	
+					//  drop() ruft ajax_to_server() und auswahlanzeige() auf
+				 	drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+				 }
+				 else{
+				 	
+				 	custom_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+				}
 				 
 			}// ende drop
 			 
@@ -152,23 +217,50 @@ $(function(){
 		// hier ist die Note im input________________________NOTEN__________________________________________
 		// bei Focus: die Note eingeben
 		// beim Focus-Verlassen : die Event Change schickt die Note und Modul_ID per Ajax zum Server
+		// Note berechnen
 		
-		$("input[type='text']").focus(function(){
-			 
-			$(this).attr("value"," ");
+		// Klick bei Noten berechnen
+		$("#note_berechnen").click(function(){
+			ajax_to_server_by_examination_grade();
 			
 		});
 		
-		$("input[type='text']").change(function(){
+		$("input.noten_input").focus(function(){
+			// da wird der Click bei 'Note berechen' deaktiviert
+			 
+			$(this).attr("value"," ");
+			$("#note_berechnen").unbind('click');
+			$("#note_berechnen").text("Note bearbeiten");
 				
+			
+		});
+		
+		//onChange oder Enter drücken
+		$("input.noten_input").bind("keypress",function(e){
+			if(e.keyCode == 13){
+				
+				$("#note_berechnen").text("Note berechnen");
+				$("#note_berechnen").bind('click',ajax_to_server_by_examination_grade);
+			}
+		});
+		$("input.noten_input").change(function(){
+				var this_original;
 				var this_grade = $(this).val();
 				var modul_id = $(this).attr("rel");
+				var trim_grade = $.trim(this_grade);
+				
 				
 				//checken Noten.Dann wandele String erstmal zum Float
 				
 				
-				var trim_grade = $.trim(this_grade);
+				
+				var check_komma = this_grade.search(/./);
+				if(check_komma != -1){
+					this_original = this_grade.replace(/\./,",");
+				}
 				var this_float = parseFloat(trim_grade);
+				
+				
 				if(isNaN(this_float)){
 					alert("Geben Sie bitte eine Zahl zwischen 1.0 und 4.0  ein!");
 				}
@@ -180,16 +272,22 @@ $(function(){
 					var new_float = parseFloat(new_trim_grade);
 					if(new_float < 1 || new_float > 4 ){
 						alert("Die Note muss eine Zahl zwischen von 1.0 und 4.0");
-						$(this).attr("value","");
+						$(this).attr("value","Note");
 					}
 					else{
-						//alert(new_float+"ist OK");
+						//alert(this_original+"ist OK");
 						// daten zum Server schicken
 						
-						//Noten bleib im FELD
-						$(this).attr("value",new_float);
-				
+						//Noten bleib im FELD und zwar in Form 1,3
+						
+						
+						$(this).attr("value",this_original);
+						
 						ajax_to_server_by_grade(modul_id,new_float);
+						// hier kann man Note klicken
+						$("#note_berechnen").text("Note berechnen");
+						$("#note_berechnen").bind('click',ajax_to_server_by_examination_grade);
+						
 					}
 					
 					

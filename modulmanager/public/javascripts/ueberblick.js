@@ -156,10 +156,11 @@ var ueberblick = function(){
 		
 	}).responseText;
 	
-	$("#ueberblick").empty();
+	
+	$("#ueberblick #ueberblick_baum").empty();
 	
 	
-	$("#ueberblick").html(html+"<script>bindThickBoxEvents();</script>");
+	$("#ueberblick #ueberblick_baum").html(html+"<script type='text/javascript'>bindThickBoxEvents();</script>");
 	//$("#ueberblick").html(html);
 	
 	

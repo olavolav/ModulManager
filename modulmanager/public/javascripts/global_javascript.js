@@ -9,7 +9,7 @@
 //					ajax_to_server_by_add(),
 //					ajax_to_server_by_remove(),ajax_to_server_by_grade(),
 //					auswahlAnzeige(),
-//					modulloeschen()
+//					modulloeschen(),get_custom_modul()
 //
 //--------------------------------------------------------------------------------------
 
@@ -61,6 +61,24 @@ var get_grade = function(this_input){
 	alert("hallo fet_grade");
 	
 };
+var get_custom_modul = function(){
+	
+	// die Funktion zeigt nur ein display_none Custom_modul im Pool an
+	var the_first;
+	var custom_modul = $("#pool").find("div.custom_modul ").filter(function(index){
+		if(index==0){the_first=$(this)}
+		return index!=0
+		
+	});
+	
+	$(custom_modul).hide();
+	var x = $(the_first).attr("class");
+	// class verändern. custom-->pool_modul. Damit wird nur ein custom_modul im Pool ist
+	
+	$(the_first).removeClass("custom_modul").addClass("pool_modul");
+	
+	
+}//ende get_custom_modul
 
 var modul_search = function(){
 	
@@ -429,6 +447,35 @@ var ajax_to_server_by_grade = function(modul_id,grade){
 //----------------------------
 
 
+var ajax_to_server_by_examination_grade = function(){
+	alert("hallo ajax_to_server_by_examination_grade ");
+	
+	var grade_by_text = $.ajax({
+		
+		type : 'GET',
+		url  : '/abfragen/get_examination_grade',
+		async: false,
+		contentType: 'application/x-www-form-urlencoded',
+		success : function(html){ 
+			
+			//bindThickBoxEvents();
+			
+
+		},
+		error: function(a,b,c){
+			alert("problem with /abfragen/get_examination_grade");
+		}
+		
+
+		
+	}).responseText;
+	
+	
+	
+	
+}
+
+
 
 var auswahlAnzeige = function (modul_id,semester,modulinhalt){
 	
@@ -555,9 +602,17 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 }//ende drop in auswahl
 
 
+
+
+//implement :   custom_modul_drop_in_auswahl---------------------------------------------
+
+var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
+	
+	$("#custom_dialog").dialog('open');
+	
+}
+
 //-----Drop in POOL----------------------------------------------------------------------
-
-
 var drop_in_pool = function(mod_id,ui_draggable,this_pool){
 	
 	
@@ -664,9 +719,92 @@ var poolrekursiv = function(root){
 								  
 								  
 					
-				  $("#pool").append("<script>$(function(){ $(\"#"+category_id+" a#id_"+category_id+" \").live('click', function(){  $(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle(); var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span'); $(this_span).each(function(){ var this_display = $(this).css('display'); if(this_display=='inline'){$(this).css('display','none');} else if(this_display=='none'){$(this).css('display','inline');}                 });             });});</script>");
+				  // toggle.Achtung! check nach search_modul,search_category 
+				  
+				  $("#pool").append(
+				     
+				 
+				"<script>"+
+					
+					 
+					 "$(function(){"+
+					 
+					 
+					  " $(\"#"+category_id+" a#id_"+category_id+" \").live('click',"+
+					  " function(){"+
+						
+						"if($(\"#"+category_id+" \").hasClass('search_category')){"+
+							 
+							
+							 "var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
+							 "$(this_span).each(function(){"+
+							 " 		var this_display = $(this).css('display');"+
+							 " 		if(this_display=='inline'){$(this).css('display','none');}"+
+							 " 		else if(this_display=='none'){$(this).css('display','inline');} "+
+							 "});"+	
+							
+							"   var this_nextAll = $(\"#"+category_id+" a#id_"+category_id+" \").nextAll();"+
+								"$(this_nextAll).each(function(){"+
+										"if($(this).hasClass('search_category')){"+
+											"  $(this).toggle(0);"+
+											
+										"}"+
+										
+										
+										
 								
+								"});"+
+							
+							
+						"}"+//ende if
+						
+						"else {"+
+							
+							"  $(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle();"+
+							" var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
+							" $(this_span).each(function(){ "+
+							
+								"var this_display = $(this).css('display');"+
+								"if(this_display=='inline'){$(this).css('display','none');}"+
+								" else if(this_display=='none'){$(this).css('display','inline');}      "+
 								
+							 "});"+
+						
+						"}"+//ende else
+							
+							
+							
+							
+							
+							
+							
+							
+							
+					"});"+//ende 2.function
+						
+				"});</script>");
+				  
+				  
+				  
+				  	
+				/*$("#pool").append(
+				 
+					 "<script>$(function(){ $(\"#"+category_id+" a#id_"+category_id+" \").live('click',"+
+					  	" function(){"+
+							"  $(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle();"+
+							" var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
+							" $(this_span).each(function(){ "+
+							
+								"var this_display = $(this).css('display');"+
+								"if(this_display=='inline'){$(this).css('display','none');}"+
+								" else if(this_display=='none'){$(this).css('display','inline');}      "+
+								
+							 "});"+
+						"});"+
+						
+					"});</script>");
+								
+				*/				
 								 			
 				
 			}//ende Schwerpunkt
@@ -708,20 +846,115 @@ var poolrekursiv = function(root){
 				var this_children = $(this).children()[0];
 				var child_name    = this_children.nodeName;
 				if (child_name == "category"){
-					$("#pool").append("<script>"+
+					
+				$("#pool").append(
+			"<script>"+
+				"$(function(){"+
+						
+					" $(\"#"+category_id+" a#id_"+category_id+" \").live('click',"+
+					  " function(){"+
+						
+						"if($(\"#"+category_id+" \").hasClass('search_category')){"+
+							 
+							
+							 "var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
+							 "$(this_span).each(function(){"+
+							 " 		var this_display = $(this).css('display');"+
+							 " 		if(this_display=='inline'){$(this).css('display','none');}"+
+							 " 		else if(this_display=='none'){$(this).css('display','inline');} "+
+							 "});"+	
+							
+							"   var this_nextAll = $(\"#"+category_id+" a#id_"+category_id+" \").nextAll();"+
+								"$(this_nextAll).each(function(){"+
+										"if($(this).hasClass('search_category')){"+
+											"  $(this).toggle(0);"+
+											
+										"}"+
+										
+										
+										
+								
+								"});"+
+							
+							
+						"}"+//ende if
+						"else{"+
+						
+							"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
+							" $(this_span).each(function(){"+
+							" 	var this_display = $(this).css('display');"+
+							" 	if(this_display=='inline'){$(this).css('display','none');}"+
+							" 	else if(this_display=='none'){$(this).css('display','inline');} "+
+							" });"+
+							"$(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle();"+
+	
+						"}"+//ende else
+						
+						
+						
+						
+					  "});"+//ende 2.Function	
+					"});"+   
+				"</script>");
+					
+					
+					
+				/*	$("#pool").append("<script>"+
 									 "$(function(){"+   
 					
 										"$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
-												"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span'); $(this_span).each(function(){ var this_display = $(this).css('display'); if(this_display=='inline'){$(this).css('display','none');} else if(this_display=='none'){$(this).css('display','inline');}                 });"+
-												"$(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle();           "+
+												"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
+												" $(this_span).each(function(){"+
+												" 	var this_display = $(this).css('display');"+
+												" 	if(this_display=='inline'){$(this).css('display','none');}"+
+												" 	else if(this_display=='none'){$(this).css('display','inline');} "+
+												" });"+
+												"$(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle();"+
 										
 										"})"+
 								
 								
-									"})</script>");
+					"})</script>");
+				*/
 				}
 				else if(child_name == "module"){
-					$("#pool").append("<script>"+
+					
+					
+					$("#pool").append(
+					"<script type='text/javascript'>"+
+					
+					"$(function(){"+
+					"	$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
+					
+					"  		var this_nextAll = $(\"#"+category_id+" a#id_"+category_id+" \").nextAll();"+
+					"  		$(this_nextAll).each(function(){"+
+										"if($(this).hasClass('search_modul')){"+
+											"var imAuswahl = $(this).find('span.imAuswahl');"+
+											"var imAuswahl_text = $(imAuswahl).text();"+
+											"if (imAuswahl_text == 'ja'){$(this).hide();}"+
+											"else if (imAuswahl_text == 'nein'){$(this).toggle(0);}"+
+											
+											
+										"}"+
+									
+							
+							"});"+
+							"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
+							" $(this_span).each(function(){"+
+							" 	var this_display = $(this).css('display');"+
+							" 	if(this_display=='inline'){$(this).css('display','none');}"+
+							" 	else if(this_display=='none'){$(this).css('display','inline');} "+
+							" });"+
+									
+					
+					
+					"	});"+
+					"});"+
+					"</script>");
+					
+					
+					
+					/*$("#pool").append("<script>"+
 									 "$(function(){"+   
 					
 										"$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
@@ -733,15 +966,21 @@ var poolrekursiv = function(root){
 														
 														"var imAuswahl = $(this).find('span.imAuswahl');"+
 														"var imAuswahl_text = $(imAuswahl).text();"+
+														
 														"if (imAuswahl_text == 'ja'){$(this).hide();}"+
-														// "else if (imAuswahl_text == 'nein'){$(this).toggle('fast');}});"+
 														"else if (imAuswahl_text == 'nein'){$(this).toggle(0);}});"+
-														"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span'); $(this_span).each(function(){ var this_display = $(this).css('display'); if(this_display=='inline'){$(this).css('display','none');} else if(this_display=='none'){$(this).css('display','inline');}                 });         "+
-										"})"+
+														
+														"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
+														" $(this_span).each(function(){"+
+														" 	var this_display = $(this).css('display');"+
+														" 	if(this_display=='inline'){$(this).css('display','none');}"+
+														" 	else if(this_display=='none'){$(this).css('display','inline');} "+
+														"});"+
+												"})"+
 								
 								
 									"})</script>");
-					
+					*/
 					
 				}
 				
@@ -774,6 +1013,7 @@ var poolrekursiv = function(root){
 			var modul_short = $(this).find("short").text();
 			
 			var modul_id = $(this).attr("id");
+			var modul_class=$(this).attr("class");
 			
 			//check Modul_ART : Pflicht? WP?
 			var bild;
@@ -787,62 +1027,80 @@ var poolrekursiv = function(root){
 			}
 			
 			// hiet ist span.imAuswahl für die Besetzung eines Modul in Auswahl gedacht.
-					
-			$("#pool #"+parent_id).append("<div class='"+modul_id+"_parent'><div class='nichtleer'></div><div class='pool_modul' id='" + modul_id + "' >" +
-						"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modulloeschen("+modul_id+")'>"+
-							loeschenbild+
-						"</div>"+
-						"<span class='imAuswahl' style='display:none'>nein</span>"+
-						"<table cellspacing=1 cellpadding=0 style='width: 100%; border:1px;'>" +
-							"<tbody>"+
-								"<tr>" +
-									"<td style=' width:22px;padding:1px 2px 0px 2px; '>"+ 
-										bild+
-									"</td>" +
-									"<td style=' width:99%'>" +
-										modul_name+
-										
-									"</td>"+
-									// Kurzbezeichnung raus aus der Auswahl (OS)
-									// "<td style=' width:20%'>" +
-									// 	"<span class='modul_short' style='display:none'>"+"("+modul_short+")"+"</span>"+
-									// 	
-									// "</td>"+
-									
-									"<td style=' width:22px; '>" +
-										"<span class='fragebild' style='display:block;padding:1px 2px 0px 7px;'>"+ 
-											fragebild+ 
-										"</span>"+
-									
-									"</td>"+
-									
-									"<td style=' width:25px'>"+
-										"<span class='noten' style='display:none'>"+
-											"<input class='noten_input' type='text' size='5' rel='"+modul_id+"' value='Note' />"+
-											
-										"</span>"+
-									"</td>"+
-									
-									"<td style=' width:22px'>"+
-										"<span class='ipunkt' style='display:none;padding:1px 2px 0px 7px;'>"+ipunkt+"</span>"+
-									"</td>"+
-									
-									"<td style='min-width:32px;text-align:right;font-weight:bold'>"+
-											credits +" C"+
-									"</td>" +
-								"</tr>" +
-							"</tbody>"+
-						"</table>" +
-						"</div></div>");
-							
-							
-						//kopieren das Modul in search_table  für die Suche
-						$("#suche tbody").append("<tr id='"+modul_id+"' style='display:none'>"+"<td>"+modul_id+"</td>"+"<td>"+modul_name+"</td>"+"</tr>");
-							
-						//$("#suche tbody").append("<tr class='"+modul_id+"'>"+"<td>"+modul_id+"</td>"+"<td style='cursor:pointer' >"+modul_name+"</td>"+"</tr>");
+			//span.custom sagt, dass ein modul normal oder ein dummy-modul ist
+			//span.custom_exist sagt, dass das dummy-modul bereits im pool ist
+			var pool_modul_class="pool_modul";
+			if(modul_class=="custom"){ pool_modul_class="custom_modul"}
+			
+			
+			$("#pool #" + parent_id).append("<div class='" + modul_id + "_parent'><div class='nichtleer'></div><div class='"+pool_modul_class+"' id='" + modul_id + "' >" +
+			"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modulloeschen(" +
+			modul_id +
+			")'>" +
+			loeschenbild +
+			"</div>" +
+			"<span class='imAuswahl' style='display:none'>nein</span>" +
+			"<span class='custom' style='display:none'>"+modul_class+"</span>"+
+			"<span class='custom_exist' style='display:none'>nein</span>"+
+			"<table cellspacing=1 cellpadding=0 style='width: 100%; border:1px;'>" +
+			"<tbody>" +
+			"<tr>" +
+			"<td style=' width:22px;padding:1px 2px 0px 2px; '>" +
+			bild +
+			"</td>" +
+			"<td style=' width:99%'>" +
+			modul_name +
+			
+			"</td>" +
+			// Kurzbezeichnung raus aus der Auswahl (OS)
+			// "<td style=' width:20%'>" +
+			// 	"<span class='modul_short' style='display:none'>"+"("+modul_short+")"+"</span>"+
+			// 	
+			// "</td>"+
+			
+			"<td style=' width:22px; '>" +
+			"<span class='fragebild' style='display:block;padding:1px 2px 0px 7px;'>" +
+			fragebild +
+			"</span>" +
+			
+			"</td>" +
+			
+			"<td style=' width:25px'>" +
+			"<span class='noten' style='display:none'>" +
+			"<input class='noten_input' type='text' size='5' rel='" +
+			modul_id +
+			"' value='Note' />" +
+			
+			"</span>" +
+			"</td>" +
+			
+			"<td style=' width:22px'>" +
+			"<span class='ipunkt' style='display:none;padding:1px 2px 0px 7px;'>" +
+			ipunkt +
+			"</span>" +
+			"</td>" +
+			
+			"<td style='min-width:32px;text-align:right;font-weight:bold'>" +
+			credits +
+			" C" +
+			"</td>" +
+			"</tr>" +
+			"</tbody>" +
+			"</table>" +
+			"</div></div>");
+			
+			
+			
+			
+			
 						
-						
-						
+			//kopieren das Modul in search_table  für die Suche
+			$("#suche tbody").append("<tr id='"+modul_id+"' style='display:none'>"+"<td>"+modul_id+"</td>"+"<td>"+modul_name+"</td>"+"</tr>");
+				
+			//$("#suche tbody").append("<tr class='"+modul_id+"'>"+"<td>"+modul_id+"</td>"+"<td style='cursor:pointer' >"+modul_name+"</td>"+"</tr>");
+			
+			
+			
 		
 						
 						
@@ -869,7 +1127,7 @@ var poolrekursiv = function(root){
 	var XML = $.ajax({
 
 	    type: 'GET',
-	    url: 'http://localhost:3000/abfragen/pool',
+	    url: 'abfragen/pool',
 	    async: false,
 	    contentType: 'application/x-www-form-urlencoded',
 		error : function(a,b,c){
@@ -887,7 +1145,7 @@ var poolrekursiv = function(root){
 	
 	
     poolrekursiv(root);
-	$("#pool").append("");
+	get_custom_modul();
  	session_auswahl();
 	ueberblick();
 	

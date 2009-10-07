@@ -203,8 +203,15 @@ jQuery(function ($) {
 				{
 					//alle bildchen wieder auf pfeil-rechts setzen 
 					var this_children = $("#pool").children();
+					$(this_children).show();
 					
 					$(this_children).each(function(){
+						if($(this).hasClass("search_category")){
+							$(this).removeClass("search_category");
+							$(this).addClass("pool_category");
+							
+						}
+						
 						$(this).find("span").each(function(){
 							var this_id = $(this).attr("class");
 							if(this_id == "pfeil_rechts"){
@@ -218,6 +225,16 @@ jQuery(function ($) {
 						
 						// mache alle untere Kategorie zu
 						$(this).find(".pool_category,.pool_modul").hide();
+						//custom_modul
+						$(this).find(".search_modul").each(function(){
+							$(this).removeClass("search_modul");
+						});
+						$(this).find(".search_category").each(function(){
+							$(this).removeClass("search_category");
+							$(this).addClass("pool_category");
+							$(this).hide();
+							
+						});
 						
 						
 							
@@ -232,10 +249,87 @@ jQuery(function ($) {
 					
 					tree_close();
 					
+					
 					//array_id kommt aus qs()
 					for(var i=0; i<array_id.length; i++)
 					{
 						
+						
+						$("#pool ."+array_id[i]+"_parent").each(function(){
+							//check ob der mod_id zwei Kinder hat
+							// warum? denn ein mod_id_parent hat max. 2 Kinder
+							// also ein div.nichtleer  und ein div.pool_modul
+							//und wir laden nur beim mod_id_parent, der bereits 
+							//div.pool_modul enthält
+							
+							if(($(this).children().length)==2){
+								
+								var this_pool_modul = $(this).children()[1];
+								
+								var this_span_text  = $(this_pool_modul).find("span.imAuswahl").text();
+								
+								if(this_span_text == "nein" && $(this_pool_modul).hasClass("pool_modul")){//hasClass, da um custom geht
+									
+									$(this_pool_modul).show();
+									
+									//sofort macht den sein Vater pool_category auch auf
+									// dann sein grandfather und ururvather aufmachen
+									// achten auf das bildchen pfeil
+									var first_father = $(this).parent().get(0);
+									$(first_father).show();
+									
+									// neue Class 'search_modul' in modul_id_parent hinzufügen
+									// damit kann man nur 'search_modul' im Pool_baum togglen
+									var mod_parent = $(this_pool_modul).parent().get(0);
+									$(mod_parent).addClass("search_modul").show();
+									
+									
+									$(first_father).find("span.pfeil_rechts").eq(0).css("display","none");
+									$(first_father).find("span.pfeil_unten").eq(0).css("display","inline");
+									$(first_father).removeClass("pool_category");
+									$(first_father).addClass("search_category");
+									
+									//second_father ist ein nächsthöhenPool_kategory
+									//das ist ein Schwerrpunkt. z.B: Physikinformatik
+									//
+									//achten auf das bildchen pfeil
+									var second_father=$(first_father).parent().get(0);
+									$(second_father).show();
+									$(second_father).find("span.pfeil_rechts").eq(0).css("display","none");
+									$(second_father).find("span.pfeil_unten").eq(0).css("display","inline");
+									$(second_father).removeClass("pool_category");
+									$(second_father).addClass("search_category");
+									
+									//third_father ist bei Allgemein-Bachelor benutzt
+									var third_father =$(second_father).parent().get(0);
+									if(third_father !="" || third_father !="undefined")
+									{
+										$(third_father).show();
+										$(third_father).find("span.pfeil_rechts").eq(0).css("display","none");
+										$(third_father).find("span.pfeil_unten").eq(0).css("display","inline");
+										$(third_father).removeClass("pool_category");
+										$(third_father).addClass("search_category");
+									}
+									
+									
+									
+									
+								}
+								
+							}
+							
+							
+						});
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						/*
 						$("#pool ."+array_id[i]+"_parent").each(function(){
 							//check ob der mod_id zwei Kinder hat
 							// warum? denn ein mod_id_parent hat max. 2 Kinder
@@ -287,7 +381,7 @@ jQuery(function ($) {
 									
 									// show die andere mod_id_parent  mit span.imAuswahl "nein"
 									// $(this) hier: das div.mod_id_parent
-									var this_siblings = $(this).siblings();
+									//var this_siblings = $(this).siblings();
 									if(this_siblings!="")
 									{
 										$(this_siblings).find("div.pool_modul").each(function(){
@@ -308,11 +402,12 @@ jQuery(function ($) {
 							}
 							
 							
-						});
+						});//ende each
+					*/
 						
 					}//ende for schleife
 					
-					
+					$('.pool_category').hide();
 				}//ende function
 
                 function init()
