@@ -35,8 +35,11 @@
                                 <div id="left">
                                 	<h2>&Uuml;berblick:</h2>
 									<div id="ueberblick">
-										
+										<div id="ueberblick_baum">
+										</div>
+										<p id='note_berechnen'>Note berechnen</p>		
 									</div>
+									
 								</div>
 								
                                 <!--middle-->
@@ -109,7 +112,18 @@
 						
 						 </div><!--content-->
 						 
-						<!-- <div id="dialog" title="modulmanager">I'm in a dialog</div>-->
+						 <div id="custom_dialog" title="Eigenes Modul">
+						 	<p id="validateTips">Tragen Sie bitte die Daten ein!</p>
+							<form>
+								<fieldset>
+									<label for="name">Name</label>
+									<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+									<label for="credit">Credit Point</label>
+									<input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all" />
+									
+								</fieldset>
+							</form>
+						</div>
 
 				 
                 </div><!--END container-->
