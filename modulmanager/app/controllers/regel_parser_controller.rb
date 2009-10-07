@@ -1,7 +1,6 @@
 class RegelParserController < ApplicationController
 
   def start
-    puts "start aufgerufen..."
     if (
         Rule.all.length == 0 &&
         Category.all.length == 0 &&
@@ -26,7 +25,6 @@ class RegelParserController < ApplicationController
   end
 
   def clear
-    puts "clear aufgerufen..."
     @connections = 0
     @rules = 0
     @groups = 0
@@ -45,9 +43,7 @@ class RegelParserController < ApplicationController
 private
 
   def read_focus_files files
-    puts "read_focus_files aufgerufen..."
     files.each do |filename|
-      puts "#{filename}\n"
       file = File.open(filename)
       y = YAML::load(file)
       version = y[0]["version"]
@@ -67,7 +63,6 @@ private
   end
 
   def read_module_files files
-    puts "read_module_files aufgerufen..."
     files.each do |filename|
       file = File.open(filename)
       y = YAML::load(file)
@@ -90,9 +85,7 @@ private
   end
 
   def read_group_files files
-    puts "read_group_files aufgerufen..."
     files.each do |filename|
-      puts "#{filename}\n"
       file = File.open(filename)
       y = YAML::load(file)
       version = y[0]["version"]
@@ -112,39 +105,23 @@ private
     end
   end
 
-  def build_group_with_modules name, description, modules, version
-    puts "build_group_with_modules aufgerufen..."
+  def build_group_with_modules name, description, module_string, version
     c = Category.new :name => name,
       :description => description,
-      :version => version
-
-    modules = modules.split(",")
-    modules.each do |m|
-      m.strip!
-      c.modules << Studmodule.find(:first, :conditions => "short = '#{m}'")
-    end
-
+      :version => version,
+      :modules => Studmodule::get_array_from_module_string(module_string)
     return c
   end
 
-  def build_group_with_sub_groups name, description, sub_groups, version
-    puts "build_group_with_sub_groups aufgerufen..."
+  def build_group_with_sub_groups name, description, categories_string, version
     c = Category.new :name => name,
       :description => description,
-      :version => version
-
-    sub_groups = sub_groups.split(",")
-    sub_groups.each do |s|
-      s.strip!
-      puts "Suche #{s}...\n"
-      c.sub_categories << Category.find(:first, :conditions => "name = '#{s}'")
-    end
-    
+      :version => version,
+      :sub_categories => Category::get_array_from_category_string(categories_string)
     return c
   end
 
   def build_module name, credits, short, description, parts, version = nil
-    puts "build_module aufgerufen..."
     s = Studmodule.new :name => name,
       :credits => credits,
       :short => short,
@@ -155,7 +132,6 @@ private
   end
 
   def build_focus name, description, pflicht, themen, profil, version
-    puts "build_focus aufgerufen..."
     f = Focus.new :name => name,
       :description => description,
       :version => version
@@ -172,7 +148,6 @@ private
   end
 
   def build_focus_group module_sentence
-    puts "build_focus_group aufgerufen..."
     group = Array.new
     modules = module_sentence.split(",")
     modules.each do |m|
@@ -185,88 +160,33 @@ private
   def create_min_focus_rule name, sub_groups
 
     sub_groups_array = Array.new
-
     sub_groups.each do |s|
-
       sg = Connection::create_and_connection s["name"], [
         Rule::create_min_credit_rule_for_focus(s["credits"], s["shorts"]),
         Rule::create_min_module_rule_for_focus(s["modules"], s["shorts"])
       ]
       sub_groups_array.push sg
-
     end
-
     return Connection::create_and_connection name, nil, sub_groups_array, 1
     
   end
-
-#  def get_array_from_module_string string
-#    mod_array = Array.new
-#    modules = string.split(",")
-#    modules.each { |m|
-#      m.strip!
-#      mod_array.push Studmodule.find(:first, :conditions => "short = '#{m}'")
-#    }
-#    return mod_array
-#  end
-
-#  def create_min_credit_rule_for_focus count, module_string
-#    mod_array = get_array_from_module_string module_string
-#    return CreditRule.create :count => count, :relation => "min", :modules => mod_array
-#  end
-#
-#  def create_min_module_rule_for_focus count, module_string
-#    mod_array = get_array_from_module_string module_string
-#    return ModuleRule.create :count => count, :relation => "min", :modules => mod_array
-#  end
-#
-#  def create_min_credit_rule_for_standard count, category
-#    r = CreditRule.create :count => count, :relation => "min",
-#      :category => Category.find(:first, :conditions => "name = '#{category}'")
-#    return r
-#  end
-#
-#  def create_min_module_rule_for_standard count, category
-#    r = ModuleRule.create :count => count, :relation => "min",
-#      :category => Category.find(:first, :conditions => "name = '#{category}'")
-#    return r
-#  end
 
   def create_min_standard_connection name, credits = nil, modules = nil
     child_rules = Array.new
     child_rules.push(Rule::create_min_credit_rule_for_standard(credits, name)) unless credits == nil
     child_rules.push(Rule::create_min_module_rule_for_standard(modules, name)) unless modules == nil
-#    child_rules = [
-#        Rule::create_min_credit_rule_for_standard(credits, name),
-#        Rule::create_min_module_rule_for_standard(modules, name)
-#      ]
     r = Connection::create_and_connection(name, child_rules, nil, 0)
     return r
   end
 
-#  def create_and_connection name, child_rules = nil, child_connections = nil, focus = nil
-#    c = AndConnection.create :name => name, :focus => focus
-#    if child_rules != nil
-#      c.child_rules = child_rules
-#    elsif child_connections != nil
-#      c.child_connections = child_connections
-#    end
-#    return c
-#  end
-
   def create_connections
-    puts "create_connections aufgerufen..."
 
     grundkurs = create_min_standard_connection("Grundkurs", 54, 7)
     praktika = create_min_standard_connection("Praktika", 15, 2)
     mathematik = create_min_standard_connection("Mathematik", 33, 4)
     spezpraktikum = create_min_standard_connection("Spezialisierungs-Praktikum", 6, 1)
     einfuehrungen = create_min_standard_connection("Einführungen", 12, 2)
-#    r1 = Rule::create_min_credit_rule_for_standard(12, "Spezielle Themen")
-#    spezthemen = create_and_connection "Spezielle Themen", [r1]
     spezthemen = create_min_standard_connection("Spezielle Themen", 12)
-#    r1 = Rule::create_min_credit_rule_for_standard(18, "Profilierungsbereich")
-#    profilierung = create_and_connection "Profilierungsbereich", [r1]
     profilierung = create_min_standard_connection("Profilierungsbereich", 18)
 
     pflichtmodule = Connection::create_and_connection "Pflichtmodule", nil, [grundkurs, praktika, mathematik]
