@@ -48,7 +48,7 @@ private
       y = YAML::load(file)
       version = y[0]["version"]
       y.each do |f|
-        if !f["version"]
+        unless f["version"]
           build_focus(
             f["name"],
             f["description"],
@@ -68,8 +68,10 @@ private
       y = YAML::load(file)
       modules = Array.new
       version = y[0]["version"]
+      puts version
       y.each do |m|
-        if !m["version"]
+        unless m["version"]
+          puts "#{m["name"]}"
           m["parts"] = m["parts"].to_i
           m["parts"] = 1 if m["parts"] < 1
           modules.push build_module m["name"], m["credits"], m["short"], m["description"], m["parts"], version
@@ -93,10 +95,12 @@ private
       module_groups = Array.new
 
       y.each do |element|
-        if element["sub-groups"] == nil
-          module_groups.push element
-        elsif element["modules"] == nil
-          parent_groups.push element
+        unless element["version"]
+          if element["sub-groups"] == nil
+            module_groups.push element
+          elsif element["modules"] == nil
+            parent_groups.push element
+          end
         end
       end
 
@@ -106,6 +110,7 @@ private
   end
 
   def build_group_with_modules name, description, module_string, version
+    puts "#{name} / #{module_string}"
     c = Category.new :name => name,
       :description => description,
       :version => version,

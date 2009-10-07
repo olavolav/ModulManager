@@ -73,26 +73,17 @@ class MainController < ApplicationController
   end
 
   def create_selection
-
     selection = current_selection
-
     found = false
-
     Focus.all.each do |f|
-
       if selection.focus == f
         found = true
         selection.semesters = create_pre_selection f.name
         selection.save
-
       end
-
     end
-
     create_pre_selection "standard" unless found
-
     redirect_to :action => "index"
-
   end
 
   private

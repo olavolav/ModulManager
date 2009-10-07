@@ -8,9 +8,9 @@ class Studmodule < ActiveRecord::Base
     :class_name => "Rule",
     :join_table => "rules_studmodules"
 
-  def self.get_array_from_module_string string
+  def self.get_array_from_module_string module_string
     mod_array = Array.new
-    modules = string.split(",")
+    modules = module_string.split(",")
     modules.each { |m|
       m.strip!
       mod_array.push Studmodule.find(:first, :conditions => "short = '#{m}'")
