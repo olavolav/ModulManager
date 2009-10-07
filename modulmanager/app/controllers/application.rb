@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   end
 
   # Erstellt eine neue Standardauswahl
-  def new_selection(version = "God-Modus", focus = nil)
-    ms = ModuleSelection.create :version => version, :focus => focus
+  def new_selection(version = nil, focus = nil)
+    ms = ModuleSelection.create :version => 1, :focus => focus
     s1 = Semester.create :count => 1
     s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.101'")
     s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")

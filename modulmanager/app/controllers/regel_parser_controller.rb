@@ -66,7 +66,6 @@ private
     files.each do |filename|
       file = File.open(filename)
       y = YAML::load(file)
-      modules = Array.new
       version = y[0]["version"]
       puts version
       y.each do |m|
@@ -74,14 +73,18 @@ private
           puts "#{m["name"]}"
           m["parts"] = m["parts"].to_i
           m["parts"] = 1 if m["parts"] < 1
-          modules.push build_module m["name"], m["credits"], m["short"], m["description"], m["parts"], version
+          Studmodule.create :name => m["name"],
+            :credits => m["credits"],
+            :short => m["short"],
+            :description => m["description"],
+            :parts => m["parts"],
+            :version => version
         end
       end
       18.times do |i|
-        modules.push build_module "Eigenes Modul", nil, "custom#{(i+1)}", nil, 1
-      end
-      modules.each do |m|
-        m.save
+        Studmodule.create :name => "Eigenes Modul",
+          :short => "custom#{(i+1)}",
+          :parts => 1
       end
     end
   end
@@ -162,7 +165,7 @@ private
     return group
   end
 
-  def create_min_focus_rule name, sub_groups
+  def create_min_focus_rule name, sub_groups, version = nil
 
     sub_groups_array = Array.new
     sub_groups.each do |s|
@@ -172,15 +175,15 @@ private
       ]
       sub_groups_array.push sg
     end
-    return Connection::create_and_connection name, nil, sub_groups_array, 1
+    return Connection::create_and_connection name, nil, sub_groups_array, 1, version
     
   end
 
-  def create_min_standard_connection name, credits = nil, modules = nil
+  def create_min_standard_connection name, credits = nil, modules = nil, version = nil
     child_rules = Array.new
     child_rules.push(Rule::create_min_credit_rule_for_standard(credits, name)) unless credits == nil
     child_rules.push(Rule::create_min_module_rule_for_standard(modules, name)) unless modules == nil
-    r = Connection::create_and_connection(name, child_rules, nil, 0)
+    r = Connection::create_and_connection(name, child_rules, nil, 0, version)
     return r
   end
 
@@ -198,36 +201,36 @@ private
     pflichtmodule = Connection::create_and_connection "Pflichtmodule", nil, [grundkurs, praktika, mathematik, abschluss]
     wahlpflicht = Connection::create_and_connection "Wahlpflichtbereich", nil, [spezpraktikum, einfuehrungen, spezthemen, profilierung]
     
-    bachelor = Connection::create_and_connection "Bachelor", nil, [pflichtmodule, wahlpflicht], 0
+    bachelor = Connection::create_and_connection "Bachelor", nil, [pflichtmodule, wahlpflicht], 0, 1
 
     pflicht = {"name" => "Pflicht", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.503, B.Phy.403"}
     themen = {"name" => "Spezielle Themen", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574"}
     profil = {"name" => "Profilierungsbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Bwl.02, B.OPH.07, B.Bwl.04"}
-    schwerpunkt = create_min_focus_rule("Nanostrukturphysik", [pflicht, themen, profil])
+    schwerpunkt = create_min_focus_rule("Nanostrukturphysik", [pflicht, themen, profil], 1)
 
     pflicht = {"name" => "Pflicht", "credits" => 18, "modules" => 3, "shorts" => "B.Phy.510, B.Phy.511, B.Phy.404"}
     profil = {"name" => "Profilierungsbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Win.01, B.Win.04, B.Win.23"}
-    schwerpunkt = create_min_focus_rule("Physikinformatik", [pflicht, profil])
+    schwerpunkt = create_min_focus_rule("Physikinformatik", [pflicht, profil], 1)
 
     pflicht = {"name" => "Pflicht", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.501, B.Phy.405"}
     themen = {"name" => "Spezielle Themen", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.554"}
     profil = {"name" => "Profilierungsbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Phy.502, B.Phy.504"}
-    schwerpunkt = create_min_focus_rule("Astro- und Geophysik", [pflicht, themen, profil])
+    schwerpunkt = create_min_focus_rule("Astro- und Geophysik", [pflicht, themen, profil], 1)
 
     pflicht = {"name" => "Pflicht", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.502, B.Phy.406"}
     themen = {"name" => "Spezielle Themen", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.564"}
     profil = {"name" => "Profilierungsbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Phy.501, B.Phy.503"}
-    schwerpunkt = create_min_focus_rule("Biophysik und Physik komplexer Systeme", [pflicht, themen, profil])
+    schwerpunkt = create_min_focus_rule("Biophysik und Physik komplexer Systeme", [pflicht, themen, profil], 1)
 
     pflicht = {"name" => "Pflicht", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.503, B.Phy.407"}
     themen = {"name" => "Spezielle Themen", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574"}
     profil = {"name" => "Profilierungbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Phy.502, B.Phy.504"}
-    schwerpunkt = create_min_focus_rule("Festkörper- und Materialphysik", [pflicht, themen, profil])
+    schwerpunkt = create_min_focus_rule("Festkörper- und Materialphysik", [pflicht, themen, profil], 1)
 
     pflicht = {"name" => "Pflicht", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.504, B.Phy.408"}
     themen = {"name" => "Spezielle Themen", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.584"}
     profil = {"name" => "Profilierungsbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Phy.501, B.Phy.503"}
-    schwerpunkt = create_min_focus_rule("Kern- und Teilchenphysik", [pflicht, themen, profil])
+    schwerpunkt = create_min_focus_rule("Kern- und Teilchenphysik", [pflicht, themen, profil], 1)
 
   end
 

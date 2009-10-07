@@ -1,7 +1,7 @@
 ## YAML Template.
 ---
 - name: standard
-  semester1: B.Phy.101, B.Mat.011, B.Mat.012, B.phy.605
+  semester1: B.Phy.101, B.Mat.011, B.Mat.012, B.Phy.605
   semester2: B.Phy.102, B.Phy.410, B.Phy.303
   semester3: B.Phy.103, B.Phy.304, B.Phy.201
   semester4: B.Phy.104, B.Phy.604, B.Phy.202
