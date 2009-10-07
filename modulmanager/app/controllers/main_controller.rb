@@ -64,7 +64,8 @@ class MainController < ApplicationController
 
   def version_selection
     selection = current_selection
-    selection.version = params[:selected_version]
+    selection.version = 1
+#    selection.version = params[:selected_version]
     selection.save
     render :text => selection.version
 #    respond_to do |format|
