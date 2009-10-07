@@ -304,18 +304,23 @@ var sem_loeschen = function(l){
 		// confirm nur beim Semester >=2
 		
 		if (parseInt(l) != "1") {
-			var bestaetigen = confirm("Wollen Sie das Semester komplett entfernen?");
-			if (bestaetigen == true) {
 			
-				//$("#semester-content #"+l);
-				var this_semester = $(".semester[id="+lint+"]");
+			//$("#semester-content #"+l);
+			var this_semester = $(".semester[id="+lint+"]");
+			
+			var this_modules = $(this_semester).find(".auswahl_modul,.auswahl_modul_clone");
+			// alert("Anzahl Module darin: "+this_modules.length);
+			
+			// Abfrage erfolgt nur falls sich mind. ein Modul im Semster befindet
+			if (this_modules.length>0) {
+			var bestaetigen = confirm("Wollen Sie das Semester komplett entfernen?");
+			}
+			else var bestaetigen = true;
+			
+			if (bestaetigen == true) {
 				
 				//erstmal hide(), aber noch nicht remove()
 				$(this_semester).hide();
-				
-				var this_modules = $(this_semester).find(".auswahl_modul,.auswahl_modul_clone");
-				// alert("Anzahl Module darin: "+this_modules.length);
-				
 				// Module wieder im Pool anzeigen (keine Ahnung wo das passiert, OS)
 				
 				this_modules.each(function(){
