@@ -1,3 +1,6 @@
+// based on work by Rik Lomas
+// http://rikrikrik.com/jquery/quicksearch
+
 jQuery(function ($) {
         $.fn.quicksearch = function (opt) {
 
