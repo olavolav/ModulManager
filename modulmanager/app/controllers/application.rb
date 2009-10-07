@@ -40,6 +40,7 @@ class ApplicationController < ActionController::Base
     ms.semesters << s5
     s6 = Semester.create :count => 6
     s6.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.602'")
+    s6.studmodules << Studmodule.find(:first, :conditions => "short = 'Bachelor'")
     ms.semesters << s6
     return ms.id
   end

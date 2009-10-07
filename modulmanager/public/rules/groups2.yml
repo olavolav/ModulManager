@@ -5,7 +5,7 @@
   # ==============================
   - name: Pflichtmodule
     description: Die Modulmenge aller Pflichtmodule
-    sub-groups: Grundkurs, Praktika, Mathematik, Schlüsselkompetenzen
+    sub-groups: Grundkurs, Praktika, Mathematik, Schlüsselkompetenzen, Abschlussarbeit
 
   - name: Grundkurs
     description: Grundkurs Experimentelle und Theroretische Physik
@@ -57,4 +57,4 @@
 
   - name: Bachelor
     description:
-    sub-groups: Pflichtmodule, Wahlpflichtmodule, Abschlussarbeit
+    sub-groups: Pflichtmodule, Wahlpflichtmodule

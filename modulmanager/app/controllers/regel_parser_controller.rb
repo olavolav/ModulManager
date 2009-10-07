@@ -188,8 +188,9 @@ private
     einfuehrungen = create_min_standard_connection("Einführungen", 12, 2)
     spezthemen = create_min_standard_connection("Spezielle Themen", 12)
     profilierung = create_min_standard_connection("Profilierungsbereich", 18)
+    abschluss = create_min_standard_connection("Abschlussarbeit", 12, 1)
 
-    pflichtmodule = Connection::create_and_connection "Pflichtmodule", nil, [grundkurs, praktika, mathematik]
+    pflichtmodule = Connection::create_and_connection "Pflichtmodule", nil, [grundkurs, praktika, mathematik, abschluss]
     wahlpflicht = Connection::create_and_connection "Wahlpflichtbereich", nil, [spezpraktikum, einfuehrungen, spezthemen, profilierung]
     
     bachelor = Connection::create_and_connection "Bachelor", nil, [pflichtmodule, wahlpflicht], 0
