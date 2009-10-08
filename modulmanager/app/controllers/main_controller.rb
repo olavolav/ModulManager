@@ -3,7 +3,7 @@ class MainController < ApplicationController
   def index
     selection = current_selection
     selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = selection.focus.name
-    @selected_version = selection.version
+    @version = selection.version
     respond_to do |format|
       format.html { render :layout => "modulmanager" }
     end
@@ -65,12 +65,8 @@ class MainController < ApplicationController
   def version_selection
     selection = current_selection
     selection.version = Version.find(params[:version])
-#    selection.version = params[:selected_version]
     selection.save
     render :text => selection.version.name
-#    respond_to do |format|
-#      format.html { render :text => selection.version }
-#    end
   end
 
   def create_selection
