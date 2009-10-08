@@ -15,9 +15,7 @@
 			<div id="pruefungsordnung"> 
 				Aktuell ausgewählte Pr&uuml;fungsordnung: <strong><span id="version"><%= @version.name %></span></strong><br/>
                                 <% form_remote_tag :update => "version", :url => { :action => "version_selection" } do %>
-                                <%#= select_tag :selected_version, options_for_select([["Version vom 12.12.1995(aktuell)", "Aktuelle Version"], ["Alte Version", "Alte Version"]]) %>
                                 <%= select_tag :version, options_from_collection_for_select(Version.all, "id", "short", @version) %>
-                                <%#= collection_select(:params, :selected_version, Version.all, :id, :short) %>
                                 <%= submit_tag "Speichern" %>
                                 <% end %>
 			</div>
