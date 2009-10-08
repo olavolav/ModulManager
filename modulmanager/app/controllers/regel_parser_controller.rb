@@ -9,7 +9,7 @@ class RegelParserController < ApplicationController
         ModuleSelection.all.length == 0)
       read_module_files Array.new(["public/rules/modules2.yml"])
       read_group_files Array.new(["public/rules/groups2.yml"])
-      read_focus_files Array.new(["public/rules/focus2.yml"])
+      read_focus_files Array.new(["public/rules/focus3.yml"])
       create_connections
       @modules = Studmodule.all
       @groups = Category.all
@@ -49,14 +49,33 @@ private
       version = y[0]["version"]
       y.each do |f|
         unless f["version"]
-          build_focus(
-            f["name"],
-            f["description"],
-            f["categories"]["Pflicht"],
-            f["categories"]["Spezielle Themen"],
-            f["categories"]["Profilierungsbereich"],
-            version
-            ).save
+#          build_focus(
+#            f["name"],
+#            f["description"],
+#            f["categories"]["Pflicht"],
+#            f["categories"]["Spezielle Themen"],
+#            f["categories"]["Profilierungsbereich"],
+#            version
+#            ).save
+
+          focus = Focus.create :name => f["name"],
+            :description => f["beschreibung"],
+            :version => version
+          puts f["kategorien"]
+          f["kategorien"].each do |k|
+            group = Group.create :name => k["name"],
+              :credits => k["credits"],
+              :count => k["anzahl"],
+              :modules => Studmodule::get_array_from_module_string(k["module"])
+            focus.groups << group
+          end
+          puts "-----------------------"
+          puts "Schwerpunkt #{focus.name} erstellt."
+          puts "---Daten---"
+          puts "Version: #{focus.version}"
+          puts "Kategorien: #{focus.groups.join(", ")}"
+          puts "---Ende----"
+          puts "-----------------------"
         end
       end
     end
@@ -107,63 +126,87 @@ private
         end
       end
 
-      module_groups.each { |mg| build_group_with_modules(mg["name"], mg["description"], mg["modules"], version).save }
-      parent_groups.each { |pg| build_group_with_sub_groups(pg["name"], pg["description"], pg["sub-groups"], version).save }
+#      module_groups.each { |mg| build_group_with_modules(mg["name"], mg["description"], mg["modules"], version).save }
+#      parent_groups.each { |pg| build_group_with_sub_groups(pg["name"], pg["description"], pg["sub-groups"], version).save }
+      module_groups.each do |mg|
+        Category.create :name => mg["name"],
+          :description => mg["description"],
+          :version => version,
+          :modules => Studmodule::get_array_from_module_string(mg["modules"])
+      end
+      parent_groups.each do |pg|
+        Category.create :name => pg["name"],
+          :description => pg["description"],
+          :version => version,
+          :sub_categories => Category::get_array_from_category_string(pg["sub-groups"])
+      end
     end
   end
 
-  def build_group_with_modules name, description, module_string, version
-    puts "#{name} / #{module_string}"
-    c = Category.new :name => name,
-      :description => description,
-      :version => version,
-      :modules => Studmodule::get_array_from_module_string(module_string)
-    return c
-  end
+#  def build_group_with_modules name, description, module_string, version
+#    puts "#{name} / #{module_string}"
+#    c = Category.new :name => name,
+#      :description => description,
+#      :version => version,
+#      :modules => Studmodule::get_array_from_module_string(module_string)
+#    return c
+#  end
 
-  def build_group_with_sub_groups name, description, categories_string, version
-    c = Category.new :name => name,
-      :description => description,
-      :version => version,
-      :sub_categories => Category::get_array_from_category_string(categories_string)
-    return c
-  end
+#  def build_group_with_sub_groups name, description, categories_string, version
+#    c = Category.new :name => name,
+#      :description => description,
+#      :version => version,
+#      :sub_categories => Category::get_array_from_category_string(categories_string)
+#    return c
+#  end
 
-  def build_module name, credits, short, description, parts, version = nil
-    s = Studmodule.new :name => name,
-      :credits => credits,
-      :short => short,
-      :description => description,
-      :parts => parts,
-      :version => version
-    return s
-  end
+#  def build_module name, credits, short, description, parts, version = nil
+#    s = Studmodule.new :name => name,
+#      :credits => credits,
+#      :short => short,
+#      :description => description,
+#      :parts => parts,
+#      :version => version
+#    return s
+#  end
 
-  def build_focus name, description, pflicht, themen, profil, version
+  def build_focus name, description, categories, version = nil
     f = Focus.new :name => name,
       :description => description,
       :version => version
-    if pflicht != nil
-      f.pflicht = build_focus_group pflicht
+    categories.each do |c|
+      f.groups << Group.create(:name => c["name"],
+        :credits => c["credits"],
+        :count => c["anzahl"],
+        :modules => Studmodule::get_array_from_module_string(c["module"]))
     end
-    if themen != nil
-      f.themen = build_focus_group themen
-    end
-    if profil != nil
-      f.profil = build_focus_group profil
-    end
-    return f
   end
 
-  def build_focus_group module_sentence
-    group = Array.new
-    modules = module_sentence.split(",")
-    modules.each do |m|
-      m.strip!
-      group.push Studmodule.find(:first, :conditions => "short = '#{m}'")
-    end
-    return group
-  end
+#  def build_focus name, description, pflicht, themen, profil, version
+#    f = Focus.new :name => name,
+#      :description => description,
+#      :version => version
+#    if pflicht != nil
+#      f.pflicht = build_focus_group pflicht
+#    end
+#    if themen != nil
+#      f.themen = build_focus_group themen
+#    end
+#    if profil != nil
+#      f.profil = build_focus_group profil
+#    end
+#    return f
+#  end
+
+#  def build_focus_group module_sentence
+#    group = Array.new
+#    modules = module_sentence.split(",")
+#    modules.each do |m|
+#      m.strip!
+#      group.push Studmodule.find(:first, :conditions => "short = '#{m}'")
+#    end
+#    return group
+#  end
 
   def create_min_focus_rule name, sub_groups, version = nil
 

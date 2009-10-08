@@ -1,97 +1,26 @@
 <h1>Parsing comleted</h1>
 
+<table>
+  <tr>
+    <th>Component</th>
+    <th>created</th>
+  </tr>
+  <tr>
+    <td>Modules</td>
+    <td><%= Studmodule.all.length %></td>
+  </tr>
+  <tr>
+    <td>Rules</td>
+    <td><%= Rule.all.length %></td>
+  </tr>
+  <tr>
+    <td>Focus</td>
+    <td><%= Focus.all.length %></td>
+  </tr>
+  <tr>
+    <td>Categories</td>
+    <td><%= Category.all.length %></td>
+  </tr>
+</table>
+
 <p><%= link_to "Clear database tables", :action => "clear" %></p>
-
-<p>The following <%= @modules.length %> Studmodules were created:</p>
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Credits</th>
-    <th>Short</th>
-  </tr>
-  <% @modules.each do |m| %>
-  <tr>
-    <td>
-      <%= m.id %>
-    </td>
-    <td>
-      <%= m.name %>
-    </td>
-    <td>
-      <%= m.credits %>
-    </td>
-    <td>
-      <%= m.short %>
-    </td>
-  </tr>
-  <% end %>
-</table>
-
-<p>The following <%= @groups.length %> Groups were created:</p>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Modules</th>
-    <th>Sub-Groups</th>
-  </tr>
-  <% @groups.each do |g| %>
-  <tr>
-    <td>
-      <%= g.name %>
-    </td>
-    <td>
-      <% modules = Array.new %>
-      <% g.modules.each do |m| %>
-        <% modules.push m.short %>
-      <% end %>
-      <%= modules.join(", ") %>
-    </td>
-    <td>
-      <% cat = Array.new %>
-      <% g.sub_categories.each do |s| %>
-        <% cat.push s.name %>
-      <% end %>
-      <%= cat.join(", ") %>
-    </td>
-  </tr>
-  <% end %>
-</table>
-
-<p>The following <%= @foci.length %> foci were created:</p>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Pflicht</th>
-    <th>Spezielle Themen</th>
-    <th>Profilierungsbereich</th>
-  </tr>
-  <% @foci.each do |f| %>
-  <tr>
-    <td>
-      <%= f.name %>
-    </td>
-    <td>
-      <% pflicht = Array.new %>
-      <% f.pflicht.each do |p| %>
-        <% pflicht.push p.short %>
-      <% end %>
-      <%= pflicht.join(", ") %>
-    </td>
-    <td>
-      <% themen = Array.new %>
-      <% f.themen.each do |t| %>
-        <% themen.push t.short %>
-      <% end %>
-      <%= themen.join(", ") %>
-    </td>
-    <td>
-      <% profil = Array.new %>
-      <% f.profil.each do |p| %>
-        <% profil.push p.short %>
-      <% end %>
-      <%= profil.join(", ") %>
-    </td>
-  </tr>
-  <% end %>
-</table>

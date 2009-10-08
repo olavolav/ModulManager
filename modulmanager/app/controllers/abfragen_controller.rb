@@ -115,7 +115,7 @@ class AbfragenController < ApplicationController
       end
     end
 
-    grade = grade / credits
+    grade = grade / credits if credits > 0
 
     render :text => grade
 

@@ -1,0 +1,95 @@
+## YAML Template.
+---
+  - version: 1
+
+  - name: Nanostrukturphysik
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Phy.503, B.Phy.403
+        anzahl: 2
+        credits: 12
+      - name: Spezielle Themen
+        module: B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574
+        anzahl: 2
+        credits: 12
+      - name: Profilierungsbereich
+        module: B.Bwl.02, B.OPH.07, B.Bwl.04
+        anzahl: 1
+        credits: 6
+
+  - name: Physikinformatik
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Phy.510, B.Phy.511, B.Phy.404
+        anzahl: 3
+        credits: 18
+      - name: Profilierungsbereich
+        module: B.Win.01, B.Win.04, B.Win.23
+        anzahl: 1
+        credits: 6
+
+  - name: Astro- und Geophysik
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Phy.501, B.Phy.405
+        anzahl: 2
+        credits: 12
+      - name: Spezielle Themen
+        module: B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.554
+        anzahl: 2
+        credits: 12
+      - name: Profilierungsbereich
+        module: B.Phy.502, B.Phy.504
+        anzahl: 1
+        credits: 6
+
+  - name: Biophysik und Physik komplexer Systeme
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Phy.502, B.Phy.406
+        anzahl: 2
+        credits: 12
+      - name: Spezielle Themen
+        module: B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.564
+        anzahl: 2
+        credits: 12
+      - name: Profilierungsbereich
+        module: B.Phy.501, B.Phy.503
+        anzahl: 1
+        credits: 6
+
+  - name: Festkörper- und Materialphysik
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Phy.503, B.Phy.407
+        anzahl: 2
+        credits: 12
+      - name: Spezielle Themen
+        module: B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574
+        anzahl: 2
+        credits: 12
+      - name: Profilierungsbereich
+        module: B.Phy.502, B.Phy.504
+        anzahl: 1
+        credits: 6
+
+  - name: Kern- und Teilchenphysik
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Phy.504, B.Phy.408
+        anzahl: 2
+        credits: 12
+      - name: Spezielle Themen
+        module: B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.584
+        anzahl: 2
+        credits: 12
+      - name: Profilierungsbereich
+        module: B.Phy.501, B.Phy.503
+        anzahl: 1
+        credits: 6
