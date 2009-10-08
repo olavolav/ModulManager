@@ -24,6 +24,7 @@
 	var wahlbild    = "<img src='images/Wahl.png'>";
 	var fragebild     = "<img src='images/Fragezeichen.png'>";
 	var ipunkt    = "<img src='images/iPunkt.png'>";
+	var gelber_ipunkt    = "<img src='images/iPunktGelb.png'>";
 	var rote_ipunkt    = "<img src='images/Ausrufezeichen.png'>";
 	var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-5px; left:6px;'>";
 	var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='padding-right:3px;'>";

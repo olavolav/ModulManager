@@ -12,6 +12,46 @@
 							<h1>ModulManager
 							<button id="navimovedown" onClick="javascript:show_navi();" style="display:none;">Navigation anzeigen</button></h1>
 							<div id="navi_optional">
+								<div id="minihelp">
+									<h2>Kurzanleitung</h2>
+									<p>Ziehen Sie Module von der rechten Spalte in die momentane Auswahl in der Mitte. In der linken Spalte oder an Modulen selbst wird angezeigt, ob die entspr. Bedingungen erfüllt sind.</p>
+									<p>Über diese Ampel-Icons gelangen Sie auch zu ausführlicheren Informationen über den Bereich oder das Modul, und können Ausnahme-Regelungen vornehmen.</p>
+									<h2>Icons</h2>
+									<table border="0" cellspacing="4px">
+										<tr>
+											<td>Pflicht-Modul</td>
+											<td><img src='images/Pflicht.png'></td>
+										</tr>
+										<tr>
+											<td>Wahlpflicht-Modul</td>
+											<td><img src='images/Wahlpflicht.png'></td>
+										</tr>
+										<!-- ><tr>
+											<td>Wahl-Modul</td>
+											<td><img src='images/Pflicht.png'></td>
+										</tr> -->
+										<tr>
+											<td>Pflicht-Modul</td>
+											<td><img src='images/Fragezeichen.png'></td>
+										</tr>
+										<tr>
+											<td>Informationen und ggf. Optionen, Bedingungen erfüllt</td>
+											<td><img src='images/iPunkt.png'></td>
+										</tr>
+										<tr>
+											<td>Informationen und ggf. Optionen, Bedingungen erfüllt aber Note noch nicht eingetragen</td>
+											<td><img src='images/iPunktGelb.png'></td>
+										</tr>
+										<tr>
+											<td>Informationen und ggf. Optionen, Bedingungen nicht erfüllt</td>
+											<td><img src='images/Ausrufezeichen.png'></td>
+										</tr>
+										<!-- <tr>
+											<td>Modul löschen</td>
+											<td><img src='images/Loeschen.png'></td>
+										</tr> -->
+									</table>
+								</div>
 							<p>Herzlich Willkommen zum ModulManager!</p>
 							<p>Momentane Einstellungen: Schwerpunkt <strong><%= @schwerpunkt %></strong>, Prüfungsordnungs-Version <strong><%= @version.name %></strong></p>
 							<p>Navigation zu anderen ModulManager-Seiten:</p>
@@ -23,7 +63,7 @@
                                 <div class="clear"></div>
                             </ul>
 				
-							<p>Unten können Sie Module per Drag&amp;Drop von den zur Verfügung stehenden Modulen in das gewünschte Semester ziehen.</p>
+							<!-- <p>Unten können Sie Module per Drag&amp;Drop von den zur Verfügung stehenden Modulen in das gewünschte Semester ziehen.</p> -->
 							</div>
 								<button id="navimoveup" onClick="javascript:hide_navi();">Navigation ausblenden</button>
 
