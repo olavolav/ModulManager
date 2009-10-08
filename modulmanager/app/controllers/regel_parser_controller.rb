@@ -3,10 +3,10 @@ class RegelParserController < ApplicationController
   def start
     if (
         Rule.all.length == 0 &&
-        Category.all.length == 0 &&
-        Focus.all.length == 0 &&
-        Studmodule.all.length == 0 &&
-        ModuleSelection.all.length == 0)
+          Category.all.length == 0 &&
+          Focus.all.length == 0 &&
+          Studmodule.all.length == 0 &&
+          ModuleSelection.all.length == 0)
 
       version = nil
 
@@ -21,9 +21,6 @@ class RegelParserController < ApplicationController
         version = initialize_po "config/basedata/#{entry}"
       end
 
-#      read_module_files Array.new(["public/rules/modules2.yml"])
-#      read_group_files Array.new(["public/rules/groups2.yml"])
-#      read_focus_files Array.new(["public/rules/focus3.yml"])
       create_connections version
       @modules = Studmodule.all
       @groups = Category.all
@@ -56,7 +53,7 @@ class RegelParserController < ApplicationController
     Version.all.each { |v| v.destroy; @versions += 1 }
   end
 
-private
+  private
 
   def initialize_po dir_name
 
@@ -74,53 +71,44 @@ private
     y = YAML::load(file)
     
     version = Version.create :name => y["name"],
-      :short => y["short"],
-      :description => y["description"]
+      :short => y["kurz"],
+      :description => y["beschreibung"]
 
     return version
 
   end
 
   def read_focus_file filename, version
-#    files.each do |filename|
-      file = File.open(filename)
-      y = YAML::load(file)
-#      version = y[0]["version"]
-      y.each do |f|
-#        unless f["version"]
-          focus = Focus.create :name => f["name"],
-            :description => f["beschreibung"],
-            :version => version
-          puts f["kategorien"]
-          f["kategorien"].each do |k|
-            group = Group.create :name => k["name"],
-              :credits => k["credits"],
-              :count => k["anzahl"],
-              :modules => Studmodule::get_array_from_module_string(k["module"])
-            focus.groups << group
-          end
-#        end
+    file = File.open(filename)
+    y = YAML::load(file)
+    y.each do |f|
+      focus = Focus.create :name => f["name"],
+        :description => f["beschreibung"],
+        :version => version
+      puts f["kategorien"]
+      f["kategorien"].each do |k|
+        group = Group.create :name => k["name"],
+          :credits => k["credits"],
+          :count => k["anzahl"],
+          :modules => Studmodule::get_array_from_module_string(k["module"])
+        focus.groups << group
       end
-#    end
+    end
   end
 
   def read_module_file filename, version
     file = File.open(filename)
     y = YAML::load(file)
-#    version = y[0]["version"]
-#    puts version
     y.each do |m|
-#      unless m["version"]
-#        puts "#{m["name"]}"
-        m["parts"] = m["parts"].to_i
-        m["parts"] = 1 if m["parts"] < 1
-        Studmodule.create :name => m["name"],
-          :credits => m["credits"],
-          :short => m["short"],
-          :description => m["description"],
-          :parts => m["parts"],
-          :version => version
-#      end
+      m["parts"] = m["parts"].to_i
+      m["parts"] = 1 if m["parts"] < 1
+      Studmodule.create :name => m["name"],
+        :credits => m["credits"],
+        :short => m["short"],
+        :description => m["description"],
+        :parts => m["parts"],
+        :version => version
+
     end
     18.times do |i|
       Studmodule.create :name => "Eigenes Modul",
@@ -130,36 +118,29 @@ private
   end
 
   def read_group_file filename, version
-#    files.each do |filename|
-      file = File.open(filename)
-      y = YAML::load(file)
-#      version = y[0]["version"]
-      parent_groups = Array.new
-      module_groups = Array.new
-
-      y.each do |element|
-#        unless element["version"]
-          if element["sub-groups"] == nil
-            module_groups.push element
-          elsif element["modules"] == nil
-            parent_groups.push element
-          end
-#        end
+    file = File.open(filename)
+    y = YAML::load(file)
+    parent_groups = Array.new
+    module_groups = Array.new
+    y.each do |element|
+      if element["sub-groups"] == nil
+        module_groups.push element
+      elsif element["modules"] == nil
+        parent_groups.push element
       end
-
-      module_groups.each do |mg|
-        Category.create :name => mg["name"],
-          :description => mg["description"],
-          :version => version,
-          :modules => Studmodule::get_array_from_module_string(mg["modules"])
-      end
-      parent_groups.each do |pg|
-        Category.create :name => pg["name"],
-          :description => pg["description"],
-          :version => version,
-          :sub_categories => Category::get_array_from_category_string(pg["sub-groups"])
-      end
-#    end
+    end
+    module_groups.each do |mg|
+      Category.create :name => mg["name"],
+        :description => mg["description"],
+        :version => version,
+        :modules => Studmodule::get_array_from_module_string(mg["modules"])
+    end
+    parent_groups.each do |pg|
+      Category.create :name => pg["name"],
+        :description => pg["description"],
+        :version => version,
+        :sub_categories => Category::get_array_from_category_string(pg["sub-groups"])
+    end
   end
 
   def build_focus name, description, categories, version = nil
