@@ -9,15 +9,19 @@
 				
                       
                         <div id="subnavi">
-							<h1>ModulManager
-							<button id="navimovedown" onClick="javascript:show_navi();" style="display:none;">Navigation anzeigen</button></h1>
+							<!-- <h1>ModulManager -->
+							<img src="images/Logo.png" width="215" heigth="30" alt="ModulManager">
+							<button id="navimovedown" onClick="javascript:show_navi();" style="display:none;">Navigation anzeigen</button>
 							<div id="navi_optional">
 								<div id="minihelp">
 									<h2>Kurzanleitung</h2>
 									<p>Ziehen Sie Module von der rechten Spalte in die momentane Auswahl in der Mitte. In der linken Spalte oder an Modulen selbst wird angezeigt, ob die entspr. Bedingungen erfüllt sind.</p>
 									<p>Über diese Ampel-Icons gelangen Sie auch zu ausführlicheren Informationen über den Bereich oder das Modul, und können Ausnahme-Regelungen vornehmen.</p>
 									<h2>Icons</h2>
-									<table border="0" cellspacing="4px">
+									<table border="0" cellspacing="4" width="100%">
+										<tr>
+											<td cellspan="2"><strong>Modul-Typen:</strong></td>
+										</tr>
 										<tr>
 											<td>Pflicht-Modul</td>
 											<td><img src='images/Pflicht.png'></td>
@@ -30,6 +34,9 @@
 											<td>Wahl-Modul</td>
 											<td><img src='images/Pflicht.png'></td>
 										</tr> -->
+										<tr>
+											<td cellspan="2"><strong>Schaltflächen:</strong></td>
+										</tr>
 										<tr>
 											<td>Pflicht-Modul</td>
 											<td><img src='images/Fragezeichen.png'></td>
@@ -53,7 +60,11 @@
 									</table>
 								</div>
 							<p>Herzlich Willkommen zum ModulManager!</p>
-							<p>Momentane Einstellungen: Schwerpunkt <strong><%= @schwerpunkt %></strong>, Prüfungsordnungs-Version <strong><%= @version.name %></strong></p>
+							<p>Momentane Einstellungen:
+								<ul>
+									<li>Schwerpunkt: <strong><%= @schwerpunkt %></strong></li>
+									<li>Prüfungsordnungs-Version: <strong><%= @version.name %></strong></li>
+								</ul>
 							<p>Navigation zu anderen ModulManager-Seiten:</p>
 
                             <ul id="subnavi-ul">
