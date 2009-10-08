@@ -11,7 +11,7 @@ xml.root do
       s.groups.each do |g|
         xml.category(:name => g.name, :category_id => "#{g.name.gsub(" ", "_").downcase}#{s.id}") do
           g.modules.each do |m|
-            xml.module(:id => m.id) do
+            xml.module(:id => m.id, :class => "non-custom") do
               xml.tag! "id", m.id
               xml.name m.name
               xml.short m.short
