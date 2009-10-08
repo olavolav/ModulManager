@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091007135941) do
+ActiveRecord::Schema.define(:version => 20091008140642) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20091007135941) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
-    t.string   "version"
+    t.integer  "version_id"
   end
 
   create_table "categories_rules", :id => false, :force => true do |t|
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20091007135941) do
     t.string   "type"
     t.string   "name"
     t.integer  "focus"
-    t.string   "version"
+    t.integer  "version_id"
   end
 
   create_table "errors", :force => true do |t|
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(:version => 20091007135941) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
-    t.string   "version"
+    t.integer  "version_id"
   end
 
   create_table "groups", :force => true do |t|
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(:version => 20091007135941) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "focus_id"
-    t.string   "version"
+    t.integer  "version_id"
   end
 
   create_table "rules", :force => true do |t|
@@ -143,7 +143,15 @@ ActiveRecord::Schema.define(:version => 20091007135941) do
     t.string   "randomness"
     t.string   "type"
     t.integer  "parts"
-    t.string   "version"
+    t.integer  "version_id"
+  end
+
+  create_table "versions", :force => true do |t|
+    t.string   "name"
+    t.string   "short"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

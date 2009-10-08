@@ -1,6 +1,4 @@
-## YAML Template.
 ---
-  - version: 1
 
   - name: Nanostrukturphysik
     beschreibung:

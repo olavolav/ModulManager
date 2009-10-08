@@ -7,6 +7,10 @@ class ModuleSelection < ActiveRecord::Base
     :class_name => "Focus",
     :foreign_key => "focus_id"
 
+  belongs_to :version,
+    :class_name => "Version",
+    :foreign_key => "version_id"
+
   def modules
     modules = Array.new
     self.semesters.each do |s|

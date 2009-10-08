@@ -8,6 +8,10 @@ class Studmodule < ActiveRecord::Base
     :class_name => "Rule",
     :join_table => "rules_studmodules"
 
+  belongs_to :version,
+    :class_name => "Version",
+    :foreign_key => "version_id"
+
   def self.get_array_from_module_string module_string
     mod_array = Array.new
     modules = module_string.split(",")

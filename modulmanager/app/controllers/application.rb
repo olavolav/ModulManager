@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   end
 
   # Erstellt eine neue Standardauswahl
-  def new_selection(version = nil, focus = nil)
-    ms = ModuleSelection.create :version => 1, :focus => focus
+  def new_selection(version = get_last_po, focus = nil)
+    ms = ModuleSelection.create :version => Version.all[0], :focus => focus
     s1 = Semester.create :count => 1
     s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.101'")
     s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
@@ -42,6 +42,13 @@ class ApplicationController < ActionController::Base
     s6.studmodules << Studmodule.find(:first, :conditions => "short = 'Bachelor'")
     ms.semesters << s6
     return ms.id
+  end
+
+  def get_last_po
+    po = Version.all
+    po.each do |p|
+
+    end
   end
 
 
