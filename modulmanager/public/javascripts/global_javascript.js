@@ -35,28 +35,191 @@
 	var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='padding-right:3px;'>";
 
 
-/* $(document).ready(function(){
-   alert("ready!");
-}); */
 
-// implementieren die Funktion pfeil_tauschen()
-//die wird in pool_rekursiv() benutzt
 
-var pfeil_tauschen = function(category_id){
-	//alert("drin");
-	
+function rekursiv_pool_by_out(first_father){
+		$(first_father).removeClass("search_category");
+		$(first_father).addClass("pool_category");
+		
+		var parent = $(first_father).parent().get(0);
+		
+		if ($(parent).hasClass("search_category")) {
+			var this_siblings = $(first_father).siblings();
+			var sib_anzahl = $(this_siblings).filter(function(index){
+			
+				return $(this).hasClass("search_category")
+			});
+			if($(sib_anzahl).length == 0){
+				$(parent).hide();
+				rekursiv_pool_by_out(parent);
+				
+			}
+			
+		}
+		
+		else {
+			$(first_father).hide();
+		}	
+			
+		
 }
+
+
+var show_pool_by_out = function(pool_modul){
+	
+	
+	//var modul_parent = $("#pool").find("#"+modul_id).parent().get(0);
+	var modul_parent = $(pool_modul).parent().get(0);
+	
+	var this_siblings = $(modul_parent).siblings();
+	var sib_anzahl =$(this_siblings).filter(function(index){
+		return $(this).hasClass(".search_modul")
+		
+	});
+	if($(sib_anzahl).length == 0 ){
+		var first_father = $(modul_parent).parent().get(0);
+		$(first_father).hide();
+		rekursiv_pool_by_out(first_father);
+		
+		
+	}
+	
+}// ende out
+
+function rekursiv_pool_by_in(first_father){
+	
+	$(first_father).show();
+	$(first_father).removeClass("pool_category");
+	$(first_father).addClass("search_category");
+	var this_parent = $(first_father).parent().get(0);
+	if($(this_parent).hasClass("pool_category")){
+		rekursiv_pool_by_in(this_parent);
+	}
+	return;
+}
+
+var show_pool_by_in = function(modul_id){
+	
+	
+	var append_modul;
+	
+	// versteck das Modul im Semester
+	$("#semester-content div.semester").find("div#"+modul_id).each(function(){
+			
+			//alert("hallo modulloeschen");
+			$(this).find("span.fragebild").css("display","block");
+			$(this).find("span.ipunkt").css("display","none");
+			$(this).find("span.noten").css("display","none");
+			$(this).find("#icon_loeschen").css("display","none");
+			$(this).attr("class","pool_modul");
+			var das_span = $(this).find("span.imAuswahl");
+			$(das_span).text("nein");
+			$(this).hide();
+			append_modul = $(this);
+	});
+	
+	
+	
+	//such modul_id im pool
+	var modul = $("#pool").find("#"+modul_id).eq(0);
+	//$(modul).find("span.imAuswahl").text("nein");
+	var this_parent = $(modul).parent().get(0);
+	var this_class = $(this_parent).attr("class");
+	
+	//check ob es um ein live_search_modul geht.
+	if(this_class == modul_id+"_parent search_modul"){
+		alert("hallo search modul");
+		
+		//suche alle parent-umgebung
+		$("."+modul_id+"_parent").each(function(){
+			
+			var this_text = $(this).text();
+			if(this_text == ""){
+				$(this).append($(append_modul));
+				
+			}
+			var this_modul = $(this).find("div.pool_modul");
+			$(this_modul).show();
+			
+			//
+			
+			var this_siblings = $(this).siblings();
+			/*var sib_anzahl = $(this_siblings).filter(function(index){
+				return $(this).hasClass("search_modul");
+			});*/
+			var first_father = $(this).parent().get(0);
+			
+			
+			rekursiv_pool_by_in(first_father);
+				
+			
+			
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+	}
+	else{//hier wird das Modul entweder in im Live nachdem das Modul gerade
+		 // in Auswahl reingetan und wieder sofort in Pool zurück.
+		 // Zunächst werden die Modul_id im Table#suche ermittelt
+		 
+		var input_suche = $("#qs").val();
+		
+		if (input_suche == "") {
+			alert("es ist ein normales Modul");
+			modulloeschen(modul_id);
+		}
+		
+		else {
+			var this_tr = $("table#suche tbody").find("." + modul_id).eq(0);
+			var live_modul = false;
+			
+			//hier check ob die Module gerade gesucht werden.
+			if ($(this_tr).css("display") == "table-row" || $(this_tr).css("display") == "block" || $(this_tr).css("display") == "") {
+				live_modul = true;
+				var hi = $(this_tr).css("display");
+				
+			}
+			
+			if (live_modul) {
+				alert("hallo search modul im Table");
+				var modul_search_id = $(this_tr).attr("class");
+				$(this_parent).addClass("search_modul");
+				$(modul).show();
+				var first_father = $(this_parent).parent().get(0);
+				rekursiv_pool_by_in(first_father);
+				
+				//$("."+modul_search_id+"_parent").
+			}
+		}	
+	}
+	//ajax aufrufen
+	
+	ajax_to_server_by_remove(modul_id);
+	
+	
+	
+}//ende in
+
+
+
+
 
 // Anzeigen bzw. verstecken der anfänglichen Hilfe und der Navigations-Knöpfe
 var show_navi = function(){
 	$("#navi_optional").slideDown();
-	$("#navimovedown").toggle()
-	$("#navimoveup").show()
+	$("#navimovedown").toggle();
+	$("#navimoveup").show();
 }
 var hide_navi = function(){
 	$("#navi_optional").slideUp();
-	$("#navimovedown").show()
-	$("#navimoveup").hide()
+	$("#navimovedown").show();
+	$("#navimoveup").hide();
 }
 
 var get_grade = function(this_input){
@@ -98,34 +261,7 @@ var modul_search = function(){
 	
 }//ende function
 
-/*
-var get_modul_by_search = function (mod_id){
-	//alert(mod_id);
-	
-	$("#pool ."+mod_id+"_parent").each(function(){
-		var la = $(this).children().length;
-		//alert(la);
-		if(la=="2"){
-			alert("hallo pool_modul");
-			var this_kind = $(this).children()[1];
-			var this_tex = $(this_kind).find("span.imAuswahl").text();
-			alert("span im Auswahl :"+this_tex);
-		}
-		else if (la=="1"){
-			alert("leider im Auswahl");
-		}
-		if($(this).find(".pool_modul")){
-			alert("hallo pool_modul");
-		}
-		else{
-			alert("kein pool_modul");
-		}
-		
-	});
-	
-}
 
-*/
 ///////////////////MODULLOESCHEN loeschen////////////////////////
 /// bei Click auf <span class="modulloeschen">
 
@@ -202,13 +338,9 @@ var modulloeschen = function (mod_id){
 	});
 	
 
-	//ajax aufrufen
-	
-	ajax_to_server_by_remove(mod_id);
 	
 	
 }//ende
-
 
 
 
@@ -377,12 +509,6 @@ var ajax_to_server_by_add = function (modul_id,semester){
 	
 }
 
-
-
-	
-
-
-
 var ajax_to_server_by_remove = function (modul_id){
 	//alert("mod_id="+modul_id);
 	$.ajax({
@@ -550,26 +676,51 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 		$(ui_draggable).attr("class","auswahl_modul ");
 		
 		var this_span = $(ui_draggable).find("span.imAuswahl");
-		$(this_span).text("schonWEG");
+		//$(this_span).text("schonWEG");
+		$(this_span).text("ja");
+		
+		
+		var modul_parent = $(ui_draggable).parent().get(0);
+		if($(modul_parent).hasClass("search_modul")){
+			$(modul_parent).removeClass("search_modul");
+			
+			//show_pool_by_out(modul_id);
+			show_pool_by_out(ui_draggable);
+		}
 		
 		//vertecken die anderen gleichen Module
 	
 		$("."+modul_id+"_parent").each(function(){
 			//alert("drin");
-			$(this).find("div.pool_modul").each(function(){
+			var modul_parent = $(this);
+				$(this).find("div.pool_modul").each(function(){
 				var das_span = $(this).find("span.imAuswahl");
 				var x = $(das_span).text();
 				//alert("span="+x);
 				if(x=="nein"){
-					$(this).hide();
+					
 					$(das_span).text("ja");
+					$(this).hide();
+					
+					// check ob ein search_modul ist
+					if($(modul_parent).hasClass("search_modul")){
+						$(modul_parent).removeClass("search_modul");
+						show_pool_by_out($(this));
+					}
+					
+					
 				}
 				
 			});
 			
 		});
 		
+		
+		
+		
+		
 	}//ende if pool_modul class
+	
 	else if(this_draggable_class=="auswahl_modul_clone ui-draggable" || this_draggable_class=="auswahl_modul_clone"  ){
 		//alert("hallo "+this_draggable_class);
 		ajax_to_server_by_remove(modul_id);
@@ -585,6 +736,11 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	
 	// append hier
 	var this_subsemester = $(this_semester).find("div.subsemester");
+	
+	
+				
+	
+	
 	//$(ui_draggable).appendTo($(this_subsemester));
 	$(this_subsemester).append(ui_draggable);
 	
@@ -922,11 +1078,13 @@ var poolrekursiv = function(root){
 				else if(child_name == "module"){
 					
 					
-					$("#pool").append(
-					"<script type='text/javascript'>"+
+			$("#pool").append(
+			"<script type='text/javascript'>"+
 					
-					"$(function(){"+
-					"	$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
+				"$(function(){"+
+					"$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
+					
+						"if($(\"#"+category_id+" \").hasClass('search_category')){"+
 					
 					"  		var this_nextAll = $(\"#"+category_id+" a#id_"+category_id+" \").nextAll();"+
 					"  		$(this_nextAll).each(function(){"+
@@ -948,11 +1106,30 @@ var poolrekursiv = function(root){
 							" 	else if(this_display=='none'){$(this).css('display','inline');} "+
 							" });"+
 									
+					    "}"+//ende if
+					    "else{"+
+							" var this_nextAll = $(\"#"+category_id+" a#id_"+category_id+" \").nextAll();"+
+							" $(\"#"+category_id+" .pool_modul \").each(function(){"+
+										
+											"var imAuswahl = $(this).find('span.imAuswahl');"+
+											"var imAuswahl_text = $(imAuswahl).text();"+
+											"if (imAuswahl_text == 'ja'){$(this).hide();}"+
+											"else if (imAuswahl_text == 'nein'){$(this).toggle(0);}"+
+										
+							"});"+
+							"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
+							" $(this_span).each(function(){"+
+							" 	var this_display = $(this).css('display');"+
+							" 	if(this_display=='inline'){$(this).css('display','none');}"+
+							" 	else if(this_display=='none'){$(this).css('display','inline');} "+
+							" });"+
+						
+						"}"+//ende else
+						
 					
-					
-					"	});"+
 					"});"+
-					"</script>");
+				"});"+
+			"</script>");
 					
 					
 					
@@ -1036,7 +1213,7 @@ var poolrekursiv = function(root){
 			
 			
 			$("#pool #" + parent_id).append("<div class='" + modul_id + "_parent'><div class='nichtleer'></div><div class='"+pool_modul_class+"' id='" + modul_id + "' >" +
-			"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modulloeschen(" +
+			"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='show_pool_by_in(" +
 			modul_id +
 			")'>" +
 			loeschenbild +
@@ -1097,7 +1274,7 @@ var poolrekursiv = function(root){
 			
 						
 			//kopieren das Modul in search_table  für die Suche
-			$("#suche tbody").append("<tr id='"+modul_id+"' style='display:none'>"+"<td>"+modul_id+"</td>"+"<td>"+modul_name+"</td>"+"</tr>");
+			$("#suche tbody").append("<tr class='"+modul_id+"' >"+"<td>"+modul_id+"</td>"+"<td>"+modul_name+"</td>"+"</tr>");
 				
 			//$("#suche tbody").append("<tr class='"+modul_id+"'>"+"<td>"+modul_id+"</td>"+"<td style='cursor:pointer' >"+modul_name+"</td>"+"</tr>");
 			

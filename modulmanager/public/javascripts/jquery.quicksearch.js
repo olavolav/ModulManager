@@ -203,8 +203,19 @@ jQuery(function ($) {
 				// function from Modulmanager
 				
 				function tree_close()
-				{
+				{   
+				
+				
+				    // Table muss zu
+					/*var this_tr =$("table#suche tbody tr"); 
+					$(this_tr).each(function(){
+						$(this).css("display","none");
+						
+					});*/
+					
+				
 					//alle bildchen wieder auf pfeil-rechts setzen 
+					$("#pool").show();
 					var this_children = $("#pool").children();
 					$(this_children).show();
 					
@@ -215,7 +226,7 @@ jQuery(function ($) {
 							
 						}
 						
-						$(this).find("span").each(function(){
+						/*$(this).find("span").each(function(){
 							var this_id = $(this).attr("class");
 							if(this_id == "pfeil_rechts"){
 								$(this).css("display","inline");
@@ -224,7 +235,21 @@ jQuery(function ($) {
 								$(this).css("display","none");
 							}
 							
+							
+						});*/
+						
+						$(this).find("span.pfeil_rechts").each(function(){
+							
+								$(this).css("display","inline");
+							
 						});
+						$(this).find("span.pfeil_unten").each(function(){
+							
+								$(this).css("display","none");
+							
+						});
+						
+						
 						
 						// mache alle untere Kategorie zu
 						$(this).find(".pool_category,.pool_modul").hide();
@@ -245,7 +270,22 @@ jQuery(function ($) {
 					});//ende this_children
 					
 				}
-				
+				function show_pool_by_search (parent){
+					var this_parent = $(parent).parent().get(0);
+					var this_id = $(parent).attr("id");
+					
+					$(parent).show();
+					if ($(parent).hasClass("pool_category")) {
+						$(parent).attr("class","search_category");
+						
+						
+						show_pool_by_search($(this_parent));
+						
+					}
+					
+					
+					
+				}
 				// function from Modulmanager
 				function show_modul_by_search(array_id)
 				{
@@ -259,158 +299,34 @@ jQuery(function ($) {
 						
 						
 						$("#pool ."+array_id[i]+"_parent").each(function(){
-							//check ob der mod_id zwei Kinder hat
-							// warum? denn ein mod_id_parent hat max. 2 Kinder
-							// also ein div.nichtleer  und ein div.pool_modul
-							//und wir laden nur beim mod_id_parent, der bereits 
-							//div.pool_modul enthält
 							
-							if(($(this).children().length)==2){
+							
+							// neue Class 'search_modul' in modul_id_parent hinzufügen
+							// damit kann man nur 'search_modul' im Pool_baum togglen
+							$(this).addClass("search_modul");
+							//$(this).removeClass("pool_category");
+							
+							
+							var modul = $("#pool").find("#"+array_id[i]);
+							var modul_span = $(modul).find("span.imAuswahl").eq(0).text();
+							
+							if(modul_span=="nein"){
 								
-								var this_pool_modul = $(this).children()[1];
+								$(this).show();
+								$(modul).show();
 								
-								var this_span_text  = $(this_pool_modul).find("span.imAuswahl").text();
-								
-								if(this_span_text == "nein" && $(this_pool_modul).hasClass("pool_modul")){//hasClass, da um custom geht
-									
-									$(this_pool_modul).show();
-									
-									//sofort macht den sein Vater pool_category auch auf
-									// dann sein grandfather und ururvather aufmachen
-									// achten auf das bildchen pfeil
-									var first_father = $(this).parent().get(0);
-									$(first_father).show();
-									
-									// neue Class 'search_modul' in modul_id_parent hinzufügen
-									// damit kann man nur 'search_modul' im Pool_baum togglen
-									var mod_parent = $(this_pool_modul).parent().get(0);
-									$(mod_parent).addClass("search_modul").show();
-									
-									
-									$(first_father).find("span.pfeil_rechts").eq(0).css("display","none");
-									$(first_father).find("span.pfeil_unten").eq(0).css("display","inline");
-									$(first_father).removeClass("pool_category");
-									$(first_father).addClass("search_category");
-									
-									//second_father ist ein nächsthöhenPool_kategory
-									//das ist ein Schwerrpunkt. z.B: Physikinformatik
-									//
-									//achten auf das bildchen pfeil
-									var second_father=$(first_father).parent().get(0);
-									$(second_father).show();
-									$(second_father).find("span.pfeil_rechts").eq(0).css("display","none");
-									$(second_father).find("span.pfeil_unten").eq(0).css("display","inline");
-									$(second_father).removeClass("pool_category");
-									$(second_father).addClass("search_category");
-									
-									//third_father ist bei Allgemein-Bachelor benutzt
-									var third_father =$(second_father).parent().get(0);
-									if(third_father !="" || third_father !="undefined")
-									{
-										$(third_father).show();
-										$(third_father).find("span.pfeil_rechts").eq(0).css("display","none");
-										$(third_father).find("span.pfeil_unten").eq(0).css("display","inline");
-										$(third_father).removeClass("pool_category");
-										$(third_father).addClass("search_category");
-									}
-									
-									
-									
-									
-								}
-								
+								var this_parent =$(this).parent().get(0);
+								show_pool_by_search($(this_parent));
 							}
+							
 							
 							
 						});
 						
-						
-						
-						
-						
-						
-						
-						
-						
-						/*
-						$("#pool ."+array_id[i]+"_parent").each(function(){
-							//check ob der mod_id zwei Kinder hat
-							// warum? denn ein mod_id_parent hat max. 2 Kinder
-							// also ein div.nichtleer  und ein div.pool_modul
-							//und wir laden nur beim mod_id_parent, der bereits 
-							//div.pool_modul enthält
-							if(($(this).children().length)==2)
-							{
-								var this_pool_modul = $(this).children()[1];
-								var this_span_text  = $(this_pool_modul).find("span.imAuswahl").text();
-								if(this_span_text == "nein")
-								{
-									
-									$(this_pool_modul).show();
-									
-									//sofort macht den sein Vater pool_category auch auf
-									// dann sein grandfather und ururvather aufmachen
-									// achten auf das bildchen pfeil
-									var first_father = $(this).parent().get(0);
-									
-									$(first_father).show();
-									$(first_father).find("span.pfeil_rechts").eq(0).css("display","none");
-									$(first_father).find("span.pfeil_unten").eq(0).css("display","inline");
-									
-									// andere pool_category in gleichen Kategorie mit mod_id_parent
-									//auch aufmachen.
-									$(first_father).siblings().show();
-									
-									//second_father ist ein nächsthöhenPool_kategory
-									//das ist ein Schwerrpunkt. z.B: Physikinformatik
-									//dann mache alle seine Siblings auch auf( bei Allgemein bunutzt)
-									//achten auf das bildchen pfeil
-									var second_father=$(first_father).parent().get(0);
-									$(second_father).show();
-									$(second_father).find("span.pfeil_rechts").eq(0).css("display","none");
-									
-									$(second_father).find("span.pfeil_unten").eq(0).css("display","inline");
-									$(second_father).siblings().show();
-									
-									//third_father ist bei Allgemein-Bachelor benutzt
-									var third_father =$(second_father).parent().get(0);
-									if(third_father !="" || third_father !="undefined")
-									{
-										$(third_father).show();
-										$(third_father).find("span.pfeil_rechts").eq(0).css("display","none");
-										$(third_father).find("span.pfeil_unten").eq(0).css("display","inline");
-									}
-									
-									
-									// show die andere mod_id_parent  mit span.imAuswahl "nein"
-									// $(this) hier: das div.mod_id_parent
-									//var this_siblings = $(this).siblings();
-									if(this_siblings!="")
-									{
-										$(this_siblings).find("div.pool_modul").each(function(){
-											//hier check ob das modul schon bereits im Auswahl ist
-											var this_span_siblings_text = $(this).find("span.imAuswahl").text();
-											if(this_span_siblings_text =="nein")
-											{
-												$(this).show();
-											}
-										});
-										
-									}
-									
-									
-								}
-								
-								
-							}
-							
-							
-						});//ende each
-					*/
-						
 					}//ende for schleife
 					
 					$('.pool_category').hide();
+					
 				}//ende function
 
                 function init()
@@ -510,7 +426,7 @@ jQuery(function ($) {
 											
 											$(tr_show).each(function(){
 												
-												var mod_id =$(this).attr("id");
+												var mod_id =$(this).attr("class");
 												array_id.push(mod_id);
 											});
 											
@@ -562,7 +478,7 @@ jQuery(function ($) {
                         filter: function (i) {
                                 return i;
                         },
-                        randomElement: 'qs' + Math.floor(Math.random() * 1000000),
+                        randomElement: 'qs',//+ Math.floor(Math.random() * 1000000),
                         isFieldset: false,
                         fixWidths: false
                 }, opt);

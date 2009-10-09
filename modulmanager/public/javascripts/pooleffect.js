@@ -22,16 +22,8 @@ function updateTips(t,tips) {
 		}
 
 
-var custom_check = function(name,credit,grade,tips,min,max){
-	
-	var this_val = credit.val();
-	var this_grade=grade.val();
-	var this_grade_trim=$.trim(this_grade);
-	var this_float=parseFloat(this_grade_trim);
-	
-
-	
-	
+var custom_check = function(name,credit,tips,min,max){
+	var this_credit=credit.val();
 	
 	if(name.val().length < min){
 		
@@ -40,13 +32,17 @@ var custom_check = function(name,credit,grade,tips,min,max){
 		return false;
 	}
 	
-	if(this_val.length < min){
+	if(this_credit.length < min){
 		credit.addClass('ui-state-error');
 		updateTips("credit point darf nicht leer sein",tips);
 		return false;
 	}
+	else{
+	//check credit
+		
+	}
 	
-	
+	ajax_server_by_custom(name.val())
 	return true;
 } 
 
@@ -193,9 +189,11 @@ $(function(){
 				 var modul_id = $(ui.draggable).attr("id");
 				 var modul_class = $(ui.draggable).attr("class");
 				 
-				 //hier check nach dummy modul und normales Modul
+				
+				 
 				 
 				 var custom_text = $(ui.draggable).find("span.custom").text();
+				 
 				 if(custom_text == "non-custom"){
 				 	
 					//  drop() ruft ajax_to_server() und auswahlanzeige() auf
@@ -205,6 +203,13 @@ $(function(){
 				 	
 				 	custom_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 				}
+				
+				 //hier check nach dummy modul und normales Modul
+				 //und check nach gesuchtes Modul.D.h: check modul_id_parent im Pool und
+				 //guck ob das class search_modul hat. Wenn Ja dann aktualisiere Live Pool
+			
+				
+				
 				 
 			}// ende drop
 			 
@@ -424,7 +429,7 @@ var sem_loeschen = function(l){
 				this_modules.each(function(){
 					// alert("Modul mit ID "+$(this).attr("id")+" soll geloescht werden...");
 					$(this).css("display","none");
-					modulloeschen($(this).attr("id"));
+					show_pool_by_in($(this).attr("id"));
 				});
 				
 				$(this_semester).remove();
