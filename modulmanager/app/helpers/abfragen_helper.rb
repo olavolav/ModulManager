@@ -16,10 +16,10 @@ module AbfragenHelper
           if m.parts > 1
             m.parts.times do |j|
               i = j + 1
-              xml.module(:id => "#{m.id}.#{i}", :class => "partial") do
-                xml.tag! "id", "#{m.id}.#{i}"
+              xml.module(:id => "#{m.id}.#{i}", :class => "non-custom", :partial => "true") do
+                xml.tag! "id", "#{m.id}_#{i}"
                 xml.name "#{m.name} (Teil #{i})"
-                xml.short "#{m.short}.#{i}"
+                xml.short "#{m.short}_#{i}"
 #                i == 1 ? xml.credits(m.credits) : xml.credits(0)
                 c = m.credits / m.parts
                 xml.credits c
