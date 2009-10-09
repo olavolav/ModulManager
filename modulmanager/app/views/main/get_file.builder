@@ -18,8 +18,8 @@ xml.session do
 
   selection.semesters.each do |s|
     xml.semester(:id => s.id, :count => s.count) do
-      s.studmodules.each do |m|
-        xml.module(:id => m.id, :name => m.name, :short => m.short)
+      s.modules.each do |m|
+        xml.module(:id => m.moduledata.id, :name => m.moduledata.name, :short => m.moduledata.short, :grade => m.grade)
       end
     end
   end

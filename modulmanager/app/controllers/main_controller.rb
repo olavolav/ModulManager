@@ -1,5 +1,10 @@
 class MainController < ApplicationController
-
+  
+  def start
+    @schwerpunkte = Focus.all
+    @version = current_selection.version
+  end
+  
   def index
     selection = current_selection
     selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = selection.focus.name
@@ -9,45 +14,12 @@ class MainController < ApplicationController
     end
   end
 
-  def start
-    @schwerpunkte = Focus.all
-    @version = current_selection.version
-  end
-
   def help
   end
 
   def export
   end
-
-  # Schickt die aktuelle Auswahl als Datei an den Browser, von wo aus sie dann
-  # heruntergeladen werden kann.
-  def get_file
-
-    headers["Content-Disposition"] = "attachment; filename=studienplan.stpl"
-    
-    respond_to do |format|
-      format.xml
-    end
-
-  end
-
-  # Liest die hochgeladene Datei ein und lädt die darin enthaltenen Daten wieder
-  # in die aktuelle Session
-  def post_file
-    filename = ""
-
-    name = params[:data_file].original_filename
-    directory = "public/data"
-    path = File.join(directory, name)
-
-    File.open(path, "wb") { |f| f.write(params[:data_file].read); filename = f.path }
-
-    shredder filename
-
-    redirect_to :action => "import2"
-  end
-
+  
   def import
     respond_to do |format|
       format.html
@@ -66,6 +38,56 @@ class MainController < ApplicationController
     respond_to do |format|
       format.html
     end
+  end
+
+  def save_version
+
+    new_version = Version.find(params[:version])
+    selection = current_selection
+    selection.version = new_version
+    selection.save
+    version_modules = Studmodule.find(:all, :conditions => "version_id = '#{selection.version.id}'")
+
+    @deprecated_modules = Array.new
+
+    selection.selection_modules.each do |sm|
+      found = false
+      version_modules.each do |vm|
+        found = true if (sm.moduledata.short == vm.short) && (sm.moduledata.credits == vm.credits)
+      end
+      unless found
+        @deprecated_modules.push({:name => sm.moduledata.name, :short => sm.moduledata.short, :credits => sm.moduledata.credits, :grade => sm.grade})
+        sm.destroy
+      end
+    end
+    
+    respond_to do |format|
+      format.html
+    end
+  end
+  
+  def get_file
+
+    headers["Content-Disposition"] = "attachment; filename=studienplan.stpl"
+    
+    respond_to do |format|
+      format.xml
+    end
+
+  end
+
+  def post_file
+    filename = ""
+
+    name = params[:data_file].original_filename
+    directory = "public/data"
+    path = File.join(directory, name)
+
+    File.open(path, "wb") { |f| f.write(params[:data_file].read); filename = f.path }
+
+    shredder filename
+
+    redirect_to :action => "import2"
   end
 
   def focus_selection
@@ -100,40 +122,11 @@ class MainController < ApplicationController
     redirect_to :action => "index"
   end
 
-  def save_version
-
-    new_version = Version.find(params[:version])
-    selection = current_selection
-    selection.version = new_version
-    selection.save
-    version_modules = Studmodule.find(:all, :conditions => "version_id = '#{selection.version.id}'")
-
-    @deprecated_modules = Array.new
-
-    selection.modules.each do |sm|
-      found = false
-      version_modules.each do |vm|
-        found = true if (sm.short == vm.short) && (sm.credits == vm.credits)
-      end
-      @deprecated_modules.push sm unless found
-
-    end
-    
-    respond_to do |format|
-      format.html
-    end
-  end
-
   private
 
-  # Liest eine XML-Datei ein und erstellt aus ihren Elementen applikations-
-  # zugehörige Objekte.
   def shredder file
-    # Liest die übergebene Datei ein
     xml = File.read(file)
-    # Erstellt ein neues, parserfähiges XML-Dokument
     doc = REXML::Document.new(xml)
-    # Eine neue Auswahl wird instanziiert
     my_selection = ModuleSelection.create
 
     version_short = nil
@@ -157,22 +150,16 @@ class MainController < ApplicationController
     else
       my_selection.focus = Focus.find(:first, :conditions => "name = '#{focus_name}' AND version_id = '#{my_selection.version.id}'")
     end
-    # Durchläuft alle Semester in der XML-Datei
     doc.root.each_element('//semester') do |s|
-      # Instanziiert und speichert ein neues Semester
       my_semester = Semester.create :count => s.attributes['count']
-      # Durchläuft alle Elemente d.h. Module im Semester
-      s.elements.each do |m|
-        # Sucht das aktuell aufgerufene Modul anhand des Kürzels
-        my_module = Studmodule.find(:first, :conditions => "short = '#{m.attributes['short']}'")
-        # Fügt die Modulinstanz dem neu erstellten Semester hinzu
-        my_semester.studmodules << my_module
-      end
-      # Fügt das Semester der Auswahl hinzu
       my_selection.semesters << my_semester
+      s.elements.each do |m|
+        my_module = Studmodule.find(:first, :conditions => "short = '#{m.attributes['short']}'")
+        my_semester.studmodules << my_module
+        SelectedModule.find(:first, :conditions => "module_id = '#{my_module.id}'").grade = m.attributes['grade']
+      end
     end
     my_selection.save
-    # Verknüpft die Session mit der neu erstellten Auswahl
     session[:selection_id] = my_selection.id
   end
 

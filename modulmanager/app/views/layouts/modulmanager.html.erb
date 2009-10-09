@@ -1,49 +1,49 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-        <head>
+  <head>
 
 
-                <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-                <title>Modulmanager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>Modulmanager</title>
 
-                <%= stylesheet_link_tag 'global' %>
-				<%= stylesheet_link_tag 'pool' %>
-				<%= stylesheet_link_tag 'auswahl' %>
-				<%= stylesheet_link_tag 'ueberblick' %>
-				<%= stylesheet_link_tag 'thickbox' %>
-				<%= stylesheet_link_tag 'ui-lightness/jquery-ui-1.7.2.custom' %>
-				
-				
-				
+    <%= stylesheet_link_tag 'global' %>
+    <%= stylesheet_link_tag 'pool' %>
+    <%= stylesheet_link_tag 'auswahl' %>
+    <%= stylesheet_link_tag 'ueberblick' %>
+    <%= stylesheet_link_tag 'thickbox' %>
+    <%= stylesheet_link_tag 'ui-lightness/jquery-ui-1.7.2.custom' %>
 
-                <script type="text/javascript" src="javascripts/jquery-1.3.2.min.js"> </script>
-				<script type="text/javascript" src="javascripts/jquery-ui-1.7.2.custom.min.js"></script>
-				<script type="text/javascript" src="javascripts/global_javascript.js"></script>
 
-				<script type="text/javascript" src="javascripts/ueberblick.js"></script>
-				<script type="text/javascript" src="javascripts/auswahleffect.js"></script>
-				<script type="text/javascript" src="javascripts/pooleffect.js"></script>
-				<script type="text/javascript" src="javascripts/thickbox.js"></script>
-				<script type="text/javascript" src="javascripts/jquery.quicksearch.js"></script>
-				<script type="text/javascript" charset="utf-8">
+
+
+    <script type="text/javascript" src="javascripts/jquery-1.3.2.min.js"> </script>
+    <script type="text/javascript" src="javascripts/jquery-ui-1.7.2.custom.min.js"></script>
+    <script type="text/javascript" src="javascripts/global_javascript.js"></script>
+
+    <script type="text/javascript" src="javascripts/ueberblick.js"></script>
+    <script type="text/javascript" src="javascripts/auswahleffect.js"></script>
+    <script type="text/javascript" src="javascripts/pooleffect.js"></script>
+    <script type="text/javascript" src="javascripts/thickbox.js"></script>
+    <script type="text/javascript" src="javascripts/jquery.quicksearch.js"></script>
+    <script type="text/javascript" charset="utf-8">
 					
-					// es geht hier um unseres Quicksearch, das mit der Datei 
-					// jquery.quicksearch.js
+      // es geht hier um unseres Quicksearch, das mit der Datei
+      // jquery.quicksearch.js
 					
 					
 					
 					
-					$(document).ready(function () {				
-						var q = $('table#suche tbody tr').quicksearch({
-							stripeRowClass: ['odd', 'even'],
-							position: 'before',
-							attached: '#suche',
-							inputText:'...',
-							labelText: 'Search:',
-							loaderText:'loading',
-							delay:1000
+      $(document).ready(function () {
+        var q = $('table#suche tbody tr').quicksearch({
+          stripeRowClass: ['odd', 'even'],
+          position: 'before',
+          attached: '#suche',
+          inputText:'...',
+          labelText: 'Search:',
+          loaderText:'loading',
+          delay:1000
 							
-						});	
+        });
 						
 						
 						
@@ -51,43 +51,43 @@
 						
 						
 						
-						/*$('table#suche tbody tr').live('click',function(){
-							var this_class = $(this).attr('class');
+        /*$('table#suche tbody tr').live('click',function(){
+                            var this_class = $(this).attr('class');
 							
-							$('#pool .'+this_class+'_parent').each(function(){
+                            $('#pool .'+this_class+'_parent').each(function(){
 								
-								if($(this).find('.pool_modul')){
-									alert("hallo pool_modul");
-								}
-								else{
-									alert('kein pool_modul');
-								}
+                                    if($(this).find('.pool_modul')){
+                                            alert("hallo pool_modul");
+                                    }
+                                    else{
+                                            alert('kein pool_modul');
+                                    }
 								
-							});
+                            });
 							
 							
 							
 							
 							
-						});
+                    });
 					
-					*/
-					
-					
+         */
 					
 					
 					
 					
 					
-					})//ende function
 					
-				</script>
-				
-		</head>
-        <body>
+					
+      })//ende function
+					
+    </script>
 
-          <%= yield %>
+  </head>
+  <body>
+
+    <%= yield %>
 
 
-        </body>
+  </body>
 </html>

@@ -1,7 +1,5 @@
 class AbfragenController < ApplicationController
 
-  # Überblick über alle Rgeln und deren Erfüllung. Darstellung orientiert sich
-  # an der Darstellung des Pools.
   def ueberblick
     selection = current_selection
     puts selection.version.id
@@ -15,9 +13,6 @@ class AbfragenController < ApplicationController
     end
   end
 
-  # Die Auswahl stellt den Hauptbereich der Arbeitsfläche dar und nimmt die
-  # Module auf. Hierhin können neue Module gezogen werden sowie alte ent-
-  # fernt.
   def auswahl
     @selection = current_selection
     respond_to do |format|
@@ -25,8 +20,6 @@ class AbfragenController < ApplicationController
     end
   end
 
-  # Die Action Pool liefert eine XML-Response mit einer Baumartig untergliederten
-  # Liste der Module sowie die Schwerpunkte mit den von ihnen abhängigen Modulen.
   def pool
     @root = Category.find(:first, :conditions => "category_id IS null")
     @schwerpunkte = Focus.all
@@ -35,24 +28,13 @@ class AbfragenController < ApplicationController
     end
   end
 
-  # Die Methode muss mit den HTTP-Parametern "sem_count", für das Semester, in
-  # das hinzugefügt werden soll, und "mod_id" für die ID des hinzugefügten
-  # Modules aufgerufen werden. Die Methode speichert dann das übergebene Modul
-  # im entsprechenden Semester der Auswahl.
   def add_module_to_selection
-    # Aktuelle zur Session passende Auswahl laden
     selection = current_selection
-    # Entweder das passende Semester in der Auswahl finden...
     unless semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
-      # ...oder ein neues mit der entsprechenden Zahl erstellen
       semester = Semester.create(:count => params[:sem_count])
-      # und in der Auswahl speichern
       selection.semesters << semester
     end
-    # Zum passenden Semester das ausgewählte Modul hinzufügen
     semester.modules << SelectedModule.create(:moduledata => Studmodule.find(params[:mod_id]))
-    # Umleitung zur Liste der aktuell ausgewählten Module
-    # render :action => "ueberblick", :layout => false
     render :text => "Module added successfully..."
   end
 
@@ -82,6 +64,20 @@ class AbfragenController < ApplicationController
 
   end
 
+  def remove_module_from_selection
+    current_selection.selection_modules.each { |m| m.destroy if m.module_id.to_i == params[:mod_id].to_i }
+    render :text => "Hallo Welt :-)"
+  end
+
+  def remove_semester_from_selection
+    s1 = Semester.find(
+      :first,
+      :conditions => "selection_id = #{current_selection.id} AND count = #{params[:sem_count]}").destroy
+    modules = s1.modules
+    modules.each { |m| m.destroy }
+    render :text => "Hallo Welt :-)"
+  end
+
   def save_module_grade
 
     selection = current_selection
@@ -90,9 +86,9 @@ class AbfragenController < ApplicationController
 
     selection.semesters.each do |s|
       s.modules.each do |m|
-        if m.module_id == module_id
-            m.grade = grade
-            m.save
+        if m.module_id.to_i == module_id.to_i
+          m.grade = grade
+          m.save
         end
       end
     end
@@ -111,8 +107,8 @@ class AbfragenController < ApplicationController
     selection.semesters.each do |s|
       s.modules.each do |m|
         if m.grade != nil
-          grade += (m.credits * m.grade)
-          credits += m.credits
+          grade += (m.moduledata.credits.to_f * m.grade.to_f)
+          credits += m.moduledata.credits.to_f
         end
       end
     end
@@ -121,26 +117,6 @@ class AbfragenController < ApplicationController
 
     render :text => grade
 
-  end
-
-  # Die Methode muss mit dem HTTP-Parameter "mod_id" aufgerufen werden. Die
-  # Methode veranlasst dann eine Löschung des entsprechenden Moduls aus der
-  # Auswahl.
-  def remove_module_from_selection
-    current_selection.selection_modules.each { |m| m.destroy if m.module_id.to_i == params[:mod_id].to_i }
-    # render :action => "ueberblick", :layout => false
-    render :text => "Hallo Welt :-)"
-  end
-
-  # Entfernt ein Semester aus der aktuellen Auswahl. Dieses 
-  def remove_semester_from_selection
-    s1 = Semester.find(
-      :first,
-      :conditions => "selection_id = #{current_selection.id} AND count = #{params[:sem_count]}").destroy
-    modules = s1.modules
-    modules.each { |m| m.destroy }
-    # redirect_to :action => "ueberblick"
-    render :text => "Hallo Welt :-)"
   end
 
   def info
@@ -153,9 +129,9 @@ class AbfragenController < ApplicationController
 
     fullfilled = regel.evaluate modules
 
-    @status = "Es sind keine Informationen über den aktuellen Stand verfügbar..."
-    @status = "Es sind alle Bedingungen erfüllt." if fullfilled == 1
-    @status = "Es sind noch nicht alle Bedingungen erfüllt." if fullfilled == -1 || fullfilled == 0
+    @status = "<strong>Es sind keine Informationen über den aktuellen Stand verfügbar...</strong>"
+    @status = "<strong>Es sind alle Bedingungen erfüllt.</strong>" if fullfilled == 1
+    @status = "<strong>Es sind noch nicht alle Bedingungen erfüllt.</strong>" if fullfilled == -1 || fullfilled == 0
 
     credits_earned = regel.credits_earned modules
     credits_needed = regel.credits_needed
@@ -174,42 +150,25 @@ class AbfragenController < ApplicationController
 
   private
 
-  # Errechnet die Summe der Credits in den ausgewählten Modulen und den über-
-  # gebenen Gruppen.
   def sum_credits categories
-    # Container für die relevanten Module
     modules = select_relevant_modules categories
     sum = 0
-    # Alle relevanten Module werden durchlaufen
     modules.each do |m|
-      # Die Credits des aktuellen Moduls werden zur Gesamtzahl der Credits
-      # hinzugezählt
       sum += m.credits
     end
-    # Liefert die Summe zurück
     return sum
   end
 
-  # Errechnet die Anzahl der Module in der aktuellen Auswahl und den übergebenen
-  # Gruppen.
   def sum_modules categories
     modules = select_relevant_modules categories
     return modules.length
   end
 
-  # Liefert die für die übergebene Gruppenmenge relevanten Module der aktuellen
-  # Auswahl als Array zurück.
   def select_relevant_modules categories
     modules = Array.new
-    # Alle Module der aktuellen Auswahl werden durchlaufen
     current_selection.modules.each do |m|
-      # Alle Gruppen des aktuellen Moduls werden durchlaufen
       m.categories.each do |g1|
-        # Alle übergebenen Gruppen werden durchlaufen
         categories.each do |g2|
-          # Sollte eine der übergebenen Gruppen mit einer Gruppe des
-          # aktuellen Moduls übereinstimmen, so wird dieses in den Container
-          # gelegt.
           modules.push m if g1.id == g2.id
         end
       end

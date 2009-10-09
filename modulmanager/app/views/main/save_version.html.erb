@@ -1,14 +1,19 @@
 <% if @deprecated_modules.length > 0 %>
   <p>Folgende Module sind in der neuen PO entweder nicht oder nur in veränderter Form vorhanden und werden daher nicht übernommen:</p>
   <ul>
-  <% @deprecated_modules.each do |m| %>
-
-  <% end %>
+    <% @deprecated_modules.each do |m| %>
+      <li>
+        <p>Name:    <%= m["name"] %></p>
+        <p>Kürzel:  <%= m["short"] %></p>
+        <p>Credits: <%= m["credits"] %></p>
+        <p>Note:    <%= m["grade"] %></p>
+      </li>
+    <% end %>
   </ul>
 <% else %>
   <p>Es wurden keine Konflikte zu anderen Prüfungsordnungen gefunden.</p>
 <% end %>
-  
+
 <% form_tag :action => "index" do %>
   <p>
     <%= submit_tag "Zur Hauptanwendung" %>
