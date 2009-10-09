@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>ModulManager - Export</title>
+	<%= stylesheet_link_tag 'global' %>
+	<%= stylesheet_link_tag 'import' %>
+</head>
+<body>
+
+	<div id="content">
+		<h3>Modul-Auswahl importieren</h3>
+
+
+                <div id="import">
+                  <p>In der von Ihnen importierten Datei wurde folgende Prüfungsordnung angewandt:</p>
+                  <p>
+                    <strong><%= @version.name %></strong>
+                  </p>
+                  <p>Soll diese auch weiterhin verwendet werden?</p>
+
+
+                  <p>
+                    <% form_tag :action => "index" do  %>
+                      <%= submit_tag "Ja" %>
+                    <% end %>
+                  </p>
+
+                  <p>
+                    <% form_tag :action => "import3" do %>
+                      <%= submit_tag "Nein" %>
+                    <% end %>
+                  </p>
+
+                </div>
+
+	</div>
+
+
+
+</body>
+</html>

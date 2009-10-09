@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session>
+  <version>
+    <id>6</id>
+    <short>PO SS 2009</short>
+  </version>
+  <po version="XXX"/>
+  <semester count="1" id="266">
+    <module name="Physik I" id="416" short="B.Phy.101"/>
+    <module name="Computergest&#252;tztes wissenschaftliches Rechnen" id="479" short="B.Phy.605"/>
+    <module name="Basismodul Analysis I" id="427" short="B.Mat.011"/>
+    <module name="Basismodul AGLA I" id="428" short="B.Mat.012"/>
+  </semester>
+  <semester count="2" id="267">
+    <module name="Physik II" id="417" short="B.Phy.102"/>
+    <module name="Physikalisches Grundpraktikum" id="423" short="B.Phy.410"/>
+    <module name="Mathematik f&#252;r Physiker I" id="425" short="B.Phy.303"/>
+  </semester>
+  <semester count="3" id="268">
+    <module name="Physik III" id="418" short="B.Phy.103"/>
+    <module name="Mathematik f&#252;r Physiker II" id="426" short="B.Phy.304"/>
+    <module name="Analytische Mechanik" id="420" short="B.Phy.201"/>
+  </semester>
+  <semester count="4" id="269">
+    <module name="Physik IV" id="419" short="B.Phy.104"/>
+    <module name="Projektpraktikum" id="478" short="B.Phy.604"/>
+    <module name="Quantenmechanik I" id="421" short="B.Phy.202"/>
+  </semester>
+  <semester count="5" id="270">
+    <module name="Physikalisches Fortgeschrittenenpraktikum" id="424" short="B.Phy.402"/>
+    <module name="Statistische Physik" id="422" short="B.Phy.203"/>
+  </semester>
+  <semester count="6" id="271">
+    <module name="Professionalisierungsseminar" id="477" short="B.Phy.602"/>
+    <module name="Bachelorarbeit" id="480" short="Bachelor"/>
+  </semester>
+</session>

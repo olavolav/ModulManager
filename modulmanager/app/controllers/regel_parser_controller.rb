@@ -72,7 +72,8 @@ class RegelParserController < ApplicationController
     
     version = Version.create :name => y["name"],
       :short => y["kurz"],
-      :description => y["beschreibung"]
+      :description => y["beschreibung"],
+      :date => y["datum"]
 
     return version
 

@@ -15,8 +15,12 @@
                   <p>Wenn Sie zuvor eine Datei im ModulManager-Format (Dateiendung .stpl) gespeichert haben, können sie ihre Auswahl hier wieder herstellen:</p>
 
                   <%# form_remote_tag :update => "import", :method => "post", :multipart => true, :url => { :action => "post_file" } do %>
-                    <p><%#*<%= file_field_tag "data_file" %></p>
-                    <p><%#*<%= submit_tag "Upload" %></p>
+                    <%#*<p>%>
+                      <%#= file_field_tag "data_file" %>
+                    <%#*</p>%>
+                    <%#*<p>%>
+                      <%#= submit_tag "Upload" %>
+                    <%#*</p>%>
                   <%# end %>
 
                   <form action="post_file" method="post" enctype="multipart/form-data">

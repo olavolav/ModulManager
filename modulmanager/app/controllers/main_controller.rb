@@ -45,10 +45,27 @@ class MainController < ApplicationController
 
     shredder filename
 
-    redirect_to :action => "index"
+    redirect_to :action => "import2"
   end
 
   def import
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def import2
+    @version = current_selection.version
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def import3
+    @version = current_selection.version
+    respond_to do |format|
+      format.html
+    end
   end
 
   def focus_selection
@@ -83,6 +100,30 @@ class MainController < ApplicationController
     redirect_to :action => "index"
   end
 
+  def save_version
+
+    new_version = Version.find(params[:version])
+    selection = current_selection
+    selection.version = new_version
+    selection.save
+    version_modules = Studmodule.find(:all, :conditions => "version_id = '#{selection.version.id}'")
+
+    @deprecated_modules = Array.new
+
+    selection.modules.each do |sm|
+      found = false
+      version_modules.each do |vm|
+        found = true if (sm.short == vm.short) && (sm.credits == vm.credits)
+      end
+      @deprecated_modules.push sm unless found
+
+    end
+    
+    respond_to do |format|
+      format.html
+    end
+  end
+
   private
 
   # Liest eine XML-Datei ein und erstellt aus ihren Elementen applikations-
@@ -94,6 +135,28 @@ class MainController < ApplicationController
     doc = REXML::Document.new(xml)
     # Eine neue Auswahl wird instanziiert
     my_selection = ModuleSelection.create
+
+    version_short = nil
+    focus_name = nil
+
+    doc.root.each_element('//version/short') do |e|
+      version_short = e.text
+    end
+
+    doc.root.each_element('//focus/name') do |e|
+      focus_name = e.text
+    end
+
+    if version_short == nil
+      my_selection.verion = get_latest_po
+    else
+      my_selection.version = Version.find(:first, :conditions => "short = '#{version_short}'")
+    end
+    if focus_name == nil
+      my_selection.focus = nil
+    else
+      my_selection.focus = Focus.find(:first, :conditions => "name = '#{focus_name}' AND version_id = '#{my_selection.version.id}'")
+    end
     # Durchläuft alle Semester in der XML-Datei
     doc.root.each_element('//semester') do |s|
       # Instanziiert und speichert ein neues Semester
@@ -108,6 +171,7 @@ class MainController < ApplicationController
       # Fügt das Semester der Auswahl hinzu
       my_selection.semesters << my_semester
     end
+    my_selection.save
     # Verknüpft die Session mit der neu erstellten Auswahl
     session[:selection_id] = my_selection.id
   end

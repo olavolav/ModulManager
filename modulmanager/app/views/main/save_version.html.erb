@@ -1,0 +1,16 @@
+<% if @deprecated_modules.length > 0 %>
+  <p>Folgende Module sind in der neuen PO entweder nicht oder nur in veränderter Form vorhanden und werden daher nicht übernommen:</p>
+  <ul>
+  <% @deprecated_modules.each do |m| %>
+
+  <% end %>
+  </ul>
+<% else %>
+  <p>Es wurden keine Konflikte zu anderen Prüfungsordnungen gefunden.</p>
+<% end %>
+  
+<% form_tag :action => "index" do %>
+  <p>
+    <%= submit_tag "Zur Hauptanwendung" %>
+  </p>
+<% end %>

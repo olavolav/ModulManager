@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session>
+  <focus>
+    <id>34</id>
+    <name>Biophysik und Physik komplexer Systeme</name>
+  </focus>
+  <po version="XXX"/>
+  <semester count="1" id="248">
+    <module name="Physik I" id="416" short="B.Phy.101"/>
+    <module name="Basismodul Analysis I" id="427" short="B.Mat.011"/>
+    <module name="Basismodul AGLA I" id="428" short="B.Mat.012"/>
+    <module name="Computergest&#252;tztes wissenschaftliches Rechnen" id="479" short="B.Phy.605"/>
+  </semester>
+  <semester count="2" id="249">
+    <module name="Physik II" id="417" short="B.Phy.102"/>
+    <module name="Physikalisches Grundpraktikum" id="423" short="B.Phy.410"/>
+    <module name="Mathematik f&#252;r Physiker I" id="425" short="B.Phy.303"/>
+  </semester>
+  <semester count="3" id="250">
+    <module name="Physik III" id="418" short="B.Phy.103"/>
+    <module name="Mathematik f&#252;r Physiker II" id="426" short="B.Phy.304"/>
+    <module name="Analytische Mechanik" id="420" short="B.Phy.201"/>
+  </semester>
+  <semester count="4" id="251">
+    <module name="Physik IV" id="419" short="B.Phy.104"/>
+    <module name="Projektpraktikum" id="478" short="B.Phy.604"/>
+    <module name="Quantenmechanik I" id="421" short="B.Phy.202"/>
+    <module name="Einf&#252;hrung in die Biophysik und Physik komplexer Systeme" id="436" short="B.Phy.502"/>
+  </semester>
+  <semester count="5" id="252">
+    <module name="Physikalisches Fortgeschrittenenpraktikum" id="424" short="B.Phy.402"/>
+    <module name="Statistische Physik" id="422" short="B.Phy.203"/>
+    <module name="Spezialisierungspraktikum Biophysik und Physik komplexer Systeme" id="432" short="B.Phy.406"/>
+  </semester>
+  <semester count="6" id="253">
+    <module name="Professionalisierungsseminar" id="477" short="B.Phy.602"/>
+  </semester>
+</session>
