@@ -9,7 +9,10 @@
 .pool_category {
 		padding: 2px;
 		margin-bottom : 2px;
-		cursor        : pointer;
+}
+
+.pool_category a:hover, .search_category a:hover {
+	text-decoration: underline;
 }
 
 
@@ -22,10 +25,6 @@
 	
 }*/
 
-a {
-	
-	cursor : pointer;
-}
 img{border:0;} 
 
 /* CSS für abgedunkelte Background*/
