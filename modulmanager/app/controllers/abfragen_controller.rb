@@ -97,25 +97,13 @@ class AbfragenController < ApplicationController
 
   end
 
-  def get_examination_grade
+  def note
 
-    selection = current_selection
+    @grade = get_note
 
-    grade = 0
-    credits = 0
-
-    selection.semesters.each do |s|
-      s.modules.each do |m|
-        if m.grade != nil
-          grade += (m.moduledata.credits.to_f * m.grade.to_f)
-          credits += m.moduledata.credits.to_f
-        end
-      end
+    respond_to do |format|
+      format.html
     end
-
-    grade = grade / credits if credits > 0
-
-    render :text => grade
 
   end
 

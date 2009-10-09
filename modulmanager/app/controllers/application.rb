@@ -4,6 +4,30 @@ class ApplicationController < ActionController::Base
 
   helper :all # just make sure to include all helpers
 
+
+  def get_note
+
+    selection = current_selection
+
+    grade = 0
+    credits = 0
+
+    selection.semesters.each do |s|
+      s.modules.each do |m|
+        if m.grade != nil
+          grade += (m.moduledata.credits.to_f * m.grade.to_f)
+          credits += m.moduledata.credits.to_f
+        end
+      end
+    end
+
+    grade = grade / credits if credits > 0
+
+    return grade
+
+  end
+
+
   def current_selection
     session[:selection_id] ||= new_selection params[:version], params[:focus]
     ModuleSelection.find session[:selection_id]
