@@ -76,7 +76,7 @@
          width: 100%;
          margin: 1em 0;
          padding: .5em;
-         border: 1px solid #a00;
+         /*border: 1px solid #a00;*/
          color: #a00;
          font-weight: bold;
          display: block;

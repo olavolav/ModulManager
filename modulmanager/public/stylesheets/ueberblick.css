@@ -5,6 +5,10 @@
   width: 22%;
 }
 
+/* #loader {
+	float: left;
+} */
+
 ul.ueberblick, .ueberblick ul {
   width: 100%;
   list-style: none;
