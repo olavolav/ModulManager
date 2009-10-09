@@ -52,21 +52,9 @@ module AbfragenHelper
     when 0
       image = "Fragezeichen.png"
     end
-    #    background_color = ""
-    #    case fullfilled
-    #    when 1
-    #      background_color = "green"
-    #    when -1
-    #      background_color = "red"
-    #    when 0
-    #      background_color = "gray"
-    #    end
     credits_needed = r.credits_needed
-    #    modules_needed = r.modules_needed
     credits_earned = r.credits_earned current_selection.modules
-    #    modules_earned = r.modules_earned current_selection.modules
     id = r.id
-    #    info_text = "<div class='ueberblick_info_text' style='background-color: #{background_color}' id='text##{id}'>Es werden #{credits_needed} Credits (z.Zt. #{credits_earned} Credits) und #{modules_needed} Module (z.Zt. #{modules_earned} Module) im Bereich #{name} benötigt.</div>"
     info_text = ""
     element = "<div><table><tr><td class='ueberblick_name'>#{name}</td><td class='ueberblick_image'><div class='ueberblick_info_box' id='box##{id}'><a href='/abfragen/info/#{id}?height=300&width=600' class='thickbox'>#{image_tag image}</a>#{info_text}</div></td><td class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</td></tr></table></div>"
 
@@ -111,17 +99,11 @@ module AbfragenHelper
         c_needed = s.credits_needed
         xml.category(:id => "category#{s.id}",
           :credits_needed => c_needed,
-          #         :modules_needed => s.modules_needed,
           :name => s.name,
           :fullfilled => fullfilled = s.evaluate(current_selection.modules),
           :text => "In diesem Bereich werden #{c_needed} Credits und #{s.modules_needed} Module benötigt."
         ) do
-          # xml.fullfilled fullfilled
           build_rules_recursive(s, xml)
-          #          unless fullfilled == 1
-          #            text = "Du benötigst aus diesem Bereich #{s.credits_needed} Credits und #{s.modules_needed} Module."
-          #            xml.text text
-          #          end
         end
       end
     end
