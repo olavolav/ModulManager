@@ -21,29 +21,46 @@ function updateTips(t,tips) {
 			
 		}
 
+//---------------------------------------------------------
 
-var custom_check = function(name,credit,tips,min,max){
+
+var custom_check = function(name,credit,custom_semester,custom_id,tips,min,max){
+	
+	var custom_semester=custom_semester.attr("value");
+	var custom_id=custom_id.attr("value");
 	var this_credit=credit.val();
+	var this_name =name.val();
+	var this_credit_float = parseFloat(this_credit);
+	
 	
 	if(name.val().length < min){
 		
 		name.addClass('ui-state-error');
-		updateTips("ModulName darf nich leer!",tips);
+		updateTips("Geben Sie bitte ein Name ein!",tips);
 		return false;
 	}
 	
-	if(this_credit.length < min){
+	if(this_credit.length < min || isNaN(this_credit_float)){
 		credit.addClass('ui-state-error');
-		updateTips("credit point darf nicht leer sein",tips);
+		updateTips("Credit Point ist eine Zahl zwischen 1.0 und 4.0 ",tips);
 		return false;
 	}
 	else{
-	//check credit
 		
+		var check_komma = this_credit.search(/,/);
+		var this_credit_point=this_credit;
+		
+		if(check_komma != -1){
+					this_credit_point = this_credit.replace(/\,/,".");
+		}
+		var this_credit_point_float = parseFloat(this_credit_point);
+		
+		
+		ajax_server_by_custom(this_name,this_credit_point_float,custom_semester);
+		return true;
 	}
 	
-	ajax_server_by_custom(name.val())
-	return true;
+	
 } 
 
 
@@ -68,6 +85,8 @@ $(function(){
 		// teil Form -Check bei dummy Modul
 		var name=$("#name");
 		var credit=$("#credit");
+		var custom_semester=$("#custom_semester");
+		var custom_id=$("#custom_id");
 		
 		var tips =$("#validateTips");
 		var allFields = $([]).add(name).add(credit);
@@ -81,19 +100,49 @@ $(function(){
 			show:'slide',
 			buttons:{
 				"Fertig":function(){
-					var iValid=true;
+					var iValid=false;
 					allFields.removeClass('ui-state-error');
 
-					//alert("Fertig");
-					iValid = custom_check(name,credit,tips,1,4);
+					iValid = custom_check(name,credit,custom_semester,custom_id,tips,1,4);
 					
 					if (iValid) {
 						
+						var na = name.attr("value");
+						var cre = credit.attr("value");
+						var cus_sem=custom_semester.attr("value");
+						var cus_id=custom_id.attr("value");
+						
+						
+						
+						var cus_modul = $("#pool #"+cus_id);
+						$(cus_modul).find(".modul_name").text(na);
+						$(cus_modul).find(".modul_credit").text(cre+" C");
+						$(cus_modul).find(".fragebild").css("display","none");
+						$(cus_modul).find(".ipunkt").css("display","block");
+						$(cus_modul).find("#icon_loeschen").css("display","block");
+						$(cus_modul).find(".noten").css("display","block");
+						$(cus_modul).find("span.custom").text("non-custom");
+						$(cus_modul).find("span.imAuswahl").text("ja");
+						
+						$("#semester-content div.semester").each(function(){
+							var this_id = $(this).attr("id");
+							if(this_id == cus_sem){
+								var this_subsemester = $(this).find(".subsemester");
+								$(this_subsemester).append(cus_modul);
+								
+							}
+			
+						});
+						get_custom_modul();
 						$(this).dialog('close');
+						
 					}
+					
 					
 				}
 			}
+			
+			
 		 });
 		
 		
@@ -112,7 +161,7 @@ $(function(){
 		
 		
 		
-	   $(".pool_modul").draggable({
+	   $(".pool_modul,.custom_modul").draggable({
 							
 				revert : "invalid",
 				helper : "clone",
@@ -176,7 +225,7 @@ $(function(){
 		$(".semester").droppable({
 			
 			hoverClass : 'drophover',
-			accept     : '.pool_modul ,.auswahl_modul,.auswahl_modul_clone',
+			accept     : '.pool_modul ,.auswahl_modul,.auswahl_modul_clone,.custom_modul',
 			 drop: function(event, ui){
 			 	
 			 	
@@ -479,7 +528,7 @@ var toggle_category = function(category_id){
 			}
 			else {
 				$(this).children().each(function(){
-					if ($(this).find(">span.imAuswahl").text()=="nein") {
+					if ($(this).find(">span.imAuswahl").text()=="nein" && ($(this).attr("class")=="pool_modul" || $(this).attr("class")=="pool_modul ui-draggable")) {
 						$(this).css("display","block");
 						count++;
 					}

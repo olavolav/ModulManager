@@ -209,10 +209,7 @@ var hide_navi = function(){
 	$("#navimoveup").hide();
 }
 
-var get_grade = function(this_input){
-	alert("hallo fet_grade");
-	
-};
+
 var get_custom_modul = function(){
 	
 	// die Funktion zeigt nur ein display_none Custom_modul im Pool an
@@ -224,10 +221,15 @@ var get_custom_modul = function(){
 	});
 	
 	$(custom_modul).hide();
+	var g = $(custom_modul).length;
+	
+	
 	var x = $(the_first).attr("class");
 	// class verändern. custom-->pool_modul. Damit wird nur ein custom_modul im Pool ist
 	
-	$(the_first).removeClass("custom_modul").addClass("pool_modul");
+	$(the_first).removeClass("custom_modul").addClass("pool_modul ui-draggable");
+	$(the_first).show();
+	
 	
 	
 }//ende get_custom_modul
@@ -593,6 +595,28 @@ var ajax_to_server_by_examination_grade = function(){
 }
 
 
+function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester){
+	
+	
+	$.ajax({
+					type:"POST",
+					url :"abfragen/add_custom_modul_to_selection",
+					dataType:"text",
+					cache:false,
+					async:false,
+					data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester,
+					contentType:'application/x-www-form-urlencoded',
+					error : function(a,b,c){
+							alert ("error mit add_custom_modul_to_selection");
+					}
+	});
+	
+}
+
+
+
+
+
 
 var auswahlAnzeige = function (modul_id,semester,modulinhalt){
 
@@ -749,7 +773,17 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 
 var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
 	
-	$("#custom_dialog").dialog('open');
+	
+	var check_open=false;
+	$("#custom_semester").attr("value",semester);
+	$("#custom_id").attr("value",modul_id);
+	
+	$('#custom_dialog').dialog('open');
+	
+	
+	
+	
+	
 	
 }
 
@@ -848,7 +882,7 @@ var poolrekursiv = function(XMLhandle){
 					category_name+
 					"</a>";
 				// rekursiver Teil
-				appendString += poolrekursivOS(this);
+				appendString += poolrekursiv(this);
 				appendString += "</div>";
 				break;
 				
@@ -891,7 +925,7 @@ var poolrekursiv = function(XMLhandle){
 					"<tbody>" +
 					"<tr>" +
 					"<td style=' width:22px;padding:1px 2px 0px 2px; '>"+bild+"</td>"+
-					"<td style=' width:99%'>"+modul_name+"</td>"+
+					"<td class='modul_name' style=' width:99%'>"+modul_name+"</td>"+
 					
 					// Kurzbezeichnung raus aus der Auswahl (OS)
 					// "<td style=' width:20%'>" +
@@ -912,7 +946,7 @@ var poolrekursiv = function(XMLhandle){
 					"<span class='ipunkt' style='display:none;padding:1px 2px 0px 7px;'>"+ipunkt+"</span>"+
 					"</td>" +
 
-					"<td style='min-width:32px;text-align:right;font-weight:bold'>" +
+					"<td class='modul_credit' style='min-width:32px;text-align:right;font-weight:bold'>" +
 					credits +" C" +
 					"</td>" +
 					"</tr>" + "</tbody>" + "</table>" +
@@ -958,6 +992,7 @@ var poolrekursiv = function(XMLhandle){
 	
 	// Pool anzeigen
     $("#pool").append(poolrekursiv(root));
+	
 	get_custom_modul();
  	session_auswahl();
 	ueberblick();
