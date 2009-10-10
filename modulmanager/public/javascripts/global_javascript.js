@@ -42,6 +42,8 @@
 
 
 
+// Diese Funktion gehört zu show_pool_by_out, also zum Ziehen eines Moduls vom Pool in die Auswahl.
+// Sie versteckt aber ganz Kategorien, sollte also nur verwendet werden, falls gesucht wird.
 function rekursiv_pool_by_out(first_father){
 		$(first_father).removeClass("search_category");
 		$(first_father).addClass("pool_category");
@@ -86,10 +88,8 @@ var show_pool_by_out = function(pool_modul){
 		var first_father = $(modul_parent).parent().get(0);
 		$(first_father).hide();
 		rekursiv_pool_by_out(first_father);
-		
-		
 	}
-	
+		
 }// ende out
 
 function rekursiv_pool_by_in(first_father){
@@ -159,14 +159,12 @@ var show_pool_by_in = function(modul_id){
 		 // in Auswahl reingetan und wieder sofort in Pool zurück.
 		 // Zunächst werden die Modul_id im Table#suche ermittelt
 		 
-		var input_suche = $("#qs").val();
-		
-		if (input_suche == "") {
+		if (!search_is_active()) {
 			alert("Momentan wird nicht gesucht.");
 			modulloeschen(modul_id);
 		}		
 		else {
-			alert("Dies ist ein Modul, das mit der momentanen Pool-Suche nicht uebereinstimmt.");
+			alert("Dies ist ein Modul, das mit der momentanen Pool-Suche nicht uebereinstimmt. (es wird gesucht)");
 			var this_tr = $("table#suche tbody").find("." + modul_id).eq(0);
 			var live_modul = false;
 			
@@ -180,7 +178,7 @@ var show_pool_by_in = function(modul_id){
 			if (live_modul) {
 				alert("hallo search modul im Table");
 				var modul_search_id = $(this_tr).attr("class");
-				$(this_parent).addClass("search_modul");
+				$(this).parent().addClass("search_modul");
 				$(modul).show();
 				var first_father = $(this_parent).parent().get(0);
 				rekursiv_pool_by_in(first_father);
@@ -298,21 +296,14 @@ var modulloeschen = function (mod_id){
 					
 					
 					// check den Vater-Kategory, ob der gerade offen ist
-					var the_father = $(this).parent().get(0);
+					// var the_father = $(this).parent().get(0);
+					var the_father = $(this).parent();
 					alert("the_father class: "+the_father.attr("class"));
 					$(the_father).find(".pool_modul,.pool_modul.ui-draggable").each(function(){
-						
-						// var this_display = $(this).css("display");
-						// if(this_display=="block"){
-						// 	$(this_modul).show();
-						// }
 						if ($(this).css("display")=="block") $(this_modul).show();
 					});
-					// var the_father = $(this);
-					if (the_father.find(">a pfeil_leer").css("display") == "inline") {
-						the_father.find(">a pfeil_leer").css("display","none");
-						the_father.find(">a pfeil_rechts").css("display","inline");
-					}
+					if (which_arrow_is_visible(the_father) == "leer")
+						flip_arrow_of_category("rechts",the_father);
 					
 					
 				}// ende if leer
@@ -690,6 +681,8 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 		
 		
 		var modul_parent = $(ui_draggable).parent().get(0);
+		// Falls das Modul die "search_modul"-Eigenschaft hat, wird natürlich auch gerade gesucht, die
+		// entspr. Abfrage erübrigt sich also.
 		if($(modul_parent).hasClass("search_modul")){
 			// Die "search_modul"-Eigenschaft soll erhalten bleiben (OS)
 			// $(modul_parent).removeClass("search_modul");
@@ -697,6 +690,13 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 			//show_pool_by_out(modul_id);
 			show_pool_by_out(ui_draggable);
 		}
+		else {
+			var this_category = $(modul_parent).parent();
+			alert("Aha, Suche ich nicht aktiv - visible items:"+number_of_visible_items_in_category(this_category));
+			if (number_of_visible_items_in_category(this_category) == 1)
+				flip_arrow_of_category("leer",this_category);
+		}
+		
 		
 		//vertecken die anderen gleichen Module
 	
@@ -798,10 +798,7 @@ var drop_in_pool = function(mod_id,ui_draggable,this_pool){
 	// style verändern
 	
 	$(ui_draggable).attr("class","pool_modul");
-	$(ui_draggable).find("div#icon_loeschen").css("display","none");
-	$(ui_draggable).find("span.fragebild").css("display","block");
-	$(ui_draggable).find("span.ipunkt").css("display","none");
-	$(ui_draggable).find("span.noten").css("display","none");
+	change_module_style_to_pool(ui_draggable);
 	$(ui_draggable).find("span.imAuswahl").text("nein");
 	// erstmal hide()
 	$(ui_draggable).hide();
@@ -990,7 +987,7 @@ var poolrekursiv = function(XMLhandle){
 //und ruft AJAX auf  ------------------------------
 
 	
- var pool = function(){
+var pool = function(){
 
 	var XML = $.ajax({
 
@@ -1014,3 +1011,25 @@ var poolrekursiv = function(XMLhandle){
 	ueberblick();
 	
 }//ende pool
+
+var search_is_active = function(){
+	return ($("#qs").val() != "" );
+}
+
+var change_module_style_to_pool = function(handle){
+	$(handle).find("div#icon_loeschen").css("display","none");
+	$(handle).find("span.fragebild").css("display","block");
+	$(handle).find("span.ipunkt").css("display","none");
+	$(handle).find("span.noten").css("display","none");
+	
+	return 0;	
+}
+
+var change_module_style_to_auswahl = function(handle){
+	$(handle).find("div#icon_loeschen").css("display","block");
+	$(handle).find("span.fragebild").css("display","none");
+	$(handle).find("span.ipunkt").css("display","block");
+	$(handle).find("span.noten").css("display","block");
+	
+	return 0;
+}
