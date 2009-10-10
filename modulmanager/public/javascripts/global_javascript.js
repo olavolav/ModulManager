@@ -20,17 +20,21 @@
 // photo path
 
 	var wahlpflichtbild = "<img src='images/Wahlpflicht.png'>";
-	var pflichtbild     = "<img src='images/Pflicht.png'>";
-	var wahlbild    = "<img src='images/Wahl.png'>";
-	var fragebild     = "<img src='images/Fragezeichen.png'>";
-	var ipunkt    = "<img src='images/iPunkt.png'>";
-	var gelber_ipunkt    = "<img src='images/iPunktGelb.png'>";
-	var rote_ipunkt    = "<img src='images/AusrufezeichenBlinkend.gif'>";
-	var rote_ipunkt_passiv    = "<img src='images/Ausrufezeichen.png'>";
+	var pflichtbild = "<img src='images/Pflicht.png'>";
+	var wahlbild = "<img src='images/Wahl.png'>";
+	var unbekannter_modus_bild = "<img src='images/ModusUnbekannt.png'>";
+	
+	var fragebild = "<img src='images/Fragezeichen.png'>";
+	var ipunkt = "<img src='images/iPunkt.png'>";
+	var gelber_ipunkt = "<img src='images/iPunktGelb.png'>";
+	var rote_ipunkt = "<img src='images/AusrufezeichenBlinkend.gif'>";
+	var rote_ipunkt_passiv = "<img src='images/Ausrufezeichen.png'>";
+	
 	var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-5px; left:6px;'>";
 	var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='padding-right:3px;'>";
 	var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='padding-right:3px;'>";
 	var pfeil_leer = "<img src='images/Pfeil-Rechts-Leer.png' style='padding-right:3px;'>";
+	
 	var warten_weiss = "<img src='images/Warten-HintergrundWeiss.gif' style='padding-right:3px;'>";
 	var warten_blau = "<img src='images/Warten-HintergrundBlau.gif' style='padding-right:3px;'>";
 	var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='padding-right:3px;'>";
@@ -904,6 +908,23 @@ var poolrekursiv = function(XMLhandle){
 
 				//check Modul_ART : Pflicht? WP?
 				var bild;
+				// so sollte es eigentlich sein (ist mit CB besprochen):
+				/* switch(modul_mode) {
+					case "p":
+						bild = pflichtbild;
+						break;
+					case "wp":
+						bild = wahlpflichtbild;
+						break;
+					case "w":
+						// Dieser Fall kommt momentan nicht vor
+						bild = wahlbild;
+						break;
+					default:
+						bild = unbekannter_modus_bild;
+						break;
+				} */
+				// momentaner Hack:
 				if (modul_mode == "p") bild = pflichtbild;
 				else bild = wahlpflichtbild;
 
@@ -980,15 +1001,10 @@ var poolrekursiv = function(XMLhandle){
 		error : function(a,b,c){
 			alert("problem with pool");
 		}
-		
-	
-
-
    }).responseXML; //ende AJAX
 
     var root = XML.documentElement;
 	$("#pool").empty();
-	//aktuellePoolXml=XML;
 	
 	// Pool anzeigen
     $("#pool").append(poolrekursiv(root));
@@ -997,7 +1013,4 @@ var poolrekursiv = function(XMLhandle){
  	session_auswahl();
 	ueberblick();
 	
-	
 }//ende pool
-
-
