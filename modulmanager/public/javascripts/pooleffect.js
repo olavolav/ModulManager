@@ -204,8 +204,9 @@ $(function(){
 				var this_pool = $(this);
 				$(ui.helper).hide();
 				
-				drop_in_pool(mod_id, ui_draggable,this_pool);
-				
+				// drop_in_pool(mod_id, ui_draggable,this_pool);
+				// neuerdings die gleiche Funktion wie wenn man auf den Löschen-Knopf klickt:
+				modulloeschen(mod_id);
 			}
 		
 		});
