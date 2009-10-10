@@ -560,9 +560,13 @@ var toggle_category = function(category_id){
 
 var number_of_visible_items_in_category = function(handle){
 	// gefragt is handle zur Kategorie
+	var this_class = $(handle).attr("class");
+	if(!((this_class=="pool_category")||(this_class=="search_category")))
+		alert("Fehler: Handle in number_of_visible_items_in_category() ist keine Kategorie!")
+		
 	var count = 0;
 	$(handle).children().not("a, .nichtleer, .imAuswahl").each(function(){
-		var this_class = $(this).attr("class");
+		this_class = $(this).attr("class");
 		// Prüfen, ob sich darunter Kategorien oder Module befinden
 		if((this_class=="pool_category")||(this_class=="search_category"))
 			count++;
@@ -580,6 +584,10 @@ var number_of_visible_items_in_category = function(handle){
 
 var flip_arrow_of_category = function(type,handle){
 	// gefragt is handle zur Kategorie
+	var this_class = $(handle).attr("class");
+	if(!((this_class=="pool_category")||(this_class=="search_category")))
+		alert("Fehler: Handle in flip_arrow_of_category() ist keine Kategorie!")
+	
 	switch(type){
 		case "rechts":
 			$(handle).find(">a .pfeil_unten").css("display","none");
@@ -605,6 +613,10 @@ var flip_arrow_of_category = function(type,handle){
 
 var which_arrow_is_visible = function(handle){
 	// gefragt is handle zur Kategorie
+	var this_class = $(handle).attr("class");
+	if(!((this_class=="pool_category")||(this_class=="search_category")))
+		alert("Fehler: Handle in which_arrow_is_visible() ist keine Kategorie!")
+
 	var result = "unbekannt";
 	if ($(handle).find(">a .pfeil_unten").css("display") == "inline") result = "unten";
 	else {
