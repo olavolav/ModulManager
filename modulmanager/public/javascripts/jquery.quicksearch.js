@@ -153,7 +153,7 @@ jQuery(function ($) {
                 function make_form_input()
                 {
                         var val = (!is_empty(options.inputText)) ? options.inputText : ""
-                        return '<input type="text" value="' + val + '" rel="' + options.randomElement  + '" class="' + options.inputClass + '" id="' + options.randomElement + '" /> ';
+                        return '<input type="text" value="' + val + '" style="margin:2px;" rel="' + options.randomElement  + '" class="' + options.inputClass + '" id="' + options.randomElement + '" /> ';
                 }
 
                 function make_form_loader()
@@ -161,7 +161,7 @@ jQuery(function ($) {
                         if (!is_empty(options.loaderImg)) {
                                 return '<img src="' + options.loaderImg + '" alt="Loading" id="' + options.loaderId + '" class="' + options.loaderClass + '" />';
                         } else {
-                                return '<span id="' + options.loaderId + '" class="' + options.loaderClass + '">' + options.loaderText + '</span>';
+                                return '<div id="' + options.loaderId + '" class="' + options.loaderClass + '">' + warten_weiss + '</div>';
                         }
                 }
 
@@ -257,6 +257,7 @@ jQuery(function ($) {
 						$(this).find(".search_modul").each(function(){
 							$(this).removeClass("search_modul");
 						});
+
 						$(this).find(".search_category").each(function(){
 							$(this).removeClass("search_category");
 							$(this).addClass("pool_category");
@@ -270,22 +271,24 @@ jQuery(function ($) {
 					});//ende this_children
 					
 				}
+				
 				function show_pool_by_search (parent){
 					var this_parent = $(parent).parent().get(0);
 					var this_id = $(parent).attr("id");
 					
 					$(parent).show();
 					if ($(parent).hasClass("pool_category")) {
+						// Pfeil richtig setzen (OS)
+						$(parent).find("a .pfeil_unten").css("display","inline");
+						$(parent).find("a .pfeil_rechts").css("display","none");
+						$(parent).find("a .pfeil_leer").css("display","none");
+
 						$(parent).attr("class","search_category");
-						
-						
+						// rekursiver Aufruf
 						show_pool_by_search($(this_parent));
-						
 					}
-					
-					
-					
 				}
+				
 				// function from Modulmanager
 				function show_modul_by_search(array_id)
 				{
@@ -294,19 +297,20 @@ jQuery(function ($) {
 					
 					
 					//array_id kommt aus qs()
+					alert("Anzahl uebereinstimmender Modul-IDs: "+array_id.length);
 					for(var i=0; i<array_id.length; i++)
 					{
-						
-						
+						// für jeden Modul-Container, der mit der ID aus dem Such-Ergebnis überinstimmt...
+						// (Module, die in der Auswahl sind, werden so auch gefunden)
+						alert((i+1)+". Anzahl uebereinstimmender Module zu ID "+array_id[i]+": "+$("#pool ."+array_id[i]+"_parent").length);
 						$("#pool ."+array_id[i]+"_parent").each(function(){
-							
-							
 							// neue Class 'search_modul' in modul_id_parent hinzufügen
 							// damit kann man nur 'search_modul' im Pool_baum togglen
 							$(this).addClass("search_modul");
 							//$(this).removeClass("pool_category");
 							
-							
+							// falls das Modul nicht in der Auswahl ist, das Modul anzeigen und
+							// den Baum im Pool rekursiv öffnen
 							var modul = $("#pool").find("#"+array_id[i]);
 							var modul_span = $(modul).find("span.imAuswahl").eq(0).text();
 							
@@ -325,6 +329,7 @@ jQuery(function ($) {
 						
 					}//ende for schleife
 					
+					// alle Kategorien verstecken, die nicht gesuchte Module enthalten (OS)
 					$('.pool_category').hide();
 					
 				}//ende function
@@ -439,7 +444,7 @@ jQuery(function ($) {
 											
 										}
 										else{
-											// hier tree_close macht den Baum bei leeren String zu
+											// hier tree_close macht den Baum bei leerem String zu
 											tree_close();
 										}
 										

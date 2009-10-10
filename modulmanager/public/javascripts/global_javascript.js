@@ -30,6 +30,7 @@
 	var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-5px; left:6px;'>";
 	var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='padding-right:3px;'>";
 	var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='padding-right:3px;'>";
+	var pfeil_leer = "<img src='images/Pfeil-Rechts-Leer.png' style='padding-right:3px;'>";
 	var warten_weiss = "<img src='images/Warten-HintergrundWeiss.gif' style='padding-right:3px;'>";
 	var warten_blau = "<img src='images/Warten-HintergrundBlau.gif' style='padding-right:3px;'>";
 	var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='padding-right:3px;'>";
@@ -64,7 +65,7 @@ function rekursiv_pool_by_out(first_father){
 		
 }
 
-
+// Funktionen für das Ziehen eines Moduls vom Pool in die Auswahl
 var show_pool_by_out = function(pool_modul){
 	
 	
@@ -76,6 +77,7 @@ var show_pool_by_out = function(pool_modul){
 		return $(this).hasClass(".search_modul")
 		
 	});
+	// falls es in der gleichen Katgeorie keine weiteren angezeigten Module gibt
 	if($(sib_anzahl).length == 0 ){
 		var first_father = $(modul_parent).parent().get(0);
 		$(first_father).hide();
@@ -89,8 +91,8 @@ var show_pool_by_out = function(pool_modul){
 function rekursiv_pool_by_in(first_father){
 	
 	$(first_father).show();
-	$(first_father).removeClass("pool_category");
-	$(first_father).addClass("search_category");
+	// $(first_father).removeClass("pool_category"); test (OS)
+	// 	$(first_father).addClass("search_category");
 	var this_parent = $(first_father).parent().get(0);
 	if($(this_parent).hasClass("pool_category")){
 		rekursiv_pool_by_in(this_parent);
@@ -98,6 +100,7 @@ function rekursiv_pool_by_in(first_father){
 	return;
 }
 
+// Funktionen für das Ziehen eines Moduls von der Auswahl in den Pool
 var show_pool_by_in = function(modul_id){
 	
 	
@@ -105,7 +108,6 @@ var show_pool_by_in = function(modul_id){
 	
 	// versteck das Modul im Semester
 	$("#semester-content div.semester").find("div#"+modul_id).each(function(){
-			
 			//alert("hallo modulloeschen");
 			$(this).find("span.fragebild").css("display","block");
 			$(this).find("span.ipunkt").css("display","none");
@@ -122,13 +124,12 @@ var show_pool_by_in = function(modul_id){
 	
 	//such modul_id im pool
 	var modul = $("#pool").find("#"+modul_id).eq(0);
-	//$(modul).find("span.imAuswahl").text("nein");
-	var this_parent = $(modul).parent().get(0);
-	var this_class = $(this_parent).attr("class");
 	
 	//check ob es um ein live_search_modul geht.
+	var this_class = $("#pool").find("."+modul_id+"_parent").eq(0).attr("class");
+	alert("parent class: "+this_class);
 	if(this_class == modul_id+"_parent search_modul"){
-		alert("hallo search modul");
+		alert("Dies ist ein Modul, das mit der momentanen Pool-Suche uebereinstimmt.");
 		
 		//suche alle parent-umgebung
 		$("."+modul_id+"_parent").each(function(){
@@ -141,28 +142,14 @@ var show_pool_by_in = function(modul_id){
 			var this_modul = $(this).find("div.pool_modul");
 			$(this_modul).show();
 			
-			//
-			
-			var this_siblings = $(this).siblings();
+			// var this_siblings = $(this).siblings();
 			/*var sib_anzahl = $(this_siblings).filter(function(index){
 				return $(this).hasClass("search_modul");
 			});*/
 			var first_father = $(this).parent().get(0);
 			
-			
 			rekursiv_pool_by_in(first_father);
-				
-			
-			
-			
 		});
-		
-		
-		
-		
-		
-		
-		
 	}
 	else{//hier wird das Modul entweder in im Live nachdem das Modul gerade
 		 // in Auswahl reingetan und wieder sofort in Pool zurück.
@@ -171,11 +158,11 @@ var show_pool_by_in = function(modul_id){
 		var input_suche = $("#qs").val();
 		
 		if (input_suche == "") {
-			alert("es ist ein normales Modul");
+			alert("Momentan wird nicht gesucht.");
 			modulloeschen(modul_id);
-		}
-		
+		}		
 		else {
+			alert("Dies ist ein Modul, das mit der momentanen Pool-Suche nicht uebereinstimmt.");
 			var this_tr = $("table#suche tbody").find("." + modul_id).eq(0);
 			var live_modul = false;
 			
@@ -274,7 +261,7 @@ var modulloeschen = function (mod_id){
 			//$(this).hide();
 			
 			// verändere css style
-			//alert("hallo modulloeschen");
+			alert("hallo modulloeschen");
 			$(this).find("span.fragebild").css("display","block");
 			$(this).find("span.ipunkt").css("display","none");
 			$(this).find("span.noten").css("display","none");
@@ -293,9 +280,10 @@ var modulloeschen = function (mod_id){
 			
 				//var this_parent = $(this).parent().get(0);
 				var this_text = $(this).text();
-				//alert(this_text);
+				// alert(this_text);
+				// Was ist das für eine Abfrage? (OS)
 				if(this_text==""){
-					
+					alert("also leer, was immer das soll (OS)");
 					var das_span = $(this_modul).find("span.imAuswahl");
 					$(das_span).text("nein");
 					
@@ -305,32 +293,33 @@ var modulloeschen = function (mod_id){
 					
 					// check den Vater-Kategory, ob der gerade offen ist
 					var the_father = $(this).parent().get(0);
+					alert("the_father class: "+the_father.attr("class"));
 					$(the_father).find(".pool_modul,.pool_modul.ui-draggable").each(function(){
 						
-						var this_display = $(this).css("display");
-						if(this_display=="block"){
-							$(this_modul).show();
-						}
+						// var this_display = $(this).css("display");
+						// if(this_display=="block"){
+						// 	$(this_modul).show();
+						// }
+						if ($(this).css("display")=="block") $(this_modul).show();
 					});
+					// var the_father = $(this);
+					if (the_father.find(">a pfeil_leer").css("display") == "inline") {
+						the_father.find(">a pfeil_leer").css("display","none");
+						the_father.find(">a pfeil_rechts").css("display","inline");
+					}
 					
 					
 				}// ende if leer
 				else{
-					//alert("nicht leer");
+					alert("also nicht leer, was immer das soll (OS)");
 					// remove this_modul weil das Original ist schon da
 					//$(this_modul).remove();
-					var this_span = $(this).find("span.imAuswahl");// this hier ist mod_id_parent
+					var this_span = $(this).find("span.imAuswahl"); // this hier ist mod_id_parent
 					var the_other_modul=$(this).find("#"+mod_id);
 					$(this_span).text("nein");
-					// check den Vater-Kategory, ob der gerade offen ist
-					var the_father = $(this).parent().get(0);
-					$(the_father).find(".pool_modul,.pool_modul.ui-draggable").each(function(){
-						
-						var this_display = $(this).css("display");
-						if(this_display=="block"){
-							$(the_other_modul).css("display","block");
-						}
-					});
+					// check den Vater-Kategory, ob der gerade offen ist (neu, OS)
+					if (which_arrow_is_visible($(this).parent()) == "leer")
+					  flip_arrow_of_category("rechts",$(this).parent());
 					
 				}
 			});
@@ -606,20 +595,11 @@ var ajax_to_server_by_examination_grade = function(){
 
 
 var auswahlAnzeige = function (modul_id,semester,modulinhalt){
-	
-		//$("<div class='auswahl_modul'>Bitte warte</div>").appendTo($("#"+semester+" .subsemester")).fadeIn("fast").fadeOut("slow");
-							
+
 		$("#"+semester+" .subsemester").append("<div class='auswahl_modul' id='"+modul_id+"'>"
 														+modulinhalt+
-													// "<div class='LVS' style='margin-left:150px' >"
-													// 	+"<select style='width:200px'>"
-													// 	
-													// 		+"<option>Hallo LVS<option>"
-													// 		
-													// 	+"</select>"+
 													"</div>"
 												+"</div>");
-		
 		
 }//ende auswahlAnzeige
 
@@ -627,14 +607,14 @@ var auswahlAnzeige = function (modul_id,semester,modulinhalt){
 // DROP in Auswahl
 
 var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
-	
-	// wartezeit anzeigen
+	// alert("ID: "+modul_id+", class:"+modul_class);
+	// alert("Pool parent class: "+$("#pool ."+modul_id+"_parent").eq(0).attr("class"))
 	
 	
 	$('<div class="quick-alert">'+warten_beige+'Bitte warten!</div>')
 		 .appendTo($(this_semester))
 		 .fadeIn("fast")
-		 .animate({opacity:1.0},2000)
+		 .animate({opacity:1.0},1000)
 		 .fadeOut("fast",function(){
 		 	$(this).remove();
 	 });
@@ -667,8 +647,9 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	// Wenn nein ( also bereits im Auswahl) dann remove per AJAX erstmal das Modul aus SESSION,
 	// dann wieder add per AJAX
 	
+	// alert("Modul class: "+this_draggable_class);
 	if (this_draggable_class =="pool_modul ui-draggable" || this_draggable_class=="pool_modul"){
-		//alert("hallo pool_modul");
+		alert("Modul kommt aus dem Pool");
 		$(ui_draggable).find("div#icon_loeschen").css("display","block");
 		$(ui_draggable).find("span.fragebild").css("display","none");
 		$(ui_draggable).find("span.ipunkt").css("display","block");
@@ -682,7 +663,8 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 		
 		var modul_parent = $(ui_draggable).parent().get(0);
 		if($(modul_parent).hasClass("search_modul")){
-			$(modul_parent).removeClass("search_modul");
+			// Die "search_modul"-Eigenschaft soll erhalten bleiben (OS)
+			// $(modul_parent).removeClass("search_modul");
 			
 			//show_pool_by_out(modul_id);
 			show_pool_by_out(ui_draggable);
@@ -704,7 +686,8 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 					
 					// check ob ein search_modul ist
 					if($(modul_parent).hasClass("search_modul")){
-						$(modul_parent).removeClass("search_modul");
+						// Die "search_modul"-Eigenschaft soll erhalten bleiben wie oben (OS)
+						// $(modul_parent).removeClass("search_modul");
 						show_pool_by_out($(this));
 					}
 					
@@ -838,6 +821,7 @@ var drop_in_pool = function(mod_id,ui_draggable,this_pool){
 
 //poolrekursive()  implementieren
 
+// Veraltet! Neu siehe die Funktion poolrekursivOS unten
 var poolrekursiv = function(root){
 	
 	// nach kinder suchen
@@ -865,21 +849,21 @@ var poolrekursiv = function(root){
 				
 				
 				$("#pool").append("<div class='pool_category' id='" + category_id + "'>" +
-										"<a id='id_"+category_id+"'>"+"<span class='pfeil_rechts' style='display:inline'>"+
-																		pfeil_rechts+
-																 	  "</span>"+
-																	  "<span class='pfeil_unten' style='display:none'>"+
-																	  	pfeil_unten+
-																	  "</span>"+
-																	  category_name+
-										"</a>"+
+					"<a onClick='javascript:toggle_category("+category_id+");'>"+"<span class='pfeil_rechts' style='display:inline'>"+
+							pfeil_rechts+
+					 	  "</span>"+
+						  "<span class='pfeil_unten' style='display:none'>"+
+						  	pfeil_unten+
+						  "</span>"+
+						  category_name+
+					"</a>"+
 								  "</div>");
 								  
 								  
 					
 				  // toggle.Achtung! check nach search_modul,search_category 
 				  
-				  $("#pool").append(
+			/*	  $("#pool").append(
 				     
 				 
 				"<script>"+
@@ -930,41 +914,10 @@ var poolrekursiv = function(root){
 						
 						"}"+//ende else
 							
-							
-							
-							
-							
-							
-							
-							
-							
 					"});"+//ende 2.function
 						
-				"});</script>");
-				  
-				  
-				  
-				  	
-				/*$("#pool").append(
-				 
-					 "<script>$(function(){ $(\"#"+category_id+" a#id_"+category_id+" \").live('click',"+
-					  	" function(){"+
-							"  $(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle();"+
-							" var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
-							" $(this_span).each(function(){ "+
-							
-								"var this_display = $(this).css('display');"+
-								"if(this_display=='inline'){$(this).css('display','none');}"+
-								" else if(this_display=='none'){$(this).css('display','inline');}      "+
-								
-							 "});"+
-						"});"+
-						
-					"});</script>");
-								
-				*/				
-								 			
-				
+				"});</script>"); */
+
 			}//ende Schwerpunkt
 		
 			else{ //hier es geht um untergeordneten Kategories.
@@ -981,7 +934,7 @@ var poolrekursiv = function(root){
 												
 												// "> "+
 												
-												"<a id='id_"+category_id+"'>"+"<span class='pfeil_rechts' style='display:inline'>"+
+												"<a onClick='javascript:toggle_category("+category_id+");'>"+"<span class='pfeil_rechts' style='display:inline'>"+
 																				pfeil_rechts+
 																			  "</span>"+
 																			  "<span class='pfeil_unten' style='display:none'>"+
@@ -1005,7 +958,7 @@ var poolrekursiv = function(root){
 				var child_name    = this_children.nodeName;
 				if (child_name == "category"){
 					
-				$("#pool").append(
+		/*		$("#pool").append(
 			"<script>"+
 				"$(function(){"+
 						
@@ -1056,27 +1009,10 @@ var poolrekursiv = function(root){
 				"</script>");
 					
 					
-					
-				/*	$("#pool").append("<script>"+
-									 "$(function(){"+   
-					
-										"$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
-												"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
-												" $(this_span).each(function(){"+
-												" 	var this_display = $(this).css('display');"+
-												" 	if(this_display=='inline'){$(this).css('display','none');}"+
-												" 	else if(this_display=='none'){$(this).css('display','inline');} "+
-												" });"+
-												"$(\"#"+category_id+" a#id_"+category_id+" \").nextAll().toggle();"+
-										
-										"})"+
-								
-								
-					"})</script>");
-				*/
+					*/
 				}
 				else if(child_name == "module"){
-					
+			/*		
 					
 			$("#pool").append(
 			"<script type='text/javascript'>"+
@@ -1132,36 +1068,8 @@ var poolrekursiv = function(root){
 			"</script>");
 					
 					
-					
-					/*$("#pool").append("<script>"+
-									 "$(function(){"+   
-					
-										"$(\"#"+category_id+" a#id_"+category_id+" \").live('click',function(){"+
-												"var all_hide = true;"+
-												
-										
-												"$(\"#"+category_id+" .pool_modul \").each(function(){"+
-														
-														
-														"var imAuswahl = $(this).find('span.imAuswahl');"+
-														"var imAuswahl_text = $(imAuswahl).text();"+
-														
-														"if (imAuswahl_text == 'ja'){$(this).hide();}"+
-														"else if (imAuswahl_text == 'nein'){$(this).toggle(0);}});"+
-														
-														"var this_span=$(\"#pool #"+category_id+ " a#id_"+category_id+" \").find('span');"+
-														" $(this_span).each(function(){"+
-														" 	var this_display = $(this).css('display');"+
-														" 	if(this_display=='inline'){$(this).css('display','none');}"+
-														" 	else if(this_display=='none'){$(this).css('display','inline');} "+
-														"});"+
-												"})"+
-								
-								
-									"})</script>");
 					*/
-					
-				}
+				} 
 				
 				// 	untergeordneten Kategories wieder zeigen bei Click auf den Schwerpunkt-Vater						
 				//$("#pool").append("<script>$(function(){ $(\"#" + parent_id + " #"+parent_a_id+"\").live('click', function(){ $(\"#" + parent_id + " #"+category_id+"\").toggle('slow'); var this_img=$(\"#" + parent_id + " #"+parent_a_id+"\").find('img'); var this_src=$(this_img).attr('src'); if(this_src=='images/Pfeil-Rechts.png'){$(this_img).attr('src','images/Pfeil-Unten.png');}else {$(this_img).attr('src','images/Pfeil-Rechts.png');}                              }); })</script>");								
@@ -1297,6 +1205,115 @@ var poolrekursiv = function(root){
 }//ende poolrekursiv
 
 
+
+var poolrekursivOS = function(XMLhandle){
+	var appendString = '';
+	$(XMLhandle).children().each(function(){				
+		var knoten_name=this.nodeName;
+		var parent = $(this).parent().get(0);
+		var parent_name = parent.nodeName;
+		
+		switch(this.nodeName) {
+			case "category":
+				var category_id   = $(this).attr("category_id");			
+				var category_name = $(this).attr("name");
+				
+				// if (parent_name == "root" && $(this).children()[0])
+				if (parent_name == "root")
+					appendString += "<div class='pool_category' id='" + category_id + "'>";
+				else
+					appendString += "<div style='margin-left:6px;display:none;' class='pool_category' "+"id='"+category_id+"'>";
+					
+				appendString += "<a onClick='javascript:toggle_category(\""+category_id+"\");'>"+
+					"<span class='pfeil_rechts' style='display:inline'>"+pfeil_rechts+"</span>"+
+					"<span class='pfeil_unten' style='display:none'>"+pfeil_unten+"</span>"+
+					"<span class='pfeil_leer' style='display:none'>"+pfeil_leer+"</span>"+
+					category_name+
+					"</a>";
+				// rekursiver Teil
+				appendString += poolrekursivOS(this);
+				appendString += "</div>";
+				break;
+				
+			case "module":
+				var parent_name = $(parent).attr("name");
+				var parent_id   = $(parent).attr("category_id");
+				var parent_a    = $("#pool #"+parent_id).find("a");
+				//var parent_a_class = $(parent_a).attr("class");
+				var parent_a_id= $(parent_a).attr("id");
+				//alert(parent_a_class);
+
+				var modul_name = $(this).find("name").text();
+				var modul_mode = $(this).find("mode").text();
+				var credits = $(this).find("credits").text();
+				var modul_short = $(this).find("short").text();
+
+				var modul_id = $(this).attr("id");
+				var modul_class=$(this).attr("class");
+
+				//check Modul_ART : Pflicht? WP?
+				var bild;
+				if (modul_mode == "p") bild = pflichtbild;
+				else bild = wahlpflichtbild;
+
+				// hiet ist span.imAuswahl für die Besetzung eines Modul in Auswahl gedacht.
+				//span.custom sagt, dass ein modul normal oder ein dummy-modul ist
+				//span.custom_exist sagt, dass das dummy-modul bereits im pool ist
+				var pool_modul_class="pool_modul";
+				if(modul_class=="custom"){ pool_modul_class="custom_modul"}
+
+
+				appendString += "<div class='" + modul_id + "_parent'><div class='nichtleer'></div><div class='"+
+					pool_modul_class+"' id='" + modul_id + "' >" +
+					"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='show_pool_by_in(" +
+					modul_id +")'>" +loeschenbild +"</div>" +
+					"<span class='imAuswahl' style='display:none'>nein</span>" +
+					"<span class='custom' style='display:none'>"+modul_class+"</span>"+
+					"<span class='custom_exist' style='display:none'>nein</span>"+
+					"<table cellspacing=1 cellpadding=0 style='width: 100%; border:1px;'>" +
+					"<tbody>" +
+					"<tr>" +
+					"<td style=' width:22px;padding:1px 2px 0px 2px; '>"+bild+"</td>"+
+					"<td style=' width:99%'>"+modul_name+"</td>"+
+					
+					// Kurzbezeichnung raus aus der Auswahl (OS)
+					// "<td style=' width:20%'>" +
+					// 	"<span class='modul_short' style='display:none'>"+"("+modul_short+")"+"</span>"+
+					// "</td>"+
+
+					"<td style=' width:22px; '>" +
+					"<span class='fragebild' style='display:block;padding:1px 2px 0px 7px;'>"+fragebild+"</span>"+
+					"</td>" +
+
+					"<td style=' width:25px'>" +
+					"<span class='noten' style='display:none'>" +
+					"<input class='noten_input' type='text' size='5' rel='"+modul_id+"' value='Note' />"+
+					"</span>" +
+					"</td>" +
+
+					"<td style=' width:22px'>" +
+					"<span class='ipunkt' style='display:none;padding:1px 2px 0px 7px;'>"+ipunkt+"</span>"+
+					"</td>" +
+
+					"<td style='min-width:32px;text-align:right;font-weight:bold'>" +
+					credits +" C" +
+					"</td>" +
+					"</tr>" + "</tbody>" + "</table>" +
+					"</div></div>";
+
+				//kopieren das Modul in search_table  für die Suche
+				$("#suche tbody").append("<tr class='"+modul_id+"' >"+"<td>"+modul_id+"</td>"+"<td>"+modul_name+"</td>"+"</tr>");
+				
+			default:
+				// Hmm, warum kommt das hier noch so oft? Später mal nachschauen!
+				// alert("Fehler: Pool-XML-Abfrage enthaelt ungueltige Elemente!")
+				break;
+		}
+	});
+	return appendString;
+}//ende poolrekursivOS
+
+
 //POOL-Funktion gibt immer ganzen Module im POOL zurück, 
 //und ruft AJAX auf  ------------------------------
 
@@ -1322,16 +1339,13 @@ var poolrekursiv = function(root){
 	$("#pool").empty();
 	//aktuellePoolXml=XML;
 	
-	
-    poolrekursiv(root);
+	// Pool anzeigen
+    $("#pool").append(poolrekursivOS(root));
 	get_custom_modul();
  	session_auswahl();
 	ueberblick();
 	
 	
 }//ende pool
-
-
-		
 
 

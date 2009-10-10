@@ -458,36 +458,110 @@ var sem_loeschen = function(l){
 
 
 
-
-
-
-
-
+var toggle_category = function(category_id){
+	// alert("call: toggle_category("+category_id+")")
+	var handle = $("#pool").find("#"+category_id);
 	
+	
+	if($(handle).find(">a .pfeil_unten").css("display")=="none") {
+		// Kategorie öffnen
+		var count = 0;
+		$(handle).children().not("a, .nichtleer, .imAuswahl").each(function(){
+			var this_class = $(this).attr("class");
+			// Prüfen, ob sich darunter Kategorien oder Module befinden
+			if((this_class=="pool_category")||(this_class=="search_category")) {
+				$(this).css("display","block");
+				count++;
+				// Schleife um Icon auf Pfeil-Leer zu setzen, falls nötig
+				if(number_of_visible_items_in_category(this) == 0) {
+					flip_arrow_of_category("leer",this);
+				}
+			}
+			else {
+				$(this).children().each(function(){
+					if ($(this).find(">span.imAuswahl").text()=="nein") {
+						$(this).css("display","block");
+						count++;
+					}
+				});
+			}
+		});
 		
+		// falls kein Element angezeigt wird, entspr. Icon anzeigen
+		if (count == 0) flip_arrow_of_category("leer",handle);
+		else flip_arrow_of_category("unten",handle);
+	}
+	else if($(handle).find(">a .pfeil_leer").css("display")=="none"){
+		// Kategorie schließen
+		flip_arrow_of_category("rechts",handle);
 		
+		$(handle).children().not("a, .nichtleer, .imAuswahl").each(function(){
+			var this_class = $(this).attr("class");
+			// Prüfen, ob sich darunter Kategorien oder Module befinden
+			if((this_class=="pool_category")||(this_class=="search_category")) {
+				$(this).css("display","none");
+			}
+			else {
+				$(this).find(">*").css("display","none")
+			}
+		});
+	}
+	// Bei leerer Kategorie passiert einfach nichts.
+}
+
+var number_of_visible_items_in_category = function(handle){
+	// gefragt is handle zur Kategorie
+	var count = 0;
+	$(handle).children().not("a, .nichtleer, .imAuswahl").each(function(){
+		var this_class = $(this).attr("class");
+		// Prüfen, ob sich darunter Kategorien oder Module befinden
+		if((this_class=="pool_category")||(this_class=="search_category"))
+			count++;
+		else {
+			$(this).children().each(function(){
+				if ($(this).find(">span.imAuswahl").text()=="nein") {
+					count++;
+				}
+			});
+		}
+	});
+	// alert("number_of_visible_items_in_category: "+count)
+	return (count);
+}
+
+var flip_arrow_of_category = function(type,handle){
+	// gefragt is handle zur Kategorie
+	switch(type){
+		case "rechts":
+			$(handle).find(">a .pfeil_unten").css("display","none");
+			$(handle).find(">a .pfeil_rechts").css("display","inline");
+			$(handle).find(">a .pfeil_leer").css("display","none");
+			break;
+						
+		case "unten":
+			$(handle).find(">a .pfeil_unten").css("display","inline");
+			$(handle).find(">a .pfeil_rechts").css("display","none");
+			$(handle).find(">a .pfeil_leer").css("display","none");
+			break;
+			
+		case "leer":
+			$(handle).find(">a .pfeil_unten").css("display","none");
+			$(handle).find(">a .pfeil_rechts").css("display","none");
+			$(handle).find(">a .pfeil_leer").css("display","inline");
+			break;
+		default:
+			alert("Fehler in flip_arrow_of_category: Typ "+type+" unbekannt!")
+	}
+}
+
+var which_arrow_is_visible = function(handle){
+	// gefragt is handle zur Kategorie
+	var result = "unbekannt";
+	if ($(handle).find(">a .pfeil_unten").css("display") == "inline") result = "unten";
+	else {
+		if ($(handle).find(">a .pfeil_rechts").css("display") == "inline") result = "rechts";
+		else if ($(handle).find(">a .pfeil_leer").css("display") == "inline") result = "leer";
+	}
 	
-	
-	
-	
-
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	return result;
+}

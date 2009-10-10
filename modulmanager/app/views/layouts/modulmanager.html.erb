@@ -33,15 +33,15 @@
 					
 					
 					
-      $(document).ready(function () {
-        var q = $('table#suche tbody tr').quicksearch({
-          stripeRowClass: ['odd', 'even'],
-          position: 'before',
-          attached: '#suche',
-          inputText:'...',
-          labelText: 'Search:',
-          loaderText:'loading',
-          delay:1000
+		$(document).ready(function () {				
+			var q = $('table#suche tbody tr').quicksearch({
+				position: 'before',
+				attached: '#suche',
+				inputText: '',
+				labelText: 'Suche:',
+				loaderText: '...',
+				loaderImg: 'images/Warten-HintergrundWeiss.gif',
+				delay:1000
 							
         });
 						
