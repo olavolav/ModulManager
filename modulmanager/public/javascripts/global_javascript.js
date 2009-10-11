@@ -114,10 +114,11 @@ var show_pool_by_in = function(modul_id){
 	// versteck das Modul im Semester
 	$("#semester-content div.semester").find("div#"+modul_id).each(function(){
 			//alert("hallo modulloeschen");
-			$(this).find("span.fragebild").css("display","block");
-			$(this).find("span.ipunkt").css("display","none");
-			$(this).find("span.noten").css("display","none");
-			$(this).find("#icon_loeschen").css("display","none");
+			// $(this).find("span.fragebild").css("display","block");
+			// $(this).find("span.ipunkt").css("display","none");
+			// $(this).find("span.noten").css("display","none");
+			// $(this).find("#icon_loeschen").css("display","none");
+			change_module_style_to_pool(this);
 			$(this).attr("class","pool_modul");
 			var das_span = $(this).find("span.inAuswahl");
 			$(das_span).text("nein");

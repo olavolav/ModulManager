@@ -1,7 +1,7 @@
 module AbfragenHelper
 
   def build_xml_bachelor_recursive(c, xml, pflicht)
-    pflicht = true if c.name == "Pflichtmodule"
+    pflicht = true if c.name == "Pflichtmodule" # eieiei :-) (OS)
     if c.sub_categories == [] && c.modules != []
       c.modules.each { |m|
         classification = "non-custom"
@@ -11,7 +11,12 @@ module AbfragenHelper
           xml.name(m.name)
           xml.short(m.short)
           xml.credits(m.credits)
-          xml.mode("p") if pflicht
+          if pflicht
+            xml.mode("p")
+          # die Unterscheiung hier könnte später natürlich komplexer sein (OS)
+          else
+            xml.mode("wp")
+          end
           xml.parts(m.parts)
           if m.parts > 1
             m.parts.times do |j|
