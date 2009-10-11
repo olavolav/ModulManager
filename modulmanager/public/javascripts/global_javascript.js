@@ -345,7 +345,6 @@ var session_auswahl_rekursiv = function(root){
 			
 			// entsprechenem  modul_id im Pool suchen, dann clonen ins Auswahl
 			// dann verstecken die originalen Module im Pool
-			//
 			
 			var mod_id = $(this).attr("id");
 			

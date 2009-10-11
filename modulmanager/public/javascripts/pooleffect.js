@@ -509,7 +509,7 @@ var sem_loeschen = function(l){
 
 
 var toggle_category = function(category_id){
-	// alert("call: toggle_category("+category_id+")")
+	alert("call: toggle_category("+category_id+")");
 	var handle = $("#pool").find("#"+category_id);
 	
 	
@@ -519,7 +519,8 @@ var toggle_category = function(category_id){
 		$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
 			var this_class = $(this).attr("class");
 			// Prüfen, ob sich darunter Kategorien oder Module befinden
-			if((this_class=="pool_category")||(this_class=="search_category")) {
+			if(((this_class=="pool_category")&&(!search_is_active()))||(this_class=="search_category")) {
+				// alert("Darunter befindet sich eine Kategorie.");
 				$(this).css("display","block");
 				count++;
 				// Schleife um Icon auf Pfeil-Leer zu setzen, falls nötig
@@ -528,10 +529,19 @@ var toggle_category = function(category_id){
 				}
 			}
 			else {
+				// alert("Darunter befindet sich ein Modul.");
 				$(this).children().each(function(){
-					if ($(this).find(">span.inAuswahl").text()=="nein" && ($(this).attr("class")=="pool_modul" || $(this).attr("class")=="pool_modul ui-draggable")) {
-						$(this).css("display","block");
-						count++;
+					if (search_is_active()) {
+						if (($(this).find(">span.inAuswahl").text()=="nein") && $(this).parent().is(".search_modul")) {
+							$(this).css("display","block");
+							count++;
+						}
+					}
+					else {
+						if (($(this).find(">span.inAuswahl").text()=="nein") && $(this).is(".pool_modul")) {
+							$(this).css("display","block");
+							count++;
+						}
 					}
 				});
 			}
@@ -545,6 +555,7 @@ var toggle_category = function(category_id){
 		// Kategorie schließen
 		flip_arrow_of_category("rechts",handle);
 		
+		// Elemente darunter verstecken
 		$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
 			var this_class = $(this).attr("class");
 			// Prüfen, ob sich darunter Kategorien oder Module befinden
@@ -568,18 +579,26 @@ var number_of_visible_items_in_category = function(handle){
 	var count = 0;
 	$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
 		this_class = $(this).attr("class");
-		// Prüfen, ob sich darunter Kategorien oder Module befinden
-		if((this_class=="pool_category")||(this_class=="search_category"))
-			count++;
-		else {
+		// Zunächst Prüfen, ob sich darunter Kategorien oder Module befinden
+		if((this_class=="pool_category")||(this_class=="search_category")) {
+			// also geht es um eine Kategorie
+			if (search_is_active()) {
+			  if (this_class=="search_category") count++;
+			}
+			else count++;
+		}
+		else { // also geht es um Module
 			$(this).children().each(function(){
 				if ($(this).find(">span.inAuswahl").text()=="nein") {
-					count++;
+					if (search_is_active()) {
+						if ($(this).parent().is(".search_modul")) count++;
+					}
+					else count++;
 				}
 			});
 		}
 	});
-	// alert("number_of_visible_items_in_category: "+count)
+	alert("number_of_visible_items_in_category: "+count)
 	return (count);
 }
 

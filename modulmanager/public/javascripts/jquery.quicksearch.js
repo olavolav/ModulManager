@@ -297,12 +297,12 @@ jQuery(function ($) {
 					
 					
 					//array_id kommt aus qs()
-					alert("Anzahl uebereinstimmender Modul-IDs: "+array_id.length);
+					// alert("Anzahl uebereinstimmender Modul-IDs: "+array_id.length);
 					for(var i=0; i<array_id.length; i++)
 					{
 						// für jeden Modul-Container, der mit der ID aus dem Such-Ergebnis überinstimmt...
 						// (Module, die in der Auswahl sind, werden so auch gefunden)
-						alert((i+1)+". Anzahl uebereinstimmender Module zu ID "+array_id[i]+": "+$("#pool ."+array_id[i]+"_parent").length);
+						// alert((i+1)+". Anzahl uebereinstimmender Module zu ID "+array_id[i]+": "+$("#pool ."+array_id[i]+"_parent").length);
 						$("#pool ."+array_id[i]+"_parent").each(function(){
 							// neue Class 'search_modul' in modul_id_parent hinzufügen
 							// damit kann man nur 'search_modul' im Pool_baum togglen
