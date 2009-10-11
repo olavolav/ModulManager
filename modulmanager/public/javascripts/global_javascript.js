@@ -9,7 +9,7 @@
 //					ajax_to_server_by_add(),
 //					ajax_to_server_by_remove(),ajax_to_server_by_grade(),
 //					auswahlAnzeige(),
-//					modulloeschen(),get_custom_modul()
+//					modul_loeschen(),get_custom_modul()
 //
 //--------------------------------------------------------------------------------------
 
@@ -96,6 +96,7 @@ var show_pool_by_out = function(pool_modul){
 function rekursiv_pool_by_in(first_father){
 	
 	$(first_father).show();
+	flip_arrow_of_category("unten",first_father);
 	// $(first_father).removeClass("pool_category"); test (OS)
 	// 	$(first_father).addClass("search_category");
 	var this_parent = $(first_father).parent().get(0);
@@ -106,18 +107,19 @@ function rekursiv_pool_by_in(first_father){
 }
 
 // Funktionen für das Ziehen eines Moduls von der Auswahl in den Pool
-var show_pool_by_in = function(modul_id){
+// neuerdings alles in modul_loeschen() (OS)
+/* var show_pool_by_in = function(modul_id){
 	
 	
 	var append_modul;
 	
 	// versteck das Modul im Semester
 	$("#semester-content div.semester").find("div#"+modul_id).each(function(){
-			//alert("hallo modulloeschen");
+			//alert("hallo modul_loeschen");
 			// $(this).find("span.fragebild").css("display","block");
 			// $(this).find("span.ipunkt").css("display","none");
 			// $(this).find("span.noten").css("display","none");
-			// $(this).find("#icon_loeschen").css("display","none");
+			// $(this).find(".icon_loeschen").css("display","none");
 			change_module_style_to_pool(this);
 			$(this).attr("class","pool_modul");
 			var das_span = $(this).find("span.inAuswahl");
@@ -145,10 +147,6 @@ var show_pool_by_in = function(modul_id){
 			var this_modul = $(this).find("div.pool_modul");
 			$(this_modul).show();
 			
-			// var this_siblings = $(this).siblings();
-			/*var sib_anzahl = $(this_siblings).filter(function(index){
-				return $(this).hasClass("search_modul");
-			});*/
 			var first_father = $(this).parent().get(0);
 			
 			rekursiv_pool_by_in(first_father);
@@ -160,7 +158,7 @@ var show_pool_by_in = function(modul_id){
 		 
 		if (!search_is_active()) {
 			alert("Momentan wird nicht gesucht.");
-			modulloeschen(modul_id);
+			modul_loeschen(modul_id);
 		}		
 		else {
 			alert("Dies ist ein Modul, das mit der momentanen Pool-Suche nicht uebereinstimmt. (es wird gesucht)");
@@ -192,7 +190,7 @@ var show_pool_by_in = function(modul_id){
 	
 	
 	
-}//ende in
+}//ende in */
 
 
 
@@ -253,76 +251,84 @@ var modul_search = function(){
 
 
 ///////////////////MODULLOESCHEN loeschen////////////////////////
-/// bei Click auf <span class="modulloeschen">
+/// bei Click auf <div class="modul_loeschen">
 /// neuerdings auch beim Ziehen zum Pool (OS)
 
-var modulloeschen = function (mod_id){
+var modul_loeschen = function (mod_id){
 	// Die Schleife hier sollte eigentlich unnötig sein, wenn jedes Modul nur 1x in der
 	// Auswahl sein kann: (OS)
+	alert("Dieses Modul ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal");
+	
 	$("#semester-content div.semester").find("div#"+mod_id).each(function(){
 		
-			// ändere CSS style
-			alert("hallo modulloeschen (1x pro Modul in der Auwahl)");
-			change_module_style_to_pool(this);
-			// $(this).find("span.fragebild").css("display","block");
-			// $(this).find("span.ipunkt").css("display","none");
-			// $(this).find("span.noten").css("display","none");
-			// $(this).find("#icon_loeschen").css("display","none");
-			$(this).attr("class","pool_modul");
+		// Hack um Doppelungen der Module in der Auswahl zu vermeiden (OS)
+		// kommt scheinbar nur vor, wenn ein Modul schon in der Standard-Auswahl waren, warum?
+		if ($(this).is(".pool_modul")) {
+			alert("Hack: pool_modul-Div geloescht, siehe Anfang von modul_loeschen(). (OS)");
+			$(this).remove();
+			// break;
+			return true;
+		}
+	
+		// ändere CSS style
+		// alert("hallo modul_loeschen (1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
+		change_module_style_to_pool(this);
+		// $(this).find("span.fragebild").css("display","block");
+		// $(this).find("span.ipunkt").css("display","none");
+		// $(this).find("span.noten").css("display","none");
+		// $(this).find(".icon_loeschen").css("display","none");
+		$(this).attr("class","pool_modul");
+		
+		var this_id = $(this).attr("id");
+		var this_modul = $(this);
+		// ersmal hide
+		$(this_modul).hide();
+		// suche nach mod_id_parent im Pool
+		
+		alert("Dieses Modul (bzw. dessen Parent) kommt im Pool "+($("#pool ."+this_id+"_parent").length)+" mal vor.");
+					
+		$("#pool ."+this_id+"_parent").each(function(){
 			
-			var this_id = $(this).attr("id");
-			var this_modul = $(this);
-			// ersmal hide
-			$(this_modul).hide();
-			// suche nach mod_id_parent im Pool
-			
-			alert("Dieses Modul (bzw. dessen Parent) kommt im Pool "+($("#pool ."+this_id+"_parent").length)+" mal vor.");
-			
-			$("#pool ."+this_id+"_parent").each(function(){
-				
-				if(!module_div_present_in_parent($(this))){
+			// In-Auswahl-Tag setzen (OS)
+			$(this).find("span.inAuswahl").text("nein");					
 
-					var das_span = $(this_modul).find("span.inAuswahl");
-					$(das_span).text("nein");
-					
+			var the_father = $(this).parent();
+			// alert("the_father class: "+the_father.attr("class"));
+			if(!module_div_present_in_parent($(this))){
+			
+				$(this).append(this_modul);
 				
-					$(this).append(this_modul);
-					
-					
-					// check den Vater-Kategory, ob der gerade offen ist
-					// var the_father = $(this).parent().get(0);
-					var the_father = $(this).parent();
-					// alert("the_father class: "+the_father.attr("class"));
-					$(the_father).find(".pool_modul,.pool_modul.ui-draggable").each(function(){
-						if ($(this).css("display")=="block") $(this_modul).show();
-					});
-					if (which_arrow_is_visible(the_father) == "leer")
-						flip_arrow_of_category("rechts",the_father);
-					
-					
-				}// ende if leer
+				// check den Vater-Kategory, ob der gerade offen ist
+				$(the_father).find(".pool_modul,.pool_modul.ui-draggable").each(function(){
+					if ($(this).css("display")=="block") $(this_modul).css("display","block");
+				});
 				
-				else{
-					// In-Auswahl-Tag setzen (OS)
-					$(this).find("span.inAuswahl").text("nein");					
-					
-					// check den Vater-Kategory, ob der gerade offen ist (neu, OS)
-					var arrow_type = which_arrow_is_visible($(this).parent());
-					alert("arrow_type: "+arrow_type);
-					if (arrow_type == "leer")
-						flip_arrow_of_category("rechts",$(this).parent());
-					else if (arrow_type == "unten") {
-						// $(this).find(".pool_modul,.pool_modul.ui-draggable,.search_modul.ui-draggable").css("display","block");
-						$(this).parent().find("#"+mod_id).css("display","block");
-					}
+				
+			}// ende if leer
+			
+			else{ // Modul ist schon im Pool, nur versteckt
+				
+				// check den Vater-Kategory, ob der gerade offen ist (neu, OS)
+				var arrow_type = which_arrow_is_visible($(this).parent());
+				// alert("arrow_type: "+arrow_type);
+				if (arrow_type == "leer")
+					flip_arrow_of_category("rechts",$(this).parent());
+				else if (arrow_type == "unten") {
+					// $(this).find(".pool_modul,.pool_modul.ui-draggable,.search_modul.ui-draggable").css("display","block");
+					$(this).parent().find("#"+mod_id).css("display","block");
 				}
-			});
-	});
-	
+			}
+			
+			if (search_is_active() && $(this).is(".search_modul"))
+				rekursiv_pool_by_in(the_father);
+			else if (which_arrow_is_visible(the_father) == "leer")
+				flip_arrow_of_category("rechts",the_father);
+			
+		}); // Ende der Schleife durch alle parent divs
+		
+	}); // Ende der Schleife durch alle entspr. Module in der Auswahl
 
-	
-	
-}//ende
+}//ende modul_loeschen
 
 
 
@@ -373,10 +379,11 @@ var session_auswahl_rekursiv = function(root){
 			
 						
 			$(auswahl_modul_clone).attr("class","auswahl_modul_clone");
-			$(auswahl_modul_clone).find("div#icon_loeschen").css("display","block");
-			$(auswahl_modul_clone).find("span.fragebild").css("display","none");
-			$(auswahl_modul_clone).find("span.ipunkt").css("display","block");
-			$(auswahl_modul_clone).find("span.noten").css("display","block");
+			change_module_style_to_auswahl(auswahl_modul_clone);
+			// $(auswahl_modul_clone).find("div#icon_loeschen").css("display","block");
+			// $(auswahl_modul_clone).find("span.fragebild").css("display","none");
+			// $(auswahl_modul_clone).find("span.ipunkt").css("display","block");
+			// $(auswahl_modul_clone).find("span.noten").css("display","block");
 			$(auswahl_modul_clone).find("span.inAuswahl").text("ja");
 			
 			// reinstecken das Klone im Auswahl
@@ -623,8 +630,7 @@ var auswahlAnzeige = function (modul_id,semester,modulinhalt){
 var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
 	// alert("ID: "+modul_id+", class:"+modul_class);
 	// alert("Pool parent class: "+$("#pool ."+modul_id+"_parent").eq(0).attr("class"))
-	
-	
+		
 	$('<div class="quick-alert">'+warten_beige+'Bitte warten!</div>')
 		 .appendTo($(this_semester))
 		 .fadeIn("fast")
@@ -633,28 +639,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 		 	$(this).remove();
 	 });
 		 
-	
-	
-	// vesteck (leer) in  Semester
-				
-	//$(this_semester).find(".subsemester span.leer").css("display", "none");
-		
-	// display versteckte <span> in Pool-Modul, und remove andere 
-	// kopieren und verändern class pool_modul zum auswahl_modul
-	
-	
-	//var this_copy = $(ui_draggable).clone(true);
-	//var this_copy_class = $(this_copy).attr("class");
-	
-	
-	
-	
 	var this_draggable_class = $(ui_draggable).attr("class");
-	
-	
-		
-	//var this_draggable_class = $(ui_draggable).attr("class");
-	//alert(this_helper_class);
 	
 	// check ob das reingezogenem Modul aus POOL kommt.
 	// Wenn ja dann verändern inhalt, und versteck das Modul im POOL.
@@ -662,70 +647,45 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	// dann wieder add per AJAX
 	
 	// alert("Modul class: "+this_draggable_class);
-	if (this_draggable_class =="pool_modul ui-draggable" || this_draggable_class=="pool_modul"){
+	if (this_draggable_class =="pool_modul ui-draggable" || this_draggable_class=="pool_modul") {
 		alert("Modul kommt aus dem Pool");
 		change_module_style_to_auswahl(ui_draggable);
-		// $(ui_draggable).find("div#icon_loeschen").css("display","block");
-		// $(ui_draggable).find("span.fragebild").css("display","none");
-		// $(ui_draggable).find("span.ipunkt").css("display","block");
-		// $(ui_draggable).find("span.noten").css("display","block");
-		$(ui_draggable).attr("class","auswahl_modul ");
+		$(ui_draggable).find("span.inAuswahl").text("ja");
+		$(ui_draggable).attr("class","auswahl_modul");
 		
-		var this_span = $(ui_draggable).find("span.inAuswahl");
-		//$(this_span).text("schonWEG");
-		$(this_span).text("ja");
-		
-		
-		var modul_parent = $(ui_draggable).parent().get(0);
-		// Falls das Modul die "search_modul"-Eigenschaft hat, wird natürlich auch gerade gesucht, die
-		// entspr. Abfrage erübrigt sich also.
-		if($(modul_parent).hasClass("search_modul")){
-			// Die "search_modul"-Eigenschaft soll erhalten bleiben (OS)
-			// $(modul_parent).removeClass("search_modul");
-			
-			//show_pool_by_out(modul_id);
+		// var modul_parent = $(ui_draggable).parent().get(0);
+		// Falls das Modul die "search_modul"-Eigenschaft hat, wird natürlich auch gerade gesucht,
+		// die entspr. Abfrage erübrigt sich also.
+		if($(ui_draggable).parent().is(".search_modul")){
 			show_pool_by_out(ui_draggable);
 		}
 		else {
-			var this_category = $(modul_parent).parent();
-			alert("Aha, Suche ich nicht aktiv - visible items:"+number_of_visible_items_in_category(this_category));
-			if (number_of_visible_items_in_category(this_category) == 1)
+			var this_category = $(ui_draggable).parent().parent();
+			// alert("Aha, Suche ist nicht aktiv - visible items:"+number_of_visible_items_in_category(this_category));
+			if (number_of_visible_items_in_category(this_category) == 0)
 				flip_arrow_of_category("leer",this_category);
 		}
 		
 		
-		//vertecken die anderen gleichen Module
-	
+		// Die anderen gleichen Module verstecken (fast gleich zum Prozedere oben)
 		$("."+modul_id+"_parent").each(function(){
-			//alert("drin");
-			var modul_parent = $(this);
-				$(this).find("div.pool_modul").each(function(){
-				var das_span = $(this).find("span.inAuswahl");
-				var x = $(das_span).text();
-				//alert("span="+x);
-				if(x=="nein"){
-					
-					$(das_span).text("ja");
-					$(this).hide();
-					
-					// check ob ein search_modul ist
-					if($(modul_parent).hasClass("search_modul")){
-						// Die "search_modul"-Eigenschaft soll erhalten bleiben wie oben (OS)
-						// $(modul_parent).removeClass("search_modul");
-						show_pool_by_out($(this));
-					}
-					
-					
-				}
+						
+			// inAuswahl-Tag setzen und Modul verstecken (OS):
+			$(this).find("span.inAuswahl").text("ja");
+			$(this).find(".pool_modul,.search_modul").css("display","none");
 				
-			});
-			
+			if($(this).parent().is(".search_modul")){
+				show_pool_by_out(this);
+			}
+			else {
+				// hier ein parent weniger als oben, weil wir ja schon surch die parent-Divs laufen (OS)
+				var this_category = $(this).parent();
+				// alert("Aha, Suche ist nicht aktiv - visible items:"+number_of_visible_items_in_category(this_category));
+				if (number_of_visible_items_in_category(this_category) == 0)
+					flip_arrow_of_category("leer",this_category);
+			}
 		});
-		
-		
-		
-		
-		
+			
 	}//ende if pool_modul class
 	
 	else if(this_draggable_class=="auswahl_modul_clone ui-draggable" || this_draggable_class=="auswahl_modul_clone"  ){
@@ -752,7 +712,6 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	
 	//$(ui_draggable).appendTo($(this_subsemester));
 	$(this_subsemester).append(ui_draggable);
-	
 	
 	 
 	// einbinden search function
@@ -932,7 +891,8 @@ var poolrekursiv = function(XMLhandle){
 
 				appendString += "<div class='" + modul_id + "_parent'><div class='nichtleer'></div><div class='"+
 					pool_modul_class+"' id='" + modul_id + "' >" +
-					"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='show_pool_by_in(" +
+					// "<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='show_pool_by_in(" +
+					"<div class='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modul_loeschen(" +
 					modul_id +")'>" +loeschenbild +"</div>" +
 					"<span class='inAuswahl' style='display:none'>nein</span>" +
 					"<span class='custom' style='display:none'>"+modul_class+"</span>"+
@@ -1015,7 +975,7 @@ var search_is_active = function(){
 }
 
 var change_module_style_to_pool = function(handle){
-	$(handle).find("div#icon_loeschen").css("display","none");
+	$(handle).find("div.icon_loeschen").css("display","none");
 	$(handle).find("span.fragebild").css("display","block");
 	$(handle).find("span.ipunkt").css("display","none");
 	$(handle).find("span.noten").css("display","none");
@@ -1024,7 +984,7 @@ var change_module_style_to_pool = function(handle){
 }
 
 var change_module_style_to_auswahl = function(handle){
-	$(handle).find("div#icon_loeschen").css("display","block");
+	$(handle).find("div.icon_loeschen").css("display","block");
 	$(handle).find("span.fragebild").css("display","none");
 	$(handle).find("span.ipunkt").css("display","block");
 	$(handle).find("span.noten").css("display","block");

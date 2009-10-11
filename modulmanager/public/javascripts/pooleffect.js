@@ -206,7 +206,7 @@ $(function(){
 				
 				// drop_in_pool(mod_id, ui_draggable,this_pool);
 				// neuerdings die gleiche Funktion wie wenn man auf den Lˆschen-Knopf klickt:
-				modulloeschen(mod_id);
+				modul_loeschen(mod_id);
 			}
 		
 		});
@@ -509,7 +509,7 @@ var sem_loeschen = function(l){
 
 
 var toggle_category = function(category_id){
-	alert("call: toggle_category("+category_id+")");
+	// alert("call: toggle_category("+category_id+")");
 	var handle = $("#pool").find("#"+category_id);
 	
 	
@@ -552,6 +552,8 @@ var toggle_category = function(category_id){
 		else flip_arrow_of_category("unten",handle);
 	}
 	else if($(handle).find(">a .pfeil_leer").css("display")=="none"){
+		// ...folglich steht der pfeil auf "rechts".
+		
 		// Kategorie schlieﬂen
 		flip_arrow_of_category("rechts",handle);
 		
@@ -598,7 +600,7 @@ var number_of_visible_items_in_category = function(handle){
 			});
 		}
 	});
-	alert("number_of_visible_items_in_category: "+count)
+	// alert("number_of_visible_items_in_category: "+count)
 	return (count);
 }
 
