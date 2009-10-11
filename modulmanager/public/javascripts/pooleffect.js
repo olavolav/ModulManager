@@ -510,66 +510,73 @@ var sem_loeschen = function(l){
 
 var toggle_category = function(category_id){
 	// alert("call: toggle_category("+category_id+")");
-	var handle = $("#pool").find("#"+category_id);
+	var handle = $("#pool").find("#"+category_id);	
+	var temparrow = which_arrow_is_visible(handle);
 	
-	
-	if($(handle).find(">a .pfeil_unten").css("display")=="none") {
-		// Kategorie öffnen
-		var count = 0;
-		$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
-			var this_class = $(this).attr("class");
-			// Prüfen, ob sich darunter Kategorien oder Module befinden
-			if(((this_class=="pool_category")&&(!search_is_active()))||(this_class=="search_category")) {
-				// alert("Darunter befindet sich eine Kategorie.");
-				$(this).css("display","block");
-				count++;
-				// Schleife um Icon auf Pfeil-Leer zu setzen, falls nötig
-				if(number_of_visible_items_in_category(this) == 0) {
-					flip_arrow_of_category("leer",this);
+	switch (temparrow) {
+		case "rechts":
+			// Kategorie öffnen
+			var count = 0;
+			$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
+				var this_class = $(this).attr("class");
+				// Prüfen, ob sich darunter Kategorien oder Module befinden
+				if(((this_class=="pool_category")&&(!search_is_active()))||(this_class=="search_category")) {
+					// alert("Darunter befindet sich eine Kategorie.");
+					$(this).css("display","block");
+					count++;
+					// Schleife um Icon auf Pfeil-Leer zu setzen, falls nötig
+					if(number_of_visible_items_in_category(this) == 0) {
+						flip_arrow_of_category("leer",this);
+					}
 				}
-			}
-			else {
-				// alert("Darunter befindet sich ein Modul.");
-				$(this).children().each(function(){
-					if (search_is_active()) {
-						if (($(this).find(">span.inAuswahl").text()=="nein") && $(this).parent().is(".search_modul")) {
-							$(this).css("display","block");
-							count++;
+				else {
+					// alert("Darunter befindet sich ein Modul.");
+					$(this).children().each(function(){
+						if (search_is_active()) {
+							if (($(this).find(">span.inAuswahl").text()=="nein") && $(this).parent().is(".search_modul")) {
+								$(this).css("display","block");
+								count++;
+							}
 						}
-					}
-					else {
-						if (($(this).find(">span.inAuswahl").text()=="nein") && $(this).is(".pool_modul")) {
-							$(this).css("display","block");
-							count++;
+						else {
+							if (($(this).find(">span.inAuswahl").text()=="nein") && $(this).is(".pool_modul")) {
+								$(this).css("display","block");
+								count++;
+							}
 						}
-					}
-				});
-			}
-		});
+					});
+				}
+			});
 		
-		// falls kein Element angezeigt wird, entspr. Icon anzeigen
-		if (count == 0) flip_arrow_of_category("leer",handle);
-		else flip_arrow_of_category("unten",handle);
+			// falls kein Element angezeigt wird, entspr. Icon anzeigen
+			if (count == 0) flip_arrow_of_category("leer",handle);
+			else flip_arrow_of_category("unten",handle);
+			
+			break;
+
+		case "unten":
+			// Kategorie schließen
+			flip_arrow_of_category("rechts",handle);
+		
+			// Elemente darunter verstecken
+			$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
+				var this_class = $(this).attr("class");
+				// Prüfen, ob sich darunter Kategorien oder Module befinden
+				if((this_class=="pool_category")||(this_class=="search_category"))
+					$(this).css("display","none");
+				else $(this).find(">*").css("display","none")
+			});
+			
+			break;
+			
+		case "leer":
+			// Bei leerer Kategorie passiert einfach nichts.
+			break;
+			
+		default:
+			alert("Fehler: Ungueltiger Toggle-Wert in toggle_category().")
+		
 	}
-	else if($(handle).find(">a .pfeil_leer").css("display")=="none"){
-		// ...folglich steht der pfeil auf "rechts".
-		
-		// Kategorie schließen
-		flip_arrow_of_category("rechts",handle);
-		
-		// Elemente darunter verstecken
-		$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
-			var this_class = $(this).attr("class");
-			// Prüfen, ob sich darunter Kategorien oder Module befinden
-			if((this_class=="pool_category")||(this_class=="search_category")) {
-				$(this).css("display","none");
-			}
-			else {
-				$(this).find(">*").css("display","none")
-			}
-		});
-	}
-	// Bei leerer Kategorie passiert einfach nichts.
 }
 
 var number_of_visible_items_in_category = function(handle){

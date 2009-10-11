@@ -116,10 +116,6 @@ function rekursiv_pool_by_in(first_father){
 	// versteck das Modul im Semester
 	$("#semester-content div.semester").find("div#"+modul_id).each(function(){
 			//alert("hallo modul_loeschen");
-			// $(this).find("span.fragebild").css("display","block");
-			// $(this).find("span.ipunkt").css("display","none");
-			// $(this).find("span.noten").css("display","none");
-			// $(this).find(".icon_loeschen").css("display","none");
 			change_module_style_to_pool(this);
 			$(this).attr("class","pool_modul");
 			var das_span = $(this).find("span.inAuswahl");
@@ -257,30 +253,20 @@ var modul_search = function(){
 var modul_loeschen = function (mod_id){
 	// Die Schleife hier sollte eigentlich unnötig sein, wenn jedes Modul nur 1x in der
 	// Auswahl sein kann: (OS)
-	alert("Dieses Modul ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal");
+	// alert("Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten.");
+	if ($("#semester-content div.semester").find("div#"+mod_id).length > 1)
+		alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
 	
 	$("#semester-content div.semester").find("div#"+mod_id).each(function(){
-		
-		// Hack um Doppelungen der Module in der Auswahl zu vermeiden (OS)
-		// kommt scheinbar nur vor, wenn ein Modul schon in der Standard-Auswahl waren, warum?
-		if ($(this).is(".pool_modul")) {
-			alert("Hack: pool_modul-Div geloescht, siehe Anfang von modul_loeschen(). (OS)");
-			$(this).remove();
-			// break;
-			return true;
-		}
-	
+
+		// alert("hallo modul_loeschen (Schleife, 1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
 		// ändere CSS style
-		// alert("hallo modul_loeschen (1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
 		change_module_style_to_pool(this);
-		// $(this).find("span.fragebild").css("display","block");
-		// $(this).find("span.ipunkt").css("display","none");
-		// $(this).find("span.noten").css("display","none");
-		// $(this).find(".icon_loeschen").css("display","none");
 		$(this).attr("class","pool_modul");
 		
 		var this_id = $(this).attr("id");
 		var this_modul = $(this);
+		var modul_itself_has_not_been_moved = true;
 		// ersmal hide
 		$(this_modul).hide();
 		// suche nach mod_id_parent im Pool
@@ -288,45 +274,71 @@ var modul_loeschen = function (mod_id){
 		alert("Dieses Modul (bzw. dessen Parent) kommt im Pool "+($("#pool ."+this_id+"_parent").length)+" mal vor.");
 					
 		$("#pool ."+this_id+"_parent").each(function(){
-			
-			// In-Auswahl-Tag setzen (OS)
-			$(this).find("span.inAuswahl").text("nein");					
 
+			var arrow_type = which_arrow_is_visible($(this).parent());
+			// alert("arrow_type: "+arrow_type);
+			
 			var the_father = $(this).parent();
 			// alert("the_father class: "+the_father.attr("class"));
 			if(!module_div_present_in_parent($(this))){
 			
 				$(this).append(this_modul);
-				
+				modul_itself_has_not_been_moved = false;
+
 				// check den Vater-Kategory, ob der gerade offen ist
-				$(the_father).find(".pool_modul,.pool_modul.ui-draggable").each(function(){
-					if ($(this).css("display")=="block") $(this_modul).css("display","block");
-				});
+				// $(the_father).find(".pool_modul,.pool_modul.ui-draggable").each(function(){
+				// 	if ($(this).css("display")=="block") $(this_modul).css("display","block");
+				// });
 				
-				
-			}// ende if leer
-			
-			else{ // Modul ist schon im Pool, nur versteckt
-				
+				// rauskopiert aus unten:
 				// check den Vater-Kategory, ob der gerade offen ist (neu, OS)
-				var arrow_type = which_arrow_is_visible($(this).parent());
-				// alert("arrow_type: "+arrow_type);
 				if (arrow_type == "leer")
 					flip_arrow_of_category("rechts",$(this).parent());
 				else if (arrow_type == "unten") {
 					// $(this).find(".pool_modul,.pool_modul.ui-draggable,.search_modul.ui-draggable").css("display","block");
-					$(this).parent().find("#"+mod_id).css("display","block");
+					// $(this).parent().find("#"+mod_id).css("display","block");
+					$(this).find("#"+mod_id).css("display","block");
+					// $(this_modul).css("display","block");
 				}
-			}
+				
+			}// ende if leer
 			
+			else { // Modul ist schon im Pool, nur versteckt
+				
+				// check den Vater-Kategory, ob der gerade offen ist (neu, OS)
+				if (arrow_type == "leer")
+					flip_arrow_of_category("rechts",$(this).parent());
+				else if (arrow_type == "unten") {
+					// $(this).find(".pool_modul,.pool_modul.ui-draggable,.search_modul.ui-draggable").css("display","block");
+					$(this).find("#"+mod_id).css("display","block");
+				}
+				
+			}
+
+			// inAuswahl-Tag setzen (OS)
+			// alert("inAuswahl vorher (OS): "+$(this).find("#"+mod_id+" span.inAuswahl").text());
+			$(this).find("#"+mod_id+" span.inAuswahl").text("nein");
+			// alert("inAuswahl nachher (OS): "+$(this).find("#"+mod_id+" span.inAuswahl").text());
+
 			if (search_is_active() && $(this).is(".search_modul"))
 				rekursiv_pool_by_in(the_father);
 			else if (which_arrow_is_visible(the_father) == "leer")
 				flip_arrow_of_category("rechts",the_father);
-			
+						
 		}); // Ende der Schleife durch alle parent divs
-		
+
+		// Das hier nimmt immer noch an, dass es maximal ein Parent gibt, bei dem das Modul nicht nur
+		// wieder auf sichtbar geschaltet werden musste. (OS)
+		if (modul_itself_has_not_been_moved) {
+			alert("Aha, das Modul in der Auswahl selbst wurde gar nicht verschoben, dann koennen wir es ja loeschen!");
+			$(this_modul).remove();
+		}
+		else alert("Aha, das Modul wurde verschoben, dann loeschen wir es besser nicht.");
+
 	}); // Ende der Schleife durch alle entspr. Module in der Auswahl
+
+	// AJAX aufrufen und Session-DB aktualisieren
+	ajax_to_server_by_remove(mod_id);
 
 }//ende modul_loeschen
 
