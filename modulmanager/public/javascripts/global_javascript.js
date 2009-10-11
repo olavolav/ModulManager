@@ -119,7 +119,7 @@ var show_pool_by_in = function(modul_id){
 			$(this).find("span.noten").css("display","none");
 			$(this).find("#icon_loeschen").css("display","none");
 			$(this).attr("class","pool_modul");
-			var das_span = $(this).find("span.imAuswahl");
+			var das_span = $(this).find("span.inAuswahl");
 			$(das_span).text("nein");
 			$(this).hide();
 			append_modul = $(this);
@@ -281,7 +281,7 @@ var modulloeschen = function (mod_id){
 				
 				if(!module_div_present_in_parent($(this))){
 
-					var das_span = $(this_modul).find("span.imAuswahl");
+					var das_span = $(this_modul).find("span.inAuswahl");
 					$(das_span).text("nein");
 					
 				
@@ -303,7 +303,7 @@ var modulloeschen = function (mod_id){
 				
 				else{
 					// In-Auswahl-Tag setzen (OS)
-					$(this).find("span.imAuswahl").text("nein");					
+					$(this).find("span.inAuswahl").text("nein");					
 					
 					// check den Vater-Kategory, ob der gerade offen ist (neu, OS)
 					var arrow_type = which_arrow_is_visible($(this).parent());
@@ -355,14 +355,14 @@ var session_auswahl_rekursiv = function(root){
 			var das_erste = $(modul_im_pool).eq(0);
 			
 			// die originalen Module verstecken
-			//und den span.imAuswahl auf "ja" setzen
+			//und den span.inAuswahl auf "ja" setzen
 			//und alle vor dem Clone 
 			var auswahl_modul_clone=$(das_erste).clone(true);
 
 			$(modul_im_pool).each(function(){
 				
 				$(this).hide();
-				$(this).find("span.imAuswahl").text("ja");
+				$(this).find("span.inAuswahl").text("ja");
 				
 			});
 			
@@ -377,7 +377,7 @@ var session_auswahl_rekursiv = function(root){
 			$(auswahl_modul_clone).find("span.fragebild").css("display","none");
 			$(auswahl_modul_clone).find("span.ipunkt").css("display","block");
 			$(auswahl_modul_clone).find("span.noten").css("display","block");
-			$(auswahl_modul_clone).find("span.imAuswahl").text("ja");
+			$(auswahl_modul_clone).find("span.inAuswahl").text("ja");
 			
 			// reinstecken das Klone im Auswahl
 			$(sem_content).find("div.semester").each(function(){
@@ -671,7 +671,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 		// $(ui_draggable).find("span.noten").css("display","block");
 		$(ui_draggable).attr("class","auswahl_modul ");
 		
-		var this_span = $(ui_draggable).find("span.imAuswahl");
+		var this_span = $(ui_draggable).find("span.inAuswahl");
 		//$(this_span).text("schonWEG");
 		$(this_span).text("ja");
 		
@@ -700,7 +700,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 			//alert("drin");
 			var modul_parent = $(this);
 				$(this).find("div.pool_modul").each(function(){
-				var das_span = $(this).find("span.imAuswahl");
+				var das_span = $(this).find("span.inAuswahl");
 				var x = $(das_span).text();
 				//alert("span="+x);
 				if(x=="nein"){
@@ -797,11 +797,11 @@ var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dra
 	
 	$(ui_draggable).attr("class","pool_modul");
 	change_module_style_to_pool(ui_draggable);
-	$(ui_draggable).find("span.imAuswahl").text("nein");
+	$(ui_draggable).find("span.inAuswahl").text("nein");
 	// erstmal hide()
 	$(ui_draggable).hide();
 	//suchen den leeren Vater mod_id+"_parent" dann append ui_draggable
-	// danach setzen die anderen Module aus "nein" in span.imAuswahl
+	// danach setzen die anderen Module aus "nein" in span.inAuswahl
 	
 	$("#pool ."+mod_id+"_parent").each(function(){
 		//alert("drin");
@@ -826,7 +826,7 @@ var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dra
 			
 			// remove ui-draggable weil das original schon da ist
 			//$(ui_draggable).remove();
-			var this_span = $(this).find("span.imAuswahl");//this hier ist mod_id_parent
+			var this_span = $(this).find("span.inAuswahl");//this hier ist mod_id_parent
 			var the_other_modul = $(this).find("#"+mod_id);
 			$(this_span).text("nein");
 			// check den Vater-Kategory, ob der gerade offen ist
@@ -923,7 +923,7 @@ var poolrekursiv = function(XMLhandle){
 				if (modul_mode == "p") bild = pflichtbild;
 				else bild = wahlpflichtbild;
 
-				// hiet ist span.imAuswahl für die Besetzung eines Modul in Auswahl gedacht.
+				// hiet ist span.inAuswahl für die Besetzung eines Modul in Auswahl gedacht.
 				//span.custom sagt, dass ein modul normal oder ein dummy-modul ist
 				//span.custom_exist sagt, dass das dummy-modul bereits im pool ist
 				var pool_modul_class="pool_modul";
@@ -934,7 +934,7 @@ var poolrekursiv = function(XMLhandle){
 					pool_modul_class+"' id='" + modul_id + "' >" +
 					"<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='show_pool_by_in(" +
 					modul_id +")'>" +loeschenbild +"</div>" +
-					"<span class='imAuswahl' style='display:none'>nein</span>" +
+					"<span class='inAuswahl' style='display:none'>nein</span>" +
 					"<span class='custom' style='display:none'>"+modul_class+"</span>"+
 					"<span class='custom_exist' style='display:none'>nein</span>"+
 					"<table cellspacing=1 cellpadding=0 style='width: 100%; border:1px;'>" +

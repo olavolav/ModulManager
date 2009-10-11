@@ -122,7 +122,7 @@ $(function(){
 						$(cus_modul).find("#icon_loeschen").css("display","block");
 						$(cus_modul).find(".noten").css("display","block");
 						$(cus_modul).find("span.custom").text("non-custom");
-						$(cus_modul).find("span.imAuswahl").text("ja");
+						$(cus_modul).find("span.inAuswahl").text("ja");
 						
 						$("#semester-content div.semester").each(function(){
 							var this_id = $(this).attr("id");
@@ -516,7 +516,7 @@ var toggle_category = function(category_id){
 	if($(handle).find(">a .pfeil_unten").css("display")=="none") {
 		// Kategorie öffnen
 		var count = 0;
-		$(handle).children().not("a, .nichtleer, .imAuswahl").each(function(){
+		$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
 			var this_class = $(this).attr("class");
 			// Prüfen, ob sich darunter Kategorien oder Module befinden
 			if((this_class=="pool_category")||(this_class=="search_category")) {
@@ -529,7 +529,7 @@ var toggle_category = function(category_id){
 			}
 			else {
 				$(this).children().each(function(){
-					if ($(this).find(">span.imAuswahl").text()=="nein" && ($(this).attr("class")=="pool_modul" || $(this).attr("class")=="pool_modul ui-draggable")) {
+					if ($(this).find(">span.inAuswahl").text()=="nein" && ($(this).attr("class")=="pool_modul" || $(this).attr("class")=="pool_modul ui-draggable")) {
 						$(this).css("display","block");
 						count++;
 					}
@@ -545,7 +545,7 @@ var toggle_category = function(category_id){
 		// Kategorie schließen
 		flip_arrow_of_category("rechts",handle);
 		
-		$(handle).children().not("a, .nichtleer, .imAuswahl").each(function(){
+		$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
 			var this_class = $(this).attr("class");
 			// Prüfen, ob sich darunter Kategorien oder Module befinden
 			if((this_class=="pool_category")||(this_class=="search_category")) {
@@ -566,14 +566,14 @@ var number_of_visible_items_in_category = function(handle){
 		alert("Fehler: Handle in number_of_visible_items_in_category() ist keine Kategorie!")
 		
 	var count = 0;
-	$(handle).children().not("a, .nichtleer, .imAuswahl").each(function(){
+	$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
 		this_class = $(this).attr("class");
 		// Prüfen, ob sich darunter Kategorien oder Module befinden
 		if((this_class=="pool_category")||(this_class=="search_category"))
 			count++;
 		else {
 			$(this).children().each(function(){
-				if ($(this).find(">span.imAuswahl").text()=="nein") {
+				if ($(this).find(">span.inAuswahl").text()=="nein") {
 					count++;
 				}
 			});

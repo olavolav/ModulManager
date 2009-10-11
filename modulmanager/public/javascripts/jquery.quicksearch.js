@@ -312,7 +312,7 @@ jQuery(function ($) {
 							// falls das Modul nicht in der Auswahl ist, das Modul anzeigen und
 							// den Baum im Pool rekursiv öffnen
 							var modul = $("#pool").find("#"+array_id[i]);
-							var modul_span = $(modul).find("span.imAuswahl").eq(0).text();
+							var modul_span = $(modul).find("span.inAuswahl").eq(0).text();
 							
 							if(modul_span=="nein"){
 								
