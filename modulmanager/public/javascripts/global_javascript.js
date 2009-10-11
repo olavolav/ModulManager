@@ -139,11 +139,8 @@ var show_pool_by_in = function(modul_id){
 		//suche alle parent-umgebung
 		$("."+modul_id+"_parent").each(function(){
 			
-			var this_text = $(this).text();
-			if(this_text == ""){
-				$(this).append($(append_modul));
-				
-			}
+			if (module_div_present_in_parent($(this))) $(this).append($(append_modul));
+
 			var this_modul = $(this).find("div.pool_modul");
 			$(this_modul).show();
 			
@@ -282,11 +279,8 @@ var modulloeschen = function (mod_id){
 			
 			$("#pool ."+this_id+"_parent").each(function(){
 				
-				//var this_parent = $(this).parent().get(0);
-				var this_text = $(this).text();
-				// alert(this_text);
-				if(this_text==""){
-					alert("In dieses Parent muss das Modul rein (OS)");
+				if(!module_div_present_in_parent($(this))){
+
 					var das_span = $(this_modul).find("span.imAuswahl");
 					$(das_span).text("nein");
 					
@@ -306,9 +300,8 @@ var modulloeschen = function (mod_id){
 					
 					
 				}// ende if leer
+				
 				else{
-					alert("In diesem Parent ist eine (versteckte) Kopie des Moduls voranden (OS)");
-
 					// In-Auswahl-Tag setzen (OS)
 					$(this).find("span.imAuswahl").text("nein");					
 					
@@ -1037,4 +1030,14 @@ var change_module_style_to_auswahl = function(handle){
 	$(handle).find("span.noten").css("display","block");
 	
 	return 0;
+}
+
+var module_div_present_in_parent = function(parent_handle){
+	// recht übler Hack (OS)
+	var result = ($(parent_handle).text() != "")
+	
+	if (result) alert("module_div_present_in_parent: true");
+	else alert("module_div_present_in_parent: false");
+	
+	return result;
 }
