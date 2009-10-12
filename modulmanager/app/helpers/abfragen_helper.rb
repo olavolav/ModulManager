@@ -31,6 +31,7 @@ module AbfragenHelper
               c = m.credits / m.parts
               xml.credits c
               xml.mode(modus)
+              xml.parent(m.id)
             end
           end
 
