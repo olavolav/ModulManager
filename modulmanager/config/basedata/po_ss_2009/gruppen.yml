@@ -11,59 +11,75 @@
   # Pflichtmodule
   # ==============================
   - name: Pflichtmodule
-    description: Die Modulmenge aller Pflichtmodule
-    sub-groups: Grundkurs, Praktika, Mathematik, Schlüsselkompetenzen, Abschlussarbeit
+    beschreibung: Die Modulmenge aller Pflichtmodule
+    untergruppen: Grundkurs, Praktika, Mathematik, Schlüsselkompetenzen, Abschlussarbeit
     modus: p
 
   - name: Grundkurs
-    description: Grundkurs Experimentelle und Theroretische Physik
-    modules: B.Phy.101, B.Phy.102, B.Phy.103, B.Phy.104, B.Phy.201, B.Phy.202, B.Phy.203
+    beschreibung: Grundkurs Experimentelle und Theroretische Physik
+    module: B.Phy.101, B.Phy.102, B.Phy.103, B.Phy.104, B.Phy.201, B.Phy.202, B.Phy.203
+    anzahl: 7
+    credits: 54
 
   - name: Praktika
-    description: Notwendige Praktika
-    modules: B.Phy.410, B.Phy.402
+    beschreibung: Notwendige Praktika
+    module: B.Phy.410, B.Phy.402
+    anzahl: 2
+    credits: 15
 
   - name: Mathematik
-    description:
-    modules: B.Phy.303, B.Phy.304, B.Mat.011, B.Mat.012
+    beschreibung:
+    module: B.Phy.303, B.Phy.304, B.Mat.011, B.Mat.012
+    anzahl: 4
+    credits: 33
 
   - name: Abschlussarbeit
-    description:
-    modules: Bachelor
+    beschreibung:
+    module: Bachelor
+    anzahl: 1
+    credits: 12
 
   # ===========================
   # Wahlpflichtmodule
   # ===========================
 
   - name: Wahlpflichtmodule
-    description: Die Modulmenge aller Wahlpflichtmodule
-    sub-groups: Spezialisierungs-Praktikum, Einführungen, Spezielle Themen, Profilierungsbereich
+    beschreibung: Die Modulmenge aller Wahlpflichtmodule
+    untergruppen: Spezialisierungs-Praktikum, Einführungen, Spezielle Themen, Profilierungsbereich
     modus: wp
 
   - name: Spezialisierungs-Praktikum
-    description:
-    modules: B.Phy.403, B.Phy.404, B.Phy.405, B.Phy.406, B.Phy.407, B.Phy.408
+    beschreibung:
+    module: B.Phy.403, B.Phy.404, B.Phy.405, B.Phy.406, B.Phy.407, B.Phy.408
+    anzahl: 1
+    credits: 6
 
   - name: Einführungen
-    description:
-    modules: B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.511
+    beschreibung:
+    module: B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.511
+    anzahl: 2
+    credits: 12
 
   - name: Spezielle Themen
-    description:
-    modules: B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.554, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.564, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.584, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.594
+    beschreibung:
+    module: B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.554, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.564, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.584, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.594
+    credits: 12
 
   - name: Profilierungsbereich
-    description:
-    modules: B.Phy.606, B.Bio.118, B.Bio.112, B.Bwl.02, B.OPH.07, B.Bwl.04, B.Win.01, B.Win.04, B.Win.23, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom13, custom14, custom15, custom16, custom17, custom18
+    beschreibung:
+    module: B.Phy.606, B.Bio.118, B.Bio.112, B.Bwl.02, B.OPH.07, B.Bwl.04, B.Win.01, B.Win.04, B.Win.23, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom13, custom14, custom15, custom16, custom17, custom18
+    credits: 18
 
   # ==========================
   # Sonstiges
   # ==========================
 
   - name: Schlüsselkompetenzen
-    description:
-    modules: B.Phy.602, B.Phy.604, B.Phy.605
+    beschreibung:
+    module: B.Phy.602, B.Phy.604, B.Phy.605
+    anzahl: 3
+    credits: 18
 
   - name: Bachelor
-    description:
-    sub-groups: Pflichtmodule, Wahlpflichtmodule
+    beschreibung:
+    untergruppen: Pflichtmodule, Wahlpflichtmodule

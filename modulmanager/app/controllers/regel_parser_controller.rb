@@ -21,7 +21,6 @@ class RegelParserController < ApplicationController
         version = initialize_po "config/basedata/#{entry}"
       end
 
-      create_connections version
       @modules = Studmodule.all
       @groups = Category.all
       @foci = Focus.all
@@ -82,19 +81,37 @@ class RegelParserController < ApplicationController
   def read_focus_file filename, version
     file = File.open(filename)
     y = YAML::load(file)
+
     y.each do |f|
+
       focus = Focus.create :name => f["name"],
         :description => f["beschreibung"],
         :version => version
-      puts f["kategorien"]
+      
+      kategorien = Array.new
+
       f["kategorien"].each do |k|
         group = Group.create :name => k["name"],
           :credits => k["credits"],
           :count => k["anzahl"],
           :modules => Studmodule::get_array_from_module_string(k["module"])
         focus.groups << group
+
+        kategorie = {
+          "name" => k["name"],
+          "credits" => k["credits"],
+          "modules" => k["anzahl"],
+          "shorts" => k["module"]
+        }
+
+        kategorien.push kategorie
+
       end
+      
+      schwerpunkt = create_min_focus_rule(focus["name"], kategorien, version)
+
     end
+
   end
 
   def read_module_file filename, version
@@ -124,37 +141,33 @@ class RegelParserController < ApplicationController
     parent_groups = Array.new
     module_groups = Array.new
     y.each do |element|
-      if element["sub-groups"] == nil
+      if element["untergruppen"] == nil
         module_groups.push element
-      elsif element["modules"] == nil
+      elsif element["module"] == nil
         parent_groups.push element
       end
     end
     module_groups.each do |mg|
       Category.create :name => mg["name"],
-        :description => mg["description"],
+        :description => mg["beschreibung"],
         :version => version,
-        :modules => Studmodule::get_array_from_module_string(mg["modules"]),
+        :modules => Studmodule::get_array_from_module_string(mg["module"]),
         :modus => mg["modus"]
+      create_min_standard_connection(mg["name"], mg["credits"], mg["anzahl"], version)
     end
     parent_groups.each do |pg|
       Category.create :name => pg["name"],
-        :description => pg["description"],
+        :description => pg["beschreibung"],
         :version => version,
-        :sub_categories => Category::get_array_from_category_string(pg["sub-groups"]),
+        :sub_categories => Category::get_array_from_category_string(pg["untergruppen"]),
         :modus => pg["modus"]
-    end
-  end
-
-  def build_focus name, description, categories, version = nil
-    f = Focus.new :name => name,
-      :description => description,
-      :version => version
-    categories.each do |c|
-      f.groups << Group.create(:name => c["name"],
-        :credits => c["credits"],
-        :count => c["anzahl"],
-        :modules => Studmodule::get_array_from_module_string(c["module"]))
+      Connection::create_and_connection(
+        pg["name"],
+        nil,
+        Connection::get_connection_array_from_category_string(pg["untergruppen"]),
+        0,
+        version
+      )
     end
   end
 
@@ -178,53 +191,6 @@ class RegelParserController < ApplicationController
     child_rules.push(Rule::create_min_module_rule_for_standard(modules, name)) unless modules == nil
     r = Connection::create_and_connection(name, child_rules, nil, 0, version)
     return r
-  end
-
-  def create_connections version
-
-    grundkurs = create_min_standard_connection("Grundkurs", 54, 7)
-    praktika = create_min_standard_connection("Praktika", 15, 2)
-    mathematik = create_min_standard_connection("Mathematik", 33, 4)
-    spezpraktikum = create_min_standard_connection("Spezialisierungs-Praktikum", 6, 1)
-    einfuehrungen = create_min_standard_connection("Einführungen", 12, 2)
-    spezthemen = create_min_standard_connection("Spezielle Themen", 12)
-    profilierung = create_min_standard_connection("Profilierungsbereich", 18)
-    abschluss = create_min_standard_connection("Abschlussarbeit", 12, 1)
-
-    pflichtmodule = Connection::create_and_connection "Pflichtmodule", nil, [grundkurs, praktika, mathematik, abschluss]
-    wahlpflicht = Connection::create_and_connection "Wahlpflichtbereich", nil, [spezpraktikum, einfuehrungen, spezthemen, profilierung]
-    
-    bachelor = Connection::create_and_connection "Bachelor", nil, [pflichtmodule, wahlpflicht], 0, version
-
-    pflicht = {"name" => "Pflicht", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.503, B.Phy.403"}
-    themen = {"name" => "Spezielle Themen", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574"}
-    profil = {"name" => "Profilierungsbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Bwl.02, B.OPH.07, B.Bwl.04"}
-    schwerpunkt = create_min_focus_rule("Nanostrukturphysik", [pflicht, themen, profil], version)
-
-    pflicht = {"name" => "Pflicht", "credits" => 18, "modules" => 3, "shorts" => "B.Phy.510, B.Phy.511, B.Phy.404"}
-    profil = {"name" => "Profilierungsbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Win.01, B.Win.04, B.Win.23"}
-    schwerpunkt = create_min_focus_rule("Physikinformatik", [pflicht, profil], version)
-
-    pflicht = {"name" => "Pflicht", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.501, B.Phy.405"}
-    themen = {"name" => "Spezielle Themen", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.554"}
-    profil = {"name" => "Profilierungsbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Phy.502, B.Phy.504"}
-    schwerpunkt = create_min_focus_rule("Astro- und Geophysik", [pflicht, themen, profil], version)
-
-    pflicht = {"name" => "Pflicht", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.502, B.Phy.406"}
-    themen = {"name" => "Spezielle Themen", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.564"}
-    profil = {"name" => "Profilierungsbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Phy.501, B.Phy.503"}
-    schwerpunkt = create_min_focus_rule("Biophysik und Physik komplexer Systeme", [pflicht, themen, profil], version)
-
-    pflicht = {"name" => "Pflicht", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.503, B.Phy.407"}
-    themen = {"name" => "Spezielle Themen", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574"}
-    profil = {"name" => "Profilierungbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Phy.502, B.Phy.504"}
-    schwerpunkt = create_min_focus_rule("Festkörper- und Materialphysik", [pflicht, themen, profil], version)
-
-    pflicht = {"name" => "Pflicht", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.504, B.Phy.408"}
-    themen = {"name" => "Spezielle Themen", "credits" => 12, "modules" => 2, "shorts" => "B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.584"}
-    profil = {"name" => "Profilierungsbereich", "credits" => 6, "modules" => 1, "shorts" => "B.Phy.501, B.Phy.503"}
-    schwerpunkt = create_min_focus_rule("Kern- und Teilchenphysik", [pflicht, themen, profil], version)
-
   end
 
 end
