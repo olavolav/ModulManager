@@ -19,19 +19,21 @@ module AbfragenHelper
           xml.short(m.short)
           xml.credits(m.credits)
           xml.mode(modus)
-          xml.parts(m.parts)
+          m.parts > 1 ? xml.parts(m.parts) : xml.parts(0)
+#          xml.parts(m.parts) if m.parts > 1
         end
 
         if partial
           m.parts.times do |j|
             i = j + 1
-            xml.module(:id => "#{m.id}_#{i}", :class => "non-custom", :partial => "true") do
+            xml.module(:id => "#{m.id}_#{i}", :class => "non-custom", :partial => "true", :parent => m.id) do
               xml.name "#{m.name} (Teil #{i})"
               xml.short "#{m.short}_#{i}"
               c = m.credits / m.parts
               xml.credits c
               xml.mode(modus)
-              xml.parent(m.id)
+              xml.parts(0)
+#              xml.parent(m.id)
             end
           end
 
