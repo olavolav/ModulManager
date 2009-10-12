@@ -181,7 +181,13 @@ class RegelParserController < ApplicationController
       ]
       sub_groups_array.push sg
     end
-    return Connection::create_and_connection name, nil, sub_groups_array, 1, version
+    return Connection::create_and_connection(
+      name,
+      nil,
+      sub_groups_array,
+      1,
+      version
+    )
     
   end
 

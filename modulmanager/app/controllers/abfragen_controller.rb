@@ -28,6 +28,16 @@ class AbfragenController < ApplicationController
     end
   end
 
+  def get_module_info
+
+    @module = Studmodule.find(params[:module_id])
+
+    respond_to do |format|
+      format.html {render :file => "abfragen/module_info", :layout => false}
+    end
+
+  end
+
   def add_module_to_selection
     selection = current_selection
     unless semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")

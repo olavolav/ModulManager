@@ -55,8 +55,23 @@ module AbfragenHelper
     credits_needed = r.credits_needed
     credits_earned = r.credits_earned current_selection.modules
     id = r.id
-    info_text = ""
-    element = "<div><table><tr><td class='ueberblick_name'>#{name}</td><td class='ueberblick_image'><div class='ueberblick_info_box' id='box##{id}'><a href='/abfragen/info/#{id}?height=300&width=600' class='thickbox'>#{image_tag image}</a>#{info_text}</div></td><td class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</td></tr></table></div>"
+    element = <<EOF 
+  <div>
+    <table>
+      <tr>
+        <td class='ueberblick_name'>#{name}</td>
+        <td class='ueberblick_image'>
+          <div class='ueberblick_info_box' id='box##{id}'>
+            <a href='/abfragen/info/#{id}?height=300&width=600' class='thickbox'>
+              #{image_tag image}
+            </a>
+          </div>
+        </td>
+        <td class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</td>
+      </tr>
+    </table>
+  </div>
+EOF
 
     if r.child_connections != []
 
@@ -74,39 +89,39 @@ module AbfragenHelper
   end
 
 
-  def build_rules_recursive r, xml
-    if r.child_rules != []
-      r.child_rules.each do |s|
-        xml.result(:id => "result#{s.id}") do
-          xml.tag! "id", s.id
-          fullfilled = s.evaluate current_selection.modules
-          xml.fullfilled fullfilled
-          unless fullfilled == 1
-            text = ""
-            s.relation == "min" ? text += "Es müssen mehr als " : text += "Es dürfen nicht mehr als "
-            text += "#{s.count} "
-            text += "Credits im Bereich \"#{s.category.name}\" haben (#{s.act_credits} von #{s.count})." if s.class == CreditRule
-            text += "Module im Bereich \"#{s.category.name}\" haben (#{s.act_modules} von #{s.count})." if s.class == ModuleRule
-            xml.text text
-          else
-            xml.text "Es sind alle Vorraussetzungen für diesen Bereich erfüllt."
-          end
-          xml.category s.category.name
-        end
-      end
-    elsif r.child_connections != []
-      r.child_connections.each do |s|
-        c_needed = s.credits_needed
-        xml.category(:id => "category#{s.id}",
-          :credits_needed => c_needed,
-          :name => s.name,
-          :fullfilled => fullfilled = s.evaluate(current_selection.modules),
-          :text => "In diesem Bereich werden #{c_needed} Credits und #{s.modules_needed} Module benötigt."
-        ) do
-          build_rules_recursive(s, xml)
-        end
-      end
-    end
-  end
+#  def build_rules_recursive r, xml
+#    if r.child_rules != []
+#      r.child_rules.each do |s|
+#        xml.result(:id => "result#{s.id}") do
+#          xml.tag! "id", s.id
+#          fullfilled = s.evaluate current_selection.modules
+#          xml.fullfilled fullfilled
+#          unless fullfilled == 1
+#            text = ""
+#            s.relation == "min" ? text += "Es müssen mehr als " : text += "Es dürfen nicht mehr als "
+#            text += "#{s.count} "
+#            text += "Credits im Bereich \"#{s.category.name}\" haben (#{s.act_credits} von #{s.count})." if s.class == CreditRule
+#            text += "Module im Bereich \"#{s.category.name}\" haben (#{s.act_modules} von #{s.count})." if s.class == ModuleRule
+#            xml.text text
+#          else
+#            xml.text "Es sind alle Vorraussetzungen für diesen Bereich erfüllt."
+#          end
+#          xml.category s.category.name
+#        end
+#      end
+#    elsif r.child_connections != []
+#      r.child_connections.each do |s|
+#        c_needed = s.credits_needed
+#        xml.category(:id => "category#{s.id}",
+#          :credits_needed => c_needed,
+#          :name => s.name,
+#          :fullfilled => fullfilled = s.evaluate(current_selection.modules),
+#          :text => "In diesem Bereich werden #{c_needed} Credits und #{s.modules_needed} Module benötigt."
+#        ) do
+#          build_rules_recursive(s, xml)
+#        end
+#      end
+#    end
+#  end
 
 end
