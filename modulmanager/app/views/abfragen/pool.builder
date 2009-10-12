@@ -11,12 +11,38 @@ xml.root do
       s.groups.each do |g|
         xml.category(:name => g.name, :category_id => "#{g.name.gsub(" ", "_").downcase}#{s.id}") do
           g.modules.each do |m|
-            xml.module(:id => m.id, :class => "non-custom") do
-              xml.tag! "id", m.id
-              xml.name m.name
-              xml.short m.short
-              xml.credits m.credits
+
+            m.parts > 1 ? partial = true : partial = false
+
+            xml.module(:id => m.id, :class => "non-custom", :partial => partial) do
+              xml.name(m.name)
+              xml.short(m.short)
+              xml.credits(m.credits)
+#              xml.mode(modus)
+              m.parts > 1 ? xml.parts(m.parts) : xml.parts(0)
             end
+
+            if partial
+              m.parts.times do |j|
+                i = j + 1
+                xml.module(:id => "#{m.id}_#{i}", :class => "non-custom", :partial => "true", :parent => m.id) do
+                  xml.name "#{m.name} (Teil #{i})"
+                  xml.short "#{m.short}_#{i}"
+                  c = m.credits / m.parts
+                  xml.credits c
+#                  xml.mode(modus)
+                  xml.parts(0)
+                end
+              end
+
+            end
+
+#            xml.module(:id => m.id, :class => "non-custom") do
+#              xml.tag! "id", m.id
+#              xml.name m.name
+#              xml.short m.short
+#              xml.credits m.credits
+#            end
           end
         end
       end

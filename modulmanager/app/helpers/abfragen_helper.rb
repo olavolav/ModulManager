@@ -20,7 +20,6 @@ module AbfragenHelper
           xml.credits(m.credits)
           xml.mode(modus)
           m.parts > 1 ? xml.parts(m.parts) : xml.parts(0)
-#          xml.parts(m.parts) if m.parts > 1
         end
 
         if partial
@@ -33,7 +32,6 @@ module AbfragenHelper
               xml.credits c
               xml.mode(modus)
               xml.parts(0)
-#              xml.parent(m.id)
             end
           end
 
