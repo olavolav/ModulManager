@@ -1,14 +1,28 @@
 module AbfragenHelper
 
   def build_xml_bachelor_recursive(c, xml, modus)
-    modus = c.modus unless c.modus == nil
-    if c.sub_categories == [] && c.modules != []
-      c.modules.each { |m|
-        classification = "non-custom"
-        18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
-        m.parts > 1 ? partial = true : partial = false
-        if partial
 
+    modus = c.modus unless c.modus == nil
+
+    if c.sub_categories == [] && c.modules != []
+
+      c.modules.each { |m|
+
+        classification = "non-custom"
+
+        18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
+
+        m.parts > 1 ? partial = true : partial = false
+
+        xml.module(:id => m.id, :class => classification, :partial => partial) do
+          xml.name(m.name)
+          xml.short(m.short)
+          xml.credits(m.credits)
+          xml.mode(modus)
+          xml.parts(m.parts)
+        end
+
+        if partial
           m.parts.times do |j|
             i = j + 1
             xml.module(:id => "#{m.id}_#{i}", :class => "non-custom", :partial => "true") do
@@ -20,13 +34,6 @@ module AbfragenHelper
             end
           end
 
-        else
-          xml.module(:id => m.id, :class => classification, :partial => partial) do
-            xml.name(m.name)
-            xml.short(m.short)
-            xml.credits(m.credits)
-            xml.mode(modus)
-          end
         end
         
       }
