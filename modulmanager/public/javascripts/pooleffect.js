@@ -520,30 +520,39 @@ var toggle_category = function(category_id){
 			$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
 				var this_class = $(this).attr("class");
 				// Prüfen, ob sich darunter Kategorien oder Module befinden
-				if(((this_class=="pool_category")&&(!search_is_active()))||(this_class=="search_category")) {
+				// if(((this_class=="pool_category")&&(!search_is_active()))||(this_class=="search_category")) {
+				if((this_class=="pool_category")||(this_class=="search_category")) {
 					// alert("Darunter befindet sich eine Kategorie.");
-					$(this).css("display","block");
-					count++;
-					// Schleife um Icon auf Pfeil-Leer zu setzen, falls nötig
-					if(number_of_visible_items_in_category(this) == 0) {
-						flip_arrow_of_category("leer",this);
+					if (!search_is_active()) {
+						$(this).css("display","block");
+						count++;
+						// Schleife um Icon auf Pfeil-Leer zu setzen, falls nötig, sollte aber nicht (OS)
+						if (number_of_visible_items_in_category(this) == 0) flip_arrow_of_category("leer",this);
+					}
+					else if (this_class=="search_category") {
+						$(this).css("display","block");
+						count++;
 					}
 				}
 				else {
 					// alert("Darunter befindet sich ein Modul.");
 					$(this).children().each(function(){
-						if (search_is_active()) {
-							if (($(this).find(">span.inAuswahl").text()=="nein") && $(this).parent().is(".search_modul")) {
-								$(this).css("display","block");
-								count++;
+						if ($(this).find(">span.inAuswahl").text()=="nein") {
+							if (search_is_active()) {
+								if ($(this).parent().is(".search_modul")) {
+									$(this).css("display","block");
+									count++;
+								}
+							}
+							else {
+								// if ($(this).is(".pool_modul")) {
+									$(this).css("display","block");
+									count++;
+								// }
 							}
 						}
-						else {
-							if (($(this).find(">span.inAuswahl").text()=="nein") && $(this).is(".pool_modul")) {
-								$(this).css("display","block");
-								count++;
-							}
-						}
+						// das Folgende könnte auch unnötig sein, aber schaden kann's wohl nicht (OS)
+						else $(this).css("display","none");
 					});
 				}
 			});
@@ -574,7 +583,7 @@ var toggle_category = function(category_id){
 			break;
 			
 		default:
-			alert("Fehler: Ungueltiger Toggle-Wert in toggle_category().")
+			alert("Fehler: Ungueltiger Pfeil-Wert in toggle_category().")
 		
 	}
 }

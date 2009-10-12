@@ -278,10 +278,9 @@ jQuery(function ($) {
 					
 					$(parent).show();
 					if ($(parent).hasClass("pool_category")) {
-						// Pfeil richtig setzen (OS)
-						$(parent).find("a .pfeil_unten").css("display","inline");
-						$(parent).find("a .pfeil_rechts").css("display","none");
-						$(parent).find("a .pfeil_leer").css("display","none");
+						// Die Abfrage bedeutet dann auch, dass wir nicht schon bei #pool angekommen
+						// sind. (OS)
+						flip_arrow_of_category("unten",parent);
 
 						$(parent).attr("class","search_category");
 						// rekursiver Aufruf
