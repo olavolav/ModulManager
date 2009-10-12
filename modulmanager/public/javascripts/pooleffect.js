@@ -306,9 +306,6 @@ $(function(){
 				
 				
 				//checken Noten.Dann wandele String erstmal zum Float
-				
-				
-				
 				var check_komma = this_grade.search(/./);
 				if(check_komma != -1){
 					this_original = this_grade.replace(/\./,",");
@@ -479,7 +476,7 @@ var sem_loeschen = function(l){
 				this_modules.each(function(){
 					// alert("Modul mit ID "+$(this).attr("id")+" soll geloescht werden...");
 					$(this).css("display","none");
-					show_pool_by_in($(this).attr("id"));
+					modul_loeschen($(this).attr("id"));
 				});
 				
 				$(this_semester).remove();
@@ -545,10 +542,12 @@ var toggle_category = function(category_id){
 								}
 							}
 							else {
-								// if ($(this).is(".pool_modul")) {
+								// die folgende Abfrage ist nötig, damit custom_modul-Divs nicht
+								// angezeigt werden (OS)
+								if ($(this).is(".pool_modul")) {
 									$(this).css("display","block");
 									count++;
-								// }
+								}
 							}
 						}
 						// das Folgende könnte auch unnötig sein, aber schaden kann's wohl nicht (OS)
@@ -583,7 +582,7 @@ var toggle_category = function(category_id){
 			break;
 			
 		default:
-			alert("Fehler: Ungueltiger Pfeil-Wert in toggle_category().")
+			alert("Fehler: Ungueltiger Pfeil-Wert in toggle_category().");
 		
 	}
 }
@@ -592,7 +591,7 @@ var number_of_visible_items_in_category = function(handle){
 	// gefragt is handle zur Kategorie
 	var this_class = $(handle).attr("class");
 	if(!((this_class=="pool_category")||(this_class=="search_category")))
-		alert("Fehler: Handle in number_of_visible_items_in_category() ist keine Kategorie!")
+		alert("Fehler: Handle in number_of_visible_items_in_category() ist keine Kategorie!");
 		
 	var count = 0;
 	$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
@@ -616,7 +615,7 @@ var number_of_visible_items_in_category = function(handle){
 			});
 		}
 	});
-	// alert("number_of_visible_items_in_category: "+count)
+	// alert("number_of_visible_items_in_category: "+count);
 	return (count);
 }
 
@@ -624,7 +623,7 @@ var flip_arrow_of_category = function(type,handle){
 	// gefragt is handle zur Kategorie
 	var this_class = $(handle).attr("class");
 	if(!((this_class=="pool_category")||(this_class=="search_category")))
-		alert("Fehler: Handle in flip_arrow_of_category() ist keine Kategorie!")
+		alert("Fehler: Handle in flip_arrow_of_category() ist keine Kategorie!");
 	
 	switch(type){
 		case "rechts":
@@ -645,7 +644,7 @@ var flip_arrow_of_category = function(type,handle){
 			$(handle).find(">a .pfeil_leer").css("display","inline");
 			break;
 		default:
-			alert("Fehler in flip_arrow_of_category: Typ "+type+" unbekannt!")
+			alert("Fehler in flip_arrow_of_category: Typ "+type+" unbekannt!");
 	}
 }
 
@@ -653,7 +652,7 @@ var which_arrow_is_visible = function(handle){
 	// gefragt is handle zur Kategorie
 	var this_class = $(handle).attr("class");
 	if(!((this_class=="pool_category")||(this_class=="search_category")))
-		alert("Fehler: Handle in which_arrow_is_visible() ist keine Kategorie!")
+		alert("Fehler: Handle in which_arrow_is_visible() ist keine Kategorie!");
 
 	var result = "unbekannt";
 	if ($(handle).find(">a .pfeil_unten").css("display") == "inline") result = "unten";

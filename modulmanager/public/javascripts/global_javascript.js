@@ -50,7 +50,7 @@ function rekursiv_pool_by_out(handle, initial_tolerance){
 	// gefragt is handle zur Kategorie
 	var this_class = $(handle).attr("class");
 	if(!((this_class=="pool_category")||(this_class=="search_category")))
-		alert("Fehler: Handle in rekursiv_pool_by_out() ist keine Kategorie!")
+		alert("Fehler: Handle in rekursiv_pool_by_out() ist keine Kategorie!");
 	
 	// alert("rekursiv_pool_by_out() ist jetzt gerade bei der Kategorie mit der ID: "+$(handle).attr("id"));
 
@@ -222,6 +222,7 @@ var get_custom_modul = function(){
 	
 }//ende get_custom_modul
 
+// Wofür ist diese Funktion? Bitte noch kommentieren oder löschen (OS)
 var modul_search = function(){
 	
 	$("#suche").show();
@@ -245,9 +246,10 @@ var modul_search = function(){
 
 var modul_loeschen = function (mod_id){
 	// Die Schleife hier sollte eigentlich unnötig sein, wenn jedes Modul nur 1x in der
-	// Auswahl sein kann: (OS)
-	if ($("#semester-content div.semester").find("div#"+mod_id).length > 1)
-		alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
+	// Auswahl sein kann, ausser bei Drop in den Pool, dann 2x: (OS)
+	// Letzteres sollte man vielleicht nochmal anschauen irgendwann. (OS)
+	// if ($("#semester-content div.semester").find("div#"+mod_id).length > 1)
+	// 	alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
 	
 	$("#semester-content div.semester").find("div#"+mod_id).each(function(){
 
@@ -263,7 +265,7 @@ var modul_loeschen = function (mod_id){
 		$(this_modul).hide();
 		// suche nach mod_id_parent im Pool
 		
-		alert("Dieses Modul (bzw. dessen Parent) kommt im Pool "+($("#pool ."+this_id+"_parent").length)+" mal vor.");
+		// alert("Dieses Modul (bzw. dessen Parent) kommt im Pool "+($("#pool ."+this_id+"_parent").length)+" mal vor.");
 					
 		$("#pool ."+this_id+"_parent").each(function(){
 
@@ -307,7 +309,7 @@ var modul_loeschen = function (mod_id){
 			$(this).find("#"+mod_id+" span.inAuswahl").text("nein");
 			// alert("inAuswahl gesetzt auf (OS): "+$(this).find("#"+mod_id+" span.inAuswahl").text());
 			
-			if (search_is_active() && $(this).is(".search_modul"))
+			if (search_is_active() && $(this).is(".search_modul") && (which_arrow_is_visible($(this).parent())!="rechts"))
 				rekursiv_pool_by_in(the_father);
 			else if (which_arrow_is_visible(the_father) == "leer")
 				flip_arrow_of_category("rechts",the_father);
@@ -317,10 +319,10 @@ var modul_loeschen = function (mod_id){
 		// Das hier nimmt immer noch an, dass es maximal ein Parent gibt, bei dem das Modul nicht nur
 		// wieder auf sichtbar geschaltet werden musste. (OS)
 		if (modul_itself_has_not_been_moved) {
-			alert("Aha, das Modul in der Auswahl selbst wurde gar nicht verschoben, dann koennen wir es ja loeschen!");
+			// alert("Aha, das Modul in der Auswahl selbst wurde gar nicht verschoben, dann koennen wir es ja loeschen!");
 			$(this_modul).remove();
 		}
-		else alert("Aha, das Modul wurde verschoben, dann loeschen wir es besser nicht.");
+		// else alert("Aha, das Modul wurde verschoben, dann loeschen wir es besser nicht.");
 
 	}); // Ende der Schleife durch alle entspr. Module in der Auswahl
 
@@ -647,7 +649,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	
 	// alert("Modul class: "+this_draggable_class);
 	if ((this_draggable_class =="pool_modul ui-draggable")||(this_draggable_class=="pool_modul")) {
-		alert("Modul kommt aus dem Pool");
+		// alert("Modul kommt aus dem Pool");
 		change_module_style_to_auswahl(ui_draggable);
 		$(ui_draggable).find("span.inAuswahl").text("ja");
 		$(ui_draggable).attr("class","auswahl_modul");
@@ -657,7 +659,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 		// die entspr. Abfrage erübrigt sich also.
 		var this_category = $(ui_draggable).parent().parent();
 		if($(ui_draggable).parent().is(".search_modul")){
-			alert("drop_in_auswahl(): So, erstmal die Kategorie wo das Modul raus gezogen wurde...");
+			// alert("drop_in_auswahl(): So, erstmal die Kategorie wo das Modul raus gezogen wurde...");
 			// show_pool_by_out(this_category);
 			// test OS
 			// rekursiv_pool_by_out(this_category);
@@ -683,7 +685,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 				// hier ein parent() weniger als oben, weil wir ja schon surch die parent-Divs laufen (OS)
 				var this_category = $(this).parent();
 				if($(this).is(".search_modul")){
-					alert("drop_in_auswahl(): Eine weitere Kopie muss raus...");
+					// alert("drop_in_auswahl(): Eine weitere Kopie muss raus...");
 					rekursiv_pool_by_out(this_category,0);
 				}
 				else {
@@ -697,14 +699,14 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	}//ende if pool_modul class
 	
 	else if(this_draggable_class=="auswahl_modul_clone ui-draggable" || this_draggable_class=="auswahl_modul_clone"  ){
-		alert("Modul kommt aus der Auswahl.");
+		// alert("Modul kommt aus der Auswahl.");
 		//alert("hallo "+this_draggable_class);
 		ajax_to_server_by_remove(modul_id);
 		
 	}//ende check mit "auswahl_modul_clone"
 	
 	else {
-		alert("Modul kommt woher? Hmm, normales auswahl_modul oder so. (OS)");
+		// alert("Modul kommt woher? Hmm, normales auswahl_modul oder so. (OS)");
 		//alert("Hallo altes auswahl_modul");
 		ajax_to_server_by_remove(modul_id);
 		
@@ -721,8 +723,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	//$("#pool").append("<script type='text/javascript'>$(document).ready(function () {		$('table#suche tbody tr').live('click',function(){  var this_class = $(this).attr('class'); $('#pool .'+this_class+'_parent').each(function(){  if($(this).find('.pool_modul')){alert('hallo pool_modul');}else{alert('kein pool_modul');}       });  }); })</script>");
 	
 	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken 
-			
-		ajax_to_server_by_add(modul_id,semester); 
+	ajax_to_server_by_add(modul_id,semester); 
 			
 	// modul in Auswahl anzeigen
 			
@@ -936,7 +937,7 @@ var poolrekursiv = function(XMLhandle){
 				
 			default:
 				// Hmm, warum kommt das hier noch so oft? Später mal nachschauen!
-				// alert("Fehler: Pool-XML-Abfrage enthaelt ungueltige Elemente!")
+				// alert("Fehler: Pool-XML-Abfrage enthaelt ungueltige Elemente!");
 				break;
 		}
 	});
