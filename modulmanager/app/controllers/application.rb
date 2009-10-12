@@ -9,24 +9,49 @@ class ApplicationController < ActionController::Base
 
     selection = current_selection
 
-    grade = 0
+    grade = Hash.new(0)
     credits = 0
 
-    selection.semesters.each do |s|
-      s.modules.each do |m|
+      selection.semesters.each do |s|
+        s.modules.each do |m|
         if m.grade != nil
-          grade += (m.moduledata.credits.to_f * m.grade.to_f)
+          grade["gesamt"] += (m.moduledata.credits.to_f * m.grade.to_f)
           credits += m.moduledata.credits.to_f
         end
       end
     end
 
-    grade = grade / credits if credits > 0
+    grade["gesamt"] = (((grade["gesamt"] * 100) / credits).round.to_f / 100) if credits > 0
 
     return grade
 
   end
 
+  def get_category_credits category
+    credits = 0
+    if category.sub_categories.length > 0
+      category.sub_categories.each do |s|
+        credits += get_category_credits(s)
+      end
+    else
+      category.modules.each do |m|
+        credits += m.credits
+      end
+    end
+    return credits
+  end
+
+  def get_category_modules category
+    modules = Array.new
+    if category.sub_categories.length > 0
+      category.sub_categories.each do |s|
+
+      end
+    else
+
+    end
+    return modules
+  end
 
   def current_selection
     session[:selection_id] ||= new_selection params[:version], params[:focus]

@@ -1,7 +1,7 @@
-<div>
-  <% if @grade == 0 %>
+<div class="grade">
+  <% if @grade["gesamt"] == 0 %>
     ?
   <% else %>
-    <%= @grade %>
+    <%= @grade["gesamt"] %>
   <% end %>
 </div>
