@@ -102,7 +102,7 @@ class AbfragenController < ApplicationController
     @grade = get_note
 
     respond_to do |format|
-      format.html
+      format.html { render :action => "note", :layout => false }
     end
 
   end

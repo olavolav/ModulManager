@@ -572,7 +572,7 @@ var ajax_to_server_by_examination_grade = function(){
     var grade_by_text = $.ajax({
 		
         type : 'GET',
-        url  : '/abfragen/get_examination_grade',
+        url  : '/abfragen/note',
         async: false,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
@@ -582,7 +582,7 @@ var ajax_to_server_by_examination_grade = function(){
 
         },
         error: function(a,b,c){
-            alert("problem with /abfragen/get_examination_grade");
+            alert("problem with /abfragen/note");
         }
 		
 
@@ -600,14 +600,14 @@ function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester
 	
     $.ajax({
         type:"POST",
-        url :"abfragen/add_custom_modul_to_selection",
+        url :"abfragen/add_custom_module_to_selection",
         dataType:"text",
         cache:false,
         async:false,
         data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester,
         contentType:'application/x-www-form-urlencoded',
         error : function(a,b,c){
-            alert ("error mit add_custom_modul_to_selection");
+            alert ("error mit add_custom_module_to_selection");
         }
     });
 	
