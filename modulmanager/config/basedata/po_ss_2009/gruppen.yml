@@ -1,11 +1,19 @@
 ---
 
+  ################################
+  # Die verschiedenen Modi sind:
+  # p = Pflichtmodule
+  # wp = Wahlpflichtmodule
+  # w = Wahlmodule
+  ################################
+
   # ==============================
   # Pflichtmodule
   # ==============================
   - name: Pflichtmodule
     description: Die Modulmenge aller Pflichtmodule
     sub-groups: Grundkurs, Praktika, Mathematik, Schlüsselkompetenzen, Abschlussarbeit
+    modus: p
 
   - name: Grundkurs
     description: Grundkurs Experimentelle und Theroretische Physik
@@ -30,6 +38,7 @@
   - name: Wahlpflichtmodule
     description: Die Modulmenge aller Wahlpflichtmodule
     sub-groups: Spezialisierungs-Praktikum, Einführungen, Spezielle Themen, Profilierungsbereich
+    modus: wp
 
   - name: Spezialisierungs-Praktikum
     description:

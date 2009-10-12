@@ -134,13 +134,15 @@ class RegelParserController < ApplicationController
       Category.create :name => mg["name"],
         :description => mg["description"],
         :version => version,
-        :modules => Studmodule::get_array_from_module_string(mg["modules"])
+        :modules => Studmodule::get_array_from_module_string(mg["modules"]),
+        :modus => mg["modus"]
     end
     parent_groups.each do |pg|
       Category.create :name => pg["name"],
         :description => pg["description"],
         :version => version,
-        :sub_categories => Category::get_array_from_category_string(pg["sub-groups"])
+        :sub_categories => Category::get_array_from_category_string(pg["sub-groups"]),
+        :modus => pg["modus"]
     end
   end
 

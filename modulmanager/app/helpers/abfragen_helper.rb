@@ -1,7 +1,8 @@
 module AbfragenHelper
 
-  def build_xml_bachelor_recursive(c, xml, pflicht)
-    pflicht = true if c.name == "Pflichtmodule" # eieiei :-) (OS)
+  def build_xml_bachelor_recursive(c, xml, modus)
+#    pflicht = true if c.name == "Pflichtmodule" # eieiei :-) (OS)
+    modus = c.modus unless c.modus == nil
     if c.sub_categories == [] && c.modules != []
       c.modules.each { |m|
         classification = "non-custom"
@@ -11,12 +12,13 @@ module AbfragenHelper
           xml.name(m.name)
           xml.short(m.short)
           xml.credits(m.credits)
-          if pflicht
-            xml.mode("p")
-          # die Unterscheiung hier könnte später natürlich komplexer sein (OS)
-          else
-            xml.mode("wp")
-          end
+          xml.mode(modus)
+#          if pflicht
+#            xml.mode("p")
+#          # die Unterscheiung hier könnte später natürlich komplexer sein (OS)
+#          else
+#            xml.mode("wp")
+#          end
           xml.parts(m.parts)
           if m.parts > 1
             m.parts.times do |j|
@@ -36,7 +38,7 @@ module AbfragenHelper
     elsif c.sub_categories != []
       c.sub_categories.each { |d|
         xml.category(:category_id => "category#{d.id}", :name => d.name) do
-          build_xml_bachelor_recursive d, xml, pflicht
+          build_xml_bachelor_recursive d, xml, modus
         end
       }
     end
