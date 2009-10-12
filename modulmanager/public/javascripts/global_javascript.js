@@ -86,14 +86,18 @@ function rekursiv_pool_by_out(handle, initial_tolerance){
 	
 }// ende out */
 
+// Das wird nur aufgerufen, wenn ein Modul in den Pool zurueck kommt (via modul_loeschen), dass
+// mit der momentanen Suche überein stimmt
 function rekursiv_pool_by_in(first_father){
 	
     $(first_father).show();
     flip_arrow_of_category("unten",first_father);
-    // $(first_father).removeClass("pool_category"); test (OS)
-    // $(first_father).addClass("search_category");
+
+	if ($(first_father).is(".pool_category"))
+		$(first_father).attr("class","search_category");
+		
     var this_parent = $(first_father).parent().get(0);
-    if($(this_parent).hasClass("pool_category")){
+    if($(this_parent).is(".pool_category")){
         rekursiv_pool_by_in(this_parent);
     }
     return;
@@ -247,7 +251,7 @@ var modul_search = function(){
 /// neuerdings auch beim Ziehen zum Pool (OS)
 
 var modul_loeschen = function (mod_id){
-    // Die Schleife hier sollte eigentlich unn�tig sein, wenn jedes Modul nur 1x in der
+    // Die Schleife hier sollte eigentlich unnoetig sein, wenn jedes Modul nur 1x in der
     // Auswahl sein kann, ausser bei Drop in den Pool, dann 2x: (OS)
     // Letzteres sollte man vielleicht nochmal anschauen irgendwann. (OS)
     // if ($("#semester-content div.semester").find("div#"+mod_id).length > 1)
@@ -256,7 +260,7 @@ var modul_loeschen = function (mod_id){
     $("#semester-content div.semester").find("div#"+mod_id).each(function(){
 
         // alert("hallo modul_loeschen (Schleife, 1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
-        // �ndere CSS style
+        // aendere CSS style
         change_module_style_to_pool(this);
         $(this).attr("class","pool_modul");
 		
@@ -301,9 +305,10 @@ var modul_loeschen = function (mod_id){
                 if (arrow_type == "leer")
                     flip_arrow_of_category("rechts",$(this).parent());
                 else if (arrow_type == "unten") {
-                    // $(this).find(".pool_modul,.pool_modul.ui-draggable,.search_modul.ui-draggable").css("display","block");
-                    if ((!search_is_active()) || $(this).is(".search_modul"))
+                    if ((!search_is_active()) || $(this).is(".search_modul")) {
                         $(this).find("#"+mod_id).css("display","block");
+						// alert("test: 1");
+					}
                 }
             }
 
@@ -311,8 +316,12 @@ var modul_loeschen = function (mod_id){
             $(this).find("#"+mod_id+" span.inAuswahl").text("nein");
             // alert("inAuswahl gesetzt auf (OS): "+$(this).find("#"+mod_id+" span.inAuswahl").text());
 			
-            if (search_is_active() && $(this).is(".search_modul") && (which_arrow_is_visible($(this).parent())!="rechts"))
+            if (search_is_active() && $(this).is(".search_modul") &&
+				((which_arrow_is_visible($(this).parent())!="rechts")||($(the_father).is(".pool_category")))) {
+				$(this).find("#"+mod_id).css("display","block");
+				// alert("test: 2");
                 rekursiv_pool_by_in(the_father);
+			}
             else if (which_arrow_is_visible(the_father) == "leer")
                 flip_arrow_of_category("rechts",the_father);
 						
@@ -1005,7 +1014,7 @@ var change_module_style_to_auswahl = function(handle){
 }
 
 var module_div_present_in_parent = function(parent_handle){
-    // recht �bler Hack (OS)
+    // recht uebler Hack (OS)
     var result = ($(parent_handle).text() != "")
 	
     // if (result) alert("module_div_present_in_parent: true");
