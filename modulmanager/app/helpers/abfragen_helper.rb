@@ -6,27 +6,29 @@ module AbfragenHelper
       c.modules.each { |m|
         classification = "non-custom"
         18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
-        xml.module(:id => m.id, :class => classification) do
-          # xml.tag!("id", m.id)
-          xml.name(m.name)
-          xml.short(m.short)
-          xml.credits(m.credits)
-          xml.mode(modus)
-          xml.parts(m.parts)
-          if m.parts > 1
-            m.parts.times do |j|
-              i = j + 1
-              xml.module(:id => "#{m.id}.#{i}", :class => "non-custom", :partial => "true") do
-                xml.tag! "id", "#{m.id}_#{i}"
-                xml.name "#{m.name} (Teil #{i})"
-                xml.short "#{m.short}_#{i}"
-#                i == 1 ? xml.credits(m.credits) : xml.credits(0)
-                c = m.credits / m.parts
-                xml.credits c
-              end
+        m.parts > 1 ? partial = true : partial = false
+        if partial
+
+          m.parts.times do |j|
+            i = j + 1
+            xml.module(:id => "#{m.id}_#{i}", :class => "non-custom", :partial => "true") do
+              xml.name "#{m.name} (Teil #{i})"
+              xml.short "#{m.short}_#{i}"
+              c = m.credits / m.parts
+              xml.credits c
+              xml.mode(modus)
             end
           end
+
+        else
+          xml.module(:id => m.id, :class => classification, :partial => partial) do
+            xml.name(m.name)
+            xml.short(m.short)
+            xml.credits(m.credits)
+            xml.mode(modus)
+          end
         end
+        
       }
     elsif c.sub_categories != []
       c.sub_categories.each { |d|
@@ -87,41 +89,5 @@ EOF
     end
 
   end
-
-
-#  def build_rules_recursive r, xml
-#    if r.child_rules != []
-#      r.child_rules.each do |s|
-#        xml.result(:id => "result#{s.id}") do
-#          xml.tag! "id", s.id
-#          fullfilled = s.evaluate current_selection.modules
-#          xml.fullfilled fullfilled
-#          unless fullfilled == 1
-#            text = ""
-#            s.relation == "min" ? text += "Es müssen mehr als " : text += "Es dürfen nicht mehr als "
-#            text += "#{s.count} "
-#            text += "Credits im Bereich \"#{s.category.name}\" haben (#{s.act_credits} von #{s.count})." if s.class == CreditRule
-#            text += "Module im Bereich \"#{s.category.name}\" haben (#{s.act_modules} von #{s.count})." if s.class == ModuleRule
-#            xml.text text
-#          else
-#            xml.text "Es sind alle Vorraussetzungen für diesen Bereich erfüllt."
-#          end
-#          xml.category s.category.name
-#        end
-#      end
-#    elsif r.child_connections != []
-#      r.child_connections.each do |s|
-#        c_needed = s.credits_needed
-#        xml.category(:id => "category#{s.id}",
-#          :credits_needed => c_needed,
-#          :name => s.name,
-#          :fullfilled => fullfilled = s.evaluate(current_selection.modules),
-#          :text => "In diesem Bereich werden #{c_needed} Credits und #{s.modules_needed} Module benötigt."
-#        ) do
-#          build_rules_recursive(s, xml)
-#        end
-#      end
-#    end
-#  end
 
 end
