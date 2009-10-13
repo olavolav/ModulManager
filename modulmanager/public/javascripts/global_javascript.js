@@ -397,7 +397,7 @@ var session_auswahl_rekursiv = function(root){
 			
             var mod_id = $(this).attr("id");
 			var mod_grade = $(this).attr("grade");
-			alert(mod_grade);
+			//alert(mod_grade);
             //suche im Pool
 			
             var modul_im_pool = $("#pool").find("div#"+mod_id);
