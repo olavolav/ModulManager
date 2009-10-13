@@ -11,7 +11,7 @@ xml.auswahl(:id => @selection.id) do
           if m.class == CustomModule
             custom_count += 1
             xml.module(
-              :id => "",
+              :id => m.moduledata.id,
               :short => "custom#{custom_count}",
               :name => m.name,
               :credits => m.credits,
