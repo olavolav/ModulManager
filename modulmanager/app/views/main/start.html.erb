@@ -5,6 +5,7 @@
 			
 			<div id="schwerpunkt">
 				<ul>
+                                  <li class="schwerpunkt_oben"><%= link_to_remote "Kein Schwerpunkt", :update => "schwerpunkt", :url => {:action => "focus_selection", :id => nil } %></li>
                                   <% @schwerpunkte.each do |s| %>
                                     <li class="schwerpunkt_oben"><%= link_to_remote s.name, :update => "schwerpunkt", :url => { :action => "focus_selection", :id => s.id }  %></li>
                                   <% end %>
