@@ -145,10 +145,39 @@ $(function(){
 			
 		 });
 		
+			// input exception_credit
+             /*$("#exception_credit").focus(function(){
+                     $(this).value()
+
+             })*/
+             // info_box
+
+             $("#info_box").dialog({
+                     modal:true,
+                    height:300,
+                    width:500,
+                    autoOpen:false,
+                    hide:'slide',
+                    show:'slide',
+                    buttons:{
+                            "OK":function(){
+
+                                    $("#info_box").dialog('close');
+                            }
+
+                    },
+                    beforeclose:function(){
+                            if($("#box_info_exception").css("display")=="block"){
+                                            //alert("hallo auswahl");
+                            }
+                    }
+             });
+
+		
 		
 		// pool();
 		
-		$(".auswahl_modul,.auswahl_modul_clone,.auswahl_modul.ui-draggable").draggable({
+		$(".auswahl_modul,.auswahl_modul_clone,.auswahl_modul.ui-draggable,.partial_modul,.auswahl_modul.partial_modul.ui-draggable").draggable({
 			
 			revert : "invalid",
 			helper : "clone",
@@ -239,16 +268,23 @@ $(function(){
 				 var modul_id = $(ui.draggable).attr("id");
 				 var modul_class = $(ui.draggable).attr("class");
 				 
-				
-				 
-				 
 				 var custom_text = $(ui.draggable).find("span.custom").text();
-				 
+				 var parts_text  = $(ui.draggable).find("span.modul_parts").html();
+				
 				 if(custom_text == "non-custom"){
-				 	
-					//  drop() ruft ajax_to_server() und auswahlanzeige() auf
-				 	drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
-				 }
+				 	//check nach Teil_modul
+					if(parts_text!="0"){
+						
+						partial_modul_drop_in_auswahl(this_semester,modul_id,semester,ui_draggable);
+					}
+					else{
+					//normales Modul	
+						alert("keine TeilModul");
+						drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+					}
+					
+				}
+				
 				 else{
 				 	
 				 	custom_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
@@ -295,7 +331,7 @@ $(function(){
 			if(e.keyCode == 13){
 				
 				$("#note_berechnen").text("Note berechnen");
-				$("#note_berechnen").bind('click',ajax_to_server_by_examination_grade);
+				$("#note_berechnen").bind('click',ajax_to_server_by_get_grade);
 			}
 		});
 		$("input.noten_input").change(function(){
@@ -338,7 +374,7 @@ $(function(){
 						ajax_to_server_by_grade(modul_id,new_float);
 						// hier kann man Note klicken
 						$("#note_berechnen").text("Note berechnen");
-						$("#note_berechnen").bind('click',ajax_to_server_by_examination_grade);
+						$("#note_berechnen").bind('click',ajax_to_server_by_get_grade);
 						
 					}
 					

@@ -133,7 +133,36 @@ var bindThickBoxEvents= function() {
         tb_init('a.thickbox, area.thickbox, input.thickbox');
     }
 
- 
+var get_modul_info_in_overview =  function(modul_id){
+	
+	$("#info_box").dialog('open');
+	var html = $.ajax({
+		
+		type : 'POST',
+		url  : "/abfragen/info/"+modul_id,
+		async: false,
+		contentType: 'application/x-www-form-urlencoded',
+		success : function(html){ 
+			
+			$("#box_info").empty();
+			$("#box_info").append(html);
+			$("#box_info_exception").hide();
+        	$("#box_info_pool").hide();
+			$("#box_info_overview").hide();
+			
+			
+			
+
+		},
+		error: function(a,b,c){
+			alert("problem with /abfragen/info");
+		}
+		
+
+		
+	}).responseText;
+	
+} 
 var ueberblick = function(){
 	
 	var html = $.ajax({
@@ -144,7 +173,9 @@ var ueberblick = function(){
 		contentType: 'application/x-www-form-urlencoded',
 		success : function(html){ 
 			
-			//bindThickBoxEvents();
+			$("#ueberblick #ueberblick_baum").empty();
+			$("#ueberblick #ueberblick_baum").html(html+"<script type='text/javascript'>bindThickBoxEvents();</script>");
+			ajax_to_server_by_get_grade();
 			
 
 		},
@@ -157,11 +188,7 @@ var ueberblick = function(){
 	}).responseText;
 	
 	
-	$("#ueberblick #ueberblick_baum").empty();
 	
-	
-	$("#ueberblick #ueberblick_baum").html(html+"<script type='text/javascript'>bindThickBoxEvents();</script>");
-	//$("#ueberblick").html(html);
 	
 	
 	

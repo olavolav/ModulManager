@@ -201,7 +201,13 @@ var hide_navi = function(){
     $("#navimoveup").hide();
 }
 
-
+var hide_partial_modul = function(){
+	
+	
+	$("#pool .partial_modul").hide();
+	
+	
+}
 var get_custom_modul = function(){
 	
     // die Funktion zeigt nur ein display_none Custom_modul im Pool an
@@ -258,7 +264,9 @@ var modul_loeschen = function (mod_id){
     // 	alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
 	
     $("#semester-content div.semester").find("div#"+mod_id).each(function(){
-
+		if($(this).hasClass("auswahl_modul partial_modul")){
+			alert("hallo partial_modul");
+		}
         // alert("hallo modul_loeschen (Schleife, 1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
         // aendere CSS style
         change_module_style_to_pool(this);
@@ -342,6 +350,28 @@ var modul_loeschen = function (mod_id){
 
 }//ende modul_loeschen
 
+//info_box
+
+var info_box_selection = function(modul_id){
+		 
+        $('#info_box').dialog('open');
+        $("#box_info_exception").show();
+        $("#box_info_pool").hide();
+        $("#box_info").empty();
+        ajax_to_server_by_get_module_info(modul_id);
+
+
+}
+
+var info_box = function(modul_id){
+        
+        $("#info_box").dialog('open');
+        $("#box_info_exception").hide();
+        $("#box_info_pool").show();
+        $("#box_info").empty();
+		ajax_to_server_by_get_module_info(modul_id);
+
+}
 
 
 
@@ -486,7 +516,29 @@ var session_auswahl = function (){
 
 //   AJAX zum Server---------------------------------------------------------------------	
 
+var ajax_to_server_by_get_module_info = function (modul_id){
+	 $.ajax({
 
+                type : 'POST',
+                url  : '/abfragen/get_module_info',
+                async: false,
+                dataType:'text',
+                contentType: 'application/x-www-form-urlencoded',
+				data :"module_id="+modul_id,
+                success : function(html){
+
+                        $("#info_box #box_info").append(html);
+                },
+                error: function(a,b,c){
+                        alert(b);
+						
+                }
+
+
+
+        });
+	
+}
 var ajax_to_server_by_add = function (modul_id,semester){
     //alert("mod_id="+modul_id+" und semester="+semester);
     //alert("modul_id="+modul_id+"semester="+semester);
@@ -575,18 +627,18 @@ var ajax_to_server_by_grade = function(modul_id,grade){
 //----------------------------
 
 
-var ajax_to_server_by_examination_grade = function(){
-    alert("hallo ajax_to_server_by_examination_grade ");
+var ajax_to_server_by_get_grade = function(){
+   
 	
-    var grade_by_text = $.ajax({
+    $.ajax({
 		
         type : 'GET',
         url  : '/abfragen/note',
         async: false,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
-			
-        //bindThickBoxEvents();
+			$("#die_note").empty();
+        	$("#die_note").append(html);
 			
 
         },
@@ -596,7 +648,7 @@ var ajax_to_server_by_examination_grade = function(){
 		
 
 		
-    }).responseText;
+    });
 	
 	
 	
@@ -654,6 +706,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
     });
 		 
     var this_draggable_class = $(ui_draggable).attr("class");
+	alert(this_draggable_class);
 	
     // check ob das reingezogenem Modul aus POOL kommt.
     // Wenn ja dann ver�ndern inhalt, und versteck das Modul im POOL.
@@ -711,20 +764,14 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 			
     }//ende if pool_modul class
 	
-    else if(this_draggable_class=="auswahl_modul_clone ui-draggable" || this_draggable_class=="auswahl_modul_clone"  ){
-        // alert("Modul kommt aus der Auswahl.");
-        //alert("hallo "+this_draggable_class);
-        ajax_to_server_by_remove(modul_id);
-		
-    }//ende check mit "auswahl_modul_clone"
+    else{ //if(this_draggable_class=="auswahl_modul_clone ui-draggable" || this_draggable_class=="auswahl_modul_clone" || this_draggable_class=="auswahl_modul partial_modul" ){
+        alert("Modul kommt aus der Auswahl.");
+        alert("hallo "+this_draggable_class);
+        
+		//ajax_to_server_by_remove(modul_id);
+    }
 	
-    else {
-        // alert("Modul kommt woher? Hmm, normales auswahl_modul oder so. (OS)");
-        //alert("Hallo altes auswahl_modul");
-        ajax_to_server_by_remove(modul_id);
-		
-		
-    }//ende if auswahl_modul class
+   
 	
     // append hier
     var this_subsemester = $(this_semester).find("div.subsemester");
@@ -738,7 +785,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
     // DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken
     ajax_to_server_by_add(modul_id,semester);
 			
-// modul in Auswahl anzeigen
+
 			
 //	auswahlAnzeige(modul_id,semester,modulinhalt);
 		 
@@ -762,6 +809,26 @@ var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dra
 	
 	
 	
+	
+}
+var partial_modul_drop_in_auswahl = function(this_semester,modul_id,semester,ui_draggable){
+	$(ui_draggable).hide();
+	$("#pool").find(".partial_modul").each(function(){
+		
+		var this_text = $(this).find("span.modul_parent_attr").text();
+		if(this_text == modul_id){
+			
+			var this_sub = $(this_semester).find("div.subsemester");
+			$(this).show();
+			change_module_style_to_auswahl(this);
+			$(this).attr("class","auswahl_modul partial_modul");
+			$(this_sub).append(this);
+			
+		}
+							
+	});
+	
+	 //ajax_to_server_by_add(modul_id,semester);
 	
 }
 
@@ -873,7 +940,9 @@ var poolrekursiv = function(XMLhandle){
                 var modul_mode = $(this).find("mode").text();
                 var credits = $(this).find("credits").text();
                 var modul_short = $(this).find("short").text();
-
+				var modul_parts = $(this).find("parts").text(); 
+				
+				 
                 var modul_id = $(this).attr("id");
                 var modul_class=$(this).attr("class");
 
@@ -903,9 +972,18 @@ var poolrekursiv = function(XMLhandle){
                 //span.custom sagt, dass ein modul normal oder ein dummy-modul ist
                 //span.custom_exist sagt, dass das dummy-modul bereits im pool ist
                 var pool_modul_class="pool_modul";
+				var modul_parent_attr="nein";
+				
+				if($(this).attr("parent") != undefined){
+					pool_modul_class="partial_modul";
+					modul_parent_attr=$(this).attr("parent");
+					
+				}
                 if(modul_class=="custom"){
-                    pool_modul_class="custom_modul"
+					//alert(modul_parent_tag);
+                    pool_modul_class="custom_modul";
                 }
+				
 
 
                 appendString += "<div class='" + modul_id + "_parent'><div class='nichtleer'></div><div class='"+
@@ -916,6 +994,8 @@ var poolrekursiv = function(XMLhandle){
                 "<span class='inAuswahl' style='display:none'>nein</span>" +
                 "<span class='custom' style='display:none'>"+modul_class+"</span>"+
                 "<span class='custom_exist' style='display:none'>nein</span>"+
+				"<span class='modul_parts' style='display:none'>"+modul_parts+"</span>"+
+				"<span class='modul_parent_attr' style='display:none'>"+modul_parent_attr+"</span>"+
                 "<table cellspacing=1 cellpadding=0 style='width: 100%; border:1px;'>" +
                 "<tbody>" +
                 "<tr>" +
@@ -928,7 +1008,7 @@ var poolrekursiv = function(XMLhandle){
                 // "</td>"+
 
                 "<td style=' width:22px; '>" +
-                "<span class='fragebild' style='display:block;padding:1px 2px 0px 7px;'>"+fragebild+"</span>"+
+                "<span class='fragebild' style='display:block;padding:1px 2px 0px 7px;' onclick=info_box("+modul_id+")>"+fragebild+"</span>"+
                 "</td>" +
 
                 "<td style=' width:25px'>" +
@@ -938,7 +1018,7 @@ var poolrekursiv = function(XMLhandle){
                 "</td>" +
 
                 "<td style=' width:22px'>" +
-                "<span class='ipunkt' style='display:none;padding:1px 2px 0px 7px;'>"+ipunkt+"</span>"+
+                "<span class='ipunkt' style='display:none;padding:1px 2px 0px 7px;' onclick=info_box_selection("+modul_id+")>"+ipunkt+"</span>"+
                 "</td>" +
 
                 "<td class='modul_credit' style='min-width:32px;text-align:right;font-weight:bold'>" +
@@ -984,6 +1064,7 @@ var pool = function(){
     $("#pool").append(poolrekursiv(root));
 	
     get_custom_modul();
+	hide_partial_modul();
     session_auswahl();
     ueberblick();
 	
