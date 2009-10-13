@@ -25,8 +25,8 @@ var wahlbild = "<img src='images/Wahl.png'>";
 var unbekannter_modus_bild = "<img src='images/ModusUnbekannt.png'>";
 	
 var fragebild = "<img src='images/Fragezeichen.png'>";
-var ipunkt = "<img src='images/iPunkt.png'>";
-var gelber_ipunkt = "<img src='images/iPunktGelb.png'>";
+var green_ipunkt = "<img src='images/iPunkt.png'>";
+var ipunkt = "<img src='images/iPunktGelb.png'>";
 var rote_ipunkt = "<img src='images/AusrufezeichenBlinkend.gif'>";
 var rote_ipunkt_passiv = "<img src='images/Ausrufezeichen.png'>";
 	
@@ -40,7 +40,84 @@ var warten_blau = "<img src='images/Warten-HintergrundBlau.gif' style='padding-r
 var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='padding-right:3px;'>";
 
 
+var set_image_to_green_ipunkt = function(noten_input){
+	
+	var this_parent = $(noten_input).parent().parent().get(0);
+	$(this_parent).siblings().find(".ipunkt").html(green_ipunkt);
+	
+	
+}
 
+// ipunkt ist gelb.
+var set_image_to_ipunkt = function(noten_input){
+	var this_parent = $(noten_input).parent().parent().get(0);
+	$(this_parent).siblings().find(".ipunkt").html(ipunkt);
+	
+	
+}
+
+var selection_input_value_is_nill = function(input_noten){
+	var result=true;
+	var this_val = $(input_noten).val();
+	if(this_val != ""){
+		result=false;
+	} 
+	return result;
+}
+
+var selection_input_check = function(input_noten){
+	
+	var this_original;
+	var this_grade = $(input_noten).val();
+	var modul_id = $(input_noten).attr("rel");
+	var trim_grade = $.trim(this_grade);
+	
+	
+	//checken Noten.Dann wandele String erstmal zum Float
+	var check_komma = this_grade.search(/./);
+	if(check_komma != -1){
+		this_original = this_grade.replace(/\./,",");
+	}
+	var this_float = parseFloat(trim_grade);
+	
+	
+	if(isNaN(this_float)){
+		alert("Geben Sie bitte eine Zahl zwischen 1.0 und 4.0  ein!");
+		$(input_noten).attr("value","Note");
+		set_image_to_ipunkt(input_noten);
+	}
+	else{
+		//suche nach ',' in String trim_grade dann verwandel es zum '.'
+		
+		var new_trim_grade = trim_grade.replace(/,/,".");   //1,2-->1.2
+		//alert("neu String :"+new_trim_grade);
+		var new_float = parseFloat(new_trim_grade);
+		if(new_float < 1 || new_float > 4 ){
+			alert("Die Note muss eine Zahl zwischen von 1.0 und 4.0");
+			set_image_to_ipunkt(input_noten);
+			$(input_noten).attr("value","Note");
+			
+		}
+		else{
+			//alert(this_original+"ist OK");
+			// daten zum Server schicken
+			
+			//Noten bleib im FELD und zwar in Form 1,3
+			
+			
+			$(input_noten).attr("value",this_original);
+			set_image_to_green_ipunkt(input_noten);
+			ajax_to_server_by_grade(modul_id,new_float);
+			// hier kann man Note klicken
+			
+			$("#note_berechnen").bind('click',ajax_to_server_by_get_grade);
+			
+		}
+		$("#note_berechnen").text("Note aktualisieren");
+		
+	}
+				
+}
 
 // Diese Funktion geh�rt zu show_pool_by_out, also zum Ziehen eines Moduls vom Pool in die
 // Auswahl. (im Such-Modus)
@@ -413,6 +490,7 @@ var session_auswahl_rekursiv = function(root){
 			
             var mod_id = $(this).attr("id");
 			var mod_grade = $(this).attr("grade");
+			
 			var modul_im_pool = $("#pool").find("div#"+mod_id);
             var das_erste = $(modul_im_pool).eq(0);
 			
@@ -421,12 +499,11 @@ var session_auswahl_rekursiv = function(root){
 			
 			if($(this).hasClass("custom")){
 				alert("Hallo custom_modul_in_auswahl ID: "+mod_id);
-				var handl = $(das_erste).html();
-				alert(handl);
+				
 				var this_name = $(this).attr("name");
 				alert("Dumy "+this_name);
 				var this_credit    = $(this).attr("credits");
-				alert("Dummy"+this_credit);
+				//alert("Dummy"+this_credit);
 				change_custom_in_pool_by_selection(das_erste,this_name,this_credit);
 			}
 			
@@ -454,8 +531,10 @@ var session_auswahl_rekursiv = function(root){
 			// Noten setzen
 			if(mod_grade != "" ){
 				//alert(mod_grade);
-				$(auswahl_modul_clone).find(".noten_input").val(mod_grade);
-				//$(auswahl_modul_clone).find("span.noten").attr("value",mod_grade);
+				var this_noten=$(auswahl_modul_clone).find(".noten_input");
+				$(this_noten).val(mod_grade);
+				
+				set_image_to_green_ipunkt(this_noten);
 			}
 			
 			

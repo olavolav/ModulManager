@@ -313,81 +313,34 @@ $(function(){
 		
 		// Klick bei Noten berechnen
 		$("#note_berechnen").click(function(){
-			ajax_to_server_by_examination_grade();
+			ajax_to_server_by_get_grade();
 			
 		});
 		
 		$("input.noten_input").focus(function(){
 			// da wird der Click bei 'Note berechen' deaktiviert
-			 
+			
 			$(this).attr("value"," ");
+			set_image_to_ipunkt(this);
+			var modul_id = $(this).attr("rel");
+			
 			$("#note_berechnen").unbind('click');
 			$("#note_berechnen").text("Note wird bearbeitet");
-				
+			
 			
 		});
 		
 		//onChange oder Enter drücken
 		$("input.noten_input").bind("keypress",function(e){
 			if(e.keyCode == 13){
-				
-				$("#note_berechnen").text("Note aktualisieren");
-				$("#note_berechnen").bind('click',ajax_to_server_by_get_grade);
+				//alert("hallo Enter");
+				$("#enter_trick").trigger('focus');
 			}
 		});
 		$("input.noten_input").change(function(){
-				var this_original;
-				var this_grade = $(this).val();
-				var modul_id = $(this).attr("rel");
-				var trim_grade = $.trim(this_grade);
 				
+				selection_input_check(this);
 				
-				//checken Noten.Dann wandele String erstmal zum Float
-				var check_komma = this_grade.search(/./);
-				if(check_komma != -1){
-					this_original = this_grade.replace(/\./,",");
-				}
-				var this_float = parseFloat(trim_grade);
-				
-				
-				if(isNaN(this_float)){
-					alert("Geben Sie bitte eine Zahl zwischen 1.0 und 4.0  ein!");
-					$(this).attr("value","Note");
-				}
-				else{
-					//suche nach ',' in String trim_grade dann verwandel es zum '.'
-					
-					var new_trim_grade = trim_grade.replace(/,/,".");   //1,2-->1.2
-					//alert("neu String :"+new_trim_grade);
-					var new_float = parseFloat(new_trim_grade);
-					if(new_float < 1 || new_float > 4 ){
-						alert("Die Note muss eine Zahl zwischen von 1.0 und 4.0");
-						$(this).attr("value","Note");
-					}
-					else{
-						//alert(this_original+"ist OK");
-						// daten zum Server schicken
-						
-						//Noten bleib im FELD und zwar in Form 1,3
-						
-						
-						$(this).attr("value",this_original);
-						
-						ajax_to_server_by_grade(modul_id,new_float);
-						// hier kann man Note klicken
-						
-						$("#note_berechnen").bind('click',ajax_to_server_by_get_grade);
-						
-					}
-					$("#note_berechnen").text("Note aktualisieren");
-					
-				}
-				
-				
-				
-				
-				
-				return false;
 		});
 		
 		
