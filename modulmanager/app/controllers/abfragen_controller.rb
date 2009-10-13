@@ -44,7 +44,23 @@ class AbfragenController < ApplicationController
       semester = Semester.create(:count => params[:sem_count])
       selection.semesters << semester
     end
-    semester.modules << SelectedModule.create(:moduledata => Studmodule.find(params[:mod_id]))
+    id = params[:mod_id]
+    found = false
+    parent_id = ""
+    part_id = ""
+    id.each_char do |c|
+      if c == "_"
+        found = true
+      end
+      parent_id = "#{parent_id}#{c}" unless found
+      part_id = "#{part_id}#{c}" if found && c != "_"
+    end
+    unless found
+      semester.modules << SelectedModule.create(:moduledata => Studmodule.find(params[:mod_id]))
+    else
+      parent_module = Studmodule.find(parent_id)
+      semester.modules << PartialModule.create(:parent_id => parent_id, :short => "#{parent_module.short}_#{part_id}")
+    end
     render :text => "Module added successfully..."
   end
 
@@ -59,7 +75,7 @@ class AbfragenController < ApplicationController
 
     unless my_module = CustomModule.find(:first, :conditions => "short = '#{params[:short]}'")
       semester.modules << CustomModule.create(
-        :moduledata => nil,
+        :moduledata => Studmodule.find(:first, :conditions => "short = '#{params[:short]}'"),
         :short => params[:short],
         :credits => params[:credits],
         :name => params[:name]
