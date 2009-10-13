@@ -377,7 +377,23 @@ var info_box = function(modul_id){
 
 // session_auswahl() implementieren. Die ruft action abfragen/auswahl per AJAX auf
 
-
+var change_custom_in_pool_by_selection = function(das_erste,this_name,this_credit){
+	alert("Hallo custom_change");
+	var handl = $(das_erste).html();
+	alert("hi "+handl);
+	/*var t=$(handle).find(".modul_name").text();
+	alert("Vorher Name= "+t);
+	$(handle).find(".modul_name").text(this_name);
+	var x=$(handle).find(".modul_name").text();
+	alert("Nacher Name= "+x);
+	
+	
+	$(handle).find(".modul_credit").text(this_credit);
+	$(handle).attr("class","pool_modul ui-draggable");
+	$(handle).show();
+	return 0;*/
+	
+}
 var session_auswahl_rekursiv = function(root){
 	
     var sem_content = $("#semester-content");
@@ -397,11 +413,22 @@ var session_auswahl_rekursiv = function(root){
 			
             var mod_id = $(this).attr("id");
 			var mod_grade = $(this).attr("grade");
-			//alert(mod_grade);
-            //suche im Pool
-			
-            var modul_im_pool = $("#pool").find("div#"+mod_id);
+			var modul_im_pool = $("#pool").find("div#"+mod_id);
             var das_erste = $(modul_im_pool).eq(0);
+			
+			
+			//custom_modul: Name und credit verändern
+			
+			if($(this).hasClass("custom")){
+				alert("Hallo custom_modul_in_auswahl ID: "+mod_id);
+				var handl = $(das_erste).html();
+				alert(handl);
+				var this_name = $(this).attr("name");
+				alert("Dumy "+this_name);
+				var this_credit    = $(this).attr("credits");
+				alert("Dummy"+this_credit);
+				change_custom_in_pool_by_selection(das_erste,this_name,this_credit);
+			}
 			
             // die originalen Module verstecken
             //und den span.inAuswahl auf "ja" setzen
@@ -423,11 +450,17 @@ var session_auswahl_rekursiv = function(root){
 						
             $(auswahl_modul_clone).attr("class","auswahl_modul_clone");
             change_module_style_to_auswahl(auswahl_modul_clone);
+			
+			// Noten setzen
 			if(mod_grade != "" ){
 				//alert(mod_grade);
 				$(auswahl_modul_clone).find(".noten_input").val(mod_grade);
 				//$(auswahl_modul_clone).find("span.noten").attr("value",mod_grade);
 			}
+			
+			
+			
+			
 			
             // $(auswahl_modul_clone).find("div#icon_loeschen").css("display","block");
             // $(auswahl_modul_clone).find("span.fragebild").css("display","none");
@@ -445,10 +478,7 @@ var session_auswahl_rekursiv = function(root){
 					
                 }
             });//ende each intern
-			
-			
-		
-            return;
+			return;
         }// ende Blï¿½tter
 		
 		
@@ -663,7 +693,7 @@ var ajax_to_server_by_get_grade = function(){
 }
 
 
-function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester){
+function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester,custom_id){
 	
 	
     $.ajax({
@@ -672,7 +702,7 @@ function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester
         dataType:"text",
         cache:false,
         async:false,
-        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester,
+        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id,
         contentType:'application/x-www-form-urlencoded',
         error : function(a,b,c){
             alert ("error mit add_custom_module_to_selection");
@@ -1074,9 +1104,10 @@ var pool = function(){
     // Pool anzeigen
     $("#pool").append(poolrekursiv(root));
 	
-    get_custom_modul();
+   
 	hide_partial_modul();
     session_auswahl();
+	get_custom_modul();
     ueberblick();
 	
 }//ende pool

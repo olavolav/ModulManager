@@ -28,6 +28,7 @@ var custom_check = function(name,credit,custom_semester,custom_id,tips,min,max){
 	
 	var custom_semester=custom_semester.attr("value");
 	var custom_id=custom_id.attr("value");
+	
 	var this_credit=credit.val();
 	var this_name =name.val();
 	var this_credit_float = parseFloat(this_credit);
@@ -56,7 +57,7 @@ var custom_check = function(name,credit,custom_semester,custom_id,tips,min,max){
 		var this_credit_point_float = parseFloat(this_credit_point);
 		
 		
-		ajax_server_by_custom(this_name,this_credit_point_float,custom_semester);
+		ajax_server_by_custom(this_name,this_credit_point_float,custom_semester,custom_id);
 		return true;
 	}
 	
