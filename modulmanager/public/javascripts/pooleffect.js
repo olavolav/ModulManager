@@ -279,7 +279,7 @@ $(function(){
 					}
 					else{
 					//normales Modul	
-						alert("keine TeilModul");
+						//alert("keine TeilModul enthalten");
 						drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 					}
 					
@@ -454,11 +454,6 @@ var sem_hinzu = function(){
 					 var modul_id = $(ui.draggable).attr("id");
 					 var modul_class = $(ui.draggable).attr("class");
 					 
-				 
-				 
-				  
-				
-				  
 					//  drop() ruft ajax_to_server() und auswahlanzeige() auf
 				 
 					 drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);

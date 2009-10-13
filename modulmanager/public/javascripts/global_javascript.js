@@ -706,7 +706,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
     });
 		 
     var this_draggable_class = $(ui_draggable).attr("class");
-	alert(this_draggable_class);
+	
 	
     // check ob das reingezogenem Modul aus POOL kommt.
     // Wenn ja dann ver�ndern inhalt, und versteck das Modul im POOL.
@@ -767,8 +767,9 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
     else{ //if(this_draggable_class=="auswahl_modul_clone ui-draggable" || this_draggable_class=="auswahl_modul_clone" || this_draggable_class=="auswahl_modul partial_modul" ){
         alert("Modul kommt aus der Auswahl.");
         alert("hallo "+this_draggable_class);
-        
-		//ajax_to_server_by_remove(modul_id);
+        alert("start remove");
+		ajax_to_server_by_remove(modul_id);
+		alert(" remove ende");
     }
 	
    
@@ -820,15 +821,18 @@ var partial_modul_drop_in_auswahl = function(this_semester,modul_id,semester,ui_
 			
 			var this_sub = $(this_semester).find("div.subsemester");
 			$(this).show();
+			var this_id = $(this).attr("id");
+			alert("teil_Modul ID : "+this_id);
 			change_module_style_to_auswahl(this);
 			$(this).attr("class","auswahl_modul partial_modul");
 			$(this_sub).append(this);
+			ajax_to_server_by_add(modul_id,semester);
 			
 		}
 							
 	});
 	
-	 //ajax_to_server_by_add(modul_id,semester);
+	 
 	
 }
 
