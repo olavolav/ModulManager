@@ -18,7 +18,7 @@ xml.root do
               xml.name(m.name)
               xml.short(m.short)
               xml.credits(m.credits)
-#              xml.mode(modus)
+              xml.mode(g.modus)
               m.parts > 1 ? xml.parts(m.parts) : xml.parts(0)
             end
 
@@ -30,7 +30,7 @@ xml.root do
                   xml.short "#{m.short}_#{i}"
                   c = m.credits / m.parts
                   xml.credits c
-#                  xml.mode(modus)
+                  xml.mode(g.modus)
                   xml.parts(0)
                 end
               end

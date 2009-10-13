@@ -6,8 +6,6 @@
     <%= link_to_remote "Kein Schwerpunkt", :update => "schwerpunkt", :url => { :action => "focus_selection", :id => nil } %>
   </li>
   <% @schwerpunkte.each do |s| %>
-    <%# highlight_color = "white" %>
-    <%# highlight_color = "#d8eef7" if  (selection.focus != nil) && (selection.focus.name == s.name) %>
     <% ((selection.focus != nil) && (selection.focus.name == s.name)) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
     <li class="schwerpunkt_oben" style="background: <%= highlight_color %>;">
       <%= link_to_remote s.name, :update => "schwerpunkt", :url => { :action => "focus_selection", :id => s.id }  %>

@@ -1,34 +1,31 @@
 
-		<div id="content">
-			<h3>Modul-Manager der Fakult&auml;t Physik</h3>
+<div id="content">
+  <h3>Modul-Manager der Fakult&auml;t Physik</h3>
 			Bitte Schwerpunkt auswählen:<br/>
-			
-			<div id="schwerpunkt">
-				<ul>
-                                  <li class="schwerpunkt_oben"><%= link_to_remote "Kein Schwerpunkt", :update => "schwerpunkt", :url => {:action => "focus_selection", :id => nil } %></li>
-                                  <% @schwerpunkte.each do |s| %>
-                                    <li class="schwerpunkt_oben"><%= link_to_remote s.name, :update => "schwerpunkt", :url => { :action => "focus_selection", :id => s.id }  %></li>
-                                  <% end %>
-				</ul>
-			</div><!--Ende Schwerpunkt-->	
-			
-			
-			<div id="pruefungsordnung"> 
+
+  <div id="schwerpunkt">
+
+    <%= render :file => "main/focus_selection.html" %>
+
+  </div>
+
+
+  <div id="pruefungsordnung">
 				Aktuell ausgewählte Pr&uuml;fungsordnung: <strong><span id="version"><%= @version.name %></span></strong><br/>
-                                <% form_remote_tag :update => "version", :url => { :action => "version_selection" } do %>
-                                <%= select_tag :version, options_from_collection_for_select(Version.all, "id", "short", @version) %>
-                                <%= submit_tag "Speichern" %>
-                                <% end %>
-			</div>
-			
-			
-			<div id ="bestaetigen">
+    <% form_remote_tag :update => "version", :url => { :action => "version_selection" } do %>
+      <%= select_tag :version, options_from_collection_for_select(Version.all, "id", "short", @version) %>
+      <%= submit_tag "Speichern" %>
+    <% end %>
+  </div>
+
+
+  <div id ="bestaetigen">
 				Alternative k&ouml;nnen Sie eine von Ihnen 
-				<%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.<br/>
-				<%= link_to "<div class='buttons'>OK</div>", :action => "create_selection" %>
-				<%= link_to("<div class='buttons'>Zurück</div>", :url => { :action => "index" }) unless session[:selection_id] == nil %>
-				<div class="clear">&nbsp;</div>
-			</div>
-			
-		</div><!--ende content-->
-	
+    <%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.<br/>
+    <%= link_to "<div class='buttons'>OK</div>", :action => "create_selection" %>
+    <%= link_to("<div class='buttons'>Zurück</div>", :url => { :action => "index" }) unless session[:selection_id] == nil %>
+    <div class="clear">&nbsp;</div>
+  </div>
+
+</div>
+

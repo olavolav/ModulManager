@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session>
+  <version>
+    <id>16</id>
+    <short>PO SS 2009</short>
+  </version>
+  <focus>
+    <id>71</id>
+    <name>Astro- und Geophysik</name>
+  </focus>
+  <semester count="1" id="446">
+    <module short="B.Phy.101" name="Physik I" id="1246" grade=""/>
+    <module short="B.Mat.011" name="Basismodul Analysis I" id="1257" grade=""/>
+    <module short="B.Mat.012" name="Basismodul AGLA I" id="1258" grade=""/>
+    <module short="B.Phy.605" name="Computergest&#252;tztes wissenschaftliches Rechnen" id="1309" grade=""/>
+  </semester>
+  <semester count="2" id="447">
+    <module short="B.Phy.102" name="Physik II" id="1247" grade=""/>
+    <module short="B.Phy.410" name="Physikalisches Grundpraktikum" id="1253" grade=""/>
+    <module short="B.Phy.303" name="Mathematik f&#252;r Physiker I" id="1255" grade=""/>
+  </semester>
+  <semester count="3" id="448">
+    <module short="B.Phy.103" name="Physik III" id="1248" grade=""/>
+    <module short="B.Phy.304" name="Mathematik f&#252;r Physiker II" id="1256" grade=""/>
+    <module short="B.Phy.201" name="Analytische Mechanik" id="1250" grade=""/>
+  </semester>
+  <semester count="4" id="449">
+    <module short="B.Phy.104" name="Physik IV" id="1249" grade=""/>
+    <module short="B.Phy.604" name="Projektpraktikum" id="1308" grade=""/>
+    <module short="B.Phy.202" name="Quantenmechanik I" id="1251" grade=""/>
+    <module short="B.Phy.501" name="Einf&#252;hrung in die Astro- und Geophysik" id="1265" grade=""/>
+  </semester>
+  <semester count="5" id="450">
+    <module short="B.Phy.402" name="Physikalisches Fortgeschrittenenpraktikum" id="1254" grade=""/>
+    <module short="B.Phy.203" name="Statistische Physik" id="1252" grade=""/>
+    <module short="B.Phy.405" name="Spezialisierungspraktikum Astro- und Geophysik" id="1261" grade=""/>
+  </semester>
+  <semester count="6" id="451">
+    <module short="B.Phy.602" name="Professionalisierungsseminar" id="1307" grade=""/>
+    <module credits="123" name="Custom" id="custom" grade=""/>
+  </semester>
+</session>
