@@ -36,7 +36,7 @@ module AbfragenHelper
           end
 
         end
-        
+
       }
     elsif c.sub_categories != []
       c.sub_categories.each { |d|
@@ -65,17 +65,15 @@ module AbfragenHelper
     credits_needed = r.credits_needed
     credits_earned = r.credits_earned current_selection.modules
     id = r.id
-    element = <<EOF 
+    element = <<EOF
   <div>
     <table>
       <tr>
         <td class='ueberblick_name'>#{name}</td>
         <td class='ueberblick_image'>
-          <div class='ueberblick_info_box' id='box##{id}'>
-            <a href='/abfragen/info/#{id}?height=300&width=600' class='thickbox'>
-              #{image_tag image}
-            </a>
-          </div>
+          <div class='ueberblick_info_box' id='box##{id}' onClick='get_modul_info_in_overview(#{id})' >
+                 #{image_tag image}
+         </div>
         </td>
         <td class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</td>
       </tr>

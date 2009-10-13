@@ -85,10 +85,23 @@
   <div id="content">
     <div id="left">
       <h2>&Uuml;berblick:</h2>
+	 
+	  
       <div id="ueberblick">
         <div id="ueberblick_baum">
         </div>
-        <p id='note_berechnen'>Note berechnen</p>
+		<p>
+			<table>
+				<tbody>
+					<tr>
+						<td>Note:</td>
+						<td id="die_note"></td>
+					</tr>
+				</tbody>
+			</table>
+			
+		</p>
+        <p id='note_berechnen'>Note aktualisieren</p>
       </div>
 
     </div>
@@ -177,6 +190,28 @@
 
       </fieldset>
     </form>
+  </div>
+  
+  
+	
+  </div>
+  
+  <div id="info_box" title="Info-Box">
+  	<div id="box_info"></div>
+	<div id="box_info_pool" style="color:gray;" >Ausnahme-Optionen: Nur verf&uuml;gbar wenn das Modul schon in der Auswahl ist.</div>
+	<div id="box_info_exception"> 
+		
+		<table>
+			<tbody>
+				<tr><td>Credit-Zahl:</td><td><input type="text" id="exception_credit" size="5" maxlength="5" value="Note"/></td></tr>
+				<tr><td>Warnung deaktivieren</td><td><input type="checkbox" id="exception_warn"></td></tr>
+				<tr><td>Note streichen</td><td><input type="checkbox" id="exception_node"></td></tr>
+			</tbody>
+		</table>
+		
+	</div>
+	<div id="box_info_overview"></div>
+	
   </div>
 
 
