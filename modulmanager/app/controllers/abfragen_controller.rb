@@ -73,10 +73,12 @@ class AbfragenController < ApplicationController
       selection.semesters << semester
     end
 
-    unless my_module = CustomModule.find(:first, :conditions => "short = '#{params[:short]}'")
+    studmodule = Studmodule.find(params[:mod_id])
+
+    unless my_module = CustomModule.find(:first, :conditions => "short = '#{studmodule.short}'")
       semester.modules << CustomModule.create(
-        :moduledata => Studmodule.find(:first, :conditions => "short = '#{params[:short]}'"),
-        :short => params[:short],
+        :moduledata => studmodule,
+        :short => studmodule.short,
         :credits => params[:credits],
         :name => params[:name]
       )

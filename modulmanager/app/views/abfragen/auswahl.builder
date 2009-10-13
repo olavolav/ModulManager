@@ -20,7 +20,7 @@ xml.auswahl(:id => @selection.id) do
             )
           else
             xml.module(:id => m.moduledata.id, :grade => m.grade) unless m.class == PartialModule
-            xml.module(:short => m.short) if m.class == PartialModule
+            xml.module(:class => "partial", :parent => m.parent_id,:short => m.short) if m.class == PartialModule
           end
         end
       end
