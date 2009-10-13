@@ -396,7 +396,8 @@ var session_auswahl_rekursiv = function(root){
             // dann verstecken die originalen Module im Pool
 			
             var mod_id = $(this).attr("id");
-			
+			var mod_grade = $(this).attr("grade");
+			alert(mod_grade);
             //suche im Pool
 			
             var modul_im_pool = $("#pool").find("div#"+mod_id);
@@ -422,6 +423,12 @@ var session_auswahl_rekursiv = function(root){
 						
             $(auswahl_modul_clone).attr("class","auswahl_modul_clone");
             change_module_style_to_auswahl(auswahl_modul_clone);
+			if(mod_grade != "" ){
+				//alert(mod_grade);
+				$(auswahl_modul_clone).find(".noten_input").val(mod_grade);
+				//$(auswahl_modul_clone).find("span.noten").attr("value",mod_grade);
+			}
+			
             // $(auswahl_modul_clone).find("div#icon_loeschen").css("display","block");
             // $(auswahl_modul_clone).find("span.fragebild").css("display","none");
             // $(auswahl_modul_clone).find("span.ipunkt").css("display","block");
