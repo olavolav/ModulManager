@@ -10,7 +10,7 @@ xml.auswahl(:id => @selection.id) do
         s.modules.each do |m|
           if m.class == CustomModule
             custom_count += 1
-            xml.module(:id => "custom#{custom_count}", :name => m.name, :credits => m.credits, :grade => m.grade)           
+            xml.module(:id => "custom#{custom_count}", :name => m.name, :credits => m.credits, :grade => m.grade, :class => "custom")
           else
             xml.module(:id => m.moduledata.id, :grade => m.grade)
           end
