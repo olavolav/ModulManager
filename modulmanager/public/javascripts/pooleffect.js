@@ -321,7 +321,7 @@ $(function(){
 			 
 			$(this).attr("value"," ");
 			$("#note_berechnen").unbind('click');
-			$("#note_berechnen").text("Note bearbeiten");
+			$("#note_berechnen").text("Note wird bearbeitet");
 				
 			
 		});
@@ -330,7 +330,7 @@ $(function(){
 		$("input.noten_input").bind("keypress",function(e){
 			if(e.keyCode == 13){
 				
-				$("#note_berechnen").text("Note berechnen");
+				$("#note_berechnen").text("Note aktualisieren");
 				$("#note_berechnen").bind('click',ajax_to_server_by_get_grade);
 			}
 		});
@@ -351,6 +351,7 @@ $(function(){
 				
 				if(isNaN(this_float)){
 					alert("Geben Sie bitte eine Zahl zwischen 1.0 und 4.0  ein!");
+					$(this).attr("value","Note");
 				}
 				else{
 					//suche nach ',' in String trim_grade dann verwandel es zum '.'
@@ -373,11 +374,11 @@ $(function(){
 						
 						ajax_to_server_by_grade(modul_id,new_float);
 						// hier kann man Note klicken
-						$("#note_berechnen").text("Note berechnen");
+						
 						$("#note_berechnen").bind('click',ajax_to_server_by_get_grade);
 						
 					}
-					
+					$("#note_berechnen").text("Note aktualisieren");
 					
 				}
 				
