@@ -19,7 +19,12 @@ xml.session do
   selection.semesters.each do |s|
     xml.semester(:id => s.id, :count => s.count) do
       s.modules.each do |m|
-        xml.module(:id => m.moduledata.id, :name => m.moduledata.name, :short => m.moduledata.short, :grade => m.grade)
+        if m.class == CustomModule
+          xml.module(:id => "custom", :name => m.name, :grade => m.grade, :credits => m.credits)
+        else
+          xml.module(:id => m.moduledata.id, :name => m.moduledata.name, :short => m.moduledata.short, :grade => m.grade)
+        end
+        
       end
     end
   end

@@ -8,9 +8,9 @@ xml.auswahl(:id => @selection.id) do
     @selection.semesters.sort_by { |sem| sem.count }.each do |s| # sortiert die Semesters erst nach Stufe
       xml.semester(:count => s.count, :id => "sem#{s.id}") do
         s.modules.each do |m|
-          if m.type == "CustomModule"
-            xml.module(:id => "custom_#{custom_count}", :name => m.name, :credits => m.credits, :grade => m.grade)
+          if m.class == CustomModule
             custom_count += 1
+            xml.module(:id => "custom#{custom_count}", :name => m.name, :credits => m.credits, :grade => m.grade)           
           else
             xml.module(:id => m.moduledata.id, :grade => m.grade)
           end

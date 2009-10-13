@@ -153,10 +153,25 @@ class MainController < ApplicationController
     doc.root.each_element('//semester') do |s|
       my_semester = Semester.create :count => s.attributes['count']
       my_selection.semesters << my_semester
+      custom_count = 0
       s.elements.each do |m|
-        my_module = Studmodule.find(:first, :conditions => "short = '#{m.attributes['short']}'")
-        my_semester.studmodules << my_module
-        SelectedModule.find(:first, :conditions => "module_id = '#{my_module.id}'").grade = m.attributes['grade']
+
+        if m.attributes['id'] == "custom"
+          custom_count += 1
+          my_module = CustomModule.create
+          my_module.short = "custom#{custom_count}"
+          my_module.grade = m.attributes['grade']
+          my_module.name = m.attributes['name']
+          my_module.credits = m.attributes['credits']
+          my_semester.modules << my_module
+        else
+          my_module = Studmodule.find(:first, :conditions => "short = '#{m.attributes['short']}'")
+          my_semester.studmodules << my_module
+          s = SelectedModule.find(:first, :conditions => "module_id = '#{my_module.id}'")
+          s.grade = m.attributes['grade']
+          s.save
+        end
+        
       end
     end
     my_selection.save
