@@ -19,8 +19,23 @@ xml.auswahl(:id => @selection.id) do
               :class => "custom"
             )
           else
-            xml.module(:id => m.moduledata.id, :grade => m.grade) unless m.class == PartialModule
-            xml.module(:class => "partial", :parent => m.parent_id,:short => m.short) if m.class == PartialModule
+            if m.class == PartialModule
+              part = ""
+              found = false
+              m.short.each_char { |c|
+                part = "#{part}#{c}" if found
+                found = true if c == "_"
+              }
+              xml.module(
+                :id => "#{m.parent_id}_#{part}",
+                :class => "partial",
+                :parent => m.parent_id,
+                :short => m.short
+              )
+            else
+              xml.module(:id => m.moduledata.id, :grade => m.grade)
+            end
+#            xml.module(:id => m.parent_id,:class => "partial", :parent => m.parent_id,:short => m.short) if m.class == PartialModule
           end
         end
       end
