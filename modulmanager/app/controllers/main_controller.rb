@@ -118,7 +118,7 @@ class MainController < ApplicationController
         selection.save
       end
     end
-    create_pre_selection "standard" unless found
+    selection.semesters = create_pre_selection "standard" unless found
     redirect_to :action => "index"
   end
 

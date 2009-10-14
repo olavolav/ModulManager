@@ -5,16 +5,15 @@ class ModuleRule < Rule
 
   def act_modules selected_modules
     modules = 0
-    unless self.category == nil
-      self.category.modules.each do |cm|
-        selected_modules.each do |m|
-          if m.id == cm.id
-            modules += 1
-          end
+    rule_modules = Array.new
+    rule_modules = self.category.modules unless self.category == nil
+    self.modules.each { |m| rule_modules.push m }
+    selected_modules.each do |sm|
+      rule_modules.each do |rm|
+        if sm.id == rm.id
+          modules += 1
         end
       end
-    else
-      modules = 0
     end
     return modules
   end
