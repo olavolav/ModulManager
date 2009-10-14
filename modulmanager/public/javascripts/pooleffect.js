@@ -116,13 +116,11 @@ $(function(){
 						
 						
 						var cus_modul = $("#pool #"+cus_id);
+						$(cus_modul).attr("class","auswahl_modul ui-draggable");
+						//$(cus_modul).find("span.custom").text("non-custom");
 						$(cus_modul).find(".modul_name").text(na);
 						$(cus_modul).find(".modul_credit").text(cre+" C");
-						$(cus_modul).find(".fragebild").css("display","none");
-						$(cus_modul).find(".ipunkt").css("display","block");
-						$(cus_modul).find("#icon_loeschen").css("display","block");
-						$(cus_modul).find(".noten").css("display","block");
-						$(cus_modul).find("span.custom").text("non-custom");
+						change_module_style_to_auswahl(cus_modul);
 						$(cus_modul).find("span.inAuswahl").text("ja");
 						
 						$("#semester-content div.semester").each(function(){
@@ -134,7 +132,13 @@ $(function(){
 							}
 			
 						});
-						get_custom_modul();
+						var this_exsit = $(cus_modul).find("span.custom_exist").text();
+						if(this_exsit=="nein"){
+							$(cus_modul).find("span.custom_exist").text("ja");
+							get_custom_modul();
+							
+						}
+						
 						$(this).dialog('close');
 						
 					}
@@ -272,11 +276,11 @@ $(function(){
 				 var custom_text = $(ui.draggable).find("span.custom").text();
 				 var parts_text  = $(ui.draggable).find("span.modul_parts").html();
 				
-				 if(custom_text == "non-custom"){
+				 if(custom_text == "non-custom") {
 				 	//check nach Teil_modul
 					if(parts_text!="0"){
 						
-						partial_modul_drop_in_auswahl(this_semester,modul_id,semester,ui_draggable);
+						partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 					}
 					else{
 					//normales Modul	
@@ -287,8 +291,12 @@ $(function(){
 				}
 				
 				 else{
-				 	
-				 	custom_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+				 	if (modul_class == "auswahl_modul ui-draggable" || modul_class == "auswahl_modul") {
+						drop_in_auswahl(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper);
+					}
+					else {
+						custom_modul_drop_in_auswahl(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper);
+					}
 				}
 				
 				 //hier check nach dummy modul und normales Modul
@@ -323,7 +331,6 @@ $(function(){
 			$(this).attr("value"," ");
 			set_image_to_ipunkt(this);
 			var modul_id = $(this).attr("rel");
-			
 			$("#note_berechnen").unbind('click');
 			$("#note_berechnen").text("Note wird bearbeitet");
 			
@@ -335,6 +342,7 @@ $(function(){
 			if(e.keyCode == 13){
 				//alert("hallo Enter");
 				$("#enter_trick").trigger('focus');
+				//selection_input_check(this);
 			}
 		});
 		$("input.noten_input").change(function(){

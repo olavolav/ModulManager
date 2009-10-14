@@ -340,10 +340,36 @@ var modul_loeschen = function (mod_id){
     // if ($("#semester-content div.semester").find("div#"+mod_id).length > 1)
     // 	alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
 	
+	
+	
+	
+	
     $("#semester-content div.semester").find("div#"+mod_id).each(function(){
-		if($(this).hasClass("auswahl_modul partial_modul")){
-			alert("hallo partial_modul");
+		//check nach Teil-Modul
+		
+		var this_mod_parts = $(this).find(".modul_parts").text();
+		if(this_mod_parts != "nein"){
+			var check = confirm("Wollen Sie alle Teil-Module loeschen?");
+			if(check == true){
+				//suche teil-Module
+				$("#semester-content div.semester").find("div").each(function(){
+					
+					var this_text = $(this).find(".modul_parent_attr").text();
+					if (this_text == mod_id) {
+						$(this).hide();
+					}
+				});
+				
+				
+			}
+			
+			
+			
 		}
+		
+		
+		
+		
         // alert("hallo modul_loeschen (Schleife, 1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
         // aendere CSS style
         change_module_style_to_pool(this);
@@ -490,12 +516,12 @@ var session_auswahl_rekursiv = function(root){
 			
             var mod_id = $(this).attr("id");
 			var mod_grade = $(this).attr("grade");
-			
+			//alert(mod_id);
 			var modul_im_pool = $("#pool").find("div#"+mod_id);
             var das_erste = $(modul_im_pool).eq(0);
 			
 			
-			//custom_modul: Name und credit verändern
+			//custom_modul laden: Name und credit verändern
 			
 			if($(this).hasClass("custom")){
 				alert("Hallo custom_modul_in_auswahl ID: "+mod_id);
@@ -506,6 +532,12 @@ var session_auswahl_rekursiv = function(root){
 				//alert("Dummy"+this_credit);
 				change_custom_in_pool_by_selection(das_erste,this_name,this_credit);
 			}
+			
+			//Teil_Module laden
+			if($(this).hasClass("partial")){
+				$(das_erste).show();
+			}
+			
 			
             // die originalen Module verstecken
             //und den span.inAuswahl auf "ja" setzen
@@ -831,7 +863,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	
     // alert("Modul class: "+this_draggable_class);
     if ((this_draggable_class =="pool_modul ui-draggable")||(this_draggable_class=="pool_modul")) {
-        // alert("Modul kommt aus dem Pool");
+        //alert("Modul kommt aus dem Pool");
         change_module_style_to_auswahl(ui_draggable);
         $(ui_draggable).find("span.inAuswahl").text("ja");
         $(ui_draggable).attr("class","auswahl_modul");
@@ -881,11 +913,11 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
     }//ende if pool_modul class
 	
     else{ //if(this_draggable_class=="auswahl_modul_clone ui-draggable" || this_draggable_class=="auswahl_modul_clone" || this_draggable_class=="auswahl_modul partial_modul" ){
-        alert("Modul kommt aus der Auswahl.");
-        alert("hallo "+this_draggable_class);
-        alert("start remove");
+        //alert("Modul kommt aus der Auswahl.");
+        //alert("hallo "+this_draggable_class);
+        //alert("start remove");
 		ajax_to_server_by_remove(modul_id);
-		alert(" remove ende");
+		//alert(" remove ende");
     }
 	
    
@@ -928,8 +960,9 @@ var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dra
 	
 	
 }
-var partial_modul_drop_in_auswahl = function(this_semester,modul_id,semester,ui_draggable){
-	$(ui_draggable).hide();
+var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
+	//$(ui_draggable).hide();
+	drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 	$("#pool").find(".partial_modul").each(function(){
 		
 		var this_text = $(this).find("span.modul_parent_attr").text();
@@ -938,16 +971,16 @@ var partial_modul_drop_in_auswahl = function(this_semester,modul_id,semester,ui_
 			var this_sub = $(this_semester).find("div.subsemester");
 			$(this).show();
 			var this_id = $(this).attr("id");
-			alert("teil_Modul ID : "+this_id);
+			//alert("teil_Modul ID : "+this_id);
 			change_module_style_to_auswahl(this);
 			$(this).attr("class","auswahl_modul partial_modul");
 			$(this_sub).append(this);
-			ajax_to_server_by_add(modul_id,semester);
+			ajax_to_server_by_add(this_id,semester);
 			
 		}
-							
+			
 	});
-	
+			
 	 
 	
 }
