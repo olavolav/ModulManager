@@ -27,7 +27,7 @@ xml.auswahl(:id => @selection.id) do
                 found = true if c == "_"
               }
               xml.module(
-                :id => "#{m.parent_id}##{part}",
+                :id => "#{m.parent_id}part#{part}",
                 :class => "partial",
                 :parent => m.parent_id,
                 :short => m.short
