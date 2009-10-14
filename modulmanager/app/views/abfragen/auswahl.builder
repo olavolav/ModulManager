@@ -27,7 +27,7 @@ xml.auswahl(:id => @selection.id) do
                 found = true if c == "_"
               }
               xml.module(
-                :id => "#{m.parent_id}_#{part}",
+                :id => "#{m.parent_id}##{part}",
                 :class => "partial",
                 :parent => m.parent_id,
                 :short => m.short
@@ -35,7 +35,6 @@ xml.auswahl(:id => @selection.id) do
             else
               xml.module(:id => m.moduledata.id, :grade => m.grade)
             end
-#            xml.module(:id => m.parent_id,:class => "partial", :parent => m.parent_id,:short => m.short) if m.class == PartialModule
           end
         end
       end
