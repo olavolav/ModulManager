@@ -97,8 +97,8 @@ $(function(){
 			height:300,
 			width:500,
 			autoOpen:false,
-			hide:'slide',
-			show:'slide',
+			// hide:'slide',
+			// show:'slide',
 			buttons:{
 				"Fertig":function(){
 					var iValid=false;
@@ -158,8 +158,8 @@ $(function(){
                     height:300,
                     width:500,
                     autoOpen:false,
-                    hide:'slide',
-                    show:'slide',
+                    // hide:'slide',
+                    // show:'slide',
                     buttons:{
                             "OK":function(){
 
