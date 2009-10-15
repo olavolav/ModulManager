@@ -18,7 +18,7 @@ class CreditRule < Rule
     return credits
   end
 
-  def evaluate selected_modules
+  def evaluate selected_modules, my_semester = nil
     credits_in_selection = act_credits selected_modules
     if self.relation == "min"
       return 1 if credits_in_selection >= self.count

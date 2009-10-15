@@ -121,13 +121,27 @@ class RegelParserController < ApplicationController
     y.each do |m|
       m["parts"] = m["parts"].to_i
       m["parts"] = 1 if m["parts"] < 1
-      Studmodule.create :name => m["name"],
+      ready_module = Studmodule.create :name => m["name"],
         :credits => m["credits"],
-        :short => m["short"],
-        :description => m["description"],
+        :short => m["id"],
+        :description => m["beschreibung"],
         :parts => m["parts"],
         :version => version
 
+      unless m["zulassung"] == nil
+        and_connections = Array.new
+        m["zulassung"].each do |z|
+          rules = Array.new
+          modules = z.split(",")
+          modules.each do |m|
+            m.strip!
+            condition = Studmodule.find(:first, :conditions => "short = '#{m}'")
+            rules.push PermissionRule.create :condition => condition
+          end
+          and_connections.push AndConnection.create :child_rules => rules
+        end
+        or_connection = OrConnection.create :child_connections => and_connections, :owner => ready_module
+      end
     end
     18.times do |i|
       Studmodule.create :name => "Eigenes Modul",

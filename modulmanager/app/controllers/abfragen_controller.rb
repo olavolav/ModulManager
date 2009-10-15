@@ -55,10 +55,10 @@ class AbfragenController < ApplicationController
       parent_id = "#{parent_id}#{c}" unless found
       part_id = "#{part_id}#{c}" if found && c != "_"
     end
+    parent_module = Studmodule.find(parent_id)
     unless found
-      semester.modules << SelectedModule.create(:moduledata => Studmodule.find(params[:mod_id]))
+      semester.modules << SelectedModule.create(:moduledata => parent_module)
     else
-      parent_module = Studmodule.find(parent_id)
       semester.modules << PartialModule.create(:parent_id => parent_id, :short => "#{parent_module.short}_#{part_id}")
     end
     render :text => "Module added successfully..."

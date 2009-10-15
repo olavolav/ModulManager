@@ -84,23 +84,23 @@
 
   <div id="content">
     <div id="left">
-      <h2>&Uuml;berblick:</h2>
-	 
-	  
+      <%#*<h2>&Uuml;berblick:</h2>%>
+
+
       <div id="ueberblick">
         <div id="ueberblick_baum">
         </div>
-		<p>
-			<table>
-				<tbody>
-					<tr>
-						<td>Note:</td>
-						<td id="die_note"></td>
-					</tr>
-				</tbody>
-			</table>
-			
-		</p>
+        <p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Note:</td>
+              <td id="die_note"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        </p>
         <p id='note_berechnen'>Note aktualisieren</p>
       </div>
 
@@ -131,88 +131,88 @@
       </div>
 
     </div><!--End middle-->
-	
+
 
     <!--RIGHT****************************************************-->
 
     <div id="right">
-     
-
-        <!--hier ist POOL und SUCHEN************************************-->
 
 
-        <h2>Zur Verf&uuml;gung stehende Module:</h2>
-        <div id="suche_bereich">
-          <table id="suche" style="border:2px red solid; display:none">
-            <tbody></tbody>
-          </table>
-          <!--<button id="click_to_find2" onClick="javascript:modul_search()">Los!</button>-->
+      <!--hier ist POOL und SUCHEN************************************-->
+
+
+      <h2>Zur Verf&uuml;gung stehende Module:</h2>
+      <div id="suche_bereich">
+        <table id="suche" style="border:2px red solid; display:none">
+          <tbody></tbody>
+        </table>
+        <!--<button id="click_to_find2" onClick="javascript:modul_search()">Los!</button>-->
+      </div>
+
+
+
+      <div id="subright-content">
+
+        <div id="pool">
+
+
         </div>
 
 
+        <script type="text/javascript">
+          pool();
+        </script>
 
-        <div id="subright-content">
+      </div><!--subright-->
 
-          <div id="pool">
-
-
-          </div>
-
-
-          <script type="text/javascript">
-            pool();
-          </script>
-
-        </div><!--subright-->
-
-      </div><!--right-->
+    </div><!--right-->
 
 
 
-    </div><!--END content-->
+  </div><!--END content-->
 
-    <div class="clear"></div>
+  <div class="clear"></div>
 
 
-  </div><!--content-->
+</div><!--content-->
 
-  <div id="custom_dialog" title="Eigenes Modul">
-    <p id="validateTips">Tragen Sie bitte die Daten ein!</p>
-    <form>
-      <fieldset>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
-        <label for="credit">Credit Point</label>
-        <input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all" />
-		
-		<input type="hidden" name="custom_semester" id="custom_semester" value=""  />
-		<input type="hidden" name="custom_id" id="custom_id" value=""  />
+<div id="custom_dialog" title="Eigenes Modul">
+  <p id="validateTips">Tragen Sie bitte die Daten ein!</p>
+  <form>
+    <fieldset>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+      <label for="credit">Credit Point</label>
+      <input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all" />
 
-      </fieldset>
-    </form>
-  </div>
-  
-  
-	
-  </div>
-  
-  <div id="info_box" title="Info-Box">
-  	<div id="box_info"></div>
-	<div id="box_info_pool" style="color:gray;" >Ausnahme-Optionen: Nur verf&uuml;gbar wenn das Modul schon in der Auswahl ist.</div>
-	<div id="box_info_exception"> 
+      <input type="hidden" name="custom_semester" id="custom_semester" value=""  />
+      <input type="hidden" name="custom_id" id="custom_id" value=""  />
+
+    </fieldset>
+  </form>
+</div>
+
+
+
+</div>
+
+<div id="info_box" title="Info-Box">
+  <div id="box_info"></div>
+  <div id="box_info_pool" style="color:gray;" >Ausnahme-Optionen: Nur verf&uuml;gbar wenn das Modul schon in der Auswahl ist.</div>
+  <div id="box_info_exception">
 		Ausnahme-Optionen:
-		<table>
-			<tbody>
-				<tr><td>Credit-Zahl:</td><td><input type="text" id="exception_credit" size="5" maxlength="5" value="Note"/></td></tr>
-				<tr><td>Warnung deaktivieren</td><td><input type="checkbox" id="exception_warn"></td></tr>
-				<tr><td>Note streichen</td><td><input type="checkbox" id="exception_node"></td></tr>
-			</tbody>
-		</table>
-		
-	</div>
-	<div id="box_info_overview"></div>
-	
+    <table>
+      <tbody>
+        <tr><td>Credit-Zahl:</td><td><input type="text" id="exception_credit" size="5" maxlength="5" value="Note"/></td></tr>
+        <tr><td>Warnung deaktivieren</td><td><input type="checkbox" id="exception_warn"></td></tr>
+        <tr><td>Note streichen</td><td><input type="checkbox" id="exception_node"></td></tr>
+      </tbody>
+    </table>
+
   </div>
+  <div id="box_info_overview"></div>
+
+</div>
 
 
 </div><!--END container-->

@@ -4,6 +4,10 @@ class Connection < ActiveRecord::Base
     :class_name => "Version",
     :foreign_key => "version_id"
 
+  belongs_to :owner,
+    :class_name => "Studmodule",
+    :foreign_key => "owner_id"
+
   def self.create_and_connection name, child_rules = nil, child_connections = nil, focus = nil, version = nil
     c = AndConnection.create :name => name, :focus => focus, :version => version
     if child_rules != nil

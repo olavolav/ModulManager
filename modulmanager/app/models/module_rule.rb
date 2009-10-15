@@ -18,7 +18,7 @@ class ModuleRule < Rule
     return modules
   end
 
-  def evaluate selected_modules
+  def evaluate selected_modules, my_semester = nil
     modules_in_selection = act_modules selected_modules
     if self.relation == "min"
       return 1 if modules_in_selection >= self.count

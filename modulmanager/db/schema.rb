@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091013142306) do
+ActiveRecord::Schema.define(:version => 20091014131305) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20091013142306) do
     t.string   "name"
     t.integer  "focus"
     t.integer  "version_id"
+    t.integer  "owner_id"
   end
 
   create_table "errors", :force => true do |t|
@@ -109,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20091013142306) do
     t.integer  "category_id"
     t.text     "description"
     t.integer  "parent_id"
+    t.integer  "condition_id"
   end
 
   create_table "rules_studmodules", :id => false, :force => true do |t|

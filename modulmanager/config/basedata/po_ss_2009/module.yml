@@ -2,327 +2,341 @@
 
   - name: Physik I
     credits: 9
-    short: B.Phy.101
-    description:
+    id: B.Phy.101
+    beschreibung:
 
   - name: Physik II
     credits: 9
-    short: B.Phy.102
-    description:
+    id: B.Phy.102
+    beschreibung:
 
   - name: Physik III
     credits: 6
-    short: B.Phy.103
-    description:
+    id: B.Phy.103
+    beschreibung:
 
   - name: Physik IV
     credits: 6
-    short: B.Phy.104
-    description:
+    id: B.Phy.104
+    beschreibung:
 
   - name: Analytische Mechanik
     credits: 8
-    short: B.Phy.201
-    description:
+    id: B.Phy.201
+    beschreibung:
 
   - name: Quantenmechanik I
     credits: 8
-    short: B.Phy.202
-    description:
+    id: B.Phy.202
+    beschreibung:
 
   - name: Statistische Physik
     credits: 8
-    short: B.Phy.203
-    description:
+    id: B.Phy.203
+    beschreibung:
 
   - name: Physikalisches Grundpraktikum
     credits: 12
-    short: B.Phy.410
-    description:
+    id: B.Phy.410
+    beschreibung:
     parts: 2
 
   - name: Physikalisches Fortgeschrittenenpraktikum
     credits: 3
-    short: B.Phy.402
-    description:
+    id: B.Phy.402
+    beschreibung:
 
   - name: Mathematik für Physiker I
     credits: 9
-    short: B.Phy.303
-    description:
+    id: B.Phy.303
+    beschreibung:
 
   - name: Mathematik für Physiker II
     credits: 6
-    short: B.Phy.304
-    description:
+    id: B.Phy.304
+    beschreibung:
 
   - name: Basismodul Analysis I
     credits: 9
-    short: B.Mat.011
-    description:
+    id: B.Mat.011
+    beschreibung:
 
   - name: Basismodul AGLA I
     credits: 9
-    short: B.Mat.012
-    description:
+    id: B.Mat.012
+    beschreibung:
 
   - name: Spezialisierungspraktikum Nanostrukturphysik
     credits: 6
-    short: B.Phy.403
-    description:
+    id: B.Phy.403
+    zulassung:
+      - B.Phy.503
+    beschreibung:
 
   - name: Spezialisierungspraktikum Betreuung von Netzwerken und Netzwerknutzern
     credits: 6
-    short: B.Phy.404
-    description:
+    id: B.Phy.404
+    zulassung:
+      - B.Phy.601
+      - B.Phy.605
+    beschreibung:
 
   - name: Spezialisierungspraktikum Astro- und Geophysik
     credits: 6
-    short: B.Phy.405
-    description:
+    id: B.Phy.405
+    beschreibung:
 
   - name: Spezialisierungspraktikum Biophysik und Physik komplexer Systeme
     credits: 6
-    short: B.Phy.406
-    description:
+    id: B.Phy.406
+    beschreibung:
 
   - name: Spezialisierungspraktikum Festkörper- und Materialphysik
     credits: 6
-    short: B.Phy.407
-    description:
+    id: B.Phy.407
+    beschreibung:
 
   - name: Spezialisierungspraktikum Kern- und Teilchenphysik
     credits: 6
-    short: B.Phy.408
-    description:
+    id: B.Phy.408
+    beschreibung:
 
   - name: Einführung in die Astro- und Geophysik
     credits: 6
-    short: B.Phy.501
-    description:
+    id: B.Phy.501
+    beschreibung:
 
   - name: Einführung in die Biophysik und Physik komplexer Systeme
     credits: 6
-    short: B.Phy.502
-    description:
+    id: B.Phy.502
+    beschreibung:
 
   - name: Einführung in die Festkörper- und Materialphysik
     credits: 6
-    short: B.Phy.503
-    description:
+    id: B.Phy.503
+    beschreibung:
 
   - name: Einführung in die Kern- und Teilchenphysik
     credits: 6
-    short: B.Phy.504
-    description:
+    id: B.Phy.504
+    beschreibung:
 
   - name: Mehrbenutzersysteme in der Praxis I
     credits: 6
-    short: B.Phy.510
-    description:
+    id: B.Phy.510
+    zulassung:
+      - B.Phy.601
+      - B.Phy.605
+    beschreibung:
 
   - name: Mehrbenutzersysteme in der Praxis II
     credits: 6
-    short: B.Phy.511
-    description:
+    id: B.Phy.511
+    zulassung:
+      - B.Phy.510
+    beschreibung:
 
   - name: Spezielle Themen der Astro- und Geophysik I
     credits: 6
-    short: B.Phy.551
-    description:
+    id: B.Phy.551
+    beschreibung:
 
   - name: Spezielle Themen der Astro- und Geophysik II
     credits: 6
-    short: B.Phy.552
-    description:
+    id: B.Phy.552
+    beschreibung:
 
   - name: Spezielle Themen der Astro- und Geophysik III
     credits: 6
-    short: B.Phy.553
-    description:
+    id: B.Phy.553
+    beschreibung:
 
   - name: Spezielle Themen der Astro- und Geophysik IV
     credits: 6
-    short: B.Phy.554
-    description:
+    id: B.Phy.554
+    beschreibung:
 
   - name: Spezielle Themen der Biophysik und Physik komplexer Systeme I
     credits: 6
-    short: B.Phy.561
-    description:
+    id: B.Phy.561
+    beschreibung:
 
   - name: Spezielle Themen der Biophysik und Physik komplexer Systeme II
     credits: 6
-    short: B.Phy.562
-    description:
+    id: B.Phy.562
+    beschreibung:
 
   - name: Spezielle Themen der Biophysik und Physik komplexer Systeme III
     credits: 6
-    short: B.Phy.563
-    description:
+    id: B.Phy.563
+    beschreibung:
 
   - name: Spezielle Themen der Biophysik und Physik komplexer Systeme IV
     credits: 6
-    short: B.Phy.564
-    description:
+    id: B.Phy.564
+    beschreibung:
 
   - name: Spezielle Themen der Festkörper- und Materialphysik I
     credits: 6
-    short: B.Phy.571
-    description:
+    id: B.Phy.571
+    beschreibung:
 
   - name: Spezielle Themen der Festkörper- und Materialphysik II
     credits: 6
-    short: B.Phy.572
-    description:
+    id: B.Phy.572
+    beschreibung:
 
   - name: Spezielle Themen der Festkörper- und Materialphysik III
     credits: 6
-    short: B.Phy.573
-    description:
+    id: B.Phy.573
+    beschreibung:
 
   - name: Spezielle Themen der Festkörper- und Materialphysik IV
     credits: 6
-    short: B.Phy.574
-    description:
+    id: B.Phy.574
+    beschreibung:
 
   - name: Spezielle Themen der Kern- und Teilchenphysik I
     credits: 6
-    short: B.Phy.581
-    description:
+    id: B.Phy.581
+    beschreibung:
 
   - name: Spezielle Themen der Kern- und Teilchenphysik II
     credits: 6
-    short: B.Phy.582
-    description:
+    id: B.Phy.582
+    beschreibung:
 
   - name: Spezielle Themen der Kern- und Teilchenphysik III
     credits: 6
-    short: B.Phy.583
-    description:
+    id: B.Phy.583
+    beschreibung:
 
   - name: Spezielle Themen der Kern- und Teilchenphysik IV
     credits: 6
-    short: B.Phy.584
-    description:
+    id: B.Phy.584
+    beschreibung:
 
   - name: Spezielle Themen der modernen Physik I
     credits: 6
-    short: B.Phy.591
-    description:
+    id: B.Phy.591
+    beschreibung:
 
   - name: Spezielle Themen der modernen Physik II
     credits: 6
-    short: B.Phy.592
-    description:
+    id: B.Phy.592
+    beschreibung:
 
   - name: Spezielle Themen der modernen Physik III
     credits: 6
-    short: B.Phy.593
-    description:
+    id: B.Phy.593
+    beschreibung:
 
   - name: Spezielle Themen der modernen Physik IV
     credits: 6
-    short: B.Phy.594
-    description:
+    id: B.Phy.594
+    beschreibung:
 
   - name: Elektronikpraktikum für Naturwissenschaftler
     credits: 6
-    short: B.Phy.606
-    description:
+    id: B.Phy.606
+    beschreibung:
 
   - name: Mikrobiologie
     credits: 10
-    short: B.Bio.118
-    description:
+    id: B.Bio.118
+    beschreibung:
 
   - name: Biochemie
     credits: 10
-    short: B.Bio.112
-    description:
+    id: B.Bio.112
+    beschreibung:
 
   - name: Interne Unternehmensrechnung
     credits: 6
-    short: B.Bwl.02
-    description:
+    id: B.Bwl.02
+    beschreibung:
 
   - name: Jahresabschluss
     credits: 6
-    short: B.OPH.07
-    description:
+    id: B.OPH.07
+    beschreibung:
 
   - name: Produktion und Logistik
     credits: 6
-    short: B.Bwl.04
-    description:
+    id: B.Bwl.04
+    beschreibung:
 
   - name: Management der Informationssysteme
     credits: 6
-    short: B.Win.01
-    description:
+    id: B.Win.01
+    beschreibung:
 
   - name: Informationsverarbeitung in Dienstleistungsbetrieben
     credits: 6
-    short: B.Win.04
-    description:
+    id: B.Win.04
+    beschreibung:
 
   - name: Programmierung in C# (Grundlagen)
     credits: 6
-    short: B.Win.23
-    description:
+    id: B.Win.23
+    beschreibung:
 
   - name: Allgemeine und Anorganische Chemie für Physiker
     credits: 4
-    short: B.Che.9105
-    description:
+    id: B.Che.9105
+    beschreibung:
 
   - name: Praktikum Allgemeine und Anorganische Chemie für Physiker
     credits: 8
-    short: B.Che.9106
-    description:
+    id: B.Che.9106
+    zulassung:
+      - B.Che.9105
+    beschreibung:
 
   - name: Organische und makromolekulare Chemie für Physiker
     credits: 3
-    short: B.Che.9108
-    description:
+    id: B.Che.9108
+    zulassung:
+      - B.Che.9105
+    beschreibung:
 
   - name: Chemisches Gleichgewicht für Physiker
     credits: 6
-    short: B.Che.1302.1
-    description:
+    id: B.Che.1302.1
+    beschreibung:
 
   - name: Kinetik
     credits: 6
-    short: B.Che.2301
-    description:
+    id: B.Che.2301
+    beschreibung:
 
   - name: Atombau und Chemische Bindung
     credits: 4
-    short: B.Che.1401
-    description:
+    id: B.Che.1401
+    beschreibung:
 
   - name: Grundlagen der Geowissenschaften für Naturwissenschaftler
     credits: 12
-    short: B.Geo.402
-    description:
+    id: B.Geo.402
+    beschreibung:
 
   - name: Professionalisierungsseminar
     credits: 4
-    short: B.Phy.602
-    description:
+    id: B.Phy.602
+    beschreibung:
 
   - name: Projektpraktikum
     credits: 6
-    short: B.Phy.604
-    description:
+    id: B.Phy.604
+    beschreibung:
 
   - name: Computergestütztes wissenschaftliches Rechnen
     credits: 8
-    short: B.Phy.605
-    description:
+    id: B.Phy.605
+    beschreibung:
     parts: 2
 
   - name: Bachelorarbeit
     credits: 12
-    short: Bachelor
-    description:
+    id: Bachelor
+    beschreibung:
