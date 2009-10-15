@@ -47,9 +47,28 @@ var set_image_to_green_ipunkt = function(noten_input){
 	
 	
 }
+var is_point = function (point){
+	
+}
+var set_point_to_comma = function(input_noten){
+	alert("hallo set point to comma");
 
+	var this_grade = $(input_noten).val();
+	//var trim_grade = $.trim(this_grade);
+	var check_komma = this_grade.search(/./);
+	if(check_komma != -1){
+		this_grade = this_grade.replace(/\./,",");
+	}
+	return this_grade;
+	
+}
+var set_comma_to_point = function(){
+	
+	
+}
 // ipunkt ist gelb.
 var set_image_to_ipunkt = function(noten_input){
+	
 	var this_parent = $(noten_input).parent().parent().get(0);
 	$(this_parent).siblings().find(".ipunkt").html(ipunkt);
 	
@@ -78,6 +97,7 @@ var selection_input_check = function(input_noten){
 	if(check_komma != -1){
 		this_original = this_grade.replace(/\./,",");
 	}
+	
 	var this_float = parseFloat(trim_grade);
 	
 	
@@ -332,7 +352,18 @@ var modul_search = function(){
 ///////////////////MODULLOESCHEN loeschen////////////////////////
 /// bei Click auf <div class="modul_loeschen">
 /// neuerdings auch beim Ziehen zum Pool (OS)
-
+var partial_modul_loeschen = function (mod_id){
+	//alert("hallo partial_modul_loeschen");
+	//suche teil-Module
+	$("#semester-content div.semester").find("div").each(function(){
+		if($(this).find(".modul_parent_attr").text()== mod_id){
+			var this_id = $(this).attr("id");
+			//alert(this_id);
+			sub_modul_loeschen(this,this_id);
+		}
+	});
+	
+}
 var modul_loeschen = function (mod_id){
     // Die Schleife hier sollte eigentlich unnoetig sein, wenn jedes Modul nur 1x in der
     // Auswahl sein kann, ausser bei Drop in den Pool, dann 2x: (OS)
@@ -340,43 +371,62 @@ var modul_loeschen = function (mod_id){
     // if ($("#semester-content div.semester").find("div#"+mod_id).length > 1)
     // 	alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
 	
+	//alert(mod_id);
 	
-	
-	
-	
-    $("#semester-content div.semester").find("div#"+mod_id).each(function(){
-		//check nach Teil-Modul
+	$("#semester-content div.semester").find("div#"+mod_id).each(function(){
 		
 		var this_mod_parts = $(this).find(".modul_parts").text();
-		if(this_mod_parts != "nein"){
-			var check = confirm("Wollen Sie alle Teil-Module loeschen?");
+		var this_mod_par_attr = $(this).find("span.modul_parent_attr").text();
+		//alert("Mod-Parts ="+this_mod_parts);
+		//check nach Teil-Modul
+		if((this_mod_parts != "0")|| (this_mod_par_attr !="nein")){
+			var check = confirm("Wollen Sie komplette Module loeschen?");
 			if(check == true){
-				//suche teil-Module
-				$("#semester-content div.semester").find("div").each(function(){
+				
+				if(this_mod_par_attr != "nein"){
 					
-					var this_text = $(this).find(".modul_parent_attr").text();
-					if (this_text == mod_id) {
-						$(this).hide();
-					}
-				});
-				
-				
+					//such nach head-modul-->löschen
+					var head_modul = $("#semester-content div.semester").find("div#"+this_mod_par_attr);
+					sub_modul_loeschen(head_modul,this_mod_par_attr);
+					partial_modul_loeschen(this_mod_par_attr);
+				}
+				else{
+					sub_modul_loeschen(this,mod_id);
+					partial_modul_loeschen(mod_id);
+				}
 			}
-			
-			
+		}
+		else{
+			sub_modul_loeschen(this,mod_id);
+		}
+	}); 
+
+    
+
+}//ende modul_loeschen
+
+
+var sub_modul_loeschen = function (this_mod,mod_id){
+	
+		
+   		// alert("hallo modul_loeschen (Schleife, 1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
+        // aendere CSS style
+       	change_module_style_to_pool(this_mod);
+		var pool_modul = "pool_modul";
+		//wenn ein Teil_modul ist, dann hat das class "partial",
+		// damit das nicht in Pool angezeigt wird.
+		if($(this_mod).attr("class")=="auswahl_modul partial_modul"){
+			//alert("du bist teil_modul");
+			pool_modul = "partial_modul";
 			
 		}
-		
-		
-		
-		
-        // alert("hallo modul_loeschen (Schleife, 1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
-        // aendere CSS style
-        change_module_style_to_pool(this);
-        $(this).attr("class","pool_modul");
-		
-        var this_id = $(this).attr("id");
-        var this_modul = $(this);
+        $(this_mod).attr("class",pool_modul);
+		//check nach Head-modul. Wenn ja, dann setze span.modul_parts_exsit auf "nein"
+		if ($(this_mod).find("span.modul_parts_exsit").text()=="ja"){
+			$(this_mod).find("span.modul_parts_exsit").text("nein");
+		}
+        var this_id = $(this_mod).attr("id");
+        var this_modul = $(this_mod);
         var modul_itself_has_not_been_moved = true;
         // ersmal hide
         $(this_modul).hide();
@@ -403,8 +453,11 @@ var modul_loeschen = function (mod_id){
                 else if (arrow_type == "unten") {
                     // $(this).find(".pool_modul,.pool_modul.ui-draggable,.search_modul.ui-draggable").css("display","block");
                     // $(this).parent().find("#"+mod_id).css("display","block");
-                    if ((!(search_is_active())) || $(this).is(".search_modul"))
-                        $(this).find("#"+mod_id).css("display","block");
+                    if ((!(search_is_active())) || $(this).is(".search_modul")) {
+						if(pool_modul != "partial_modul")
+							$(this).find("#" + mod_id).css("display", "block");
+						
+					}
                 // else $(this).find("#"+mod_id).css("display","none");
                 }
 				
@@ -446,12 +499,14 @@ var modul_loeschen = function (mod_id){
         }
     // else alert("Aha, das Modul wurde verschoben, dann loeschen wir es besser nicht.");
 
-    }); // Ende der Schleife durch alle entspr. Module in der Auswahl
+    
 
     // AJAX aufrufen und Session-DB aktualisieren
     ajax_to_server_by_remove(mod_id);
+    
+    
 
-}//ende modul_loeschen
+}//ende sub_modul_loeschen
 
 //info_box
 
@@ -480,21 +535,13 @@ var info_box = function(modul_id){
 
 // session_auswahl() implementieren. Die ruft action abfragen/auswahl per AJAX auf
 
-var change_custom_in_pool_by_selection = function(das_erste,this_name,this_credit){
-	alert("Hallo custom_change");
-	var handl = $(das_erste).html();
-	alert("hi "+handl);
-	/*var t=$(handle).find(".modul_name").text();
-	alert("Vorher Name= "+t);
-	$(handle).find(".modul_name").text(this_name);
-	var x=$(handle).find(".modul_name").text();
-	alert("Nacher Name= "+x);
-	
-	
-	$(handle).find(".modul_credit").text(this_credit);
-	$(handle).attr("class","pool_modul ui-draggable");
-	$(handle).show();
-	return 0;*/
+var change_custom_in_pool_by_session_load = function(das_erste,custom_name,custom_credit){
+	//alert("Hallo custom_change");
+	$(das_erste).find(".modul_name").text(custom_name);
+	$(das_erste).find(".modul_credit").text(custom_credit);
+	$(das_erste).attr("class","pool_modul ui-draggable");
+
+	return 0;
 	
 }
 var session_auswahl_rekursiv = function(root){
@@ -510,11 +557,9 @@ var session_auswahl_rekursiv = function(root){
 			
             var parent = $(this).parent().get(0);
             var parent_id = $(parent).attr("count");
-			
-            // entsprechenem  modul_id im Pool suchen, dann clonen ins Auswahl
+			// entsprechenem  modul_id im Pool suchen, dann clonen ins Auswahl
             // dann verstecken die originalen Module im Pool
-			
-            var mod_id = $(this).attr("id");
+			var mod_id = $(this).attr("id");
 			var mod_grade = $(this).attr("grade");
 			//alert(mod_id);
 			var modul_im_pool = $("#pool").find("div#"+mod_id);
@@ -523,33 +568,25 @@ var session_auswahl_rekursiv = function(root){
 			
 			//custom_modul laden: Name und credit verändern
 			
-			if($(this).hasClass("custom")){
+			/*if($(this).hasClass("custom")){
 				alert("Hallo custom_modul_in_auswahl ID: "+mod_id);
-				
-				var this_name = $(this).attr("name");
-				alert("Dumy "+this_name);
-				var this_credit    = $(this).attr("credits");
+				var custom_name = $(this).attr("name");
+				//alert("Dumy "+this_name);
+				var custom_credit    = $(this).attr("credits");
 				//alert("Dummy"+this_credit);
-				change_custom_in_pool_by_selection(das_erste,this_name,this_credit);
-			}
+				change_custom_in_pool_by_session_load(das_erste,custom_name,custom_credit);
+			}*/
 			
-			//Teil_Module laden
-			if($(this).hasClass("partial")){
-				$(das_erste).show();
-			}
 			
 			
             // die originalen Module verstecken
             //und den span.inAuswahl auf "ja" setzen
             //und alle vor dem Clone
             var auswahl_modul_clone=$(das_erste).clone(true);
-
-            $(modul_im_pool).each(function(){
-				
-                $(this).hide();
+			$(modul_im_pool).each(function(){
+				$(this).hide();
                 $(this).find("span.inAuswahl").text("ja");
-				
-            });
+			});
 			
 			
             // verï¿½ndern erstmal die interne im Modul bei dem Clone
@@ -564,30 +601,26 @@ var session_auswahl_rekursiv = function(root){
 			if(mod_grade != "" ){
 				//alert(mod_grade);
 				var this_noten=$(auswahl_modul_clone).find(".noten_input");
-				$(this_noten).val(mod_grade);
+				var this_grade = mod_grade;
+				//set comma
+				var check_komma = mod_grade.search(/./);
+				if(check_komma != -1){
+					this_grade = mod_grade.replace(/\./,",");
+				}
+				
+				$(this_noten).val(this_grade);
 				
 				set_image_to_green_ipunkt(this_noten);
 			}
 			
-			
-			
-			
-			
-            // $(auswahl_modul_clone).find("div#icon_loeschen").css("display","block");
-            // $(auswahl_modul_clone).find("span.fragebild").css("display","none");
-            // $(auswahl_modul_clone).find("span.ipunkt").css("display","block");
-            // $(auswahl_modul_clone).find("span.noten").css("display","block");
-            $(auswahl_modul_clone).find("span.inAuswahl").text("ja");
+			$(auswahl_modul_clone).find("span.inAuswahl").text("ja");
 			
             // reinstecken das Klone im Auswahl
             $(sem_content).find("div.semester").each(function(){
                 var x= $(this).attr("id");
-			
-                if (parent_id == x){
-					
-                    $(this).find(".subsemester").append(auswahl_modul_clone);
-					
-                }
+				if (parent_id == x){
+					$(this).find(".subsemester").append(auswahl_modul_clone);
+				}
             });//ende each intern
 			return;
         }// ende Blï¿½tter
@@ -676,11 +709,11 @@ var ajax_to_server_by_get_module_info = function (modul_id){
                 success : function(html){
 
                         $("#info_box #box_info").append(html);
-                },
+                }/*,
                 error: function(a,b,c){
                         alert(b);
 						
-                }
+                }*/
 
 
 
@@ -698,10 +731,10 @@ var ajax_to_server_by_add = function (modul_id,semester){
         dataType:'text',
         async :false,
         data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
-        contentType:'application/x-www-form-urlencoded',
+        contentType:'application/x-www-form-urlencoded'/*,
         error :  function (a,b,c){
             alert(b);
-        }
+        }*/
 			
     });//ende Ajax
 
@@ -719,10 +752,10 @@ var ajax_to_server_by_remove = function (modul_id){
         dataType:'text',
         async :false,
         data  : "mod_id="+modul_id,
-        contentType:'application/x-www-form-urlencoded',
+        contentType:'application/x-www-form-urlencoded'/*,
         error :  function (a,b,c){
             alert("problem with remove_module_from_selection");
-        }
+        }*/
 			
     });//ende Ajax
 
@@ -742,10 +775,10 @@ var ajax_to_server_by_remove_semester = function (sem_count){
         cache : false,
         async : false,
         data  : "sem_count="+sem_count,
-        contentType:'application/x-www-form-urlencoded',
+        contentType:'application/x-www-form-urlencoded'/*,
         error : function (a,b,c){
             alert("problem with abfragen/remove_semester_from_selection");
-        }
+        }*/
 		
     });
     ueberblick();
@@ -763,10 +796,10 @@ var ajax_to_server_by_grade = function(modul_id,grade){
         cache:false,
         async:false,
         data:"mod_id="+modul_id+"&"+"grade="+grade,
-        contentType:'application/x-www-form-urlencoded',
+        contentType:'application/x-www-form-urlencoded'/*,
         error : function(a,b,c){
             alert ("error mit save_module_grade");
-        }
+        }*/
     });
 				
 	
@@ -789,10 +822,10 @@ var ajax_to_server_by_get_grade = function(){
         	$("#die_note").append(html);
 			
 
-        },
+        }/*,
         error: function(a,b,c){
             alert("problem with /abfragen/note");
-        }
+        }*/
 		
 
 		
@@ -814,10 +847,10 @@ function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester
         cache:false,
         async:false,
         data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id,
-        contentType:'application/x-www-form-urlencoded',
+        contentType:'application/x-www-form-urlencoded'/*,
         error : function(a,b,c){
             alert ("error mit add_custom_module_to_selection");
-        }
+        }*/
     });
 	
 }
@@ -961,8 +994,9 @@ var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dra
 	
 }
 var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
-	//$(ui_draggable).hide();
-	drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+	
+	//parts_exit  aus "ja" setzen
+	$(ui_draggable).find("span.modul_parts_exsit").text("ja");
 	$("#pool").find(".partial_modul").each(function(){
 		
 		var this_text = $(this).find("span.modul_parent_attr").text();
@@ -1148,6 +1182,7 @@ var poolrekursiv = function(XMLhandle){
                 "<span class='custom' style='display:none'>"+modul_class+"</span>"+
                 "<span class='custom_exist' style='display:none'>nein</span>"+
 				"<span class='modul_parts' style='display:none'>"+modul_parts+"</span>"+
+				"<span class='modul_parts_exsit' style='display:none'>"+"nein"+"</span>"+
 				"<span class='modul_parent_attr' style='display:none'>"+modul_parent_attr+"</span>"+
                 "<table cellspacing=1 cellpadding=0 style='width: 100%; border:1px;'>" +
                 "<tbody>" +

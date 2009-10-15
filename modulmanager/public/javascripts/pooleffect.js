@@ -170,12 +170,8 @@ $(function(){
                                     $("#info_box").dialog('close');
                             }
 
-                    },
-                    beforeclose:function(){
-                            if($("#box_info_exception").css("display")=="block"){
-                                            //alert("hallo auswahl");
-                            }
                     }
+                    
              });
 
 		
@@ -236,6 +232,7 @@ $(function(){
 				var ui_draggable = $(ui.draggable);
 				var mod_id = $(ui.draggable).attr("id");
 				var this_pool = $(this);
+				//$(ui.draggable).hide();
 				$(ui.helper).hide();
 				
 				// drop_in_pool(mod_id, ui_draggable,this_pool);
@@ -274,24 +271,25 @@ $(function(){
 				 var modul_class = $(ui.draggable).attr("class");
 				 
 				 var custom_text = $(ui.draggable).find("span.custom").text();
-				 var parts_text  = $(ui.draggable).find("span.modul_parts").html();
+				 var parts_text  = $(ui.draggable).find("span.modul_parts").text();
+				 //alert("parts_text ="+parts_text);
+				 var parts_exsit  = $(ui.draggable).find("span.modul_parts_exsit").html();
+				 //alert("part_exsit :"+parts_exsit);
 				
 				 if(custom_text == "non-custom") {
+				 	
+					drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 				 	//check nach Teil_modul
-					if(parts_text!="0"){
-						
+					if((parts_text!="0") && (parts_exsit=="nein")){
+						//alert("Teil modul kommem gleich");
 						partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 					}
-					else{
-					//normales Modul	
-						//alert("keine TeilModul enthalten");
-						drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
-					}
+					
 					
 				}
 				
-				 else{
-				 	if (modul_class == "auswahl_modul ui-draggable" || modul_class == "auswahl_modul") {
+				 else{// hier sind custom_module
+				 	if (modul_class == "auswahl_modul ui-draggable" || modul_class == "auswahl_modul" || modul_class == "auswahl_modul_clone ui-draggable") {
 						drop_in_auswahl(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper);
 					}
 					else {
@@ -327,10 +325,11 @@ $(function(){
 		
 		$("input.noten_input").focus(function(){
 			// da wird der Click bei 'Note berechen' deaktiviert
-			
-			$(this).attr("value"," ");
-			set_image_to_ipunkt(this);
-			var modul_id = $(this).attr("rel");
+			if($(this).val()=="Note"){
+				$(this).attr("value"," ");
+				set_image_to_ipunkt(this);
+			}
+			//var modul_id = $(this).attr("rel");
 			$("#note_berechnen").unbind('click');
 			$("#note_berechnen").text("Note wird bearbeitet");
 			
@@ -342,7 +341,7 @@ $(function(){
 			if(e.keyCode == 13){
 				//alert("hallo Enter");
 				$("#enter_trick").trigger('focus');
-				//selection_input_check(this);
+				selection_input_check(this);
 			}
 		});
 		$("input.noten_input").change(function(){
