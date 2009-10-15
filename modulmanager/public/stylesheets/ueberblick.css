@@ -1,34 +1,43 @@
 #ueberblick {
-  margin: 3px;
-  padding: 2px;
-  position: fixed;
-  width: 22%;
+    margin: 3px;
+    padding: 2px;
+    position: fixed;
+    width: 22%;
 }
 
 /* #loader {
 	float: left;
 } */
 
+ul.voraussetzungen, .voraussetzungen ul {
+    padding-left: 20px;
+    margin: 5px;
+}
+
+.grade {
+    margin: 10px;
+}
+
 ul.ueberblick, .ueberblick ul {
-  width: 100%;
-  list-style: none;
+    width: 100%;
+    list-style: none;
 }
 .ueberblick_name {
-  min-width: 90%;
-  width: 90%;
+    min-width: 90%;
+    width: 90%;
 }
 .ueberblick_image {
-  width: 20px;
-  min-width: 20px;
+    width: 20px;
+    min-width: 20px;
 }
 .ueberblick_info_box:hover .ueberblick_info_text {
     display: block;
 }
 .ueberblick_credits {
-  width: 60px;
-  min-width: 60px;
-  text-align: right;
-  font-size: smaller;
+    width: 60px;
+    min-width: 60px;
+    text-align: right;
+    font-size: smaller;
 }
 .ueberblick_info_text {
     border: 1px outset white;
@@ -41,22 +50,22 @@ ul.ueberblick, .ueberblick ul {
 }
 
 .ueberblick_category {
-	
-	margin-bottom: 3px;
-	background-color: #e6e6fa;
-	cursor        : pointer;
-	
+
+    margin-bottom: 3px;
+    background-color: #e6e6fa;
+    cursor        : pointer;
+
 }
 
 .ueberblick_rule{
-	
-	cursor        : pointer;
+
+    cursor        : pointer;
 }
 
 /*Note knopf*/
 #note_berechnen{
-	border:1px black solid;
-	text-align:center;
+    border:1px black solid;
+    text-align:center;
 }
 
 
