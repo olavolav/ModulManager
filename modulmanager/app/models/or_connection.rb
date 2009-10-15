@@ -10,13 +10,17 @@ class OrConnection < Connection
     return 0
   end
 
-  def evaluate selected_modules, my_semester = nil
+
+  # options kann zwei mögliche Inhalte haben:
+  # - Zähler des Semesters, aus der die Überprüfung kommt, bei PermissionRules
+  # - Array mit Modulen, deren Voraussetzungen nicht erfüllt sind
+  def evaluate selected_modules, options = nil
     if self.child_connections.length > 0
       c = self.child_connections
-      c.each { |d| return 1 if d.evaluate(selected_modules, my_semester) == 1 }
+      c.each { |d| return 1 if d.evaluate(selected_modules, options) == 1 }
     elsif self.child_rules.length > 0
       c = self.child_rules
-      c.each { |d| return 1 if d.evaluate(selected_modules, my_semester) == 1 }
+      c.each { |d| return 1 if d.evaluate(selected_modules, options) == 1 }
     end
     return -1
   end

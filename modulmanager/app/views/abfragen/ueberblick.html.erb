@@ -3,7 +3,7 @@
 <ul class="ueberblick">
 
   <% @super_rules.each do |s| %>
-    <%= "<li>#{build_html_rules_recursive s, 5, 5}</li>" %>
+    <%= "<li>#{build_html_rules_recursive s, 5, 5, @errors}</li>" %>
   <% end %>
 
   <li style='height: 35px;'>&nbsp;</li>

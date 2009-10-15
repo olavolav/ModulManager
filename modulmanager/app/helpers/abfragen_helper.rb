@@ -48,10 +48,10 @@ module AbfragenHelper
   end
 
 
-  def build_html_rules_recursive r, padding_left, padding_addition
+  def build_html_rules_recursive r, padding_left, padding_addition, non_permitted_modules
 
     name = r.name
-    fullfilled = r.evaluate current_selection.modules
+    fullfilled = r.evaluate current_selection.modules, non_permitted_modules
     image = ""
     case fullfilled
     when 1
@@ -63,7 +63,7 @@ module AbfragenHelper
       image = "Fragezeichen.png"
     end
     credits_needed = r.credits_needed
-    credits_earned = r.credits_earned current_selection.modules
+    credits_earned = r.credits_earned current_selection.modules, non_permitted_modules
     id = r.id
     element = <<EOF
   <div>
@@ -86,7 +86,7 @@ EOF
       list = "#{element}<ul style='padding-left: #{padding_left}px'>"
 
       r.child_connections.each do |cc|
-        list += "<li style='padding-right: #{padding_left}px'>#{build_html_rules_recursive(cc, (padding_left + padding_addition), padding_addition)}</li>"
+        list += "<li style='padding-right: #{padding_left}px'>#{build_html_rules_recursive(cc, (padding_left + padding_addition), padding_addition, non_permitted_modules)}</li>"
       end
       list += "</ul>"
       return list
