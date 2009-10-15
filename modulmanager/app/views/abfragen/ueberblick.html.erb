@@ -15,16 +15,16 @@
 </ul>
 
 
-<% if @errors.length > 0 %>
+<%# if @errors.length > 0 %>
 
-<p><strong>Die Voraussetzungen für folgende Module sind nicht erfüllt:</strong></p>
+<%#*<p><strong>Die Voraussetzungen für folgende Module sind nicht erfüllt:</strong></p>%>
 
-  <ul class="voraussetzungen">
-    <% @errors.each do |element| %>
-      <li>
-        <%= "#{element.moduledata.name} (#{element.semester.count}. Semester)" %>
-      </li>
-    <% end %>
-  </ul>
+  <%#*<ul class="voraussetzungen">%>
+    <%# @errors.each do |element| %>
+      <%#*<li>%>
+        <%#= "#{element.moduledata.name} (#{element.semester.count}. Semester)" %>
+      <%#*</li>%>
+    <%# end %>
+  <%#*</ul>%>
 
-<% end %>
+<%# end %>

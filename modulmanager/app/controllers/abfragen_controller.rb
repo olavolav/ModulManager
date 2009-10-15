@@ -2,23 +2,21 @@ class AbfragenController < ApplicationController
 
   def ueberblick
     selection = current_selection
-    puts selection.version.id
-    puts Version.all[0].id
 
     @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL AND focus = 0 AND version_id = '#{selection.version.id}'")
     @focus_rules = Connection.find(:first, :conditions => "name = '#{selection.focus.name}' AND version_id = '#{selection.version.id}'") unless selection.focus == nil
 
 #    @modules = selection.modules
 
-    @errors = Array.new
-    selection.semesters.each do |semester|
-      count = semester.count
-      semester.modules.each do |mod|
-        permission = 1
-        permission = mod.moduledata.permission.evaluate(selection.semesters, count) unless mod.moduledata.permission == nil
-        @errors.push mod unless permission == 1
-      end
-    end
+#    @errors = Array.new
+#    selection.semesters.each do |semester|
+#      count = semester.count
+#      semester.modules.each do |mod|
+#        permission = 1
+#        permission = mod.moduledata.permission.evaluate(selection.semesters, count) unless mod.moduledata.permission == nil
+#        @errors.push mod unless permission == 1
+#      end
+#    end
 
     respond_to do |format|
       format.html { render :action => "ueberblick", :layout => false }
@@ -37,6 +35,24 @@ class AbfragenController < ApplicationController
     @schwerpunkte = Focus.all
     respond_to do |format|
       format.xml { render :action => "pool", :layout => false }
+    end
+  end
+
+  def errors
+
+    selection = current_selection
+    @errors = Array.new
+    selection.semesters.each do |semester|
+      count = semester.count
+      semester.modules.each do |mod|
+        permission = 1
+        permission = mod.moduledata.permission.evaluate(selection.semesters, count) unless mod.moduledata.permission == nil
+        @errors.push mod unless permission == 1
+      end
+    end
+
+    respond_to do |format|
+      format.xml { render :action => "errors", :layout => false }
     end
   end
 
