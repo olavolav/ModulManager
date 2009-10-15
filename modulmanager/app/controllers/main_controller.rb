@@ -87,7 +87,11 @@ class MainController < ApplicationController
 
     shredder filename
 
-    redirect_to :action => "import2"
+    if @version.all.length > 1
+      redirect_to :action => "import2"
+    else
+      redirect_to :action => "index"
+    end
   end
 
   def focus_selection
