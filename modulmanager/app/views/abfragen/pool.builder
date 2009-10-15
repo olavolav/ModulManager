@@ -25,7 +25,7 @@ xml.root do
             if partial
               m.parts.times do |j|
                 i = j + 1
-                xml.module(:id => "#{m.id}_#{i}", :class => "non-custom", :partial => "true", :parent => m.id) do
+                xml.module(:id => "#{m.id}#{i}", :class => "non-custom", :partial => "true", :parent => m.id) do
                   xml.name "#{m.name} (Teil #{i})"
                   xml.short "#{m.short}_#{i}"
                   c = m.credits / m.parts
