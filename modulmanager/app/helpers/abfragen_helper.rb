@@ -1,42 +1,75 @@
 module AbfragenHelper
 
   def build_xml_bachelor_recursive(c, xml, modus)
-
     modus = c.modus unless c.modus == nil
-
     if c.sub_categories == [] && c.modules != []
-
       c.modules.each { |m|
-
         classification = "non-custom"
-
         18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
-
         m.parts > 1 ? partial = true : partial = false
+        has_grade = true
+        
+        xml.module(
+          :id => m.id,
+          :class => classification,
+          :partial => partial,
+          :has_grade => has_grade
+        ) do
 
-        xml.module(:id => m.id, :class => classification, :partial => partial) do
           xml.name(m.name)
           xml.short(m.short)
           xml.credits(m.credits)
           xml.mode(modus)
           m.parts > 1 ? xml.parts(m.parts) : xml.parts(0)
+
         end
 
         if partial
-          m.parts.times do |j|
-            i = j + 1
-            xml.module(:id => "#{m.id}#{i}", :class => "non-custom", :partial => "true", :parent => m.id) do
-              xml.name "#{m.name} (Teil #{i})"
-              xml.short "#{m.short}_#{i}"
-              c = m.credits / m.parts
-              xml.credits c
-              xml.mode(modus)
-              xml.parts(0)
+
+          m.parts.times do |i|
+
+            part = i + 1
+            short = "#{m.short}.#{part}"
+            puts short
+            mod = Studmodule.find(
+              :first,
+              :conditions => "short = '#{short}'"
+            )
+
+            has_grade = true
+
+            xml.module(
+              :id => "#{mod.id}",
+              :class => "non-custom",
+              :partial => "true",
+              :has_grade => has_grade,
+              :parent => m.id
+            ) do
+
+              xml.name mod.name
+              xml.short mod.short
+              xml.credits mod.credits
+              xml.mode modus
+              mod.parts > 1 ? xml.parts(mod.parts) : xml.parts(0)
+
             end
+
           end
 
-        end
+#          m.parts.times do |j|
+#            i = j + 1
+#            xml.module(:id => "#{m.id}#{i}", :class => "non-custom", :partial => "true", :parent => m.id) do
+#              xml.name "#{m.name} (Teil #{i})"
+#              xml.short "#{m.short}_#{i}"
+#              c = m.credits / m.parts
+#              xml.credits c
+#              xml.mode(modus)
+#              xml.parts(0)
+#            end
+#          end
 
+
+        end
       }
     elsif c.sub_categories != []
       c.sub_categories.each { |d|

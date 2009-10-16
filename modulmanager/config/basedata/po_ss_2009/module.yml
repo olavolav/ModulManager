@@ -456,15 +456,6 @@
   - name: Übungen zu System Erde
     credits: 4
     id: B.Geo.402.3
-    teile: 2
-
-  - name: Gesteinskunde und geologische Kartenkunde
-    credits: 3
-    id: B.Geo.402.3.1
-
-  - name: Geländeübung
-    credits: 1
-    id: B.Geo.402.3.2
 
   - name: Professionalisierungsseminar
     credits: 4

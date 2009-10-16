@@ -133,24 +133,24 @@ class RegelParserController < ApplicationController
     end
 
     free_modules.each do |m|
-      m["parts"] = m["parts"].to_i
-      m["parts"] = 1 if m["parts"] < 1
+      m["teile"] = m["teile"].to_i
+      m["teile"] = 1 if m["teile"] < 1
       ready_module = Studmodule.create :name => m["name"],
         :credits => m["credits"],
         :short => m["id"],
         :description => m["beschreibung"],
-        :parts => m["parts"],
+        :parts => m["teile"],
         :version => version
     end
     
     limited_modules.each do |m|
-      m["parts"] = m["parts"].to_i
-      m["parts"] = 1 if m["parts"] < 1
+      m["teile"] = m["teile"].to_i
+      m["teile"] = 1 if m["teile"] < 1
       ready_module = Studmodule.create :name => m["name"],
         :credits => m["credits"],
         :short => m["id"],
         :description => m["beschreibung"],
-        :parts => m["parts"],
+        :parts => m["teile"],
         :version => version
       #      unless m["zulassung"] == nil
       and_connections = Array.new
