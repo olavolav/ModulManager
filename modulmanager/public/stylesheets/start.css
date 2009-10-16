@@ -13,7 +13,7 @@ ul li{
 	width: 30%;
 	min-height: 35px;
 	list-style-type:none;
-	border : 1px #3b809d solid;
+	border : 1px #3b809d outset;
 	background: white;
 	text-align:center;
 	text-decoration: none;
@@ -29,7 +29,8 @@ ul a:link, ul a:visited {
 
 ul a:hover {
 	color: black;
-	text-decoration: underline;
+	/*text-decoration: underline;*/
+	background-color: #d8eef7;
 }
 
 .clear {
@@ -50,14 +51,10 @@ select {
 	margin-top : 30px;
 }
 
-.buttons {
-	border : 1px black solid;
+#bestaetigen button {
 	min-width  : 15%;
 	margin : 1em;
-	padding: 1em;
 	text-align : center;
 	float: right;
-	background-color: #d8eef7;
-	cursor: pointer;
 	color: black;
 }

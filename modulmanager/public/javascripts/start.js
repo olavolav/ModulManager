@@ -1,7 +1,7 @@
 var update_schwerpunkt = function(s_id){
 	
 	$(".schwerpunkt_oben").css("background","white");
-
+	
     // alert("hallo schwerpunkt "+s_id);
 
     $.ajax({

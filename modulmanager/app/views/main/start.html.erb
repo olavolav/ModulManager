@@ -7,7 +7,7 @@
 	<% selection = current_selection %>
 	<ul>
 		<% (selection.focus == nil) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
-		<a href="#" onClick="javascript:update_schwerpunkt(nil);"><li class="schwerpunkt_oben" style='background-color: <%= highlight_color %>;' id="nil" >Kein Schwerpunkt</li></a>
+		<a href="#" onClick='javascript:update_schwerpunkt(-1);'><li class="schwerpunkt_oben" style='background-color: <%= highlight_color %>;' id="-1" >Kein Schwerpunkt</li></a>
 	  	<% @schwerpunkte.each do |s| %>
 			<% (selection.focus == s.id) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
 			<a href="#" onClick='javascript:update_schwerpunkt(<%= s.id %>);'>
@@ -23,7 +23,7 @@
 	Bitte Prüfungsordnung auswählen:<br/>
 	<ul>
 	  	<% Version.all.each do |po| %>
-			<% (selection.version == po.id) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
+			<% (selection.version == po.name) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
 			<a href="#" onClick='javascript:update_pordnung(<%= po.id %>);'>
 				<li class="pruefungsordnung" style='background-color: <%= highlight_color %>;' id='<%= po.id %>'>
 					<%= po.name %>
@@ -35,10 +35,11 @@
 
 
   <div id ="bestaetigen">
-				Alternative können Sie eine von Ihnen 
+				Alternativ können Sie eine von Ihnen 
     <%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.<br/>
-    <%= link_to "<div class='buttons'>OK</div>", :action => "create_selection" %>
-    <%#= link_to("<div class='buttons'>Zurück</div>", :url => { :action => "index" }) unless session[:selection_id] == nil %>
+
+    <%= link_to "<button>OK</button>", :action => "create_selection" %>
+    <%= link_to("<button>Zurück</button>", :action => "index" ) unless session[:selection_id] == nil %>
     <div class="clear">&nbsp;</div>
   </div>
 

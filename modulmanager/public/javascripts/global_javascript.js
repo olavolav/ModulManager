@@ -1120,7 +1120,7 @@ var poolrekursiv = function(XMLhandle){
                 else
                     appendString += "<div style='margin-left:6px;display:none;' class='pool_category' "+"id='"+category_id+"'>";
 					
-                appendString += "<a onClick='javascript:toggle_category(\""+category_id+"\");'>"+
+                appendString += "<a href='#' alt='Kategorie auf- und zuklappen' onClick='javascript:toggle_category(\""+category_id+"\");'>"+
                 "<span class='pfeil_rechts' style='display:inline'>"+pfeil_rechts+"</span>"+
                 "<span class='pfeil_unten' style='display:none'>"+pfeil_unten+"</span>"+
                 "<span class='pfeil_leer' style='display:none'>"+pfeil_leer+"</span>"+
