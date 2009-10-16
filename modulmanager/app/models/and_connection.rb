@@ -11,7 +11,7 @@ class AndConnection < Connection
     if self.child_connections.length > 0
       self.child_connections.each do |cc|
         credits += cc.credits_earned selected_modules, non_permitted_modules
-      end
+    end
     elsif self.child_rules.length > 0
       self.child_rules.each do |cr|
         credits += cr.act_credits(selected_modules, non_permitted_modules) if cr.class == CreditRule
@@ -70,6 +70,21 @@ class AndConnection < Connection
       c.each { |d| modules += d.count if d.class == ModuleRule }
     end
     return modules
+  end
+
+  def collect_unique_modules_from_rules
+    modules = Array.new
+    self.child_rules.each do |rule|
+      rule.category.modules.each { |m| modules.push m }
+      rule.modules.each { |m| modules.push m }
+    end
+    if self.child_connections.length > 0
+      self.child_connections.each { |connection|
+        collected_modules = connection.collect_unique_modules_from_rules
+        collected_modules.each { |m| modules.push m }
+      }
+    end
+    return modules.uniq!
   end
 
 end

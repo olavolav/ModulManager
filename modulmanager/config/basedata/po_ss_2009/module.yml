@@ -65,6 +65,26 @@
     credits: 9
     id: B.Mat.012
     beschreibung:
+      
+  - name: Einführung in die Astro- und Geophysik
+    credits: 6
+    id: B.Phy.501
+    beschreibung:
+
+  - name: Einführung in die Biophysik und Physik komplexer Systeme
+    credits: 6
+    id: B.Phy.502
+    beschreibung:
+
+  - name: Einführung in die Festkörper- und Materialphysik
+    credits: 6
+    id: B.Phy.503
+    beschreibung:
+
+  - name: Einführung in die Kern- und Teilchenphysik
+    credits: 6
+    id: B.Phy.504
+    beschreibung:
 
   - name: Spezialisierungspraktikum Nanostrukturphysik
     credits: 6
@@ -77,7 +97,6 @@
     credits: 6
     id: B.Phy.404
     zulassung:
-      - B.Phy.601
       - B.Phy.605
     beschreibung:
 
@@ -101,31 +120,10 @@
     id: B.Phy.408
     beschreibung:
 
-  - name: Einführung in die Astro- und Geophysik
-    credits: 6
-    id: B.Phy.501
-    beschreibung:
-
-  - name: Einführung in die Biophysik und Physik komplexer Systeme
-    credits: 6
-    id: B.Phy.502
-    beschreibung:
-
-  - name: Einführung in die Festkörper- und Materialphysik
-    credits: 6
-    id: B.Phy.503
-    beschreibung:
-
-  - name: Einführung in die Kern- und Teilchenphysik
-    credits: 6
-    id: B.Phy.504
-    beschreibung:
-
   - name: Mehrbenutzersysteme in der Praxis I
     credits: 6
     id: B.Phy.510
     zulassung:
-      - B.Phy.601
       - B.Phy.605
     beschreibung:
 

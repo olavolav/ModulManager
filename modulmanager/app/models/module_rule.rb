@@ -5,6 +5,7 @@ class ModuleRule < Rule
 
   def act_modules selected_modules, non_permitted_modules = nil
     modules = 0
+    non_permitted_modules = Array.new if non_permitted_modules == nil
     rule_modules = Array.new
     rule_modules = self.category.modules unless self.category == nil
     self.modules.each { |m| rule_modules.push m }

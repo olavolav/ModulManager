@@ -5,6 +5,7 @@ class CreditRule < Rule
 
   def act_credits selected_modules, non_permitted_modules = nil
     credits = 0
+    non_permitted_modules = Array.new if non_permitted_modules == nil
     rule_modules = Array.new
     rule_modules = self.category.modules unless self.category == nil
     self.modules.each { |m| rule_modules.push m }
