@@ -1260,11 +1260,11 @@ var poolrekursiv = function(XMLhandle){
 				"<span class='modul_parts' style='display:none'>"+modul_parts+"</span>"+
 				"<span class='modul_parts_exsit' style='display:none'>"+"nein"+"</span>"+
 				"<span class='modul_parent_attr' style='display:none'>"+modul_parent_attr+"</span>"+
-                "<table cellspacing=1 cellpadding=0 style='width: 100%; border:1px;'>" +
+                "<table cellspacing='0' cellpadding='0' style='width:100%; border:1px;'>" +
                 "<tbody>" +
                 "<tr>" +
                 "<td style=' width:22px;padding:1px 2px 0px 2px; '>"+bild+"</td>"+
-                "<td class='modul_name' style=' width:99%'>"+modul_name+"</td>"+
+                "<td class='modul_name' style='width:99%'>"+modul_name+"</td>"+
 					
                 // Kurzbezeichnung raus aus der Auswahl (OS)
                 // "<td style=' width:20%'>" +
@@ -1272,18 +1272,18 @@ var poolrekursiv = function(XMLhandle){
                 // "</td>"+
 
                 "<td style=' width:22px; '>" +
-                "<span class='fragebild' style='display:block;padding:1px 2px 0px 7px;' onclick=info_box("+modul_id+")>"+fragebild+"</span>"+
+                "<span class='fragebild' style='display:block;margin:0px 0px 0px 0px;' onclick=info_box("+modul_id+")>"+fragebild+"</span>"+
                 "</td>" +
 
                 "<td style=' width:25px'>" +
                 "<span class='noten' style='display:none'>" +
 				"<span class='modul_has_grade' style='display:none'>"+has_grade+"</span>"+
-                "<input class='noten_input' type='text' size='5' rel='"+modul_id+"' value='Note' />"+
+                "<input class='noten_input' type='text' size='5' style='margin-right:5px;' rel='"+modul_id+"' value='Note' />"+
                 "</span>" +
                 "</td>" +
 
                 "<td style=' width:22px'>" +
-                "<span class='ipunkt' style='display:none;padding:1px 2px 0px 7px;' onclick=info_box_selection("+modul_id+")>"+ipunkt+"</span>"+
+                "<span class='ipunkt' style='display:none;padding:1px 2px 0px 0px;' onclick=info_box_selection("+modul_id+")>"+ipunkt+"</span>"+
                 "</td>" +
 
                 "<td class='modul_credit' style='min-width:32px;text-align:right;font-weight:bold'>" +

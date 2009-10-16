@@ -1,9 +1,12 @@
 .pool_modul ,.custom_modul, .pool_modul_copy {
-        background-color : #d8eef7;
 		margin-bottom    : 5px;
-		border           : 1px #3b809d solid;
+		padding          : 1px 1px 0px 1px;
+		border           : 1px #3b809d outset;
 		cursor			 : move;
 		min-width        : 200px;
+		background: #d8eef7 url("../images/Modul-Hintergrund.gif");
+		background-repeat: repeat-x;
+		background-position: top left;
 }
 
 .pool_category {

@@ -1,16 +1,13 @@
-/*#pool,#ueberblick{
-	position:fixed;
-	
-}*/
-
-
 
 .auswahl_modul,.auswahl_modul_clone {
-        background-color : #d8eef7;
 		margin-bottom    : 5px;
-		border           : 1px #3b809d solid;
+		padding          : 1px 1px 0px 1px;
+		border           : 1px #3b809d outset;
 		cursor			 : move;
 		min-width        : 200px;
+		background: #d8eef7 url("../images/Modul-Hintergrund.gif");
+		background-repeat: repeat-x;
+		background-position: top left;
 }
 
 .auswahl_modul td {
@@ -45,24 +42,17 @@
 	margin: 3px;
 }
 
-.semester {
+.semester, #voratbox {
 	/*border: 1px #DEB887 solid;*/
 	border: 1px #DEB887 solid;
 	width:100%;
-	/*background-color:#FFF68F;*/
-	background-color:#FFFFAF;
+	background: #FFFFAF url("../images/Semester-Hintergrund.gif");
+	background-repeat: repeat;
+	background-position: top left;
 	padding: 10px;
-/*	padding-left: 25px;
-	padding-right:25px;
-	padding-bottom:25px; */
 	margin-bottom: 5px;
 	
 }
-/*------der erste DIV in semester-BOX--------------- */
-/* .semesterloeschen {
-	padding: 0.3em;
-	margin-top: 1em;
-} */
 
 /*--------Modul löschen*/
 .modulloeschen {
@@ -83,6 +73,7 @@
  }
 
 h3,h4,h5 {
+	/*color: #555;*/
 	font-size: 12px;
 	margin-bottom: 5px;
 	font-weight: normal;
@@ -92,15 +83,10 @@ h3,h4,h5 {
 /* Nicht hier weg bewegen, weil diese CSS-Datei nach global und pool geladen
    wird und deswegen dieser Style die anderen "überschreibt" (OS) */
 .drophover{
-	background-color: #FFA0A0;
-	/*border: 1px solid red;*/
+	background-image: url("../images/Pool-Hintergrund-Droppable.gif");
+	background-repeat: repeat;
+	background-position: top left;
 }
-
-#voratbox {
-	 border: 5px solid blue;
-	
-}
-
 
 
 

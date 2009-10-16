@@ -136,7 +136,7 @@ a:visited {
 }
 
 #content{
-	/*background-color:red;*/
+	/*background-color:red;*/	
 }
 
 #left{
@@ -145,7 +145,10 @@ a:visited {
 	width: 22%; /* das sollte auch bei ID 'ueberblick' eingetragen werden (s. auch #middle) (OS) */
 	background-color:white;
 	/*border-right:1px black solid;*/
-	/*height:500px;*/	
+	/*height:500px;*/
+	background: white url("../images/Ueberblick-Hintergrund.gif");
+	background-repeat: repeat-y;
+	background-position: top left;	
 }
 
 #middle{
@@ -232,7 +235,9 @@ a:visited {
 		/*border: 1px #DEB887 solid;*/
 		border: 1px #DEB887 solid;
 		/*background-color:#FFF68F;*/
-		background-color:#FFFFAF;
+		background: #FFFFAF url("../images/Pool-Hintergrund.gif");
+		background-repeat: repeat;
+		background-position: top left;
 		margin: 3px;
 		padding:2px;
 		height:100%;
