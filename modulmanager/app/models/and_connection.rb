@@ -7,14 +7,20 @@ class AndConnection < Connection
   belongs_to :parent, :foreign_key => "parent_id", :class_name => "Connection"
 
   def credits_earned selected_modules, non_permitted_modules
-    credits = 0
-    if self.child_connections.length > 0
-      self.child_connections.each do |cc|
-        credits += cc.credits_earned selected_modules, non_permitted_modules
+
+    module_ids = collect_unique_modules_from_rules
+
+    module_array = Array.new
+
+    module_ids.each do |id|
+      module_array.push Studmodule.find(id)
     end
-    elsif self.child_rules.length > 0
-      self.child_rules.each do |cr|
-        credits += cr.act_credits(selected_modules, non_permitted_modules) if cr.class == CreditRule
+
+    credits = 0
+
+    module_array.each do |m|
+      selected_modules.each do |sm|
+        credits += m.credits if sm.id == m.id
       end
     end
     return credits
@@ -75,16 +81,17 @@ class AndConnection < Connection
   def collect_unique_modules_from_rules
     modules = Array.new
     self.child_rules.each do |rule|
-      rule.category.modules.each { |m| modules.push m }
-      rule.modules.each { |m| modules.push m }
+      rule.category.modules.each { |m| modules.push m.id }
+      rule.modules.each { |m| modules.push m.id }
     end
     if self.child_connections.length > 0
       self.child_connections.each { |connection|
         collected_modules = connection.collect_unique_modules_from_rules
-        collected_modules.each { |m| modules.push m }
+        collected_modules.each { |m| modules.push m } unless collected_modules == nil
       }
     end
-    return modules.uniq!
+    modules.uniq!
+    return modules
   end
 
 end

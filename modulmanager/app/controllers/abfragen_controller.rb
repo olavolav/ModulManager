@@ -6,8 +6,6 @@ class AbfragenController < ApplicationController
     @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL AND focus = 0 AND version_id = '#{selection.version.id}'")
     @focus_rules = Connection.find(:first, :conditions => "name = '#{selection.focus.name}' AND version_id = '#{selection.version.id}'") unless selection.focus == nil
 
-#    @modules = selection.modules
-
     @errors = Array.new
     selection.semesters.each do |semester|
       count = semester.count
@@ -16,10 +14,6 @@ class AbfragenController < ApplicationController
         permission = mod.moduledata.permission.evaluate(selection.semesters, count) unless mod.moduledata.permission == nil
         @errors.push mod.moduledata unless permission == 1
       end
-    end
-    puts "Anzahl Fehler: #{@errors.length}"
-    @errors.each do |e|
-      puts "Fehler mit #{e}"
     end
     respond_to do |format|
       format.html { render :action => "ueberblick", :layout => false }
