@@ -134,7 +134,9 @@ var bindThickBoxEvents= function() {
     }
 
 var get_modul_info_in_overview =  function(modul_id){
-	
+	$("#box_info").empty();
+	$("#box_info_exception").hide();
+	$("#box_info_pool").hide();
 	$("#info_box").dialog('open');
 	var html = $.ajax({
 		
@@ -146,8 +148,8 @@ var get_modul_info_in_overview =  function(modul_id){
 			
 			$("#box_info").empty();
 			$("#box_info").append(html);
-			$("#box_info_exception").hide();
-        	$("#box_info_pool").hide();
+			//$("#box_info_exception").hide();
+        	//$("#box_info_pool").hide();
 			$("#box_info_overview").hide();
 			
 			

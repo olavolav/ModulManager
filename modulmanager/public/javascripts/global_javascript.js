@@ -378,7 +378,7 @@ var modul_loeschen = function (mod_id){
     // Auswahl sein kann, ausser bei Drop in den Pool, dann 2x: (OS)
     // Letzteres sollte man vielleicht nochmal anschauen irgendwann. (OS)
     // if ($("#semester-content div.semester").find("div#"+mod_id).length > 1)
-    alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
+    //alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
 	
 	//alert(mod_id);
 	
@@ -465,8 +465,10 @@ var sub_modul_loeschen = function (this_mod,mod_id){
                     // $(this).parent().find("#"+mod_id).css("display","block");
                     if ((!(search_is_active())) || $(this).is(".search_modul")) {
 					
-						if((pool_modul != "partial_modul")||(pool_modul != "partial_modul ui-draggable"))
+						if (pool_modul != "partial_modul") {
+							//alert("pool_modul = "+pool_modul);
 							$(this).find("#" + mod_id).css("display", "block");
+						}
 						
 					}
                 // else $(this).find("#"+mod_id).css("display","none");
@@ -527,25 +529,78 @@ var sub_modul_loeschen = function (this_mod,mod_id){
 //info_box
 
 var info_box_selection = function(modul_id){
-		 
+		//schreib modul_id in attr "rel", um später wieder 
+		//Modul in Auswahl zu finden
+		$("#exception_credit").attr("rel",modul_id);  
+		$("#box_info").empty();
         $('#info_box').dialog('open');
         $("#box_info_exception").show();
         $("#box_info_pool").hide();
-        $("#box_info").empty();
+        
         ajax_to_server_by_get_module_info(modul_id);
 
 
 }
 
 var info_box = function(modul_id){
-        
+        $("#box_info").empty();
         $("#info_box").dialog('open');
         $("#box_info_exception").hide();
         $("#box_info_pool").show();
-        $("#box_info").empty();
+        
 		ajax_to_server_by_get_module_info(modul_id);
 
 }
+
+var update_modul_in_selection = function (){
+	//alert("hallo uapdate");
+	//check, ob man etwas in Ausnahme verändert hat
+	//if ($("#box_info_exception").css("display") == "block"){
+	
+	
+		var modul_id = $("#exception_credit").attr("rel");
+		var this_modul = $("#semester-content .subsemester").find("div#"+modul_id).eq(0);	
+		
+		var v=$("#exception_credit").val();
+		var warn_checked = $("#exception_warn:checked").val();
+		var note_checked = $("#exception_note:checked").val();
+		
+		// remove credit-option,warnung- und note-option falls die schon bereits vorhanden sind
+		var this_credit =$(this_modul).find("p.credit-option");
+		$(this_credit).html("");
+		var this_warn = $(this_modul).find("p.warnung-option");
+		$(this_warn).html("");
+		var this_note =$(this_modul).find("p.note-option");
+		$(this_note).html("");
+		
+		
+		//credit
+		if(($.trim(v)=="Note")||($.trim(v)=="")){
+			//alert("nicht Verändern");
+		}
+		else{
+			
+			//alert("Verändern Exception_credit ="+v);
+			$(this_modul).find(".modul_credit").text(v+" C");
+			$(this_credit).html("Credit-Zahl wird zum "+v+" ver&auml;ndert");
+			//$(this_modul).append("<p class='credit-option'>Credit-Zahl wird zum "+v+" ver&auml;ndert<p>");
+			
+		}
+		//alert("warn-checked = "+warn_checked);
+		
+		//warnung
+		if (warn_checked == "on") 
+			$(this_warn).html("Warnung deaktiviert");
+			//$(this_modul).append("<p  class='warnung-option'>Warnung deaktiviert<p>");
+		//note	
+		if(note_checked=="on")
+			$(this_note).html("Note streichen"); 
+			//$(this_modul).append("<p class='note-option'>Note streichen<p>"); 
+	//}
+}//ende
+
+
+
 
 
 
@@ -1148,6 +1203,11 @@ var poolrekursiv = function(XMLhandle){
 				 
                 var modul_id = $(this).attr("id");
                 var modul_class=$(this).attr("class");
+				var has_grade="ja";
+				var modul_has_grade=$(this).attr("has_grade");
+				if(modul_has_grade == "false"){
+					has_grade = "nein";
+				}
 
                 //check Modul_ART : Pflicht? WP?
                 var bild;
@@ -1217,6 +1277,7 @@ var poolrekursiv = function(XMLhandle){
 
                 "<td style=' width:25px'>" +
                 "<span class='noten' style='display:none'>" +
+				"<span class='modul_has_grade' style='display:none'>"+has_grade+"</span>"+
                 "<input class='noten_input' type='text' size='5' rel='"+modul_id+"' value='Note' />"+
                 "</span>" +
                 "</td>" +
@@ -1229,6 +1290,9 @@ var poolrekursiv = function(XMLhandle){
                 credits +" C" +
                 "</td>" +
                 "</tr>" + "</tbody>" + "</table>" +
+				"<p class='credit-option' style='display:none'></p>"+
+				"<p class='warnung-option' style='display:none'></p>"+
+				"<p class='note-option' style='display:none'></p>"+
                 "</div></div>";
 
                 //kopieren das Modul in search_table  fï¿½r die Suche
@@ -1282,6 +1346,11 @@ var search_is_active = function(){
 }
 
 var change_module_style_to_pool = function(handle){
+	// style für option
+	$(handle).find("p.credit-option").css("display","none");
+	$(handle).find("p.warnung-option").css("display","none");
+	$(handle).find("p.note-option").css("display","none");
+	
     $(handle).find("div.icon_loeschen").css("display","none");
     $(handle).find("span.fragebild").css("display","block");
     $(handle).find("span.ipunkt").css("display","none");
@@ -1291,10 +1360,18 @@ var change_module_style_to_pool = function(handle){
 }
 
 var change_module_style_to_auswahl = function(handle){
+	// style für option
+	$(handle).find("p.credit-option").css("display","block");
+	$(handle).find("p.warnung-option").css("display","block");
+	$(handle).find("p.note-option").css("display","block");
+	
     $(handle).find("div.icon_loeschen").css("display","block");
     $(handle).find("span.fragebild").css("display","none");
     $(handle).find("span.ipunkt").css("display","block");
-    $(handle).find("span.noten").css("display","block");
+	if ($(handle).find("span.modul_has_grade").text() != "nein") {
+		$(handle).find("span.noten").css("display", "block");
+		
+	}
 	
     return 0;
 }
