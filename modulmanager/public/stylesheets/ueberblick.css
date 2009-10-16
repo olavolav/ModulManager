@@ -1,8 +1,9 @@
 #ueberblick {
-    margin: 3px;
-    padding: 2px;
-    position: fixed;
-    width: 22%;
+	margin: 1%;
+    /* Das Folgende wird dynamisch gesetzt, wenn man das Navigationsmenue ausblendet,
+	   siehe global_javascript.js (OS)
+	position: fixed;
+    width: 100%; */
 }
 
 /* #loader {

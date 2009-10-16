@@ -287,17 +287,25 @@ function rekursiv_pool_by_in(first_father){
 
 
 
-// Anzeigen bzw. verstecken der anf�nglichen Hilfe und der Navigations-Kn�pfe
+// Anzeigen bzw. verstecken der anfaenglichen Hilfe und der Navigations-Knoepfe
 var show_navi = function(){
     $("#navi_optional").slideDown();
     $("#navimovedown").toggle();
     $("#navimoveup").show();
+	$("#ueberblick").css("width","100%");
+	$("#ueberblick").css("position","relative");
+	$("#middle").css("margin-left","1%");
 }
 var hide_navi = function(){
     $("#navi_optional").slideUp();
     $("#navimovedown").show();
     $("#navimoveup").hide();
+	$("#ueberblick").css("width","22%");
+	$("#ueberblick").css("position","fixed");
+	$("#middle").css("margin-left","24%");
 }
+
+// Fixieren bzw. 
 
 var hide_partial_modul = function(){
 	
@@ -370,7 +378,7 @@ var modul_loeschen = function (mod_id){
     // Auswahl sein kann, ausser bei Drop in den Pool, dann 2x: (OS)
     // Letzteres sollte man vielleicht nochmal anschauen irgendwann. (OS)
     // if ($("#semester-content div.semester").find("div#"+mod_id).length > 1)
-    // 	alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
+    alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
 	
 	//alert(mod_id);
 	
