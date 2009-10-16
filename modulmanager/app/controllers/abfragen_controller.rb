@@ -8,16 +8,19 @@ class AbfragenController < ApplicationController
 
 #    @modules = selection.modules
 
-#    @errors = Array.new
-#    selection.semesters.each do |semester|
-#      count = semester.count
-#      semester.modules.each do |mod|
-#        permission = 1
-#        permission = mod.moduledata.permission.evaluate(selection.semesters, count) unless mod.moduledata.permission == nil
-#        @errors.push mod unless permission == 1
-#      end
-#    end
-
+    @errors = Array.new
+    selection.semesters.each do |semester|
+      count = semester.count
+      semester.modules.each do |mod|
+        permission = 1
+        permission = mod.moduledata.permission.evaluate(selection.semesters, count) unless mod.moduledata.permission == nil
+        @errors.push mod.moduledata unless permission == 1
+      end
+    end
+    puts "Anzahl Fehler: #{@errors.length}"
+    @errors.each do |e|
+      puts "Fehler mit #{e}"
+    end
     respond_to do |format|
       format.html { render :action => "ueberblick", :layout => false }
     end

@@ -30,7 +30,6 @@ module AbfragenHelper
 
             part = i + 1
             short = "#{m.short}.#{part}"
-            puts short
             mod = Studmodule.find(
               :first,
               :conditions => "short = '#{short}'"
@@ -53,22 +52,7 @@ module AbfragenHelper
               mod.parts > 1 ? xml.parts(mod.parts) : xml.parts(0)
 
             end
-
           end
-
-#          m.parts.times do |j|
-#            i = j + 1
-#            xml.module(:id => "#{m.id}#{i}", :class => "non-custom", :partial => "true", :parent => m.id) do
-#              xml.name "#{m.name} (Teil #{i})"
-#              xml.short "#{m.short}_#{i}"
-#              c = m.credits / m.parts
-#              xml.credits c
-#              xml.mode(modus)
-#              xml.parts(0)
-#            end
-#          end
-
-
         end
       }
     elsif c.sub_categories != []

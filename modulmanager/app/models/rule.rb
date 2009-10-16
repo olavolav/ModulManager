@@ -30,5 +30,14 @@ class Rule < ActiveRecord::Base
     return r
   end
 
+  def self.remove_modules_from_array array, remove
+    array.each do |mod|
+      remove.each do |rem|
+        array.delete mod if mod.id == rem.id
+      end
+    end
+    return array
+  end
+
 
 end

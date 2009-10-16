@@ -99,7 +99,7 @@ class MainController < ApplicationController
     selection = current_selection
     selection.focus = focus
     selection.save
-    @schwerpunkte = Focus.all
+#    @schwerpunkte = Focus.all
     render :text => "Supi!"
 #    respond_to do |format|
 #      format.html { render :action => "focus_selection", :layout => false }
