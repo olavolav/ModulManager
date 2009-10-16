@@ -36,12 +36,6 @@ ul a:hover {
 	clear:both;
 }
 
-.schwerpunkt_unten {
-	float : left;
-	
-	
-}
-
 select {
 	margin: 1em;
 	
@@ -52,6 +46,7 @@ select {
 }
 
 #bestaetigen {
+	clear: both;
 	margin-top : 30px;
 }
 

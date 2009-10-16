@@ -1,9 +1,9 @@
 
 <div id="content">
-  <h3>Modul-Manager der Fakult&auml;t Physik</h3>
-			Bitte Schwerpunkt auswählen:<br/>
+  <h3>Modul-Manager der Fakultät Physik</h3>
 
   <div id="schwerpunkt">
+		Bitte Schwerpunkt auswählen:<br/>
 	<% selection = current_selection %>
 	<ul>
 		<% (selection.focus == nil) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
@@ -19,18 +19,23 @@
 	</ul>
   </div>
 
-
   <div id="pruefungsordnung">
-				Aktuell ausgewählte Pr&uuml;fungsordnung: <strong><span id="version"><%= @version.name %></span></strong><br/>
-    <% form_remote_tag :update => "version", :url => { :action => "version_selection" } do %>
-      <%= select_tag :version, options_from_collection_for_select(Version.all, "id", "short", @version) %>
-      <%= submit_tag "Speichern" %>
-    <% end %>
+	Bitte Prüfungsordnung auswählen:<br/>
+	<ul>
+	  	<% Version.all.each do |po| %>
+			<% (selection.version == po.id) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
+			<a href="#" onClick='javascript:update_pordnung(<%= po.id %>);'>
+				<li class="pruefungsordnung" style='background-color: <%= highlight_color %>;' id='<%= po.id %>'>
+					<%= po.name %>
+				</li>
+			</a>
+		<% end %>
+	</ul>
   </div>
 
 
   <div id ="bestaetigen">
-				Alternative k&ouml;nnen Sie eine von Ihnen 
+				Alternative können Sie eine von Ihnen 
     <%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.<br/>
     <%= link_to "<div class='buttons'>OK</div>", :action => "create_selection" %>
     <%#= link_to("<div class='buttons'>Zurück</div>", :url => { :action => "index" }) unless session[:selection_id] == nil %>
