@@ -3,22 +3,43 @@ class AbfragenController < ApplicationController
   def ueberblick
     selection = current_selection
 
-    @super_rules = Connection.find(:all, :conditions => "parent_id IS NULL AND focus = 0 AND version_id = '#{selection.version.id}'")
-    @focus_rules = Connection.find(:first, :conditions => "name = '#{selection.focus.name}' AND version_id = '#{selection.version.id}'") unless selection.focus == nil
-
+    @super_rules = nil
+    @focus_rules = nil
     @errors = Array.new
+
+    @super_rules = Connection.find(:all,
+      :conditions => "parent_id IS NULL AND focus = 0 AND version_id = '#{selection.version.id}'")
+
+    unless selection.focus == nil
+      @focus_rules = Connection.find(:first,
+        :conditions => "name = '#{selection.focus.name}' AND version_id = '#{selection.version.id}'")
+    end
+
+    @errors = get_errors selection
+
+    respond_to do |format|
+      format.html { render :action => "ueberblick", :layout => false }
+    end
+  end
+
+  private
+
+  def get_errors selection
+    errors = Array.new
+
     selection.semesters.each do |semester|
       count = semester.count
       semester.modules.each do |mod|
         permission = 1
         permission = mod.moduledata.permission.evaluate(selection.semesters, count) unless mod.moduledata.permission == nil
-        @errors.push mod.moduledata unless permission == 1
+
+        errors.push mod.moduledata unless permission == 1
       end
     end
-    respond_to do |format|
-      format.html { render :action => "ueberblick", :layout => false }
-    end
+    return errors
   end
+
+  public
 
   def auswahl
     @selection = current_selection
@@ -38,15 +59,7 @@ class AbfragenController < ApplicationController
   def errors
 
     selection = current_selection
-    @errors = Array.new
-    selection.semesters.each do |semester|
-      count = semester.count
-      semester.modules.each do |mod|
-        permission = 1
-        permission = mod.moduledata.permission.evaluate(selection.semesters, count) unless mod.moduledata.permission == nil
-        @errors.push mod unless permission == 1
-      end
-    end
+    @errors = get_errors selection
 
     respond_to do |format|
       format.xml { render :action => "errors", :layout => false }
@@ -113,13 +126,13 @@ class AbfragenController < ApplicationController
       my_module.save
     end
 
-    render :text => "CostumModule created successfully..."
+    render :text => "CostumModule created and added successfully..."
 
   end
 
   def remove_module_from_selection
     current_selection.selection_modules.each { |m| m.destroy if m.module_id.to_i == params[:mod_id].to_i }
-    render :text => "Hallo Welt :-)"
+    render :text => "Module removed from selection..."
   end
 
   def remove_semester_from_selection
@@ -128,7 +141,7 @@ class AbfragenController < ApplicationController
       :conditions => "selection_id = #{current_selection.id} AND count = #{params[:sem_count]}").destroy
     modules = s1.modules
     modules.each { |m| m.destroy }
-    render :text => "Hallo Welt :-)"
+    render :text => "Semester removed from selection..."
   end
 
   def save_module_grade
@@ -187,34 +200,6 @@ class AbfragenController < ApplicationController
       format.html { render :action => "info", :layout => false }
     end
 
-  end
-
-  private
-
-  def sum_credits categories
-    modules = select_relevant_modules categories
-    sum = 0
-    modules.each do |m|
-      sum += m.credits
-    end
-    return sum
-  end
-
-  def sum_modules categories
-    modules = select_relevant_modules categories
-    return modules.length
-  end
-
-  def select_relevant_modules categories
-    modules = Array.new
-    current_selection.modules.each do |m|
-      m.categories.each do |g1|
-        categories.each do |g2|
-          modules.push m if g1.id == g2.id
-        end
-      end
-    end
-    return modules
   end
 
 end

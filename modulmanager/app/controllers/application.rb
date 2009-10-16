@@ -1,19 +1,15 @@
-# you do not need to copy this file to your project!!!
-
 class ApplicationController < ActionController::Base
 
   helper :all # just make sure to include all helpers
 
 
   def get_note
-
     selection = current_selection
-
     grade = Hash.new(0)
     credits = 0
 
-      selection.semesters.each do |s|
-        s.modules.each do |m|
+    selection.semesters.each do |s|
+      s.modules.each do |m|
         if m.grade != nil
           grade["gesamt"] += (m.moduledata.credits.to_f * m.grade.to_f)
           credits += m.moduledata.credits.to_f
@@ -24,82 +20,72 @@ class ApplicationController < ActionController::Base
     grade["gesamt"] = (((grade["gesamt"] * 100) / credits).round.to_f / 100) if credits > 0
 
     return grade
-
-  end
-
-  def get_category_credits category
-    credits = 0
-    if category.sub_categories.length > 0
-      category.sub_categories.each do |s|
-        credits += get_category_credits(s)
-      end
-    else
-      category.modules.each do |m|
-        credits += m.credits
-      end
-    end
-    return credits
-  end
-
-  def get_category_modules category
-    modules = Array.new
-    if category.sub_categories.length > 0
-      category.sub_categories.each do |s|
-
-      end
-    else
-
-    end
-    return modules
   end
 
   def current_selection
-    session[:selection_id] ||= new_selection params[:version], params[:focus]
+    session[:selection_id] ||= create_standard_selection
     ModuleSelection.find session[:selection_id]
   end
 
-  # Erstellt eine neue Standardauswahl
-  def new_selection(version = nil, focus = nil)
-    version = get_latest_po if version == nil
-    ms = ModuleSelection.create :version => version, :focus => focus
-    s1 = Semester.create :count => 1
-    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.101'")
-    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.605'")
-    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Mat.011'")
-    s1.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Mat.012'")
-    ms.semesters << s1
-    s2 = Semester.create :count => 2
-    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.102'")
-    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.410'")
-    s2.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.303'")
-    ms.semesters << s2
-    s3 = Semester.create :count => 3
-    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.103'")
-    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.304'")
-    s3.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.201'")
-    ms.semesters << s3
-    s4 = Semester.create :count => 4
-    s4.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.104'")
-    s4.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.604'")
-    s4.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.202'")
-    ms.semesters << s4
-    s5 = Semester.create :count => 5
-    s5.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.402'")
-    s5.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.203'")
-    ms.semesters << s5
-    s6 = Semester.create :count => 6
-    s6.studmodules << Studmodule.find(:first, :conditions => "short = 'B.Phy.602'")
-    s6.studmodules << Studmodule.find(:first, :conditions => "short = 'Bachelor'")
-    ms.semesters << s6
+  def create_standard_selection
+    semesters = create_pre_selection
+    ms = ModuleSelection.create :version => get_latest_po,
+      :semesters => semesters
     return ms.id
+  end
+
+  def create_pre_selection focus_name = nil
+    focus_name = "standard" if focus_name == nil
+    # TODO Muss noch variabel gestaltet werden
+    pre_selection_file = File.open("config/basedata/po_ss_2009/vorauswahl.yml")
+
+    y = YAML::load(pre_selection_file)
+
+    semesters = Array.new
+    return_array = Array.new
+
+    y.each do |p|
+
+      if p["name"] == focus_name
+
+        semesters.push p["semester1"]
+        semesters.push p["semester2"]
+        semesters.push p["semester3"]
+        semesters.push p["semester4"]
+        semesters.push p["semester5"]
+        semesters.push p["semester6"]
+
+        i = 0
+        semesters.each do |content|
+
+          i += 1
+
+          shorts = content.split(", ")
+
+          s = Semester.new :count => i
+          shorts.each do |short|
+            puts short
+            m = Studmodule.find(:first, :conditions => "short = '#{short}'")
+            s.studmodules << m
+          end
+          s.save
+          return_array.push s
+        end
+
+      end
+
+    end
+    return return_array
   end
 
   def get_latest_po
     po = Version.all
     latest_po = po[0]
+
     po.each do |p|
       latest_po = p if p.date > latest_po.date
     end
+    
     return latest_po
   end
 

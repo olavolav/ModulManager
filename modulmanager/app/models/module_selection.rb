@@ -1,4 +1,5 @@
 class ModuleSelection < ActiveRecord::Base
+
   has_many :semesters,
     :class_name => "Semester",
     :foreign_key => "selection_id",

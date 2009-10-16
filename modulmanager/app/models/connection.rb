@@ -19,7 +19,6 @@ class Connection < ActiveRecord::Base
   end
 
   def self.get_connection_array_from_category_string string
-
     connection_array = Array.new
 
     categories = string.split(",")
@@ -29,7 +28,6 @@ class Connection < ActiveRecord::Base
     end
 
     return connection_array
-
   end
   
 end
