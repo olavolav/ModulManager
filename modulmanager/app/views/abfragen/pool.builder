@@ -10,40 +10,29 @@ xml.root do
     xml.category(:name => s.name, :class => "Schwerpunkt", :category_id => "focus#{s.id}") do
       s.groups.each do |g|
         xml.category(:name => g.name, :category_id => "#{g.name.gsub(" ", "_").downcase}#{s.id}") do
-          g.modules.each do |m|
 
+
+          g.modules.each { |m|
+            classification = "non-custom"
+            18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
             m.parts > 1 ? partial = true : partial = false
+            has_grade = true
 
-            xml.module(:id => m.id, :class => "non-custom", :partial => partial) do
+            xml.module(
+              :id => m.id,
+              :class => classification,
+              :partial => partial,
+              :has_grade => has_grade
+            ) do
+
               xml.name(m.name)
               xml.short(m.short)
               xml.credits(m.credits)
               xml.mode(g.modus)
               m.parts > 1 ? xml.parts(m.parts) : xml.parts(0)
-            end
-
-            if partial
-              m.parts.times do |j|
-                i = j + 1
-                xml.module(:id => "#{m.id}#{i}", :class => "non-custom", :partial => "true", :parent => m.id) do
-                  xml.name "#{m.name} (Teil #{i})"
-                  xml.short "#{m.short}_#{i}"
-                  c = m.credits / m.parts
-                  xml.credits c
-                  xml.mode(g.modus)
-                  xml.parts(0)
-                end
-              end
 
             end
-
-#            xml.module(:id => m.id, :class => "non-custom") do
-#              xml.tag! "id", m.id
-#              xml.name m.name
-#              xml.short m.short
-#              xml.credits m.credits
-#            end
-          end
+          }
         end
       end
 
