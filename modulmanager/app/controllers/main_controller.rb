@@ -3,6 +3,10 @@ class MainController < ApplicationController
   def start
     @schwerpunkte = Focus.all
     @version = current_selection.version
+    puts @version
+    respond_to do |format|
+      format.html { render :action => "start" }
+    end
   end
   
   def index

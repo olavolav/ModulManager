@@ -23,7 +23,7 @@
 	Bitte Prüfungsordnung auswählen:<br/>
 	<ul>
 	  	<% Version.all.each do |po| %>
-			<% (selection.version == po.name) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
+			<% (selection.version.id == po.id) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
 			<a href="#" onClick='javascript:update_pordnung(<%= po.id %>);'>
 				<li class="pruefungsordnung" style='background-color: <%= highlight_color %>;' id='<%= po.id %>'>
 					<%= po.name %>
