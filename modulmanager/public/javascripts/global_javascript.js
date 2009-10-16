@@ -1272,7 +1272,9 @@ var poolrekursiv = function(XMLhandle){
                 // "</td>"+
 
                 "<td style=' width:22px; '>" +
-                "<span class='fragebild' style='display:block;margin:0px 0px 0px 0px;' onclick=info_box("+modul_id+")>"+fragebild+"</span>"+
+				"<a href='#' onclick='javascript:info_box("+modul_id+");'>"+
+                "<span class='fragebild' style='display:block;margin:0px 0px 0px 0px;' >"+fragebild+"</span>"+
+				"</a>"+
                 "</td>" +
 
                 "<td style=' width:25px'>" +
@@ -1283,7 +1285,9 @@ var poolrekursiv = function(XMLhandle){
                 "</td>" +
 
                 "<td style=' width:22px'>" +
-                "<span class='ipunkt' style='display:none;padding:1px 2px 0px 0px;' onclick=info_box_selection("+modul_id+")>"+ipunkt+"</span>"+
+				"<a href='#' onclick='javascript:info_box_selection("+modul_id+");'>"+
+                "<span class='ipunkt' style='display:none;padding:1px 2px 0px 0px;'>"+ipunkt+"</span>"+
+				"</a>"+
                 "</td>" +
 
                 "<td class='modul_credit' style='min-width:32px;text-align:right;font-weight:bold'>" +

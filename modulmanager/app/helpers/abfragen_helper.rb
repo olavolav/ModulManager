@@ -85,12 +85,14 @@ module AbfragenHelper
     
     element = <<EOF
   <div>
-    <table>
+    <table cellspacing='0'>
       <tr>
         <td class='ueberblick_name'>#{name}</td>
         <td class='ueberblick_image'>
-          <div class='ueberblick_info_box' id='box##{id}' onClick='get_modul_info_in_overview(#{id})' >
-                 #{image_tag image}
+          <div class='ueberblick_info_box' id='box##{id}' >
+            <a href='#' alt='Weitere Informationen' onClick='javascript:get_modul_info_in_overview(#{id});'>
+              #{image_tag image}
+            </a>
          </div>
         </td>
         <td class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</td>

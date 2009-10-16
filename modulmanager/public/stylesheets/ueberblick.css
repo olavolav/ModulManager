@@ -22,6 +22,13 @@ ul.voraussetzungen, .voraussetzungen ul {
 ul.ueberblick, .ueberblick ul {
     width: 100%;
     list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+#ueberblick li {
+	padding: 0px;
+	margin: 1px;	
 }
 
 .ueberblick_name {
@@ -31,6 +38,7 @@ ul.ueberblick, .ueberblick ul {
 .ueberblick_image {
     width: 20px;
     min-width: 20px;
+	padding-left: 2px;
 }
 .ueberblick_info_box:hover .ueberblick_info_text {
     display: block;
@@ -53,7 +61,7 @@ ul.ueberblick, .ueberblick ul {
 
 .ueberblick_category {
 
-    margin-bottom: 3px;
+    margin-bottom: 0px;
     background-color: #e6e6fa;
     cursor        : pointer;
 
