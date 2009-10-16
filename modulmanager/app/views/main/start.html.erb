@@ -4,9 +4,19 @@
 			Bitte Schwerpunkt auswählen:<br/>
 
   <div id="schwerpunkt">
-
-    <%= render :file => "main/focus_selection.html" %>
-
+	<% selection = current_selection %>
+	<ul>
+		<% (selection.focus == nil) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
+		<a href="#" onClick="javascript:update_schwerpunkt(nil);"><li class="schwerpunkt_oben" style='background-color: <%= highlight_color %>;' id="nil" >Kein Schwerpunkt</li></a>
+	  	<% @schwerpunkte.each do |s| %>
+			<% (selection.focus == s.id) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
+			<a href="#" onClick='javascript:update_schwerpunkt(<%= s.id %>);'>
+				<li class="schwerpunkt_oben" style='background-color: <%= highlight_color %>;' id='<%= s.id %>'>
+				<%= s.name %>
+				</li>
+			</a>
+		<% end %>
+	</ul>
   </div>
 
 

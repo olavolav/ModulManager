@@ -9,32 +9,28 @@
 	padding: 1em;
 }
 
-ul {
-	
-	text-align:center;
-	
-}
-
-ul li {
-	list-style-type : none;
+ul li{
+	width: 30%;
+	min-height: 35px;
+	list-style-type:none;
 	border : 1px #3b809d solid;
-	width  : 150px;
-	padding: 1em;
-	margin : 1em;
-	text-align : center;
-	cursor : auto;
-	float: left;
 	background: white;
+	text-align:center;
+	text-decoration: none;
+	margin: 0.5em;
+	padding: 0.5em;
+	float: left;
 }
 
-ul li a:link {
+ul a:link, ul a:visited {
 	color: black;
 	text-decoration: none;
 }
 
-/*.schwerpunkt_oben {
-	float : left;	
-} */
+ul a:hover {
+	color: black;
+	text-decoration: underline;
+}
 
 .clear {
 	clear:both;
