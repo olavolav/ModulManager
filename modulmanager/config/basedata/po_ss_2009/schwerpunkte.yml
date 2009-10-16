@@ -1,8 +1,5 @@
 ---
 
-  - name: Kein Schwerpunkt
-    beschreibung: Man muss ja keinen Schwerpunkt wählen :-)
-
   - name: Nanostrukturphysik
     beschreibung:
     kategorien:
