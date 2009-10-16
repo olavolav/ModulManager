@@ -84,6 +84,7 @@ var selection_input_value_is_nill = function(input_noten){
 	return result;
 }
 
+
 var selection_input_check = function(input_noten){
 	
 	var this_original;
@@ -384,13 +385,14 @@ var modul_loeschen = function (mod_id){
 			if(check == true){
 				
 				if(this_mod_par_attr != "nein"){
-					
+					//hier ist Teil-modul
 					//such nach head-modul-->löschen
 					var head_modul = $("#semester-content div.semester").find("div#"+this_mod_par_attr);
 					sub_modul_loeschen(head_modul,this_mod_par_attr);
 					partial_modul_loeschen(this_mod_par_attr);
 				}
 				else{
+					//hier ist head-Modul
 					sub_modul_loeschen(this,mod_id);
 					partial_modul_loeschen(mod_id);
 				}
@@ -454,7 +456,8 @@ var sub_modul_loeschen = function (this_mod,mod_id){
                     // $(this).find(".pool_modul,.pool_modul.ui-draggable,.search_modul.ui-draggable").css("display","block");
                     // $(this).parent().find("#"+mod_id).css("display","block");
                     if ((!(search_is_active())) || $(this).is(".search_modul")) {
-						if(pool_modul != "partial_modul")
+					
+						if((pool_modul != "partial_modul")||(pool_modul != "partial_modul ui-draggable"))
 							$(this).find("#" + mod_id).css("display", "block");
 						
 					}
@@ -482,7 +485,12 @@ var sub_modul_loeschen = function (this_mod,mod_id){
 			
             if (search_is_active() && $(this).is(".search_modul") &&
 				((which_arrow_is_visible($(this).parent())!="rechts")||($(the_father).is(".pool_category")))) {
-				$(this).find("#"+mod_id).css("display","block");
+					//$(this).find("#"+mod_id).css("display","block");
+					var this_mod = $(this).find("#"+mod_id).eq(0);
+					if(($(this_mod).attr("class")!="partial_modul")||($(this_mod).attr("class")!="partial_modul ui-draggable")){
+						$(this_mod).show();
+					}
+				
 				// alert("test: 2");
                 rekursiv_pool_by_in(the_father);
 			}

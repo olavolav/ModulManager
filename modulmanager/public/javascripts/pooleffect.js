@@ -82,6 +82,8 @@ var custom_check = function(name,credit,custom_semester,custom_id,tips,min,max){
 
 
 $(function(){
+	
+		
 
 		// teil Form -Check bei dummy Modul
 		var name=$("#name");
@@ -233,7 +235,7 @@ $(function(){
 				var mod_id = $(ui.draggable).attr("id");
 				var this_pool = $(this);
 				//$(ui.draggable).hide();
-				$(ui.helper).hide();
+				$(ui.helper).remove();
 				
 				// drop_in_pool(mod_id, ui_draggable,this_pool);
 				// neuerdings die gleiche Funktion wie wenn man auf den Löschen-Knopf klickt:
@@ -317,6 +319,8 @@ $(function(){
 		// beim Focus-Verlassen : die Event Change schickt die Note und Modul_ID per Ajax zum Server
 		// Note berechnen
 		
+		
+		
 		// Klick bei Noten berechnen
 		$("#note_berechnen").click(function(){
 			ajax_to_server_by_get_grade();
@@ -328,6 +332,7 @@ $(function(){
 			if($(this).val()=="Note"){
 				$(this).attr("value"," ");
 				set_image_to_ipunkt(this);
+				
 			}
 			//var modul_id = $(this).attr("rel");
 			$("#note_berechnen").unbind('click');
@@ -406,7 +411,7 @@ var sem_hinzu = function(){
 				
                     hoverClass:'drophover',
 					
-                    drop: function(event,ui){
+                   /* drop: function(event,ui){
 						
 					 var ui_draggable = $(ui.draggable);
 					 var ui_helper = $(ui.helper);
@@ -422,6 +427,54 @@ var sem_hinzu = function(){
 								
 						
 					}//ende Drop
+					*/
+					drop: function(event, ui){
+			 	
+			 	
+			 	// id von reingezogenem Modul und entsprechendem Semester holen
+				 
+				 var ui_draggable = $(ui.draggable);
+				 var ui_helper = $(ui.helper);
+				 var this_semester = $(this);		
+				 var semester = $(this).attr("id");
+				 var modul_id = $(ui.draggable).attr("id");
+				 var modul_class = $(ui.draggable).attr("class");
+				 
+				 var custom_text = $(ui.draggable).find("span.custom").text();
+				 var parts_text  = $(ui.draggable).find("span.modul_parts").text();
+				 //alert("parts_text ="+parts_text);
+				 var parts_exsit  = $(ui.draggable).find("span.modul_parts_exsit").html();
+				 //alert("part_exsit :"+parts_exsit);
+				
+				 if(custom_text == "non-custom") {
+				 	
+					drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+				 	//check nach Teil_modul
+					if((parts_text!="0") && (parts_exsit=="nein")){
+						//alert("Teil modul kommem gleich");
+						partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+					}
+					
+					
+				}
+				
+				 else{// hier sind custom_module
+				 	if (modul_class == "auswahl_modul ui-draggable" || modul_class == "auswahl_modul" || modul_class == "auswahl_modul_clone ui-draggable") {
+						drop_in_auswahl(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper);
+					}
+					else {
+						custom_modul_drop_in_auswahl(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper);
+					}
+				}
+				
+				 //hier check nach dummy modul und normales Modul
+				 //und check nach gesuchtes Modul.D.h: check modul_id_parent im Pool und
+				 //guck ob das class search_modul hat. Wenn Ja dann aktualisiere Live Pool
+			
+				
+				
+				 
+			}// ende drop
 					 
             });//droppable
             
@@ -520,8 +573,11 @@ var toggle_category = function(category_id){
 						if (number_of_visible_items_in_category(this) == 0) flip_arrow_of_category("leer",this);
 					}
 					else if (this_class=="search_category") {
-						$(this).css("display","block");
-						count++;
+						if ($(this).attr("class") != "partial_modul") {
+							$(this).css("display", "block");
+							count++;
+						}
+						else $(this).hide();
 					}
 				}
 				else {
@@ -599,7 +655,7 @@ var number_of_visible_items_in_category = function(handle){
 		}
 		else { // also geht es um Module
 			$(this).children().each(function(){
-				if ($(this).find(">span.inAuswahl").text()=="nein") {
+				if (($(this).find(">span.inAuswahl").text()=="nein")&&($(this).is(".pool_modul"))) {
 					if (search_is_active()) {
 						if ($(this).parent().is(".search_modul")) count++;
 					}

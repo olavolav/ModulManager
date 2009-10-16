@@ -252,7 +252,7 @@ jQuery(function ($) {
 						
 						
 						// mache alle untere Kategorie zu
-						$(this).find(".pool_category,.pool_modul").hide();
+						$(this).find(".pool_category,.pool_modul,.partial_modul,.custom_modul").hide();
 						//custom_modul
 						$(this).find(".search_modul").each(function(){
 							$(this).removeClass("search_modul");
@@ -312,8 +312,11 @@ jQuery(function ($) {
 							// den Baum im Pool rekursiv öffnen
 							var modul = $("#pool").find("#"+array_id[i]);
 							var modul_span = $(modul).find("span.inAuswahl").eq(0).text();
+							//modul-parent für ein Teil_modul
+							var modul_parent = $(modul).find("span.modul_parent_attr").eq(0).text();
 							
-							if(modul_span=="nein"){
+							
+							if((modul_span=="nein")&&(modul_parent=="nein")){
 								
 								$(this).show();
 								$(modul).show();
