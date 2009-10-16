@@ -6,7 +6,7 @@ var update_schwerpunkt = function(s_id){
 
     $.ajax({
         type:"POST",
-        url :"abfragen/focus_selection",
+        url :"main/focus_selection",
         dataType:"text",
         cache:false,
         async:false,
