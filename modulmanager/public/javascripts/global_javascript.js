@@ -364,7 +364,7 @@ var modul_search = function(){
 var partial_modul_loeschen = function (mod_id){
 	//alert("hallo partial_modul_loeschen");
 	//suche teil-Module
-	$("#semester-content div.semester").find("div").each(function(){
+	$("#semester-content div.subsemester").find("div").each(function(){
 		if($(this).find(".modul_parent_attr").text()== mod_id){
 			var this_id = $(this).attr("id");
 			//alert(this_id);
