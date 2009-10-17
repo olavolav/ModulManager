@@ -53,20 +53,17 @@ a:visited {
 }
 
 #subnavi p{
-	padding-top: 0.3em;
+	padding-top: 1em;
 	padding-bottom: 0.3em;
 }
-
-/*#subnavi-ul{
-	padding:0px;
-	margin:0px;	
-}*/
 
 #subnavi-ul li{
 	width: 40%;
 	list-style-type: none;
 	border : 1px #3b809d outset;
-	background: white;
+	background: white url("../images/Button-Hintergrund.gif");
+	background-repeat: repeat;
+	background-position: top left;	
 	text-align:center;
 	text-decoration: none;
 	margin-bottom: 0.5em;
@@ -94,45 +91,16 @@ a:visited {
 	margin-left: 1em;
 }
 
-/*#return {
-	float:left;
-	border: 1px black double;
-	
-	
-	
-}
-#finish {
-	float:right;
-	border: 1px black double;
-	
-	
-	
-	
-}
-
-#help{
-	float:right;
-	border: 1px black double;
-	margin-left:10px;
-	
-	
-}
-#reload {
-	float:right;
-	border: 1px black double;
-	margin-left:10px;
-	
-	
-}
-*/
-
 #minihelp{
 	float: right;
-	border: 1px solid #909090;
+	border: 1px #909090 outset;
 	background: white;
 	width: 30%;
 	padding: 10px;
 	margin-right: 10px;
+	background: white url("../images/Pool-Hintergrund.gif");
+	background-repeat: repeat;
+	background-position: top left;	
 }
 
 #content{
@@ -146,9 +114,6 @@ a:visited {
 	background-color:white;
 	/*border-right:1px black solid;*/
 	/*height:500px;*/
-	background: white url("../images/Ueberblick-Hintergrund.gif");
-	background-repeat: repeat-y;
-	background-position: top left;	
 }
 
 #middle{

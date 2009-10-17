@@ -13,8 +13,6 @@ ul li{
 	width: 30%;
 	min-height: 35px;
 	list-style-type:none;
-	border : 1px #3b809d outset;
-	background: white;
 	text-align:center;
 	text-decoration: none;
 	margin: 0.5em;
@@ -42,8 +40,22 @@ select {
 	
 }
 
+
 #pruefungsordnung {
 	clear: both;
+}
+
+.active {
+	border : 1px #3b809d inset;
+	background: #d8eef7 url("../images/Button-Hintergrund-Aktiv.gif");
+	background-repeat: repeat;
+	background-position: top left;		
+}
+.passive {
+	border : 1px #3b809d outset;
+	background: white url("../images/Button-Hintergrund.gif");
+	background-repeat: repeat;
+	background-position: top left;		
 }
 
 #bestaetigen {

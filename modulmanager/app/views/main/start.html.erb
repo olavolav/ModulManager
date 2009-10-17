@@ -6,12 +6,14 @@
 		Bitte Schwerpunkt auswählen:<br/>
 	<% selection = current_selection %>
 	<ul>
-		<% (selection.focus == nil) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
-		<a href="#" onClick='javascript:update_schwerpunkt(-1);'><li class="schwerpunkt_oben" style='background-color: <%= highlight_color %>;' id="-1" >Kein Schwerpunkt</li></a>
+		<% (selection.focus == nil) ? class_tag = "active" : class_tag = "passive" %>
+		<a href="#" onClick='javascript:update_schwerpunkt(-1);'>
+			<li class='schwerpunkt_oben <%= class_tag %>' id="-1" >Kein Schwerpunkt</li>
+		</a>
 	  	<% @schwerpunkte.each do |s| %>
-			<% (selection.focus == s.id) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
+			<% (selection.focus == s.id) ? class_tag = "active" : class_tag = "passive" %>
 			<a href="#" onClick='javascript:update_schwerpunkt(<%= s.id %>);'>
-				<li class="schwerpunkt_oben" style='background-color: <%= highlight_color %>;' id='<%= s.id %>'>
+				<li class='schwerpunkt_oben <%= class_tag %>' id='<%= s.id %>'>
 				<%= s.name %>
 				</li>
 			</a>
@@ -23,9 +25,9 @@
 	Bitte Prüfungsordnung auswählen:<br/>
 	<ul>
 	  	<% Version.all.each do |po| %>
-			<% (selection.version.id == po.id) ? highlight_color = "#d8eef7" : highlight_color = "white" %>
+			<% (selection.version.id == po.id) ? class_tag = "active" : class_tag = "passive" %>
 			<a href="#" onClick='javascript:update_pordnung(<%= po.id %>);'>
-				<li class="pruefungsordnung" style='background-color: <%= highlight_color %>;' id='<%= po.id %>'>
+				<li class='pruefungsordnung <%= class_tag %>' id='<%= po.id %>'>
 					<%= po.name %>
 				</li>
 			</a>

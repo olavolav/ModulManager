@@ -1,6 +1,6 @@
 var update_schwerpunkt = function(s_id){
 	
-	$(".schwerpunkt_oben").css("background","white");
+	$(".schwerpunkt_oben").attr("class","schwerpunkt_oben passive");
 	
     // alert("hallo schwerpunkt "+s_id);
 
@@ -17,12 +17,12 @@ var update_schwerpunkt = function(s_id){
         }
     });
 	
-	$(".schwerpunkt_oben[id="+s_id+"]").css("background","#d8eef7");
+	$(".schwerpunkt_oben[id="+s_id+"]").attr("class","schwerpunkt_oben active");
 }
 
 var update_pordnung = function(po_id){
 	
-	$(".pruefungsordnung").css("background","white");
+	$(".pruefungsordnung").attr("class","pruefungsordnung passive");
 
     // alert("hallo pruefungsordnung "+po_id);
 
@@ -39,5 +39,5 @@ var update_pordnung = function(po_id){
         }
     });
 	
-	$(".pruefungsordnung[id="+po_id+"]").css("background","#d8eef7");
+	$(".pruefungsordnung[id="+po_id+"]").attr("class","pruefungsordnung active");
 }
