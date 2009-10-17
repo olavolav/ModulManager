@@ -103,11 +103,11 @@ EOF
 
     if r.child_connections != []
 
-      list = "#{element}<ul style='padding-left: #{padding_left}px'>"
+      list = "#{element}<ul>"
 
       r.child_connections.each do |cc|
         list += <<EOF
-  <li style='padding-right: #{padding_left}px'>
+  <li>
     #{build_html_rules_recursive(cc, (padding_left + padding_addition), padding_addition, non_permitted_modules)}
   </li>
 EOF

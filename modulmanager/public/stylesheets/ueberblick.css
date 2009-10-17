@@ -1,5 +1,5 @@
 #ueberblick {
-	margin: 1%;
+	margin: 4px;
     /* Das Folgende wird dynamisch gesetzt, wenn man das Navigationsmenue ausblendet,
 	   siehe global_javascript.js (OS)
 	position: fixed;
@@ -10,25 +10,36 @@
 	float: left;
 } */
 
-ul.voraussetzungen, .voraussetzungen ul {
-    padding-left: 20px;
+/*ul.voraussetzungen, .voraussetzungen ul {
+    padding-left: 0px;
     margin: 5px;
-}
+}*/
 
 .grade {
     margin: 10px;
 }
 
-ul.ueberblick, .ueberblick ul {
+#ueberblick ul {
     width: 100%;
     list-style: none;
 	padding: 0px;
 	margin: 0px;
+/*	border-left: 1px #aaa solid;*/
+	background: white url("../images/Ueberblick-Hintergrund.gif");
+	background-repeat: repeat-y;
+	background-position: top left;
+	
 }
+
+/*Falls man moechte, dass die Haupt-Kategorien ander hervorgehoben werden (OS)
+#ueberblick_baum > ul {
+	background-image: none;
+	border-left: 1px #6db8d0 solid;
+}*/
 
 #ueberblick li {
 	padding: 0px;
-	margin: 1px;	
+	margin-left: 7px;	
 }
 
 .ueberblick_name {
@@ -49,7 +60,7 @@ ul.ueberblick, .ueberblick ul {
     text-align: right;
     font-size: smaller;
 }
-.ueberblick_info_text {
+/*.ueberblick_info_text {
     border: 1px outset white;
     position: fixed;
     top: 5px;
@@ -57,19 +68,19 @@ ul.ueberblick, .ueberblick ul {
     color: white;
     background-color: green;
     display: none;
-}
+}*/
 
 .ueberblick_category {
 
     margin-bottom: 0px;
     background-color: #e6e6fa;
-    cursor        : pointer;
+    /*cursor        : pointer;*/
 
 }
 
 .ueberblick_rule{
 
-    cursor        : pointer;
+    /*cursor        : pointer;*/
 }
 
 /*Note knopf*/
@@ -77,19 +88,5 @@ ul.ueberblick, .ueberblick ul {
     border:1px black solid;
     text-align:center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
