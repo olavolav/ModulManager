@@ -1264,7 +1264,9 @@ var poolrekursiv = function(XMLhandle){
                 "<tbody>" +
                 "<tr>" +
                 "<td style=' width:22px;padding:1px 2px 0px 2px; '>"+bild+"</td>"+
-                "<td class='modul_name' style='width:99%'>"+modul_name+"</td>"+
+                // test, raus mit der width-Angabe (OS)
+				// "<td class='modul_name' style='width:99%'>"+modul_name+"</td>"+
+                "<td class='modul_name'>"+modul_name+"</td>"+
 					
                 // Kurzbezeichnung raus aus der Auswahl (OS)
                 // "<td style=' width:20%'>" +
@@ -1290,7 +1292,7 @@ var poolrekursiv = function(XMLhandle){
 				"</a>"+
                 "</td>" +
 
-                "<td class='modul_credit' style='min-width:32px;text-align:right;font-weight:bold'>" +
+                "<td class='modul_credit' style='width:32px;text-align:right;font-weight:bold'>" +
                 credits +" C" +
                 "</td>" +
                 "</tr>" + "</tbody>" + "</table>" +
