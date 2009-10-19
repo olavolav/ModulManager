@@ -37,17 +37,19 @@
     beschreibung:
 
   - name: Physikalisches Grundpraktikum
-    credits: 12
-    id: B.Phy.410
-    beschreibung:
-    teile: 2
-
-  - name: ": Grundlagen des Experimentierens"
+    sub-name: ": Grundlagen des Experimentierens"
     credits: 2
-    id: B.Phy.410.1
+    id: B.Phy.410
     beschreibung: Erstes Teilmodul des physikalischen Grundpraktikums
+    sub-module: B.Phy.410.2
 
-  - name: ": Grundpraktikum"
+#  - name: ": Grundlagen des Experimentierens"
+#    credits: 2
+#    id: B.Phy.410.1
+#    beschreibung: Erstes Teilmodul des physikalischen Grundpraktikums
+
+  - name: Physikalisches Grundpraktikum
+    sub-name: ": Grundpraktikum"
     credits: 10
     id: B.Phy.410.2
     beschreibung: Zweites Teilmodul des physikalischen Grundpraktikums
@@ -132,35 +134,38 @@
     beschreibung:
 
   - name: Mehrbenutzersysteme in der Praxis I
-    credits: 6
+    sub-name: ": Linux Grundlagen"
+    credits: 4
     id: B.Phy.510
     zulassung:
       - B.Phy.605
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.510.2
 
-  - name: ": Linux Grundlagen"
-    credits: 4
-    beschreibung:
-    id: B.Phy.510.1
+#  - name: ": Linux Grundlagen"
+#    credits: 4
+#    beschreibung:
+#    id: B.Phy.510.1
 
-  - name: ": Administration von Linux"
+  - name: Mehrbenutzersysteme in der Praxis I
+    sub-name: ": Administration von Linux"
     credits: 2
     beschreibung:
     id: B.Phy.510.2
 
   - name: Mehrbenutzersysteme in der Praxis II
-    credits: 6
+    sub-name: ": Linux im Netzwerk"
+    credits: 4
     id: B.Phy.511
     zulassung:
       - B.Phy.510
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.511.2
 
-  - name: ": Linux im Netzwerk"
-    credits: 4
-    beschreibung:
-    id: B.Phy.511.1
+#  - name: ": Linux im Netzwerk"
+#    credits: 4
+#    beschreibung:
+#    id: B.Phy.511.1
 
   - name: ": Administration von MS-Windows"
     credits: 2
@@ -178,30 +183,34 @@
     beschreibung:
 
   - name: Spezielle Themen der Astro- und Geophysik III
-    credits: 6
+    sub-name: ": Spezielle Themen der Astro- und Geophysik IIIa"
+    credits: 3
     id: B.Phy.553
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.553.2
 
-  - name: ": Spezielle Themen der Astro- und Geophysik IIIa"
-    credits: 3
-    id: B.Phy.553.1
+#  - name: ": Spezielle Themen der Astro- und Geophysik IIIa"
+#    credits: 3
+#    id: B.Phy.553.1
 
-  - name: ": Spezielle Themen der Astro- und Geophysik IIIb"
+  - name: Spezielle Themen der Astro- und Geophysik III
+    sub-name: ": Spezielle Themen der Astro- und Geophysik IIIb"
     credits: 3
     id: B.Phy.553.2
 
   - name: Spezielle Themen der Astro- und Geophysik IV
-    credits: 6
+    sub-name: ": Spezielle Themen der Astro- und Geophysik IVa"
+    credits: 3
     id: B.Phy.554
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.554.2
 
-  - name: ": Spezielle Themen der Astro- und Geophysik IVa"
-    credits: 3
-    id: B.Phy.554.1
+#  - name: ": Spezielle Themen der Astro- und Geophysik IVa"
+#    credits: 3
+#    id: B.Phy.554.1
 
-  - name: ": Spezielle Themen der Astro- und Geophysik IVb"
+  - name: Spezielle Themen der Astro- und Geophysik IV
+    sub-name: ": Spezielle Themen der Astro- und Geophysik IVb"
     credits: 3
     id: B.Phy.554.2
 
@@ -216,30 +225,34 @@
     beschreibung:
 
   - name: Spezielle Themen der Biophysik und Physik komplexer Systeme III
-    credits: 6
+    sub-name: ": Spezielle Themen der Biophysik und Physik komplexer Systeme IIIa"
+    credits: 3
     id: B.Phy.563
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.563.2
 
-  - name: ": Spezielle Themen der Biophysik und Physik komplexer Systeme IIIa"
-    credits: 3
-    id: B.Phy.563.1
+#  - name: ": Spezielle Themen der Biophysik und Physik komplexer Systeme IIIa"
+#    credits: 3
+#    id: B.Phy.563.1
 
-  - name: ": Spezielle Themen der Biophysik und Physik komplexer Systeme IIIb"
+  - name: Spezielle Themen der Biophysik und Physik komplexer Systeme III
+    sub-name: ": Spezielle Themen der Biophysik und Physik komplexer Systeme IIIb"
     credits: 3
     id: B.Phy.563.2
 
   - name: Spezielle Themen der Biophysik und Physik komplexer Systeme IV
-    credits: 6
+    sub-name: ": Spezielle Themen der Biophysik und Physik komplexer Systeme IVa"
+    credits: 3
     id: B.Phy.564
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.564.2
 
-  - name: ": Spezielle Themen der Biophysik und Physik komplexer Systeme IVa"
-    credits: 3
-    id: B.Phy.564.1
+#  - name: ": Spezielle Themen der Biophysik und Physik komplexer Systeme IVa"
+#    credits: 3
+#    id: B.Phy.564.1
 
-  - name: ": Spezielle Themen der Biophysik und Physik komplexer Systeme IVb"
+  - name: Spezielle Themen der Biophysik und Physik komplexer Systeme IV
+    sub-name: ": Spezielle Themen der Biophysik und Physik komplexer Systeme IVb"
     credits: 3
     id: B.Phy.564.2
 
@@ -254,30 +267,34 @@
     beschreibung:
 
   - name: Spezielle Themen der Festkörper- und Materialphysik III
-    credits: 6
+    sub-name: ": Spezielle Themen der Festkörper- und Materialphysik IIIa"
+    credits: 3
     id: B.Phy.573
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.573.2
 
-  - name: ": Spezielle Themen der Festkörper- und Materialphysik IIIa"
-    credits: 3
-    id: B.Phy.573.1
+#  - name: ": Spezielle Themen der Festkörper- und Materialphysik IIIa"
+#    credits: 3
+#    id: B.Phy.573.1
 
-  - name: ": Spezielle Themen der Festkörper- und Materialphysik IIIb"
+  - name: Spezielle Themen der Festkörper- und Materialphysik III
+    sub-name: ": Spezielle Themen der Festkörper- und Materialphysik IIIb"
     credits: 3
     id: B.Phy.573.2
 
   - name: Spezielle Themen der Festkörper- und Materialphysik IV
-    credits: 6
+    sub-name: ": Spezielle Themen der Festkörper- und Materialphysik IVa"
+    credits: 3
     id: B.Phy.574
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.574.2
 
-  - name: ": Spezielle Themen der Festkörper- und Materialphysik IVa"
-    credits: 3
-    id: B.Phy.574.1
+#  - name: ": Spezielle Themen der Festkörper- und Materialphysik IVa"
+#    credits: 3
+#    id: B.Phy.574.1
 
-  - name: ": Spezielle Themen der Festkörper- und Materialphysik IVb"
+  - name: Spezielle Themen der Festkörper- und Materialphysik IV
+    sub-name: ": Spezielle Themen der Festkörper- und Materialphysik IVb"
     credits: 3
     id: B.Phy.574.2
 
@@ -292,30 +309,34 @@
     beschreibung:
 
   - name: Spezielle Themen der Kern- und Teilchenphysik III
-    credits: 6
+    sub-name: ": Spezielle Themen der Kern- und Teilchenphysik IIIa"
+    credits: 3
     id: B.Phy.583
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.583.2
 
-  - name: ": Spezielle Themen der Kern- und Teilchenphysik IIIa"
-    credits: 3
-    id: B.Phy.583.1
+#  - name: ": Spezielle Themen der Kern- und Teilchenphysik IIIa"
+#    credits: 3
+#    id: B.Phy.583.1
 
-  - name: ": Spezielle Themen der Kern- und Teilchenphysik IIIb"
+  - name: Spezielle Themen der Kern- und Teilchenphysik III
+    sub-name: ": Spezielle Themen der Kern- und Teilchenphysik IIIb"
     credits: 3
     id: B.Phy.583.2
 
   - name: Spezielle Themen der Kern- und Teilchenphysik IV
-    credits: 6
+    sub-name: ": Spezielle Themen der Kern- und Teilchenphysik IVa"
+    credits: 3
     id: B.Phy.584
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.584.2
 
-  - name: ": Spezielle Themen der Kern- und Teilchenphysik IVa"
-    credits: 3
-    id: B.Phy.584.1
+#  - name: ": Spezielle Themen der Kern- und Teilchenphysik IVa"
+#    credits: 3
+#    id: B.Phy.584.1
 
-  - name: ": Spezielle Themen der Kern- und Teilchenphysik IVb"
+  - name: Spezielle Themen der Kern- und Teilchenphysik IV
+    sub-name: ": Spezielle Themen der Kern- und Teilchenphysik IVb"
     credits: 3
     id: B.Phy.584.2
 
@@ -330,33 +351,37 @@
     beschreibung:
 
   - name: Spezielle Themen der modernen Physik III
-    credits: 6
+    sub-name: ": Spezielle Themen der modernen Physik IIIa"
+    credits: 3
     id: B.Phy.593
     beschreibung:
-    teile: 2
+    sub-module: 2
 
-  - name: ": Spezielle Themen der modernen Physik IIIa"
-    credits: 3
-    id: B.Phy.593.1
-    beschreibung:
+#  - name: ": Spezielle Themen der modernen Physik IIIa"
+#    credits: 3
+#    id: B.Phy.593.1
+#    beschreibung:
 
-  - name: ": Spezielle Themen der modernen Physik IIIb"
+  - name: Spezielle Themen der modernen Physik III
+    sub-name: ": Spezielle Themen der modernen Physik IIIb"
     credits: 3
     id: B.Phy.593.2
     beschreibung:
 
   - name: Spezielle Themen der modernen Physik IV
-    credits: 6
+    sub-name: ": Spezielle Themen der modernen Physik IVa"
+    credits: 3
     id: B.Phy.594
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.594.2
 
-  - name: ": Spezielle Themen der modernen Physik IVa"
-    credits: 3
-    beschreibung:
-    id: B.Phy.594.1
+#  - name: ": Spezielle Themen der modernen Physik IVa"
+#    credits: 3
+#    beschreibung:
+#    id: B.Phy.594.1
 
-  - name: ": Spezielle Themen der modernen Physik IVb"
+  - name: Spezielle Themen der modernen Physik IV
+    sub-name: ": Spezielle Themen der modernen Physik IVb"
     credits: 3
     beschreibung:
     id: B.Phy.594.2
@@ -441,20 +466,23 @@
     beschreibung:
 
   - name: Grundlagen der Geowissenschaften für Naturwissenschaftler
-    credits: 12
+    sub-name: ": System Erde I"
+    credits: 4
     id: B.Geo.402
     beschreibung:
-    teile: 3
+    sub-module: B.Geo.402.2, B.Geo.402.3
 
-  - name: ": System Erde I"
-    credits: 4
-    id: B.Geo.402.1
+#  - name: ": System Erde I"
+#    credits: 4
+#    id: B.Geo.402.1
 
-  - name: ": System Erde II"
+  - name: Grundlagen der Geowissenschaften für Naturwissenschaftler
+    sub-name: ": System Erde II"
     credits: 4
     id: B.Geo.402.2
 
-  - name: ": Übungen zu System Erde"
+  - name: Grundlagen der Geowissenschaften für Naturwissenschaftler
+    sub-name: ": Übungen zu System Erde"
     credits: 4
     id: B.Geo.402.3
 
@@ -469,17 +497,19 @@
     beschreibung:
 
   - name: Computergestütztes wissenschaftliches Rechnen
-    credits: 8
+    sub-name: ": Grundlagen der Rechnerbedienung und Programmierung"
+    credits: 2
     id: B.Phy.605
     beschreibung:
-    teile: 2
+    sub-module: B.Phy.605.2
 
-  - name: ": Grundlagen der Rechnerbedienung und Programmierung"
-    credits: 2
-    id: B.Phy.605.1
-    beschreibung: Erstes Teilmodul des Moduls "CwR"
+#  - name: ": Grundlagen der Rechnerbedienung und Programmierung"
+#    credits: 2
+#    id: B.Phy.605.1
+#    beschreibung: Erstes Teilmodul des Moduls "CwR"
 
-  - name: ": Algorithmen des wissenschaflichen Rechnens"
+  - name: Computergestütztes wissenschaftliches Rechnen
+    sub-name: ": Algorithmen des wissenschaflichen Rechnens"
     credits: 6
     id: B.Phy.605.2
     beschreibung: Zweites Teilmodul des wissenschaftlichen Rechnens.

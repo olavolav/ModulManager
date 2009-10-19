@@ -15,7 +15,7 @@ xml.root do
           g.modules.each { |m|
             classification = "non-custom"
             18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
-            m.parts > 1 ? partial = true : partial = false
+            m.children.length > 0 ? partial = true : partial = false
             has_grade = true
 
             xml.module(
@@ -26,10 +26,11 @@ xml.root do
             ) do
 
               xml.name(m.name)
+              xml.subname(m.subname) unless m.subname == nil
               xml.short(m.short)
               xml.credits(m.credits)
               xml.mode(g.modus)
-              m.parts > 1 ? xml.parts(m.parts) : xml.parts(0)
+              m.children.length > 0 ? xml.parts(m.parts) : xml.parts(0)
 
             end
           }

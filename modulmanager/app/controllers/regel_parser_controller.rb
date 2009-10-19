@@ -121,11 +121,9 @@ class RegelParserController < ApplicationController
 
     free_modules = Array.new
     limited_modules = Array.new
+    parent_modules = Array.new
 
     y.each do |m|
-
-      puts m["zulassung"]
-      puts (m["zulassung"] == nil)
 
       limited_modules.push m unless  m["zulassung"] == nil
       free_modules.push m if m["zulassung"] == nil
@@ -133,44 +131,88 @@ class RegelParserController < ApplicationController
     end
 
     free_modules.each do |m|
-      m["teile"] = m["teile"].to_i
-      m["teile"] = 1 if m["teile"] < 1
-      ready_module = Studmodule.create :name => m["name"],
-        :credits => m["credits"],
-        :short => m["id"],
-        :description => m["beschreibung"],
-        :parts => m["teile"],
-        :version => version
+
+      unless m["sub-modules"] == nil
+        parent_modules.push m
+      else
+
+        #      m["teile"] = m["teile"].to_i
+        #      m["teile"] = 1 if m["teile"] < 1
+
+        ready_module = Studmodule.create :name => m["name"],
+          :credits => m["credits"],
+          :short => m["id"],
+          :description => m["beschreibung"],
+          :version => version
+
+        ready_module.subname = m["sub-name"] unless m["sub-name"] == nil
+      end
     end
     
     limited_modules.each do |m|
-      m["teile"] = m["teile"].to_i
-      m["teile"] = 1 if m["teile"] < 1
-      ready_module = Studmodule.create :name => m["name"],
-        :credits => m["credits"],
-        :short => m["id"],
-        :description => m["beschreibung"],
-        :parts => m["teile"],
-        :version => version
-      #      unless m["zulassung"] == nil
-      and_connections = Array.new
-      m["zulassung"].each do |z|
-        rules = Array.new
-        modules = z.split(",")
-        modules.each do |m|
-          m.strip!
-          condition = Studmodule.find(:first, :conditions => "short = '#{m}'")
-          rules.push PermissionRule.create :condition => condition
-        end
-        and_connections.push AndConnection.create :child_rules => rules
+      unless m["sub-modules"] == nil
+        parent_modules.push m
+      else
+        create_limited_module m, version
       end
-      or_connection = OrConnection.create :child_connections => and_connections, :owner => ready_module
     end
+
+
+    parent_modules.each do |m|
+      unless m["zulassung"] == nil
+        ready_module = Studmodule.create :name => m["name"],
+          :credits => m["credits"],
+          :short => m["id"],
+          :description => m["beschreibung"],
+          :children => Studmodule::get_array_from_module_string(m["sub-modules"]),
+          :version => version,
+          :subname => m["sub-name"]
+        parent_modules.delete m
+      end
+    end
+
+    parent_modules.each do |m|
+      create_limited_module m, version
+    end
+
     18.times do |i|
       Studmodule.create :name => "Eigenes Modul",
         :short => "custom#{(i+1)}",
         :parts => 1
     end
+  end
+
+  def create_limited_module m, version
+    #      m["teile"] = m["teile"].to_i
+    #      m["teile"] = 1 if m["teile"] < 1
+    children = Studmodule::get_array_from_module_string(m["sub-modules"]) unless m["sub-modules"] == nil
+    ready_module = Studmodule.create :name => m["name"],
+      :credits => m["credits"],
+      :short => m["id"],
+      :description => m["beschreibung"],
+      :version => version
+
+    ready_module.subname = m["sub-name"] unless m["sub-name"] == nil
+
+    ready_module.children = children unless children == nil
+#      :children => children
+    #      unless m["zulassung"] == nil
+    and_connections = Array.new
+    m["zulassung"].each do |z|
+      rules = Array.new
+      modules = Studmodule::get_array_from_module_string(z)
+      modules.each {|mm| rules.push PermissionRule.create :condition => mm}
+#      rules = Array.new
+#      modules = z.split(",")
+#      modules.each do |mm|
+#        mm.strip!
+#        condition = Studmodule.find(:first, :conditions => "short = '#{mm}'")
+#        rules.push PermissionRule.create :condition => condition
+#      end
+      and_connections.push AndConnection.create :child_rules => rules
+    end
+    or_connection = OrConnection.create :child_connections => and_connections, :owner => ready_module
+    return true
   end
 
   def read_group_file filename, version
@@ -186,7 +228,7 @@ class RegelParserController < ApplicationController
       end
     end
     module_groups.each do |mg|
-#      puts "Creating ModuleGroup #{mg['name']}..."
+      #      puts "Creating ModuleGroup #{mg['name']}..."
       Category.create :name => mg["name"],
         :description => mg["beschreibung"],
         :version => version,
@@ -195,7 +237,7 @@ class RegelParserController < ApplicationController
       create_min_standard_connection(mg["name"], mg["credits"], mg["anzahl"], version)
     end
     parent_groups.each do |pg|
-#      puts "Creating ParentGroup #{pg['name']}..."
+      #      puts "Creating ParentGroup #{pg['name']}..."
       Category.create :name => pg["name"],
         :description => pg["beschreibung"],
         :version => version,

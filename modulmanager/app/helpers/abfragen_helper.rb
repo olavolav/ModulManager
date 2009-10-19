@@ -6,7 +6,7 @@ module AbfragenHelper
       c.modules.each { |m|
         classification = "non-custom"
         partial = false
-        m.parts > 1 ? partial = true : partial = false
+        m.children.length > 0 ? partial = true : partial = false
         
         18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
         
@@ -19,40 +19,41 @@ module AbfragenHelper
           :has_grade => has_grade
         ) {
           xml.name(m.name)
+          xml.subname(m.subname) unless m.subname == nil
           xml.short(m.short)
           xml.credits(m.credits)
           xml.mode(modus)
-          m.parts > 1 ? xml.parts(m.parts) : xml.parts(0)
+          m.children.length > 0 ? xml.parts(m.parts) : xml.parts(0)
         }
 
-        if partial
-
-          m.parts.times do |i|
-            part = i + 1
-            short = "#{m.short}.#{part}"
-            has_grade = true
-
-            mod = Studmodule.find(
-              :first,
-              :conditions => "short = '#{short}'"
-            )
-
-            xml.module(
-              :id => "#{mod.id}",
-              :class => "non-custom",
-              :partial => "true",
-              :has_grade => has_grade,
-              :parent => m.id
-            ) {
-              xml.name m.name
-              xml.add_sel_name mod.name
-              xml.short mod.short
-              xml.credits mod.credits
-              xml.mode modus
-              mod.parts > 1 ? xml.parts(mod.parts) : xml.parts(0)
-            }
-          end
-        end
+#        if partial
+#
+#          m.parts.times do |i|
+#            part = i + 1
+#            short = "#{m.short}.#{part}"
+#            has_grade = true
+#
+#            mod = Studmodule.find(
+#              :first,
+#              :conditions => "short = '#{short}'"
+#            )
+#
+#            xml.module(
+#              :id => "#{mod.id}",
+#              :class => "non-custom",
+#              :partial => "true",
+#              :has_grade => has_grade,
+#              :parent => m.id
+#            ) {
+#              xml.name m.name
+#              xml.add_sel_name mod.name
+#              xml.short mod.short
+#              xml.credits mod.credits
+#              xml.mode modus
+#              mod.parts > 1 ? xml.parts(mod.parts) : xml.parts(0)
+#            }
+#          end
+#        end
       }
 
     elsif c.sub_categories != []
