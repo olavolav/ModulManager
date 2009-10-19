@@ -181,9 +181,9 @@ $(function(){
 				},	
 				buttons:{
 					"OK":function(){
-							/*if ($("#box_info_exception").css("display") == "block") {
+							if ($("#box_info_exception").css("display") == "block") {
 								update_modul_in_selection();
-							}*/
+							}
                             $("#info_box").dialog('close');
 					}
 				}
