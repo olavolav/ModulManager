@@ -1081,13 +1081,13 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 	//parts_exit  aus "ja" setzen
 	$(ui_draggable).find("span.modul_parts_exsit").text("ja");
 	
-	var this_sub = $(this_semester).find("div.subsemester");
+	/*var this_sub = $(this_semester).find("div.subsemester");
 	
 	// bring  partial-modul ins Auswahl
 	var this_siblings = $(ui_draggable).siblings().filter(function(index){
 		
 			var h = $(this).html();
-			alert(h);
+			//alert(h);
 			//var text = $(this).find("span.modul_parent_attr").text();
 			//alert(text);
 		
@@ -1095,8 +1095,8 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 	
 	//var l = this_siblings.length;
 	//alert(l);
-	
-	/*$("#pool").find(".partial_modul").each(function(){
+	*/
+	$("#pool").find(".partial_modul").each(function(){
 		
 		var this_text = $(this).find("span.modul_parent_attr").text();
 		if(this_text == modul_id){
@@ -1112,7 +1112,7 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 			
 		}
 			
-	});*/
+	});
 			
 	 
 	
@@ -1270,7 +1270,7 @@ var poolrekursiv = function(XMLhandle){
 				if($(this).attr("parent") != undefined){
 					pool_modul_class="partial_modul";
 					modul_parent_attr=$(this).attr("parent");
-					alert(modul_parent_attr);
+					//alert(modul_parent_attr);
 					//check nach Teil_Modul_Name add_sel_name
 					partial_mod_name = $(this).find("add_sel_name").text();
 					
