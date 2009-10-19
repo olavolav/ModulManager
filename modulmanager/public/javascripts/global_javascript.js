@@ -1081,40 +1081,23 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 	//parts_exit  aus "ja" setzen
 	$(ui_draggable).find("span.modul_parts_exsit").text("ja");
 	
-	/*var this_sub = $(this_semester).find("div.subsemester");
+	var this_sub = $(this_semester).find("div.subsemester");
+	var this_vater = $(ui_draggable).parent().get(0);
 	
 	// bring  partial-modul ins Auswahl
-	var this_siblings = $(ui_draggable).siblings().filter(function(index){
-		
-			var h = $(this).html();
-			//alert(h);
-			//var text = $(this).find("span.modul_parent_attr").text();
-			//alert(text);
-		
+	var the_first=$("#pool").find("."+modul_id+"_parent").eq(0);
+	var partial_module = $(the_first).nextAll().filter(function(index){
+		return $(this).find("span.modul_parent_attr").text()==modul_id;
 	});
 	
-	//var l = this_siblings.length;
-	//alert(l);
-	*/
-	$("#pool").find(".partial_modul").each(function(){
+	$(partial_module).each(function(){
+		var this_child = $(this).children().eq(1);
+		$(this_child).attr("class","auswahl_modul partial_modul");
+		$(this_child).show();
+		change_module_style_to_auswahl(this);
+		$(this_sub).append(this_child);
 		
-		var this_text = $(this).find("span.modul_parent_attr").text();
-		if(this_text == modul_id){
-			
-			var this_sub = $(this_semester).find("div.subsemester");
-			$(this).show();
-			var this_id = $(this).attr("id");
-			//alert("teil_Modul ID : "+this_id);
-			change_module_style_to_auswahl(this);
-			$(this).attr("class","auswahl_modul partial_modul");
-			$(this_sub).append(this);
-			ajax_to_server_by_add(this_id,semester);
-			
-		}
-			
 	});
-			
-	 
 	
 }
 
@@ -1316,10 +1299,10 @@ var poolrekursiv = function(XMLhandle){
 				"</a>"+
                 "</td>" +
 
-                "<td style='width:28px;display:none;margin-right:5px;' class='noten_input_td' >" +
+                "<td style='width:25px;display:none;margin-right:0px;' class='noten_input_td' >" +
                 "<span class='noten'>" +
 				"<span class='modul_has_grade' style='display:none;'>"+has_grade+"</span>"+
-                "<input class='noten_input' type='text' size='5' style='margin-right:0px;' rel='"+modul_id+"' value='Note' />"+
+                "<input class='noten_input' type='text' size='5' style='margin-right:5px;' rel='"+modul_id+"' value='Note' />"+
                 "</span>" +
                 "</td>" +
 
