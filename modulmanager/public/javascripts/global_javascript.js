@@ -1080,7 +1080,23 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 	
 	//parts_exit  aus "ja" setzen
 	$(ui_draggable).find("span.modul_parts_exsit").text("ja");
-	$("#pool").find(".partial_modul").each(function(){
+	
+	var this_sub = $(this_semester).find("div.subsemester");
+	
+	// bring  partial-modul ins Auswahl
+	var this_siblings = $(ui_draggable).siblings().filter(function(index){
+		
+			var h = $(this).html();
+			alert(h);
+			//var text = $(this).find("span.modul_parent_attr").text();
+			//alert(text);
+		
+	});
+	
+	//var l = this_siblings.length;
+	//alert(l);
+	
+	/*$("#pool").find(".partial_modul").each(function(){
 		
 		var this_text = $(this).find("span.modul_parent_attr").text();
 		if(this_text == modul_id){
@@ -1096,7 +1112,7 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 			
 		}
 			
-	});
+	});*/
 			
 	 
 	
@@ -1212,6 +1228,7 @@ var poolrekursiv = function(XMLhandle){
                 var modul_short = $(this).find("short").text();
 				var modul_parts = $(this).find("parts").text(); 
 				
+				
 				 
                 var modul_id = $(this).attr("id");
                 var modul_class=$(this).attr("class");
@@ -1248,18 +1265,26 @@ var poolrekursiv = function(XMLhandle){
                 //span.custom_exist sagt, dass das dummy-modul bereits im pool ist
                 var pool_modul_class="pool_modul";
 				var modul_parent_attr="nein";
+				var partial_mod_name="";
 				
 				if($(this).attr("parent") != undefined){
 					pool_modul_class="partial_modul";
 					modul_parent_attr=$(this).attr("parent");
+					alert(modul_parent_attr);
+					//check nach Teil_Modul_Name add_sel_name
+					partial_mod_name = $(this).find("add_sel_name").text();
+					
 					
 				}
                 if(modul_class=="custom"){
-					//alert(modul_parent_tag);
+					
                     pool_modul_class="custom_modul";
+					
                 }
 				
-
+				
+				
+				
 
                 appendString += "<div class='" + modul_id + "_parent'><div class='nichtleer'></div><div class='"+
                 pool_modul_class+"' id='" + modul_id + "' >" +
@@ -1278,14 +1303,14 @@ var poolrekursiv = function(XMLhandle){
                 "<td style=' width:22px;padding:1px 2px 0px 2px; '>"+bild+"</td>"+
                 // test, raus mit der width-Angabe (OS)
 				// "<td class='modul_name' style='width:99%'>"+modul_name+"</td>"+
-                "<td class='modul_name' style='width:80%'>"+modul_name+"</td>"+
+                "<td class='modul_name' >"+modul_name+partial_mod_name+"</td>"+
 					
                 // Kurzbezeichnung raus aus der Auswahl (OS)
                 // "<td style=' width:20%'>" +
                 // 	"<span class='modul_short' style='display:none'>"+"("+modul_short+")"+"</span>"+
                 // "</td>"+
 
-                "<td style=' width:22px;display:block ' class='fragebild_td'>" +
+                "<td style=' width:22px;display:table_cell' class='fragebild_td'>" +
 				"<a href='#' onclick='javascript:info_box("+modul_id+");'>"+
                 "<span class='fragebild' style='display:block;margin:0px 0px 0px 0px;' >"+fragebild+"</span>"+
 				"</a>"+
@@ -1373,8 +1398,8 @@ var change_module_style_to_pool = function(handle){
     $(handle).find("div.icon_loeschen").css("display","none");
     //$(handle).find("span.fragebild").css("display","block");
     //$(handle).find("span.ipunkt").css("display","none");
-	$(handle).find(".fragebild_td").css("display","block");
-    $(handle).find("span.ipunkt_td").css("display","none");
+	$(handle).find(".fragebild_td").css("display","table-cell");
+    $(handle).find(".ipunkt_td").css("display","none");
 	
     $(handle).find(".noten_input_td").css("display","none");
 	
@@ -1389,9 +1414,9 @@ var change_module_style_to_auswahl = function(handle){
 	
     $(handle).find("div.icon_loeschen").css("display","block");
     $(handle).find(".fragebild_td").css("display","none");
-    $(handle).find(".ipunkt_td").css("display","block");
+    $(handle).find(".ipunkt_td").css("display","table-cell");
 	if ($(handle).find("span.modul_has_grade").text() != "nein") {
-		$(handle).find(".noten_input_td").css("display", "block");
+		$(handle).find(".noten_input_td").css("display", "table-cell");
 		
 	}
 	

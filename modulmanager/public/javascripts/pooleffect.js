@@ -460,13 +460,13 @@ var sem_hinzu = function(){
 				
 				 if(custom_text == "non-custom") {
 				 	
-					drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+					
 				 	//check nach Teil_modul
 					if((parts_text!="0") && (parts_exsit=="nein")){
 						//alert("Teil modul kommem gleich");
 						partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 					}
-					
+					drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 					
 				}
 				
