@@ -433,9 +433,11 @@ jQuery(function ($) {
 											
 											$(tr_show).each(function(){
 												
-												var mod_id =$(this).attr("class");
-												array_id.push(mod_id);
-											});
+												if (($(this).attr("rel") == "pool_modul")||($(this).attr("rel") == "pool_modul ui_draggable")) {
+													var mod_id = $(this).attr("class");
+													array_id.push(mod_id);
+												}
+											});	
 											
 											
 											// Module im Pool-Baum anzeigen

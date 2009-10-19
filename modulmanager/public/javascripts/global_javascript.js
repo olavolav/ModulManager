@@ -47,9 +47,7 @@ var set_image_to_green_ipunkt = function(noten_input){
 	
 	
 }
-var is_point = function (point){
-	
-}
+
 var set_point_to_comma = function(input_noten){
 	alert("hallo set point to comma");
 
@@ -318,27 +316,39 @@ var get_custom_modul = function(){
 	
     // die Funktion zeigt nur ein display_none Custom_modul im Pool an
     var the_first;
-    var custom_modul = $("#pool").find("div.custom_modul ").filter(function(index){
+    var custom_modul = $("#pool").find("div.custom_modul").filter(function(index){
         if(index==0){
-            the_first=$(this)
+            the_first=$(this);
         }
         return index!=0
 		
     });
-	
-    $(custom_modul).hide();
-    var g = $(custom_modul).length;
-	
-	
-    var x = $(the_first).attr("class");
+	$(custom_modul).hide();
+    
     // class verï¿½ndern. custom-->pool_modul. Damit wird nur ein custom_modul im Pool ist
 	
     $(the_first).removeClass("custom_modul").addClass("pool_modul ui-draggable");
     $(the_first).show();
 	
 	
-	
 }//ende get_custom_modul
+
+
+var get_custom_modul_in_the_search_table = function(){
+	// custom_modul in Suche-Table
+	var the_first;
+	var custom_modul = $("#suche").find("tr[rel='custom_modul']").filter(function(index){
+		if(index==0){
+			the_first=$(this);
+		}
+		return index!=0
+	});
+	
+	$(custom_modul).hide();
+	$(the_first).attr("rel","pool_modul").show();
+	
+	
+}
 
 // Wofï¿½r ist diese Funktion? Bitte noch kommentieren oder lï¿½schen (OS)
 var modul_search = function(){
@@ -528,18 +538,20 @@ var sub_modul_loeschen = function (this_mod,mod_id){
 
 //info_box
 
+
 var info_box_selection = function(modul_id){
 		//schreib modul_id in attr "rel", um später wieder 
 		//Modul in Auswahl zu finden
+		
+		
 		$("#exception_credit").attr("rel",modul_id);  
 		$("#box_info").empty();
-        $('#info_box').dialog('open');
-        $("#box_info_exception").show();
+		$("#box_info_exception").show();
         $("#box_info_pool").hide();
-        
-        ajax_to_server_by_get_module_info(modul_id);
-
-
+		
+		$('#info_box').dialog('open');
+		ajax_to_server_by_get_module_info(modul_id);
+		
 }
 
 var info_box = function(modul_id){
@@ -1266,29 +1278,29 @@ var poolrekursiv = function(XMLhandle){
                 "<td style=' width:22px;padding:1px 2px 0px 2px; '>"+bild+"</td>"+
                 // test, raus mit der width-Angabe (OS)
 				// "<td class='modul_name' style='width:99%'>"+modul_name+"</td>"+
-                "<td class='modul_name'>"+modul_name+"</td>"+
+                "<td class='modul_name' style='width:80%'>"+modul_name+"</td>"+
 					
                 // Kurzbezeichnung raus aus der Auswahl (OS)
                 // "<td style=' width:20%'>" +
                 // 	"<span class='modul_short' style='display:none'>"+"("+modul_short+")"+"</span>"+
                 // "</td>"+
 
-                "<td style=' width:22px; '>" +
+                "<td style=' width:22px;display:block ' class='fragebild_td'>" +
 				"<a href='#' onclick='javascript:info_box("+modul_id+");'>"+
                 "<span class='fragebild' style='display:block;margin:0px 0px 0px 0px;' >"+fragebild+"</span>"+
 				"</a>"+
                 "</td>" +
 
-                "<td style=' width:25px'>" +
-                "<span class='noten' style='display:none'>" +
-				"<span class='modul_has_grade' style='display:none'>"+has_grade+"</span>"+
-                "<input class='noten_input' type='text' size='5' style='margin-right:5px;' rel='"+modul_id+"' value='Note' />"+
+                "<td style='width:28px;display:none;margin-right:5px;' class='noten_input_td' >" +
+                "<span class='noten'>" +
+				"<span class='modul_has_grade' style='display:none;'>"+has_grade+"</span>"+
+                "<input class='noten_input' type='text' size='5' style='margin-right:0px;' rel='"+modul_id+"' value='Note' />"+
                 "</span>" +
                 "</td>" +
 
-                "<td style=' width:22px'>" +
+                "<td style=' width:22px;display:none' class='ipunkt_td'>" +
 				"<a href='#' onclick='javascript:info_box_selection("+modul_id+");'>"+
-                "<span class='ipunkt' style='display:none;padding:1px 2px 0px 0px;'>"+ipunkt+"</span>"+
+                "<span class='ipunkt' style='padding:1px 2px 0px 0px;'>"+ipunkt+"</span>"+
 				"</a>"+
                 "</td>" +
 
@@ -1302,7 +1314,7 @@ var poolrekursiv = function(XMLhandle){
                 "</div></div>";
 
                 //kopieren das Modul in search_table  fï¿½r die Suche
-                $("#suche tbody").append("<tr class='"+modul_id+"' >"+"<td>"+modul_id+"</td>"+"<td>"+modul_name+"</td>"+"</tr>");
+                $("#suche tbody").append("<tr class='"+modul_id+"' rel='"+pool_modul_class+"' >"+"<td>"+modul_id+"</td>"+"<td>"+modul_name+"</td>"+"</tr>");
 				
             default:
                 // Hmm, warum kommt das hier noch so oft? Spï¿½ter mal nachschauen!
@@ -1341,6 +1353,7 @@ var pool = function(){
 	hide_partial_modul();
     session_auswahl();
 	get_custom_modul();
+	get_custom_modul_in_the_search_table();
     ueberblick();
 	
 }//ende pool
@@ -1358,9 +1371,12 @@ var change_module_style_to_pool = function(handle){
 	$(handle).find("p.note-option").css("display","none");
 	
     $(handle).find("div.icon_loeschen").css("display","none");
-    $(handle).find("span.fragebild").css("display","block");
-    $(handle).find("span.ipunkt").css("display","none");
-    $(handle).find("span.noten").css("display","none");
+    //$(handle).find("span.fragebild").css("display","block");
+    //$(handle).find("span.ipunkt").css("display","none");
+	$(handle).find(".fragebild_td").css("display","block");
+    $(handle).find("span.ipunkt_td").css("display","none");
+	
+    $(handle).find(".noten_input_td").css("display","none");
 	
     return 0;
 }
@@ -1372,10 +1388,10 @@ var change_module_style_to_auswahl = function(handle){
 	$(handle).find("p.note-option").css("display","block");
 	
     $(handle).find("div.icon_loeschen").css("display","block");
-    $(handle).find("span.fragebild").css("display","none");
-    $(handle).find("span.ipunkt").css("display","block");
+    $(handle).find(".fragebild_td").css("display","none");
+    $(handle).find(".ipunkt_td").css("display","block");
 	if ($(handle).find("span.modul_has_grade").text() != "nein") {
-		$(handle).find("span.noten").css("display", "block");
+		$(handle).find(".noten_input_td").css("display", "block");
 		
 	}
 	

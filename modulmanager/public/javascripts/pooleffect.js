@@ -101,8 +101,10 @@ $(function(){
 			autoOpen:false,
 			// hide:'slide',
 			// show:'slide',
+			
 			buttons:{
 				"Fertig":function(){
+					
 					var iValid=false;
 					allFields.removeClass('ui-state-error');
 
@@ -138,6 +140,7 @@ $(function(){
 						if(this_exsit=="nein"){
 							$(cus_modul).find("span.custom_exist").text("ja");
 							get_custom_modul();
+							get_custom_modul_in_the_search_table();
 							
 						}
 						
@@ -160,22 +163,25 @@ $(function(){
 		 })
 		 			
          // info_box------------------------------------------------------------
-
-         $("#info_box").dialog({
-                 modal:true,
+			
+		 
+		 
+		 $("#info_box").dialog({
+                modal:true,
                 height:300,
                 width:500,
+				position:'center',
                 autoOpen:false,
-                // hide:'slide',
-                // show:'slide',
+                
 				open:function(event,ui){
 					$("#exception_credit").attr("value","Note");
-				},
+					$(this).parent().css("top","167px");
+				},	
 				buttons:{
 					"OK":function(){
-							if ($("#box_info_exception").css("display") == "block") {
+							/*if ($("#box_info_exception").css("display") == "block") {
 								update_modul_in_selection();
-							}
+							}*/
                             $("#info_box").dialog('close');
 					}
 				}
@@ -301,6 +307,7 @@ $(function(){
 					}
 					else {
 						custom_modul_drop_in_auswahl(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper);
+						
 					}
 				}
 				
