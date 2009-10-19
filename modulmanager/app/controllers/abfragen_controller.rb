@@ -131,13 +131,6 @@ class AbfragenController < ApplicationController
 
   end
 
-  def get_categories
-    @categories = Category.all
-    respond_to do |format|
-      format.xml { render :xml => @categories }
-    end
-  end
-
   def remove_module_from_selection
     current_selection.selection_modules.each { |m| m.destroy if m.module_id.to_i == params[:mod_id].to_i }
     render :text => "Module removed from selection..."

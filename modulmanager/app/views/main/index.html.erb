@@ -204,6 +204,11 @@
       <label for="credit">Credit Point</label>
       <input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all" />
 
+      <label for="category_id">Kategorie</label>
+      <select id="category_id" name="category_id">
+        <%= options_from_collection_for_select(@categories, :id, :option_name, nil) %>
+      </select>
+
       <input type="hidden" name="custom_semester" id="custom_semester" value=""  />
       <input type="hidden" name="custom_id" id="custom_id" value=""  />
 

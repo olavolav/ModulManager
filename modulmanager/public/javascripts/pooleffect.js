@@ -4,7 +4,7 @@
  *       nachdem das gezogene Modul in Auswahl reingetan wurde                          	
  *								semesterhinzu,custom_check
  *								Ergreinis bei DROP in Auswahl
- *								"Löschen" bei SEMESTER wird geklick 
+ *								"Lï¿½schen" bei SEMESTER wird geklick 
  *								mach unseres POOL droppable	
  *								mach ein pool_modul bei POOL draggable--		
  *								Noten eingeben und schicken bei (".semester").droppable
@@ -15,7 +15,7 @@
 
 
 
-//function für Form-Check bei Custom-Moul
+//function fï¿½r Form-Check bei Custom-Moul
 function updateTips(t,tips) {
 			tips.text(t).effect("highlight",{},1500);
 			
@@ -24,11 +24,13 @@ function updateTips(t,tips) {
 //---------------------------------------------------------
 
 
-var custom_check = function(name,credit,custom_semester,custom_id,tips,min,max){
+var custom_check = function(name,credit,category_id,custom_semester,custom_id,tips,min,max){
 	
 	var custom_semester=custom_semester.attr("value");
 	var custom_id=custom_id.attr("value");
-	
+        alert(category_id.val() + " (Zeile 31)");
+        var category_id = category_id.attr("value");
+//        alert(category_id + " (Zeile 33)")
 	var this_credit=credit.val();
 	var this_name =name.val();
 	var this_credit_float = parseFloat(this_credit);
@@ -57,7 +59,7 @@ var custom_check = function(name,credit,custom_semester,custom_id,tips,min,max){
 		var this_credit_point_float = parseFloat(this_credit_point);
 		
 		
-		ajax_server_by_custom(this_name,this_credit_point_float,custom_semester,custom_id);
+		ajax_server_by_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id);
 		return true;
 	}
 	
@@ -88,6 +90,8 @@ $(function(){
 		// teil Form -Check bei dummy Modul
 		var name=$("#name");
 		var credit=$("#credit");
+                var category_id = $("#category_id");
+//                alert(category_id + " (Zeile 94)");
 		var custom_semester=$("#custom_semester");
 		var custom_id=$("#custom_id");
 		
@@ -108,12 +112,14 @@ $(function(){
 					var iValid=false;
 					allFields.removeClass('ui-state-error');
 
-					iValid = custom_check(name,credit,custom_semester,custom_id,tips,1,4);
+					iValid = custom_check(name,credit,category_id,custom_semester,custom_id,tips,1,4);
 					
 					if (iValid) {
 						
 						var na = name.attr("value");
 						var cre = credit.attr("value");
+                                                var cat = category_id.attr("value")
+//                                                alert(category_id + " (Zeile 120)");
 						var cus_sem=custom_semester.attr("value");
 						var cus_id=custom_id.attr("value");
 						
@@ -234,7 +240,7 @@ $(function(){
 	
 	
 	
-	// zurück in POOL , also mach #pool droppable
+	// zurï¿½ck in POOL , also mach #pool droppable
 		
 	$("#pool").droppable({
 					
@@ -249,7 +255,7 @@ $(function(){
 				$(ui.helper).remove();
 				
 				// drop_in_pool(mod_id, ui_draggable,this_pool);
-				// neuerdings die gleiche Funktion wie wenn man auf den Löschen-Knopf klickt:
+				// neuerdings die gleiche Funktion wie wenn man auf den Lï¿½schen-Knopf klickt:
 				modul_loeschen(mod_id);
 			}
 		
@@ -353,7 +359,7 @@ $(function(){
 			
 		});
 		
-		//onChange oder Enter drücken
+		//onChange oder Enter drï¿½cken
 		$("input.noten_input").bind("keypress",function(e){
 			if(e.keyCode == 13){
 				//alert("hallo Enter");
@@ -392,13 +398,13 @@ var sem_hinzu = function(){
     	 var n = $('#semester-content div.semester').length+1;
 			// alert("Neues Semester bekommt ID: "+n);
 			
-			// neue Semester und Löschen reintun
+			// neue Semester und Lï¿½schen reintun
 			// <div class="semester" id="5">
 			//		<div class='subsemester'> 
 			//				semester 10
 			//		</div>
 			//		<p>
-			//			Löschen
+			//			Lï¿½schen
 			//		</p>
 			// </div>
             var neu = "<div class='semester' id='"+n+"'>"+
@@ -412,8 +418,8 @@ var sem_hinzu = function(){
 			
 			$("#semester-content").append(neu);
 		
-			// "Löschen" wird immer in dem letzen Semester hinzufügen
-			// d.h: andere ""Löschen" werden weggemacht.
+			// "Lï¿½schen" wird immer in dem letzen Semester hinzufï¿½gen
+			// d.h: andere ""Lï¿½schen" werden weggemacht.
 			$(".semester[id="+(n-1)+"] button").css("display","none");
 			$(".semester[id="+n+"] button").css("display","block");
 			
@@ -499,7 +505,7 @@ var sem_hinzu = function(){
 
 
 ///////////////////////////////////////////////////////////////////////////////////
-// "Löschen" bei SEMESTER wird geklick -------------------------------------------
+// "Lï¿½schen" bei SEMESTER wird geklick -------------------------------------------
 //   sem_loeschen()
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -570,18 +576,18 @@ var toggle_category = function(category_id){
 	
 	switch (temparrow) {
 		case "rechts":
-			// Kategorie öffnen
+			// Kategorie ï¿½ffnen
 			var count = 0;
 			$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
 				var this_class = $(this).attr("class");
-				// Prüfen, ob sich darunter Kategorien oder Module befinden
+				// Prï¿½fen, ob sich darunter Kategorien oder Module befinden
 				// if(((this_class=="pool_category")&&(!search_is_active()))||(this_class=="search_category")) {
 				if((this_class=="pool_category")||(this_class=="search_category")) {
 					// alert("Darunter befindet sich eine Kategorie.");
 					if (!search_is_active()) {
 						$(this).css("display","block");
 						count++;
-						// Schleife um Icon auf Pfeil-Leer zu setzen, falls nötig, sollte aber nicht (OS)
+						// Schleife um Icon auf Pfeil-Leer zu setzen, falls nï¿½tig, sollte aber nicht (OS)
 						if (number_of_visible_items_in_category(this) == 0) flip_arrow_of_category("leer",this);
 					}
 					else if (this_class=="search_category") {
@@ -605,7 +611,7 @@ var toggle_category = function(category_id){
 								}
 							}
 							else {
-								// die folgende Abfrage ist nötig, damit custom_modul-Divs nicht
+								// die folgende Abfrage ist nï¿½tig, damit custom_modul-Divs nicht
 								// angezeigt werden (OS)
 								if ($(this).is(".pool_modul")) {
 									$(this).css("display","block");
@@ -613,7 +619,7 @@ var toggle_category = function(category_id){
 								}
 							}
 						}
-						// das Folgende könnte auch unnötig sein, aber schaden kann's wohl nicht (OS)
+						// das Folgende kï¿½nnte auch unnï¿½tig sein, aber schaden kann's wohl nicht (OS)
 						else $(this).css("display","none");
 					});
 				}
@@ -626,13 +632,13 @@ var toggle_category = function(category_id){
 			break;
 
 		case "unten":
-			// Kategorie schließen
+			// Kategorie schlieï¿½en
 			flip_arrow_of_category("rechts",handle);
 		
 			// Elemente darunter verstecken
 			$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
 				var this_class = $(this).attr("class");
-				// Prüfen, ob sich darunter Kategorien oder Module befinden
+				// Prï¿½fen, ob sich darunter Kategorien oder Module befinden
 				if((this_class=="pool_category")||(this_class=="search_category"))
 					$(this).css("display","none");
 				else $(this).find(">*").css("display","none")
@@ -659,7 +665,7 @@ var number_of_visible_items_in_category = function(handle){
 	var count = 0;
 	$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
 		this_class = $(this).attr("class");
-		// Zunächst Prüfen, ob sich darunter Kategorien oder Module befinden
+		// Zunï¿½chst Prï¿½fen, ob sich darunter Kategorien oder Module befinden
 		if((this_class=="pool_category")||(this_class=="search_category")) {
 			// also geht es um eine Kategorie
 			if (search_is_active()) {

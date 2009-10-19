@@ -20,6 +20,10 @@ class Category < ActiveRecord::Base
     :class_name => "Version",
     :foreign_key => "version_id"
 
+  def option_name
+    return "#{self.super_category.name} / #{self.name}"
+  end
+
   def self.get_array_from_category_string categories_string
     c = Array.new
     categories = categories_string.split(",")

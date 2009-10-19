@@ -404,7 +404,7 @@ var modul_loeschen = function (mod_id){
 				
 				if(this_mod_par_attr != "nein"){
 					//hier ist Teil-modul
-					//such nach head-modul-->löschen
+					//such nach head-modul-->lï¿½schen
 					var head_modul = $("#semester-content div.semester").find("div#"+this_mod_par_attr);
 					sub_modul_loeschen(head_modul,this_mod_par_attr);
 					partial_modul_loeschen(this_mod_par_attr);
@@ -540,7 +540,7 @@ var sub_modul_loeschen = function (this_mod,mod_id){
 
 
 var info_box_selection = function(modul_id){
-		//schreib modul_id in attr "rel", um später wieder 
+		//schreib modul_id in attr "rel", um spï¿½ter wieder 
 		//Modul in Auswahl zu finden
 		
 		
@@ -566,7 +566,7 @@ var info_box = function(modul_id){
 
 var update_modul_in_selection = function (){
 	//alert("hallo uapdate");
-	//check, ob man etwas in Ausnahme verändert hat
+	//check, ob man etwas in Ausnahme verï¿½ndert hat
 	//if ($("#box_info_exception").css("display") == "block"){
 	
 	
@@ -588,11 +588,11 @@ var update_modul_in_selection = function (){
 		
 		//credit
 		if(($.trim(v)=="Note")||($.trim(v)=="")){
-			//alert("nicht Verändern");
+			//alert("nicht Verï¿½ndern");
 		}
 		else{
 			
-			//alert("Verändern Exception_credit ="+v);
+			//alert("Verï¿½ndern Exception_credit ="+v);
 			$(this_modul).find(".modul_credit").text(v+" C");
 			$(this_credit).html("Credit-Zahl wird zum "+v+" ver&auml;ndert");
 			//$(this_modul).append("<p class='credit-option'>Credit-Zahl wird zum "+v+" ver&auml;ndert<p>");
@@ -649,7 +649,7 @@ var session_auswahl_rekursiv = function(root){
             var das_erste = $(modul_im_pool).eq(0);
 			
 			
-			//custom_modul laden: Name und credit verändern
+			//custom_modul laden: Name und credit verï¿½ndern
 			
 			/*if($(this).hasClass("custom")){
 				alert("Hallo custom_modul_in_auswahl ID: "+mod_id);
@@ -920,7 +920,7 @@ var ajax_to_server_by_get_grade = function(){
 }
 
 
-function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester,custom_id){
+function ajax_server_by_custom(this_name,this_credit_point_float,this_category_id,custom_semester,custom_id){
 	
 	
     $.ajax({
@@ -929,7 +929,7 @@ function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester
         dataType:"text",
         cache:false,
         async:false,
-        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id,
+        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id+"&"+"category_id="+this_category_id,
         contentType:'application/x-www-form-urlencoded'/*,
         error : function(a,b,c){
             alert ("error mit add_custom_module_to_selection");
@@ -1390,7 +1390,7 @@ var search_is_active = function(){
 }
 
 var change_module_style_to_pool = function(handle){
-	// style für option
+	// style fï¿½r option
 	$(handle).find("p.credit-option").css("display","none");
 	$(handle).find("p.warnung-option").css("display","none");
 	$(handle).find("p.note-option").css("display","none");
@@ -1407,7 +1407,7 @@ var change_module_style_to_pool = function(handle){
 }
 
 var change_module_style_to_auswahl = function(handle){
-	// style für option
+	// style fï¿½r option
 	$(handle).find("p.credit-option").css("display","block");
 	$(handle).find("p.warnung-option").css("display","block");
 	$(handle).find("p.note-option").css("display","block");

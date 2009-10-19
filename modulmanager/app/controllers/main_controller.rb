@@ -13,6 +13,12 @@ class MainController < ApplicationController
     selection = current_selection
     selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = selection.focus.name
     @version = selection.version
+    @categories = Array.new
+    all_categories = Category.all
+    all_categories.each { |c|
+      puts "#{c.name} : #{c.sub_categories.length}"
+      @categories.push c if c.sub_categories.length == 0
+    }
     respond_to do |format|
       format.html { render :layout => "modulmanager" }
     end
