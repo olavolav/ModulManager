@@ -177,6 +177,10 @@ $(function(){
                 
 				open:function(event,ui){
 					$("#exception_credit").attr("value","Note");
+					$("#exception_warn").attr("checked","");
+					$("#exception_note").attr("checked","");
+					
+		
 					$(this).parent().css("top","167px");
 				},	
 				buttons:{
@@ -185,6 +189,7 @@ $(function(){
 								update_modul_in_selection();
 							}
                             $("#info_box").dialog('close');
+							
 					}
 				}
 		});

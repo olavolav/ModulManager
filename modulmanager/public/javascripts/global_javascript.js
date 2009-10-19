@@ -601,11 +601,11 @@ var update_modul_in_selection = function (){
 		//alert("warn-checked = "+warn_checked);
 		
 		//warnung
-		if (warn_checked == "on") 
+		if (warn_checked == "checkbox") 
 			$(this_warn).html("Warnung deaktiviert");
 			//$(this_modul).append("<p  class='warnung-option'>Warnung deaktiviert<p>");
 		//note	
-		if(note_checked=="on")
+		if(note_checked=="checkbox")
 			$(this_note).html("Note streichen"); 
 			//$(this_modul).append("<p class='note-option'>Note streichen<p>"); 
 	//}
