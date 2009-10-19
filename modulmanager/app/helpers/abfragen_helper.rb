@@ -44,7 +44,8 @@ module AbfragenHelper
               :has_grade => has_grade,
               :parent => m.id
             ) {
-              xml.name mod.name
+              xml.name m.name
+              xml.add_sel_name mod.name
               xml.short mod.short
               xml.credits mod.credits
               xml.mode modus
@@ -68,9 +69,10 @@ module AbfragenHelper
     image = ""
     name = r.name
     id = r.id
-    fullfilled = r.evaluate current_selection.modules, non_permitted_modules
+    fullfilled = r.evaluate current_selection.selection_modules, non_permitted_modules
     credits_needed = r.credits_needed
-    credits_earned = r.credits_earned current_selection.modules
+#    credits_earned = r.credits_earned current_selection.modules
+    credits_earned = r.credits_earned current_selection.selection_modules
 
     case fullfilled
     when 1

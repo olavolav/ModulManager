@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091014131305) do
+ActiveRecord::Schema.define(:version => 20091019084629) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20091014131305) do
     t.integer  "credits"
     t.string   "short"
     t.integer  "parent_id"
+    t.integer  "category_id"
   end
 
   create_table "semesters", :force => true do |t|

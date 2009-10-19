@@ -15,9 +15,14 @@ class AndConnection < Connection
   def credits_earned selected_modules
     credits = 0
     modules = collect_unique_modules_from_children
-    
     modules.each do |m|
-      selected_modules.each { |sm| credits += m.credits if sm.id == m.id }
+      selected_modules.each { |sm| 
+        if sm.class == CustomModule
+          credits += sm.credits
+        else
+          credits += m.credits if sm.moduledata.id == m.id
+        end
+      }
     end
 
     return credits

@@ -33,7 +33,7 @@ class Rule < ActiveRecord::Base
   def self.remove_modules_from_array array, remove
     array.each do |mod|
       remove.each do |rem|
-        array.delete mod if mod.id == rem.id
+        array.delete mod if mod.moduledata.id == rem.id
       end
     end
     return array

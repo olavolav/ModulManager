@@ -118,7 +118,8 @@ class AbfragenController < ApplicationController
         :moduledata => studmodule,
         :short => studmodule.short,
         :credits => params[:credits],
-        :name => params[:name]
+        :name => params[:name],
+        :category => Category.find(params[:category_id])
       )
     else
       my_module.credits = params[:credits]
@@ -128,6 +129,13 @@ class AbfragenController < ApplicationController
 
     render :text => "CostumModule created and added successfully..."
 
+  end
+
+  def get_categories
+    @categories = Category.all
+    respond_to do |format|
+      format.xml { render :xml => @categories }
+    end
   end
 
   def remove_module_from_selection

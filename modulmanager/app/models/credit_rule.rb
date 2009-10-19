@@ -16,7 +16,13 @@ class CreditRule < Rule
     self.modules.each { |m| rule_modules.push m }
 
     evaluation_modules.each do |em|
-      rule_modules.each { |rm| credits += em.credits if em.id == rm.id }
+      rule_modules.each { |rm| 
+        if em.class == CustomModule
+          credits += em.credits if em.category == self.category
+        else
+          credits += rm.credits if em.moduledata.id == rm.id
+        end
+      }
     end
 
     return credits
