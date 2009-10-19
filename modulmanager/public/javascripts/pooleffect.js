@@ -28,9 +28,7 @@ var custom_check = function(name,credit,category_id,custom_semester,custom_id,ti
 	
 	var custom_semester=custom_semester.attr("value");
 	var custom_id=custom_id.attr("value");
-        alert(category_id.val() + " (Zeile 31)");
-        var category_id = category_id.attr("value");
-//        alert(category_id + " (Zeile 33)")
+    var category_id = category_id.attr("value");
 	var this_credit=credit.val();
 	var this_name =name.val();
 	var this_credit_float = parseFloat(this_credit);
@@ -90,8 +88,7 @@ $(function(){
 		// teil Form -Check bei dummy Modul
 		var name=$("#name");
 		var credit=$("#credit");
-                var category_id = $("#category_id");
-//                alert(category_id + " (Zeile 94)");
+        var category_id = $("#category_id");
 		var custom_semester=$("#custom_semester");
 		var custom_id=$("#custom_id");
 		
@@ -118,8 +115,7 @@ $(function(){
 						
 						var na = name.attr("value");
 						var cre = credit.attr("value");
-                                                var cat = category_id.attr("value")
-//                                                alert(category_id + " (Zeile 120)");
+                        var cat = category_id.attr("value");
 						var cus_sem=custom_semester.attr("value");
 						var cus_id=custom_id.attr("value");
 						
