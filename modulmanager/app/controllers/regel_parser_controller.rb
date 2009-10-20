@@ -146,7 +146,6 @@ class RegelParserController < ApplicationController
     end
 
     limited_modules.each do |m|
-      puts "Building module #{m['name']} / #{m["sub-module"]}..."
       unless m["sub-module"] == nil
         parent_modules.push m
       else
@@ -171,14 +170,10 @@ class RegelParserController < ApplicationController
       ready_module = create_limited_module m, version
     end
 
-    puts "======================================================"
-    puts "Building custom modules..."
     18.times do |i|
-      puts "Building module #{i}..."
       Studmodule.create :name => "Eigenes Modul",
         :short => "custom#{(i+1)}",
         :parts => 1
-      puts "Created module #{i}..."
     end
   end
 

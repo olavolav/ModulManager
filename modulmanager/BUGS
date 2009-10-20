@@ -4,7 +4,6 @@ Noch zu beheben:
 ================
 
 2. Buttons sind nur via Text anklickbar (Olav)
-3. Korrekte Anzeige eines bereits ausgewählten Schwerpunktes funktioniert beim neu Laden der Seite bzw. beim Zurück-Gehen von der Hauptseite aus nicht richtig , außer bei "Kein Schwerpunkt" (Christian & Olav)
 4. Anzeige des Zurück-Buttons auf der Start-Seite funktioniert nicht - er wird auch angezeigt, wen man keinen SP ausgewählt hat (Christian)
 5. Der Browser springt ganz nach oben, wenn man auf einen beliebigen Link klickt, liegt am href="#" (Quan & Olav)
 
@@ -13,3 +12,4 @@ Inzwischen behoben:
 ===================
 
 1. Leer-Pfeil im Pool funktioniert nicht mehr, wenn man das letzte Modul einer Kategorie in die Auswahl zieht (Quan)
+3. Korrekte Anzeige eines bereits ausgewählten Schwerpunktes funktioniert beim neu Laden der Seite bzw. beim Zurück-Gehen von der Hauptseite aus nicht richtig , außer bei "Kein Schwerpunkt" (Christian & Olav)
