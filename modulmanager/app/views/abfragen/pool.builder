@@ -31,7 +31,7 @@ xml.root do
             ) do
 
               xml.name(m.name)
-              xml.subname(m.subname) unless m.subname == nil
+              xml.add_sel_name(m.subname) unless m.subname == nil
               xml.short(m.short)
               xml.credits(m.credits)
               xml.mode(g.modus)
