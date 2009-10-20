@@ -33,11 +33,15 @@ class CreditRule < Rule
   def evaluate selected_modules, non_permitted_modules = nil
     credits_in_selection = act_credits selected_modules, non_permitted_modules
     if self.relation == "min"
-      return 1 if credits_in_selection >= self.count
+      if credits_in_selection >= self.count
+        puts "Regel #{self.id} erfüllt..."
+        return 1
+      end
     elsif self.relation == "max"
       return 1 if credits_in_selection <= self.count
     end
 
+    puts "Regel #{self.id} nicht erfüllt..."
     return -1
   end
   
