@@ -20,6 +20,11 @@ ul li{
 	float: left;
 }
 
+#schwerpunkt a, #preufungsordnung a {
+	display: block;
+	cursor: pointer;
+}
+
 ul a:link, ul a:visited {
 	color: black;
 	text-decoration: none;

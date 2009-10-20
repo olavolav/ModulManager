@@ -5,14 +5,19 @@
   <div id="schwerpunkt">
 		Bitte Schwerpunkt auswählen:<br/>
 	<% selection = current_selection %>
+		<!-- Debug-Teil, s. Bug Nr. 3 (OS) -->
+		-- debug: current selection ID:
+		<% (selection.focus == nil) ? debug = 'nil' : debug = selection.focus %>
+		<%= debug %> (wird nur beim Laden der Seite aktualisiert)
+		<br/>
 	<ul>
 		<% (selection.focus == nil) ? class_tag = "active" : class_tag = "passive" %>
-		<a href="#" onClick='javascript:update_schwerpunkt(-1);'>
+		<a onClick='javascript:update_schwerpunkt(-1);'>
 			<li class='schwerpunkt_oben <%= class_tag %>' id="-1" >Kein Schwerpunkt</li>
 		</a>
 	  	<% @schwerpunkte.each do |s| %>
 			<% (selection.focus == s.id) ? class_tag = "active" : class_tag = "passive" %>
-			<a href="#" onClick='javascript:update_schwerpunkt(<%= s.id %>);'>
+			<a onClick='javascript:update_schwerpunkt(<%= s.id %>);'>
 				<li class='schwerpunkt_oben <%= class_tag %>' id='<%= s.id %>'>
 				<%= s.name %>
 				</li>
@@ -26,7 +31,7 @@
 	<ul>
 	  	<% Version.all.each do |po| %>
 			<% (selection.version.id == po.id) ? class_tag = "active" : class_tag = "passive" %>
-			<a href="#" onClick='javascript:update_pordnung(<%= po.id %>);'>
+			<a onClick='javascript:update_pordnung(<%= po.id %>);'>
 				<li class='pruefungsordnung <%= class_tag %>' id='<%= po.id %>'>
 					<%= po.name %>
 				</li>
@@ -41,6 +46,7 @@
     <%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.<br/>
 
     <%= link_to "<button>OK</button>", :action => "create_selection" %>
+	<!-- funktioniert nicht, s. Bug Nr. 4 (OS) -->
     <%= link_to("<button>Zurück</button>", :action => "index" ) unless session[:selection_id] == nil %>
     <div class="clear">&nbsp;</div>
   </div>
