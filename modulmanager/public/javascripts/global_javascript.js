@@ -471,10 +471,9 @@ var sub_modul_loeschen = function (this_mod,mod_id){
                 if (arrow_type == "leer")
                     flip_arrow_of_category("rechts",$(this).parent());
                 else if (arrow_type == "unten") {
-                    // $(this).find(".pool_modul,.pool_modul.ui-draggable,.search_modul.ui-draggable").css("display","block");
-                    // $(this).parent().find("#"+mod_id).css("display","block");
-                    if ((!(search_is_active())) || $(this).is(".search_modul")) {
-					
+                    
+                    //if ((!(search_is_active())) || $(this).is(".search_modul")) {
+					  if (!(search_is_active())) {
 						if (pool_modul != "partial_modul") {
 							//alert("pool_modul = "+pool_modul);
 							$(this).find("#" + mod_id).css("display", "block");
@@ -1002,7 +1001,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
             if (number_of_visible_items_in_category(this_category) == 1) {
 				flip_arrow_of_category("leer", this_category);
 			}
-			global_category=$(this_category);
+			
         }
 		
 		
@@ -1025,7 +1024,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
                 else {
 					
                     // alert("Aha, Suche ist nicht aktiv - visible items:"+number_of_visible_items_in_category(this_category));
-                    if (number_of_visible_items_in_category(this_category) == 0)
+                    if (number_of_visible_items_in_category(this_category) == 1)
                         flip_arrow_of_category("leer",this_category);
                 }
             }
@@ -1216,13 +1215,14 @@ var poolrekursiv = function(XMLhandle){
                 var modul_name = $(this).find("name").text();
                 var modul_mode = $(this).find("mode").text();
                 var credits = $(this).find("credits").text();
-                var modul_short = $(this).find("short").text();
+				var modul_short = $(this).find("short").text();
 				var modul_parts = $(this).find("parts").text(); 
 				
 				
 				 
                 var modul_id = $(this).attr("id");
                 var modul_class=$(this).attr("class");
+				var check_modul_partial=$(this).attr("partial");
 				var has_grade="ja";
 				var modul_has_grade=$(this).attr("has_grade");
 				if(modul_has_grade == "false"){
@@ -1254,16 +1254,18 @@ var poolrekursiv = function(XMLhandle){
                 // hiet ist span.inAuswahl fï¿½r die Besetzung eines Modul in Auswahl gedacht.
                 //span.custom sagt, dass ein modul normal oder ein dummy-modul ist
                 //span.custom_exist sagt, dass das dummy-modul bereits im pool ist
+				var this_sel_name=$(this).find("add_sel_name").text();
                 var pool_modul_class="pool_modul";
 				var modul_parent_attr="nein";
 				var partial_mod_name="";
 				
-				if($(this).attr("parent") != undefined){
+				// Teil_modul_ name wird angehängt
+				if($(this).attr("parent") != ""){
 					pool_modul_class="partial_modul";
 					modul_parent_attr=$(this).attr("parent");
 					//alert(modul_parent_attr);
 					//check nach Teil_Modul_Name add_sel_name
-					partial_mod_name = $(this).find("add_sel_name").text();
+					partial_mod_name = this_sel_name;
 					
 					
 				}
@@ -1273,10 +1275,19 @@ var poolrekursiv = function(XMLhandle){
 					
                 }
 				
+				//check nach total_credits, die nur im Pool beim Kopfmodul angezeigt wird. 
+				var this_total_credits="0";
+				var total_credits=$(this).attr("total_credits");
+				var credits_in_selection = credits;
+				
+				if(total_credits!=""){
+					this_total_credits=total_credits;// für das KopfmodulModul, das wieder zurück in Pool ist
+					credits=total_credits;
+					
+				}
 				
 				
 				
-
                 appendString += "<div class='" + modul_id + "_parent'><div class='nichtleer'></div><div class='"+
                 pool_modul_class+"' id='" + modul_id + "' >" +
                 // "<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='show_pool_by_in(" +
@@ -1288,6 +1299,9 @@ var poolrekursiv = function(XMLhandle){
 				"<span class='modul_parts' style='display:none'>"+modul_parts+"</span>"+
 				"<span class='modul_parts_exsit' style='display:none'>"+"nein"+"</span>"+
 				"<span class='modul_parent_attr' style='display:none'>"+modul_parent_attr+"</span>"+
+				"<span class='add_sel_name_in_sel' style='display:none'>"+this_sel_name+"</span>"+
+				"<span class='total_modul_credit' style='display:none'>"+this_total_credits+"</span>"+
+				"<span class='credits_in_selection' style='display:none'>"+credits_in_selection+"</span>"+
                 "<table cellspacing='0' cellpadding='0' style='width:100%; border:1px;'>" +
                 "<tbody>" +
                 "<tr>" +
@@ -1301,7 +1315,7 @@ var poolrekursiv = function(XMLhandle){
                 // 	"<span class='modul_short' style='display:none'>"+"("+modul_short+")"+"</span>"+
                 // "</td>"+
 
-                "<td style=' width:22px;display:table_cell' class='fragebild_td'>" +
+                "<td style=' width:22px;display:table-cell' class='fragebild_td'>" +
 				"<a href='#' onclick='javascript:info_box("+modul_id+");'>"+
                 "<span class='fragebild' style='display:block;margin:0px 0px 0px 0px;' >"+fragebild+"</span>"+
 				"</a>"+
@@ -1385,14 +1399,19 @@ var change_module_style_to_pool = function(handle){
 	$(handle).find("p.credit-option").css("display","none");
 	$(handle).find("p.warnung-option").css("display","none");
 	$(handle).find("p.note-option").css("display","none");
-	
-    $(handle).find("div.icon_loeschen").css("display","none");
-    //$(handle).find("span.fragebild").css("display","block");
-    //$(handle).find("span.ipunkt").css("display","none");
-	$(handle).find(".fragebild_td").css("display","table-cell");
+	$(handle).find("div.icon_loeschen").css("display","none");
+   	
+	jQuery.each(jQuery.browser, function(i) {
+		if($.browser.msie){
+			$(handle).find(".fragebild_td").css("display","inline");
+		}
+		else{
+			$(handle).find(".fragebild_td").css("display","table-cell");
+		}
+		
+	});
     $(handle).find(".ipunkt_td").css("display","none");
-	
-    $(handle).find(".noten_input_td").css("display","none");
+	$(handle).find(".noten_input_td").css("display","none");
 	
     return 0;
 }
@@ -1405,11 +1424,35 @@ var change_module_style_to_auswahl = function(handle){
 	
     $(handle).find("div.icon_loeschen").css("display","block");
     $(handle).find(".fragebild_td").css("display","none");
-    $(handle).find(".ipunkt_td").css("display","table-cell");
+    //$(handle).find(".ipunkt_td").css("display","table-cell");
+	
+	jQuery.each(jQuery.browser, function(i) {
+      		//alert("hallo "+i);
+			if($.browser.msie){
+				
+					
+					$(handle).find(".ipunkt_td").css("display","inline");
+					if ($(handle).find("span.modul_has_grade").text() != "nein") {
+						$(handle).find(".noten_input_td").css("display", "inline");
+					}
+					
+			}	
+				
+			else {	
+					
+					$(handle).find(".ipunkt_td").css("display","table-cell");
+					if ($(handle).find("span.modul_has_grade").text() != "nein") {
+						$(handle).find(".noten_input_td").css("display", "table-cell");
+					}
+			}
+			
+	});
+	/*$(handle).find(".ipunkt_td").css("display","table-column");
 	if ($(handle).find("span.modul_has_grade").text() != "nein") {
-		$(handle).find(".noten_input_td").css("display", "table-cell");
+		$(handle).find(".noten_input_td").css("display", "table-column");
+		//$(handle).find(".noten_input_td").css("display", "inline");
 		
-	}
+	}*/
 	
     return 0;
 }

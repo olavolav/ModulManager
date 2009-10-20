@@ -84,6 +84,8 @@ var custom_check = function(name,credit,category_id,custom_semester,custom_id,ti
 $(function(){
 	
 		
+		
+
 
 		// teil Form -Check bei dummy Modul
 		var name=$("#name");
