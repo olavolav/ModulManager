@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091019151416) do
+ActiveRecord::Schema.define(:version => 20091020152147) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20091019151416) do
     t.text     "description"
     t.integer  "version_id"
     t.string   "modus"
+    t.boolean  "visible"
   end
 
   create_table "categories_rules", :id => false, :force => true do |t|
@@ -151,6 +152,7 @@ ActiveRecord::Schema.define(:version => 20091019151416) do
     t.integer  "parts"
     t.integer  "version_id"
     t.integer  "parent_id"
+    t.string   "subname"
   end
 
   create_table "versions", :force => true do |t|

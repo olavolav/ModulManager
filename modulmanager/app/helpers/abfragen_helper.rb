@@ -12,10 +12,11 @@ module AbfragenHelper
         
         has_grade = true
 
-        m.parent == nil ? parent = "" : parent = m.parent.id
-        m.credits_total == m.credits ? total_credits = "" : total_credits = m.credits_total
-        m.children.length > 0 ? parts = m.children.length + 1 : parts = 0
-        m.subname == nil ? subname = "" : subname = m.subname
+        m.parent == nil               ? parent = ""                   : parent = m.parent.id
+        m.credits_total == m.credits  ? total_credits = ""            : total_credits = m.credits_total
+        m.children.length > 0         ? parts = m.children.length + 1 : parts = 0
+        m.subname == nil              ? subname = ""                  : subname = m.subname
+        m.categories.length > 1       ? mult_cat = true               : mult_cat = false
 
         xml.module(
           :id => m.id,
@@ -24,7 +25,8 @@ module AbfragenHelper
           :has_grade => has_grade,
           :parent => parent,
           :total_credits => total_credits,
-          :parts => parts
+          :parts => parts,
+          :multiple_categories => mult_cat
         ) {
           xml.name(m.name)
           xml.add_sel_name(subname)
@@ -34,6 +36,9 @@ module AbfragenHelper
           xml.parent(m.parent.id) unless m.parent == nil
           xml.total_credits(m.credits_total) if partial
           xml.parts(parts)
+          xml.categories do
+            m.categories.each {|c| xml.category c.id}
+          end if mult_cat
         }
       }
 

@@ -22,6 +22,7 @@ xml.root do
             m.credits_total == m.credits ? total_credits = "" : total_credits = m.credits_total
             m.children.length > 0 ? parts = m.children.length + 1 : parts = 0
             m.subname == nil ? subname = "" : subname = m.subname
+            m.categories.length > 1 ? mult_cat = true : mult_cat = false
 
             xml.module(
               :id => m.id,
@@ -30,7 +31,8 @@ xml.root do
               :has_grade => has_grade,
               :parent => parent,
               :total_credits => total_credits,
-              :parts => parts
+              :parts => parts,
+              :multiple_categories => mult_cat
             ) do
 
               xml.name(m.name)
@@ -41,6 +43,9 @@ xml.root do
               xml.parent(parent) unless m.parent == nil
               xml.total_credits(total_credits) if partial
               xml.parts(parts)
+              xml.categories do
+                m.categories.each { |c| xml.category c.id }
+              end if mult_cat
             end
           }
         end

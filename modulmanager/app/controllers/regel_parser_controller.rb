@@ -133,6 +133,7 @@ class RegelParserController < ApplicationController
           :subname => m["sub-name"]
 
         ready_module.subname = m["sub-name"] unless m["sub-name"] == nil
+        ready_module.save
       end
     end
 
@@ -179,6 +180,7 @@ class RegelParserController < ApplicationController
     ready_module.subname = m["sub-name"] unless m["sub-name"] == nil
 
     ready_module.children = children unless children == nil
+    ready_module.save
     and_connections = Array.new
     m["zulassung"].each do |z|
       rules = Array.new
