@@ -32,7 +32,6 @@ class CreditRule < Rule
   # options beinhaltet die Module, deren Bedingungen noch nicht erfüllt sind
   def evaluate selected_modules, non_permitted_modules = nil
     credits_in_selection = act_credits selected_modules, non_permitted_modules
-
     if self.relation == "min"
       return 1 if credits_in_selection >= self.count
     elsif self.relation == "max"

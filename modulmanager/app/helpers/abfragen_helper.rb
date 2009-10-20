@@ -15,6 +15,7 @@ module AbfragenHelper
         m.parent == nil ? parent = "" : parent = m.parent.id
         m.credits_total == m.credits ? total_credits = "" : total_credits = m.credits_total
         m.children.length > 0 ? parts = m.children.length + 1 : parts = 0
+        m.subname == nil ? subname = "" : subname = m.subname
 
         xml.module(
           :id => m.id,
@@ -26,7 +27,7 @@ module AbfragenHelper
           :parts => parts
         ) {
           xml.name(m.name)
-          xml.add_sel_name(m.subname) unless m.subname == nil
+          xml.add_sel_name(subname)
           xml.short(m.short)
           xml.credits(m.credits)
           xml.mode(modus)

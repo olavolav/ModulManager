@@ -55,7 +55,6 @@ class RegelParserController < ApplicationController
   private
 
   def initialize_po dir_name
-
     version = read_description_file "#{dir_name}/beschreibung.yml"
     read_module_file "#{dir_name}/module.yml", version
     read_group_file("#{dir_name}/gruppen.yml", version)
@@ -65,23 +64,17 @@ class RegelParserController < ApplicationController
   end
 
   def read_description_file filename
-
-    file = File.open(filename)
-    y = YAML::load(file)
-    
+    y = extract_yaml(filename)
     version = Version.create :name => y["name"],
       :short => y["kurz"],
       :description => y["beschreibung"],
       :date => y["datum"]
 
     return version
-
   end
 
   def read_focus_file filename, version
-    file = File.open(filename)
-    y = YAML::load(file)
-
+    y = extract_yaml(filename)
     y.each do |f|
 
       focus = Focus.create :name => f["name"],
@@ -110,15 +103,13 @@ class RegelParserController < ApplicationController
       end
       
       schwerpunkt = create_min_focus_rule(focus["name"], kategorien, version)
-
     end
 
   end
 
   def read_module_file filename, version
-    file = File.open(filename)
-    y = YAML::load(file)
-
+    y = extract_yaml(filename)
+    
     free_modules = Array.new
     limited_modules = Array.new
     parent_modules = Array.new
@@ -131,7 +122,6 @@ class RegelParserController < ApplicationController
     end
 
     free_modules.each do |m|
-
       unless m["sub-module"] == nil
         parent_modules.push m
       else
@@ -139,7 +129,8 @@ class RegelParserController < ApplicationController
           :credits => m["credits"],
           :short => m["id"],
           :description => m["beschreibung"],
-          :version => version
+          :version => version,
+          :subname => m["sub-name"]
 
         ready_module.subname = m["sub-name"] unless m["sub-name"] == nil
       end
@@ -200,8 +191,7 @@ class RegelParserController < ApplicationController
   end
 
   def read_group_file filename, version
-    file = File.open(filename)
-    y = YAML::load(file)
+    y = extract_yaml(filename)
     parent_groups = Array.new
     module_groups = Array.new
     y.each do |element|
@@ -238,6 +228,12 @@ class RegelParserController < ApplicationController
         version
       )
     end
+  end
+
+  def extract_yaml filename
+    file = File.open(filename)
+    y = YAML::load(file)
+    return y
   end
 
   def create_min_focus_rule name, sub_groups, version = nil

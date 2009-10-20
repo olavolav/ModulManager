@@ -4,7 +4,6 @@ class MainController < ApplicationController
     @schwerpunkte = Focus.all
     @version = current_selection.version
     @mein_schwerpunkt = current_selection.focus
-    puts @version
     respond_to do |format|
       format.html { render :action => "start" }
     end
@@ -16,10 +15,7 @@ class MainController < ApplicationController
     @version = selection.version
     @categories = Array.new
     all_categories = Category.all
-    all_categories.each { |c|
-      puts "#{c.name} : #{c.sub_categories.length}"
-      @categories.push c if c.sub_categories.length == 0
-    }
+    all_categories.each { |c| @categories.push c if c.sub_categories.length == 0 }
     respond_to do |format|
       format.html { render :layout => "modulmanager" }
     end
