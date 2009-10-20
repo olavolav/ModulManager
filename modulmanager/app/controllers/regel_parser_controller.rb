@@ -205,6 +205,9 @@ class RegelParserController < ApplicationController
     end
     module_groups.each do |mg|
 
+
+      mg["sichtbar"] == "nein" ? visible = false : visible = true
+
       modules = Studmodule::get_array_from_module_string(mg["module"])
       modules_and_children = modules
       modules.each {|m| modules_and_children.concat(m.children)}
@@ -213,15 +216,20 @@ class RegelParserController < ApplicationController
         :description => mg["beschreibung"],
         :version => version,
         :modules => modules_and_children,
-        :modus => mg["modus"]
+        :modus => mg["modus"],
+        :visible => visible
       create_min_standard_connection(mg["name"], mg["credits"], mg["anzahl"], version)
     end
     parent_groups.each do |pg|
+
+      pg["sichtbar"] == "nein" ? visible = false : visible = true
+
       Category.create :name => pg["name"],
         :description => pg["beschreibung"],
         :version => version,
         :sub_categories => Category::get_array_from_category_string(pg["untergruppen"]),
-        :modus => pg["modus"]
+        :modus => pg["modus"],
+        :visible => visible
       Connection::create_and_connection(
         pg["name"],
         nil,
