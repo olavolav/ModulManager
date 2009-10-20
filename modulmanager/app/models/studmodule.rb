@@ -20,7 +20,13 @@ class Studmodule < ActiveRecord::Base
     :class_name => "Connection",
     :foreign_key => "owner_id"
 
-  has_many :children, :class_name => "Studmodule", :foreign_key => "parent_id"
+  has_many :children,
+    :class_name => "Studmodule",
+    :foreign_key => "parent_id"
+
+  belongs_to :parent,
+    :class_name => "Studmodule",
+    :foreign_key => "parent_id"
 
   def self.get_array_from_module_string module_string
     mod_array = Array.new
@@ -31,4 +37,11 @@ class Studmodule < ActiveRecord::Base
     }
     return mod_array
   end
+
+  def credits_total
+    credits = self.credits
+    self.children.each {|m| credits += m.credits} if self.children.length > 0
+    return credits
+  end
+
 end

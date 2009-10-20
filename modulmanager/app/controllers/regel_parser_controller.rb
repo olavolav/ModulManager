@@ -130,20 +130,11 @@ class RegelParserController < ApplicationController
 
     end
 
-    puts "======================================================"
-    puts "Building condition-free modules..."
     free_modules.each do |m|
 
-      puts "Building module #{m['name']} / #{m['sub-module']}..."
-
       unless m["sub-module"] == nil
-        puts "It's a parent-module..."
         parent_modules.push m
       else
-        puts "It's a normal module..."
-        #      m["teile"] = m["teile"].to_i
-        #      m["teile"] = 1 if m["teile"] < 1
-
         ready_module = Studmodule.create :name => m["name"],
           :credits => m["credits"],
           :short => m["id"],
@@ -151,30 +142,20 @@ class RegelParserController < ApplicationController
           :version => version
 
         ready_module.subname = m["sub-name"] unless m["sub-name"] == nil
-        puts "Created module #{ready_module.name}..."
       end
     end
 
-    puts "======================================================"
-    puts "Building limited modules..."
     limited_modules.each do |m|
       puts "Building module #{m['name']} / #{m["sub-module"]}..."
       unless m["sub-module"] == nil
-        puts "It's a parent-module..."
         parent_modules.push m
       else
-        puts "It's a normal module..."
         ready_module = create_limited_module m, version
-        puts "Created module #{ready_module.name}..."
       end
     end
 
-    puts "======================================================"
-    puts "Building parent-modules (first cycle)..."
     parent_modules.each do |m|
-      puts "Building module #{m['name']}..."
       unless m["zulassung"] == nil
-        puts "Building free parent-module..."
         ready_module = Studmodule.create :name => m["name"],
           :credits => m["credits"],
           :short => m["id"],
@@ -183,16 +164,11 @@ class RegelParserController < ApplicationController
           :version => version,
           :subname => m["sub-name"]
         parent_modules.delete m
-        puts "Created module #{ready_module.name}..."
       end
     end
 
-    puts "======================================================"
-    puts "Building parent-modules (second cycle)..."
     parent_modules.each do |m|
-      puts "Building module #{m['name']}..."
       ready_module = create_limited_module m, version
-      puts "Created module #{ready_module.name}..."
     end
 
     puts "======================================================"
@@ -207,8 +183,6 @@ class RegelParserController < ApplicationController
   end
 
   def create_limited_module m, version
-    #      m["teile"] = m["teile"].to_i
-    #      m["teile"] = 1 if m["teile"] < 1
     children = Studmodule::get_array_from_module_string(m["sub-module"]) unless m["sub-module"] == nil
     ready_module = Studmodule.create :name => m["name"],
       :credits => m["credits"],
@@ -219,20 +193,11 @@ class RegelParserController < ApplicationController
     ready_module.subname = m["sub-name"] unless m["sub-name"] == nil
 
     ready_module.children = children unless children == nil
-    #      :children => children
-    #      unless m["zulassung"] == nil
     and_connections = Array.new
     m["zulassung"].each do |z|
       rules = Array.new
       modules = Studmodule::get_array_from_module_string(z)
       modules.each {|mm| rules.push PermissionRule.create :condition => mm}
-      #      rules = Array.new
-      #      modules = z.split(",")
-      #      modules.each do |mm|
-      #        mm.strip!
-      #        condition = Studmodule.find(:first, :conditions => "short = '#{mm}'")
-      #        rules.push PermissionRule.create :condition => condition
-      #      end
       and_connections.push AndConnection.create :child_rules => rules
     end unless m["zulassung"] == nil
     or_connection = OrConnection.create :child_connections => and_connections, :owner => ready_module
@@ -252,7 +217,6 @@ class RegelParserController < ApplicationController
       end
     end
     module_groups.each do |mg|
-      #      puts "Creating ModuleGroup #{mg['name']}..."
 
       modules = Studmodule::get_array_from_module_string(mg["module"])
       modules_and_children = modules
@@ -261,13 +225,11 @@ class RegelParserController < ApplicationController
       Category.create :name => mg["name"],
         :description => mg["beschreibung"],
         :version => version,
-#        :modules => Studmodule::get_array_from_module_string(mg["module"]),
         :modules => modules_and_children,
         :modus => mg["modus"]
       create_min_standard_connection(mg["name"], mg["credits"], mg["anzahl"], version)
     end
     parent_groups.each do |pg|
-      #      puts "Creating ParentGroup #{pg['name']}..."
       Category.create :name => pg["name"],
         :description => pg["beschreibung"],
         :version => version,

@@ -11,49 +11,26 @@ module AbfragenHelper
         18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
         
         has_grade = true
-        
+
+        m.parent == nil ? parent = "" : parent = m.parent.id
+        m.credits_total == m.credits ? total_credits = "" : total_credits = m.credits_total
+
         xml.module(
           :id => m.id,
           :class => classification,
           :partial => partial,
-          :has_grade => has_grade
+          :has_grade => has_grade,
+          :parent => parent,
+          :total_credits => total_credits
         ) {
           xml.name(m.name)
           xml.subname(m.subname) unless m.subname == nil
           xml.short(m.short)
           xml.credits(m.credits)
           xml.mode(modus)
-          m.children.length > 0 ? xml.parts(m.parts) : xml.parts(0)
+          xml.parent(m.parent.id) unless m.parent == nil
+          xml.total_credits(m.credits_total) if partial
         }
-
-#        if partial
-#
-#          m.parts.times do |i|
-#            part = i + 1
-#            short = "#{m.short}.#{part}"
-#            has_grade = true
-#
-#            mod = Studmodule.find(
-#              :first,
-#              :conditions => "short = '#{short}'"
-#            )
-#
-#            xml.module(
-#              :id => "#{mod.id}",
-#              :class => "non-custom",
-#              :partial => "true",
-#              :has_grade => has_grade,
-#              :parent => m.id
-#            ) {
-#              xml.name m.name
-#              xml.add_sel_name mod.name
-#              xml.short mod.short
-#              xml.credits mod.credits
-#              xml.mode modus
-#              mod.parts > 1 ? xml.parts(mod.parts) : xml.parts(0)
-#            }
-#          end
-#        end
       }
 
     elsif c.sub_categories != []
@@ -72,14 +49,12 @@ module AbfragenHelper
     id = r.id
     fullfilled = r.evaluate current_selection.selection_modules, non_permitted_modules
     credits_needed = r.credits_needed
-#    credits_earned = r.credits_earned current_selection.modules
     credits_earned = r.credits_earned current_selection.selection_modules
 
     case fullfilled
     when 1
       image = "iPunkt.png"
     when -1
-      # image = "Ausrufezeichen.png"
       image = "AusrufezeichenBlinkend.gif"
     when 0
       image = "Fragezeichen.png"
