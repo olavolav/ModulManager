@@ -20,6 +20,7 @@ xml.root do
 
             m.parent == nil ? parent = "" : parent = m.parent.id
             m.credits_total == m.credits ? total_credits = "" : total_credits = m.credits_total
+            m.children.length > 0 ? parts = m.children.length + 1 : parts = 0
 
             xml.module(
               :id => m.id,
@@ -27,7 +28,8 @@ xml.root do
               :partial => partial,
               :has_grade => has_grade,
               :parent => parent,
-              :total_credits => total_credits
+              :total_credits => total_credits,
+              :parts => parts
             ) do
 
               xml.name(m.name)
@@ -37,6 +39,7 @@ xml.root do
               xml.mode(g.modus)
               xml.parent(parent) unless m.parent == nil
               xml.total_credits(total_credits) if partial
+              xml.parts(parts)
             end
           }
         end
