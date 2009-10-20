@@ -20,7 +20,7 @@ class Studmodule < ActiveRecord::Base
     :class_name => "Connection",
     :foreign_key => "owner_id"
 
-  has_many :children, :class_name => "Submodule", :foreign_key => "parent_id"
+  has_many :children, :class_name => "Studmodule", :foreign_key => "parent_id"
 
   def self.get_array_from_module_string module_string
     mod_array = Array.new

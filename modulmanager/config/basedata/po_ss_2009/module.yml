@@ -355,7 +355,7 @@
     credits: 3
     id: B.Phy.593
     beschreibung:
-    sub-module: 2
+    sub-module: B.Phy.593.2
 
 #  - name: ": Spezielle Themen der modernen Physik IIIa"
 #    credits: 3
