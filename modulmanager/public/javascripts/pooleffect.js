@@ -294,19 +294,22 @@ $(function(){
 				 
 				 var custom_text = $(ui.draggable).find("span.custom").text();
 				 var parts_text  = $(ui.draggable).find("span.modul_parts").text();
-				 //alert("parts_text ="+parts_text);
+				 
 				 var parts_exsit  = $(ui.draggable).find("span.modul_parts_exsit").html();
 				 //alert("part_exsit :"+parts_exsit);
 				
 				 if(custom_text == "non-custom") {
 				 	
-					drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
+					
 				 	//check nach Teil_modul
 					if((parts_text!="0") && (parts_exsit=="nein")){
-						//alert("Teil modul kommem gleich");
+						
+						change_credit_and_add_name_in_selection(ui_draggable);
+						drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 						partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 					}
-					
+					else
+						drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
 					
 				}
 				

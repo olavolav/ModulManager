@@ -40,6 +40,37 @@ var warten_blau = "<img src='images/Warten-HintergrundBlau.gif' style='padding-r
 var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='padding-right:3px;'>";
 
 
+
+
+
+var change_credit_and_add_name_in_selection = function(handle){
+	//alert("Hi change credit in selection");
+	//credit ändern
+	var c_text =$(handle).find(".credits_in_selection").text();
+	$(handle).find(".modul_credit").text(c_text+" C");
+	
+	//name hizufügen
+	var n_text = $(handle).find(".add_sel_name_in_sel").text();
+	$(handle).find(".modul_name").append(n_text);
+	
+	return 0;
+}
+
+var change_credit_and_remove_name_in_pool = function(handle){
+	
+	//alert("Hi remove name in pool");
+	//credit ändern
+	var c_text =$(handle).find(".total_modul_credit").text();
+	$(handle).find(".modul_credit").text(c_text+" C");
+	
+	//name remove
+	var n_text = $(handle).find(".modul_name_in_pool").text();
+	$(handle).find(".modul_name").text(n_text);
+	
+	return 0;
+	
+}
+
 var set_image_to_green_ipunkt = function(noten_input){
 	
 	var this_parent = $(noten_input).parent().parent().get(0);
@@ -406,11 +437,13 @@ var modul_loeschen = function (mod_id){
 					//hier ist Teil-modul
 					//such nach head-modul-->löschen
 					var head_modul = $("#semester-content div.semester").find("div#"+this_mod_par_attr);
+					change_credit_and_remove_name_in_pool(head_modul);
 					sub_modul_loeschen(head_modul,this_mod_par_attr);
 					partial_modul_loeschen(this_mod_par_attr);
 				}
 				else{
 					//hier ist head-Modul
+					change_credit_and_remove_name_in_pool(this);
 					sub_modul_loeschen(this,mod_id);
 					partial_modul_loeschen(mod_id);
 				}
@@ -648,6 +681,8 @@ var session_auswahl_rekursiv = function(root){
             var das_erste = $(modul_im_pool).eq(0);
 			
 			
+			
+			
 			//custom_modul laden: Name und credit verändern
 			
 			/*if($(this).hasClass("custom")){
@@ -696,6 +731,19 @@ var session_auswahl_rekursiv = function(root){
 			}
 			
 			$(auswahl_modul_clone).find("span.inAuswahl").text("ja");
+			
+			//check nach Kopfmodul. Wenn ja dann credit und name verändern
+			if($(auswahl_modul_clone).find(".modul_parts").text()!="0"){
+				change_credit_and_add_name_in_selection(auswahl_modul_clone);
+				$(auswahl_modul_clone).find(".modul_parts_exsit").text("ja");
+			}
+			
+			//check nach Teil-Modul
+			if($(auswahl_modul_clone).find(".modul_parent_attr").text()!="nein"){
+				$(auswahl_modul_clone).show();
+			}
+			
+			
 			
             // reinstecken das Klone im Auswahl
             $(sem_content).find("div.semester").each(function(){
@@ -1193,7 +1241,7 @@ var poolrekursiv = function(XMLhandle){
                 else
                     appendString += "<div style='margin-left:6px;display:none;' class='pool_category' "+"id='"+category_id+"'>";
 					
-                appendString += "<a href='#' alt='Kategorie auf- und zuklappen' onClick='javascript:toggle_category(\""+category_id+"\");'>"+
+                appendString += "<a style='cursor:pointer' alt='Kategorie auf- und zuklappen' onClick='javascript:toggle_category(\""+category_id+"\");'>"+
                 "<span class='pfeil_rechts' style='display:inline'>"+pfeil_rechts+"</span>"+
                 "<span class='pfeil_unten' style='display:none'>"+pfeil_unten+"</span>"+
                 "<span class='pfeil_leer' style='display:none'>"+pfeil_leer+"</span>"+
@@ -1300,6 +1348,7 @@ var poolrekursiv = function(XMLhandle){
 				"<span class='modul_parts_exsit' style='display:none'>"+"nein"+"</span>"+
 				"<span class='modul_parent_attr' style='display:none'>"+modul_parent_attr+"</span>"+
 				"<span class='add_sel_name_in_sel' style='display:none'>"+this_sel_name+"</span>"+
+				"<span class='modul_name_in_pool' style='display:none'>"+modul_name+"</span>"+
 				"<span class='total_modul_credit' style='display:none'>"+this_total_credits+"</span>"+
 				"<span class='credits_in_selection' style='display:none'>"+credits_in_selection+"</span>"+
                 "<table cellspacing='0' cellpadding='0' style='width:100%; border:1px;'>" +
