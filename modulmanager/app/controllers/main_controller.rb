@@ -101,6 +101,25 @@ class MainController < ApplicationController
     end
   end
 
+  def set_category
+    id = params[:mod_id]
+    cat_id = params[:cat_id]
+
+    mod = nil
+
+    selection = current_selection
+
+    selection.selection_modules.each do |m|
+      mod = m if m.id == id
+    end
+
+    mod.category = Category.find(cat_id) unless mod == nil
+    mod.save
+    
+    render :text => "Category changed successfully..."
+
+  end
+
   def post_file
     filename = ""
 
