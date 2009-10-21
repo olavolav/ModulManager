@@ -163,7 +163,7 @@ class RegelParserController < ApplicationController
     end
 
     18.times do |i|
-      Studmodule.create :name => "Eigenes Modul",
+      Studmodule.create :name => "(Sonstiges Modul)",
         :short => "custom#{(i+1)}",
         :parts => 1
     end
