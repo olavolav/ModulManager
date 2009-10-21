@@ -1365,7 +1365,7 @@ var poolrekursiv = function(XMLhandle){
                 // "</td>"+
 
                 "<td style=' width:22px;display:table-cell' class='fragebild_td'>" +
-				"<a href='#' onclick='javascript:info_box("+modul_id+");'>"+
+				"<a onclick='javascript:info_box("+modul_id+");'>"+
                 "<span class='fragebild' style='display:block;margin:0px 0px 0px 0px;' >"+fragebild+"</span>"+
 				"</a>"+
                 "</td>" +
@@ -1378,7 +1378,7 @@ var poolrekursiv = function(XMLhandle){
                 "</td>" +
 
                 "<td style=' width:22px;display:none' class='ipunkt_td'>" +
-				"<a href='#' onclick='javascript:info_box_selection("+modul_id+");'>"+
+				"<a onclick='javascript:info_box_selection("+modul_id+");'>"+
                 "<span class='ipunkt' style='padding:1px 2px 0px 0px;'>"+ipunkt+"</span>"+
 				"</a>"+
                 "</td>" +
