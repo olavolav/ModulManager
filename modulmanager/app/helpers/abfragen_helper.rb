@@ -7,9 +7,9 @@ module AbfragenHelper
         classification = "non-custom"
         partial = false
         m.children.length > 0 ? partial = true : partial = false
-        
+
         18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
-        
+
         has_grade = true
 
         m.parent == nil               ? parent = ""                   : parent = m.parent.id
@@ -68,8 +68,8 @@ module AbfragenHelper
     when 0
       image = "Fragezeichen.png"
     end
-    
-    
+
+
     element = <<EOF
   <div>
     <table cellspacing='0'>
@@ -77,7 +77,7 @@ module AbfragenHelper
         <td class='ueberblick_name'>#{name}</td>
         <td class='ueberblick_image'>
           <div class='ueberblick_info_box' id='box##{id}' >
-            <a href='#' alt='Weitere Informationen' onClick='javascript:get_modul_info_in_overview(#{id});'>
+            <a  alt='Weitere Informationen' onClick='javascript:get_modul_info_in_overview(#{id});'>
               #{image_tag image}
             </a>
          </div>
