@@ -181,9 +181,7 @@ $(function(){
 					$("#exception_credit").attr("value","Note");
 					$("#exception_warn").attr("checked","");
 					$("#exception_note").attr("checked","");
-					
-		
-					$(this).parent().css("top","167px");
+					//$(this).parent().css("top","167px");
 				},	
 				buttons:{
 					"OK":function(){
