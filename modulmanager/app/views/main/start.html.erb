@@ -19,7 +19,8 @@
         <li class='schwerpunkt_oben <%= class_tag %>' id="-1" >Kein Schwerpunkt</li>
       </a>
       <% @schwerpunkte.each do |s| %>
-        <% (@mein_schwerpunkt.id == s.id) ? class_tag = "active" : class_tag = "passive" %>
+        <% class_tag = "passive" %>
+        <% ((@mein_schwerpunkt.id == s.id) ? class_tag = "active" : class_tag = "passive") unless @mein_schwerpunkt == nil %>
         <a onClick='javascript:update_schwerpunkt(<%= s.id %>);'>
           <li class='schwerpunkt_oben <%= class_tag %>' id='<%= s.id %>'>
             <%= s.name %>
