@@ -30,9 +30,11 @@ class AbfragenController < ApplicationController
     selection.semesters.each do |semester|
       count = semester.count
       semester.modules.each do |mod|
-        permission = 1
-        permission = mod.moduledata.permission.evaluate(selection.semesters, count) unless mod.moduledata.permission == nil
-
+        if mod.moduledata.permission == nil
+          permission = 1
+        else
+          permission = mod.moduledata.permission.evaluate(selection.semesters, count)
+        end
         errors.push mod.moduledata unless permission == 1
       end
     end

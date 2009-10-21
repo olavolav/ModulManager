@@ -15,7 +15,7 @@ class MainController < ApplicationController
     @version = selection.version
     @categories = Array.new
     all_categories = Category.all
-    all_categories.each { |c| @categories.push c if c.sub_categories.length == 0 }
+    all_categories.each { |c| @categories.push c if c.sub_categories.length == 0 && c.visible }
     respond_to do |format|
       format.html { render :layout => "modulmanager" }
     end
@@ -81,6 +81,24 @@ class MainController < ApplicationController
       format.xml
     end
 
+  end
+
+  def _combo_category
+    id = params[:mod_id]
+    mod = Studmodule.find(id)
+    @categories = mod.categories
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def _check_category
+    id = params[:mod_id]
+    mod = Studmodule.find(id)
+    @categories = mod.categories
+    respond_to do |format|
+      format.html
+    end
   end
 
   def post_file

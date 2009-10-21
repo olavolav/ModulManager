@@ -66,16 +66,18 @@
 
   - name: Spezielle Themen
     beschreibung:
-    module: "B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.554, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.564, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.584, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.594"
+    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.511, B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.554, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.564, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.584, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.594"
     credits: 12
 
   - name: Nicht Physikalisch
     module: "B.Bio.118, B.Bio.112, B.Bwl.02, B.OPH.07, B.Bwl.04, B.Win.01, B.Win.04, B.Win.23, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12,  custom13, custom14, custom15, custom16, custom17, custom18"
     credits: 12
+    überschneidung: mehrfach
 
   - name: Mathematisch-Naturwissenschaftlich
     module: "B.Phy.606, B.Bio.118, B.Bio.112, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom13, custom14, custom15, custom16, custom17, custom18"
     credits: 6
+    überschneidung: mehrfach
 
   # ==========================
   # Sonstiges

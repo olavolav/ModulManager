@@ -44,8 +44,10 @@ module AbfragenHelper
 
     elsif c.sub_categories != []
       c.sub_categories.each do |d|
-        xml.category(:category_id => "category#{d.id}", :name => d.name) do
-          build_xml_bachelor_recursive d, xml, modus
+        if d.visible
+          xml.category(:category_id => "category#{d.id}", :name => d.name) do
+            build_xml_bachelor_recursive d, xml, modus
+          end
         end
       end
     end
