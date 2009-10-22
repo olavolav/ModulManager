@@ -32,7 +32,9 @@ var rote_ipunkt_passiv = "<img src='images/Ausrufezeichen.png'>";
 	
 var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-5px; left:6px;'>";
 var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='padding-right:3px;'>";
+var pfeil_rechts_nach_unten = "<img src='images/Pfeil-Anim-RechtsNachUnten.gif' style='padding-right:3px;'>";
 var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='padding-right:3px;'>";
+var pfeil_unten_nach_rechts = "<img src='images/Pfeil-Anim-UntenNachRechts.gif' style='padding-right:3px;'>";
 var pfeil_leer = "<img src='images/Pfeil-Rechts-Leer.png' style='padding-right:3px;'>";
 	
 var warten_weiss = "<img src='images/Warten-HintergrundWeiss.gif' style='padding-right:3px;'>";
@@ -1299,9 +1301,11 @@ var poolrekursiv = function(XMLhandle){
                 else
                     appendString += "<div style='margin-left:6px;display:none;' class='pool_category' "+"id='"+category_id+"' rel=''>";
 					
-                appendString += "<a style='cursor:pointer' alt='Kategorie auf- und zuklappen' onClick='javascript:toggle_category(\""+category_id+"\");'>"+
+                appendString += "<a style='cursor:pointer' alt='Kategorie auf- und zuklappen' onClick='javascript:toggle_category(\""+category_id+"\",true);'>"+
                 "<span class='pfeil_rechts' style='display:inline'>"+pfeil_rechts+"</span>"+
+                "<span class='pfeil_unten_nach_rechts' style='display:none'>"+pfeil_unten_nach_rechts+"</span>"+
                 "<span class='pfeil_unten' style='display:none'>"+pfeil_unten+"</span>"+
+                "<span class='pfeil_rechts_nach_unten' style='display:none'>"+pfeil_rechts_nach_unten+"</span>"+
                 "<span class='pfeil_leer' style='display:none'>"+pfeil_leer+"</span>"+
                 category_name+
                 "</a>";

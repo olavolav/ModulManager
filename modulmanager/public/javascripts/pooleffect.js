@@ -573,8 +573,10 @@ var sem_loeschen = function(l){
 }//ende
 
 
-
-var toggle_category = function(category_id){
+var toggle_category = function(category_id) {
+	return toggle_category(category_id,false);
+}
+var toggle_category = function(category_id,animated){
 	// alert("call: toggle_category("+category_id+")");
 	var handle = $("#pool").find("#"+category_id);	
 	var temparrow = which_arrow_is_visible(handle);
@@ -589,6 +591,7 @@ var toggle_category = function(category_id){
 				// if(((this_class=="pool_category")&&(!search_is_active()))||(this_class=="search_category")) {
 				if((this_class=="pool_category")||(this_class=="search_category")) {
 					// alert("Darunter befindet sich eine Kategorie.");
+					switch_arrows_to_static(this);
 					if (!search_is_active()) {
 						$(this).css("display","block");
 						count++;
@@ -631,14 +634,14 @@ var toggle_category = function(category_id){
 			});
 		
 			// falls kein Element angezeigt wird, entspr. Icon anzeigen
-			if (count == 0) flip_arrow_of_category("leer",handle);
-			else flip_arrow_of_category("unten",handle);
+			if (count == 0) flip_arrow_of_category("leer",handle,animated);
+			else flip_arrow_of_category("unten",handle,animated);
 			
 			break;
 
 		case "unten":
 			// Kategorie schlie�en
-			flip_arrow_of_category("rechts",handle);
+			flip_arrow_of_category("rechts",handle,animated);
 		
 			// Elemente darunter verstecken
 			$(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
@@ -694,6 +697,9 @@ var number_of_visible_items_in_category = function(handle){
 }
 
 var flip_arrow_of_category = function(type,handle){
+	return flip_arrow_of_category(type,handle,false);
+}
+var flip_arrow_of_category = function(type,handle,animated){
 	// gefragt is handle zur Kategorie
 	var this_class = $(handle).attr("class");
 	//if(!((this_class=="pool_category")||(this_class=="search_category")))
@@ -701,20 +707,40 @@ var flip_arrow_of_category = function(type,handle){
 	
 	switch(type){
 		case "rechts":
+			if (animated&&(which_arrow_is_visible(handle)=="unten")) {
+				$(handle).find(">a .pfeil_unten_nach_rechts").css("display","inline");
+				$(handle).find(">a .pfeil_rechts").css("display","none");
+			}
+			else {
+				$(handle).find(">a .pfeil_unten_nach_rechts").css("display","none");
+				$(handle).find(">a .pfeil_rechts").css("display","inline");
+			}
+			
+			$(handle).find(">a .pfeil_rechts_nach_unten").css("display","none");
 			$(handle).find(">a .pfeil_unten").css("display","none");
-			$(handle).find(">a .pfeil_rechts").css("display","inline");
 			$(handle).find(">a .pfeil_leer").css("display","none");
 			break;
 						
 		case "unten":
-			$(handle).find(">a .pfeil_unten").css("display","inline");
+			if (animated&&(which_arrow_is_visible(handle)=="rechts")) {
+				$(handle).find(">a .pfeil_rechts_nach_unten").css("display","inline");
+				$(handle).find(">a .pfeil_unten").css("display","none");
+			}
+			else {
+				$(handle).find(">a .pfeil_rechts_nach_unten").css("display","none");
+				$(handle).find(">a .pfeil_unten").css("display","inline");			
+			}
+
 			$(handle).find(">a .pfeil_rechts").css("display","none");
+			$(handle).find(">a .pfeil_unten_nach_rechts").css("display","none");
 			$(handle).find(">a .pfeil_leer").css("display","none");
 			break;
 			
 		case "leer":
 			$(handle).find(">a .pfeil_unten").css("display","none");
+			$(handle).find(">a .pfeil_rechts_nach_unten").css("display","none");
 			$(handle).find(">a .pfeil_rechts").css("display","none");
+			$(handle).find(">a .pfeil_unten_nach_rechts").css("display","none");
 			$(handle).find(">a .pfeil_leer").css("display","inline");
 			break;
 		default:
@@ -722,18 +748,41 @@ var flip_arrow_of_category = function(type,handle){
 	}
 }
 
-var which_arrow_is_visible = function(handle){
+var which_arrow_is_visible = function(handle) {
 	// gefragt is handle zur Kategorie
 	var this_class = $(handle).attr("class");
 	if(!((this_class=="pool_category")||(this_class=="search_category")))
 		alert("Fehler: Handle in which_arrow_is_visible() ist keine Kategorie!");
 
 	var result = "unbekannt";
-	if ($(handle).find(">a .pfeil_unten").css("display") == "inline") result = "unten";
+	if (($(handle).find(">a .pfeil_unten").css("display")=="inline")||($(handle).find(">a .pfeil_rechts_nach_unten").css("display")=="inline"))
+		result = "unten";
 	else {
-		if ($(handle).find(">a .pfeil_rechts").css("display") == "inline") result = "rechts";
-		else if ($(handle).find(">a .pfeil_leer").css("display") == "inline") result = "leer";
+		if (($(handle).find(">a .pfeil_rechts").css("display")=="inline")||($(handle).find(">a .pfeil_unten_nach_rechts").css("display")=="inline"))
+			result = "rechts";
+		else if ($(handle).find(">a .pfeil_leer").css("display")=="inline") result = "leer";
 	}
 	
 	return result;
+}
+
+// verwandle die Pfeile im Pool in den passiven, nicht-animierten Zustand
+var switch_arrows_to_static = function(handle) {
+	
+	$(handle).parent().find(".search_category, .pool_category").each(function(){
+		/* if ($(this).find(">a .pfeil_rechts_nach_unten").css("display")=="inline") {
+			$(this).find(">a .pfeil_rechts_nach_unten").css("display","none");
+			$(this).find(">a .pfeil_unten").css("display","inline");
+		}
+		if ($(this).find(">a .pfeil_unten_nach_rechts").css("display")=="inline") {
+			$(this).find(">a .pfeil_unten_nach_rechts").css("display","none");
+			$(this).find(">a .pfeil_rechts").css("display","inline");
+		} */
+		if (which_arrow_is_visible(this) == "rechts")
+			flip_arrow_of_category("rechts",this,false);
+		if (which_arrow_is_visible(this) == "unten")
+			flip_arrow_of_category("unten",this,false);
+	});
+	
+	return 0;
 }
