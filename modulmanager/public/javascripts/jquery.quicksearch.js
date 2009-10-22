@@ -225,8 +225,20 @@ jQuery(function ($) {
 							$(this).addClass("pool_category");
 							
 						}
-												
-						/* $(this).find("span.pfeil_rechts").each(function(){
+						
+						/*$(this).find("span").each(function(){
+							var this_id = $(this).attr("class");
+							if(this_id == "pfeil_rechts"){
+								$(this).css("display","inline");
+							}
+							else if(this_id="pfeil_unten"){
+								$(this).css("display","none");
+							}
+							
+							
+						});*/
+						
+						$(this).find("span.pfeil_rechts").each(function(){
 							
 								$(this).css("display","inline");
 							
@@ -235,8 +247,7 @@ jQuery(function ($) {
 							
 								$(this).css("display","none");
 							
-						}); */
-						flip_arrow_of_category("rechts",this);
+						});
 						
 						
 						
