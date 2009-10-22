@@ -141,9 +141,10 @@ $(function(){
 			
 						});
 						var this_exsit = $(cus_modul).find("span.custom_exist").text();
+						var cus_cat_id=$(cus_modul).find(".custom_category").text();
 						if(this_exsit=="nein"){
 							$(cus_modul).find("span.custom_exist").text("ja");
-							get_custom_modul();
+							get_custom_modul(cus_cat_id);
 							get_custom_modul_in_the_search_table();
 							
 						}
@@ -695,8 +696,8 @@ var number_of_visible_items_in_category = function(handle){
 var flip_arrow_of_category = function(type,handle){
 	// gefragt is handle zur Kategorie
 	var this_class = $(handle).attr("class");
-	if(!((this_class=="pool_category")||(this_class=="search_category")))
-		alert("Fehler: Handle in flip_arrow_of_category() ist keine Kategorie!");
+	//if(!((this_class=="pool_category")||(this_class=="search_category")))
+		//alert("Fehler: Handle in flip_arrow_of_category() ist keine Kategorie!");
 	
 	switch(type){
 		case "rechts":

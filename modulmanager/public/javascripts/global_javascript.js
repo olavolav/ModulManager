@@ -343,24 +343,74 @@ var hide_partial_modul = function(){
 	
 	
 }
-var get_custom_modul = function(){
+
+//--------CUSTOM-MODUL--------------------------------------------------------------------
+
+var custom_modul_rekursiv = function (handle){
 	
-    // die Funktion zeigt nur ein display_none Custom_modul im Pool an
-    var the_first;
-    var custom_modul = $("#pool").find("div.custom_modul").filter(function(index){
-        if(index==0){
-            the_first=$(this);
-        }
-        return index!=0
+		var handle_id = $(handle).attr("id");
 		
-    });
-	$(custom_modul).hide();
-    
-    // class ver�ndern. custom-->pool_modul. Damit wird nur ein custom_modul im Pool ist
+		//alert("hallo custom-rekursive");
+		$(handle).children().not("a,.nichtleer").each(function(){
+			
+			var this_class = $(this).attr("class");
+			var this_rel = $(this).attr("rel");
+			
+			if (this_class == "pool_category") {
+				custom_modul_rekursiv(this);
+			}
+			else{
+				if(this_rel =="mod_parent"){
+					var this_modul = $(this).children().not(".nichtleer").eq(0);
+					
+					if(($(this_modul).hasClass("custom_modul"))&&($(this_modul).css("display")=="block")){
+						//alert("hallo custom_modul");
+						var i = $(this_modul).css("display");
+						//alert("Dispaly:"+i);
+						$(this_modul).hide();
+						$(this_modul).attr("class","pool_modul");
+						//alert("Handle_id : "+handle_id+" und das ist block");
+						
+						// versteck alle anderen custom im gleichen Kategorie
+						$(this).siblings().each(function(){
+							//alert("hallo bruder");
+							var this_kind = $(this).children().not(".nichtleer").eq(0);
+							var cl = $(this_kind).attr("class");
+							
+							if($(this_kind).hasClass("custom_modul")){
+								$(this_kind).hide();
+								var p=$(this_kind).css("display");
+								//alert("Class : "+cl);
+								
+							}
+						});
+					}
+					
+					
+				}
+				return;
+			}
+			
+			
+		});	
+		
+	
+	
+}
+
+var get_custom_modul = function(category_id){
+	//alert("hallo get_custom_modul mit "+category_id);
+    // die Funktion zeigt nur ein display_none Custom_modul im Pool an
+	
+	var this_cat = $("#pool").find("#"+category_id);
+	var the_first = $(this_cat).find(".custom_modul").filter(function(index){
+		return index==0;
+	});
+	
+	// class ver�ndern. custom-->pool_modul. Damit wird nur ein custom_modul im Pool ist
 	
     $(the_first).removeClass("custom_modul").addClass("pool_modul ui-draggable");
     $(the_first).show();
-	
 	
 }//ende get_custom_modul
 
@@ -412,7 +462,7 @@ var partial_modul_loeschen = function (mod_id){
 			sub_modul_loeschen(this,this_id);
 		}
 	});
-	
+	ueberblick();
 }
 var modul_loeschen = function (mod_id){
     // Die Schleife hier sollte eigentlich unnoetig sein, wenn jedes Modul nur 1x in der
@@ -465,6 +515,8 @@ var sub_modul_loeschen = function (this_mod,mod_id){
    		// alert("hallo modul_loeschen (Schleife, 1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
         // aendere CSS style
        	change_module_style_to_pool(this_mod);
+		var kopf_modul_check = $(this_mod).find(".modul_parts").text();
+		var parent_attr_check = $(this_mod).find(".modul_parent_attr").text();
 		var pool_modul = "pool_modul";
 		//wenn ein Teil_modul ist, dann hat das class "partial",
 		// damit das nicht in Pool angezeigt wird.
@@ -563,6 +615,9 @@ var sub_modul_loeschen = function (this_mod,mod_id){
 
     // AJAX aufrufen und Session-DB aktualisieren
     ajax_to_server_by_remove(mod_id);
+	if((kopf_modul_check == "0")&&(parent_attr_check=="nein")){
+		ueberblick();
+	}
     
     
 
@@ -868,7 +923,7 @@ var ajax_to_server_by_add = function (modul_id,semester){
 			
     });//ende Ajax
 
-    ueberblick();
+    //ueberblick();
 	
 }
 
@@ -889,7 +944,7 @@ var ajax_to_server_by_remove = function (modul_id){
 			
     });//ende Ajax
 
-    ueberblick();
+    //ueberblick();
 	
 }// ende
 
@@ -1017,7 +1072,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
     });
 		 
     var this_draggable_class = $(ui_draggable).attr("class");
-	
+	var kopf_modul_check = $(ui_draggable).find(".modul_parts").text();
 	
 	
     // check ob das reingezogenem Modul aus POOL kommt.
@@ -1101,6 +1156,9 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	
     // DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken
     ajax_to_server_by_add(modul_id,semester);
+	if(kopf_modul_check=="0"){
+		ueberblick();
+	}
 	
 
 			
@@ -1152,7 +1210,7 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 		ajax_to_server_by_add(this_id,semester);
 		
 	});
-	
+	ueberblick();
 	
 }
 
@@ -1237,9 +1295,9 @@ var poolrekursiv = function(XMLhandle){
 				
                 // if (parent_name == "root" && $(this).children()[0])
                 if (parent_name == "root")
-                    appendString += "<div class='pool_category' id='" + category_id + "'>";
+                    appendString += "<div class='pool_category' id='" + category_id + "' rel=''>";
                 else
-                    appendString += "<div style='margin-left:6px;display:none;' class='pool_category' "+"id='"+category_id+"'>";
+                    appendString += "<div style='margin-left:6px;display:none;' class='pool_category' "+"id='"+category_id+"' rel=''>";
 					
                 appendString += "<a style='cursor:pointer' alt='Kategorie auf- und zuklappen' onClick='javascript:toggle_category(\""+category_id+"\");'>"+
                 "<span class='pfeil_rechts' style='display:inline'>"+pfeil_rechts+"</span>"+
@@ -1317,9 +1375,11 @@ var poolrekursiv = function(XMLhandle){
 					
 					
 				}
+				var custom_category="nein";
                 if(modul_class=="custom"){
 					
                     pool_modul_class="custom_modul";
+					custom_category=parent_id;
 					
                 }
 				
@@ -1336,7 +1396,7 @@ var poolrekursiv = function(XMLhandle){
 				
 				
 				
-                appendString += "<div class='" + modul_id + "_parent'><div class='nichtleer'></div><div class='"+
+                appendString += "<div class='" + modul_id + "_parent ' rel='mod_parent'><div class='nichtleer'></div><div class='"+
                 pool_modul_class+"' id='" + modul_id + "' >" +
                 // "<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='show_pool_by_in(" +
                 "<div class='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modul_loeschen(" +
@@ -1344,6 +1404,7 @@ var poolrekursiv = function(XMLhandle){
                 "<span class='inAuswahl' style='display:none'>nein</span>" +
                 "<span class='custom' style='display:none'>"+modul_class+"</span>"+
                 "<span class='custom_exist' style='display:none'>nein</span>"+
+				"<span class='custom_category' style='display:none'>"+custom_category+"</span>"+
 				"<span class='modul_parts' style='display:none'>"+modul_parts+"</span>"+
 				"<span class='modul_parts_exsit' style='display:none'>"+"nein"+"</span>"+
 				"<span class='modul_parent_attr' style='display:none'>"+modul_parent_attr+"</span>"+
@@ -1423,16 +1484,19 @@ var pool = function(){
     }).responseXML; //ende AJAX
 
     var root = XML.documentElement;
+	var this_pool = $("#pool");
     $("#pool").empty();
 	
     // Pool anzeigen
     $("#pool").append(poolrekursiv(root));
 	
+	
    
 	hide_partial_modul();
     session_auswahl();
-	get_custom_modul();
+	//get_custom_modul();
 	get_custom_modul_in_the_search_table();
+	custom_modul_rekursiv(this_pool);
     ueberblick();
 	
 }//ende pool
