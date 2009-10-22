@@ -22,28 +22,34 @@ class MainController < ApplicationController
   end
 
   def help
+    respond_to do |format|
+      format.html { render :layout => "aux" }
+    end
   end
 
   def export
+    respond_to do |format|
+      format.html { render :layout => "aux" }
+    end
   end
   
   def import
     respond_to do |format|
-      format.html
+      format.html { render :layout => "aux" }
     end
   end
 
   def import2
     @version = current_selection.version
     respond_to do |format|
-      format.html
+      format.html { render :layout => "aux" }
     end
   end
 
   def import3
     @version = current_selection.version
     respond_to do |format|
-      format.html
+      format.html { render :layout => "aux" }
     end
   end
 

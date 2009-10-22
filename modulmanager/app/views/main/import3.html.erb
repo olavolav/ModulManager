@@ -1,33 +1,19 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-  <head>
-    <title>ModulManager - Export</title>
-    <%= stylesheet_link_tag 'global' %>
-    <%= stylesheet_link_tag 'import' %>
-  </head>
-  <body>
+<div id="content">
+  <h3>Modul-Auswahl importieren</h3>
 
-    <div id="content">
-      <h3>Modul-Auswahl importieren</h3>
+  <% form_remote_tag :update => "problems", :url => { :action => "save_version"} do %>
 
-      <% form_remote_tag :update => "problems", :url => { :action => "save_version"} do %>
+    <p>
+      Neue Prüfungsordnung: <%= select_tag :version, options_from_collection_for_select(Version.all, "id", "short", @version) %>
+    </p>
 
-        <p>
-          Neue Prüfungsordnung: <%= select_tag :version, options_from_collection_for_select(Version.all, "id", "short", @version) %>
-        </p>
+    <p>
+      <%= submit_tag "Weiter" %>
+    </p>
 
-        <p>
-          <%= submit_tag "Weiter" %>
-        </p>
+  <% end %>
 
-      <% end %>
+  <div id="problems">
+  </div>
 
-      <div id="problems">
-      </div>
-
-    </div>
-
-
-
-  </body>
-</html>
+</div>
