@@ -95,7 +95,12 @@ class MainController < ApplicationController
   def _check_category
     id = params[:mod_id]
     mod = Studmodule.find(id)
-    @categories = mod.categories
+
+    # TODO Anpassen, so dass dies dynamisch erzeugt wird!!!
+    @categories = Array.new
+    @categories.push Category.find(:first, :conditions => "name = 'Nicht Physikalisch'")
+    @categories.push Category.find(:first, :conditions => "name = 'Mathematisch-Naturwissenschaftlich'")
+
     respond_to do |format|
       format.html
     end
