@@ -32,7 +32,8 @@ xml.root do
               :parent => parent,
               :total_credits => total_credits,
               :parts => parts,
-              :multiple_categories => mult_cat
+              :multiple_categories => mult_cat,
+              :additional_server_info => has_additional_server_infos(m)
             ) do
 
               xml.name(m.name)

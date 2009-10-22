@@ -5,13 +5,13 @@ module AbfragenHelper
     if c.sub_categories == [] && c.modules != []
       c.modules.each { |m|
         classification = "non-custom"
-        partial = false
-        m.children.length > 0 ? partial = true : partial = false
 
         18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
 
         has_grade = true
 
+        partial = false
+        m.children.length > 0         ? partial = true                : partial = false
         m.parent == nil               ? parent = ""                   : parent = m.parent.id
         m.credits_total == m.credits  ? total_credits = ""            : total_credits = m.credits_total
         m.children.length > 0         ? parts = m.children.length + 1 : parts = 0
@@ -26,7 +26,8 @@ module AbfragenHelper
           :parent => parent,
           :total_credits => total_credits,
           :parts => parts,
-          :multiple_categories => mult_cat
+          :multiple_categories => mult_cat,
+          :additional_server_info => has_additional_server_infos(m)
         ) {
           xml.name(m.name)
           xml.add_sel_name(subname)
@@ -51,6 +52,14 @@ module AbfragenHelper
         end
       end
     end
+  end
+
+  def has_additional_server_infos studmodule
+    has = false
+
+    has = true if studmodule.categories.length > 1
+
+    return has
   end
 
 
