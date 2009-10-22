@@ -104,7 +104,9 @@ $(function(){
 			autoOpen:false,
 			// hide:'slide',
 			// show:'slide',
-			
+			open : function(event,ui){
+				ajax_custom_checbox($(custom_id).attr("value"));
+			},
 			buttons:{
 				"Fertig":function(){
 					

@@ -906,7 +906,7 @@ var ajax_to_server_by_get_module_info = function (modul_id){
         });
 	
 }
-var ajax_to_server_by_add = function (modul_id,semester){
+var ajax_to_server_by_add = function (modul_id,semester,cat_id){
     //alert("mod_id="+modul_id+" und semester="+semester);
     //alert("modul_id="+modul_id+"semester="+semester);
     $.ajax({
@@ -916,7 +916,7 @@ var ajax_to_server_by_add = function (modul_id,semester){
         cache:false,
         dataType:'text',
         async :false,
-        data  : "mod_id="+modul_id+"&"+"sem_count="+semester,
+        data  : "mod_id="+modul_id+"&"+"sem_count="+semester+"&"+"cat_id="+cat_id,
         contentType:'application/x-www-form-urlencoded'/*,
         error :  function (a,b,c){
             alert(b);
@@ -1041,7 +1041,28 @@ function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester
 	
 }
 
-
+function ajax_custom_checbox(custom_id){
+		alert(custom_id);
+		 $.ajax({
+	        type:"POST",
+	        url :"main/_check_category",
+	        dataType:"text",
+	        cache:false,
+	        async:false,
+	        data:"mod_id="+custom_id,
+	        contentType:'application/x-www-form-urlencoded',
+			success:function(html){
+				$("#dummy_checkbox").append(html);
+				//alert(html);
+			},
+	        error : function(a,b,c){
+	            alert ("error mit custom_checbox");
+	        }
+	    });
+		
+	
+	
+}
 
 
 
@@ -1074,6 +1095,8 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 		 
     var this_draggable_class = $(ui_draggable).attr("class");
 	var kopf_modul_check = $(ui_draggable).find(".modul_parts").text();
+	var cat_id=$(ui_draggable).find(".cat_id").text();
+	//alert("cat_id = "+cat_id);
 	
 	
     // check ob das reingezogenem Modul aus POOL kommt.
@@ -1156,7 +1179,7 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
     //$("#pool").append("<script type='text/javascript'>$(document).ready(function () {		$('table#suche tbody tr').live('click',function(){  var this_class = $(this).attr('class'); $('#pool .'+this_class+'_parent').each(function(){  if($(this).find('.pool_modul')){alert('hallo pool_modul');}else{alert('kein pool_modul');}       });  }); })</script>");
 	
     // DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken
-    ajax_to_server_by_add(modul_id,semester);
+    ajax_to_server_by_add(modul_id,semester,cat_id);
 	if(kopf_modul_check=="0"){
 		ueberblick();
 	}
@@ -1330,6 +1353,7 @@ var poolrekursiv = function(XMLhandle){
                 var modul_id = $(this).attr("id");
                 var modul_class=$(this).attr("class");
 				var check_modul_partial=$(this).attr("partial");
+				var additional_info = $(this).attr("additional_server_info");
 				var has_grade="ja";
 				var modul_has_grade=$(this).attr("has_grade");
 				if(modul_has_grade == "false"){
@@ -1403,9 +1427,11 @@ var poolrekursiv = function(XMLhandle){
                 "<div class='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modul_loeschen(" +
                 modul_id +","+modul_id+")'>" +loeschenbild +"</div>" +
                 "<span class='inAuswahl' style='display:none'>nein</span>" +
+				"<span class='cat_id' style='display:none'>"+parent_id+"</span>"+
                 "<span class='custom' style='display:none'>"+modul_class+"</span>"+
                 "<span class='custom_exist' style='display:none'>nein</span>"+
 				"<span class='custom_category' style='display:none'>"+custom_category+"</span>"+
+				"<span class='additional_info' style='display:none'>"+additional_info+"</span>"+
 				"<span class='modul_parts' style='display:none'>"+modul_parts+"</span>"+
 				"<span class='modul_parts_exsit' style='display:none'>"+"nein"+"</span>"+
 				"<span class='modul_parent_attr' style='display:none'>"+modul_parent_attr+"</span>"+
