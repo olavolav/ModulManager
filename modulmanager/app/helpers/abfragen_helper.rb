@@ -4,42 +4,29 @@ module AbfragenHelper
     modus = c.modus unless c.modus == nil
     if c.sub_categories == [] && c.modules != []
       c.modules.each { |m|
-        #        classification = "non-custom"
-        #
-        #        18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
-
-        has_grade = true
-
-        #        partial = false
-        #        m.children.length > 0         ? partial = true                : partial = false
-        #        m.parent == nil               ? parent = ""                   : parent = m.parent.id
-        m.credits_total == m.credits  ? total_credits = ""            : total_credits = m.credits_total
-        m.children.length > 0         ? parts = m.children.length + 1 : parts = 0
-        m.subname == nil              ? subname = ""                  : subname = m.subname
-        m.categories.length > 1       ? mult_cat = true               : mult_cat = false
 
         xml.module(
           :id => m.id,
-          :class => get_classification(m),
-          :partial => is_partial_module(m),
-          :has_grade => has_grade,
-          :parent => get_parent_id(m),
-          :total_credits => total_credits,
-          :parts => parts,
-          :multiple_categories => mult_cat,
-          :additional_server_info => has_additional_server_infos(m)
+          :class => m.classification,
+          :partial => m.is_partial_module,
+          :has_grade => m.has_grade,
+          :parent => m.parent_id,
+          :total_credits => m.total_credits,
+          :parts => m.parts,
+          :multiple_categories => m.has_multiple_categories,
+          :additional_server_info => m.has_additional_server_infos
         ) {
           xml.name(m.name)
-          xml.add_sel_name(subname)
+          xml.add_sel_name(m.displayable_subname)
           xml.short(m.short)
           xml.credits(m.credits)
           xml.mode(modus)
           xml.parent(m.parent.id) unless m.parent == nil
-          xml.total_credits(m.credits_total) if is_partial_module(m)
-          xml.parts(parts)
+          xml.total_credits(m.credits_total) if m.is_partial_module
+          xml.parts(m.parts)
           xml.categories do
             m.categories.each {|c| xml.category c.id}
-          end if mult_cat
+          end if m.has_multiple_categories
         }
       }
 
@@ -75,6 +62,30 @@ module AbfragenHelper
   def get_classification studmodule
     result = "non-custom"
     36.times { |i| result = "custom" if studmodule.short == "custom#{(i+1)}" }
+    return result
+  end
+
+  def get_total_credits studmodule
+    result = ""
+    studmodule.credits_total == studmodule.credits ? result = "" : result =studmodule.credits_total
+    return result
+  end
+
+  def get_parts studmodule
+    result = 0
+    studmodule.children.length > 0 ? result = studmodule.children.length + 1 : result = 0
+    return result
+  end
+
+  def get_sub_name studmodule
+    result = ""
+    studmodule.subname == nil ? result = "" : result = studmodule.subname
+    return result
+  end
+
+  def has_multiple_categories studmodule
+    result = false
+    studmodule.categories.length > 1 ? result = true : result = false
     return result
   end
 

@@ -10,51 +10,36 @@ xml.root do
     xml.category(:name => s.name, :class => "Schwerpunkt", :category_id => "focus#{s.id}") do
       s.groups.each do |g|
         xml.category(:name => g.name, :category_id => "#{g.name.gsub(" ", "_").downcase}#{s.id}") do
-
-
           g.modules.each { |m|
-#            classification = "non-custom"
-#            18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
-#            m.children.length > 0 ? partial = true : partial = false
-            has_grade = true
-
-            m.parent == nil ? parent = "" : parent = m.parent.id
-            m.credits_total == m.credits ? total_credits = "" : total_credits = m.credits_total
-            m.children.length > 0 ? parts = m.children.length + 1 : parts = 0
-            m.subname == nil ? subname = "" : subname = m.subname
-            m.categories.length > 1 ? mult_cat = true : mult_cat = false
-
             xml.module(
               :id => m.id,
-              :class => get_classification(m),
-              :partial => is_partial_module(m),
-              :has_grade => has_grade,
-              :parent => parent,
-              :total_credits => total_credits,
-              :parts => parts,
-              :multiple_categories => mult_cat,
-              :additional_server_info => has_additional_server_infos(m)
+              :class => m.classification,
+              :partial => m.is_partial_module,
+              :has_grade => m.has_grade,
+              :parent => m.parent_id,
+              :total_credits => m.total_credits,
+              :parts => m.parts,
+              :multiple_categories => m.has_multiple_categories,
+              :additional_server_info => m.has_additional_server_infos
             ) do
 
               xml.name(m.name)
-              xml.add_sel_name(subname)
+              xml.add_sel_name(m.displayable_subname)
               xml.short(m.short)
               xml.credits(m.credits)
               xml.mode(g.modus)
-              xml.parent(parent) unless m.parent == nil
-              xml.total_credits(total_credits) if is_partial_module(m)
-              xml.parts(parts)
+              xml.parent(m.parent_id) unless m.parent == nil
+              xml.total_credits(m.total_credits) if m.is_partial_module
+              xml.parts(m.parts)
               xml.categories do
                 m.categories.each { |c| xml.category c.id }
-              end if mult_cat
+              end if m.has_multiple_categories
             end
           }
         end
       end
-
     end
   end
-  
 end
 
 

@@ -38,10 +38,66 @@ class Studmodule < ActiveRecord::Base
     return mod_array
   end
 
+  # D E P R E C A T E D
   def credits_total
     credits = self.credits
     self.children.each {|m| credits += m.credits} if self.children.length > 0
     return credits
+  end
+
+
+
+  def has_additional_server_infos
+    result = false
+    result = true if self.categories.length > 1
+    return result
+  end
+
+  def has_grade
+    return true
+  end
+
+  def is_partial_module
+    result = false
+    self.children.length > 0 ? result = true : result = false
+    return result
+  end
+
+  def parent_id
+    self.parent == nil ? result = "" : result = self.parent.id
+    return result
+  end
+
+  def classification
+    result = "non-custom"
+    36.times { |i| result = "custom" if self.short == "custom#{(i+1)}" }
+    return result
+  end
+
+  def total_credits
+    result = ""
+    credits = self.credits
+    self.children.each {|m| credits += m.credits} if self.children.length > 0
+    credits == self.credits ? result = "" : result = credits
+    return result
+  end
+
+  def parts
+    result = 0
+    self.children.length > 0 ? result = self.children.length + 1 : result = 0
+    return result
+  end
+
+  def displayable_subname
+    result = ""
+    self.subname == nil ? result = "" : result = self.subname
+    return result
+  end
+
+  def has_multiple_categories
+    result = false
+    self.categories.length > 1 ? result = true : result = false
+    return result
   end
 
 end
