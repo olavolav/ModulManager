@@ -347,10 +347,10 @@ $(function(){
 		
 		
 		// Klick bei Noten berechnen
-		$("#note_berechnen").click(function(){
+		/*$("#note_berechnen").click(function(){
 			ajax_to_server_by_get_grade();
 			
-		});
+		});*/
 		
 		$("input.noten_input").focus(function(){
 			// da wird der Click bei 'Note berechen' deaktiviert
@@ -360,7 +360,7 @@ $(function(){
 				
 			}
 			//var modul_id = $(this).attr("rel");
-			$("#note_berechnen").unbind('click');
+			//$("#note_berechnen").unbind('click');
 			$("#note_berechnen").text("Note wird bearbeitet");
 			
 			

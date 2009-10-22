@@ -159,11 +159,12 @@ var selection_input_check = function(input_noten){
 			set_image_to_green_ipunkt(input_noten);
 			ajax_to_server_by_grade(modul_id,new_float);
 			// hier kann man Note klicken
-			
-			$("#note_berechnen").bind('click',ajax_to_server_by_get_grade);
+			ajax_to_server_by_get_grade();
+			//$("#note_berechnen").bind('click',ajax_to_server_by_get_grade);
 			
 		}
-		$("#note_berechnen").text("Note aktualisieren");
+		//$("#note_berechnen").text("Note aktualisieren");
+		$("#note_berechnen").text("");
 		
 	}
 				
