@@ -517,7 +517,7 @@ var sem_hinzu = function(){
 var sem_loeschen = function(l){
 	
 		lint = parseInt(l);
-		
+		var all_sem_destroy="10000";// das sorgt dafür,dass nur ein Ajax-Aufruf beim Semester-Löschen mit meheren Module auftritt
 	  	// alert("Klick auf Loeschen-Knopf von Semester mit ID: "+lint);
 
 		// confirm nur beim Semester >=2
@@ -545,7 +545,7 @@ var sem_loeschen = function(l){
 				this_modules.each(function(){
 					// alert("Modul mit ID "+$(this).attr("id")+" soll geloescht werden...");
 					$(this).css("display","none");
-					modul_loeschen($(this).attr("id"));
+					modul_loeschen($(this).attr("id"),all_sem_destroy);
 				});
 				
 				$(this_semester).remove();

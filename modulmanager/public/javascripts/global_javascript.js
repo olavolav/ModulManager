@@ -452,19 +452,20 @@ var modul_search = function(){
 ///////////////////MODULLOESCHEN loeschen////////////////////////
 /// bei Click auf <div class="modul_loeschen">
 /// neuerdings auch beim Ziehen zum Pool (OS)
-var partial_modul_loeschen = function (mod_id){
+var partial_modul_loeschen = function (mod_id,all_sem_destroy){
 	//alert("hallo partial_modul_loeschen");
+	//alert("hallo sub "+all_sem_destroy);
 	//suche teil-Module
 	$("#semester-content div.subsemester").find("div").each(function(){
 		if($(this).find(".modul_parent_attr").text()== mod_id){
 			var this_id = $(this).attr("id");
 			//alert(this_id);
-			sub_modul_loeschen(this,this_id);
+			sub_modul_loeschen(this,this_id,all_sem_destroy);
 		}
 	});
 	ueberblick();
 }
-var modul_loeschen = function (mod_id){
+var modul_loeschen = function (mod_id,all_sem_destroy){
     // Die Schleife hier sollte eigentlich unnoetig sein, wenn jedes Modul nur 1x in der
     // Auswahl sein kann, ausser bei Drop in den Pool, dann 2x: (OS)
     // Letzteres sollte man vielleicht nochmal anschauen irgendwann. (OS)
@@ -472,7 +473,7 @@ var modul_loeschen = function (mod_id){
     //alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
 	
 	//alert(mod_id);
-	
+	//alert("sem_detroy="+all_sem_destroy);
 	$("#semester-content div.semester").find("div#"+mod_id).each(function(){
 		
 		var this_mod_parts = $(this).find(".modul_parts").text();
@@ -488,19 +489,19 @@ var modul_loeschen = function (mod_id){
 					//such nach head-modul-->löschen
 					var head_modul = $("#semester-content div.semester").find("div#"+this_mod_par_attr);
 					change_credit_and_remove_name_in_pool(head_modul);
-					sub_modul_loeschen(head_modul,this_mod_par_attr);
-					partial_modul_loeschen(this_mod_par_attr);
+					sub_modul_loeschen(head_modul,this_mod_par_attr,all_sem_destroy);
+					partial_modul_loeschen(this_mod_par_attr,all_sem_destroy);
 				}
 				else{
 					//hier ist head-Modul
 					change_credit_and_remove_name_in_pool(this);
-					sub_modul_loeschen(this,mod_id);
-					partial_modul_loeschen(mod_id);
+					sub_modul_loeschen(this,mod_id,all_sem_destroy);
+					partial_modul_loeschen(mod_id,all_sem_destroy);
 				}
 			}
 		}
 		else{
-			sub_modul_loeschen(this,mod_id);
+			sub_modul_loeschen(this,mod_id,all_sem_destroy);
 		}
 	}); 
 
@@ -509,7 +510,7 @@ var modul_loeschen = function (mod_id){
 }//ende modul_loeschen
 
 
-var sub_modul_loeschen = function (this_mod,mod_id){
+var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
 	
 		
    		// alert("hallo modul_loeschen (Schleife, 1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
@@ -615,7 +616,7 @@ var sub_modul_loeschen = function (this_mod,mod_id){
 
     // AJAX aufrufen und Session-DB aktualisieren
     ajax_to_server_by_remove(mod_id);
-	if((kopf_modul_check == "0")&&(parent_attr_check=="nein")){
+	if((kopf_modul_check == "0")&&(parent_attr_check=="nein")&&(all_sem_destroy!="10000")){
 		ueberblick();
 	}
     
@@ -1400,7 +1401,7 @@ var poolrekursiv = function(XMLhandle){
                 pool_modul_class+"' id='" + modul_id + "' >" +
                 // "<div id='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='show_pool_by_in(" +
                 "<div class='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modul_loeschen(" +
-                modul_id +")'>" +loeschenbild +"</div>" +
+                modul_id +","+modul_id+")'>" +loeschenbild +"</div>" +
                 "<span class='inAuswahl' style='display:none'>nein</span>" +
                 "<span class='custom' style='display:none'>"+modul_class+"</span>"+
                 "<span class='custom_exist' style='display:none'>nein</span>"+
