@@ -85,22 +85,12 @@ class AbfragenController < ApplicationController
       selection.semesters << semester
     end
     id = params[:mod_id]
-    found = false
-    parent_id = ""
-    part_id = ""
-    id.each_char do |c|
-      if c == "_"
-        found = true
-      end
-      parent_id = "#{parent_id}#{c}" unless found
-      part_id = "#{part_id}#{c}" if found && c != "_"
-    end
-    parent_module = Studmodule.find(parent_id)
-    unless found
-      semester.modules << SelectedModule.create(:moduledata => parent_module)
-    else
-      semester.modules << PartialModule.create(:parent_id => parent_id, :short => "#{parent_module.short}_#{part_id}")
-    end
+    cat_id = params[:cat_id]
+    parent_module = Studmodule.find(id)
+    my_module = SelectedModule.create(:moduledata => parent_module)
+    my_module.category = Category.find(cat_id) unless cat_id == nil
+    my_module.save
+    semester.modules << my_module
     render :text => "Module added successfully..."
   end
 
