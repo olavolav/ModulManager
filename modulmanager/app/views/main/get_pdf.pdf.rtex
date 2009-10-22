@@ -1,0 +1,53 @@
+\documentclass[a4paper,ngerman,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{microtype,ellipsis,fixltx2e,mparhack,graphicx,url}
+% \usepackage[pdftex,bookmarks=true,hypertexnames=false,bookmarksnumbered=true]{hyperref}
+\usepackage{textcomp}
+\usepackage{vmargin}
+\usepackage[scaled=0.9]{helvet}
+\usepackage{longtable}
+\normalfont % in case the EC fonts aren't available
+\usepackage{verbatim}
+
+\fontfamily{helvetica}
+\renewcommand*\familydefault{\sfdefault}
+
+\begin{document}
+
+\section*{ModulManager der Fakultät Physik}
+
+Vielen Dank, dass Sie den ModulManager der Fakultät Physik benutzt haben. Wir hoffen, er war Ihnen behilflich.
+
+
+\subsection*{Chronologische Auflistung}
+
+blabla.
+
+\subsection*{1. Semester}
+
+\begin{itemize}
+	\item Modul-Titel (Kurz-Bez.), X Credits
+\end{itemize}
+
+
+\subsection*{Auflistung nach Kategorien (``Studienberater-Ansicht'')}
+
+blabla.
+
+\subsection*{Pflichtmodule}
+
+\begin{itemize}
+	\item Modul-Titel (Kurz-Bez.), X Credits
+\end{itemize}
+
+
+\subsection*{Weitere Informationen (Stand: 22.10.09)}
+
+Falls Sie noch Fragen haben, stehen Ihnen die Studiunberater gern zu einem persönlichen Gespräch zur Verfügung.
+Sprechzeiten nach Vereinbarung.
+
+Alternativ können Sie sich an die Zentrale Studienberatung (Wilhelmsplatz 4, Tel. +49 (0)551 / 39-113) wenden.
+
+\end{document}

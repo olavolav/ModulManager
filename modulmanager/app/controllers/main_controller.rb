@@ -82,6 +82,14 @@ class MainController < ApplicationController
     end
 
   end
+  
+  # Erster Test, wie man den PDF-Export gestalten kann (OS)
+  def get_pdf
+    @modules = Studmodule.find(:all)
+    respond_to do |format|
+      format.pdf
+    end
+  end
 
   def _combo_category
     id = params[:mod_id]
