@@ -135,6 +135,7 @@ var selection_input_check = function(input_noten){
 		alert("Geben Sie bitte eine Zahl zwischen 1.0 und 4.0  ein!");
 		$(input_noten).attr("value","Note");
 		set_image_to_ipunkt(input_noten);
+		$("#note_berechnen").text("");
 	}
 	else{
 		//suche nach ',' in String trim_grade dann verwandel es zum '.'
@@ -146,6 +147,7 @@ var selection_input_check = function(input_noten){
 			alert("Die Note muss eine Zahl zwischen von 1.0 und 4.0");
 			set_image_to_ipunkt(input_noten);
 			$(input_noten).attr("value","Note");
+			$("#note_berechnen").text("");
 			
 		}
 		else{
