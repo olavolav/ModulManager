@@ -162,7 +162,7 @@ class RegelParserController < ApplicationController
       ready_module = create_limited_module m, version
     end
 
-    18.times do |i|
+    36.times do |i|
       Studmodule.create :name => "(Sonstiges Modul)",
         :short => "custom#{(i+1)}",
         :parts => 1
