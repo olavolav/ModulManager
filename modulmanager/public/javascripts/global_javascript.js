@@ -489,11 +489,14 @@ var modul_loeschen = function (mod_id,all_sem_destroy){
 					//such nach head-modul-->löschen
 					var head_modul = $("#semester-content div.semester").find("div#"+this_mod_par_attr);
 					change_credit_and_remove_name_in_pool(head_modul);
+					$(head_modul).find(".head_modul_in_pool").text("ja");
 					sub_modul_loeschen(head_modul,this_mod_par_attr,all_sem_destroy);
 					partial_modul_loeschen(this_mod_par_attr,all_sem_destroy);
 				}
 				else{
 					//hier ist head-Modul
+					// setzen "ja" beim span.head_modul_in_pool ( wegen AJAX)
+					$(this).find(".head_modul_in_pool").text("ja");
 					change_credit_and_remove_name_in_pool(this);
 					sub_modul_loeschen(this,mod_id,all_sem_destroy);
 					partial_modul_loeschen(mod_id,all_sem_destroy);
@@ -636,6 +639,8 @@ var info_box_selection = function(modul_id){
 		$("#box_info").empty();
 		$("#box_info_exception").show();
         $("#box_info_pool").hide();
+		$("#box_info_combobox").hide();
+		$("#box_info_overview").hide();
 		
 		$('#info_box').dialog('open');
 		ajax_to_server_by_get_module_info(modul_id);
@@ -646,6 +651,8 @@ var info_box = function(modul_id){
         $("#box_info").empty();
         $("#info_box").dialog('open');
         $("#box_info_exception").hide();
+		$("#box_info_combobox").hide();
+		$("#box_info_overview").hide();
         $("#box_info_pool").show();
         
 		ajax_to_server_by_get_module_info(modul_id);
@@ -788,8 +795,9 @@ var session_auswahl_rekursiv = function(root){
 			
 			$(auswahl_modul_clone).find("span.inAuswahl").text("ja");
 			
-			//check nach Kopfmodul. Wenn ja dann credit und name verändern
+			//check nach Kopfmodul. Wenn ja dann credit name und head_modul_in_pool verändern
 			if($(auswahl_modul_clone).find(".modul_parts").text()!="0"){
+				$(auswahl_modul_clone).find(".head_modul_in_pool").text("nein");
 				change_credit_and_add_name_in_selection(auswahl_modul_clone);
 				$(auswahl_modul_clone).find(".modul_parts_exsit").text("ja");
 			}
@@ -1041,8 +1049,34 @@ function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester
 	
 }
 
+function ajax_combobox(mod_id){
+	 $.ajax({
+	        type:"POST",
+	        url :"main/_combo_category",
+	        dataType:"text",
+	        cache:false,
+	        async:false,
+	        data:"mod_id="+mod_id,
+	        contentType:'application/x-www-form-urlencoded',
+			success:function(html){
+				//alert(html);
+				//$("#box_info_combobox").append(html);
+				$("#box_info_combobox").append("Korigiere bitte Ausgabe-Format.");
+				
+				$("#box_info,#box_info_pool,#box_info_exception,#box_info_overview").hide();
+				$("#box_info_combobox").show();
+				$("#info_box").dialog('open');
+				//alert(html);
+			},
+	        error : function(a,b,c){
+	            alert ("error mit custom_checbox");
+	        }
+	    });
+	
+	
+}
 function ajax_custom_checbox(custom_id){
-		alert(custom_id);
+		//alert(custom_id);
 		 $.ajax({
 	        type:"POST",
 	        url :"main/_check_category",
@@ -1095,8 +1129,16 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 		 
     var this_draggable_class = $(ui_draggable).attr("class");
 	var kopf_modul_check = $(ui_draggable).find(".modul_parts").text();
+	var kopf_modul_in_pool =$(ui_draggable).find(".head_modul_in_pool").text();
 	var cat_id=$(ui_draggable).find(".cat_id").text();
+	var additional_info = $(ui_draggable).find(".additional_info").text();
 	//alert("cat_id = "+cat_id);
+	//alert(additional_info);
+	//check nach combobox bei Einführung bzw. SpezielleThemen
+	
+	if(additional_info == "true"){
+		ajax_combobox(modul_id);
+	}
 	
 	
     // check ob das reingezogenem Modul aus POOL kommt.
@@ -1180,9 +1222,12 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	
     // DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken
     ajax_to_server_by_add(modul_id,semester,cat_id);
-	if(kopf_modul_check=="0"){
+	if (kopf_modul_in_pool == "nein") {
 		ueberblick();
 	}
+	else {
+		$(ui_draggable).find(".head_modul_in_pool").text("nein");
+	}	
 	
 
 			
@@ -1389,6 +1434,11 @@ var poolrekursiv = function(XMLhandle){
                 var pool_modul_class="pool_modul";
 				var modul_parent_attr="nein";
 				var partial_mod_name="";
+				var kopf_modul_in_pool="nein";
+				//
+				if(modul_parts!="0"){
+					kopf_modul_in_pool="ja";
+				}
 				
 				// Teil_modul_ name wird angehängt
 				if($(this).attr("parent") != ""){
@@ -1432,6 +1482,7 @@ var poolrekursiv = function(XMLhandle){
                 "<span class='custom_exist' style='display:none'>nein</span>"+
 				"<span class='custom_category' style='display:none'>"+custom_category+"</span>"+
 				"<span class='additional_info' style='display:none'>"+additional_info+"</span>"+
+				"<span class='head_modul_in_pool' style='display:none'>"+kopf_modul_in_pool+"</span>"+
 				"<span class='modul_parts' style='display:none'>"+modul_parts+"</span>"+
 				"<span class='modul_parts_exsit' style='display:none'>"+"nein"+"</span>"+
 				"<span class='modul_parent_attr' style='display:none'>"+modul_parent_attr+"</span>"+
