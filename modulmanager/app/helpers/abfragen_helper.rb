@@ -4,15 +4,15 @@ module AbfragenHelper
     modus = c.modus unless c.modus == nil
     if c.sub_categories == [] && c.modules != []
       c.modules.each { |m|
-        classification = "non-custom"
-
-        18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
+        #        classification = "non-custom"
+        #
+        #        18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
 
         has_grade = true
 
-        partial = false
-        m.children.length > 0         ? partial = true                : partial = false
-        m.parent == nil               ? parent = ""                   : parent = m.parent.id
+        #        partial = false
+        #        m.children.length > 0         ? partial = true                : partial = false
+        #        m.parent == nil               ? parent = ""                   : parent = m.parent.id
         m.credits_total == m.credits  ? total_credits = ""            : total_credits = m.credits_total
         m.children.length > 0         ? parts = m.children.length + 1 : parts = 0
         m.subname == nil              ? subname = ""                  : subname = m.subname
@@ -20,10 +20,10 @@ module AbfragenHelper
 
         xml.module(
           :id => m.id,
-          :class => classification,
-          :partial => partial,
+          :class => get_classification(m),
+          :partial => is_partial_module(m),
           :has_grade => has_grade,
-          :parent => parent,
+          :parent => get_parent_id(m),
           :total_credits => total_credits,
           :parts => parts,
           :multiple_categories => mult_cat,
@@ -35,7 +35,7 @@ module AbfragenHelper
           xml.credits(m.credits)
           xml.mode(modus)
           xml.parent(m.parent.id) unless m.parent == nil
-          xml.total_credits(m.credits_total) if partial
+          xml.total_credits(m.credits_total) if is_partial_module(m)
           xml.parts(parts)
           xml.categories do
             m.categories.each {|c| xml.category c.id}
@@ -55,13 +55,28 @@ module AbfragenHelper
   end
 
   def has_additional_server_infos studmodule
-    has = false
-
-    has = true if studmodule.categories.length > 1
-
-    return has
+    result = false
+    result = true if studmodule.categories.length > 1
+    return result
   end
 
+  def is_partial_module studmodule
+    result = false
+    studmodule.children.length > 0 ? result = true : result = false
+    return result
+  end
+
+  def get_parent_id studmodule
+    result = nil
+    studmodule.parent == nil ? result = "" : result = studmodule.parent.id
+    return result
+  end
+
+  def get_classification studmodule
+    result = "non-custom"
+    36.times { |i| result = "custom" if studmodule.short == "custom#{(i+1)}" }
+    return result
+  end
 
   def build_html_rules_recursive r, padding_left, padding_addition, non_permitted_modules
     image = ""

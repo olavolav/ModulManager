@@ -13,9 +13,9 @@ xml.root do
 
 
           g.modules.each { |m|
-            classification = "non-custom"
-            18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
-            m.children.length > 0 ? partial = true : partial = false
+#            classification = "non-custom"
+#            18.times { |i| classification = "custom" if m.short == "custom#{(i+1)}" }
+#            m.children.length > 0 ? partial = true : partial = false
             has_grade = true
 
             m.parent == nil ? parent = "" : parent = m.parent.id
@@ -26,8 +26,8 @@ xml.root do
 
             xml.module(
               :id => m.id,
-              :class => classification,
-              :partial => partial,
+              :class => get_classification(m),
+              :partial => is_partial_module(m),
               :has_grade => has_grade,
               :parent => parent,
               :total_credits => total_credits,
@@ -42,7 +42,7 @@ xml.root do
               xml.credits(m.credits)
               xml.mode(g.modus)
               xml.parent(parent) unless m.parent == nil
-              xml.total_credits(total_credits) if partial
+              xml.total_credits(total_credits) if is_partial_module(m)
               xml.parts(parts)
               xml.categories do
                 m.categories.each { |c| xml.category c.id }
