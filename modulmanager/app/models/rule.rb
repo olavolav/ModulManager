@@ -42,5 +42,12 @@ class Rule < ActiveRecord::Base
     return array
   end
 
+  def has_category array
+    found = false
+    array.each {|c|
+      found = true if self.category.id == c.id
+    }
+    return found
+  end
 
 end

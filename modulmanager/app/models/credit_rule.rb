@@ -1,8 +1,8 @@
 class CreditRule < Rule
 
-  belongs_to :category,
-    :class_name => "Category",
-    :foreign_key => "category_id"
+  #  belongs_to :category,
+  #    :class_name => "Category",
+  #    :foreign_key => "category_id"
 
   def act_credits selected_modules, non_permitted_modules = nil
     credits = 0
@@ -14,25 +14,26 @@ class CreditRule < Rule
     rule_modules = self.category.modules unless self.category == nil
     self.modules.each { |m| rule_modules.push m }
 
+    counter = 0
+
     evaluation_modules.each do |em|
 
-      if em.category == nil || em.category.id == self.category.id
-
-        rule_modules.each { |rm|
-
-          if em.class == CustomModule
-            custom_modules.push em
-          else
-            if em.moduledata.id == rm.id && em.category == nil
+      if em.categories.length == 0 || self.has_category(em.categories)
+        if em.class == CustomModule
+          custom_modules.push em
+        else
+          rule_modules.each do |rm|
+            if em.moduledata.id == rm.id && em.categories.length == 0
               credits += rm.credits if em.moduledata.id == rm.id
-            elsif em.category != nil
+            elsif em.categories.length > 0
               custom_modules.push em
             end
           end
-
-        }
+        end
 
       end
+
+      counter += 1
 
     end
 
@@ -41,14 +42,13 @@ class CreditRule < Rule
     custom_modules.each do |m|
       if m.class == CustomModule
         credits += m.credits
-      elsif m.category.id == self.category.id
+      elsif self.has_category(m.categories)
         credits += m.moduledata.credits
       end
     end
 
     return credits
   end
-
 
   # options beinhaltet die Module, deren Bedingungen noch nicht erfüllt sind
   def evaluate selected_modules, non_permitted_modules = nil

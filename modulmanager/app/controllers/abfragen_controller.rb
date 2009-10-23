@@ -87,7 +87,8 @@ class AbfragenController < ApplicationController
     cat_id = extract_category_id(params[:cat_id])
     parent_module = Studmodule.find(id)
     my_module = SelectedModule.create(:moduledata => parent_module)
-    my_module.category = Category.find(cat_id) unless cat_id == nil || cat_id == ""
+    my_module.categories = Array.new
+    my_module.categories << Category.find(cat_id) unless cat_id == nil || cat_id == ""
     my_module.save
     semester.modules << my_module
     render :text => "Module added successfully..."
@@ -105,18 +106,31 @@ class AbfragenController < ApplicationController
     studmodule = Studmodule.find(params[:mod_id])
 
     unless my_module = CustomModule.find(:first, :conditions => "short = '#{studmodule.short}'")
-      semester.modules << CustomModule.create(
+      my_module = CustomModule.create(
         :moduledata => studmodule,
         :short => studmodule.short,
         :credits => params[:credits],
-        :name => params[:name],
-        :category => Category.find(extract_category_id(params[:cat_id]))
+        :name => params[:name]
+#        :category => Category.find(extract_category_id(params[:cat_id]))
       )
     else
       my_module.credits = params[:credits]
       my_module.name = params[:name]
-      my_module.save
     end
+
+    semester.modules << my_module
+    semester.save
+
+    cat_id = params[:cat_id]
+    puts cat_id.class
+    if cat_id.class == Array
+      cat_id.categories = Array.new
+      cat_id.each { |c| my_module.categories << Category.find(extract_category_id(c)) }
+    elsif cat_id.class == String
+      my_module.categories << Category.find(extract_category_id(cat_id))
+    end
+
+    my_module.save
 
     render :text => "CostumModule created and added successfully..."
   end
@@ -131,6 +145,7 @@ class AbfragenController < ApplicationController
         found = true if c == "_"
       end
     end
+    puts id
     return id
   end
 

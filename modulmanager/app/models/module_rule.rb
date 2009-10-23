@@ -1,8 +1,8 @@
 class ModuleRule < Rule
 
-  belongs_to :category,
-    :class_name => "Category",
-    :foreign_key => "category_id"
+#  belongs_to :category,
+#    :class_name => "Category",
+#    :foreign_key => "category_id"
 
   def act_modules selected_modules, non_permitted_modules = nil
     modules = 0
@@ -15,7 +15,7 @@ class ModuleRule < Rule
     self.modules.each { |m| rule_modules.push m }
 
     evaluation_modules.each do |em|
-      if em.category == nil || em.category.id == self.category.id
+      if em.categories == nil || self.has_category(em.categories)
         rule_modules.each { |rm| modules += 1 if em.moduledata.id == rm.id }
       end
     end
