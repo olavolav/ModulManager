@@ -11,30 +11,31 @@
   # Pflichtmodule
   # ==============================
   - name: Pflichtmodule
-    beschreibung: Die Modulmenge aller Pflichtmodule
+    beschreibung: ""
     untergruppen: "Grundkurs, Praktika, Mathematik, Schlüsselkompetenzen, Abschlussarbeit"
     modus: p
 
   - name: Grundkurs
-    beschreibung: Grundkurs Experimentelle und Theroretische Physik
+    beschreibung: "In diesem Bereich werden die experimentellen und theoretischen Grundlagen der klassischen und modernen Physik vermittelt."
+    # Beschreibungs-Texte stammen aus §16 StO
     module: "B.Phy.101, B.Phy.102, B.Phy.103, B.Phy.104, B.Phy.201, B.Phy.202, B.Phy.203"
     anzahl: 7
     credits: 54
 
   - name: Praktika
-    beschreibung: Notwendige Praktika
+    beschreibung: "In Grund- und Fortgeschrittenenpraktika sollen wichtige Techniken des naturwissenschaftlichen Experimentierens erlernt werden."
     module: "B.Phy.410, B.Phy.402"
     anzahl: 2
     credits: 15
 
   - name: Mathematik
-    beschreibung:
+    beschreibung: "In diesem Bereich werden mathematische Grundlagen und Techniken der Physik vermittelt."
     module: "B.Phy.303, B.Phy.304, B.Mat.011, B.Mat.012"
     anzahl: 4
     credits: 33
 
   - name: Abschlussarbeit
-    beschreibung:
+    beschreibung: "Zu diesem Modul ist momentan keine Beschreibung verfügbar."
     module: Bachelor
     anzahl: 1
     credits: 12
@@ -44,7 +45,7 @@
   # ===========================
 
   - name: Profilierungsbereich
-    beschreibung:
+    beschreibung: "Durch Kombination ausgewählter Module können individuelle Studienprofile und Studienschwerpunkte gestaltet werden. Dazu müssen Module im Umfang von 6 C aus dem mathematisch-naturwissenschaftlichen Bereich gewählt werden und Module im Umfang von 12 C aus einem nichtphysikalischen Gebiet; je nach gewähltem Studienprofil sind hier Module aus den Gebieten Biologie, Chemie, Informatik, Mathematik oder Volkswirtschaft empfehlenswert. Doch können auch Module aus anderen Gebieten gewählt werden."
     untergruppen: "Nicht Physikalisch, Mathematisch-Naturwissenschaftlich"
 
   - name: Wahlpflichtmodule
@@ -53,19 +54,19 @@
     modus: wp
 
   - name: Spezialisierungs-Praktikum
-    beschreibung:
+    beschreibung: "Zu diesem Modul ist momentan keine Beschreibung verfügbar."
     module: "B.Phy.403, B.Phy.404, B.Phy.405, B.Phy.406, B.Phy.407, B.Phy.408"
     anzahl: 1
     credits: 6
 
   - name: Einführungen
-    beschreibung:
+    beschreibung: "Zu diesem Modul ist momentan keine Beschreibung verfügbar."
     module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.511"
     anzahl: 2
     credits: 12
 
   - name: Spezielle Themen
-    beschreibung:
+    beschreibung: "Zu diesem Modul ist momentan keine Beschreibung verfügbar."
     module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.511, B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.554, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.564, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.584, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.594"
     credits: 12
 
@@ -84,11 +85,11 @@
   # ==========================
 
   - name: Schlüsselkompetenzen
-    beschreibung:
+    beschreibung: "Fachübergreifende Planungs- und Problemlösungsfertigkeiten werden in Modulen über die Grundlagen des Experimentierens und des wissenschaftlichen Rechnens vermittelt. Techniken der Informationsgewinnung und Verarbeitung sowie Lehr- und Medienfertigkeiten können in einem Professionalisierungsseminar erworben  werden. Planungs- und Projektmanagement sowie Sozialkompetenzen wie Team- und Moderationsfähigkeit werden in von Studierenden selbst geplanten Experimenten  im Rahmen eines  Projektpraktikums erlernt.  Neben diesen Pflichtmodulen können freiwillig weitere  Module zu Schlüsselkompetenzen  aus dem vielfältigen Angebot der Universität gewählt werden."
     module: "B.Phy.602, B.Phy.604, B.Phy.605"
     anzahl: 3
     credits: 18
 
   - name: Bachelor
-    beschreibung:
+    beschreibung: "Zu diesem Modul ist momentan keine Beschreibung verfügbar."
     untergruppen: "Pflichtmodule, Wahlpflichtmodule"
