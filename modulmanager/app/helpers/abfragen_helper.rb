@@ -41,6 +41,9 @@ module AbfragenHelper
     end
   end
 
+
+
+
   def build_html_rules_recursive r, padding_left, padding_addition, non_permitted_modules
     image = ""
     name = r.name
@@ -49,6 +52,7 @@ module AbfragenHelper
     fullfilled = r.evaluate selection.selection_modules, non_permitted_modules
     credits_needed = r.credits_needed
     credits_earned = r.credits_earned selection.selection_modules
+
 
     case fullfilled
     when 1

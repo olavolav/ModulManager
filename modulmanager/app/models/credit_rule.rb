@@ -6,44 +6,43 @@ class CreditRule < Rule
 
   def act_credits selected_modules, non_permitted_modules = nil
     credits = 0
-    # no-type
     rule_modules = Array.new
-    # no-type or Studmodules
+    custom_modules = Array.new
     non_permitted_modules = Array.new if non_permitted_modules == nil
-
-    # SelectedModules
     evaluation_modules = Rule::remove_modules_from_array selected_modules, non_permitted_modules
 
-    # Studmodules
     rule_modules = self.category.modules unless self.category == nil
-
-    # Studmodules
     self.modules.each { |m| rule_modules.push m }
 
-    # SelectedModules
     evaluation_modules.each do |em|
-      # SelectedModules
+
       if em.category == nil || em.category.id == self.category.id
-        # Studmodules
+
         rule_modules.each { |rm|
-          # SelectedModule
+
           if em.class == CustomModule
-            credits += em.credits if em.category.id == self.category.id
+            custom_modules.push em
           else
-#            puts "==="
-#            puts "em.moduledata.id  = #{em.moduledata.id}"
-#            puts "rm.id             = #{rm.id}"
-#            puts "em.category.id    = #{em.category.id}"
-#            puts "self.category.id  = #{self.category.id}"
-            credits += rm.credits if(em.moduledata.id == rm.id || (em.category != nil && em.category.id == self.category.id))
+            if em.moduledata.id == rm.id && em.category == nil
+              credits += rm.credits if em.moduledata.id == rm.id
+            elsif em.category != nil
+              custom_modules.push em
+            end
           end
 
-          #        if em.category == nil
-          #          credits += rm.credits
-          #        elsif em.category.id == self.category.id
-          #          credits += rm.credits
-          #        end
         }
+
+      end
+
+    end
+
+    custom_modules.uniq!
+
+    custom_modules.each do |m|
+      if m.class == CustomModule
+        credits += m.credits
+      elsif m.category.id == self.category.id
+        credits += m.moduledata.credits
       end
     end
 
