@@ -1036,7 +1036,7 @@ var ajax_to_server_by_get_grade = function(){
 
 function ajax_server_by_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id){
 	
-	
+	//alert("custom_cat_id"+category_id);
     $.ajax({
         type:"POST",
         url :"abfragen/add_custom_module_to_selection",
@@ -1247,8 +1247,10 @@ var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dra
 	
 	
     var check_open=false;
+	var cat_id = $(ui_draggable).find(".cat_id").text();
     $("#custom_semester").attr("value",semester);
     $("#custom_id").attr("value",modul_id);
+	$("#custom_cat_id").attr("value",cat_id);
 	
     $('#custom_dialog').dialog('open');
 	

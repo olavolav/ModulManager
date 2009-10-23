@@ -24,11 +24,12 @@ function updateTips(t,tips) {
 //---------------------------------------------------------
 
 
-var custom_check = function(name,credit,category_id,custom_semester,custom_id,tips,min,max){
+var custom_check = function(name,credit,category,custom_semester,custom_id,tips,min,max){
 	
 	var custom_semester=custom_semester.attr("value");
 	var custom_id=custom_id.attr("value");
-    var category_id = category_id.attr("value");
+    var category_id = category.attr("value");
+	//alert("cat_id in custom_check="+category_id);
 	var this_credit=credit.val();
 	var this_name =name.val();
 	var this_credit_float = parseFloat(this_credit);
@@ -90,7 +91,8 @@ $(function(){
 		// teil Form -Check bei dummy Modul
 		var name=$("#name");
 		var credit=$("#credit");
-        var category_id = $("#category_id");
+        var category = $("#custom_cat_id");
+		
 		var custom_semester=$("#custom_semester");
 		var custom_id=$("#custom_id");
 		
@@ -113,7 +115,7 @@ $(function(){
 					var iValid=false;
 					allFields.removeClass('ui-state-error');
 
-					iValid = custom_check(name,credit,category_id,custom_semester,custom_id,tips,1,4);
+					iValid = custom_check(name,credit,category,custom_semester,custom_id,tips,1,4);
 					
 					if (iValid) {
 						
@@ -372,7 +374,7 @@ $(function(){
 			if(e.keyCode == 13){
 				//alert("hallo Enter");
 				$("#enter_trick").trigger('focus');
-				selection_input_check(this);
+				//selection_input_check(this);
 			}
 		});
 		$("input.noten_input").change(function(){
