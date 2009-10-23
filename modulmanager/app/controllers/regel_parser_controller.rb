@@ -84,12 +84,19 @@ class RegelParserController < ApplicationController
       kategorien = Array.new
 
       f["kategorien"].each do |k|
-        group = Group.create :name => k["name"],
+#        group = Group.create :name => k["name"],
+#          :credits => k["credits"],
+#          :count => k["anzahl"],
+#          :modules => Studmodule::get_array_from_module_string(k["module"]),
+#          :modus => k["modus"]
+
+        group = Category.create :name => k["name"],
           :credits => k["credits"],
           :count => k["anzahl"],
           :modules => Studmodule::get_array_from_module_string(k["module"]),
           :modus => k["modus"]
-        focus.groups << group
+
+        focus.categories << group
 
         kategorie = {
           "name" => k["name"],

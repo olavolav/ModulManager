@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091020152147) do
+ActiveRecord::Schema.define(:version => 20091023080620) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(:version => 20091020152147) do
     t.integer  "version_id"
     t.string   "modus"
     t.boolean  "visible"
+    t.integer  "focus_id"
+    t.integer  "credits"
+    t.integer  "count"
   end
 
   create_table "categories_rules", :id => false, :force => true do |t|

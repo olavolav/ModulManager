@@ -8,7 +8,7 @@ xml.root do
 
   @schwerpunkte.each do |s|
     xml.category(:name => s.name, :class => "Schwerpunkt", :category_id => "focus#{s.id}") do
-      s.groups.each do |g|
+      s.categories.each do |g|
 #        xml.category(:name => g.name, :category_id => "#{g.name.gsub(" ", "_").downcase}#{s.id}") do
         xml.category(:name => g.name, :category_id => "category_#{g.id}") do
           g.modules.each { |m|

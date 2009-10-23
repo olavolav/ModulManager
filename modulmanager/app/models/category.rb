@@ -20,6 +20,10 @@ class Category < ActiveRecord::Base
     :class_name => "Version",
     :foreign_key => "version_id"
 
+  belongs_to :focus,
+    :class_name => "Focus",
+    :foreign_key => "focus_id"
+
   def option_name
     return "#{self.super_category.name} / #{self.name}"
   end

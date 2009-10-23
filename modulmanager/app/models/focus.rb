@@ -8,6 +8,10 @@ class Focus < ActiveRecord::Base
     :class_name => "Group",
     :foreign_key => "focus_id"
 
+  has_many :categories,
+    :class_name => "Category",
+    :foreign_key => "focus_id"
+
   belongs_to :version,
     :class_name => "Version",
     :foreign_key => "version_id"
