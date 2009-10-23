@@ -59,7 +59,6 @@ class AbfragenController < ApplicationController
   end
 
   def errors
-
     selection = current_selection
     @errors = get_errors selection
 
@@ -111,7 +110,7 @@ class AbfragenController < ApplicationController
         :short => studmodule.short,
         :credits => params[:credits],
         :name => params[:name],
-        :category => Category.find(extract_category_id(params[:category_id]))
+        :category => Category.find(extract_category_id(params[:cat_id]))
       )
     else
       my_module.credits = params[:credits]
