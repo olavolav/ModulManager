@@ -14,15 +14,27 @@ class AndConnection < Connection
 
   def credits_earned selected_modules
     credits = 0
-    modules = collect_unique_modules_from_children
-    modules.each do |m|
-      selected_modules.each { |sm| 
-        if sm.class == CustomModule
-          credits += sm.credits
-        else
-          credits += m.credits if sm.moduledata.id == m.id
+#    modules = collect_unique_modules_from_children
+#    modules.each do |m|
+#      selected_modules.each { |sm|
+#        if sm.class == CustomModule
+#          credits += sm.credits
+#        else
+#          credits += m.credits if sm.moduledata.id == m.id
+#        end
+#      }
+#    end
+
+    if self.child_connections.length > 0
+      self.child_connections.each do |connection|
+        credits += connection.credits_earned selected_modules
+      end
+    elsif self.child_rules.length > 0
+      self.child_rules.each do |rule|
+        if rule.class == CreditRule
+          credits += rule.act_credits selected_modules
         end
-      }
+      end
     end
 
     return credits
@@ -30,10 +42,22 @@ class AndConnection < Connection
 
   def modules_earned selected_modules
     modules = 0
-    module_array = collect_unique_modules_from_children
+#    module_array = collect_unique_modules_from_children
+#
+#    module_array.each do |m|
+#      selected_modules.each { |sm| modules += 1 if m.id == sm.id }
+#    end
 
-    module_array.each do |m|
-      selected_modules.each { |sm| modules += 1 if m.id == sm.id }
+    if self.child_connections.length > 0
+      self.child_connections.each do |connection|
+        modules += connection.modules_earned selected_modules
+      end
+    elsif self.child_rules.length > 0
+      self.child_rules.each do |rule|
+        if rule.class == ModuleRule
+          modules += rule.act_modules selected_modules
+        end
+      end
     end
 
     return modules

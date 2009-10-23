@@ -85,10 +85,10 @@ class AbfragenController < ApplicationController
       selection.semesters << semester
     end
     id = params[:mod_id]
-    cat_id = params[:cat_id]
+    cat_id = extract_category_id(params[:cat_id])
     parent_module = Studmodule.find(id)
     my_module = SelectedModule.create(:moduledata => parent_module)
-    my_module.category = Category.find(cat_id) unless cat_id == nil
+    my_module.category = Category.find(cat_id) unless cat_id == nil || cat_id == ""
     my_module.save
     semester.modules << my_module
     render :text => "Module added successfully..."
@@ -111,7 +111,7 @@ class AbfragenController < ApplicationController
         :short => studmodule.short,
         :credits => params[:credits],
         :name => params[:name],
-        :category => Category.find(params[:category_id])
+        :category => Category.find(extract_category_id(params[:category_id]))
       )
     else
       my_module.credits = params[:credits]
@@ -120,7 +120,19 @@ class AbfragenController < ApplicationController
     end
 
     render :text => "CostumModule created and added successfully..."
+  end
 
+  def extract_category_id id_string
+    id = ""
+    found = false
+    id_string.each_char do |c|
+      if found
+        id = "#{id}#{c}"
+      else
+        found = true if c == "_"
+      end
+    end
+    return id
   end
 
   def remove_module_from_selection
@@ -172,7 +184,7 @@ class AbfragenController < ApplicationController
 
     regel = Connection.find(:first, :conditions => "id = '#{id}'")
 
-    modules = current_selection.modules
+    modules = current_selection.selection_modules
 
     fullfilled = regel.evaluate modules
 

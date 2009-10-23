@@ -15,7 +15,9 @@ class ModuleRule < Rule
     self.modules.each { |m| rule_modules.push m }
 
     evaluation_modules.each do |em|
-      rule_modules.each { |rm| modules += 1 if em.moduledata.id == rm.id }
+      if em.category == nil || em.category.id == self.category.id
+        rule_modules.each { |rm| modules += 1 if em.moduledata.id == rm.id }
+      end
     end
 
     return modules

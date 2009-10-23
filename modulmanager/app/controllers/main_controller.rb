@@ -102,7 +102,7 @@ class MainController < ApplicationController
     mod = Studmodule.find(id)
     @categories = mod.categories
     respond_to do |format|
-      format.html
+      format.html { render :action => "_combo_category", :layout => false }
     end
   end
 
@@ -116,7 +116,7 @@ class MainController < ApplicationController
     @categories.push Category.find(:first, :conditions => "name = 'Mathematisch-Naturwissenschaftlich'")
 
     respond_to do |format|
-      format.html
+      format.html { render :action => "_check_category", :layout => false }
     end
   end
 

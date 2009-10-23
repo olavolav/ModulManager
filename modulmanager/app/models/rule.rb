@@ -31,11 +31,14 @@ class Rule < ActiveRecord::Base
   end
 
   def self.remove_modules_from_array array, remove
+    # SelectedModules
     array.each do |mod|
+      # Studmodules
       remove.each do |rem|
         array.delete mod if mod.moduledata.id == rem.id
       end
     end
+    # SelectedModules
     return array
   end
 

@@ -33,7 +33,7 @@ module AbfragenHelper
     elsif c.sub_categories != []
       c.sub_categories.each do |d|
         if d.visible
-          xml.category(:category_id => "category#{d.id}", :name => d.name) do
+          xml.category(:category_id => "category_#{d.id}", :name => d.name) do
             build_xml_bachelor_recursive d, xml, modus
           end
         end
@@ -41,61 +41,14 @@ module AbfragenHelper
     end
   end
 
-  def has_additional_server_infos studmodule
-    result = false
-    result = true if studmodule.categories.length > 1
-    return result
-  end
-
-  def is_partial_module studmodule
-    result = false
-    studmodule.children.length > 0 ? result = true : result = false
-    return result
-  end
-
-  def get_parent_id studmodule
-    result = nil
-    studmodule.parent == nil ? result = "" : result = studmodule.parent.id
-    return result
-  end
-
-  def get_classification studmodule
-    result = "non-custom"
-    36.times { |i| result = "custom" if studmodule.short == "custom#{(i+1)}" }
-    return result
-  end
-
-  def get_total_credits studmodule
-    result = ""
-    studmodule.credits_total == studmodule.credits ? result = "" : result =studmodule.credits_total
-    return result
-  end
-
-  def get_parts studmodule
-    result = 0
-    studmodule.children.length > 0 ? result = studmodule.children.length + 1 : result = 0
-    return result
-  end
-
-  def get_sub_name studmodule
-    result = ""
-    studmodule.subname == nil ? result = "" : result = studmodule.subname
-    return result
-  end
-
-  def has_multiple_categories studmodule
-    result = false
-    studmodule.categories.length > 1 ? result = true : result = false
-    return result
-  end
-
   def build_html_rules_recursive r, padding_left, padding_addition, non_permitted_modules
     image = ""
     name = r.name
     id = r.id
-    fullfilled = r.evaluate current_selection.selection_modules, non_permitted_modules
+    selection = current_selection
+    fullfilled = r.evaluate selection.selection_modules, non_permitted_modules
     credits_needed = r.credits_needed
-    credits_earned = r.credits_earned current_selection.selection_modules
+    credits_earned = r.credits_earned selection.selection_modules
 
     case fullfilled
     when 1
