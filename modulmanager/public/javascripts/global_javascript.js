@@ -1034,7 +1034,7 @@ var ajax_to_server_by_get_grade = function(){
 }
 
 
-function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester,custom_id){
+function ajax_server_by_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id){
 	
 	
     $.ajax({
@@ -1043,7 +1043,7 @@ function ajax_server_by_custom(this_name,this_credit_point_float,custom_semester
         dataType:"text",
         cache:false,
         async:false,
-        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id,
+        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id+"&"+"cat_id="+category_id,
         contentType:'application/x-www-form-urlencoded'/*,
         error : function(a,b,c){
             alert ("error mit add_custom_module_to_selection");
