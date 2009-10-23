@@ -186,15 +186,12 @@ var ueberblick = function(){
 			alert("problem with /abfragen/ueberblick");
 		}
 		
-
 		
 	}).responseText;
 	
-	
-	
-	
-	
-	
-	
+	// Test, ob man die Bildchen im Firefox zum Blinken bringt, wenn man die Bilder alle versteckt
+	// und dann sofort wieder anzeigt (OS)
+	$("#ueberblick img").css("display","none");
+	$("#ueberblick img").css("display","inline");
 	
 }// ende function

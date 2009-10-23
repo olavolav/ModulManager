@@ -354,11 +354,12 @@ $(function(){
 		
 		$("input.noten_input").focus(function(){
 			// da wird der Click bei 'Note berechen' deaktiviert
-			if($(this).val()=="Note"){
-				$(this).attr("value"," ");
-				set_image_to_ipunkt(this);
-				
-			}
+			// if($(this).val()=="Note"){
+			// 				$(this).attr("value"," ");
+			// 				set_image_to_ipunkt(this);
+			// 				
+			// 			}
+			$(this).select();
 			//var modul_id = $(this).attr("rel");
 			//$("#note_berechnen").unbind('click');
 			$("#note_berechnen").text("Note wird bearbeitet");

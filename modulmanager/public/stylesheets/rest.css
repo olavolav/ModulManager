@@ -56,3 +56,16 @@ select {
 	background-repeat: repeat;
 	background-position: top left;		
 }
+
+#bestaetigen {
+	clear: both;
+	margin-top : 30px;
+}
+
+#bestaetigen button {
+	min-width  : 15%;
+	margin : 1em;
+	text-align : center;
+	float: right;
+	color: black;
+}
