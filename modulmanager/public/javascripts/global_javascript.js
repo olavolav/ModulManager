@@ -719,8 +719,9 @@ var update_modul_in_selection = function (){
 var change_custom_in_pool_by_session_load = function(das_erste,custom_name,custom_credit){
 	//alert("Hallo custom_change");
 	$(das_erste).find(".modul_name").text(custom_name);
-	$(das_erste).find(".modul_credit").text(custom_credit);
+	$(das_erste).find(".modul_credit").text(custom_credit+" C");
 	$(das_erste).attr("class","pool_modul ui-draggable");
+	$(das_erste).find(".custom_exist").text("ja");
 
 	return 0;
 	
@@ -751,14 +752,14 @@ var session_auswahl_rekursiv = function(root){
 			
 			//custom_modul laden: Name und credit verändern
 			
-			/*if($(this).hasClass("custom")){
+			if($(this).hasClass("custom")){
 				alert("Hallo custom_modul_in_auswahl ID: "+mod_id);
 				var custom_name = $(this).attr("name");
 				//alert("Dumy "+this_name);
 				var custom_credit    = $(this).attr("credits");
 				//alert("Dummy"+this_credit);
 				change_custom_in_pool_by_session_load(das_erste,custom_name,custom_credit);
-			}*/
+			}
 			
 			
 			
@@ -1053,6 +1054,8 @@ function ajax_server_by_custom(this_name,this_credit_point_float,category_id,cus
 }
 
 function ajax_combobox(mod_id){
+	$("#box_info_combobox").empty();
+	$("#box_info,#box_info_pool,#box_info_exception,#box_info_overview").hide();
 	 $.ajax({
 	        type:"POST",
 	        url :"main/_combo_category",
@@ -1062,14 +1065,12 @@ function ajax_combobox(mod_id){
 	        data:"mod_id="+mod_id,
 	        contentType:'application/x-www-form-urlencoded',
 			success:function(html){
-				//alert(html);
-				//$("#box_info_combobox").append(html);
-				$("#box_info_combobox").append("Korigiere bitte Ausgabe-Format.");
-				
-				$("#box_info,#box_info_pool,#box_info_exception,#box_info_overview").hide();
+				alert(html);
+				$("#box_info_combobox").append(html);
+				//$("#box_info_combobox").append("Korigiere bitte Ausgabe-Format.");
 				$("#box_info_combobox").show();
 				$("#info_box").dialog('open');
-				//alert(html);
+				
 			},
 	        error : function(a,b,c){
 	            alert ("error mit custom_checbox");
@@ -1080,6 +1081,7 @@ function ajax_combobox(mod_id){
 }
 function ajax_custom_checbox(custom_id){
 		//alert(custom_id);
+		$("#dummy_checkbox").empty();
 		 $.ajax({
 	        type:"POST",
 	        url :"main/_check_category",
@@ -1089,8 +1091,9 @@ function ajax_custom_checbox(custom_id){
 	        data:"mod_id="+custom_id,
 	        contentType:'application/x-www-form-urlencoded',
 			success:function(html){
-				$("#dummy_checkbox").append(html);
 				//alert(html);
+				$("#dummy_checkbox").append(html);
+				
 			},
 	        error : function(a,b,c){
 	            alert ("error mit custom_checbox");
@@ -1101,6 +1104,25 @@ function ajax_custom_checbox(custom_id){
 	
 }
 
+function ajax_set_custom_checbox(custom_id,cat_id_array){
+		//alert(custom_id);
+		
+		 $.ajax({
+	        type:"POST",
+	        url :"main/set_category",
+	        dataType:"text",
+	        cache:false,
+	        async:false,
+	        data:"mod_id="+custom_id+"&"+"cat_id="+cat_id_array,
+	        contentType:'application/x-www-form-urlencoded',
+			error : function(a,b,c){
+	            alert ("error mit set_category");
+	        }
+	    });
+		
+	
+	
+}
 
 
 
@@ -1136,10 +1158,11 @@ var drop_in_auswahl = function (modul_id,modul_class,semester,ui_draggable,this_
 	var cat_id=$(ui_draggable).find(".cat_id").text();
 	var additional_info = $(ui_draggable).find(".additional_info").text();
 	//alert("cat_id = "+cat_id);
-	//alert(additional_info);
+	alert(additional_info);
 	//check nach combobox bei Einführung bzw. SpezielleThemen
 	
 	if(additional_info == "true"){
+		alert("ajax mit id "+modul_id);
 		ajax_combobox(modul_id);
 	}
 	

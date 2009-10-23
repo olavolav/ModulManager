@@ -25,10 +25,36 @@ function updateTips(t,tips) {
 
 
 var custom_check = function(name,credit,category,custom_semester,custom_id,tips,min,max){
+	var cat_check=false;
+	var cat_id_array= new Array();
+	$("#dummy_checkbox input[type='checkbox']").each(function(){
+		if($(this).is(":checked")){
+			//alert("ja, checked");
+			cat_check = true;
+			//alert("ID="+$(this).attr("id"));
+			cat_id_array.push($(this).attr("id"));
+		}
+		
+	});
+	
+	
 	
 	var custom_semester=custom_semester.attr("value");
 	var custom_id=custom_id.attr("value");
     var category_id = category.attr("value");
+	
+	//ajax bei set_category
+	if(cat_check){
+		ajax_set_custom_checbox(custom_id,cat_id_array);
+		//alert("check"+cat_id_array[0]);
+	}
+	else{
+		
+		ajax_set_custom_checbox(custom_id,category_id);
+		//alert("nicht check"+category_id);
+	}
+	
+	
 	//alert("cat_id in custom_check="+category_id);
 	var this_credit=credit.val();
 	var this_name =name.val();
@@ -108,6 +134,7 @@ $(function(){
 			// show:'slide',
 			open : function(event,ui){
 				ajax_custom_checbox($(custom_id).attr("value"));
+				
 			},
 			buttons:{
 				"Fertig":function(){
@@ -121,7 +148,7 @@ $(function(){
 						
 						var na = name.attr("value");
 						var cre = credit.attr("value");
-                        var cat = category_id.attr("value");
+                        var cat = category.attr("value");
 						var cus_sem=custom_semester.attr("value");
 						var cus_id=custom_id.attr("value");
 						
