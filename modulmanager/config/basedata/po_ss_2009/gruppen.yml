@@ -24,7 +24,7 @@
 
   - name: Praktika
     beschreibung: "In Grund- und Fortgeschrittenenpraktika sollen wichtige Techniken des naturwissenschaftlichen Experimentierens erlernt werden."
-    module: "B.Phy.410, B.Phy.402"
+    module: "B.Phy.410, B.Phy.410.2 B.Phy.402"
     anzahl: 2
     credits: 15
 
@@ -61,22 +61,22 @@
 
   - name: Einführungen
     beschreibung: "Zu diesem Modul ist momentan keine Beschreibung verfügbar."
-    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.511"
+    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.510.2 B.Phy.511, B.Phy.511.2"
     anzahl: 2
     credits: 12
 
   - name: Spezielle Themen
     beschreibung: "Zu diesem Modul ist momentan keine Beschreibung verfügbar."
-    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.511, B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.554, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.564, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.574, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.584, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.594"
+    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.511, B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.553.2, B.Phy.554, B.Phy.554.2, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.563.2, B.Phy.564, B.Phy.564.2, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.573.2, B.Phy.574, B.Phy.574.2, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.583.2, B.Phy.584, B.Phy.584.2, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.593.2, B.Phy.594, B.Phy.594.2"
     credits: 12
 
   - name: Nicht Physikalisch
-    module: "B.Bio.118, B.Bio.112, B.Bwl.02, B.OPH.07, B.Bwl.04, B.Win.01, B.Win.04, B.Win.23, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12,  custom13, custom14, custom15, custom16, custom17, custom18"
+    module: "B.Bio.118, B.Bio.112, B.Bwl.02, B.OPH.07, B.Bwl.04, B.Win.01, B.Win.04, B.Win.23, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12,  custom13, custom14, custom15, custom16, custom17, custom18"
     credits: 12
     überschneidung: mehrfach
 
   - name: Mathematisch-Naturwissenschaftlich
-    module: "B.Phy.606, B.Bio.118, B.Bio.112, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, custom19, custom20, custom21, custom22, custom23, custom24, custom25, custom26, custom27, custom28, custom29, custom30, custom31, custom32, custom33, custom34, custom35, custom36"
+    module: "B.Phy.606, B.Bio.118, B.Bio.112, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3, custom19, custom20, custom21, custom22, custom23, custom24, custom25, custom26, custom27, custom28, custom29, custom30, custom31, custom32, custom33, custom34, custom35, custom36"
     credits: 6
     überschneidung: mehrfach
 
@@ -86,7 +86,7 @@
 
   - name: Schlüsselkompetenzen
     beschreibung: "Fachübergreifende Planungs- und Problemlösungsfertigkeiten werden in Modulen über die Grundlagen des Experimentierens und des wissenschaftlichen Rechnens vermittelt. Techniken der Informationsgewinnung und Verarbeitung sowie Lehr- und Medienfertigkeiten können in einem Professionalisierungsseminar erworben  werden. Planungs- und Projektmanagement sowie Sozialkompetenzen wie Team- und Moderationsfähigkeit werden in von Studierenden selbst geplanten Experimenten  im Rahmen eines  Projektpraktikums erlernt.  Neben diesen Pflichtmodulen können freiwillig weitere  Module zu Schlüsselkompetenzen  aus dem vielfältigen Angebot der Universität gewählt werden."
-    module: "B.Phy.602, B.Phy.604, B.Phy.605"
+    module: "B.Phy.602, B.Phy.604, B.Phy.605, B.Phy.605.2"
     anzahl: 3
     credits: 18
 

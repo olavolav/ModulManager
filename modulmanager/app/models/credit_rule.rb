@@ -49,17 +49,19 @@ class CreditRule < Rule
   # options beinhaltet die Module, deren Bedingungen noch nicht erfüllt sind
   def evaluate selected_modules, non_permitted_modules = nil
     credits_in_selection = act_credits selected_modules, non_permitted_modules
+    puts "#{credits_in_selection} von #{self.count} benötigten Credits in Regel #{self.id}"
     if self.relation == "min"
-      if credits_in_selection >= self.count
-        #        puts "Regel #{self.id} erfüllt..."
-        return 1
+      if credits_in_selection < self.count
+        puts "Regel #{self.id} nicht erfüllt, zu WENIG Credits..."
+        return -1
       end
     elsif self.relation == "max"
-      return 1 if credits_in_selection <= self.count
+      if credits_in_selection > self.count
+        puts "Regel #{self.id} nicht erfüllt, zu VIELE Credits..."
+        return -1
+      end
     end
-
-    #    puts "Regel #{self.id} nicht erfüllt..."
-    return -1
+    return 1
   end
   
 end

@@ -53,9 +53,9 @@ class AndConnection < Connection
   # - Array mit Modulen, deren Voraussetzungen nicht erfüllt sind
   def evaluate selected_modules, options = nil
     if self.child_connections.length > 0
-      self.child_connections.each { |d| return -1 if d.evaluate(selected_modules, options) == -1 }
+      self.child_connections.each { |d| return -1 unless d.evaluate(selected_modules, options) == 1 }
     elsif self.child_rules.length > 0
-      self.child_rules.each { |d| return -1 if d.evaluate(selected_modules, options) == -1 }
+      self.child_rules.each { |d| return -1 unless d.evaluate(selected_modules, options) == 1 }
     end
     return 1
   end

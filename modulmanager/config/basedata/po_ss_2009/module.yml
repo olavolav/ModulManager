@@ -43,11 +43,6 @@
     beschreibung: "Erstes Teilmodul des physikalischen Grundpraktikums - Lernziele: Kenntnis physikalischer Zusammenhänge und ihre Anwendung im Experiment. Teamarbeit zur Lösung experimenteller Aufgaben, Grundlagen der guten wissenschaftlichen Praxis."
     sub-module: B.Phy.410.2
 
-#  - name: ": Grundlagen des Experimentierens"
-#    credits: 2
-#    id: B.Phy.410.1
-#    beschreibung: Erstes Teilmodul des physikalischen Grundpraktikums
-
   - name: Physikalisches Grundpraktikum
     sub-name: ": Grundpraktikum"
     credits: 10
