@@ -24,7 +24,7 @@
 
   - name: Praktika
     beschreibung: "In Grund- und Fortgeschrittenenpraktika sollen wichtige Techniken des naturwissenschaftlichen Experimentierens erlernt werden."
-    module: "B.Phy.410, B.Phy.410.2 B.Phy.402"
+    module: "B.Phy.410, B.Phy.410.2, B.Phy.402"
     anzahl: 2
     credits: 15
 
@@ -61,7 +61,7 @@
 
   - name: Einführungen
     beschreibung: "Zu diesem Modul ist momentan keine Beschreibung verfügbar."
-    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.510.2 B.Phy.511, B.Phy.511.2"
+    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.510.2, B.Phy.511, B.Phy.511.2"
     anzahl: 2
     credits: 12
 
