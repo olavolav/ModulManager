@@ -14,8 +14,6 @@ class CreditRule < Rule
     rule_modules = self.category.modules unless self.category == nil
     self.modules.each { |m| rule_modules.push m }
 
-    counter = 0
-
     evaluation_modules.each do |em|
 
       if em.categories.length == 0 || self.has_category(em.categories)
@@ -33,8 +31,6 @@ class CreditRule < Rule
 
       end
 
-      counter += 1
-
     end
 
     custom_modules.uniq!
@@ -42,7 +38,7 @@ class CreditRule < Rule
     custom_modules.each do |m|
       if m.class == CustomModule
         credits += m.credits
-      elsif self.has_category(m.categories)
+      elsif m.class != CustomModule && self.has_category(m.categories)
         credits += m.moduledata.credits
       end
     end

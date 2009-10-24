@@ -111,7 +111,7 @@ class AbfragenController < ApplicationController
         :short => studmodule.short,
         :credits => params[:credits],
         :name => params[:name]
-#        :category => Category.find(extract_category_id(params[:cat_id]))
+        #        :category => Category.find(extract_category_id(params[:cat_id]))
       )
     else
       my_module.credits = params[:credits]
@@ -150,7 +150,11 @@ class AbfragenController < ApplicationController
   end
 
   def remove_module_from_selection
-    current_selection.selection_modules.each { |m| m.destroy if m.module_id.to_i == params[:mod_id].to_i }
+    current_selection.selection_modules.each { |m| 
+      if (m.class == CustomModule && m.id == params[:mod_id]) || (m.module_id.to_i == params[:mod_id].to_i)
+        m.destroy
+      end
+    }
     render :text => "Module removed from selection..."
   end
 

@@ -122,21 +122,37 @@ class MainController < ApplicationController
 
   def set_category
     id = params[:mod_id]
-    cat_id = params[:cat_id]
+    cat_id = extract_category_id(params[:cat_id])
 
     mod = nil
 
     selection = current_selection
 
     selection.selection_modules.each do |m|
-      mod = m if m.id == id
+      mod = m if m.moduledata.id == id
     end
 
-    mod.category = Category.find(cat_id) unless mod == nil
+#    category = Category.find(cat_id)
+
+    mod.category = Category.find(cat_id) unless mod == nil ||
     mod.save
     
     render :text => "Category changed successfully..."
 
+  end
+
+    def extract_category_id id_string
+    id = ""
+    found = false
+    id_string.each_char do |c|
+      if found
+        id = "#{id}#{c}"
+      else
+        found = true if c == "_"
+      end
+    end
+    puts id
+    return id
   end
 
   def post_file
