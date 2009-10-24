@@ -13,7 +13,7 @@ var update_schwerpunkt = function(s_id){
         data:"id="+s_id,
         contentType:'application/x-www-form-urlencoded',
         error : function(a,b,c){
-            alert ("error mit update_schwerpunkt");
+            alert ("AJAX-Fehler: update_schwerpunkt");
         }
     });
 	
@@ -35,7 +35,7 @@ var update_pordnung = function(po_id){
         data:"version="+po_id,
         contentType:'application/x-www-form-urlencoded',
         error : function(a,b,c){
-            alert ("error mit update_pordnung");
+            alert ("AJAX-Fehler: update_pordnung");
         }
     });
 	

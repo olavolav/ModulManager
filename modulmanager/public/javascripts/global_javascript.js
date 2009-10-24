@@ -132,7 +132,7 @@ var selection_input_check = function(input_noten){
 	
 	
 	if(isNaN(this_float)){
-		alert("Geben Sie bitte eine Zahl zwischen 1.0 und 4.0  ein!");
+		alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
 		$(input_noten).attr("value","Note");
 		set_image_to_ipunkt(input_noten);
 		$("#note_berechnen").text("");
@@ -196,26 +196,6 @@ function rekursiv_pool_by_out(handle, initial_tolerance){
 }
 
 
-// Funktionen f�r das Ziehen eines Moduls vom Pool in die Auswahl (im Such-Modus)
-/* var show_pool_by_out = function(pool_modul){
-	
-	//var modul_parent = $("#pool").find("#"+modul_id).parent().get(0);
-	var modul_parent = $(pool_modul).parent().get(0);
-	
-	var this_siblings = $(modul_parent).siblings();
-	var sib_anzahl =$(this_siblings).filter(function(index){
-		return $(this).hasClass(".search_modul")
-		
-	});
-	// falls es in der gleichen Katgeorie keine weiteren angezeigten Module gibt
-	if($(sib_anzahl).length == 0 ){
-		var first_father = $(modul_parent).parent().get(0);
-		$(first_father).hide();
-		rekursiv_pool_by_out(first_father);
-	}
-	
-}// ende out */
-
 // Das wird nur aufgerufen, wenn ein Modul in den Pool zurueck kommt (via modul_loeschen), dass
 // mit der momentanen Suche überein stimmt
 function rekursiv_pool_by_in(first_father){
@@ -232,90 +212,6 @@ function rekursiv_pool_by_in(first_father){
     }
     return;
 }
-
-// Funktionen f�r das Ziehen eines Moduls von der Auswahl in den Pool
-// neuerdings alles in modul_loeschen() (OS)
-/* var show_pool_by_in = function(modul_id){
-	
-	
-	var append_modul;
-	
-	// versteck das Modul im Semester
-	$("#semester-content div.semester").find("div#"+modul_id).each(function(){
-			//alert("hallo modul_loeschen");
-			change_module_style_to_pool(this);
-			$(this).attr("class","pool_modul");
-			var das_span = $(this).find("span.inAuswahl");
-			$(das_span).text("nein");
-			$(this).hide();
-			append_modul = $(this);
-	});
-	
-	
-	
-	//such modul_id im pool
-	var modul = $("#pool").find("#"+modul_id).eq(0);
-	
-	//check ob es um ein live_search_modul geht.
-	var this_class = $("#pool").find("."+modul_id+"_parent").eq(0).attr("class");
-	alert("parent class: "+this_class);
-	if(this_class == modul_id+"_parent search_modul"){
-		alert("Dies ist ein Modul, das mit der momentanen Pool-Suche uebereinstimmt.");
-		
-		//suche alle parent-umgebung
-		$("."+modul_id+"_parent").each(function(){
-			
-			if (module_div_present_in_parent($(this))) $(this).append($(append_modul));
-
-			var this_modul = $(this).find("div.pool_modul");
-			$(this_modul).show();
-			
-			var first_father = $(this).parent().get(0);
-			
-			rekursiv_pool_by_in(first_father);
-		});
-	}
-	else{//hier wird das Modul entweder in im Live nachdem das Modul gerade
-		 // in Auswahl reingetan und wieder sofort in Pool zur�ck.
-		 // Zun�chst werden die Modul_id im Table#suche ermittelt
-		 
-		if (!search_is_active()) {
-			alert("Momentan wird nicht gesucht.");
-			modul_loeschen(modul_id);
-		}		
-		else {
-			alert("Dies ist ein Modul, das mit der momentanen Pool-Suche nicht uebereinstimmt. (es wird gesucht)");
-			var this_tr = $("table#suche tbody").find("." + modul_id).eq(0);
-			var live_modul = false;
-			
-			//hier check ob die Module gerade gesucht werden.
-			if ($(this_tr).css("display") == "table-row" || $(this_tr).css("display") == "block" || $(this_tr).css("display") == "") {
-				live_modul = true;
-				var hi = $(this_tr).css("display");
-				
-			}
-			
-			if (live_modul) {
-				alert("hallo search modul im Table");
-				var modul_search_id = $(this_tr).attr("class");
-				$(this).parent().addClass("search_modul");
-				$(modul).show();
-				var first_father = $(this_parent).parent().get(0);
-				rekursiv_pool_by_in(first_father);
-				
-				//$("."+modul_search_id+"_parent").
-			}
-		}	
-	}
-	//ajax aufrufen
-	
-	ajax_to_server_by_remove(modul_id);
-	
-	
-	
-}//ende in */
-
-
 
 
 
@@ -484,7 +380,7 @@ var modul_loeschen = function (mod_id,all_sem_destroy){
 		//alert("Mod-Parts ="+this_mod_parts);
 		//check nach Teil-Modul
 		if((this_mod_parts != "0")|| (this_mod_par_attr !="nein")){
-			var check = confirm("Wollen Sie komplette Module loeschen?");
+			var check = confirm("Dieses Modul besteht aus mehreren Teilmodulen - wenn Sie es entfernen, werden alle weiteren Teile ebenfalls entfernt.");
 			if(check == true){
 				
 				if(this_mod_par_attr != "nein"){
@@ -867,7 +763,7 @@ var session_auswahl = function (){
         contentType: 'application/x-www-form-urlencoded',
         error : function(a,b,c){
 			
-            alert("error mit abfragen/auswahl");
+            alert("AJAX-Fehler: auswahl");
         }
 		
     }).responseXML;
@@ -996,7 +892,7 @@ var ajax_to_server_by_grade = function(modul_id,grade){
         data:"mod_id="+modul_id+"&"+"grade="+grade,
         contentType:'application/x-www-form-urlencoded'/*,
         error : function(a,b,c){
-            alert ("error mit save_module_grade");
+            alert ("AJAX-Fehler: save_module_grade");
         }*/
     });
 				
@@ -1022,7 +918,7 @@ var ajax_to_server_by_get_grade = function(){
 
         }/*,
         error: function(a,b,c){
-            alert("problem with /abfragen/note");
+            alert("AJAX-Fehler: note");
         }*/
 		
 
@@ -1047,7 +943,7 @@ function ajax_server_by_custom(this_name,this_credit_point_float,category_id,cus
         data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id+"&"+"cat_id="+category_id,
         contentType:'application/x-www-form-urlencoded'/*,
         error : function(a,b,c){
-            alert ("error mit add_custom_module_to_selection");
+            alert ("AJAX-Fehler: add_custom_module_to_selection");
         }*/
     });
 	
@@ -1073,7 +969,7 @@ function ajax_combobox(mod_id){
 				
 			},
 	        error : function(a,b,c){
-	            alert ("error mit custom_checbox");
+	            alert ("AJAX-Fehler: custom_checkbox");
 	        }
 	    });
 	
@@ -1096,7 +992,7 @@ function ajax_custom_checbox(custom_id){
 				
 			},
 	        error : function(a,b,c){
-	            alert ("error mit custom_checbox");
+	            alert ("AJAX-Fehler: custom_checbox");
 	        }
 	    });
 		
@@ -1116,7 +1012,7 @@ function ajax_set_custom_checbox(custom_id,cat_id_array){
 	        data:"mod_id="+custom_id+"&"+"cat_id="+cat_id_array,
 	        contentType:'application/x-www-form-urlencoded',
 			error : function(a,b,c){
-	            alert ("error mit set_category");
+	            alert ("AJAX-Fehler: set_category");
 	        }
 	    });
 		
@@ -1311,66 +1207,6 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 	
 }
 
-//-----Drop in POOL----------------------------------------------------------------------
-/* var drop_in_pool_veraltet = function(mod_id,ui_draggable,this_pool){
-	
-	
-	// style ver�ndern
-	
-	$(ui_draggable).attr("class","pool_modul");
-	change_module_style_to_pool(ui_draggable);
-	$(ui_draggable).find("span.inAuswahl").text("nein");
-	// erstmal hide()
-	$(ui_draggable).hide();
-	//suchen den leeren Vater mod_id+"_parent" dann append ui_draggable
-	// danach setzen die anderen Module aus "nein" in span.inAuswahl
-	
-	$("#pool ."+mod_id+"_parent").each(function(){
-		//alert("drin");
-		var this_text = $(this).text();
-		
-		if(this_text ==""){
-			
-			$(this).append(ui_draggable);
-			// check den Vater-Kategory, ob der gerade offen ist
-			var the_father = $(this).parent().get(0);
-			$(the_father).find(".pool_modul,.pool_modul.ui-draggable").each(function(){
-				//alert("drin leer");
-				var this_display = $(this).css("display");
-				if(this_display=="block"){
-					$(ui_draggable).show();
-				}
-			});
-			
-			
-		}//ende if
-		else{
-			
-			// remove ui-draggable weil das original schon da ist
-			//$(ui_draggable).remove();
-			var this_span = $(this).find("span.inAuswahl");//this hier ist mod_id_parent
-			var the_other_modul = $(this).find("#"+mod_id);
-			$(this_span).text("nein");
-			// check den Vater-Kategory, ob der gerade offen ist
-			var the_father = $(this).parent().get(0);
-			$(the_father).find(".pool_modul,.pool_modul.ui-draggable").each(function(){
-				//alert("drin nicht leer");
-				var this_display = $(this).css("display");
-				
-				if(this_display=="block"){
-					$(the_other_modul).show();
-				}
-			});
-		}
-		
-	});//ende each
-	
-	
-	//ajax aufrufen
-	
-	ajax_to_server_by_remove(mod_id);
-	
-}//ende */
 
 //----Poolrekursive implementieren-------------------------------------------------------
 
@@ -1585,7 +1421,7 @@ var pool = function(){
         async: false,
         contentType: 'application/x-www-form-urlencoded',
         error : function(a,b,c){
-            alert("problem with pool");
+            alert("AJAX-Fehler: pool");
         }
     }).responseXML; //ende AJAX
 
