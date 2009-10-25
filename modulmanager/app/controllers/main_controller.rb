@@ -89,9 +89,20 @@ class MainController < ApplicationController
 
   end
   
-  # Erster Test, wie man den PDF-Export gestalten kann (OS)
   def get_pdf
-    @modules = Studmodule.find(:all)
+    selection = current_selection
+    @modules = selection.selection_modules
+    @semesters = selection.semesters
+    @categories = Hash.new(Array.new)
+    @modules.each do |m|
+      if m.class == CustomModule
+        @categories[m.category.name].push m
+      else
+        m.categories.each do |c|
+          @categories[c.name].push m
+        end
+      end
+    end
     respond_to do |format|
       format.pdf
     end

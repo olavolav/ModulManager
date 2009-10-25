@@ -25,22 +25,49 @@ Vielen Dank, dass Sie den ModulManager der Fakultät Physik benutzt haben. Wir h
 
 blabla.
 
-\subsection*{1. Semester}
+<% counter = 1 %>
+<% @semesters.each do |s| %>
+
+\subsection*{<%= counter %>. Semester}
 
 \begin{itemize}
-	\item Modul-Titel (Kurz-Bez.), X Credits
+
+    <% s.modules.each do |m| %>
+
+        <% if m.class == CustomModule %>
+            \item <%= m.name %> (selbst erstellt), <%= m.credits %> Credits
+        <% else %>
+            \item <%= m.moduledata.name %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits
+        <% end %>
+
+    <% end %>
+
 \end{itemize}
 
+<% counter += 1 %>
+<% end %>
 
 \subsection*{Auflistung nach Kategorien (``Studienberater-Ansicht'')}
 
 blabla.
 
-\subsection*{Pflichtmodule}
+<% @categories.each do |name, modules| %>
+
+\subsection*{<%= name %>}
 
 \begin{itemize}
-	\item Modul-Titel (Kurz-Bez.), X Credits
+
+        <% modules.each do |m| %>
+
+            <% if m.class == CustomModule %>
+                \item <%= m.name %> (selbst erstellt), <%= m.credits %> Credits
+            <% else %>
+                \item <%= m.moduledata.name %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits
+            <% end %>
+
+        <% end %>
 \end{itemize}
+<% end %>
 
 
 \subsection*{Weitere Informationen (Stand: 22.10.09)}
