@@ -1,6 +1,13 @@
 <div class='modul-info'>
-  <h1><%= @module.name %></h1>
-  <p class='description'><%= @module.description %></p>
-  <p class='short'>Kurzbezeichnung: <%= @module.short %></p>
-  <p class='credits'>Credits: <%= @module.credits %></p>
+  <h1><%= @name %></h1>
+  <p class='description'><%= @description %></p>
+  <p class='short'>Kurzbezeichnung: <%= @short %></p>
+  <p class='credits'>Credits: <%= @credits %></p>
+
+  <% unless @permission == nil %>
+  <p>Voraussetzungen:</p>
+  <ul>
+  <%= permission_tree @permission %>
+  </ul>
+  <% end %>
 </div>

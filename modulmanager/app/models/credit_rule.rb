@@ -1,9 +1,5 @@
 class CreditRule < Rule
 
-  #  belongs_to :category,
-  #    :class_name => "Category",
-  #    :foreign_key => "category_id"
-
   def act_credits selected_modules, non_permitted_modules = nil
     credits = 0
     rule_modules = Array.new

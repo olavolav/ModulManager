@@ -84,11 +84,11 @@ class RegelParserController < ApplicationController
       kategorien = Array.new
 
       f["kategorien"].each do |k|
-#        group = Group.create :name => k["name"],
-#          :credits => k["credits"],
-#          :count => k["anzahl"],
-#          :modules => Studmodule::get_array_from_module_string(k["module"]),
-#          :modus => k["modus"]
+        #        group = Group.create :name => k["name"],
+        #          :credits => k["credits"],
+        #          :count => k["anzahl"],
+        #          :modules => Studmodule::get_array_from_module_string(k["module"]),
+        #          :modus => k["modus"]
 
         group = Category.create :name => k["name"],
           :credits => k["credits"],
@@ -120,6 +120,7 @@ class RegelParserController < ApplicationController
     free_modules = Array.new
     limited_modules = Array.new
     parent_modules = Array.new
+    late_modules = Array.new
 
     y.each do |m|
 
@@ -149,9 +150,10 @@ class RegelParserController < ApplicationController
         parent_modules.push m
       else
         ready_module = create_limited_module m, version
+        late_modules.push m if ready_module == nil
       end
     end
-
+    
     parent_modules.each do |m|
       unless m["zulassung"] == nil
         ready_module = Studmodule.create :name => m["name"],
@@ -161,13 +163,26 @@ class RegelParserController < ApplicationController
           :children => Studmodule::get_array_from_module_string(m["sub-module"]),
           :version => version,
           :subname => m["sub-name"]
+        if ready_module == nil
+          late_modules.push m
+        else
         parent_modules.delete m
+        end
       end
     end
 
     parent_modules.each do |m|
       ready_module = create_limited_module m, version
+      late_modules.push m if ready_module == nil
     end
+
+#    i = 0
+#    while late_modules.length > 0
+#
+#      ready_module = create
+#
+#      i < late_modules.length ? i += 1 : i = 0
+#    end
 
     36.times do |i|
       Studmodule.create :name => "(Sonstiges Modul)",
@@ -195,7 +210,7 @@ class RegelParserController < ApplicationController
       modules.each {|mm| rules.push PermissionRule.create :condition => mm}
       and_connections.push AndConnection.create :child_rules => rules
     end unless m["zulassung"] == nil
-    or_connection = OrConnection.create :child_connections => and_connections, :owner => ready_module
+    OrConnection.create :child_connections => and_connections, :owner => ready_module
     return ready_module
   end
 
@@ -212,13 +227,18 @@ class RegelParserController < ApplicationController
     end
     module_groups.each do |mg|
 
-
       mg["sichtbar"] == "nein" ? visible = false : visible = true
 
       modules = Studmodule::get_array_from_module_string(mg["module"])
       modules_and_children = modules
-#      modules.each {|m| modules_and_children.concat(m.children)}
+      #      modules.each {|m| modules_and_children.concat(m.children)}
 
+      puts "Category = #{mg['name']}"
+      puts "Module-String = #{mg['module']}"
+      puts "module_and_children = #{modules_and_children}"
+      modules_and_children.each do |m|
+        puts "m.id = #{m.id}"
+      end
       Category.create :name => mg["name"],
         :description => mg["beschreibung"],
         :version => version,

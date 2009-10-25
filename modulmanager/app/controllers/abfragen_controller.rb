@@ -69,7 +69,19 @@ class AbfragenController < ApplicationController
 
   def get_module_info
 
-    @module = Studmodule.find(params[:module_id])
+    mod = Studmodule.find(params[:module_id])
+
+    @name         = mod.name
+    @description  = mod.description
+    @short        = mod.short
+    @credits      = mod.credits
+
+    @permission = mod.permission
+
+#    perm_con = mod.permission
+#    perm_con.child_rules.each do |c|
+#      c.condition
+#    end
 
     respond_to do |format|
       format.html {render :file => "abfragen/module_info", :layout => false}

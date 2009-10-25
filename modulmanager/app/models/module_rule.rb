@@ -1,9 +1,5 @@
 class ModuleRule < Rule
 
-#  belongs_to :category,
-#    :class_name => "Category",
-#    :foreign_key => "category_id"
-
   def act_modules selected_modules, non_permitted_modules = nil
     modules = 0
     rule_modules = Array.new
@@ -38,7 +34,7 @@ class ModuleRule < Rule
     custom_modules.each do |m|
       if m.class == CustomModule
         modules += 1
-      elsif self.has_category(m.categories)
+      elsif m.class != CustomModule && self.has_category(m.categories)
         modules += 1
       end
     end
@@ -48,10 +44,13 @@ class ModuleRule < Rule
 
   def evaluate selected_modules, non_permitted_modules = nil
     modules_in_selection = act_modules selected_modules, non_permitted_modules
+    puts "#{modules_in_selection} von #{self.count} benötigten Module in Regel #{self.id}"
     if self.relation == "min"
       return 1 if modules_in_selection >= self.count
+      puts "Regel #{self.id} nicht erfüllt, zu WENIG Module..."
     elsif self.relation == "max"
       return 1 if modules_in_selection <= self.count
+      puts "Regel #{self.id} nicht erfüllt, zu VIELE Module..."
     end
     return -1
   end
