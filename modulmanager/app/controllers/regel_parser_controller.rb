@@ -217,7 +217,7 @@ class RegelParserController < ApplicationController
 
       modules = Studmodule::get_array_from_module_string(mg["module"])
       modules_and_children = modules
-      modules.each {|m| modules_and_children.concat(m.children)}
+#      modules.each {|m| modules_and_children.concat(m.children)}
 
       Category.create :name => mg["name"],
         :description => mg["beschreibung"],
