@@ -204,20 +204,24 @@ class AbfragenController < ApplicationController
 
     modules = current_selection.selection_modules
 
-    fullfilled = regel.evaluate modules
+    ff = regel.evaluate modules
 
-    @status = "<strong>Es sind keine Informationen über den aktuellen Stand verfügbar...</strong>"
-    @status = "<strong>Es sind alle Bedingungen erfüllt.</strong>" if fullfilled == 1
-    @status = "<strong>Es sind noch nicht alle Bedingungen erfüllt.</strong>" if fullfilled == -1 || fullfilled == 0
+#    @status = "<strong>Es sind keine Informationen über den aktuellen Stand verfügbar...</strong>"
+#    @status = "<strong>Es sind alle Bedingungen erfüllt.</strong>" if ff == 1
+#    @status = "<strong>Es sind noch nicht alle Bedingungen erfüllt.</strong>" if ff == -1 || ff == 0
 
-    credits_earned = regel.credits_earned modules
-    credits_needed = regel.credits_needed
+    ff == 1 ? @fullfilled = "erfüllt" : @fullfilled = "nicht erfüllt"
 
-    modules_earned = regel.modules_earned modules
-    modules_needed = regel.modules_needed
+    @credits_earned = regel.credits_earned modules
+    @credits_needed = regel.credits_needed
 
-    @credit_status = "Es wurden bereits #{credits_earned} Credits von #{credits_needed} Credits erbracht."
-    @module_status = "Es wurden bereits #{modules_earned} Module von #{modules_needed} Modulen bestanden."
+    @modules_earned = regel.modules_earned modules
+    @modules_needed = regel.modules_needed
+
+    @modules = regel.collect_unique_modules_from_children
+
+#    @credit_status = "Es wurden bereits #{credits_earned} Credits von #{credits_needed} Credits erbracht."
+#    @module_status = "Es wurden bereits #{modules_earned} Module von #{modules_needed} Modulen bestanden."
 
     respond_to do |format|
       format.html { render :action => "info", :layout => false }
