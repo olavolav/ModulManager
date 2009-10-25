@@ -91,7 +91,10 @@ class MainController < ApplicationController
   
   def get_pdf
     selection = current_selection
+    selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = selection.focus.name
+    @version = selection.version
     @modules = selection.selection_modules
+    @grade = get_note["gesamt"]
     @semesters = selection.semesters
     @categories = Hash.new(Array.new)
     @modules.each do |m|

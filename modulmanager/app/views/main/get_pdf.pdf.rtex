@@ -16,14 +16,28 @@
 
 \begin{document}
 
+\begin{figure}[h]
+\center
+% Der Pfad hier muss natürlich noch angepasst werden (OS)
+\includegraphics[width=7cm]{../../../public/images/LaTeX/LogoMM.pdf}
+\end{figure}
+
+
 \section*{ModulManager der Fakultät Physik}
 
 Vielen Dank, dass Sie den ModulManager der Fakultät Physik benutzt haben. Wir hoffen, er war Ihnen behilflich.
 
+\begin{itemize}
+	\item Gewählte Prüfungsordnungs-Version: <%= @version.name %>
+	\item Gewählter Schwerpunkt: <%= @schwerpunkt %>
+	\item Mit ETCS-Credits gewichtete, hochgerechnete Note: <%= @grade %>
+	\item Erstellt am: \today
+\end{itemize}
+
 
 \subsection*{Chronologische Auflistung}
 
-blabla.
+Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausgewählt wurden.
 
 <% counter = 1 %>
 <% @semesters.each do |s| %>
@@ -35,10 +49,16 @@ blabla.
     <% s.modules.each do |m| %>
 
         <% if m.class == CustomModule %>
-            \item <%= m.name %> (selbst erstellt), <%= m.credits %> Credits
+            \item <%= m.name %> (vom Benutzer erstellt), <%= m.credits %> Credits
         <% else %>
-            \item <%= m.moduledata.name %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits
+            \item <%= m.moduledata.name+m.moduledata.subname.to_s %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits
         <% end %>
+
+		<% if m.grade != nil %>
+			\\ Note: <%= m.grade %>
+			% Hier sollte natürlich noch ein Abfrage rein, ob das Modul benotet ist oder nur keine Note
+			% eingegeben wurde. (OS)
+		<% end %>
 
     <% end %>
 
@@ -49,24 +69,36 @@ blabla.
 
 \subsection*{Auflistung nach Kategorien (``Studienberater-Ansicht'')}
 
-blabla.
+Es folgt eine Auflistung der von Ihnen gewählten Module nach den Kategorien der von Ihnen gewählten Prüfungsordnung.
+
+Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs bei der Studienberatung zu nutzen, nehmen Sie bitte den folgenden Abschnitt dorthin mit.
 
 <% @categories.each do |name, modules| %>
 
-\subsection*{<%= name %>}
+	\subsection*{<%= name %>}
 
-\begin{itemize}
+	<% if modules.length == 0 %>
+		(leer)
+	<% else %>
+		\begin{itemize}
 
-        <% modules.each do |m| %>
+	       <% modules.each do |m| %>
 
-            <% if m.class == CustomModule %>
-                \item <%= m.name %> (selbst erstellt), <%= m.credits %> Credits
-            <% else %>
-                \item <%= m.moduledata.name %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits
-            <% end %>
+	        <% if m.class == CustomModule %>
+	            \item <%= m.name %> (vom Benutzer erstellt), <%= m.credits %> Credits
+	        <% else %>
+	            \item <%= m.moduledata.name+m.moduledata.subname.to_s %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits
+	        <% end %>
 
-        <% end %>
-\end{itemize}
+			<% if m.grade != nil %>
+				\\ Note: <%= m.grade %>
+				% Hier sollte natürlich noch ein Abfrage rein, ob das Modul benotet ist oder nur keine Note
+				% eingegeben wurde. (OS)
+			<% end %>
+
+	        <% end %>
+		\end{itemize}
+	<% end %>
 <% end %>
 
 
