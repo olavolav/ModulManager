@@ -231,3 +231,12 @@ a:visited {
 	
 }
 
+/* Formatierung der Ausnahme-Optionen in den Info-Boxen (OS) */
+#box_info_pool {
+	color: #aaa;
+}
+#box_info_pool, #box_info_exception {
+	border-top: 1px #aaa solid;
+	margin-top: 12px;
+	padding-top: 6px;
+}

@@ -204,8 +204,8 @@ $(function(){
 		 
 		 $("#info_box").dialog({
                 modal:true,
-                height:300,
-                width:500,
+                height:400,
+                width:550,
 				position:'center',
                 autoOpen:false,
                 

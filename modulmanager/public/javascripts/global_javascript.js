@@ -604,7 +604,7 @@ var update_modul_in_selection = function (){
 			
 			//alert("Verändern Exception_credit ="+v);
 			$(this_modul).find(".modul_credit").text(v+" C");
-			$(this_credit).html("Credit-Zahl wird zum "+v+" ver&auml;ndert");
+			$(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
 			//$(this_modul).append("<p class='credit-option'>Credit-Zahl wird zum "+v+" ver&auml;ndert<p>");
 			
 		}
@@ -612,11 +612,11 @@ var update_modul_in_selection = function (){
 		
 		//warnung
 		if (warn_checked == "checkbox") 
-			$(this_warn).html("Warnung deaktiviert");
+			$(this_warn).html("Ausnahme: Warnungen deaktiviert");
 			//$(this_modul).append("<p  class='warnung-option'>Warnung deaktiviert<p>");
 		//note	
 		if(note_checked=="checkbox")
-			$(this_note).html("Note streichen"); 
+			$(this_note).html("Ausnahme: Note wird nicht eingebracht"); 
 			//$(this_modul).append("<p class='note-option'>Note streichen<p>"); 
 	//}
 }//ende

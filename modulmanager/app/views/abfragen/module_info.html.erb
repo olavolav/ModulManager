@@ -5,9 +5,9 @@
   <p class='credits'>Credits: <%= @credits %></p>
 
   <% unless @permission == nil %>
-  <p>Voraussetzungen:</p>
+  <p>Voraussetzungen:
   <ul>
   <%= permission_tree @permission %>
-  </ul>
+  </ul></p>
   <% end %>
 </div>

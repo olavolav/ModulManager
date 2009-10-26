@@ -108,7 +108,10 @@ fieldset {
 	padding: .3em;  
 }
 		
-
-
+/* Ausnahme-Optionen (OS) */
+.credit-option, .warnung-option, .note-option {
+	padding-left: 30px;
+	color: #3b809d;
+}
 
 

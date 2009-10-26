@@ -7,7 +7,7 @@
 <%# Hier steht, wie weit der Fortschritt in Bezug auf die MODULE ist.%>
 <p>Außerdem wurden <%= @modules_earned %> Module von <%= @modules_needed %> Modulen bestanden.</p>
 
-<p>Zur Erfüllung dieser Bedingung kann aus den folgende Module gewählt werden:</p>
+<p>Zur Erfüllung dieser Bedingung kann aus den folgende Module gewählt werden:
 
 <ul>
 <% @modules.each do |m| %>
@@ -16,3 +16,8 @@
   </li>
 <% end %>
 </ul>
+</p>
+
+<div id="box_info_pool">
+	Ausnahme-Optionen: Nur verf&uuml;gbar bei Modulen in der Auswahl.
+</div>
