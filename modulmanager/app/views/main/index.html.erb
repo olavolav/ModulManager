@@ -129,7 +129,7 @@
         <h1>BOX</h1>
 
       </div>
-
+	  <div id="error_table" style="display:none"></div>
     </div><!--End middle-->
 
 
@@ -184,8 +184,8 @@
     <table>
       <tbody>
         <tr><td>Credit-Zahl:</td><td><input type="text" id="exception_credit" size="5" maxlength="5" rel="modul_id" value="Note"/></td></tr>
-        <tr><td>Warnung deaktivieren</td><td><input type="checkbox" id="exception_warn" name="exception_warn" value="checkbox"></td></tr>
-        <tr><td>Note streichen</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox"></td></tr>
+        <tr><td>Warnung deaktivieren</td><td><input type="checkbox" id="exception_warn" name="exception_warn" value="checkbox" /></td></tr>
+        <tr><td>Note streichen</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox" /></td></tr>
       </tbody>
     </table>
 
@@ -204,7 +204,10 @@
       <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
       <label for="credit">Credit Point</label>
       <input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all" />
-
+	  <div id="note_streichen">
+	  	Note streichen:
+	  	<input type="checkbox" name="note_checkbox" id="note_checkbox" value="" style='display:inline'/> 
+	   </div>
       <label for="category_id">Kategorie</label>
 	  <div id="dummy_checkbox"></div>
 	  
@@ -229,6 +232,7 @@
 <!--END container-->
 <div class="clear"></div>
 <input id="enter_trick" type="text" style="display:none"/>
+<div id="error_table" style="display:none"></div>
 <br/><br/>
 
 <!--<div id="footer">
