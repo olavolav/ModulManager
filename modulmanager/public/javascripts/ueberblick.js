@@ -192,5 +192,9 @@ var ueberblick = function(){
         // und dann sofort wieder anzeigt (OS)
         //$("#ueberblick img").css("display","none");
         //$("#ueberblick img").css("display","inline");
+		
+		//check_error();
+		ajax_error();
+		
 
 }// ende function

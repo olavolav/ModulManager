@@ -380,33 +380,44 @@ $(function(){
 			ajax_to_server_by_get_grade();
 			
 		});*/
-		
-		$("input.noten_input").focus(function(){
+		var check_change=true;
+		$("input.noten_input").focus(function(e){
+			check_change=true;
 			// da wird der Click bei 'Note berechen' deaktiviert
-			// if($(this).val()=="Note"){
-			// 				$(this).attr("value"," ");
-			// 				set_image_to_ipunkt(this);
-			// 				
-			// 			}
+			 if($(this).val()=="Note"){
+			 		$(this).attr("value"," ");
+					//set_image_to_ipunkt(this);
+			 }
 			$(this).select();
 			//var modul_id = $(this).attr("rel");
 			//$("#note_berechnen").unbind('click');
 			$("#note_berechnen").text("Note wird bearbeitet");
 			
+			//return false;
 			
 		});
 		
 		//onChange oder Enter dr�cken
 		$("input.noten_input").bind("keypress",function(e){
 			if(e.keyCode == 13){
-				//alert("hallo Enter");
+				//e.preventDefault();
+				
+				
+				$(this).trigger('change');
+				//e.preventDefault();
 				$("#enter_trick").trigger('focus');
+				check_change=false;
+				//e.preventDefault();
+				//return false;
 				//selection_input_check(this);
 			}
 		});
-		$("input.noten_input").change(function(){
-				
-				selection_input_check(this);
+		$("input.noten_input").change(function(e){
+				if (check_change) {
+					e.preventDefault();
+					selection_input_check(this);
+				}
+				//return false;
 				
 		});
 		
