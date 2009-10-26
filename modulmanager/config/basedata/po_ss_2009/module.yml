@@ -42,15 +42,18 @@
     id: B.Phy.410
     beschreibung: "Erstes Teilmodul des physikalischen Grundpraktikums - Lernziele: Kenntnis physikalischer Zusammenhänge und ihre Anwendung im Experiment. Teamarbeit zur Lösung experimenteller Aufgaben, Grundlagen der guten wissenschaftlichen Praxis."
     sub-module: B.Phy.410.2
+    note: nein
 
   - name: Physikalisches Grundpraktikum
     sub-name: ": Grundpraktikum"
     credits: 10
     id: B.Phy.410.2
     beschreibung: "Zweites Teilmodul des physikalischen Grundpraktikums"
+    note: ja
 
   - name: Physikalisches Fortgeschrittenenpraktikum
     credits: 3
+    # Laut AS sind diese ebenfalls benotet (OS)
     id: B.Phy.402
     beschreibung: "Kompetenzen: Die Studierenden sollen fortgeschrittene experimentelle Methoden einsetzen und in Teamarbeit experimentelle Aufgaben lösen sowie wissenschaftliche Protokolle anfertigen können."
 
@@ -393,6 +396,7 @@
 
   - name: Praktikum Allgemeine und Anorganische Chemie für Physiker
     credits: 8
+    # Sind das zwei Teilmodule? (OS)
     id: B.Che.9106
     zulassung:
       - B.Che.9105
@@ -455,12 +459,14 @@
     id: B.Phy.605
     beschreibung: "Erstes Teilmodul - Lernziele: Grundlagen der Rechnerbedienung, elementare Programmier-kenntnisse in einer modernen Hochsprache."
     sub-module: B.Phy.605.2
+    note: nein
 
   - name: Computergestütztes wissenschaftliches Rechnen
     sub-name: ": Algorithmen des wissenschaflichen Rechnens"
     credits: 6
     id: B.Phy.605.2
     beschreibung: "Zweites Teilmodul  - Lernziele: Elementare Algorithmen des naturwissenschaftlichen Rechnens."
+    note: ja
 
   - name: Bachelorarbeit
     credits: 12
