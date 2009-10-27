@@ -315,7 +315,7 @@ var custom_modul_rekursiv = function (handle){
 
 var get_custom_modul = function(category_id){
 	//alert("hallo get_custom_modul mit "+category_id);
-    // die Funktion zeigt nur ein display_none Custom_modul im Pool an
+    // die Funktion zeigt nur ein display_none Custom_modul in einem Category im  Pool an
 	
 	var this_cat = $("#pool").find("#"+category_id);
 	var the_first = $(this_cat).find(".custom_modul").filter(function(index){
@@ -323,16 +323,73 @@ var get_custom_modul = function(category_id){
 	});
 	
 	// class ver�ndern. custom-->pool_modul. Damit wird nur ein custom_modul im Pool ist
-	
+	if(search_is_active){
+		var father = $(the_first).parent().get(0);
+		$(father).addClass("search_modul");
+	}
     $(the_first).removeClass("custom_modul").addClass("pool_modul ui-draggable");
     $(the_first).show();
 	
 }//ende get_custom_modul
 
+var get_and_change_custom_modul_in_the_table = function(modul_id,new_name,cat_id){
+	
+	var this_tr = $("#suche").find("."+modul_id);
+	$(this_tr).find(">.td_custom_name").text(new_name);
+	//$(this_tr).hide();
+	
+	//get the first custom modul
+	var the_first = $("#suche").find("tr[rel='custom_modul']").filter(function(index){
+		var this_text = $(this).find(">.cat_check").text();
+		if(this_text==cat_id){
+			//$(this).hide();
+			return this;
+		}
+		//return this_text==cat_id;
+		
+	}).eq(0);
+	
+	$(the_first).attr("rel","pool_modul").show();
+	
+	
+}
 
-var get_custom_modul_in_the_search_table = function(){
+
+var custom_modul_in_the_search_table_rekursiv = function(){
 	// custom_modul in Suche-Table
-	var the_first;
+	//alert("custom in the table");
+	
+	$("#suche").find("tr[rel='custom_modul']").each(function(){
+		//alert("hall custom");
+		var td_cat_check = $(this).find(">td.cat_check");
+		var cat_id = $(td_cat_check).text();
+		var check  = $(td_cat_check).attr("rel");
+		//alert("cat_id ="+cat_id+"check ="+check);
+		
+		if(check == "noCheck"){
+			//alert("hallo check");
+			$(this).attr("rel","pool_modul");
+			$(this).show();
+			//versteck die andere mit gleichen Cat_id
+			$(this).siblings().each(function(){
+				
+				var td = $(this).find(">td.cat_check");
+				if($(td).text()==cat_id){
+					
+					$(td).attr("rel","checked");
+				}
+			});
+		}
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	/*var the_first;
 	var custom_modul = $("#suche").find("tr[rel='custom_modul']").filter(function(index){
 		if(index==0){
 			the_first=$(this);
@@ -342,7 +399,7 @@ var get_custom_modul_in_the_search_table = function(){
 	
 	$(custom_modul).hide();
 	$(the_first).attr("rel","pool_modul").show();
-	
+	*/
 	
 }
 
@@ -1498,7 +1555,7 @@ var poolrekursiv = function(XMLhandle){
                 "</div></div>";
 
                 //kopieren das Modul in search_table  f�r die Suche
-                $("#suche tbody").append("<tr class='"+modul_id+"' rel='"+pool_modul_class+"' >"+"<td>"+modul_id+"</td>"+"<td>"+modul_name+"</td>"+"</tr>");
+                $("#suche tbody").append("<tr class='"+modul_id+"'   rel='"+pool_modul_class+"' >"+"<td class='cat_check' rel='noCheck' >"+custom_category+"</td>"+"<td>"+modul_id+"</td>"+"<td class='td_custom_name'>"+modul_name+"</td>"+"</tr>");
 				
             default:
                 // Hmm, warum kommt das hier noch so oft? Sp�ter mal nachschauen!
@@ -1539,7 +1596,7 @@ var pool = function(){
 	hide_partial_modul();
     session_auswahl();
 	//get_custom_modul();
-	get_custom_modul_in_the_search_table();
+	custom_modul_in_the_search_table_rekursiv();
 	custom_modul_rekursiv(this_pool);
     ueberblick();
 	

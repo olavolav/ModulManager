@@ -423,10 +423,11 @@ jQuery(function ($) {
 										var this_tr =$("table#suche tbody tr"); 
 										
 										var tr_show = $(this_tr).filter(function(index){
-														 return ($(this).css("display")=="table-row" ||$(this).css("display")=="block" )
+														 return ($(this).css("display")=="table-row" ||$(this).css("display")=="block" );
 														 
 													});
 										var laenge = $(tr_show).length;
+										/*alert("Suche-Laenge = "+laenge);*/
 										
 									
 										if(laenge != table_row_all){

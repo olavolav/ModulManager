@@ -176,7 +176,8 @@ $(function(){
 						if(this_exsit=="nein"){
 							$(cus_modul).find("span.custom_exist").text("ja");
 							get_custom_modul(cus_cat_id);
-							get_custom_modul_in_the_search_table();
+							//get_custom_modul_in_the_search_table();
+							get_and_change_custom_modul_in_the_table(cus_id,na,cus_cat_id);
 							
 						}
 						
