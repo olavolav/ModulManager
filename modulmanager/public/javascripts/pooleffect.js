@@ -320,6 +320,7 @@ $(function(){
 				 var ui_helper = $(ui.helper);
 				 var this_semester = $(this);		
 				 var semester = $(this).attr("id");
+				 //alert("semester = "+semester);
 				 var modul_id = $(ui.draggable).attr("id");
 				 var modul_class = $(ui.draggable).attr("class");
 				 

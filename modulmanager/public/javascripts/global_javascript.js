@@ -428,7 +428,7 @@ var partial_modul_loeschen = function (mod_id,all_sem_destroy){
 	//alert("hallo partial_modul_loeschen");
 	//alert("hallo sub "+all_sem_destroy);
 	//suche teil-Module
-	$("#semester-content div.subsemester").find("div").each(function(){
+	$("#middle div.subsemester").find("div").each(function(){
 		if($(this).find(".modul_parent_attr").text()== mod_id){
 			var this_id = $(this).attr("id");
 			//alert(this_id);
@@ -446,7 +446,8 @@ var modul_loeschen = function (mod_id,all_sem_destroy){
 	
 	//alert(mod_id);
 	//alert("sem_detroy="+all_sem_destroy);
-	$("#semester-content div.semester").find("div#"+mod_id).each(function(){
+	//$("#semester-content div.semester").find("div#"+mod_id).each(function(){
+	$("#middle div.semester").find("div#"+mod_id).each(function(){
 		
 		var this_mod_parts = $(this).find(".modul_parts").text();
 		var this_mod_par_attr = $(this).find("span.modul_parent_attr").text();
@@ -459,7 +460,7 @@ var modul_loeschen = function (mod_id,all_sem_destroy){
 				if(this_mod_par_attr != "nein"){
 					//hier ist Teil-modul
 					//such nach head-modul-->löschen
-					var head_modul = $("#semester-content div.semester").find("div#"+this_mod_par_attr);
+					var head_modul = $("#middle div.semester").find("div#"+this_mod_par_attr);
 					change_credit_and_remove_name_in_pool(head_modul);
 					$(head_modul).find(".head_modul_in_pool").text("ja");
 					sub_modul_loeschen(head_modul,this_mod_par_attr,all_sem_destroy);
@@ -788,11 +789,16 @@ var session_auswahl_rekursiv = function(root){
 				$(auswahl_modul_clone).show();
 			}
 			
-			
-			
+			// VoratBOX
+			if(parent_id == "0"){
+					var sem = $("#middle").find("#semesterBOX .subsemester");
+					$(sem).append(auswahl_modul_clone);
+			}
+				
             // reinstecken das Klone im Auswahl
             $(sem_content).find("div.semester").each(function(){
                 var x= $(this).attr("id");
+				//if(x=="0"){ $(this).find(".subsemester").empty();}
 				if (parent_id == x){
 					$(this).find(".subsemester").append(auswahl_modul_clone);
 				}
@@ -808,15 +814,21 @@ var session_auswahl_rekursiv = function(root){
         else  if ( knoten_name == "semester"){
 		 	
             var sem_id = $(this).attr("count");
-			
-            $(sem_content).append("<div class='semester' id='"+sem_id+"'>"+
-                "<div class='subsemester'>"+
-                "<h5>"+sem_id+". Semester"+"</h5>"+
-                //"<span class='leer' style='display:none;color:red'></span>"+
-                "</div>"+
-                "<button style='display:none;' class='semesterloeschen' onClick='sem_loeschen("+sem_id+");'>L&ouml;schen</button>"+
-                "</div>" );
-								 
+			if (sem_id != "0") {
+				
+				$(sem_content).append("<div class='semester' id='" + sem_id + "'>" +
+				"<div class='subsemester'>" +
+				"<h5>" +
+				sem_id +
+				". Semester" +
+				"</h5>" +
+				//"<span class='leer' style='display:none;color:red'></span>"+
+				"</div>" +
+				"<button style='display:none;' class='semesterloeschen' onClick='sem_loeschen(" +
+				sem_id +
+				");'>L&ouml;schen</button>" +
+				"</div>");
+			}					 
 			
         }// ende else if
 		
@@ -857,6 +869,7 @@ var session_auswahl = function (){
     // rekursiv aufrufen
 	
     $("semester-content").empty();
+	$("#middle").find("#semesterBOX .subsemester").empty(); // VoratBOX
     session_auswahl_rekursiv(root);
 	
     // Loeschen anzeigen.Wir suchen das letzten Semester.
