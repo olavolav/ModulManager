@@ -95,10 +95,10 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
 				% Hier sollte natürlich noch ein Abfrage rein, ob das Modul benotet ist oder nur keine Note
 				% eingegeben wurde. (OS)
                         <% else %>
-                            <% if m.moduledata.has_grade %>
-                                keine Note angegeben
-                            <% else %>
+                            <% if m.moduledata.has_grade == false %>
                                 unbenotetes Modul
+                            <% else %>
+                                keine Note angegeben
                             <% end %>
 			<% end %>
 

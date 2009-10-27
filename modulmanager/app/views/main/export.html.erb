@@ -4,7 +4,7 @@
 	
 	<ul>
 		<!-- <li class='knopf'>Modul-Auswahl drucken</li> -->
-		<%= link_to "<li class='knopf'>Modul-Auswahl als PDF speichern</li>", :action => "get_pdf" %>
+		<%= link_to "<li class='knopf'>Modul-Auswahl als PDF speichern</li>", :action => "get_pdf", :format => "pdf" %>
 		<%= link_to "<li class='knopf'>Modul-Auswahl im Modulmanager-Format speichern</li>", :action => "get_file" %>
 		
 	</ul>
