@@ -150,6 +150,7 @@ class RegelParserController < ApplicationController
           data["note"].downcase == "nein" ? m.has_grade = false : m.has_grade = true
         end
         m.subname = data["sub-name"] unless data["sub-name"] == nil
+        m.save
         free_modules.delete data
       end
 

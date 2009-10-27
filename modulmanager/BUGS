@@ -9,7 +9,6 @@ Noch zu beheben:
 8. Längliche "(Sontiges Modul)"-Auflistung aus den Fehlermeldungen in den Überblicks-Info-Boxen nehmen und anderweitig erklären (Christian)
 9. Note korrekt berechnen, d.h. erst intern pro Modul mit Teilmodulen, dann damit externe Note (Christian)
 6. Text in Info-Boxen wird nicht angezeigt (Quan)
-13. Sub-Names von Sub-Modulen kommen in der Pool-XML nicht mehr vor (Christian)
 
 
 Inzwischen behoben:
@@ -21,3 +20,4 @@ Inzwischen behoben:
 4. Anzeige des Zurück-Buttons auf der Start-Seite funktioniert nicht - er wird auch angezeigt, wen man keinen SP ausgewählt hat (Christian)
 5. Rails-Fehler, wenn man auf "Upload" klickt, ohne eine Daei ausgewählt zu haben (Christian)
 10. Button im Export wieder auf das PDF verlinken, ist wahrscheinlich momentan nur zum Testen (Christian)
+13. Sub-Names von Sub-Modulen kommen in der Pool-XML nicht mehr vor (Christian)
