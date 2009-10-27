@@ -114,13 +114,13 @@ class MainController < ApplicationController
       mod.categories.each do |category|
         result[category.name] = Array.new if result[category.name] == nil
         result[category.name].push mod
-#        result[category.name].push mod.moduledata.name
+        #        result[category.name].push mod.moduledata.name
       end
       # Indirekt über Studmodule zugeordnete Kategorien
       mod.moduledata.categories.each do |category|
         result[category.name] = Array.new if result[category.name] == nil
         result[category.name].push mod
-#        result[category.name].push mod.moduledata.name
+        #        result[category.name].push mod.moduledata.name
       end
     end
 
@@ -162,16 +162,16 @@ class MainController < ApplicationController
       mod = m if m.moduledata.id == id
     end
 
-#    category = Category.find(cat_id)
+    #    category = Category.find(cat_id)
 
     mod.category = Category.find(cat_id) unless mod == nil ||
-    mod.save
+      mod.save
     
     render :text => "Category changed successfully..."
 
   end
 
-    def extract_category_id id_string
+  def extract_category_id id_string
     id = ""
     found = false
     id_string.each_char do |c|
@@ -188,18 +188,23 @@ class MainController < ApplicationController
   def post_file
     filename = ""
 
-    name = params[:data_file].original_filename
-    directory = "public/data"
-    path = File.join(directory, name)
+    unless params[:data_file] == ""
+      name = params[:data_file].original_filename
+      directory = "public/data"
+      path = File.join(directory, name)
 
-    File.open(path, "wb") { |f| f.write(params[:data_file].read); filename = f.path }
+      File.open(path, "wb") { |f| f.write(params[:data_file].read); filename = f.path }
 
-    shredder filename
+      shredder filename
 
-    if @version.all.length > 1
-      redirect_to :action => "import2"
+      if @version.all.length > 1
+        redirect_to :action => "import2"
+      else
+        redirect_to :action => "index"
+      end
     else
-      redirect_to :action => "index"
+      flash[:notice] = "<p style='color: red;'>Bitte eine Datei zum Importieren auswählen!</p>"
+      redirect_to :action => "import"
     end
   end
 
