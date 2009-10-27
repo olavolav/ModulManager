@@ -96,19 +96,35 @@ class MainController < ApplicationController
     @modules = selection.selection_modules
     @grade = get_note["gesamt"]
     @semesters = selection.semesters
-    @categories = Hash.new(Array.new)
-    @modules.each do |m|
-      if m.class == CustomModule
-        @categories[m.category.name].push m
-      else
-        m.categories.each do |c|
-          @categories[c.name].push m
-        end
-      end
-    end
+
+    @categories = sort_by_category @modules
+
     respond_to do |format|
       format.pdf
+      format.html { render :action => "get_pdf" }
+      format.xml { render :xml => @categories.to_xml }
     end
+  end
+
+  def sort_by_category selected_modules
+    result = Hash.new
+
+    selected_modules.each do |mod|
+      # Direkt zugeordnete Kategorien
+      mod.categories.each do |category|
+        result[category.name] = Array.new if result[category.name] == nil
+        result[category.name].push mod
+#        result[category.name].push mod.moduledata.name
+      end
+      # Indirekt über Studmodule zugeordnete Kategorien
+      mod.moduledata.categories.each do |category|
+        result[category.name] = Array.new if result[category.name] == nil
+        result[category.name].push mod
+#        result[category.name].push mod.moduledata.name
+      end
+    end
+
+    return result
   end
 
   def _combo_category

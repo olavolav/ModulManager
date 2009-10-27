@@ -41,4 +41,5 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "main", :action => "start"
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action.:format'
 end

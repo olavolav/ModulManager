@@ -1,0 +1,34 @@
+<p>Hier sollen die Kategorien mit den untergeordneten ausgewählten Modulen stehen:</p>
+<% @categories.each do |name, modules| %>
+<p>Eine Kategorie</p>
+  <p>{<%= name %>}</p>
+
+  <% if modules.length == 0 %>
+    <p>(leer)</p>
+  <% else %>
+    <ul>
+
+      <% modules.each do |m| %>
+
+        <li>
+          <% if m.class == CustomModule %>
+            <%= m.name %> (vom Benutzer erstellt), <%= m.credits %> Credits
+          <% else %>
+            <%= m.moduledata.name+m.moduledata.subname.to_s %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits
+          <% end %>
+          <br>Note:
+          <% if m.grade != nil %>
+            <%= m.grade %>
+          <% else %>
+            <% if m.moduledata.has_grade %>
+              keine Note angegeben
+            <% else %>
+              unbenotetes Modul
+            <% end %>
+          <% end %>
+        </li>
+
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
