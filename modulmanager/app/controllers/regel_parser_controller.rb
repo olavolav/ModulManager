@@ -123,71 +123,139 @@ class RegelParserController < ApplicationController
     late_modules = Array.new
 
     y.each do |m|
-
-      limited_modules.push m unless  m["zulassung"] == nil
-      free_modules.push m if m["zulassung"] == nil
-
-    end
-
-    free_modules.each do |m|
-      unless m["sub-module"] == nil
+      if m["zulassung"] != nil && m["sub-module"] != nil
+        late_modules.push m
+      elsif m["zulassung"] != nil && m["sub-module"] == nil
+        limited_modules.push m
+      elsif m["zulassung"] == nil && m["sub-module"] != nil
         parent_modules.push m
+      elsif m["zulassung"] == nil && m["sub-module"] == nil
+        free_modules.push m
       else
-        ready_module = Studmodule.create :name => m["name"],
-          :credits => m["credits"],
-          :short => m["id"],
-          :description => m["beschreibung"],
-          :version => version,
-          :subname => m["sub-name"]
-
-        ready_module.subname = m["sub-name"] unless m["sub-name"] == nil
-        ready_module.save
+        puts "MODULE #{m["id"]} WURDE NICHT ZUGEORDNET!!!"
       end
+
     end
 
-    limited_modules.each do |m|
-      unless m["sub-module"] == nil
-        parent_modules.push m
-      else
-        ready_module = create_limited_module m, version
-        late_modules.push m if ready_module == nil
+    while(late_modules.length > 0 || limited_modules.length > 0 || parent_modules.length > 0 || free_modules.length > 0)
+
+      free_modules.each do |data|
+        m = Studmodule.create :name   => data["name"],
+          :credits                    => data["credits"],
+          :short                      => data["id"],
+          :description                => data["beschreibung"],
+          :version                    => version
+
+        unless data["note"] == nil
+          data["note"].downcase == "nein" ? m.has_grade = false : m.has_grade = true
+        end
+        m.subname = data["sub-name"] unless data["sub-name"] == nil
+        free_modules.delete data
       end
-    end
-    
-    parent_modules.each do |m|
-      unless m["zulassung"] == nil
-        ready_module = Studmodule.create :name => m["name"],
-          :credits => m["credits"],
-          :short => m["id"],
-          :description => m["beschreibung"],
-          :children => Studmodule::get_array_from_module_string(m["sub-module"]),
-          :version => version,
-          :subname => m["sub-name"]
-        if ready_module == nil
-          late_modules.push m
-        else
-        parent_modules.delete m
+
+      limited_modules.each do |data|
+        m = Studmodule.new :name => data["name"],
+          :credits => data["credits"],
+          :short => data["id"],
+          :description => data["beschreibung"],
+          :version => version
+
+        unless data["note"] == nil
+          data["note"].downcase == "nein" ? m.has_grade = false : m.has_grade = true
+        end
+        m.subname = data["sub-name"] unless data["sub-name"] == nil
+        if create_limited_connection data["zulassung"], m
+          m.save
+          limited_modules.delete(data) 
         end
       end
-    end
 
-    parent_modules.each do |m|
-      ready_module = create_limited_module m, version
-      late_modules.push m if ready_module == nil
-    end
+      parent_modules.each do |data|
+        fault = false
+        children = data["sub-module"].split(",")
+        children.each do |child|
+          child.strip!
+          fault = true if Studmodule.find(:first, :conditions => "short = '#{child}'") == nil
+        end
 
-#    i = 0
-#    while late_modules.length > 0
-#
-#      ready_module = create
-#
-#      i < late_modules.length ? i += 1 : i = 0
-#    end
+        unless fault
+          m = Studmodule.new :name => data["name"],
+            :credits => data["credits"],
+            :short => data["id"],
+            :description => data["beschreibung"],
+            :children => Studmodule::get_array_from_module_string(data["sub-module"]),
+            :version => version,
+            :subname => data["sub-name"]
+
+          unless data["note"] == nil
+            data["note"].downcase == "nein" ? m.has_grade = false : m.has_grade = true
+          else
+            m.has_grade = true;
+          end
+          m.save
+          parent_modules.delete data
+        end
+      end
+
+      late_modules.each do |data|
+        fault = false
+        m = Studmodule.new :name => data["name"],
+          :credits => data["credits"],
+          :short => data["id"],
+          :description => data["beschreibung"],
+          :version => version
+
+        unless data["note"] == nil
+          data["note"].downcase == "nein" ? m.has_grade = false : m.has_grade = true
+        end
+        m.subname = data["sub-name"] unless data["sub-name"] == nil
+        unless data["sub-module"] == nil
+          children = data["sub-module"].split(",")
+          children.each do |child|
+            child.strip!
+            fault = true if Studmodule.find(:first, :conditions => "short = '#{child}'") == nil
+          end
+          m.children = Studmodule::get_array_from_module_string data["sub-module"] unless fault
+        end
+        if create_limited_connection(data["zulassung"], m) && fault != true
+          late_modules.delete data
+          m.save
+        end
+      end
+
+    end
 
     36.times do |i|
       Studmodule.create :name => "(Sonstiges Modul)",
         :short => "custom#{(i+1)}",
         :parts => 1
+    end
+  end
+
+  def create_limited_connection zulassung, owner
+    fault = false
+    and_connections = Array.new
+    zulassung.each do |z|
+      rules = Array.new
+      modules = z.split(",")
+      modules.each do |mod|
+        mod.strip!
+        fault = true if Studmodule.find(:first, :conditions => "short = '#{mod}'") == nil
+      end
+
+      modules = Studmodule::get_array_from_module_string(z)
+
+      modules.each { |mod| rules.push PermissionRule.new :condition => mod }
+
+      and_connections.push AndConnection.new :child_rules => rules
+    end
+    or_connection = OrConnection.new :child_connections => and_connections, :owner => owner
+
+    unless fault
+      or_connection.save
+      return true
+    else
+      return false
     end
   end
 
@@ -229,8 +297,7 @@ class RegelParserController < ApplicationController
 
       mg["sichtbar"] == "nein" ? visible = false : visible = true
 
-      modules = Studmodule::get_array_from_module_string(mg["module"])
-      modules_and_children = modules
+      modules_and_children = Studmodule::get_array_from_module_string(mg["module"])
       #      modules.each {|m| modules_and_children.concat(m.children)}
 
       puts "Category = #{mg['name']}"

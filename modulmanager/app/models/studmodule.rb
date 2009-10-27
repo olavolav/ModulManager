@@ -33,7 +33,8 @@ class Studmodule < ActiveRecord::Base
     modules = module_string.split(",")
     modules.each { |m|
       m.strip!
-      mod_array.push Studmodule.find(:first, :conditions => "short = '#{m}'")
+      mod = Studmodule.find(:first, :conditions => "short = '#{m}'")
+      mod_array.push mod
     }
     return mod_array
   end
@@ -51,10 +52,6 @@ class Studmodule < ActiveRecord::Base
     result = false
     result = true if self.categories.length > 1
     return result
-  end
-
-  def has_grade
-    return true
   end
 
   def is_partial_module
