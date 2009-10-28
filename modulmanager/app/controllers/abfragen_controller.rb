@@ -230,7 +230,7 @@ class AbfragenController < ApplicationController
     @modules_earned = regel.modules_earned modules
     @modules_needed = regel.modules_needed
 
-    @modules = regel.collect_unique_modules_from_children
+    @modules = regel.collect_unique_modules_from_children_without_custom
 
 #    @credit_status = "Es wurden bereits #{credits_earned} Credits von #{credits_needed} Credits erbracht."
 #    @module_status = "Es wurden bereits #{modules_earned} Module von #{modules_needed} Modulen bestanden."

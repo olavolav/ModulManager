@@ -105,4 +105,21 @@ class AndConnection < Connection
     return module_array
   end
 
+  def collect_unique_modules_from_children_without_custom
+    found = false
+    module_array = collect_unique_modules_from_children
+
+    module_array.each do |mod|
+      puts "Modul #{mod.short}"
+      if mod.short.include? "custom"
+        puts "...ist ein Dummy-Modul!"
+        module_array.delete mod   
+        found = true
+      end
+    end
+
+    module_array.push Studmodule.new :name => "Sonstiges Modul", :short => "" if found
+
+  end
+
 end
