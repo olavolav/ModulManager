@@ -110,6 +110,8 @@ class AbfragenController < ApplicationController
 
     selection = current_selection
 
+    my_module = nil
+
     unless semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
       semester = Semester.create(:count => params[:sem_count])
       selection.semesters << semester
@@ -123,18 +125,18 @@ class AbfragenController < ApplicationController
         :short => studmodule.short,
         :credits => params[:credits],
         :name => params[:name]
-        #        :category => Category.find(extract_category_id(params[:cat_id]))
       )
     else
       my_module.credits = params[:credits]
       my_module.name = params[:name]
     end
 
+    params[:has_grade] == nil ? my_module.has_grade = true : my_module.has_grade = params[:has_grade]
+
     semester.modules << my_module
     semester.save
 
     cat_id = params[:cat_id]
-    puts cat_id.class
     if cat_id.class == Array
       cat_id.categories = Array.new
       cat_id.each { |c| my_module.categories << Category.find(extract_category_id(c)) }
