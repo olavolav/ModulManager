@@ -232,13 +232,56 @@ class AbfragenController < ApplicationController
 
     @modules = regel.collect_unique_modules_from_children_without_custom
 
-#    @credit_status = "Es wurden bereits #{credits_earned} Credits von #{credits_needed} Credits erbracht."
-#    @module_status = "Es wurden bereits #{modules_earned} Module von #{modules_needed} Modulen bestanden."
 
     respond_to do |format|
       format.html { render :action => "info", :layout => false }
     end
 
+  end
+
+  def change_credits
+    credits = params[:credits]
+    mod_id = params[:mod_id]
+
+    selection = current_selection
+
+    selection.selection_modules.each do |m|
+      if m.moduledata.id == mod_id
+        m.credits = credits
+        m.save
+        return true
+      end
+    end
+    return false
+  end
+
+  def remove_warning
+    mod_id = params[:mod_id]
+    selection = current_selection
+
+    selection.each do |m|
+      if m.moduledata.id == mod_id
+        m.moduledata.permission = nil
+        m.save
+        return true
+      end
+    end
+    return false
+  end
+
+  def add_warning
+    mod_id = params[:mod_id]
+    selection = current_selection
+
+    selection.each do |m|
+      if m.moduledata.id == mod_id
+        m.moduledata.permission = Studmodule.find(mod_id).permission
+        m.save
+        return true
+      end
+    end
+
+    return false
   end
 
 end
