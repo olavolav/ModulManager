@@ -234,7 +234,6 @@ class AbfragenController < ApplicationController
 
     @modules = regel.collect_unique_modules_from_children_without_custom
 
-
     respond_to do |format|
       format.html { render :action => "info", :layout => false }
     end
