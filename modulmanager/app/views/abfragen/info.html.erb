@@ -1,22 +1,22 @@
-<%# Hier steht entweder "Bedingungen erfüllt" oder "Bedingungen nicht erfüllt". %>
-<p>Die Bedingungen dieser Regel sind <strong><%= @fullfilled %></strong></p>
-
-<%# Hier steht, wie weit der Fortschritt in Bezug auf die CREDITS ist. %>
+<p>Die Bedingungen dieser Regel sind <strong><%= @fullfilled_string %></strong></p>
 <p>Es wurden <%= @credits_earned %> von <%= @credits_needed %> Credits erbracht.</p>
-
-<%# Hier steht, wie weit der Fortschritt in Bezug auf die MODULE ist.%>
 <p>Außerdem wurden <%= @modules_earned %> Module von <%= @modules_needed %> Modulen bestanden.</p>
 
-<p>Zur Erfüllung dieser Bedingung kann aus den folgende Module gewählt werden:
 
+<% unless @fullfilled %>
+<p>Um in diesem Bereich alle Bedingungen zu erfüllen, müssen Sie noch
+<%= @modules_needed - @modules_earned %> Module und
+<%= @credits_needed - @credits_earned %> Credits erzielen.</p>
+
+<p>Zur Erfüllung dieser Bedingung kann aus den folgende Module gewählt werden:</p>
 <ul>
-<% @modules.each do |m| %>
+<% @available_modules.each do |m| %>
   <li>
     <%= m.name %> (<%= m.short %>)
   </li>
 <% end %>
 </ul>
-</p>
+<% end %>
 
 <div id="box_info_pool">
 	Ausnahme-Optionen: Nur verf&uuml;gbar bei Modulen in der Auswahl.

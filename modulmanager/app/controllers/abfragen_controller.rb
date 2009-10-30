@@ -216,23 +216,28 @@ class AbfragenController < ApplicationController
 
     regel = Connection.find(:first, :conditions => "id = '#{id}'")
 
-    modules = current_selection.selection_modules
+    mods = current_selection.selection_modules
 
-    ff = regel.evaluate modules
+    ff = regel.evaluate mods
 
-#    @status = "<strong>Es sind keine Informationen über den aktuellen Stand verfügbar...</strong>"
-#    @status = "<strong>Es sind alle Bedingungen erfüllt.</strong>" if ff == 1
-#    @status = "<strong>Es sind noch nicht alle Bedingungen erfüllt.</strong>" if ff == -1 || ff == 0
+    ff == 1 ? @fullfilled_string = "erfüllt" : @fullfilled_string = "nicht erfüllt"
+    ff == 1 ? @fullfilled = true : @fullfilled = false
 
-    ff == 1 ? @fullfilled = "erfüllt" : @fullfilled = "nicht erfüllt"
-
-    @credits_earned = regel.credits_earned modules
+    @credits_earned = regel.credits_earned mods
     @credits_needed = regel.credits_needed
 
-    @modules_earned = regel.modules_earned modules
+    @modules_earned = regel.modules_earned mods
     @modules_needed = regel.modules_needed
 
     @modules = regel.collect_unique_modules_from_children_without_custom
+
+    @available_modules = Array.new
+
+    @modules.each do |m|
+      found = false
+      mods.each { |mod| found = true if mod.moduledata.id == m.id }
+      @available_modules.push m unless found
+    end
 
     respond_to do |format|
       format.html { render :action => "info", :layout => false }
