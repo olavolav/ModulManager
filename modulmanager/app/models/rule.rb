@@ -8,6 +8,8 @@ class Rule < ActiveRecord::Base
     :join_table => "rules_studmodules",
     :class_name => "Studmodule"
 
+  
+
   def self.create_min_credit_rule_for_focus count, module_string
     mod_array = Studmodule::get_array_from_module_string module_string
     return CreditRule.create :count => count, :relation => "min", :modules => mod_array
@@ -48,6 +50,10 @@ class Rule < ActiveRecord::Base
       found = true if self.category.id == c.id
     }
     return found
+  end
+
+  def directory_string
+
   end
 
 end

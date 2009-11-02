@@ -1,17 +1,5 @@
 class OrConnection < Connection
 
-  has_many :child_connections,
-    :foreign_key => "parent_id",
-    :class_name => "Connection"
-
-  has_many :child_rules,
-    :foreign_key => "parent_id",
-    :class_name => "Rule"
-
-  belongs_to :parent,
-    :foreign_key => "parent_id",
-    :class_name => "Connection"
-
   def credits_earned
     return 0
   end

@@ -11,8 +11,21 @@ class ApplicationController < ActionController::Base
     selection.semesters.each do |s|
       s.modules.each do |m|
         if m.grade != nil
-          grade["gesamt"] += (m.moduledata.credits.to_f * m.grade.to_f)
-          credits += m.moduledata.credits.to_f
+          if m.children != nil
+            zwischennote = m.grade.to_f * m.moduledata.credits.to_f
+            zwischencredits = m.moduledata.credits
+            m.children.each { |c|
+              if c.grade != nil
+                zwischennote += (c.grade.to_f * c.moduledata.credits.to_f)
+              end
+              zwischencredits += c.moduledata.credits
+            }
+            endnote = zwischennote / zwischencredits
+            grade["gesamt"] += (endnote.to_f * zwischencredits)
+          elsif m.parent == nil
+            grade["gesamt"] += (m.moduledata.credits.to_f * m.grade.to_f)
+            credits += m.moduledata.credits.to_f
+          end
         end
       end
     end

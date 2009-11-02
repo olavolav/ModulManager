@@ -239,6 +239,8 @@ class AbfragenController < ApplicationController
       @available_modules.push m unless found
     end
 
+    @directory_string
+
     respond_to do |format|
       format.html { render :action => "info", :layout => false }
     end
