@@ -6,7 +6,6 @@ Noch zu beheben:
 2. Buttons sind im Firefox nur via Text anklickbar (Olav)
 11. Name ist bei unbenoteten Modulen zu nah an dem Info-Icon (Olav)
 7. Unbenotete Module sollten nur grüne oder rote Info-Icons haben - gelbe machen ja keinen Sinn, da man ohnehin keine Note eingeben kann; genau so auch bei Dummy-Modulen, wenn man "unbenotet" gewählt hat (Quan)
-9. Note korrekt berechnen, d.h. erst intern pro Modul mit Teilmodulen, dann damit externe Note (Christian)
 6. Text in Info-Boxen wird nicht angezeigt (Quan)
 
 
@@ -21,3 +20,4 @@ Inzwischen behoben:
 10. Button im Export wieder auf das PDF verlinken, ist wahrscheinlich momentan nur zum Testen (Christian)
 8. Längliche "(Sontiges Modul)"-Auflistung aus den Fehlermeldungen in den Überblicks-Info-Boxen nehmen und anderweitig erklären (Christian)
 13. Sub-Names von Sub-Modulen kommen in der Pool-XML nicht mehr vor (Christian)
+9. Note korrekt berechnen, d.h. erst intern pro Modul mit Teilmodulen, dann damit externe Note (Christian)
