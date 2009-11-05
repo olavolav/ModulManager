@@ -41,10 +41,14 @@ class ApplicationController < ActionController::Base
             grade["gesamt"] += (note_gewichtet.to_f * ges_credits.to_f)
             credits += ges_credits.to_f unless note_gewichtet == 0
 
-          elsif m.moduledata.parent == nil && m.grade != nil
+          elsif m.moduledata.parent == nil && m.grade != nil && m.class != CustomModule
             note_gewichtet = (m.moduledata.credits.to_f * m.grade.to_f)
             grade["gesamt"] += note_gewichtet
             credits += m.moduledata.credits.to_f
+          elsif m.class == CustomModule
+            note_gewichtet = (m.credits.to_f * m.grade.to_f)
+            grade["gesamt"] += note_gewichtet
+            credits += m.credits.to_f
           end
         end
       end
