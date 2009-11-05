@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
 
   helper :all # just make sure to include all helpers
 
-
   def get_note
     selection = current_selection
     grade = Hash.new(0)
@@ -10,22 +9,41 @@ class ApplicationController < ActionController::Base
 
     selection.semesters.each do |s|
       s.modules.each do |m|
-        if m.grade != nil
-          if m.children != nil
-            zwischennote = m.grade.to_f * m.moduledata.credits.to_f
-            zwischencredits = m.moduledata.credits
-            m.children.each { |c|
-              if c.grade != nil
-                zwischennote += (c.grade.to_f * c.moduledata.credits.to_f)
-              end
-              zwischencredits += c.moduledata.credits
-            }
-            endnote = zwischennote / zwischencredits
-            grade["gesamt"] += (endnote.to_f * zwischencredits)
-          elsif m.parent == nil
-            grade["gesamt"] += (m.moduledata.credits.to_f * m.grade.to_f)
-            credits += m.moduledata.credits.to_f
+        if m.moduledata.children != [] && m.moduledata.children != nil
+          teil_kumul = 0
+          teil_credits = 0
+
+          ges_credits = 0
+
+          if m.grade != nil
+            teil_kumul += m.grade.to_f * m.moduledata.credits.to_f
+            teil_credits += m.moduledata.credits.to_f
           end
+          ges_credits += m.moduledata.credits
+
+          m.moduledata.children.each do |child|
+
+            selection.selection_modules.each do |modul|
+              if modul.moduledata.id == child.id
+                ges_credits += modul.moduledata.credits
+                if modul.grade != nil
+                  teil_kumul += modul.grade.to_f * modul.moduledata.credits.to_f
+                  teil_credits += modul.moduledata.credits.to_f
+                end
+              end
+            end
+
+          end
+
+          teil_credits > 0 ? note_gewichtet = (teil_kumul.to_f / teil_credits.to_f) : note_gewichtet = 0
+
+          grade["gesamt"] += (note_gewichtet.to_f * ges_credits.to_f)
+          credits += ges_credits.to_f unless note_gewichtet == 0
+
+        elsif m.moduledata.parent == nil && m.grade != nil
+          note_gewichtet = (m.moduledata.credits.to_f * m.grade.to_f)
+          grade["gesamt"] += note_gewichtet
+          credits += m.moduledata.credits.to_f
         end
       end
     end
