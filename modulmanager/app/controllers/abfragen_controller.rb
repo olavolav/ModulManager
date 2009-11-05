@@ -181,6 +181,30 @@ class AbfragenController < ApplicationController
     render :text => "Semester removed from selection..."
   end
 
+  def remove_grade
+    id = params[:mod_id]
+    selection = current_selection
+    selection.selection_modules.each do |m|
+      if m.moduledata.id == id
+        m.has_grade = false
+        return true
+      end
+    end
+    return false
+  end
+
+  def add_grade
+    id = params[:mod_id]
+    selection = current_selection
+    selection.selection_modules.each do |m|
+      if m.moduledata.id == id
+        m.has_grade = true
+        return true
+      end
+    end
+    return false
+  end
+
   def save_module_grade
 
     selection = current_selection

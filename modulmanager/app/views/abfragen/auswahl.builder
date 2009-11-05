@@ -8,6 +8,7 @@ xml.auswahl(:id => @selection.id) do
     @selection.semesters.sort_by { |sem| sem.count }.each do |s|
       xml.semester(:count => s.count, :id => "sem#{s.id}") do
         s.modules.each do |m|
+          m.has_grade == nil ? has_grade = true : has_grade = m.has_grade
           if m.class == CustomModule
             custom_count += 1
             xml.module(
@@ -16,7 +17,8 @@ xml.auswahl(:id => @selection.id) do
               :name => m.name,
               :credits => m.credits,
               :grade => m.grade,
-              :class => "custom"
+              :class => "custom",
+              :has_grade => has_grade
             )
           else
             if m.class == PartialModule
@@ -30,10 +32,11 @@ xml.auswahl(:id => @selection.id) do
                 :id => "#{m.parent_id}part#{part}",
                 :class => "partial",
                 :parent => m.parent_id,
-                :short => m.short
+                :short => m.short,
+                :has_grade => has_grade
               )
             else
-              xml.module(:id => m.moduledata.id, :grade => m.grade)
+              xml.module(:id => m.moduledata.id, :grade => m.grade, :has_grade => has_grade)
             end
           end
         end
