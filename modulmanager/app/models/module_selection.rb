@@ -15,8 +15,10 @@ class ModuleSelection < ActiveRecord::Base
   def modules
     modules = Array.new
     self.semesters.each do |s|
-      s.studmodules.each do |sm|
-        modules.push sm
+      if s.count > 0
+        s.studmodules.each do |sm|
+          modules.push sm
+        end
       end
     end
     modules
@@ -25,8 +27,10 @@ class ModuleSelection < ActiveRecord::Base
   def selection_modules
     mods = Array.new
     self.semesters.each do |s|
-      s.modules.each do |sm|
-        mods.push sm
+      if s.count > 0
+        s.modules.each do |sm|
+          mods.push sm
+        end
       end
     end
     mods

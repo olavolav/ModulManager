@@ -28,14 +28,16 @@ class AbfragenController < ApplicationController
     errors = Array.new
 
     selection.semesters.each do |semester|
-      count = semester.count
-      semester.modules.each do |mod|
-        if mod.moduledata.permission == nil
-          permission = 1
-        else
-          permission = mod.moduledata.permission.evaluate(selection.semesters, count)
+      if semester.count > 0
+        count = semester.count
+        semester.modules.each do |mod|
+          if mod.moduledata.permission == nil
+            permission = 1
+          else
+            permission = mod.moduledata.permission.evaluate(selection.semesters, count)
+          end
+          errors.push mod.moduledata unless permission == 1
         end
-        errors.push mod.moduledata unless permission == 1
       end
     end
     return errors
@@ -78,10 +80,10 @@ class AbfragenController < ApplicationController
 
     @permission = mod.permission
 
-#    perm_con = mod.permission
-#    perm_con.child_rules.each do |c|
-#      c.condition
-#    end
+    #    perm_con = mod.permission
+    #    perm_con.child_rules.each do |c|
+    #      c.condition
+    #    end
 
     respond_to do |format|
       format.html {render :file => "abfragen/module_info", :layout => false}

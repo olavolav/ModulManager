@@ -44,13 +44,10 @@ class ModuleRule < Rule
 
   def evaluate selected_modules, non_permitted_modules = nil
     modules_in_selection = act_modules selected_modules, non_permitted_modules
-    puts "#{modules_in_selection} von #{self.count} benötigten Module in Regel #{self.id}"
     if self.relation == "min"
       return 1 if modules_in_selection >= self.count
-      puts "Regel #{self.id} nicht erfüllt, zu WENIG Module..."
     elsif self.relation == "max"
       return 1 if modules_in_selection <= self.count
-      puts "Regel #{self.id} nicht erfüllt, zu VIELE Module..."
     end
     return -1
   end

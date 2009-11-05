@@ -110,8 +110,6 @@ class AndConnection < Connection
       module_array.push Studmodule.new :name => "Sonstiges Modul", :short => "" if found
     end
 
-    
-
     return module_array
 
   end
