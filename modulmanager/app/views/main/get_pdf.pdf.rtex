@@ -97,6 +97,8 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
                         <% else %>
                             <% if m.moduledata.has_grade == false %>
                                 unbenotetes Modul
+                            <% elsif m.has_grade == false %>
+                                Note gestrichen
                             <% else %>
                                 keine Note angegeben
                             <% end %>
