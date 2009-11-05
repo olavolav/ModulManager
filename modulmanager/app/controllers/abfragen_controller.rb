@@ -73,12 +73,30 @@ class AbfragenController < ApplicationController
 
     mod = Studmodule.find(params[:module_id])
 
-    @name         = mod.name
-    @description  = mod.description
-    @short        = mod.short
-    @credits      = mod.credits
+    if mod.short.include? "custom"
+      selection = current_selection
+      m2 = nil
+      selection.selection_modules.each do |m|
+        m2 = m if m.moduledata.short == mod.short
+      end
 
-    @permission = mod.permission
+      unless m2 == nil
+        @name = m2.name
+        @description = "Dies ist ein von Ihnen konfiguroiertes Modul."
+        @short = "-"
+        @credits = m2.credits
+        @permission = nil
+      end
+    else
+      @name         = mod.name
+      @description  = mod.description
+      @short        = mod.short
+      @credits      = mod.credits
+
+      @permission = mod.permission
+    end
+
+
 
     #    perm_con = mod.permission
     #    perm_con.child_rules.each do |c|
