@@ -6,7 +6,20 @@ Noch zu beheben:
 2. Buttons sind im Firefox nur via Text anklickbar (Olav)
 11. Name ist bei unbenoteten Modulen zu nah an dem Info-Icon (Olav)
 7. Unbenotete Module sollten nur grüne oder rote Info-Icons haben - gelbe machen ja keinen Sinn, da man ohnehin keine Note eingeben kann; genau so auch bei Dummy-Modulen, wenn man "unbenotet" gewählt hat (Quan)
-6. Text in Info-Boxen wird nicht angezeigt (Quan)
+14. Note sollte nicht in die Noten-Berechnung einbezogen werden, wenn ein Modul fehlerhaft ist (Christian)
+15. Ausnahme-Actions einbauen, Details siehe Mail von CB vom 05.11.09 (Quan)
+16. Fehlermeldungen: Modul-Liste raus, wenn es bei einer Regel nur um Untergruppen geht (Christian)
+17. Fehlermeldungen: "Zu finden in" raus (Christian)
+18. Multi-Kategorie-Module werden in der Info-Box einer Kategorie nicht angezeigt, wenn das Modul schon für eine andere Kategorie in der Auswahl ist - da muss zumindest ein entspr. Hinweis hin (Christian)
+19. Hinweis in die YAML-Datei, warum wir beim Bachelor keine 180 C fordern (Olav)
+21. Kommentar hinzufügen, wie man alle möglichen Module ins PDF bekommt, anstatt nur die, die sich in der Auswahl befinden (Christian)
+22. Auf die "production"-Umgebung umstellen, oder zumindest verstehen, was die Auswirkungen sind - schaden kann es wohl nicht, bzgl. Sicherheit zum Beispiel (Christian)
+23. protect_from_forgery wieder einbauen (Christian & Quan)
+24. HTTPS anschauen, einbauen falls sich der Aufwand in Grenzen hält (Christian)
+25. Hilfe-Seite schreiben (Olav)
+27. Deployment auf dem rortest-sorgesolutions-Server testen (Christian)
+28. Daten der Module (Note, Ausnahme-Optionen, Dummy-Namen, Dummy-Credits, Einbringungs-Bereiche) immer löschen, wenn das Modul geöscht wird, damit sie nicht wieder erscheinen, wenn das Modul danach wieder in die Auswahl zieht - ebenso bei Dummy- und Sub-Modulen (Quan)
+29. Copyright-Angaben hinzufügen (Olav)
 
 
 Inzwischen behoben:
@@ -21,3 +34,6 @@ Inzwischen behoben:
 8. Längliche "(Sontiges Modul)"-Auflistung aus den Fehlermeldungen in den Überblicks-Info-Boxen nehmen und anderweitig erklären (Christian)
 13. Sub-Names von Sub-Modulen kommen in der Pool-XML nicht mehr vor (Christian)
 9. Note korrekt berechnen, d.h. erst intern pro Modul mit Teilmodulen, dann damit externe Note (Christian)
+6. Text in Info-Boxen wird nicht angezeigt (Quan)
+20. Dummy-Modul: Noten-Berechnung funktioniert nicht (Christian)
+26. Info-Text von Dummy-Modulen im Pool beheben (Christian)

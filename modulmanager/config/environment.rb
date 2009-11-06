@@ -27,6 +27,8 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
+  
+  # This is the PDF export gem via LaTeX, see http://rtex.rubyforge.org (OS)
   config.gem "rtex"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
