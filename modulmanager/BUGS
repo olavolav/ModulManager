@@ -20,6 +20,7 @@ Noch zu beheben:
 27. Deployment auf dem rortest-sorgesolutions-Server testen (Christian)
 28. Daten der Module (Note, Ausnahme-Optionen, Dummy-Namen, Dummy-Credits, Einbringungs-Bereiche) immer löschen, wenn das Modul geöscht wird, damit sie nicht wieder erscheinen, wenn das Modul danach wieder in die Auswahl zieht - ebenso bei Dummy- und Sub-Modulen (Quan)
 29. Copyright-Angaben hinzufügen (Olav)
+30. Note immer aktualisieren, wenn irgendwas an der Auswahl verändert wurde - der Hintergrund ist der, dass bisher die Note nicht aktualisiert werden musste, wenn ein Modul innerhalb der Auswahl verschoben wurde; da wir die Vorrats-Box jetzt aber als normales Semester implementieren, muss die Note immer aktualisiert werden (Quan)
 
 
 Inzwischen behoben:
