@@ -1035,7 +1035,11 @@ function ajax_server_by_custom(this_name,this_credit_point_float,category_id,cus
         cache:false,
         async:false,
         data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id+"&"+"cat_id="+category_id,
-        contentType:'application/x-www-form-urlencoded'/*,
+        contentType:'application/x-www-form-urlencoded',
+		success: function(data){
+			
+			ueberblick();
+		}/*,
         error : function(a,b,c){
             alert ("AJAX-Fehler: add_custom_module_to_selection");
         }*/
