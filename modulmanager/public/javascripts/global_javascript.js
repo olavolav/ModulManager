@@ -1010,10 +1010,10 @@ var ajax_to_server_by_get_grade = function(){
         	$("#die_note").append(html);
 			
 
-        }/*,
+        },
         error: function(a,b,c){
             alert("AJAX-Fehler: note");
-        }*/
+        }
 		
 
 		
@@ -1290,6 +1290,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 		//alert("hallo "+this_draggable_class);
 		//alert("start remove");
 		ajax_to_server_by_remove(modul_id);
+		 
 		//alert(" remove ende");
 	}
 	
@@ -1306,12 +1307,16 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 	
 	// DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken
 	ajax_to_server_by_add(modul_id, semester, cat_id);
+	
 	if (kopf_modul_in_pool == "nein") {
 		ueberblick();
+		
 		
 	}
 	else {
 		$(ui_draggable).find(".head_modul_in_pool").text("nein");
+		ajax_to_server_by_get_grade();
+		alert("ok");
 	}
 	
 	// check error-Regel
