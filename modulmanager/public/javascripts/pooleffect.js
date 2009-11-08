@@ -178,7 +178,7 @@ $(function(){
 							if(this_id == cus_sem){
 								var this_subsemester = $(this).find(".subsemester");
 								$(this_subsemester).append(cus_modul);
-								alert("geht doch mit custom");
+								
 								
 							}
 						});
