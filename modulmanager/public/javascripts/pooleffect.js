@@ -162,7 +162,8 @@ $(function(){
 						change_module_style_to_auswahl(cus_modul);
 						$(cus_modul).find("span.inAuswahl").text("ja");
 						
-						$("#semester-content div.semester").each(function(){
+						// custom_modul soll auch in VorratBox sein
+						/*$("#semester-content div.semester").each(function(){
 							var this_id = $(this).attr("id");
 							if(this_id == cus_sem){
 								var this_subsemester = $(this).find(".subsemester");
@@ -170,7 +171,19 @@ $(function(){
 								
 							}
 			
+						});*/
+						
+						$("#middle").find(".semester").each(function(){
+							var this_id = $(this).attr("id");
+							if(this_id == cus_sem){
+								var this_subsemester = $(this).find(".subsemester");
+								$(this_subsemester).append(cus_modul);
+								alert("geht doch mit custom");
+								
+							}
 						});
+						
+						
 						var this_exsit = $(cus_modul).find("span.custom_exist").text();
 						var cus_cat_id=$(cus_modul).find(".custom_category").text();
 						if(this_exsit=="nein"){

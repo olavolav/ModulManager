@@ -1316,7 +1316,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 	else {
 		$(ui_draggable).find(".head_modul_in_pool").text("nein");
 		ajax_to_server_by_get_grade();
-		alert("ok");
+		//alert("ok");
 	}
 	
 	// check error-Regel
