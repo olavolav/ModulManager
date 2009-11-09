@@ -8,7 +8,6 @@ Noch zu beheben:
 7. Unbenotete Module sollten nur grüne oder rote Info-Icons haben - gelbe machen ja keinen Sinn, da man ohnehin keine Note eingeben kann; genau so auch bei Dummy-Modulen, wenn man "unbenotet" gewählt hat (Quan)
 15. Ausnahme-Actions einbauen, Details siehe Mail von CB vom 05.11.09 (Quan)
 19. Hinweis in die YAML-Datei, warum wir beim Bachelor keine 180 C fordern (Olav)
-21. Kommentar hinzufügen, wie man alle möglichen Module ins PDF bekommt, anstatt nur die, die sich in der Auswahl befinden (Christian)
 22. Auf die "production"-Umgebung umstellen, oder zumindest verstehen, was die Auswirkungen sind - schaden kann es wohl nicht, bzgl. Sicherheit zum Beispiel (Christian)
 23. protect_from_forgery wieder einbauen (Christian & Quan)
 24. HTTPS anschauen, einbauen falls sich der Aufwand in Grenzen hält (Christian)
@@ -38,3 +37,4 @@ Inzwischen behoben:
 16. Fehlermeldungen: Modul-Liste raus, wenn es bei einer Regel nur um Untergruppen geht (Christian)
 17. Fehlermeldungen: "Zu finden in" raus (Christian)
 18. Multi-Kategorie-Module werden in der Info-Box einer Kategorie nicht angezeigt, wenn das Modul schon für eine andere Kategorie in der Auswahl ist - da muss zumindest ein entspr. Hinweis hin (Christian)
+21. Kommentar hinzufügen, wie man alle möglichen Module ins PDF bekommt, anstatt nur die, die sich in der Auswahl befinden (Christian)

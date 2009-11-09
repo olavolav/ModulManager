@@ -111,6 +111,14 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
 <% end %>
 
 
+\subsection*{Auflistung aller eingetragenen Studienmodule}
+<% @studmodules.each do |mod| %>
+    \begin{itemize}
+        \item <%= mod.name %> (<%= mod.short %>), <%= mod.credits %> C
+        \\<%= mod.description %>
+    \end{itemize}
+<% end %>
+
 \subsection*{Weitere Informationen (Stand: 22.10.09)}
 
 Falls Sie noch Fragen haben, stehen Ihnen die Studiunberater gern zu einem persönlichen Gespräch zur Verfügung.
