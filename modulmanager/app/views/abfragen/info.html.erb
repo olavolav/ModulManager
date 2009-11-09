@@ -2,8 +2,18 @@
 <p>Es wurden <%= @credits_earned %> von <%= @credits_needed %> Credits erbracht.</p>
 <p>Außerdem wurden <%= @modules_earned %> Module von <%= @modules_needed %> Modulen bestanden.</p>
 
+<% if @child_rules.length > 0 %>
 
-<% unless @fullfilled %>
+<p>In diesem Bereich müssen noch folgende Unterbereiche erfüllt werden:</p>
+<ul>
+  <% @child_rules.each do |child| %>
+  <li><%= child %></li>
+  <% end %>
+</ul>
+
+<% end %>
+
+<% unless @fullfilled || @child_rules.length > 0 %>
 <p>Um in diesem Bereich alle Bedingungen zu erfüllen, müssen Sie noch
 <%= @modules_needed - @modules_earned %> Module und
 <%= @credits_needed - @credits_earned %> Credits erzielen.</p>
@@ -16,7 +26,6 @@
   </li>
 <% end %>
 </ul>
-<p>Die Module finden Sie rechts unter <%= @directory_string %>.</p>
 <% end %>
 
 <div id="box_info_pool">

@@ -82,7 +82,7 @@ class AbfragenController < ApplicationController
 
       unless m2 == nil
         @name = m2.name
-        @description = "Dies ist ein von Ihnen konfiguroiertes Modul."
+        @description = "Dies ist ein von Ihnen konfiguriertes Modul."
         @short = "-"
         @credits = m2.credits
         @permission = nil
@@ -95,13 +95,6 @@ class AbfragenController < ApplicationController
 
       @permission = mod.permission
     end
-
-
-
-    #    perm_con = mod.permission
-    #    perm_con.child_rules.each do |c|
-    #      c.condition
-    #    end
 
     respond_to do |format|
       format.html {render :file => "abfragen/module_info", :layout => false}
@@ -273,17 +266,24 @@ class AbfragenController < ApplicationController
     @modules_earned = regel.modules_earned mods
     @modules_needed = regel.modules_needed
 
-    @modules = regel.collect_unique_modules_from_children_without_custom
 
-    @available_modules = Array.new
+    if regel.child_connections.length > 0
 
-    @modules.each do |m|
-      found = false
-      mods.each { |mod| found = true if mod.moduledata.id == m.id }
-      @available_modules.push m unless found
+      @child_rules = regel.collect_child_rules current_selection
+
+
+    else
+      modules = regel.collect_unique_modules_from_children_without_custom
+
+      @available_modules = Array.new
+
+      modules.each do |m|
+        found = false
+        mods.each { |mod| found = true if mod.moduledata.id == m.id }
+        @available_modules.push m unless found
+      end
+
     end
-
-    @directory_string
 
     respond_to do |format|
       format.html { render :action => "info", :layout => false }

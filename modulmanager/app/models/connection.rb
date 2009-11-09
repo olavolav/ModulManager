@@ -41,5 +41,17 @@ class Connection < ActiveRecord::Base
 
     return connection_array
   end
+
+  def collect_child_rules selection
+
+    array = Array.new
+
+    self.child_connections.each do |child|
+      array.push child.name if child.evaluate(selection.selection_modules) != 1
+    end
+
+    return array
+
+  end
   
 end
