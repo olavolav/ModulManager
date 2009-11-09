@@ -6,7 +6,6 @@ Noch zu beheben:
 2. Buttons sind im Firefox nur via Text anklickbar (Olav)
 11. Name ist bei unbenoteten Modulen zu nah an dem Info-Icon (Olav)
 7. Unbenotete Module sollten nur grüne oder rote Info-Icons haben - gelbe machen ja keinen Sinn, da man ohnehin keine Note eingeben kann; genau so auch bei Dummy-Modulen, wenn man "unbenotet" gewählt hat (Quan)
-14. Note sollte nicht in die Noten-Berechnung einbezogen werden, wenn ein Modul fehlerhaft ist (Christian)
 15. Ausnahme-Actions einbauen, Details siehe Mail von CB vom 05.11.09 (Quan)
 16. Fehlermeldungen: Modul-Liste raus, wenn es bei einer Regel nur um Untergruppen geht (Christian)
 17. Fehlermeldungen: "Zu finden in" raus (Christian)
@@ -38,3 +37,4 @@ Inzwischen behoben:
 6. Text in Info-Boxen wird nicht angezeigt (Quan)
 20. Dummy-Modul: Noten-Berechnung funktioniert nicht (Christian)
 26. Info-Text von Dummy-Modulen im Pool beheben (Christian)
+14. Note sollte nicht in die Noten-Berechnung einbezogen werden, wenn ein Modul fehlerhaft ist (Christian)
