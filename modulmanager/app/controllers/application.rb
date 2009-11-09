@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 
   helper :all # just make sure to include all helpers
+  protect_from_forgery
 
   def get_note
     selection = current_selection

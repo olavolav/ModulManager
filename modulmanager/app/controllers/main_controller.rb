@@ -88,6 +88,12 @@ class MainController < ApplicationController
     end
 
   end
+
+  def get_token
+
+    render :text => form_authenticity_token, :layout => false
+
+  end
   
   def get_pdf
     selection = current_selection
