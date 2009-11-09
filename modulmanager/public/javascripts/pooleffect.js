@@ -133,7 +133,10 @@ $(function(){
 			// hide:'slide',
 			// show:'slide',
 			open : function(event,ui){
+				name.attr("value","");
+				credit.attr("value","");
 				ajax_custom_checbox($(custom_id).attr("value"));
+				
 				
 			},
 			buttons:{
