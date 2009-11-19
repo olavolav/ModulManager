@@ -64,13 +64,13 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 	if(name.val().length < min){
 		
 		name.addClass('ui-state-error');
-		updateTips("Geben Sie bitte ein Name ein!",tips);
+		updateTips("Bitte geben Sie ein Namen ein.",tips);
 		return false;
 	}
 	
 	if(this_credit.length < min || isNaN(this_credit_float)){
 		credit.addClass('ui-state-error');
-		updateTips("Credit Point ist eine Zahl zwischen 1.0 und 4.0 ",tips);
+		updateTips("Bitte geben Sie als Credits eine eine ganze Zahl ein.",tips);
 		return false;
 	}
 	else{

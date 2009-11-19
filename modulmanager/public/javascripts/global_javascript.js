@@ -154,7 +154,7 @@ var selection_input_check = function(input_noten){
 		//alert("neu String :"+new_trim_grade);
 		var new_float = parseFloat(new_trim_grade);
 		if(new_float < 1 || new_float > 4 ){
-			alert("Die Note muss eine Zahl zwischen von 1.0 und 4.0");
+			alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
 			if(!check_error_by_span(input_noten)){
 				set_image_to_ipunkt(input_noten);	
 			}
