@@ -42,7 +42,27 @@ var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='padding
 
 
 
+//token
 
+/*var Global_Token = {
+  authenticityToken: function() {
+    return $('#token').content;
+  },
+
+  authenticityTokenParameter: function(){
+   return 'token=' + encodeURIComponent(Global_Token.authenticityToken());
+  }
+}
+*/
+
+
+var  authenticityToken = function() {
+    return $('#token').attr("content");
+}
+
+var  authenticityTokenParameter = function(){
+   return 'token=' + encodeURIComponent(authenticityToken());
+}
 
 var change_credit_and_add_name_in_selection = function(handle){
 	//alert("Hi change credit in selection");
@@ -663,7 +683,8 @@ var update_modul_in_selection = function (){
 			//alert("Verändern Exception_credit ="+v);
 			$(this_modul).find(".modul_credit").text(v+" C");
 			$(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
-			//$(this_modul).append("<p class='credit-option'>Credit-Zahl wird zum "+v+" ver&auml;ndert<p>");
+			//ajax_change_credits(modul_id,v);
+			
 			
 		}
 		//alert("warn-checked = "+warn_checked);
@@ -893,7 +914,7 @@ var ajax_to_server_by_get_module_info = function (modul_id){
                 async: false,
                 dataType:'text',
                 contentType: 'application/x-www-form-urlencoded',
-				data :"module_id="+modul_id,
+				data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
                 success : function(html){
 
                         $("#info_box #box_info").append(html);
@@ -909,8 +930,8 @@ var ajax_to_server_by_get_module_info = function (modul_id){
 	
 }
 var ajax_to_server_by_add = function (modul_id,semester,cat_id){
-    //alert("mod_id="+modul_id+" und semester="+semester);
-    //alert("modul_id="+modul_id+"semester="+semester);
+    
+	//alert(authenticityToken());
     $.ajax({
 							
         type: 'POST',
@@ -918,7 +939,7 @@ var ajax_to_server_by_add = function (modul_id,semester,cat_id){
         cache:false,
         dataType:'text',
         async :false,
-        data  : "mod_id="+modul_id+"&"+"sem_count="+semester+"&"+"cat_id="+cat_id,
+        data  : "mod_id="+modul_id+"&"+"sem_count="+semester+"&"+"cat_id="+cat_id+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded'/*,
         error :  function (a,b,c){
             alert(b);
@@ -939,7 +960,7 @@ var ajax_to_server_by_remove = function (modul_id){
         cache:false,
         dataType:'text',
         async :false,
-        data  : "mod_id="+modul_id,
+        data  : "mod_id="+modul_id+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded'/*,
         error :  function (a,b,c){
             alert("problem with remove_module_from_selection");
@@ -962,7 +983,7 @@ var ajax_to_server_by_remove_semester = function (sem_count){
         dataType:'text',
         cache : false,
         async : false,
-        data  : "sem_count="+sem_count,
+        data  : "sem_count="+sem_count+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded'/*,
         error : function (a,b,c){
             alert("problem with abfragen/remove_semester_from_selection");
@@ -983,7 +1004,7 @@ var ajax_to_server_by_grade = function(modul_id,grade){
         dataType:"text",
         cache:false,
         async:false,
-        data:"mod_id="+modul_id+"&"+"grade="+grade,
+        data:"mod_id="+modul_id+"&"+"grade="+grade+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded'/*,
         error : function(a,b,c){
             alert ("AJAX-Fehler: save_module_grade");
@@ -1034,7 +1055,7 @@ function ajax_server_by_custom(this_name,this_credit_point_float,category_id,cus
         dataType:"text",
         cache:false,
         async:false,
-        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id+"&"+"cat_id="+category_id,
+        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id+"&"+"cat_id="+category_id+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
 		success: function(data){
 			
@@ -1056,7 +1077,7 @@ function ajax_combobox(mod_id){
 	        dataType:"text",
 	        cache:false,
 	        async:false,
-	        data:"mod_id="+mod_id,
+	        data:"mod_id="+mod_id+"&"+authenticityTokenParameter(),
 	        contentType:'application/x-www-form-urlencoded',
 			success:function(html){
 				//alert(html);
@@ -1082,7 +1103,7 @@ function ajax_custom_checbox(custom_id){
 	        dataType:"text",
 	        cache:false,
 	        async:false,
-	        data:"mod_id="+custom_id,
+	        data:"mod_id="+custom_id+"&"+authenticityTokenParameter(),
 	        contentType:'application/x-www-form-urlencoded',
 			success:function(html){
 				//alert(html);
@@ -1107,7 +1128,7 @@ function ajax_set_custom_checbox(custom_id,cat_id_array){
 	        dataType:"text",
 	        cache:false,
 	        async:false,
-	        data:"mod_id="+custom_id+"&"+"cat_id="+cat_id_array,
+	        data:"mod_id="+custom_id+"&"+"cat_id="+cat_id_array+"&"+authenticityTokenParameter(),
 	        contentType:'application/x-www-form-urlencoded',
 			error : function(a,b,c){
 	            alert ("AJAX-Fehler: set_category");
@@ -1117,6 +1138,29 @@ function ajax_set_custom_checbox(custom_id,cat_id_array){
 	
 	
 }//ende
+
+function ajax_change_credits(mod_id,credits){
+	//alert("hallo mod_id"+mod_id+" und credits "+credits);
+	 $.ajax({
+	        type:"POST",
+	        url :"abfragen/change_credits",
+	        dataType:"text",
+	        cache:false,
+	        async:false,
+	        data:"mod_id="+mod_id+"&"+"credits="+credits+"&"+authenticityTokenParameter(),
+	        contentType:'application/x-www-form-urlencoded',
+			/*success:function(text){
+				alert("hallo "+text);
+			},*/
+			error : function(a,b,c){
+	            alert ("AJAX-Fehler: change_credits");
+	        }
+	 });
+	
+	
+	
+}
+
 var check_error = function(error_id){
 	var check=false;
 	$("#middle #error_table").children().each(function(){
