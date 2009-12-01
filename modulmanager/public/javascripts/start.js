@@ -1,3 +1,11 @@
+
+var  authenticityToken = function() {
+    return $('#token').attr("content");
+}
+
+var  authenticityTokenParameter = function(){
+   return 'authenticity_token=' + encodeURIComponent(authenticityToken());
+}
 var update_schwerpunkt = function(s_id){
 	
 	$(".schwerpunkt_oben").attr("class","schwerpunkt_oben passive");
@@ -10,7 +18,7 @@ var update_schwerpunkt = function(s_id){
         dataType:"text",
         cache:false,
         async:false,
-        data:"id="+s_id,
+        data:"id="+s_id+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
         error : function(a,b,c){
             alert ("AJAX-Fehler: update_schwerpunkt");
@@ -32,7 +40,7 @@ var update_pordnung = function(po_id){
         dataType:"text",
         cache:false,
         async:false,
-        data:"version="+po_id,
+        data:"version="+po_id+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
         error : function(a,b,c){
             alert ("AJAX-Fehler: update_pordnung");

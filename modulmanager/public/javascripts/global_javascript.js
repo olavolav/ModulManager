@@ -55,7 +55,7 @@ var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='padding
 }
 */
 
-
+/*
 var  authenticityToken = function() {
     return $('#token').attr("content");
 }
@@ -63,7 +63,7 @@ var  authenticityToken = function() {
 var  authenticityTokenParameter = function(){
    return 'authenticity_token=' + encodeURIComponent(authenticityToken());
 }
-
+*/
 var change_credit_and_add_name_in_selection = function(handle){
 	//alert("Hi change credit in selection");
 	//credit �ndern
