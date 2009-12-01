@@ -61,16 +61,16 @@ var  authenticityToken = function() {
 }
 
 var  authenticityTokenParameter = function(){
-   return 'token=' + encodeURIComponent(authenticityToken());
+   return 'authenticity_token=' + encodeURIComponent(authenticityToken());
 }
 
 var change_credit_and_add_name_in_selection = function(handle){
 	//alert("Hi change credit in selection");
-	//credit ändern
+	//credit ï¿½ndern
 	var c_text =$(handle).find(".credits_in_selection").text();
 	$(handle).find(".modul_credit").text(c_text+" C");
 	
-	//name hizufügen
+	//name hizufï¿½gen
 	var n_text = $(handle).find(".add_sel_name_in_sel").text();
 	$(handle).find(".modul_name").append(n_text);
 	
@@ -80,7 +80,7 @@ var change_credit_and_add_name_in_selection = function(handle){
 var change_credit_and_remove_name_in_pool = function(handle){
 	
 	//alert("Hi remove name in pool");
-	//credit ändern
+	//credit ï¿½ndern
 	var c_text =$(handle).find(".total_modul_credit").text();
 	$(handle).find(".modul_credit").text(c_text+" C");
 	
@@ -479,7 +479,7 @@ var modul_loeschen = function (mod_id,all_sem_destroy){
 				
 				if(this_mod_par_attr != "nein"){
 					//hier ist Teil-modul
-					//such nach head-modul-->löschen
+					//such nach head-modul-->lï¿½schen
 					var head_modul = $("#middle div.semester").find("div#"+this_mod_par_attr);
 					change_credit_and_remove_name_in_pool(head_modul);
 					$(head_modul).find(".head_modul_in_pool").text("ja");
@@ -624,7 +624,7 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
 
 
 var info_box_selection = function(modul_id){
-		//schreib modul_id in attr "rel", um später wieder 
+		//schreib modul_id in attr "rel", um spï¿½ter wieder 
 		//Modul in Auswahl zu finden
 		
 		
@@ -654,7 +654,7 @@ var info_box = function(modul_id){
 
 var update_modul_in_selection = function (){
 	//alert("hallo uapdate");
-	//check, ob man etwas in Ausnahme verändert hat
+	//check, ob man etwas in Ausnahme verï¿½ndert hat
 	//if ($("#box_info_exception").css("display") == "block"){
 	
 	
@@ -676,11 +676,11 @@ var update_modul_in_selection = function (){
 		
 		//credit
 		if(($.trim(v)=="Note")||($.trim(v)=="")){
-			//alert("nicht Verändern");
+			//alert("nicht Verï¿½ndern");
 		}
 		else{
 			
-			//alert("Verändern Exception_credit ="+v);
+			//alert("Verï¿½ndern Exception_credit ="+v);
 			$(this_modul).find(".modul_credit").text(v+" C");
 			$(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
 			//ajax_change_credits(modul_id,v);
@@ -741,7 +741,7 @@ var session_auswahl_rekursiv = function(root){
 			
 			
 			
-			//custom_modul laden: Name und credit verändern
+			//custom_modul laden: Name und credit verï¿½ndern
 			
 			if($(this).hasClass("custom")){
 				//alert("Hallo custom_modul_in_auswahl ID: "+mod_id);
@@ -798,7 +798,7 @@ var session_auswahl_rekursiv = function(root){
 			
 			$(auswahl_modul_clone).find("span.inAuswahl").text("ja");
 			
-			//check nach Kopfmodul. Wenn ja dann credit name und head_modul_in_pool verändern
+			//check nach Kopfmodul. Wenn ja dann credit name und head_modul_in_pool verï¿½ndern
 			if($(auswahl_modul_clone).find(".modul_parts").text()!="0"){
 				$(auswahl_modul_clone).find(".head_modul_in_pool").text("nein");
 				change_credit_and_add_name_in_selection(auswahl_modul_clone);
@@ -1266,7 +1266,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 	var additional_info = $(ui_draggable).find(".additional_info").text();
 	//alert("cat_id = "+cat_id);
 	//alert(additional_info);
-	//check nach combobox bei Einführung bzw. SpezielleThemen
+	//check nach combobox bei Einfï¿½hrung bzw. SpezielleThemen
 	
 	if (additional_info == "true") {
 		//alert("ajax mit id " + modul_id);
@@ -1527,7 +1527,7 @@ var poolrekursiv = function(XMLhandle){
 					kopf_modul_in_pool="ja";
 				}
 				
-				// Teil_modul_ name wird angehängt
+				// Teil_modul_ name wird angehï¿½ngt
 				if($(this).attr("parent") != ""){
 					pool_modul_class="partial_modul";
 					modul_parent_attr=$(this).attr("parent");
@@ -1551,7 +1551,7 @@ var poolrekursiv = function(XMLhandle){
 				var credits_in_selection = credits;
 				
 				if(total_credits!=""){
-					this_total_credits=total_credits;// für das KopfmodulModul, das wieder zurück in Pool ist
+					this_total_credits=total_credits;// fï¿½r das KopfmodulModul, das wieder zurï¿½ck in Pool ist
 					credits=total_credits;
 					
 				}
@@ -1676,7 +1676,7 @@ var search_is_active = function(){
 }
 
 var change_module_style_to_pool = function(handle){
-	// style für option
+	// style fï¿½r option
 	$(handle).find("p.credit-option").css("display","none");
 	$(handle).find("p.warnung-option").css("display","none");
 	$(handle).find("p.note-option").css("display","none");
@@ -1702,7 +1702,7 @@ var change_module_style_to_pool = function(handle){
 }
 
 var change_module_style_to_auswahl = function(handle){
-	// style für option
+	// style fï¿½r option
 	$(handle).find("p.credit-option").css("display","block");
 	$(handle).find("p.warnung-option").css("display","block");
 	$(handle).find("p.note-option").css("display","block");
