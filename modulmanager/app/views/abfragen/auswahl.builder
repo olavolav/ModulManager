@@ -36,7 +36,7 @@ xml.auswahl(:id => @selection.id) do
                 :has_grade => has_grade
               )
             else
-              xml.module(:id => m.moduledata.id, :grade => m.grade, :has_grade => has_grade)
+              xml.module(:id => m.moduledata.id, :grade => m.grade, :has_grade => has_grade, :credits => m.credits)
             end
           end
         end

@@ -200,10 +200,11 @@ class AbfragenController < ApplicationController
     selection.selection_modules.each do |m|
       if m.moduledata.id == id
         m.has_grade = false
-        return true
+        render :text => "success"
+        return
       end
     end
-    return false
+    render :text => "error"
   end
 
   def add_grade
@@ -298,13 +299,15 @@ class AbfragenController < ApplicationController
     selection = current_selection
 
     selection.selection_modules.each do |m|
-      if m.moduledata.id == mod_id
+
+      if m.moduledata.id == mod_id.to_i
         m.credits = credits
         m.save
-        return true
+        render :text => "success"
+        return
       end
     end
-    return false
+    render :text => "error"
   end
 
   def remove_warning
@@ -312,13 +315,14 @@ class AbfragenController < ApplicationController
     selection = current_selection
 
     selection.each do |m|
-      if m.moduledata.id == mod_id
-        m.moduledata.permission = nil
+      if m.moduledata.id == mod_id.to_i
+        m.permission_removed = true
         m.save
-        return true
+        render :text => "success"
+        return
       end
     end
-    return false
+    render :text => "error"
   end
 
   def add_warning
@@ -326,14 +330,13 @@ class AbfragenController < ApplicationController
     selection = current_selection
 
     selection.each do |m|
-      if m.moduledata.id == mod_id
-        m.moduledata.permission = Studmodule.find(mod_id).permission
+      if m.moduledata.id == mod_id.to_i
+        m.permission_removed = false
         m.save
-        return true
+        render :text => "success"
+        return
       end
     end
-
-    return false
+    render :text => "error"
   end
-
 end

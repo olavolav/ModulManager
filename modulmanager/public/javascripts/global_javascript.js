@@ -683,7 +683,7 @@ var update_modul_in_selection = function (){
 			//alert("Ver�ndern Exception_credit ="+v);
 			$(this_modul).find(".modul_credit").text(v+" C");
 			$(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
-			//ajax_change_credits(modul_id,v);
+			ajax_change_credits(modul_id,v);
 			
 			
 		}
