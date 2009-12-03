@@ -31,7 +31,7 @@ class AbfragenController < ApplicationController
       if semester.count > 0
         count = semester.count
         semester.modules.each do |mod|
-          if mod.moduledata.permission == nil
+          if mod.moduledata.permission == nil || mod.permission_removed
             permission = 1
           else
             permission = mod.moduledata.permission.evaluate(selection.semesters, count)
@@ -198,7 +198,7 @@ class AbfragenController < ApplicationController
     id = params[:mod_id]
     selection = current_selection
     selection.selection_modules.each do |m|
-      if m.moduledata.id == id
+      if m.moduledata.id == id.to_i
         m.has_grade = false
         render :text => "success"
         return
@@ -211,7 +211,7 @@ class AbfragenController < ApplicationController
     id = params[:mod_id]
     selection = current_selection
     selection.selection_modules.each do |m|
-      if m.moduledata.id == id
+      if m.moduledata.id == id.to_i
         m.has_grade = true
         return true
       end

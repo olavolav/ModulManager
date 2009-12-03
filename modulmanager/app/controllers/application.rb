@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
           permitted = 1
           m.moduledata.permission == nil ? permitted = 1 : permitted = m.moduledata.permission.evaluate(selection.semesters, m.semester.count)
 
-          if permitted == 1
+          if (permitted == 1 || m.permission_removed) && m.has_grade
             if m.moduledata.children != [] && m.moduledata.children != nil
               teil_kumul = 0
               teil_credits = 0

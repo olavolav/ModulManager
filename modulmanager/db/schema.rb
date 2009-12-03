@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091105084543) do
+ActiveRecord::Schema.define(:version => 20091202090940) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(:version => 20091105084543) do
     t.integer  "parent_id"
     t.integer  "category_id"
     t.boolean  "has_grade"
+    t.boolean  "permission_removed"
   end
 
   create_table "semesters", :force => true do |t|
