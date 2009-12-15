@@ -13,6 +13,7 @@ Noch zu beheben:
 27. Deployment auf dem rortest-sorgesolutions-Server testen (Christian)
 29. Copyright-Angaben hinzufügen (Olav)
 31. Dummy-Module an erster Stelle der jw. Pool-Kategorien einscheinen lassen (Christian)
+32. _check_category im main-Controller ist noch nicht dynamisch bzgl. NatMat usw. (Christian)
 
 
 Inzwischen behoben:
