@@ -13,7 +13,22 @@ Noch zu beheben:
 29. Copyright-Angaben hinzufügen (Olav)
 31. Dummy-Module an erster Stelle der jw. Pool-Kategorien einscheinen lassen (Christian)
 32. _check_category im main-Controller ist noch nicht dynamisch bzgl. NatMat usw. (Christian)
-33. Vorgeschaltete JavaScript-Test-Seite einbauen (Olav)
+33. Vorgeschaltete JavaScript-Test-Seite und Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
+34. Link zu UniVZ ermöglichen (Olav & Christian)
+35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
+36. Ausnahme-Optionen: "Note streichen" soll nur bei benoteten Modulen verfügbar sein; bitte auch an die Dummy-Module denken (Christian)
+37. Note streichen darf man nur X Mal pro best. Gruppe Falls dieser Wert überschritten ist, entspr. Fehler anzeigen
+38. Berechnete Note wieder anzeigen (Christian findet raus, wer verantwortlich ist)
+39. Die Action _combo_category liefert noch keinen HTML-Code, also keine Dropdown-Box (Christian)
+40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
+41. Ausnahme-Optionen: Vorherige Einstellungen werden vergessen, so bald man ein weiteres Mal auf den Info-Knopf klickt (Christian, evtl. mit Hilfe von Quan)
+42. Überblick: Info-Knopf der untersten Ebene geht nicht (Christian)
+43. Import und Export als XML testen, ob alle Noten, Einstellungen, Dummies etc. erhalten bleiben (Christian)
+44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
+45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
+46. gruppen.xml: Statt die Dummies einzeln als "customX" aufzulisten, dynamisch via neuer Zeile (z.B. "dummies: 3") generieren
+47. Vereinheitlich, dass Strings aus den YAML-Dateien mit Komma oder mit Komma und Leerzeichen getrennt sein können (Christian)
+48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
 
 
 Inzwischen behoben:
@@ -23,7 +38,7 @@ Inzwischen behoben:
 3. Korrekte Anzeige eines bereits ausgewählten Schwerpunktes funktioniert beim neu Laden der Seite bzw. beim Zurück-Gehen von der Hauptseite aus nicht richtig , außer bei "Kein Schwerpunkt" (Christian & Olav)
 12. Der Browser springt ganz nach oben, wenn man auf einen beliebigen Link klickt, liegt am href="#" (Quan & Olav)
 4. Anzeige des Zurück-Buttons auf der Start-Seite funktioniert nicht - er wird auch angezeigt, wen man keinen SP ausgewählt hat (Christian)
-5. Rails-Fehler, wenn man auf "Upload" klickt, ohne eine Daei ausgewählt zu haben (Christian)
+5. Rails-Fehler, wenn man auf "Upload" klickt, ohne eine Datei ausgewählt zu haben (Christian)
 10. Button im Export wieder auf das PDF verlinken, ist wahrscheinlich momentan nur zum Testen (Christian)
 8. Längliche "(Sontiges Modul)"-Auflistung aus den Fehlermeldungen in den Überblicks-Info-Boxen nehmen und anderweitig erklären (Christian)
 13. Sub-Names von Sub-Modulen kommen in der Pool-XML nicht mehr vor (Christian)
