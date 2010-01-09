@@ -29,6 +29,7 @@ Noch zu beheben:
 46. gruppen.xml: Statt die Dummies einzeln als "customX" aufzulisten, dynamisch via neuer Zeile (z.B. "dummies: 3") generieren
 47. Vereinheitlich, dass Strings aus den YAML-Dateien mit Komma oder mit Komma und Leerzeichen getrennt sein können (Christian)
 48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
+49. Automatisches, regelmäßiges Löschen alter Session-Daten (Christian & Olav)
 
 
 Inzwischen behoben:
