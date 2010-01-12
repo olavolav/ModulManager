@@ -26,8 +26,6 @@ Noch zu beheben:
 43. Import und Export als XML testen, ob alle Noten, Einstellungen, Dummies etc. erhalten bleiben (Christian)
 44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
-46. gruppen.xml: Statt die Dummies einzeln als "customX" aufzulisten, dynamisch via neuer Zeile (z.B. "dummies: 3") generieren
-47. Vereinheitlich, dass Strings aus den YAML-Dateien mit Komma oder mit Komma und Leerzeichen getrennt sein können (Christian)
 48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
 49. Automatisches, regelmäßiges Löschen alter Session-Daten (Christian & Olav)
 50. Lade-Balken auf der Hauptseite unter der Navigation hinzufügen (Olav)
@@ -57,6 +55,10 @@ Inzwischen behoben:
 30. Note immer aktualisieren, wenn irgendwas an der Auswahl verändert wurde - der Hintergrund ist der, dass bisher die Note nicht aktualisiert werden musste, wenn ein Modul innerhalb der Auswahl verschoben wurde; da wir die Vorrats-Box jetzt aber als normales Semester implementieren, muss die Note immer aktualisiert werden (Quan)
 19. Hinweis in die YAML-Datei, warum wir beim Bachelor keine 180 C fordern (Olav)
 23. protect_from_forgery wieder einbauen (Quan)
+46. gruppen.xml: Statt die Dummies einzeln als "customX" aufzulisten, dynamisch via neuer Zeile (z.B. "dummies: 3") generieren (Christian)
+47. Vereinheitlich, dass Strings aus den YAML-Dateien mit Komma oder mit Komma und Leerzeichen getrennt sein können (Christian)
+
+
 
 
 Nicht behoben:

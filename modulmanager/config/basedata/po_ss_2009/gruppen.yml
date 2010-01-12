@@ -72,15 +72,17 @@
 
   - name: Nicht Physikalisch
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
-    module: "B.Bio.118, B.Bio.112, B.Bwl.02, B.OPH.07, B.Bwl.04, B.Win.01, B.Win.04, B.Win.23, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12,  custom13, custom14, custom15, custom16, custom17, custom18"
+    module: "B.Bio.118, B.Bio.112, B.Bwl.02, B.OPH.07, B.Bwl.04, B.Win.01, B.Win.04, B.Win.23, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3"
     credits: 12
     überschneidung: mehrfach
+    dummies: 18
 
   - name: Mathematisch-Naturwissenschaftlich
-    module: "B.Phy.606, B.Bio.118, B.Bio.112, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3, custom19, custom20, custom21, custom22, custom23, custom24, custom25, custom26, custom27, custom28, custom29, custom30, custom31, custom32, custom33, custom34, custom35, custom36"
+    module: "B.Phy.606, B.Bio.118, B.Bio.112, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3"
     credits: 6
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
     überschneidung: mehrfach
+    dummies: 18
 
   # ==========================
   # Sonstiges

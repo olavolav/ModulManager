@@ -84,11 +84,6 @@ class RegelParserController < ApplicationController
       kategorien = Array.new
 
       f["kategorien"].each do |k|
-        #        group = Group.create :name => k["name"],
-        #          :credits => k["credits"],
-        #          :count => k["anzahl"],
-        #          :modules => Studmodule::get_array_from_module_string(k["module"]),
-        #          :modus => k["modus"]
 
         group = Category.create :name => k["name"],
           :credits => k["credits"],
@@ -226,11 +221,6 @@ class RegelParserController < ApplicationController
 
     end
 
-    36.times do |i|
-      Studmodule.create :name => "(Sonstiges Modul)",
-        :short => "custom#{(i+1)}",
-        :parts => 1
-    end
   end
 
   def create_limited_connection zulassung, owner
@@ -284,6 +274,9 @@ class RegelParserController < ApplicationController
   end
 
   def read_group_file filename, version
+
+    dummie_counter = 1
+
     y = extract_yaml(filename)
     parent_groups = Array.new
     module_groups = Array.new
@@ -299,20 +292,21 @@ class RegelParserController < ApplicationController
       mg["sichtbar"] == "nein" ? visible = false : visible = true
 
       modules_and_children = Studmodule::get_array_from_module_string(mg["module"])
-      #      modules.each {|m| modules_and_children.concat(m.children)}
-
-      puts "Category = #{mg['name']}"
-      puts "Module-String = #{mg['module']}"
-      puts "module_and_children = #{modules_and_children}"
-      modules_and_children.each do |m|
-        puts "m.id = #{m.id}"
-      end
-      Category.create :name => mg["name"],
+      new_cat = Category.create :name => mg["name"],
         :description => mg["beschreibung"],
         :version => version,
         :modules => modules_and_children,
         :modus => mg["modus"],
         :visible => visible
+      if mg["dummies"] != nil
+        mg["dummies"].times do
+          dummie = Studmodule.create :name => "(Sonstiges Modul)",
+            :short => "custom#{dummie_counter}",
+            :parts => 1
+          new_cat.modules << dummie
+          dummie_counter += 1
+        end
+      end
       create_min_standard_connection(mg["name"], mg["credits"], mg["anzahl"], version)
     end
     parent_groups.each do |pg|

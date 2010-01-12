@@ -66,8 +66,7 @@ class Studmodule < ActiveRecord::Base
   end
 
   def classification
-    result = "non-custom"
-    36.times { |i| result = "custom" if self.short == "custom#{(i+1)}" }
+    self.short.include? "custom" ? result = "custom" : result = "non-custom"
     return result
   end
 
