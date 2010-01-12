@@ -30,6 +30,7 @@ Noch zu beheben:
 47. Vereinheitlich, dass Strings aus den YAML-Dateien mit Komma oder mit Komma und Leerzeichen getrennt sein können (Christian)
 48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
 49. Automatisches, regelmäßiges Löschen alter Session-Daten (Christian & Olav)
+50. Lade-Balken auf der Hauptseite unter der Navigation hinzufügen (Olav)
 
 
 Inzwischen behoben:
