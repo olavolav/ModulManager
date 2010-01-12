@@ -3,31 +3,61 @@ module AbfragenHelper
   def build_xml_bachelor_recursive(c, xml, modus)
     modus = c.modus unless c.modus == nil
     if c.sub_categories == [] && c.modules != []
-      c.modules.each { |m|
 
-        xml.module(
-          :id => m.id,
-          :class => m.classification,
-          :partial => m.is_partial_module,
-          :has_grade => m.has_grade,
-          :parent => m.parent_id,
-          :total_credits => m.total_credits,
-          :parts => m.parts,
-          :multiple_categories => m.has_multiple_categories,
-          :additional_server_info => m.has_additional_server_infos
-        ) {
-          xml.name(m.name)
-          xml.add_sel_name(m.displayable_subname)
-          xml.short(m.short)
-          xml.credits(m.credits)
-          xml.mode(modus)
-          xml.parent(m.parent.id) unless m.parent == nil
-          xml.total_credits(m.credits_total) if m.is_partial_module
-          xml.parts(m.parts)
-          xml.categories do
-            m.categories.each {|c| xml.category c.id}
-          end if m.has_multiple_categories
-        }
+      c.modules.each do |m|
+        if m.short.include? "custom"
+          xml.module(
+            :id => m.id,
+            :class => m.classification,
+            :partial => m.is_partial_module,
+            :has_grade => m.has_grade,
+            :parent => m.parent_id,
+            :total_credits => m.total_credits,
+            :parts => m.parts,
+            :multiple_categories => m.has_multiple_categories,
+            :additional_server_info => m.has_additional_server_infos
+          ) {
+            xml.name(m.name)
+            xml.add_sel_name(m.displayable_subname)
+            xml.short(m.short)
+            xml.credits(m.credits)
+            xml.mode(modus)
+            xml.parent(m.parent.id) unless m.parent == nil
+            xml.total_credits(m.credits_total) if m.is_partial_module
+            xml.parts(m.parts)
+            xml.categories do
+              m.categories.each {|c| xml.category c.id}
+            end if m.has_multiple_categories
+          }
+        end
+      end
+
+      c.modules.each { |m|
+        if m.short.include?("custom") == false
+          xml.module(
+            :id => m.id,
+            :class => m.classification,
+            :partial => m.is_partial_module,
+            :has_grade => m.has_grade,
+            :parent => m.parent_id,
+            :total_credits => m.total_credits,
+            :parts => m.parts,
+            :multiple_categories => m.has_multiple_categories,
+            :additional_server_info => m.has_additional_server_infos
+          ) {
+            xml.name(m.name)
+            xml.add_sel_name(m.displayable_subname)
+            xml.short(m.short)
+            xml.credits(m.credits)
+            xml.mode(modus)
+            xml.parent(m.parent.id) unless m.parent == nil
+            xml.total_credits(m.credits_total) if m.is_partial_module
+            xml.parts(m.parts)
+            xml.categories do
+              m.categories.each {|c| xml.category c.id}
+            end if m.has_multiple_categories
+          }
+        end
       }
 
     elsif c.sub_categories != []

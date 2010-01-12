@@ -11,7 +11,6 @@ Noch zu beheben:
 25. Hilfe-Seite schreiben (Olav)
 27. Deployment testen (Christian)
 29. Copyright-Angaben hinzufügen (Olav)
-31. Dummy-Module an erster Stelle der jw. Pool-Kategorien einscheinen lassen (Christian)
 32. _check_category im main-Controller ist noch nicht dynamisch bzgl. NatMat usw. (Christian)
 33. Vorgeschaltete JavaScript-Test-Seite und Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
 34. Link zu UniVZ ermöglichen (Olav & Christian)
@@ -57,6 +56,7 @@ Inzwischen behoben:
 23. protect_from_forgery wieder einbauen (Quan)
 46. gruppen.xml: Statt die Dummies einzeln als "customX" aufzulisten, dynamisch via neuer Zeile (z.B. "dummies: 3") generieren (Christian)
 47. Vereinheitlich, dass Strings aus den YAML-Dateien mit Komma oder mit Komma und Leerzeichen getrennt sein können (Christian)
+31. Dummy-Module an erster Stelle der jw. Pool-Kategorien einscheinen lassen (Christian)
 
 
 

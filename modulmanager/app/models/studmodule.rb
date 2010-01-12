@@ -66,7 +66,7 @@ class Studmodule < ActiveRecord::Base
   end
 
   def classification
-    self.short.include? "custom" ? result = "custom" : result = "non-custom"
+    self.short.include?("custom") ? result = "custom" : result = "non-custom"
     return result
   end
 
