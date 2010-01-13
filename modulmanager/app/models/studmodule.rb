@@ -54,6 +54,16 @@ class Studmodule < ActiveRecord::Base
     return result
   end
 
+  def has_grade
+    if read_attribute("has_grade") == nil
+      return true
+    elsif read_attribute("has_grade") == ""
+      return true
+    else
+      return read_attribute("has_grade")
+    end
+  end
+
   def is_partial_module
     result = false
     self.children.length > 0 ? result = true : result = false
