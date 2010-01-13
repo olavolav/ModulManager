@@ -10,6 +10,7 @@
                    <p><label for="">Bitte Datei zum Upload wählen:</label></p>
                    <p><input type="file" name="data_file" /></p>
                    <p><input type="submit" value="Upload" /></p>
+                   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
                  </form>
                </div>
 	

@@ -8,7 +8,6 @@ xml.auswahl(:id => @selection.id) do
     @selection.semesters.sort_by { |sem| sem.count }.each do |s|
       xml.semester(:count => s.count, :id => "sem#{s.id}") do
         s.modules.each do |m|
-#          m.has_grade == nil ? has_grade = true : has_grade = m.has_grade
           m.has_grade == nil ? has_grade = m.moduledata.has_grade : has_grade = m.has_grade
           if m.class == CustomModule
             custom_count += 1

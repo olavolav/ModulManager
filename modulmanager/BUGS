@@ -20,7 +20,6 @@ Noch zu beheben:
 39. Die Action _combo_category liefert noch keinen HTML-Code, also keine Dropdown-Box (Christian)
 40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
 41. Ausnahme-Optionen: Vorherige Einstellungen werden vergessen, so bald man ein weiteres Mal auf den Info-Knopf klickt (Christian, evtl. mit Hilfe von Quan)
-43. Import und Export als XML testen, ob alle Noten, Einstellungen, Dummies etc. erhalten bleiben (Christian)
 44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
 48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
@@ -59,6 +58,7 @@ Inzwischen behoben:
 34. Link zu UniVZ ermöglichen (Olav & Christian)
 42. Überblick: Info-Knopf der untersten Ebene geht nicht (Christian)
 50. Lade-Balken auf der Hauptseite unter der Navigation hinzufügen (Olav)
+43. Import und Export als XML testen, ob alle Noten, Einstellungen, Dummies etc. erhalten bleiben (Christian)
 
 
 Nicht behoben:

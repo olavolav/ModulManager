@@ -82,7 +82,7 @@ class MainController < ApplicationController
   def get_file
 
     headers["Content-Disposition"] = "attachment; filename=studienplan.stpl"
-    
+
     respond_to do |format|
       format.xml
     end
@@ -203,11 +203,7 @@ class MainController < ApplicationController
 
       shredder filename
 
-      if @version.all.length > 1
-        redirect_to :action => "import2"
-      else
-        redirect_to :action => "index"
-      end
+      redirect_to :action => "import2"
     else
       flash[:notice] = "<p style='color: red;'>Bitte eine Datei zum Importieren auswählen!</p>"
       redirect_to :action => "import"
@@ -274,24 +270,33 @@ class MainController < ApplicationController
     doc.root.each_element('//semester') do |s|
       my_semester = Semester.create :count => s.attributes['count']
       my_selection.semesters << my_semester
-      custom_count = 0
+#      custom_count = 0
       s.elements.each do |m|
 
-        if m.attributes['id'] == "custom"
-          custom_count += 1
-          my_module = CustomModule.create
-          my_module.short = "custom#{custom_count}"
-          my_module.grade = m.attributes['grade']
-          my_module.name = m.attributes['name']
-          my_module.credits = m.attributes['credits']
-          my_semester.modules << my_module
-        else
-          my_module = Studmodule.find(:first, :conditions => "short = '#{m.attributes['short']}'")
-          my_semester.studmodules << my_module
-          s = SelectedModule.find(:first, :conditions => "module_id = '#{my_module.id}'")
-          s.grade = m.attributes['grade']
-          s.save
-        end
+        my_module = SelectedModule.create :moduledata => Studmodule.find(m.attributes['moduledata']),
+          :name => m.attributes['name'],
+          :credits => m.attributes['credits'],
+          :has_grade => m.attributes['has_grade'],
+          :permission_removed => m.attributes['permission_removed'],
+          :grade => m.attributes['grade']
+
+        my_semester.modules << my_module
+
+#        if m.attributes['id'] == "custom"
+#          custom_count += 1
+#          my_module = CustomModule.create
+#          my_module.short = "custom#{custom_count}"
+#          my_module.grade = m.attributes['grade']
+#          my_module.name = m.attributes['name']
+#          my_module.credits = m.attributes['credits']
+#          my_semester.modules << my_module
+#        else
+#          my_module = Studmodule.find(:first, :conditions => "short = '#{m.attributes['short']}'")
+#          my_semester.studmodules << my_module
+#          s = SelectedModule.find(:first, :conditions => "module_id = '#{my_module.id}'")
+#          s.grade = m.attributes['grade']
+#          s.save
+#        end
         
       end
     end
