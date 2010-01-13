@@ -20,7 +20,6 @@ Noch zu beheben:
 39. Die Action _combo_category liefert noch keinen HTML-Code, also keine Dropdown-Box (Christian)
 40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
 41. Ausnahme-Optionen: Vorherige Einstellungen werden vergessen, so bald man ein weiteres Mal auf den Info-Knopf klickt (Christian, evtl. mit Hilfe von Quan)
-42. Überblick: Info-Knopf der untersten Ebene geht nicht (Christian)
 43. Import und Export als XML testen, ob alle Noten, Einstellungen, Dummies etc. erhalten bleiben (Christian)
 44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
@@ -28,6 +27,7 @@ Noch zu beheben:
 49. Automatisches, regelmäßiges Löschen alter Session-Daten (Christian & Olav)
 50. Lade-Balken auf der Hauptseite unter der Navigation hinzufügen (Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen (Olav)
+52. Authenticity-Token bei Anfrage an abfrage/info (Info-Knopf im Überblick...) mitsenden, da die Ajax-POST-Anfrage nicht bearbeitet wird! (Quan)
 
 
 Inzwischen behoben:
@@ -58,6 +58,8 @@ Inzwischen behoben:
 47. Vereinheitlich, dass Strings aus den YAML-Dateien mit Komma oder mit Komma und Leerzeichen getrennt sein können (Christian)
 31. Dummy-Module an erster Stelle der jw. Pool-Kategorien einscheinen lassen (Christian)
 34. Link zu UniVZ ermöglichen (Olav & Christian)
+42. Überblick: Info-Knopf der untersten Ebene geht nicht (Christian)
+
 
 
 

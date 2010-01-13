@@ -2,7 +2,7 @@
 <p>Es wurden <%= @credits_earned %> von <%= @credits_needed %> Credits erbracht.</p>
 <p>Außerdem wurden <%= @modules_earned %> Module von <%= @modules_needed %> Modulen bestanden.</p>
 
-<% if @child_rules.length > 0 %>
+<% if @child_rules != nil && @child_rules.length > 0 %>
 
 <p>In diesem Bereich müssen noch folgende Unterbereiche erfüllt werden:</p>
 <ul>
