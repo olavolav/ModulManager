@@ -3,11 +3,14 @@
   <p class='description'><%= @description %></p>
   <p class='short'>Kurzbezeichnung: <%= @short %></p>
   <p class='credits'>Credits: <%= @credits %></p>
+  <% if @univz_link != nil %>
+    <p class="univz">UniVZ-Link: <a href="<%= @univz_link %>"><%= @name %></a></p>
+  <% end %>
 
   <% unless @permission == nil %>
-  <p>Voraussetzungen:
-  <ul>
-  <%= permission_tree @permission %>
-  </ul></p>
-  <% end %>
+    <p>Voraussetzungen:
+    <ul>
+      <%= permission_tree @permission %>
+    </ul></p>
+<% end %>
 </div>

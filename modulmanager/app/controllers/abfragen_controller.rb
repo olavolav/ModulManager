@@ -92,6 +92,19 @@ class AbfragenController < ApplicationController
       @description  = mod.description
       @short        = mod.short
       @credits      = mod.credits
+      if mod.univzid != nil
+        @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +
+          "?expand=0" +
+          "&moduleCall=webinfo" +
+          "&publishConfFile=webinfo&" +
+          "publishSubDir=veranstaltung" +
+          "&publishid=#{mod.univzid}" +
+          "&state=verpublish" +
+          "&status=init" +
+          "&vmfile=no"
+      else
+        @univz_link = nil
+      end
 
       @permission = mod.permission
     end

@@ -5,21 +5,25 @@
     credits: 9
     id: B.Phy.101
     beschreibung: "Lernziele: Einheiten und Messgrößen, Mechanik eines Massepunktes, starrer Körper, elementare Kontinuumsmechanik, kinetische Gastheorie, ideales Gasgesetz, reales Gas, Phasenübergänge. Rechentechniken der Differential- und Integralrechnung einer und mehrerer Veränderlicher, einfacher gewöhnlicher Differentialgleichungen, Vektoren und Matrizen."
+    univzid: 48457
         
   - name: Physik II
     credits: 9
     id: B.Phy.102
     beschreibung: "Lernziele: Ladung, Strom, Spannung, elektrisches Feld, magnetisches Feld. Potentialprobleme, Stromkreise, Maxwell'sche Gleichungen, elektromagnetische Wellen, spezielle Relativitätstheorie. Rechentechniken der Vektoranalysis, Sätze von Gauß und Stokes, einfache partielle Differentialgleichungen."
+    univzid:
 
   - name: Physik III
     credits: 6
     id: B.Phy.103
     beschreibung: "Lernziele: Wellengleichung, Superpositionsprinzip, Kohärenz, solitäre Wellen, Reflexion und Brechung, Huygensche Prinzip. Randwertprobleme bei partiellen Differentialgleichungen, Fourieranalyse."
+    univzid: 52513
 
   - name: Physik IV
     credits: 6
     id: B.Phy.104
     beschreibung: "Lernziele: Verständnis der Grenzen der klassischen Physik, Schlüsselexperimente zur Quantentheorie und ihrer Interpretation, Heisenberg’sche Unbestimmtheitsrelation, Bohr-Atommodell, Schrödingertheorie, Drehimpulse, Wasserstoff-Atom, Pauliprinzip, Grundlagen der chemischen Bindung, Molekülspektren, experimentelle Hinführung zur relativistischen Quantentheorie und Quantenfeldtheorie."
+    univzid:
 
   - name: Analytische Mechanik
     credits: 8

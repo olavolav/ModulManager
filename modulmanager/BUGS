@@ -13,7 +13,6 @@ Noch zu beheben:
 29. Copyright-Angaben hinzufügen (Olav)
 32. _check_category im main-Controller ist noch nicht dynamisch bzgl. NatMat usw. (Christian)
 33. Vorgeschaltete JavaScript-Test-Seite und Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
-34. Link zu UniVZ ermöglichen (Olav & Christian)
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
 36. Ausnahme-Optionen: "Note streichen" soll nur bei benoteten Modulen verfügbar sein; bitte auch an die Dummy-Module denken (Christian)
 37. Note streichen darf man nur X Mal pro best. Gruppe Falls dieser Wert überschritten ist, entspr. Fehler anzeigen
@@ -28,6 +27,7 @@ Noch zu beheben:
 48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
 49. Automatisches, regelmäßiges Löschen alter Session-Daten (Christian & Olav)
 50. Lade-Balken auf der Hauptseite unter der Navigation hinzufügen (Olav)
+51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen (Olav)
 
 
 Inzwischen behoben:
@@ -57,6 +57,7 @@ Inzwischen behoben:
 46. gruppen.xml: Statt die Dummies einzeln als "customX" aufzulisten, dynamisch via neuer Zeile (z.B. "dummies: 3") generieren (Christian)
 47. Vereinheitlich, dass Strings aus den YAML-Dateien mit Komma oder mit Komma und Leerzeichen getrennt sein können (Christian)
 31. Dummy-Module an erster Stelle der jw. Pool-Kategorien einscheinen lassen (Christian)
+34. Link zu UniVZ ermöglichen (Olav & Christian)
 
 
 

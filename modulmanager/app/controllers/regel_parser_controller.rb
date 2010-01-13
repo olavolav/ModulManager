@@ -118,13 +118,13 @@ class RegelParserController < ApplicationController
     late_modules = Array.new
 
     y.each do |m|
-      if m["zulassung"] != nil && m["sub-module"] != nil
+      if m["zulassung"]     != nil && m["sub-module"] != nil
         late_modules.push m
-      elsif m["zulassung"] != nil && m["sub-module"] == nil
+      elsif m["zulassung"]  != nil && m["sub-module"] == nil
         limited_modules.push m
-      elsif m["zulassung"] == nil && m["sub-module"] != nil
+      elsif m["zulassung"]  == nil && m["sub-module"] != nil
         parent_modules.push m
-      elsif m["zulassung"] == nil && m["sub-module"] == nil
+      elsif m["zulassung"]  == nil && m["sub-module"] == nil
         free_modules.push m
       else
         puts "MODULE #{m["id"]} WURDE NICHT ZUGEORDNET!!!"
@@ -135,11 +135,12 @@ class RegelParserController < ApplicationController
     while(late_modules.length > 0 || limited_modules.length > 0 || parent_modules.length > 0 || free_modules.length > 0)
 
       free_modules.each do |data|
-        m = Studmodule.create :name   => data["name"],
-          :credits                    => data["credits"],
-          :short                      => data["id"],
-          :description                => data["beschreibung"],
-          :version                    => version
+        m = Studmodule.create :name => data["name"],
+          :credits                  => data["credits"],
+          :short                    => data["id"],
+          :description              => data["beschreibung"],
+          :version                  => version,
+          :univzid                  => data["univzid"]
 
         unless data["note"] == nil
           data["note"].downcase == "nein" ? m.has_grade = false : m.has_grade = true
@@ -150,11 +151,12 @@ class RegelParserController < ApplicationController
       end
 
       limited_modules.each do |data|
-        m = Studmodule.new :name => data["name"],
-          :credits => data["credits"],
-          :short => data["id"],
-          :description => data["beschreibung"],
-          :version => version
+        m = Studmodule.new :name  => data["name"],
+          :credits                => data["credits"],
+          :short                  => data["id"],
+          :description            => data["beschreibung"],
+          :version                => version,
+          :univzid                => data["univzid"]
 
         unless data["note"] == nil
           data["note"].downcase == "nein" ? m.has_grade = false : m.has_grade = true
@@ -175,13 +177,14 @@ class RegelParserController < ApplicationController
         end
 
         unless fault
-          m = Studmodule.new :name => data["name"],
-            :credits => data["credits"],
-            :short => data["id"],
-            :description => data["beschreibung"],
-            :children => Studmodule::get_array_from_module_string(data["sub-module"]),
-            :version => version,
-            :subname => data["sub-name"]
+          m = Studmodule.new :name  => data["name"],
+            :credits                => data["credits"],
+            :short                  => data["id"],
+            :description            => data["beschreibung"],
+            :children               => Studmodule::get_array_from_module_string(data["sub-module"]),
+            :version                => version,
+            :subname                => data["sub-name"],
+            :univzid                => data["univzid"]
 
           unless data["note"] == nil
             data["note"].downcase == "nein" ? m.has_grade = false : m.has_grade = true
@@ -195,11 +198,12 @@ class RegelParserController < ApplicationController
 
       late_modules.each do |data|
         fault = false
-        m = Studmodule.new :name => data["name"],
-          :credits => data["credits"],
-          :short => data["id"],
-          :description => data["beschreibung"],
-          :version => version
+        m = Studmodule.new :name  => data["name"],
+          :credits                => data["credits"],
+          :short                  => data["id"],
+          :description            => data["beschreibung"],
+          :version                => version,
+          :univzid                => data["univzid"]
 
         unless data["note"] == nil
           data["note"].downcase == "nein" ? m.has_grade = false : m.has_grade = true
