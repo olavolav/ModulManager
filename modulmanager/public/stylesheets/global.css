@@ -42,7 +42,7 @@ a:visited {
 	border: 1px black solid;
 }
 
-#subnavi{
+#subnavi {
 	background-color: #F4F4FF;
 	/*height: 50px;*/
 	border-bottom: 1px #3b809d solid;
@@ -50,6 +50,14 @@ a:visited {
 	/*margin-left: 1em;
 		margin-right: 1em;
 		margin-bottom: 1em;*/
+}
+
+#pleasewait {
+	background-color: #EAEAFF;
+	/*height: 50px;*/
+	border-bottom: 1px #3b809d solid;
+	padding: 0.5em;
+	text-align: center;
 }
 
 #subnavi p{

@@ -25,7 +25,6 @@ Noch zu beheben:
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
 48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
 49. Automatisches, regelmäßiges Löschen alter Session-Daten (Christian & Olav)
-50. Lade-Balken auf der Hauptseite unter der Navigation hinzufügen (Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen (Olav)
 52. Authenticity-Token bei Anfrage an abfrage/info (Info-Knopf im Überblick...) mitsenden, da die Ajax-POST-Anfrage nicht bearbeitet wird! (Quan)
 
@@ -59,9 +58,7 @@ Inzwischen behoben:
 31. Dummy-Module an erster Stelle der jw. Pool-Kategorien einscheinen lassen (Christian)
 34. Link zu UniVZ ermöglichen (Olav & Christian)
 42. Überblick: Info-Knopf der untersten Ebene geht nicht (Christian)
-
-
-
+50. Lade-Balken auf der Hauptseite unter der Navigation hinzufügen (Olav)
 
 
 Nicht behoben:
