@@ -92,6 +92,7 @@ var change_credit_and_remove_name_in_pool = function(handle){
 	
 }
 
+// green_ipunkt beim Checken Noten_Input
 var set_image_to_green_ipunkt = function(noten_input){
 	
 	var this_parent = $(noten_input).parent().parent().get(0);
@@ -99,6 +100,22 @@ var set_image_to_green_ipunkt = function(noten_input){
 	
 	
 }
+
+// green_or_red_ipunkt beim Checken error im Fall: unbenoteten Module.
+var set_image_to_green_or_red_ipunkt = function(handle){
+	var mod_id =$(handle).find(">span.modul_id").text();
+	
+	// check error: wenn ja--> red image. wenn nein-->green image
+	if(check_error(mod_id)){
+		$(handle).find(".ipunkt").html(rote_ipunkt_passiv);
+	}
+	else{
+		$(handle).find(".ipunkt").html(green_ipunkt);
+	}
+	
+}
+
+
 var set_image_to_red_ipunkt_and_error_to_yes = function(ui_draggable){
 	
 	$(ui_draggable).find(".ipunkt").html(rote_ipunkt_passiv);
@@ -734,6 +751,7 @@ var session_auswahl_rekursiv = function(root){
             // dann verstecken die originalen Module im Pool
 			var mod_id = $(this).attr("id");
 			var mod_grade = $(this).attr("grade");
+			
 			//alert(mod_id);
 			var modul_im_pool = $("#pool").find("div#"+mod_id);
             var das_erste = $(modul_im_pool).eq(0);
@@ -784,17 +802,14 @@ var session_auswahl_rekursiv = function(root){
 				}
 				
 				$(this_noten).val(this_grade);
-				
-				
 					set_image_to_green_ipunkt(this_noten);
-				
 				}
 				
 				//check error action
-				/*if(check_error(mod_id)){
-					alert("hallo rot");
-					set_image_to_red_ipunkt(auswahl_modul_clone);
-				}*/
+				if(check_error(mod_id)){
+					//alert("hallo rot");
+					set_image_to_red_ipunkt_and_error_to_yes(auswahl_modul_clone);
+				}
 			
 			$(auswahl_modul_clone).find("span.inAuswahl").text("ja");
 			
@@ -1369,9 +1384,9 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 	
 	// check error-Regel
 	
-	/*if (check_error(modul_id)) {
-		set_image_to_red_ipunkt(ui_draggable);
-	}*/
+	if (check_error(modul_id)) {
+		set_image_to_red_ipunkt_and_error_to_yes(ui_draggable);
+	}
 	
 
 
@@ -1566,6 +1581,7 @@ var poolrekursiv = function(XMLhandle){
                 "<span class='inAuswahl' style='display:none'>nein</span>" +
 				"<span class='cat_id' style='display:none'>"+parent_id+"</span>"+
                 "<span class='custom' style='display:none'>"+modul_class+"</span>"+
+                "<span class='modul_id' style='display:none'>"+modul_id+"</span>"+
                 "<span class='custom_exist' style='display:none'>nein</span>"+
 				"<span class='custom_category' style='display:none'>"+custom_category+"</span>"+
 				"<span class='additional_info' style='display:none'>"+additional_info+"</span>"+
@@ -1706,10 +1722,11 @@ var change_module_style_to_auswahl = function(handle){
 	$(handle).find("p.credit-option").css("display","block");
 	$(handle).find("p.warnung-option").css("display","block");
 	$(handle).find("p.note-option").css("display","block");
-	
-    $(handle).find("div.icon_loeschen").css("display","block");
+	$(handle).find("div.icon_loeschen").css("display","block");
     $(handle).find(".fragebild_td").css("display","none");
     //$(handle).find(".ipunkt_td").css("display","table-cell");
+    
+    
 	
 	jQuery.each(jQuery.browser, function(i) {
       		//alert("hallo "+i);
@@ -1717,8 +1734,12 @@ var change_module_style_to_auswahl = function(handle){
 				
 					
 					$(handle).find(".ipunkt_td").css("display","inline");
+					
 					if ($(handle).find("span.modul_has_grade").text() != "nein") {
 						$(handle).find(".noten_input_td").css("display", "inline");
+					}
+					else{// hier unbenoteten Module
+						set_image_to_green_or_red_ipunkt(handle);
 					}
 					
 			}	
@@ -1728,6 +1749,9 @@ var change_module_style_to_auswahl = function(handle){
 					$(handle).find(".ipunkt_td").css("display","table-cell");
 					if ($(handle).find("span.modul_has_grade").text() != "nein") {
 						$(handle).find(".noten_input_td").css("display", "table-cell");
+					}
+					else{// hier unbenoteten Module
+						set_image_to_green_or_red_ipunkt(handle);
 					}
 			}
 			

@@ -3,6 +3,7 @@
  //  diese Funktion ueberblickrekursiv() gibt den Überblick in der linken Spalten.-//
  //  die gibt alle Fehlern und Warnungen aus.                                      //
  //  Und die Funktion ueberblick() ruft ueberblick-XML per AJAX auf                //
+ //  check_error() gibt die Errors von action abfragen/errors in div-id #table_error aus
  /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
