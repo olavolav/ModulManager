@@ -21,7 +21,7 @@ var get_modul_info_in_overview =  function(modul_id){
         var html = $.ajax({
 
                 type : 'POST',
-                url  : "/abfragen/info/"+modul_id,
+                url  : "/abfragen/info/"+modul_id+"&"+authenticityTokenParameter(),
                 async: false,
                 contentType: 'application/x-www-form-urlencoded',
                 success : function(html){
