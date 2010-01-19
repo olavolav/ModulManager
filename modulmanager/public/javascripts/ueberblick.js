@@ -13,6 +13,7 @@ $(document).ready(function(){
 });
 
 var get_modul_info_in_overview =  function(modul_id){
+		//alert(modul_id);
         $("#box_info").empty();
         $("#box_info_exception").hide();
         $("#box_info_pool").hide();
@@ -21,7 +22,8 @@ var get_modul_info_in_overview =  function(modul_id){
         var html = $.ajax({
 
                 type : 'POST',
-                url  : "/abfragen/info/"+modul_id+"&"+authenticityTokenParameter(),
+                url  : '/abfragen/info/'+modul_id,
+                data:authenticityTokenParameter(),
                 async: false,
                 contentType: 'application/x-www-form-urlencoded',
                 success : function(html){
@@ -29,13 +31,10 @@ var get_modul_info_in_overview =  function(modul_id){
                         $("#box_info").empty();
                         $("#box_info").append(html);
                         //$("#box_info_exception").hide();
-                //$("#box_info_pool").hide();
+                        //$("#box_info_pool").hide();
                         $("#box_info_overview").hide();
 
-
-
-
-                },
+        		},
                 error: function(a,b,c){
                         alert("problem with /abfragen/info");
                 }
