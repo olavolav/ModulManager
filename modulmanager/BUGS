@@ -5,7 +5,7 @@ Noch zu beheben:
 
 2. Buttons sind im Firefox nur via Text anklickbar (Olav)
 11. Name ist bei unbenoteten Modulen zu nah an dem Info-Icon (Olav)
-7. Unbenotete Module sollten nur grüne oder rote Info-Icons haben - gelbe machen ja keinen Sinn, da man ohnehin keine Note eingeben kann; genau so auch bei Dummy-Modulen, wenn man "unbenotet" gewählt hat (Quan)
+7. (50% behoben)Unbenotete Module sollten nur grüne oder rote Info-Icons haben - gelbe machen ja keinen Sinn, da man ohnehin keine Note eingeben kann; genau so auch bei Dummy-Modulen, wenn man "unbenotet" gewählt hat (Quan)
 15. Ausnahme-Optionen einbauen (Christian & Quan)
 22. Auf die "production"-Umgebung umstellen (Christian)
 25. Hilfe-Seite schreiben (Olav)
@@ -25,7 +25,6 @@ Noch zu beheben:
 48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
 49. Automatisches, regelmäßiges Löschen alter Session-Daten (Christian & Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen (Olav)
-52. Authenticity-Token bei Anfrage an abfrage/info (Info-Knopf im Überblick...) mitsenden, da die Ajax-POST-Anfrage nicht bearbeitet wird! (Quan)
 
 
 Inzwischen behoben:
@@ -59,6 +58,8 @@ Inzwischen behoben:
 42. Überblick: Info-Knopf der untersten Ebene geht nicht (Christian)
 50. Lade-Balken auf der Hauptseite unter der Navigation hinzufügen (Olav)
 43. Import und Export als XML testen, ob alle Noten, Einstellungen, Dummies etc. erhalten bleiben (Christian)
+52. Authenticity-Token bei Anfrage an abfrage/info (Info-Knopf im Überblick...) mitsenden, da die Ajax-POST-Anfrage nicht bearbeitet wird! (Quan)
+
 
 
 Nicht behoben:
