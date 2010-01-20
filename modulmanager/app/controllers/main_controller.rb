@@ -133,12 +133,12 @@ class MainController < ApplicationController
     return result
   end
 
-  def _combo_category
+  def combo_category
     id = params[:mod_id]
     mod = Studmodule.find(id)
     @categories = mod.categories
     respond_to do |format|
-      format.html { render :action => "_combo_category", :layout => false }
+      format.html { render :action => "combo_category", :layout => false }
     end
   end
 

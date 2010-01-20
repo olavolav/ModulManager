@@ -16,8 +16,6 @@ Noch zu beheben:
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
 36. Ausnahme-Optionen: "Note streichen" soll nur bei benoteten Modulen verfügbar sein; bitte auch an die Dummy-Module denken (Christian)
 37. Note streichen darf man nur X Mal pro best. Gruppe Falls dieser Wert überschritten ist, entspr. Fehler anzeigen
-38. Berechnete Note wieder anzeigen (Christian findet raus, wer verantwortlich ist)
-39. Die Action _combo_category liefert noch keinen HTML-Code, also keine Dropdown-Box (Christian)
 40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
 41. Ausnahme-Optionen: Vorherige Einstellungen werden vergessen, so bald man ein weiteres Mal auf den Info-Knopf klickt (Christian, evtl. mit Hilfe von Quan)
 44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
@@ -59,6 +57,9 @@ Inzwischen behoben:
 50. Lade-Balken auf der Hauptseite unter der Navigation hinzufügen (Olav)
 43. Import und Export als XML testen, ob alle Noten, Einstellungen, Dummies etc. erhalten bleiben (Christian)
 52. Authenticity-Token bei Anfrage an abfrage/info (Info-Knopf im Überblick...) mitsenden, da die Ajax-POST-Anfrage nicht bearbeitet wird! (Quan)
+39. Die Action _combo_category liefert noch keinen HTML-Code, also keine Dropdown-Box (Christian)
+53. Info-Boxen der untersten Ebene wieder lauffähig machen
+38. Berechnete Note wieder anzeigen (Christian findet raus, wer verantwortlich ist)
 
 
 

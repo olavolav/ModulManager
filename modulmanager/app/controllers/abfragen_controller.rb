@@ -254,7 +254,7 @@ class AbfragenController < ApplicationController
   def note
 
     @grade = get_note
-
+puts @grade["gesamt"]
     respond_to do |format|
       format.html { render :action => "note", :layout => false }
     end
@@ -262,43 +262,28 @@ class AbfragenController < ApplicationController
   end
 
   def info
-
     id = params[:id]
-
     regel = Connection.find(:first, :conditions => "id = '#{id}'")
-
     mods = current_selection.selection_modules
-
     ff = regel.evaluate mods
-
     ff == 1 ? @fullfilled_string = "erfüllt" : @fullfilled_string = "nicht erfüllt"
     ff == 1 ? @fullfilled = true : @fullfilled = false
-
     @credits_earned = regel.credits_earned mods
     @credits_needed = regel.credits_needed
-
     @modules_earned = regel.modules_earned mods
     @modules_needed = regel.modules_needed
 
-
     if regel.child_connections.length > 0
-
       @child_rules = regel.collect_child_rules current_selection
-
-
     else
       modules = regel.collect_unique_modules_from_children_without_custom
-
       @available_modules = Array.new
-
       modules.each do |m|
         found = false
         mods.each { |mod| found = true if mod.moduledata.id == m.id }
         @available_modules.push m unless found
       end
-
     end
-
     respond_to do |format|
       format.html { render :action => "info", :layout => false }
     end

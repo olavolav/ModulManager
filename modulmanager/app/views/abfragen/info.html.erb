@@ -13,7 +13,8 @@
 
 <% end %>
 
-<% unless @fullfilled || @child_rules.length > 0 %>
+<%# unless @fullfilled || @child_rules.length > 0 %>
+<% unless @fullfilled %>
 <p>Um in diesem Bereich alle Bedingungen zu erfüllen, müssen Sie noch
 <%= @modules_needed - @modules_earned %> Module und
 <%= @credits_needed - @credits_earned %> Credits erzielen.</p>

@@ -1088,7 +1088,7 @@ function ajax_combobox(mod_id){
 	$("#box_info,#box_info_pool,#box_info_exception,#box_info_overview").hide();
 	 $.ajax({
 	        type:"POST",
-	        url :"main/_combo_category",
+	        url :"main/combo_category",
 	        dataType:"text",
 	        cache:false,
 	        async:false,
