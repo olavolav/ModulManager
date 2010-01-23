@@ -941,6 +941,20 @@ var ajax_to_server_by_get_module_info = function (modul_id){
         success : function(html){
 
             $("#info_box #box_info").append(html);
+
+        // Mein Versuch, die Checkboxen zu selektieren, wenn die entsprechenden Optionen gesetzt sind...
+        //            if($("#has_grade") == 0) {
+        //                $("#exception_credit").attr("checked", "checked");
+        //            }
+        //            if($("#has_warning") == 0) {
+        //                $("#exception_warn").attr("checked", "checked");
+        //            }
+        //            if($("#custom_credits") != -1) {
+        //                $("#exception_note").value($("#custom_credits"));
+        //            }
+
+
+
         }/*,
                 error: function(a,b,c){
                         alert(b);

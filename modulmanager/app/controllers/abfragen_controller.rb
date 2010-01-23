@@ -73,32 +73,46 @@ class AbfragenController < ApplicationController
 
     mod = Studmodule.find(params[:module_id])
 
-    if mod.short.include? "custom"
-      selection = current_selection
-      m2 = nil
-      selection.selection_modules.each do |m|
-        m2 = m if m.moduledata.short == mod.short
-      end
+    selection = current_selection
+    m2 = nil
+    selection.selection_modules.each do |m|
+      m2 = m if m.moduledata.short == mod.short
+    end
 
-      unless m2 == nil
-        @name = m2.name
-        @description = "Dies ist ein von Ihnen konfiguriertes Modul."
-        @short = "-"
-        @credits = m2.credits
-        @permission = nil
-      end
+    if mod.short.include? "custom"
+      #      selection = current_selection
+      #      m2 = nil
+      #      selection.selection_modules.each do |m|
+      #        m2 = m if m.moduledata.short == mod.short
+      #      end
+
+      #      unless m2 == nil
+      @name = m2.name
+      @description = "Dies ist ein von Ihnen konfiguriertes Modul."
+      @short = "-"
+      @credits = m2.credits
+      @permission = nil
+      @custom_credits = m2.credits
+      #      end
     else
-      @name         = mod.name
-      @description  = mod.description
-      @short        = mod.short
-      @credits      = mod.credits
-      if mod.univzid != nil
+      #      @name         = mod.name
+      #      @description  = mod.description
+      #      @short        = mod.short
+      #      @credits      = mod.credits
+      @name         = m2.moduledata.name
+      @description  = m2.moduledata.description
+      @short        = m2.moduledata.short
+      @credits      = m2.moduledata.credits
+      
+      m2.credits != nil && m2.credits != "" ? @custom_credits = m2.credits : @custom_credits = -1
+
+      if m2.moduledata.univzid != nil
         @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +
           "?expand=0" +
           "&moduleCall=webinfo" +
           "&publishConfFile=webinfo&" +
           "publishSubDir=veranstaltung" +
-          "&publishid=#{mod.univzid}" +
+          "&publishid=#{m2.moduledata.univzid}" +
           "&state=verpublish" +
           "&status=init" +
           "&vmfile=no"
@@ -106,8 +120,11 @@ class AbfragenController < ApplicationController
         @univz_link = nil
       end
 
-      @permission = mod.permission
+      @permission = m2.moduledata.permission
     end
+
+    m2.has_grade ? @has_grade = 1 : @has_grade = 0
+    m2.permission_removed ? @has_warning = 0 : @has_warning = 1
 
     respond_to do |format|
       format.html {render :file => "abfragen/module_info", :layout => false}
