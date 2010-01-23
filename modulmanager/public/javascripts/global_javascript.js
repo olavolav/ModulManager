@@ -652,8 +652,8 @@ var info_box_selection = function(modul_id){
     $("#box_info_combobox").hide();
     $("#box_info_overview").hide();
 		
-    $('#info_box').dialog('open');
     ajax_to_server_by_get_module_info(modul_id);
+    $('#info_box').dialog('open');
 		
 }
 
@@ -680,9 +680,10 @@ var update_modul_in_selection = function (){
 		
     var v=$("#exception_credit").val();
     var warn_checked = $("#exception_warn:checked").val();
+    //alert("Warn-checked value ist "+warn_checked);
     var note_checked = $("#exception_note:checked").val();
 		
-    // remove credit-option,warnung- und note-option falls die schon bereits vorhanden sind
+    // entfernen credit-option,warnung- und note-option falls die schon bereits vorhanden sind
     var this_credit =$(this_modul).find("p.credit-option");
     $(this_credit).html("");
     var this_warn = $(this_modul).find("p.warnung-option");
@@ -692,7 +693,7 @@ var update_modul_in_selection = function (){
 		
 		
     //credit
-    if(($.trim(v)=="Note")||($.trim(v)=="")){
+    if(($.trim(v)=="Credits")||($.trim(v)=="")){
     //alert("nicht Verï¿½ndern");
     }
     else{
@@ -939,19 +940,30 @@ var ajax_to_server_by_get_module_info = function (modul_id){
         contentType: 'application/x-www-form-urlencoded',
         data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
         success : function(html){
-
+    		
+    		// alle Ausnahme-Option ersmal auf Null setzen
+    		$("#exception_credit").attr("checked", "");
+    		$("#exception_warn").attr("checked", "");
+    		$("#exception_note").attr("checked", "");
             $("#info_box #box_info").append(html);
 
         // Mein Versuch, die Checkboxen zu selektieren, wenn die entsprechenden Optionen gesetzt sind...
-        //            if($("#has_grade") == 0) {
-        //                $("#exception_credit").attr("checked", "checked");
-        //            }
-        //            if($("#has_warning") == 0) {
-        //                $("#exception_warn").attr("checked", "checked");
-        //            }
-        //            if($("#custom_credits") != -1) {
-        //                $("#exception_note").value($("#custom_credits"));
-        //            }
+           
+            
+                    if($("#has_grade").text() == '0') {
+                    	$("#exception_note").attr("checked", "checked");
+                    }
+                    if($("#has_warning").text() == '0') {
+                        $("#exception_warn").attr("checked", "checked");
+                       
+                    }
+                    if($("#custom_credits").text() != -1) {
+                    	var this_credits =$("#custom_credits").text();
+                    	//alert("geänderte credits = "+this_credits);
+                        $("#exception_credit").attr("value",this_credits);
+                    }
+                    else
+                    	$("#exception_credit").attr("value","Credits");
 
 
 

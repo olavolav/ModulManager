@@ -93,12 +93,6 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 
 
 
-
-
-
-
-
-
 //---------- Drag and Drop----------------------------------------------------------
 
 
@@ -111,9 +105,6 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 $(function(){
 	
 		
-		
-
-
 		// teil Form -Check bei dummy Modul
 		var name=$("#name");
 		var credit=$("#credit");
@@ -227,10 +218,23 @@ $(function(){
                 autoOpen:false,
                 
 				open:function(event,ui){
-					$("#exception_credit").attr("value","Note");
-					$("#exception_warn").attr("checked","");
-					$("#exception_note").attr("checked","");
-					//$(this).parent().css("top","167px");
+			 		
+					//$("#exception_credit") wird in ajax_to_server_by_get_module_info behandelt.
+					
+					
+					//Ob Note streichen gecheckt
+					if($("#exception_note").is(":checked")){ 
+						//alert("Aha, du bist schon beim Note streichen gecheckt");
+						$("#exception_note").attr("checked","checked");
+					}
+					else{ $("#exception_note").attr("checked","");}
+					// Ob Warning gecheckt 
+					if($("#exception_warn").is(":checked")){ 
+						//alert("Aha, du bist schon beim Warning gecheckt");
+						$("#exception_warn").attr("checked","checked");
+					}
+					else {$("#exception_warn").attr("checked","");}
+					
 				},	
 				buttons:{
 					"OK":function(){
