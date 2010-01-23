@@ -4,17 +4,19 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def get_note
+    puts "Berechne Note!"
     selection = current_selection
     grade = Hash.new(0)
     credits = 0
 
     selection.semesters.each do |s|
+      puts "Durchlaufe Semester #{s.count}..."
       if s.count > 0
         s.modules.each do |m|
+          puts "Werte Modul #{m.id} aus..."
 
           permitted = 1
           m.moduledata.permission == nil ? permitted = 1 : permitted = m.moduledata.permission.evaluate(selection.semesters, m.semester.count)
-puts m.has_grade
           if (permitted == 1 || m.permission_removed) && m.has_grade
             if m.moduledata.children != [] && m.moduledata.children != nil
               teil_kumul = 0
@@ -23,8 +25,13 @@ puts m.has_grade
               ges_credits = 0
 
               if m.grade != nil
-                teil_kumul += m.grade.to_f * m.moduledata.credits.to_f
-                teil_credits += m.moduledata.credits.to_f
+                if m.credits == "" || m.credits == nil
+                  teil_kumul += m.grade.to_f * m.moduledata.credits.to_f
+                  teil_credits += m.moduledata.credits.to_f
+                else
+                  teil_kumul += m.grade.to_f * m.credits.to_f
+                  teil_credits += m.credits.to_f
+                end
               end
               ges_credits += m.moduledata.credits
 
@@ -34,8 +41,13 @@ puts m.has_grade
                   if modul.moduledata.id == child.id
                     ges_credits += modul.moduledata.credits
                     if modul.grade != nil
-                      teil_kumul += modul.grade.to_f * modul.moduledata.credits.to_f
-                      teil_credits += modul.moduledata.credits.to_f
+                      if m.credits == nil || m.credits == ""
+                        teil_kumul += modul.grade.to_f * modul.moduledata.credits.to_f
+                        teil_credits += modul.moduledata.credits.to_f
+                      else
+                        teil_kumul += modul.grade.to_f * modul.credits.to_f
+                        teil_credits += modul.credits.to_f
+                      end
                     end
                   end
                 end
@@ -48,9 +60,15 @@ puts m.has_grade
               credits += ges_credits.to_f unless note_gewichtet == 0
 
             elsif m.moduledata.parent == nil && m.grade != nil && m.class != CustomModule
-              note_gewichtet = (m.moduledata.credits.to_f * m.grade.to_f)
-              grade["gesamt"] += note_gewichtet
-              credits += m.moduledata.credits.to_f
+              if m.credits == nil || m.credits == ""
+                note_gewichtet = (m.moduledata.credits.to_f * m.grade.to_f)
+                grade["gesamt"] += note_gewichtet
+                credits += m.moduledata.credits.to_f
+              else
+                note_gewichtet = (m.credits.to_f * m.grade.to_f)
+                grade["gesamt"] += note_gewichtet
+                credits += m.credits.to_f
+              end
             elsif m.class == CustomModule
               note_gewichtet = (m.credits.to_f * m.grade.to_f)
               grade["gesamt"] += note_gewichtet

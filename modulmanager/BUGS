@@ -6,7 +6,8 @@ Noch zu beheben:
 2. Buttons sind im Firefox nur via Text anklickbar (Olav)
 11. Name ist bei unbenoteten Modulen zu nah an dem Info-Icon (Olav)
 7. (50% behoben)Unbenotete Module sollten nur grüne oder rote Info-Icons haben - gelbe machen ja keinen Sinn, da man ohnehin keine Note eingeben kann; genau so auch bei Dummy-Modulen, wenn man "unbenotet" gewählt hat (Quan)
-15. Ausnahme-Optionen einbauen (Christian & Quan)
+15.b Ausnahme-Optionen: Credits ändern funktioniert im Backend, das Frontend muss jetzt noch den Credits-Parameter aus abfragen/auswahl übernehmen (Quan)
+15.c Ausnahme-Optionen: Warnung deaktivieren muss im Backend noch richtig ausgewertet werden (Christian)
 22. Auf die "production"-Umgebung umstellen (Christian)
 25. Hilfe-Seite schreiben (Olav)
 27. Deployment testen (Christian)
@@ -60,6 +61,8 @@ Inzwischen behoben:
 39. Die Action _combo_category liefert noch keinen HTML-Code, also keine Dropdown-Box (Christian)
 53. Info-Boxen der untersten Ebene wieder lauffähig machen
 38. Berechnete Note wieder anzeigen (Christian findet raus, wer verantwortlich ist)
+15.a Ausnahme-Optionen: Note streiche einbauen (Christian)
+
 
 
 

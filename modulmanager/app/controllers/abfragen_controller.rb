@@ -213,6 +213,7 @@ class AbfragenController < ApplicationController
     selection.selection_modules.each do |m|
       if m.moduledata.id == id.to_i
         m.has_grade = false
+        m.save
         render :text => "success"
         return
       end
@@ -226,10 +227,12 @@ class AbfragenController < ApplicationController
     selection.selection_modules.each do |m|
       if m.moduledata.id == id.to_i
         m.has_grade = true
-        return true
+        m.save
+        render :text => "success"
+        return
       end
     end
-    return false
+    render :text => "error"
   end
 
   def save_module_grade
@@ -254,7 +257,6 @@ class AbfragenController < ApplicationController
   def note
 
     @grade = get_note
-puts @grade["gesamt"]
     respond_to do |format|
       format.html { render :action => "note", :layout => false }
     end
@@ -312,7 +314,7 @@ puts @grade["gesamt"]
     mod_id = params[:mod_id]
     selection = current_selection
 
-    selection.each do |m|
+    selection.selection_modules.each do |m|
       if m.moduledata.id == mod_id.to_i
         m.permission_removed = true
         m.save
@@ -327,7 +329,7 @@ puts @grade["gesamt"]
     mod_id = params[:mod_id]
     selection = current_selection
 
-    selection.each do |m|
+    selection.selection_modules.each do |m|
       if m.moduledata.id == mod_id.to_i
         m.permission_removed = false
         m.save
