@@ -671,8 +671,10 @@ var info_box = function(modul_id){
 
 var update_modul_in_selection = function (){
     
-	var exception_change =false; // erst wenn ausnahme-option  verändert ist dann akktualliseren Überblick (wegen perform)  
+	  
     //check, ob man etwas in Ausnahme verï¿½ndert hat
+	var exception_change = $("#exception_change").val();
+	var credit_exception_change = $("#credit_exception_change").val();
     //if ($("#box_info_exception").css("display") == "block"){
 	
 	
@@ -686,7 +688,7 @@ var update_modul_in_selection = function (){
 		
     // entfernen credit-option,warnung- und note-option falls die schon bereits vorhanden sind
     var this_credit =$(this_modul).find("p.credit-option");
-    $(this_credit).html("");
+    
     var this_warn = $(this_modul).find("p.warnung-option");
     $(this_warn).html("");
     var this_note =$(this_modul).find("p.note-option");
@@ -694,16 +696,19 @@ var update_modul_in_selection = function (){
 		
 		
     //credit
-    if(($.trim(v)!="Credits")||($.trim(v)!="")){
-    
-    	//alert("Verï¿½ndern Exception_credit ="+v);
-        $(this_modul).find(".modul_credit").text(v+" C");
-        $(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
-        ajax_change_credits(modul_id,v);
-        	
+    //if(($.trim(v)!="Credits")||($.trim(v)!="")){
+    if(v!="Credits" && v!="" && credit_exception_change=="true"){
+    		$(this_credit).html("");
+    		$("#exception_change").attr("value","true");
+    		 $("#credit_exception_change").attr("value","false");
+    		$(this_modul).find(".modul_credit").text(v+" C");
+        	$(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
+        	ajax_change_credits(modul_id,v);
+    		
 			
     }
-    //    alert("warn-checked = "+warn_checked+"\n"+"note-checked = "+note_checked);
+   
+    
 		
     //warnung
     if (warn_checked == "checkbox") {
@@ -719,8 +724,13 @@ var update_modul_in_selection = function (){
     } else if(note_checked==undefined) {
         ajax_to_server_by_add_grade(modul_id);
     }
-
-    ueberblick();
+     
+    //checken, ob man überhaupt Ausnahme-Optionen veraendert hat.
+    // erst wenn ja dann wird ueberblick() akktuallisiert
+    if($("#exception_change").val()=="true"){
+    	ueberblick();
+    	$("#exception_change").attr("value","false");
+    }
 //}
 }//ende
 

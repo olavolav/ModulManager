@@ -201,10 +201,22 @@ $(function(){
 		
 			
 			
-		 ////Ausname-Option
+		 ////Ausname-Optionen checken. Bei jeder Veränderung wird dann die Funktion Überblick erneut geladen.
+		 // exception_change ist fuer Note streichen und Warnung deaktivieren verantwortlich
+		 // credit_exception_change ist extra fuer Credit-Zahl-Aenderung
+		
 		 $("#exception_credit").click(function(){
-		 	$(this).attr("value"," ");
+		 	$(this).attr("value","");
 		 })
+		 
+		 $("#exception_credit").keydown(function(){
+			 $("#credit_exception_change").attr("value","true");
+		 })
+		 $("#exception_warn,#exception_note").click(function(){
+			 $("#exception_change").attr("value","true");
+		 })
+		 
+		 
 		 			
          // info_box------------------------------------------------------------
 			
