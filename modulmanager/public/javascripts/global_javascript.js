@@ -944,7 +944,7 @@ var ajax_to_server_by_get_module_info = function (modul_id){
     		$("#exception_warn").attr("checked", "");
     		$("#exception_note").attr("checked", "");
             $("#info_box #box_info").append(html);
-            alert(html);
+            //alert(html);
 
         // Mein Versuch, die Checkboxen zu selektieren, wenn die entsprechenden Optionen gesetzt sind...
            
