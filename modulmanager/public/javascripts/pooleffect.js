@@ -220,7 +220,7 @@ $(function(){
 				open:function(event,ui){
 			 		
 					//$("#exception_credit") wird in ajax_to_server_by_get_module_info behandelt.
-					
+					$("#box_info").show();
 					
 					//Ob Note streichen gecheckt
 					if($("#exception_note").is(":checked")){ 

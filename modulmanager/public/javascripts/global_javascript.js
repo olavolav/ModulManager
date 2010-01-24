@@ -670,7 +670,8 @@ var info_box = function(modul_id){
 }
 
 var update_modul_in_selection = function (){
-    //alert("hallo uapdate");
+    
+	var exception_change =false; // erst wenn ausnahme-option  verändert ist dann akktualliseren Überblick (wegen perform)  
     //check, ob man etwas in Ausnahme verï¿½ndert hat
     //if ($("#box_info_exception").css("display") == "block"){
 	
@@ -693,16 +694,13 @@ var update_modul_in_selection = function (){
 		
 		
     //credit
-    if(($.trim(v)=="Credits")||($.trim(v)=="")){
-    //alert("nicht Verï¿½ndern");
-    }
-    else{
-			
-        //alert("Verï¿½ndern Exception_credit ="+v);
+    if(($.trim(v)!="Credits")||($.trim(v)!="")){
+    
+    	//alert("Verï¿½ndern Exception_credit ="+v);
         $(this_modul).find(".modul_credit").text(v+" C");
         $(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
         ajax_change_credits(modul_id,v);
-			
+        	
 			
     }
     //    alert("warn-checked = "+warn_checked+"\n"+"note-checked = "+note_checked);
@@ -946,6 +944,7 @@ var ajax_to_server_by_get_module_info = function (modul_id){
     		$("#exception_warn").attr("checked", "");
     		$("#exception_note").attr("checked", "");
             $("#info_box #box_info").append(html);
+            alert(html);
 
         // Mein Versuch, die Checkboxen zu selektieren, wenn die entsprechenden Optionen gesetzt sind...
            
@@ -1177,10 +1176,24 @@ function ajax_combobox(mod_id){
         contentType:'application/x-www-form-urlencoded',
         success:function(html){
             //alert(html);
-            $("#box_info_combobox").append(html);
-            //$("#box_info_combobox").append("Korigiere bitte Ausgabe-Format.");
-            $("#box_info_combobox").show();
-            $("#info_box").dialog('open');
+            //$("#box_info_combobox").append(html);
+            //$("#box_info_combobox").show();
+            //$("#info_box").dialog('open');
+    	    // suche das Modul in Auswahl und stecke das Drop-Down-Menu rein
+    		$("#semester-content").find(".semester").each(function(){
+    			$(this).find(">.subsemester").children().not("h5").each(function(){
+    				var this_mod_id = $(this).attr("id");
+    				if(this_mod_id == mod_id){
+    					//alert("modul gefunden");
+    					
+    					$(this).find("> p.drop_down_menu").css("display","block").append(html);
+    					
+    				}
+    				
+    			});
+    		
+    		
+    		});
 				
         },
         error : function(a,b,c){
@@ -1362,12 +1375,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
     var additional_info = $(ui_draggable).find(".additional_info").text();
     //alert("cat_id = "+cat_id);
     //alert(additional_info);
-    //check nach combobox bei Einfï¿½hrung bzw. SpezielleThemen
-	
-    if (additional_info == "true") {
-        //alert("ajax mit id " + modul_id);
-        ajax_combobox(modul_id);
-    }
+    
 	
 	
     // check ob das reingezogenem Modul aus POOL kommt.
@@ -1469,10 +1477,17 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
         set_image_to_red_ipunkt_and_error_to_yes(ui_draggable);
     }
 	
+    //check nach combobox bei Einfï¿½hrung bzw. SpezielleThemen
+	
+    if (additional_info == "true") {
+        //alert("ajax mit id " + modul_id);
+        ajax_combobox(modul_id);
+        $(ui_draggable).find(".additional_info").text("drop_down_schon_in_auswahl");
+    }
 
 
 			
-//	auswahlAnzeige(modul_id,semester,modulinhalt);
+
 		 
 }//ende drop in auswahl
 
@@ -1712,6 +1727,7 @@ var poolrekursiv = function(XMLhandle){
                 credits +" C" +
                 "</td>" +
                 "</tr>" + "</tbody>" + "</table>" +
+                "<p class='drop_down_menu' style='display:none'></p>"+
                 "<p class='credit-option' style='display:none'></p>"+
                 "<p class='warnung-option' style='display:none'></p>"+
                 "<p class='note-option' style='display:none'></p>"+
@@ -1774,10 +1790,16 @@ var search_is_active = function(){
 
 var change_module_style_to_pool = function(handle){
     // style fï¿½r option
-    $(handle).find("p.credit-option").css("display","none");
-    $(handle).find("p.warnung-option").css("display","none");
-    $(handle).find("p.note-option").css("display","none");
-    $(handle).find("div.icon_loeschen").css("display","none");
+    $(handle).find("> p.credit-option").css("display","none");
+    $(handle).find("> p.warnung-option").css("display","none");
+    $(handle).find("> p.note-option").css("display","none");
+    $(handle).find("> div.icon_loeschen").css("display","none");
+    
+    $(handle).find("> p.drop_down_menu").css("display","none").empty();
+    if($(handle).find("> span.additional_info").text()=="drop_down_schon_in_auswahl"){
+    	$(handle).find("> span.additional_info").text("true");
+    }
+    
 	
     // is_error auf "ja" setzen
     $(handle).find(".is_error").text("nein");
@@ -1791,7 +1813,8 @@ var change_module_style_to_pool = function(handle){
         }
 		
     });
-    $(handle).find(".ipunkt_td").html(ipunkt).css("display","none");
+    //$(handle).find(".ipunkt_td").html(ipunkt).css("display","none");
+    $(handle).find(".ipunkt_td").css("display","none");
     $(handle).find(".ipunkt").html(ipunkt);
     $(handle).find(".noten_input_td").css("display","none");
 	
