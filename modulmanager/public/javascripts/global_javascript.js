@@ -1815,7 +1815,7 @@ var change_module_style_to_auswahl = function(handle){
 				
 					
             $(handle).find(".ipunkt_td").css("display","inline");
-					
+			//check ob unbenoten ist		
             if ($(handle).find("span.modul_has_grade").text() != "nein") {
                 $(handle).find(".noten_input_td").css("display", "inline");
             }
