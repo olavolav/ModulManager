@@ -24,6 +24,10 @@ Noch zu beheben:
 48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
 49. Automatisches, regelmäßiges Löschen alter Session-Daten (Christian & Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen (Olav)
+54. Alle Buttons als eigene Knöpfe mit neuem Hintergundbild einbinden (Olav)
+55. Info-Box von modulen in der Auswahl: Den Überblick nur aktualisieren, falls man Ausnahme-Optionen verändert hat, da man diese ja nur ganz selten braucht (Quan)
+56. Schlichtere Version des momentan gelb vertikal gestreiften Hintergrundes erstellen (Olav)
+
 
 
 Inzwischen behoben:
@@ -62,7 +66,6 @@ Inzwischen behoben:
 53. Info-Boxen der untersten Ebene wieder lauffähig machen
 38. Berechnete Note wieder anzeigen (Christian findet raus, wer verantwortlich ist)
 15.a Ausnahme-Optionen: Note streiche einbauen (Christian)
-
 
 
 

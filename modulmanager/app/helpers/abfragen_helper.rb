@@ -88,7 +88,7 @@ module AbfragenHelper
     when 1
       image = "iPunkt.png"
     when -1
-      image = "AusrufezeichenBlinkend.gif"
+      image = "Ausrufezeichen.png"
     when 0
       image = "Fragezeichen.png"
     end

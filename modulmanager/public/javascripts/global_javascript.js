@@ -27,7 +27,7 @@ var unbekannter_modus_bild = "<img src='images/ModusUnbekannt.png'>";
 var fragebild = "<img src='images/Fragezeichen.png'>";
 var green_ipunkt = "<img src='images/iPunkt.png'>";
 var ipunkt = "<img src='images/iPunktGelb.png'>";
-var rote_ipunkt = "<img src='images/AusrufezeichenBlinkend.gif'>";
+var rote_ipunkt = "<img src='images/Ausrufezeichen.png'>";
 var rote_ipunkt_passiv = "<img src='images/Ausrufezeichen.png'>";
 	
 var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-5px; left:6px;'>";
@@ -869,9 +869,9 @@ var session_auswahl_rekursiv = function(root){
                     "</h5>" +
                     //"<span class='leer' style='display:none;color:red'></span>"+
                     "</div>" +
-                    "<button style='display:none;' class='semesterloeschen' onClick='sem_loeschen(" +
+                    "<a style='display:none;' class='semesterloeschen' onClick='sem_loeschen(" +
                     sem_id +
-                    ");'>L&ouml;schen</button>" +
+                    ");'>Semester entfernen</a>" +
                     "</div>");
             }
 			
@@ -919,7 +919,7 @@ var session_auswahl = function (){
 	
     // Loeschen anzeigen.Wir suchen das letzten Semester.
     var last_semester = $("#semester-content div.semester:last");
-    $(last_semester).find("button.semesterloeschen").css("display","block");
+    $(last_semester).find("a.semesterloeschen").css("display","block");
 	
 
 	

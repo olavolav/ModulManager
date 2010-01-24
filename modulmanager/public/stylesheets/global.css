@@ -3,6 +3,7 @@ body, table {
 	font-size: 12px;
 	font-weight: 400;
 	line-height: 16px;
+	color: #444;
 }
 
 h1{
@@ -23,14 +24,13 @@ h2{
 	text-decoration:underline; 
 }*/
 
-a:visited {
-	
-	color:blue;
-	 text-decoration:underline; 
+a:visited {	
+	color: blue;
+	text-decoration: none; 
 }
 
 #container{
-	background-color:white;
+	background-color: white;
 	/*height:3000px;*/
 	
 }
@@ -79,7 +79,7 @@ a:visited {
 }
 
 #subnavi-ul a, #subnavi-ul a {
-	color: black;
+	color: #444;
 	text-decoration: none;
 }
 
@@ -88,14 +88,25 @@ a:visited {
 	text-decoration: underline;
 }
 
+#navimoveup, #navimovedown, #semesterhinzu, .semesterloeschen {
+	width: 150px;
+	min-height: 18px;
+	margin : 4px;
+	text-align : center;
+	border : 1px #AAA solid;
+	background: white url("../images/Button-Hintergrund-Link.gif");
+	background-repeat: repeat;
+	background-position: top left;
+	cursor: pointer;
+	padding: 4px;
+}
+
 #navimoveup {
-	padding: 0.3em;
 	margin-top: 1em;
 	clear: both;
 }
 
 #navimovedown {
-	padding: 0.3em;
 	margin-left: 1em;
 }
 

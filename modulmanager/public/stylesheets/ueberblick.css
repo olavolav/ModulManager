@@ -56,6 +56,7 @@
     width: 20px;
 /*    min-width: 20px;*/
 	padding-left: 2px;
+	cursor: pointer;
 }
 .ueberblick_info_box:hover .ueberblick_info_text {
     display: block;

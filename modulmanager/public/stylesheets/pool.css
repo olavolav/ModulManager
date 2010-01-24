@@ -15,12 +15,12 @@
 }
 
 .pool_category a, .search_category a {
-	color: black;
+	color: #444;
 	text-decoration: none;
 }
 
 .pool_category a:hover, .search_category a:hover {
-	color: black;
+	color: #444;
 	text-decoration: underline;
 }
 

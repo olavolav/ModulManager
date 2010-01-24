@@ -41,11 +41,13 @@
 				Alternativ können Sie eine von Ihnen 
     <%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.<br/>
 
-    <%= link_to "<button>OK</button>", :action => "create_selection" %>
-    <!-- funktioniert nicht, s. Bug Nr. 4 (OS) -->
+	<ul>
+    <%= link_to "<li class='linkbutton'>OK</li>", :action => "create_selection" %>
     <% unless @mein_schwerpunkt == nil %>
-    <%= link_to("<button>Zurück</button>", :action => "index" ) %>
+
+    <%= link_to("<li class='linkbutton'>Zurück</li>", :action => "index" ) %>
     <% end %>
+	</ul>
     <div class="clear">&nbsp;</div>
   </div>
 

@@ -9,9 +9,10 @@
 
 
   <div id="subnavi">
-    <!-- <h1>ModulManager -->
-    <img src="images/Logo.png" width="215" heigth="30" alt="ModulManager">
-    <button id="navimovedown" onClick="javascript:show_navi();" style="display:none;">Navigation anzeigen</button>
+    <!-- so lange noch getestet wird (OS) <img src="images/Logo.png" width="215" heigth="30" alt="ModulManager"> -->
+    <img src="images/Logo-beta.png" width="252" heigth="30" alt="ModulManager">
+
+    <a id="navimovedown" onClick="javascript:show_navi();" style="display:none;">Navigation anzeigen</a>
     <div id="navi_optional">
       <div id="minihelp">
         <h2>Kurzanleitung</h2>
@@ -76,7 +77,7 @@
 
       <!-- <p>Unten können Sie Module per Drag&amp;Drop von den zur Verfügung stehenden Modulen in das gewünschte Semester ziehen.</p> -->
     </div>
-    <button id="navimoveup" onClick="javascript:hide_navi();">Navigation ausblenden</button>
+    <a id="navimoveup" onClick="javascript:hide_navi();">Navigation ausblenden</a>
 
   </div>
   <div id="pleasewait">
@@ -129,11 +130,12 @@
 		
 			 
       </div>
-     <button id="semesterhinzu" onClick="javascript:sem_hinzu();"> Semester hinzuf&uuml;gen</button>
+     <a id="semesterhinzu" onClick="javascript:sem_hinzu();"> Semester hinzuf&uuml;gen</a>
+
 	 <div id="semesterBOX" >
 	  	  
-	      <div id="0" class="semester">
-	       <h1>BOX</h1>	
+	      <div id="0" class="semester" style="margin-top:10px;">
+	       <h5>Vorratsbox (Module werden nicht einberechnet)</h5>	
 	       <div class="subsemester">	
 	       		 
 		   </div>

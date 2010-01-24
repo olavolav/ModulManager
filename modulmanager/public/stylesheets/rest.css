@@ -62,10 +62,15 @@ select {
 	margin-top : 30px;
 }
 
-#bestaetigen button {
-	min-width  : 15%;
-	margin : 1em;
-	text-align : center;
-	float: right;
-	color: black;
+.linkbutton {
+		width: 100px;
+		min-height: 18px;
+		margin : 0.3em;
+		text-align : center;
+		float: right;
+		color: #444;
+		border : 1px #AAA solid;
+		background: white url("../images/Button-Hintergrund-Link.gif");
+		background-repeat: repeat;
+		background-position: top left;		
 }

@@ -43,15 +43,15 @@
 }
 
 .semester, #voratbox {
-	/*border: 1px #DEB887 solid;*/
 	border: 1px #DEB887 solid;
+/*	border: 1px #AAA solid;
+	background: #FAFAFF; */
 	width:100%;
 	background: #FFFFAF url("../images/Semester-Hintergrund.gif");
 	background-repeat: repeat;
 	background-position: top left;
-	padding: 10px;
-	margin-bottom: 5px;
-	
+	padding: 8px;
+	margin-bottom: 10px;
 }
 
 /*--------Modul löschen*/
@@ -73,7 +73,7 @@
  }
 
 h3,h4,h5 {
-	/*color: #555;*/
+	/*color: #444;*/
 	font-size: 12px;
 	margin-bottom: 5px;
 	font-weight: normal;
