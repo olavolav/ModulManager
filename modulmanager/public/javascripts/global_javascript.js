@@ -919,7 +919,7 @@ var session_auswahl = function (){
 	
     // Loeschen anzeigen.Wir suchen das letzten Semester.
     var last_semester = $("#semester-content div.semester:last");
-    $(last_semester).find("a.semesterloeschen").css("display","block");
+    $(last_semester).find("a.semesterloeschen").css("display","inline");
 	
 
 	

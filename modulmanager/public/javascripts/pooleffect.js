@@ -483,15 +483,15 @@ var sem_hinzu = function(){
 								"</h5>"+
 								//"<span class='leer' style='display:none;'>(leer)</span>"+
 							"</div>"+
-							"<button class='semesterloeschen' onClick='sem_loeschen("+n+");'>L&ouml;schen</button>"+
+							"<a class='semesterloeschen' onClick='sem_loeschen("+n+");'>Semester entfernen</a>"+
 					  "</div>";
 			
 			$("#semester-content").append(neu);
 		
 			// "L�schen" wird immer in dem letzen Semester hinzuf�gen
 			// d.h: andere ""L�schen" werden weggemacht.
-			$(".semester[id="+(n-1)+"] button").css("display","none");
-			$(".semester[id="+n+"] button").css("display","block");
+			$(".semester[id="+(n-1)+"] .semesterloeschen").css("display","none");
+			$(".semester[id="+n+"] .semesterloeschen").css("display","inline");
 			
 			// ein Modul reinziehn
 			
@@ -617,7 +617,7 @@ var sem_loeschen = function(l){
 				// Loeschen anzeigen.Wir suchen das vorletzten Semester.
 				
 				if (lint > 1) {
-					$(".semester[id="+(lint-1)+"] .semesterloeschen").css("display","block");
+					$(".semester[id="+(lint-1)+"] .semesterloeschen").css("display","inline");
 					
 					//ajax aufrufen
 					// wir rufen nur Ajax auf wenn es sich um ein nicht leer semester handelt.
