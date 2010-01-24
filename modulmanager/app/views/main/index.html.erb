@@ -1,4 +1,4 @@
-	
+
 
 
 <!--<table id="search_table" style="border:1px solid black"></table>-->
@@ -32,9 +32,9 @@
             <td><img src='images/Wahlpflicht.png'></td>
           </tr>
           <!-- ><tr>
-											<td>Wahl-Modul</td>
-											<td><img src='images/Pflicht.png'></td>
-										</tr> -->
+                                                                                        <td>Wahl-Modul</td>
+                                                                                        <td><img src='images/Pflicht.png'></td>
+                                                                                </tr> -->
           <tr>
             <td cellspan="2"><strong>Schaltflächen:</strong></td>
           </tr>
@@ -55,9 +55,9 @@
             <td><img src='images/Ausrufezeichen.png'></td>
           </tr>
           <!-- <tr>
-											<td>Modul löschen</td>
-											<td><img src='images/Loeschen.png'></td>
-										</tr> -->
+                                                                                        <td>Modul löschen</td>
+                                                                                        <td><img src='images/Loeschen.png'></td>
+                                                                                </tr> -->
         </table>
       </div>
       <p>Herzlich Willkommen zum ModulManager!</p>
@@ -81,8 +81,8 @@
 
   </div>
   <div id="pleasewait">
-	<img src="images/Warten-HintergrundBlau.gif">
-	Bitte warten, der Modulmanager wird geladen...
+        <img src="images/Warten-HintergrundBlau.gif">
+        Bitte warten, der Modulmanager wird geladen...
   </div>
 
   <!-- CONTENT -->
@@ -122,27 +122,27 @@
 
 
         <!--<div class="semester" id="1">
-                                  		<h5>1.Semester</h5>
-                                  		<span class="leer" style="display:none">(leer)</span>
-                                  	</div>-->
+                                                  <h5>1.Semester</h5>
+                                                  <span class="leer" style="display:none">(leer)</span>
+                                          </div>-->
 
 
-		
-			 
+
+
       </div>
      <a id="semesterhinzu" onClick="javascript:sem_hinzu();"> Semester hinzuf&uuml;gen</a>
 
-	 <div id="semesterBOX" >
-	  	  
-	      <div id="0" class="semester" style="margin-top:10px;">
-	       <h5>Vorratsbox (Module werden nicht einberechnet)</h5>	
-	       <div class="subsemester">	
-	       		 
-		   </div>
-	      </div>
-	 </div>	  
-		  
-	  <div id="error_table" style="display:none"></div>
+         <div id="semesterBOX" >
+
+              <div id="0" class="semester" style="margin-top:10px;">
+               <h5>Vorratsbox (Module werden nicht einberechnet)</h5>
+               <div class="subsemester">
+
+                   </div>
+              </div>
+         </div>
+
+          <div id="error_table" style="display:none"></div>
     </div><!--End middle-->
 
 
@@ -193,7 +193,7 @@
   <div id="box_info"></div>
   <div id="box_info_pool" style="color:gray;" >Ausnahme-Optionen: Nur verf&uuml;gbar, wenn das Modul schon in der Auswahl ist.</div>
   <div id="box_info_exception">
-		Ausnahme-Optionen:
+                Ausnahme-Optionen:
     <table>
       <tbody>
         <tr><td>Credit-Zahl:</td><td><input type="text" id="exception_credit" size="5" maxlength="5" rel="modul_id" value=""/></td></tr>
@@ -201,11 +201,11 @@
         <tr><td>Note streichen</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox" /></td></tr>
       </tbody>
     </table>
-
+     <input type="hidden" name="exception_change" id="exception_change" value="false"  /> 
   </div>
   <div id="box_info_overview"></div>
   <div id="box_info_combobox"></div>
-  
+
 </div>
 
 
@@ -217,20 +217,20 @@
       <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
       <label for="credit">Credit Point</label>
       <input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all" />
-	  <div id="note_streichen">
-	  	Note streichen:
-	  	<input type="checkbox" name="note_checkbox" id="note_checkbox" value="" style='display:inline'/> 
-	   </div>
+          <div id="note_streichen">
+                  Note streichen:
+                  <input type="checkbox" name="note_checkbox" id="note_checkbox" value="" style='display:inline'/>
+           </div>
       <label for="category_id">Kategorie</label>
-	  <div id="dummy_checkbox"></div>
-	  
+          <div id="dummy_checkbox"></div>
+
      <!-- <select id="category_id" name="category_id">
         <%= options_from_collection_for_select(@categories, :id, :option_name, nil) %>
       </select>
-	-->
+        -->
       <input type="hidden" name="custom_semester" id="custom_semester" value=""  />
       <input type="hidden" name="custom_id" id="custom_id" value=""  />
-	   <input type="hidden" name="custom_cat_id" id="custom_cat_id" value=""  />
+           <input type="hidden" name="custom_cat_id" id="custom_cat_id" value=""  />
 
     </fieldset>
   </form>
@@ -251,7 +251,6 @@
 <!--<div id="footer">
                 footer
 </div>-->
-
 
 
 
