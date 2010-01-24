@@ -16,7 +16,7 @@ Noch zu beheben:
 33. Vorgeschaltete JavaScript-Test-Seite und Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
 36. Ausnahme-Optionen: "Note streichen" soll nur bei benoteten Modulen verfügbar sein; bitte auch an die Dummy-Module denken (Christian)
-37. Note streichen darf man nur X Mal pro best. Gruppe Falls dieser Wert überschritten ist, entspr. Fehler anzeigen
+37. Note streichen darf man nur X Mal pro best. Gruppe - Falls dieser Wert überschritten ist, entspr. Fehler anzeigen
 40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
 41. Ausnahme-Optionen: Vorherige Einstellungen werden vergessen, so bald man ein weiteres Mal auf den Info-Knopf klickt (Christian, evtl. mit Hilfe von Quan)
 44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
@@ -24,8 +24,7 @@ Noch zu beheben:
 48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
 49. Automatisches, regelmäßiges Löschen alter Session-Daten (Christian & Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen (Olav)
-54. Alle Buttons als eigene Knöpfe mit neuem Hintergundbild einbinden (Olav)
-55. Info-Box von modulen in der Auswahl: Den Überblick nur aktualisieren, falls man Ausnahme-Optionen verändert hat, da man diese ja nur ganz selten braucht (Quan)
+55. Info-Box von Modulen in der Auswahl: Den Überblick nur aktualisieren, falls man Ausnahme-Optionen verändert hat, da man diese ja nur ganz selten braucht (Quan)
 56. Schlichtere Version des momentan gelb vertikal gestreiften Hintergrundes erstellen (Olav)
 
 
@@ -66,6 +65,7 @@ Inzwischen behoben:
 53. Info-Boxen der untersten Ebene wieder lauffähig machen
 38. Berechnete Note wieder anzeigen (Christian findet raus, wer verantwortlich ist)
 15.a Ausnahme-Optionen: Note streiche einbauen (Christian)
+54. Alle Buttons als eigene Knöpfe mit neuem Hintergundbild einbinden (Olav)
 
 
 

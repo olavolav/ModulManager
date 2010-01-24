@@ -617,7 +617,7 @@ var sem_loeschen = function(l){
 				// Loeschen anzeigen.Wir suchen das vorletzten Semester.
 				
 				if (lint > 1) {
-					$(".semester[id="+(lint-1)+"] button").css("display","block");
+					$(".semester[id="+(lint-1)+"] .semesterloeschen").css("display","block");
 					
 					//ajax aufrufen
 					// wir rufen nur Ajax auf wenn es sich um ein nicht leer semester handelt.
