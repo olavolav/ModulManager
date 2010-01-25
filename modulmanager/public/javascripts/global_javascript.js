@@ -671,8 +671,9 @@ var info_box = function(modul_id){
 
 var update_modul_in_selection = function (){
     
-	  
-    //check, ob man etwas in Ausnahme ver�ndert hat
+	//checken ob das Modul in Vorratbox
+	var modul_in_vorratbox = false; 
+    //check, ob man etwas in Ausnahme veraendert hat
 	var exception_change = $("#exception_change").val();
 	var credit_exception_change = $("#credit_exception_change").val();
     //if ($("#box_info_exception").css("display") == "block"){
@@ -680,7 +681,17 @@ var update_modul_in_selection = function (){
 	
     var modul_id = $("#exception_credit").attr("rel");
     var this_modul = $("#semester-content .subsemester").find("div#"+modul_id).eq(0);
-		
+	var this_modul_in_subsemester=$(this_modul).text();
+	if(this_modul_in_subsemester==""){
+		modul_in_vorratbox=true;
+	}
+	
+	//suche das Modul in Vorratbox
+	if(modul_in_vorratbox){
+		this_modul=$("#semesterBOX .subsemester").find("div#"+modul_id).eq(0);
+	}
+	
+	
     var v=$("#exception_credit").val();
     var warn_checked = $("#exception_warn:checked").val();
     //alert("Warn-checked value ist "+warn_checked);
@@ -953,6 +964,7 @@ var ajax_to_server_by_get_module_info = function (modul_id){
     		$("#exception_credit").attr("checked", "");
     		$("#exception_warn").attr("checked", "");
     		$("#exception_note").attr("checked", "");
+    		//alert(html);
             $("#info_box #box_info").append(html);
             //alert(html);
 
