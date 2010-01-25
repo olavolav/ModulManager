@@ -125,6 +125,7 @@ class AbfragenController < ApplicationController
 
     m2.has_grade ? @has_grade = 1 : @has_grade = 0
     m2.permission_removed ? @has_warning = 0 : @has_warning = 1
+    m2.moduledata.has_grade ? @has_general_grade = 1 : @has_general_grade = 0
 
     respond_to do |format|
       format.html {render :file => "abfragen/module_info", :layout => false}

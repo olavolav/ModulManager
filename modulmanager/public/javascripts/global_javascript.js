@@ -736,7 +736,7 @@ var update_modul_in_selection = function (){
         ajax_to_server_by_add_grade(modul_id);
     }
      
-    //checken, ob man überhaupt Ausnahme-Optionen veraendert hat.
+    //checken, ob man ï¿½berhaupt Ausnahme-Optionen veraendert hat.
     // erst wenn ja dann wird ueberblick() akktuallisiert
     if($("#exception_change").val()=="true"){
     	ueberblick();
@@ -980,14 +980,14 @@ var ajax_to_server_by_get_module_info = function (modul_id){
                     }
                     if($("#custom_credits").text() != -1) {
                     	var this_credits =$("#custom_credits").text();
-                    	//alert("geänderte credits = "+this_credits);
+                    	//alert("geï¿½nderte credits = "+this_credits);
                         $("#exception_credit").attr("value",this_credits);
-                    }
-                    else
+                    } else {
                     	$("#exception_credit").attr("value","Credits");
-
-
-
+                    }
+                    if($("#has_general_grade").text() == 0) {
+                        $("#note_streichen_checkbox").css("display", "none");
+                    }
         }/*,
                 error: function(a,b,c){
                         alert(b);
