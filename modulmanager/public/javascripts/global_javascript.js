@@ -987,6 +987,8 @@ var ajax_to_server_by_get_module_info = function (modul_id){
                     }
                     if($("#has_general_grade").text() == 0) {
                         $("#note_streichen_checkbox").css("display", "none");
+                    } else {
+                        $("#note_streichen_checkbox").css("display", "block");
                     }
         }/*,
                 error: function(a,b,c){
