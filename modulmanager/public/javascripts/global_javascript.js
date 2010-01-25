@@ -1799,12 +1799,17 @@ var search_is_active = function(){
 }
 
 var change_module_style_to_pool = function(handle){
-    // style f�r option
-    $(handle).find("> p.credit-option").css("display","none");
-    $(handle).find("> p.warnung-option").css("display","none");
-    $(handle).find("> p.note-option").css("display","none");
+    // style fuer Ausnahme-optionen
+    $(handle).find("> p.credit-option").css("display","none").empty();
+    $(handle).find("> p.warnung-option").css("display","none").empty();
+    $(handle).find("> p.note-option").css("display","none").empty();
     $(handle).find("> div.icon_loeschen").css("display","none");
     
+    //auf originale Credits setzen
+    var original_credits = $(handle).find("> span.credits_in_selection").text();
+    var hi =$(handle).find("> table tbody tr td.modul_credit").text();
+    $(handle).find("> table tbody tr td.modul_credit").text(original_credits+" C");
+   
     $(handle).find("> p.drop_down_menu").css("display","none").empty();
     if($(handle).find("> span.additional_info").text()=="drop_down_schon_in_auswahl"){
     	$(handle).find("> span.additional_info").text("true");
