@@ -562,6 +562,8 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
         // alert("the_father class: "+the_father.attr("class"));
         if(!module_div_present_in_parent($(this))){
 			
+        	
+        	
             $(this).append(this_modul);
             modul_itself_has_not_been_moved = false;
 				
@@ -575,9 +577,11 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
                 if (!(search_is_active())) {
                     if (pool_modul != "partial_modul") {
                         //alert("pool_modul = "+pool_modul);
-                        $(this).find("#" + mod_id).css("display", "block");
+                    	//check nach dummy.
+                    	if($(this).find("span.custom").text()!="custom"){
+                    		$(this).find("#" + mod_id).css("display", "block");
+                    	}
                     }
-						
                 }
             // else $(this).find("#"+mod_id).css("display","none");
             }
@@ -585,13 +589,16 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
         }// ende if leer
 			
         else { // Modul ist schon im Pool, nur versteckt
-				
+        	//alert("hallo");	
             // check den Vater-Kategory, ob der gerade offen ist (neu, OS)
             if (arrow_type == "leer")
                 flip_arrow_of_category("rechts",$(this).parent());
             else if (arrow_type == "unten") {
                 if ((!search_is_active()) || $(this).is(".search_modul")) {
-                    $(this).find("#"+mod_id).css("display","block");
+                	
+                	if($(this).find("span.custom").text()!="custom")
+                		$(this).find("#"+mod_id).css("display","block");
+                	//else alert("na, hier bist du wieder ein dummy");
                 // alert("test: 1");
                 }
             }
@@ -606,7 +613,11 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
             //$(this).find("#"+mod_id).css("display","block");
             var this_mod = $(this).find("#"+mod_id).eq(0);
             if(($(this_mod).attr("class")!="partial_modul")||($(this_mod).attr("class")!="partial_modul ui-draggable")){
-                $(this_mod).show();
+            	if($(this_mod).find("span.custom").text()!="custom"){
+            		$(this_mod).show();
+                    
+            	}
+            	else alert("ich bin da das Dummy in search-active");
             }
 				
             // alert("test: 2");
@@ -745,6 +756,23 @@ var update_modul_in_selection = function (){
 //}
 }//ende
 
+var update_dummy_modul_in_selection = function(dummy_modul){
+	//alert("Hallo update dummy");
+	//check ob man das Note-streichen im Dialog ankreuzt 
+	var ch =$("#custom_dialog form #note_streichen #note_checkbox:checked").val();
+	//alert("checked="+ch);
+	
+	if(ch=="checkbox"){
+		$(dummy_modul).find("p.note-option").css("display","block").text("Ausnahme: Note wird nicht eingebracht");
+		var dummy_id = $(dummy_modul).find("> span.modul_id").text();
+		//alert("Dummy_id = "+dummy_id);
+		ajax_to_server_by_remove_grade(dummy_id);
+		$("#note_checkbox").attr("checked","");
+	}
+	return 0;
+}	
+
+
 
 
 
@@ -758,6 +786,17 @@ var change_custom_in_pool_by_session_load = function(das_erste,custom_name,custo
     $(das_erste).find(".modul_credit").text(custom_credit+" C");
     $(das_erste).attr("class","pool_modul ui-draggable");
     $(das_erste).find(".custom_exist").text("ja");
+
+    return 0;
+	
+}
+var change_custom_in_selection_by_session_load = function(auswahl_modul_clone,custom_name,custom_credit){
+	
+	//alert("hi change custom");
+	$(auswahl_modul_clone).find(".modul_name").text(custom_name);
+    $(auswahl_modul_clone).find(".modul_credit").text(custom_credit+" C");
+    $(auswahl_modul_clone).attr("class","pool_modul ui-draggable");
+    $(auswahl_modul_clone).find(".custom_exist").text("ja");
 
     return 0;
 	
@@ -786,20 +825,6 @@ var session_auswahl_rekursiv = function(root){
 			
 			
 			
-			
-            //custom_modul laden: Name und credit ver�ndern
-			
-            if($(this).hasClass("custom")){
-                //alert("Hallo custom_modul_in_auswahl ID: "+mod_id);
-                var custom_name = $(this).attr("name");
-                //alert("Dumy "+this_name);
-                var custom_credit    = $(this).attr("credits");
-                //alert("Dummy"+this_credit);
-                change_custom_in_pool_by_session_load(das_erste,custom_name,custom_credit);
-            }
-			
-			
-			
             // die originalen Module verstecken
             //und den span.inAuswahl auf "ja" setzen
             //und alle vor dem Clone
@@ -809,8 +834,20 @@ var session_auswahl_rekursiv = function(root){
                 $(this).find("span.inAuswahl").text("ja");
             });
 			
+            //custom_modul laden: Name und credit ver�ndern
 			
-            // ver�ndern erstmal die interne im Modul bei dem Clone
+            if($(this).hasClass("custom")){
+                //alert("Hallo custom_modul_in_auswahl ID: "+mod_id);
+                var custom_name = $(this).attr("name");
+                //alert("Dumy "+this_name);
+                var custom_credit    = $(this).attr("credits");
+                //alert("Dummy"+this_credit);
+                //change_custom_in_pool_by_session_load(das_erste,custom_name,custom_credit);
+                change_custom_in_selection_by_session_load(auswahl_modul_clone,custom_name,custom_credit);
+            }
+			
+			
+			// ver�ndern erstmal die interne im Modul bei dem Clone
             //besonders hat die Klone die class "auswahl_modul_clone"
             //zur Indentifizierung bei alle erster Ver�nderung im Auswahl
 			
@@ -1819,7 +1856,7 @@ var change_module_style_to_pool = function(handle){
     $(handle).find("> p.note-option").css("display","none").empty();
     $(handle).find("> div.icon_loeschen").css("display","none");
     
-    //auf originale Credits setzen
+    //auf originale Credits setzen im Fall Credits-Veraenderung
     var original_credits = $(handle).find("> span.credits_in_selection").text();
     var hi =$(handle).find("> table tbody tr td.modul_credit").text();
     $(handle).find("> table tbody tr td.modul_credit").text(original_credits+" C");
@@ -1829,7 +1866,17 @@ var change_module_style_to_pool = function(handle){
     	$(handle).find("> span.additional_info").text("true");
     }
     
-	
+	// checke nach Dummy-Modul. Wenn ja dann den Name wieder auf den Standardname (hier: (sonstiges Modul)) setzen
+    // und span.custom_exist=nein setzen und class=custom_modul, 
+    // damit dieses Dummy nicht im Pool angezeigt wird(sonst mehr als 2 Dummies im pool vorkommen
+    var dummy_name = $(handle).find("span.custom").text();
+    if(dummy_name == "custom"){
+    	var dummy_standard_name=$(handle).find("span.modul_name_in_pool").text();
+    	$(handle).find("> table tbody tr td.modul_name").text(dummy_standard_name);
+    	$(handle).find("span.custom_exsit").text("nein");
+    	$(handle).attr("class","custom_modul");
+    	$(handle).hide();
+    }
     // is_error auf "ja" setzen
     $(handle).find(".is_error").text("nein");
    	

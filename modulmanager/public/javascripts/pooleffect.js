@@ -83,7 +83,29 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 		}
 		var this_credit_point_float = parseFloat(this_credit_point);
 		
-		
+		//Das dummy in Auswahl stecken. Name und Credit anpassen
+		// check das Note_streichen von Anfang an
+		var cus_modul = $("#pool #"+custom_id);
+		var name=$("#name");
+		var credit=$("#credit");
+		var na = name.attr("value");
+		var cre = credit.attr("value");
+		$(cus_modul).attr("class","auswahl_modul ui-draggable");
+		//$(cus_modul).find("span.custom").text("non-custom");
+		$(cus_modul).find(".modul_name").text(na);
+		$(cus_modul).find(".modul_credit").text(cre+" C");
+		change_module_style_to_auswahl(cus_modul);
+		$(cus_modul).find("span.inAuswahl").text("ja");
+		$("#middle").find(".semester").each(function(){
+			var this_id = $(this).attr("id");
+			if(this_id == custom_semester){
+				var this_subsemester = $(this).find(".subsemester");
+				$(this_subsemester).append(cus_modul);
+				//check Noten streichen
+				update_dummy_modul_in_selection(cus_modul);
+			}	
+				
+		})
 		ajax_server_by_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id);
 		return true;
 	}
@@ -149,12 +171,12 @@ $(function(){
 						
 						
 						var cus_modul = $("#pool #"+cus_id);
-						$(cus_modul).attr("class","auswahl_modul ui-draggable");
+						/*$(cus_modul).attr("class","auswahl_modul ui-draggable");
 						//$(cus_modul).find("span.custom").text("non-custom");
 						$(cus_modul).find(".modul_name").text(na);
 						$(cus_modul).find(".modul_credit").text(cre+" C");
 						change_module_style_to_auswahl(cus_modul);
-						$(cus_modul).find("span.inAuswahl").text("ja");
+						$(cus_modul).find("span.inAuswahl").text("ja");*/
 						
 						// custom_modul soll auch in VorratBox sein
 						/*$("#semester-content div.semester").each(function(){
@@ -167,15 +189,17 @@ $(function(){
 			
 						});*/
 						
-						$("#middle").find(".semester").each(function(){
+						/*$("#middle").find(".semester").each(function(){
 							var this_id = $(this).attr("id");
 							if(this_id == cus_sem){
 								var this_subsemester = $(this).find(".subsemester");
 								$(this_subsemester).append(cus_modul);
+								//check Noten streichen
+								update_dummy_modul_in_selection(cus_modul);
 								
 								
 							}
-						});
+						});*/
 						
 						
 						var this_exsit = $(cus_modul).find("span.custom_exist").text();
@@ -199,7 +223,14 @@ $(function(){
 			
 		 });
 		
-			
+		
+		 // check Noten_streichen fuer Dummy_modul
+		 // da wird #exception_change als SpeicherOrt für das Ankreuzen benutzt
+		 //$("#custom_dialog #note_streichen").click(function(){
+		//	 $("#exception_change").attr("value","true");
+			 //die Funktion update_dummy_modul_in_selection check das exception_change
+			 
+		// })
 			
 		 ////Ausname-Optionen checken. Bei jeder Veränderung wird dann die Funktion Überblick erneut geladen.
 		 // exception_change ist fuer Note streichen und Warnung deaktivieren verantwortlich
@@ -379,9 +410,11 @@ $(function(){
 				
 				 else{// hier sind custom_module
 				 	if (modul_class == "auswahl_modul ui-draggable" || modul_class == "auswahl_modul" || modul_class == "auswahl_modul_clone ui-draggable") {
-						drop_in_auswahl(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper);
+						
+				 		drop_in_auswahl(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper);
 					}
 					else {
+						//von pool her
 						custom_modul_drop_in_auswahl(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper);
 						
 					}
@@ -687,6 +720,7 @@ var toggle_category = function(category_id){
 							if (search_is_active()) {
 								if ($(this).parent().is(".search_modul")) {
 									if ($(this).attr("class") != "partial_modul") {
+										//alert("hier bist du ");
 										$(this).css("display", "block");
 										count++;
 									}
