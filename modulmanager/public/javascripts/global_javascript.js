@@ -801,6 +801,11 @@ var change_custom_in_selection_by_session_load = function(auswahl_modul_clone,cu
     return 0;
 	
 }
+
+var set_mod_has_grade_to_no = function(handle){
+	$(handle).find("span.modul_has_grade").text("nein");
+	
+}
 var session_auswahl_rekursiv = function(root){
 	
     var sem_content = $("#semester-content");
@@ -818,6 +823,7 @@ var session_auswahl_rekursiv = function(root){
             // dann verstecken die originalen Module im Pool
             var mod_id = $(this).attr("id");
             var mod_grade = $(this).attr("grade");
+            var mod_has_grade=$(this).attr("has_grade");
 			
             //alert(mod_id);
             var modul_im_pool = $("#pool").find("div#"+mod_id);
@@ -850,10 +856,15 @@ var session_auswahl_rekursiv = function(root){
 			// ver�ndern erstmal die interne im Modul bei dem Clone
             //besonders hat die Klone die class "auswahl_modul_clone"
             //zur Indentifizierung bei alle erster Ver�nderung im Auswahl
-			
-						
+			// check ob unbenoten ist
+            if(mod_has_grade=="false"){
+            	//unbenoten
+            	set_mod_has_grade_to_no(auswahl_modul_clone);
+            }			
             $(auswahl_modul_clone).attr("class","auswahl_modul_clone");
             change_module_style_to_auswahl(auswahl_modul_clone);
+            
+            
 			
             // Noten setzen
             if(mod_grade != "" ){
@@ -1897,6 +1908,7 @@ var change_module_style_to_pool = function(handle){
     return 0;
 }
 
+
 var change_module_style_to_auswahl = function(handle){
     // style f�r option
     $(handle).find("p.credit-option").css("display","block");
@@ -1912,28 +1924,24 @@ var change_module_style_to_auswahl = function(handle){
         //alert("hallo "+i);
         if($.browser.msie){
 				
-					
-            $(handle).find(".ipunkt_td").css("display","inline");
+			$(handle).find(".ipunkt_td").css("display","inline");
 			//check ob unbenoten ist		
-            if ($(handle).find("span.modul_has_grade").text() != "nein") {
+            if ($(handle).find("span.modul_has_grade").text() != "nein"   ){
                 $(handle).find(".noten_input_td").css("display", "inline");
             }
-            else{// hier unbenoteten Module
-                set_image_to_green_or_red_ipunkt(handle);
-            }
-					
+            else set_image_to_green_or_red_ipunkt(handle);
+            
         }
 				
         else {
 					
             $(handle).find(".ipunkt_td").css("display","table-cell");
-            if ($(handle).find("span.modul_has_grade").text() != "nein") {
+            if ($(handle).find("span.modul_has_grade").text() != "nein"   ){
                 $(handle).find(".noten_input_td").css("display", "table-cell");
             }
-            else{// hier unbenoteten Module
-                set_image_to_green_or_red_ipunkt(handle);
-            }
+            else set_image_to_green_or_red_ipunkt(handle);
         }
+        
 			
     });
     /*$(handle).find(".ipunkt_td").css("display","table-column");
