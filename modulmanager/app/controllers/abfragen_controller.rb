@@ -230,10 +230,14 @@ class AbfragenController < ApplicationController
     selection = current_selection
     selection.selection_modules.each do |m|
       if m.moduledata.id == id.to_i
-        m.has_grade = false
-        m.save
-        render :text => "success"
-        return
+        m.moduledata.categories.each do |category|
+          if category.grade_remove_allowed? m.moduledata, selection
+            m.has_grade = false
+            m.save
+            render :text => "success"
+            return
+          end
+        end
       end
     end
     render :text => "error"

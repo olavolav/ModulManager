@@ -311,6 +311,10 @@ class RegelParserController < ApplicationController
           dummie_counter += 1
         end
       end
+      if mg["note-streichen"] != nil
+        new_cat.grade_remove = mg["note-streichen"]
+        new_cat.save
+      end
       create_min_standard_connection(mg["name"], mg["credits"], mg["anzahl"], version)
     end
     parent_groups.each do |pg|

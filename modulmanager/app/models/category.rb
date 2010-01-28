@@ -38,4 +38,24 @@ class Category < ActiveRecord::Base
     return c
   end
 
+  def count_removed_grades selection
+    counter = 0
+    selected_modules = selection.selection_modules
+    selected_modules.each do |sm|
+      if self.modules.include? sm.moduledata && sm.has_grade == false
+        counter += 1
+      end
+    end
+    return counter
+  end
+
+  def grade_remove_allowed?(studmodule, selection)
+    unless self.grade_remove == nil
+      if studmodule.categories.include?(self) && count_removed_grades(selection) < self.grade_remove
+        return true
+      end
+    end
+    return false
+  end
+
 end

@@ -13,7 +13,6 @@ Noch zu beheben:
 32. _check_category im main-Controller ist noch nicht dynamisch bzgl. NatMat usw. (Christian)
 33. Vorgeschaltete JavaScript-Test-Seite und Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
-37. Note streichen darf man nur X Mal pro best. Gruppe - Falls dieser Wert überschritten ist, entspr. Fehler anzeigen
 40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
 44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
@@ -65,6 +64,7 @@ Inzwischen behoben:
 55. Info-Box von Modulen in der Auswahl: Den Überblick nur aktualisieren, falls man Ausnahme-Optionen verändert hat, da man diese ja nur ganz selten braucht (Quan)
 41. Ausnahme-Optionen: Vorherige Einstellungen werden vergessen, so bald man ein weiteres Mal auf den Info-Knopf klickt (Christian, evtl. mit Hilfe von Quan)
 36. Ausnahme-Optionen: "Note streichen" soll nur bei benoteten Modulen verfügbar sein; bitte auch an die Dummy-Module denken (Christian)
+37. Note streichen darf man nur X Mal pro best. Gruppe - Falls dieser Wert überschritten ist, entspr. Fehler anzeigen
 
 
 

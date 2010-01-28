@@ -21,6 +21,7 @@
     module: "B.Phy.101, B.Phy.102, B.Phy.103, B.Phy.104, B.Phy.201, B.Phy.202, B.Phy.203"
     anzahl: 7
     credits: 54
+    note-streichen: 2
 
   - name: Praktika
     beschreibung: "In Grund- und Fortgeschrittenenpraktika sollen wichtige Techniken des naturwissenschaftlichen Experimentierens erlernt werden."
