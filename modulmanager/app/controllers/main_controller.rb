@@ -10,6 +10,11 @@ class MainController < ApplicationController
   end
   
   def index
+    date = "#{Date.today.strftime("%Y-%m-")}#{Date.today.mday-2}"
+    puts date
+    old_sessions = ModuleSelection.find(:all, :conditions => "updated_at < '#{date}'")
+    old_sessions.each { |session| session.destroy }
+
     selection = current_selection
     selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = selection.focus.name
     @version = selection.version
