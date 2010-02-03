@@ -313,8 +313,11 @@ class RegelParserController < ApplicationController
       end
       if mg["note-streichen"] != nil
         new_cat.grade_remove = mg["note-streichen"]
-        new_cat.save
       end
+      if mg["überschneidung"] == "mehrfach"
+        new_cat.exclusive = 1
+      end
+      new_cat.save
       create_min_standard_connection(mg["name"], mg["credits"], mg["anzahl"], version)
     end
     parent_groups.each do |pg|

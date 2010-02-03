@@ -5,11 +5,9 @@ Noch zu beheben:
 
 2. Buttons sind im Firefox nur via Text anklickbar (Olav)
 11. Name ist bei unbenoteten Modulen zu nah an dem Info-Icon (Olav)
-15.c Ausnahme-Optionen: Warnung deaktivieren muss im Backend noch richtig ausgewertet werden (Christian)
 25. Hilfe-Seite schreiben (Olav)
 27. Deployment testen (Christian)
 29. Copyright-Angaben hinzufügen (Olav)
-32. _check_category im main-Controller ist noch nicht dynamisch bzgl. NatMat usw. (Christian)
 33. Vorgeschaltete JavaScript-Test-Seite und Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
 40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
@@ -65,6 +63,8 @@ Inzwischen behoben:
 37. Note streichen darf man nur X Mal pro best. Gruppe - Falls dieser Wert überschritten ist, entspr. Fehler anzeigen
 49. Automatisches, regelmäßiges Löschen alter Session-Daten (Christian & Olav)
 22. Auf die "production"-Umgebung umstellen (Christian)
+15.c Ausnahme-Optionen: Warnung deaktivieren muss im Backend noch richtig ausgewertet werden (Christian)
+32. _check_category im main-Controller ist noch nicht dynamisch bzgl. NatMat usw. (Christian)
 
 
 
