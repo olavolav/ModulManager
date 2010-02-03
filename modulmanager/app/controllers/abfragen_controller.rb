@@ -286,10 +286,11 @@ class AbfragenController < ApplicationController
   end
 
   def info
+    selection = current_selection
     id = params[:id]
     regel = Connection.find(:first, :conditions => "id = '#{id}'")
-    mods = current_selection.selection_modules
-    ff = regel.evaluate mods
+    mods = selection.selection_modules
+    ff = regel.evaluate mods, get_errors(selection)
     ff == 1 ? @fullfilled_string = "erfüllt" : @fullfilled_string = "nicht erfüllt"
     ff == 1 ? @fullfilled = true : @fullfilled = false
     @credits_earned = regel.credits_earned mods
