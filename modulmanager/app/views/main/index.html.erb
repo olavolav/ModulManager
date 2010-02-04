@@ -13,7 +13,12 @@
     <img src="images/Logo-beta.png" width="252" heigth="30" alt="ModulManager">
 
     <a id="navimovedown" onClick="javascript:show_navi();" style="display:none;">Navigation anzeigen</a>
+	
     <div id="navi_optional">
+	  <a id="helpmovedown" onClick="javascript:show_minihelp();">Zum ersten Mal hier?</a>
+	<div id="help_optional" style="display:none;">
+      <p>Herzlich Willkommen zum ModulManager! Wie wäre es mit einem kurzen Einführungs-Video? (Prototyp!)</p>
+
       <div id="minihelp">
         <h2>Kurzanleitung</h2>
         <p>Ziehen Sie Module von der rechten Spalte in die momentane Auswahl in der Mitte. In der linken Spalte oder an Modulen selbst wird angezeigt, ob die entspr. Bedingungen erfüllt sind.</p>
@@ -60,7 +65,23 @@
                                                                                 </tr> -->
         </table>
       </div>
-      <p>Herzlich Willkommen zum ModulManager!</p>
+
+		<!-- VZAAR START -->
+		<div class="vzaar_media_player" style="margin:20px;">
+		  <object id="video" width="590" height="338" type="application/x-shockwave-flash" data="http://vzaar.com/videos/185053.swf">
+		    <param name="movie" value="http://vzaar.com/videos/185053.swf">	
+		    <param name="allowScriptAccess" value="always">
+		    <param name="allowFullScreen" value="true">
+		    <param name="movie" value="http://vzaar.com/videos/185053.swf">
+		    <param name="wmode" value="transparent">
+		    <param name="flashvars" value="">
+		    <embed src="http://vzaar.com/videos/185053.swf" type="application/x-shockwave-flash" wmode="transparent" width="590" height="338" allowScriptAccess="always" allowFullScreen="true" flashvars=""></embed>
+		    <video width="576" height="324" src="http://view.vzaar.com/185053.video" poster="http://view.vzaar.com/185053.image"></video>
+		  </object>
+		</div>
+		<!-- VZAAR END -->
+	</div>
+
       <p>Momentane Einstellungen:
       <ul>
         <li>Schwerpunkt: <strong><%= @schwerpunkt %></strong></li>
@@ -72,8 +93,10 @@
         <%= link_to "<li>Zurück zur Schwerpunkt- und Prüfungsordnungs-Auswahl</li>", :action => "start" %>
         <%= link_to "<li>Hilfe</li>", :action => "help" %>
         <%= link_to "<li>Speichern und Drucken</li>", :action => "export" %>
+      </ul>
+
+
         <div class="clear"></div>
-      <!-- </ul> -->
 
       <!-- <p>Unten können Sie Module per Drag&amp;Drop von den zur Verfügung stehenden Modulen in das gewünschte Semester ziehen.</p> -->
     </div>
@@ -84,6 +107,10 @@
         <img src="images/Warten-HintergrundBlau.gif">
         Bitte warten, der Modulmanager wird geladen...
   </div>
+  <div id="shadowbar">
+        &nbsp;
+  </div>
+
 
   <!-- CONTENT -->
 

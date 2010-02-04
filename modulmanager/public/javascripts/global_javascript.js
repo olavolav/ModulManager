@@ -285,6 +285,11 @@ var hide_navi = function(){
     $("#ueberblick").css("position","fixed");
     $("#middle").css("margin-left","24%");
 }
+var show_minihelp = function(){
+    $("#help_optional").slideDown();
+		$("#helpmovedown").hide();
+}
+
 
 // Fixieren bzw. 
 
