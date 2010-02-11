@@ -15,7 +15,7 @@
     <a id="navimovedown" onClick="javascript:show_navi();" style="display:none;">Navigation anzeigen</a>
 	
     <div id="navi_optional">
-	  <a id="helpmovedown" onClick="javascript:show_minihelp();">Zum ersten Mal hier?</a>
+	  <a id="helpmovedown" onClick="javascript:show_minihelp();"><img src="images/GetStarted.png" style="margin-right:4px;">Neu hier?</a>
 	<div id="help_optional" style="display:none;">
       <p>Herzlich Willkommen zum ModulManager! Wie wäre es mit einem kurzen Einführungs-Video? (Prototyp!)</p>
 
@@ -91,7 +91,7 @@
 
       <ul id="subnavi-ul">
         <%= link_to "<li>Zurück zur Schwerpunkt- und Prüfungsordnungs-Auswahl</li>", :action => "start" %>
-        <%= link_to "<li>Hilfe</li>", :action => "help" %>
+        <%= link_to "<li>Oft gestellte Fragen (FAQ)</li>", :action => "help" %>
         <%= link_to "<li>Speichern und Drucken</li>", :action => "export" %>
       </ul>
 
