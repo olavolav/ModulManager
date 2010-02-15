@@ -51,7 +51,7 @@ select {
 
 
 .knopf {
-	border : 1px #3b809d outset;
+	border : 1px #AAA outset;
 	background: white url("../images/Button-Hintergrund.gif");
 	background-repeat: repeat;
 	background-position: top left;		

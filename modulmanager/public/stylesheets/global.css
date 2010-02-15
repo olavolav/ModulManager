@@ -45,7 +45,7 @@ a:visited {
 #subnavi {
 	background-color: #F4F4FF;
 	/*height: 50px;*/
-	border-bottom: 1px #3b809d solid;
+	border-bottom: 1px #AAA solid;
 	padding: 0.5em;
 	/*margin-left: 1em;
 		margin-right: 1em;
@@ -75,8 +75,9 @@ a:visited {
 #subnavi-ul li{
 	width: 40%;
 	list-style-type: none;
-	border : 1px #3b809d outset;
-	background: white url("../images/Button-Hintergrund.gif");
+	/* border : 1px #3b809d outset; */
+	border : 1px #AAA solid;
+	background: white url("../images/Button-Hintergrund-Link.gif");
 	background-repeat: repeat;
 	background-position: top left;	
 	text-align:center;
@@ -123,25 +124,26 @@ a:visited {
 
 #minihelp{
 	float: right;
-	border: 1px #909090 outset;
-	background: white;
+	/* border: 1px #909090 outset;
+	background: white; */
+	border: 1px #F0F0F0 outset;
+	background: #FAFAFD;
 	width: 30%;
 	padding: 10px;
 	margin-right: 10px;
-	background: white url("../images/Pool-Hintergrund.gif");
+	/* background: white url("../images/Pool-Hintergrund.gif");
 	background-repeat: repeat;
-	background-position: top left;	
+	background-position: top left;	*/
 }
 
 #content{
-	/*background-color:red;*/	
+/*	background-color:red;*/
 }
 
 #left{
 	
 	float: left;
-	width: 22%; /* das sollte auch bei ID 'ueberblick' eingetragen werden (s. auch #middle) (OS) */
-	background-color:white;
+	width: 23%; /* das sollte auch bei ID 'ueberblick' eingetragen werden (s. auch #middle) (OS) */
 	/*border-right:1px black solid;*/
 	/*height:500px;*/
 }
@@ -150,7 +152,7 @@ a:visited {
 	
 	float: left;
 	width:49%;
-	background-color:white;
+/*	background-color:white;*/
 	/*padding-left: 20px;
 	padding-right: 20px;*/
     /*margin-left: 24%;*/
@@ -188,7 +190,7 @@ a:visited {
 }
 
 #subright{
-	background-color:white;
+/*	background-color:white;*/
 	padding:2px 20px 2px 20px;
 	
 	
@@ -228,11 +230,13 @@ a:visited {
 
 #subright-content{
 		/*border: 1px #DEB887 solid;*/
-		border: 1px #DEB887 solid;
+/*		border: 1px #DEB887 solid;*/
 		/*background-color:#FFF68F;*/
-		background: #FFFFAF url("../images/Pool-Hintergrund.gif");
+/*		background: #FFFFAF url("../images/Pool-Hintergrund.gif");
 		background-repeat: repeat;
-		background-position: top left;
+		background-position: top left; */
+		border: 1px #F0F0F0 solid;
+		background: #FAFAFD;
 		margin: 3px;
 		padding:2px;
 		height:100%;
@@ -252,6 +256,17 @@ a:visited {
 	clear:both; 	
 	
 
+}
+
+.auswahl_modul,.auswahl_modul_clone, .pool_modul ,.custom_modul, .pool_modul_copy {
+		margin-bottom    : 3px;
+		padding          : 1px 1px 0px 1px;
+		cursor			 : move;
+		min-width        : 200px;
+		background: #d8eef7 url("../images/Modul-Hintergrund.png");
+		background-repeat: no-repeat;
+		background-position: top left;
+		border: 1px #c8dee7 solid;
 }
 
 

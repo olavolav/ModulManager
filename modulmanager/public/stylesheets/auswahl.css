@@ -1,14 +1,4 @@
 
-.auswahl_modul,.auswahl_modul_clone {
-		margin-bottom    : 5px;
-		padding          : 1px 1px 0px 1px;
-		border           : 1px #3b809d outset;
-		cursor			 : move;
-		min-width        : 200px;
-		background: #d8eef7 url("../images/Modul-Hintergrund.gif");
-		background-repeat: repeat-x;
-		background-position: top left;
-}
 
 .auswahl_modul td {
 	padding:0px;
@@ -43,13 +33,18 @@
 }
 
 .semester, #voratbox {
-	border: 1px #DEB887 solid;
+	/* border: 1px #DEB887 solid; */
 /*	border: 1px #AAA solid;
 	background: #FAFAFF; */
 	width:100%;
-	background: #FFFFAF url("../images/Semester-Hintergrund.gif");
+	/* background: #FFFFAF url("../images/Semester-Hintergrund.gif");
 	background-repeat: repeat;
-	background-position: top left;
+	background-position: top left; */
+	/* border: 1px #F0F0F0 solid;
+	background: #FDFDE0; */
+	border: 1px #F0F0F0 solid;
+	background: #FAFAFD;
+	
 	padding: 8px;
 	margin-bottom: 10px;
 }
@@ -63,14 +58,12 @@
 
 /*   Ajax warte.......*/  
 .quick-alert {
-         width: 100%;
-         margin: 1em 0;
-         padding: .5em;
-         /*border: 1px solid #a00;*/
-         color: #a00;
-         font-weight: bold;
-         display: block;
- }
+	width: 100%;
+	margin: 1em 0;
+	padding: .5em;
+	display: block;
+	text-align: center;
+}
 
 h3,h4,h5 {
 	/*color: #444;*/
@@ -83,9 +76,10 @@ h3,h4,h5 {
 /* Nicht hier weg bewegen, weil diese CSS-Datei nach global und pool geladen
    wird und deswegen dieser Style die anderen "überschreibt" (OS) */
 .drophover{
-	background-image: url("../images/Pool-Hintergrund-Droppable.gif");
+	/* background-image: url("../images/Pool-Hintergrund-Droppable.gif");
 	background-repeat: repeat;
-	background-position: top left;
+	background-position: top left; */
+	background-color: #FFA0A0;
 }
 
 

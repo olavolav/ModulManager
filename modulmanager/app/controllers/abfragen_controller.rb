@@ -291,7 +291,7 @@ class AbfragenController < ApplicationController
     regel = Connection.find(:first, :conditions => "id = '#{id}'")
     mods = selection.selection_modules
     ff = regel.evaluate mods, get_errors(selection)
-    ff == 1 ? @fullfilled_string = "erfüllt" : @fullfilled_string = "nicht erfüllt"
+    ff == 1 ? @fullfilled_string = "<span style='color:green'>erfüllt</span>" : @fullfilled_string = "<span style='color:red'>nicht erfüllt</span>"
     ff == 1 ? @fullfilled = true : @fullfilled = false
     @credits_earned = regel.credits_earned mods
     @credits_needed = regel.credits_needed

@@ -13,9 +13,10 @@
     <img src="images/Logo-beta.png" width="252" heigth="30" alt="ModulManager">
 
     <a id="navimovedown" onClick="javascript:show_navi();" style="display:none;">Navigation anzeigen</a>
+	<a id="navimoveup" onClick="javascript:hide_navi();">Navigation ausblenden</a>
 	
     <div id="navi_optional">
-	  <a id="helpmovedown" onClick="javascript:show_minihelp();"><img src="images/GetStarted.png" style="margin-right:4px;">Neu hier?</a>
+	  <a id="helpmovedown" onClick="javascript:show_minihelp();"><img src="images/GetStarted.png" style="margin-right:4px;">Kurze Einführung gefällig?</a>
 	<div id="help_optional" style="display:none;">
       <p>Herzlich Willkommen zum ModulManager! Wie wäre es mit einem kurzen Einführungs-Video? (Prototyp!)</p>
 
@@ -23,41 +24,41 @@
         <h2>Kurzanleitung</h2>
         <p>Ziehen Sie Module von der rechten Spalte in die momentane Auswahl in der Mitte. In der linken Spalte oder an Modulen selbst wird angezeigt, ob die entspr. Bedingungen erfüllt sind.</p>
         <p>Über diese Ampel-Icons gelangen Sie auch zu ausführlicheren Informationen über den Bereich oder das Modul, und können Ausnahme-Regelungen vornehmen.</p>
-        <h2>Icons</h2>
+        <!-- <h2>Icons</h2> -->
         <table border="0" cellspacing="4" width="100%">
           <tr>
             <td cellspan="2"><strong>Modul-Typen:</strong></td>
           </tr>
           <tr>
-            <td>Pflicht-Modul</td>
             <td><img src='images/Pflicht.png'></td>
+            <td>Pflicht-Modul</td>
           </tr>
           <tr>
-            <td>Wahlpflicht-Modul</td>
             <td><img src='images/Wahlpflicht.png'></td>
+            <td>Wahlpflicht-Modul</td>
           </tr>
-          <!-- ><tr>
-                                                                                        <td>Wahl-Modul</td>
-                                                                                        <td><img src='images/Pflicht.png'></td>
-                                                                                </tr> -->
+          <!-- <tr>
+          	<td><img src='images/Pflicht.png'></td>
+          	<td>Wahl-Modul</td>
+          </tr> -->
           <tr>
             <td cellspan="2"><strong>Schaltflächen:</strong></td>
           </tr>
           <tr>
-            <td>Informationen zu dem jeweiligen Modul</td>
             <td><img src='images/Fragezeichen.png'></td>
+            <td>Informationen zu dem jeweiligen Modul</td>
           </tr>
           <tr>
-            <td>Informationen und ggf. Optionen, Bedingungen erfüllt</td>
             <td><img src='images/iPunkt.png'></td>
+            <td>Informationen und ggf. Optionen, Bedingungen erfüllt</td>
           </tr>
           <tr>
-            <td>Informationen und ggf. Optionen, Bedingungen erfüllt aber Note noch nicht eingetragen</td>
             <td><img src='images/iPunktGelb.png'></td>
+            <td>Informationen und ggf. Optionen, Bedingungen erfüllt aber Note noch nicht eingetragen</td>
           </tr>
           <tr>
-            <td>Informationen und ggf. Optionen, Bedingungen nicht erfüllt</td>
             <td><img src='images/Ausrufezeichen.png'></td>
+            <td>Informationen und ggf. Optionen, Bedingungen nicht erfüllt</td>
           </tr>
           <!-- <tr>
                                                                                         <td>Modul löschen</td>
@@ -82,11 +83,15 @@
 		<!-- VZAAR END -->
 	</div>
 
-      <p>Momentane Einstellungen:
+      <p>Momentan gewählte Einstellungen:
       <ul>
         <li>Schwerpunkt: <strong><%= @schwerpunkt %></strong></li>
         <li>Prüfungsordnungs-Version: <strong><%= @version.name %></strong></li>
       </ul>
+	<p>Schriftgrösse ändern:<br>
+		<a onClick="javascript:font_size(10);"><img alt="10px" style="cursor:pointer;" src="images/FontSize-Small.png"></a>
+		<a onClick="javascript:font_size(12);"><img alt="12px" style="cursor:pointer;" src="images/FontSize-Medium.png"></a>
+		<a onClick="javascript:font_size(14);"><img alt="14px" style="cursor:pointer;" src="images/FontSize-Large.png"></a>
       <p>Navigation zu anderen ModulManager-Seiten:</p>
 
       <ul id="subnavi-ul">
@@ -97,12 +102,9 @@
 
 
         <div class="clear"></div>
-
+	</div>
+	</div>
       <!-- <p>Unten können Sie Module per Drag&amp;Drop von den zur Verfügung stehenden Modulen in das gewünschte Semester ziehen.</p> -->
-    </div>
-    <a id="navimoveup" onClick="javascript:hide_navi();">Navigation ausblenden</a>
-
-  </div>
   <div id="pleasewait">
         <img src="images/Warten-HintergrundBlau.gif">
         Bitte warten, der Modulmanager wird geladen...
@@ -220,12 +222,12 @@
   <div id="box_info"></div>
   <div id="box_info_pool" style="color:gray;" >Ausnahme-Optionen: Nur verf&uuml;gbar, wenn das Modul schon in der Auswahl ist.</div>
   <div id="box_info_exception">
-                Ausnahme-Optionen:
-    <table>
+    Ausnahme-Optionen:
+    <table cellspacing="4">
       <tbody>
         <tr><td>Credit-Zahl:</td><td><input type="text" id="exception_credit" size="5" maxlength="5" rel="modul_id" value="Credits"/></td></tr>
-        <tr><td>Warnung deaktivieren</td><td><input type="checkbox" id="exception_warn" name="exception_warn" value="checkbox" /></td></tr>
-        <tr id="note_streichen_checkbox"><td>Note streichen</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox" /></td></tr>
+        <tr><td>Warnung deaktivieren:</td><td><input type="checkbox" id="exception_warn" name="exception_warn" value="checkbox" /></td></tr>
+        <tr id="note_streichen_checkbox"><td>Note streichen:</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox" /></td></tr>
       </tbody>
     </table>
      <input type="hidden" name="exception_change" id="exception_change" value="false"  />

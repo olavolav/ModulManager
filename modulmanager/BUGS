@@ -10,12 +10,16 @@ Noch zu beheben:
 29. Copyright-Angaben hinzufügen (Olav)
 33. Vorgeschaltete JavaScript-Test-Seite und Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
-40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
 44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
-48. Schwerpunkte unterteilen und Hinweis-Text hinzufügen (Olav)
-51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen (Olav)
-56. Schlichtere Version des momentan gelb vertikal gestreiften Hintergrundes erstellen (Olav)
+48. Schwerpunkte unterteilen (Olav)
+51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
+57. Dynamische Auswahl der Vorauswahl in application.rb und application_helper.rb (Christian)
+59. Korrekte Anzahl von "Note streichen"-Optionen aus der PO eintragen (Olav)
+60. Ausnahme-Optionen korrekt wieder herstellen beim neu Laden der Hauptseite (Quan)
+61. Überblicks-Info-Box-Fehlermeldungen auch bei gewähltem Schwerpunkt entfernen (Christian)
+62. In den Info-Boxen von als fehlerhaft ausgewerteten Kategorien erscheint manchmal ein Sub-Name (z.B. ": Administration von MS-Windows (B.Phy.511.2)" bei Wahlpflichmodule/Einführungen) (Christian)
+63. Warte-Animation aktualisieren, wegen der geänderten Hintergrund-Farben (Olav)
 
 
 
@@ -65,6 +69,8 @@ Inzwischen behoben:
 22. Auf die "production"-Umgebung umstellen (Christian)
 15.c Ausnahme-Optionen: Warnung deaktivieren muss im Backend noch richtig ausgewertet werden (Christian)
 32. _check_category im main-Controller ist noch nicht dynamisch bzgl. NatMat usw. (Christian)
+58. Unterschiedliche Schriftgrössen ermöglichen (Olav)
+56. Schlichtere Version des momentan gelb vertikal gestreiften Hintergrundes erstellen (Olav)
 
 
 
@@ -72,3 +78,4 @@ Nicht behoben:
 ==============
 
 24. HTTPS anschauen, einbauen falls sich der Aufwand in Grenzen hält (Christian)
+40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)

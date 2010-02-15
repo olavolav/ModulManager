@@ -30,14 +30,14 @@ var ipunkt = "<img src='images/iPunktGelb.png'>";
 var rote_ipunkt = "<img src='images/Ausrufezeichen.png'>";
 var rote_ipunkt_passiv = "<img src='images/Ausrufezeichen.png'>";
 	
-var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-5px; left:6px;'>";
+var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-4px; left:8px;'>";
 var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='padding-right:3px;'>";
 var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='padding-right:3px;'>";
 var pfeil_leer = "<img src='images/Pfeil-Rechts-Leer.png' style='padding-right:3px;'>";
 	
 var warten_weiss = "<img src='images/Warten-HintergrundWeiss.gif' style='padding-right:3px;'>";
 var warten_blau = "<img src='images/Warten-HintergrundBlau.gif' style='padding-right:3px;'>";
-var warten_beige = "<img src='images/Warten-HintergrundBeige.gif' style='padding-right:3px;'>";
+var warten_semester_animation = "<img src='images/Warten-HintergrundSemester.gif' style='padding-right:3px;'>";
 
 
 
@@ -266,6 +266,10 @@ function rekursiv_pool_by_in(first_father){
     return;
 }
 
+// Aendern der Schriftgrösse
+function font_size(points){
+	$("body,table").css("font-size",points+"px");
+}
 
 
 // Anzeigen bzw. verstecken der anfaenglichen Hilfe und der Navigations-Knoepfe
@@ -284,6 +288,8 @@ var hide_navi = function(){
     $("#ueberblick").css("width","22%");
     $("#ueberblick").css("position","fixed");
     $("#middle").css("margin-left","24%");
+		$("#help_optional").hide();
+		$("#helpmovedown").show();
 }
 var show_minihelp = function(){
     $("#help_optional").slideDown();
@@ -1041,7 +1047,7 @@ var ajax_to_server_by_get_module_info = function (modul_id){
                     if($("#has_general_grade").text() == 0) {
                         $("#note_streichen_checkbox").css("display", "none");
                     } else {
-                        $("#note_streichen_checkbox").css("display", "block");
+                        $("#note_streichen_checkbox").css("display", "table-row");
                     }
         }/*,
                 error: function(a,b,c){
@@ -1439,7 +1445,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
     // alert("ID: "+modul_id+", class:"+modul_class);
     // alert("Pool parent class: "+$("#pool ."+modul_id+"_parent").eq(0).attr("class"))
 	
-    $('<div class="quick-alert">' + warten_beige + 'Bitte warten!</div>').appendTo($(this_semester)).fadeIn("fast").animate({
+    $('<div class="quick-alert">' + warten_semester_animation + 'Bitte warten!</div>').appendTo($(this_semester)).fadeIn("fast").animate({
         opacity: 1.0
     }, 1000).fadeOut("fast", function(){
         $(this).remove();

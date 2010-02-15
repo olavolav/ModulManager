@@ -25,17 +25,15 @@
 	padding: 0px;
 	margin: 0px;
 /*	border-left: 1px #aaa solid;*/
-	background: white url("../images/Ueberblick-Hintergrund.gif");
+	/* background: white url("../images/Ueberblick-Hintergrund.gif");
 	background-repeat: repeat-y;
-	background-position: top left;
-	
+	background-position: top left; */
+	border-left: 1px #D0D0D0 solid;
 }
 
-/*Falls man moechte, dass die Haupt-Kategorien ander hervorgehoben werden (OS)
 #ueberblick_baum > ul {
-	background-image: none;
-	border-left: 1px #6db8d0 solid;
-}*/
+	border: 0px;
+}
 
 #ueberblick li {
 	padding: 0px;
