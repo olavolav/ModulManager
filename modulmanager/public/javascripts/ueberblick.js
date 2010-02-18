@@ -45,6 +45,8 @@ var get_modul_info_in_overview =  function(modul_id){
 
 }
 var ueberblick = function(){
+	
+				$("#ueberblick #ueberblick-wird-aktualisiert").show();
 
         var html = $.ajax({
                 type : 'GET',

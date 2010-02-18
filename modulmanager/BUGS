@@ -26,7 +26,6 @@ Noch zu beheben:
 68b. Ausnahme-Otionen-Einstellungen aus auswahl.xml auslesen und entsprechend anzeigen (Quan)
 69. Durch Ausnahme-Optionen geänderte Credits müssen ein Aktualisieren der Seite überstehen (Quan)
 70. Auswirkungen der Ausnahme-Optionen auf den Überblick bzw. die Berechnung im Hintergrund vervollständigen (Christian)
-71. Warte-Animation in den Titel des Überblicks einfügen (Olav)
 72. LaTeX-Erzeugung in der Deployment-Testumgebung ermöglichen (Olav)
 
 
@@ -81,7 +80,7 @@ Inzwischen behoben:
 56. Schlichtere Version des momentan gelb vertikal gestreiften Hintergrundes erstellen (Olav)
 63. Warte-Animation aktualisieren, wegen der geänderten Hintergrund-Farben (Olav)
 60. Ausnahme-Optionen korrekt wieder herstellen beim neu Laden der Hauptseite (Quan) - dieser Bug wurde nicht behoben, sondern via Bugs #67 bis #70 genauer beschrieben
-
+71. Warte-Animation in den Titel des Überblicks einfügen (Olav)
 
 
 
