@@ -3,19 +3,13 @@ class AbfragenController < ApplicationController
   def ueberblick
     selection = current_selection
 
-    @super_rules = nil
-    @focus_rules = nil
-    @errors = Array.new
-
+    @errors = get_errors selection
     @super_rules = Connection.find(:all,
       :conditions => "parent_id IS NULL AND focus = 0 AND version_id = '#{selection.version.id}'")
-
     unless selection.focus == nil
       @focus_rules = Connection.find(:first,
         :conditions => "name = '#{selection.focus.name}' AND version_id = '#{selection.version.id}'")
     end
-
-    @errors = get_errors selection
 
     respond_to do |format|
       format.html { render :action => "ueberblick", :layout => false }
@@ -297,18 +291,19 @@ class AbfragenController < ApplicationController
     @credits_needed = regel.credits_needed
     @modules_earned = regel.modules_earned mods
     @modules_needed = regel.modules_needed
+    @available_modules = Array.new
 
     if regel.child_connections.length > 0
       @child_rules = regel.collect_child_rules current_selection
     else
       modules = regel.collect_unique_modules_from_children_without_custom
-      @available_modules = Array.new
       modules.each do |m|
         found = false
         mods.each { |mod| found = true if mod.moduledata.id == m.id }
         @available_modules.push m unless found
       end
     end
+
     respond_to do |format|
       format.html { render :action => "info", :layout => false }
     end
