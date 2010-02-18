@@ -47,7 +47,7 @@ class Rule < ActiveRecord::Base
   def has_category array
     found = false
     array.each {|c|
-      found = true if self.category.id == c.id
+      found = true if self.category != nil && self.category.id == c.id
     }
     return found
   end
