@@ -36,7 +36,17 @@ xml.auswahl(:id => @selection.id) do
                 :has_grade => has_grade
               )
             else
-              xml.module(:id => m.moduledata.id, :grade => m.grade, :has_grade => has_grade, :credits => m.credits)
+              m.credits == m.moduledata.credits ? custom_credits = false : custom_credits = true
+              m.permission_removed ? has_warning = false : has_warning = true
+              has_general_grade = m.moduledata.has_grade
+              xml.module(:id => m.moduledata.id,
+                :grade => m.grade,
+                :has_grade => has_grade,
+                :credits => m.credits,
+                :has_general_grade => has_general_grade,
+                :has_warning => has_warning,
+                :custom_credits => custom_credits
+              )
             end
           end
         end

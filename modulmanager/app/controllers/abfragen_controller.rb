@@ -138,7 +138,15 @@ class AbfragenController < ApplicationController
     parent_module = Studmodule.find(id)
     my_module = SelectedModule.create(:moduledata => parent_module)
     my_module.categories = Array.new
-    my_module.categories << Category.find(cat_id) unless cat_id == nil || cat_id == ""
+#    my_module.categories << Category.find(cat_id) unless cat_id == nil || cat_id == ""
+
+    cat_id == nil || cat_id == "" ? cat = nil : cat = Category.find(cat_id)
+    if cat.exclusive == 1 && parent_module.categories.length > 1
+      my_module.categories = parent_module.categories
+    else
+      my_module.categories << cat
+    end
+
     my_module.save
     semester.modules << my_module
     render :text => "Module added successfully..."
@@ -287,7 +295,7 @@ class AbfragenController < ApplicationController
     ff = regel.evaluate mods, get_errors(selection)
     ff == 1 ? @fullfilled_string = "<span style='color:green'>erfüllt</span>" : @fullfilled_string = "<span style='color:red'>nicht erfüllt</span>"
     ff == 1 ? @fullfilled = true : @fullfilled = false
-    @credits_earned = regel.credits_earned mods
+    @credits_earned = regel.credits_earned mods, get_errors(selection)
     @credits_needed = regel.credits_needed
     @modules_earned = regel.modules_earned mods
     @modules_needed = regel.modules_needed

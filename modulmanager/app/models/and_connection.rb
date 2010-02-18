@@ -1,16 +1,28 @@
 class AndConnection < Connection
 
-  def credits_earned selected_modules
+  #  def credits_earned selected_modules
+  def credits_earned selected_modules, non_permitted_modules
     credits = 0
 
     if self.child_connections.length > 0
       self.child_connections.each do |connection|
-        credits += connection.credits_earned selected_modules
+        #        credits += connection.credits_earned selected_modules
+        credits += connection.credits_earned selected_modules, non_permitted_modules
       end
     elsif self.child_rules.length > 0
       self.child_rules.each do |rule|
         if rule.class == CreditRule
-          credits += rule.act_credits selected_modules
+          #          credits += rule.act_credits selected_modules
+          credits += rule.act_credits selected_modules, non_permitted_modules
+          
+          #          if rule.category != nil && rule.category.exclusive == 1
+          #            selected_modules.each { |selected_module|
+          #              data = selected_module.moduledata
+          #              if rule.category.modules.include? data
+          #                non_permitted_modules.push data
+          #              end
+          #            }
+          #          end
         end
       end
     end
