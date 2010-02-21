@@ -834,8 +834,14 @@ var session_auswahl_rekursiv = function(root){
             // dann verstecken die originalen Module im Pool
             var mod_id = $(this).attr("id");
             var mod_grade = $(this).attr("grade");
+            //has_general_grade:Das zeit an, ob dieses Modul normalerweise benotet ist.
+            //momentan has_general_grade noch nicht benutzt. Es soll set_mod_has_grade_to_no(auswahl_modul_clone) benuztz werden, 
+            //damit Noten_feld weg ist.
+            //Has_grade zeigt an, ob das Modul derzeit benotet ist, d.h. die Note gestrichen wurde.
             var mod_has_grade=$(this).attr("has_grade");
-			
+            
+			var mod_credit=$(this).attr("credits");
+			var mod_has_warning=$(this).attr("has_warning");
             //alert(mod_id);
             var modul_im_pool = $("#pool").find("div#"+mod_id);
             var das_erste = $(modul_im_pool).eq(0);
@@ -867,15 +873,25 @@ var session_auswahl_rekursiv = function(root){
 			// verï¿½ndern erstmal die interne im Modul bei dem Clone
             //besonders hat die Klone die class "auswahl_modul_clone"
             //zur Indentifizierung bei alle erster Verï¿½nderung im Auswahl
-			// check ob unbenoten ist
+			
+            // check ob die Note derzeit gestrichen wurde.
             if(mod_has_grade=="false"){
-            	//unbenoten
-            	set_mod_has_grade_to_no(auswahl_modul_clone);
+            	$(auswahl_modul_clone).find("p.note-option").html("Ausnahme: Note wird nicht eingebracht");
             }			
             $(auswahl_modul_clone).attr("class","auswahl_modul_clone");
             change_module_style_to_auswahl(auswahl_modul_clone);
             
-            
+            //geaenderte Credits? und Warnung deaktivieren?
+            //wenn ja dann die entsprechenen Meldungen anzeigen
+            if(mod_credit!=""){
+            	//alert("geänderte Credits");
+            	$(auswahl_modul_clone).find("p.credit-option").html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
+            	$(auswahl_modul_clone).find("td.modul_credit").text(mod_credit+" C");
+            	
+            }
+            if(mod_has_warning=="false"){
+            	$(auswahl_modul_clone).find("p.warnung-option").html("Ausnahme: Warnungen deaktiviert");
+            }
 			
             // Noten setzen
             if(mod_grade != "" ){
