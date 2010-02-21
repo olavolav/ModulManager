@@ -21,10 +21,7 @@ Noch zu beheben:
 64. Beschreibungs-Tag der gruppen.yml wird in der Info-Box des Überblicks nicht angezeigt (Christian)
 65. Bei Modulen im Profilierungsbereich kommt trotz (oder wegen?) des mehrfach-Tags in der gruppen.yml eine Dropdown-Box - das war ja genau der Witz, dass das Modul für mehrere Gruppen zählt und eben nicht ausgewählt werden muss (Christian)
 66. Dropdown-Boxen haben keinen Einfluß auf den Überblick und verschwinden beim Reload - allerdings ist das vielelicht ein Artefakt von Bug #65, da das Dropdown-Menü ja ohenhin nicht dort sein sollte (Christian, evtl. Quan und Olav)
-67. Notenfeld bleibt angezeigt, unabhängig von der Ausnahme-Option "Note steichen" (Quan)
 68a. Ausnahme-Optionen-Einstellungen sollen zusätzlich in der Auswahl-XML verfügbar sein, evtl. schon erledigt (Christian)
-68b. Ausnahme-Otionen-Einstellungen aus auswahl.xml auslesen und entsprechend anzeigen (Quan)
-69. Durch Ausnahme-Optionen geänderte Credits müssen ein Aktualisieren der Seite überstehen (Quan)
 70. Auswirkungen der Ausnahme-Optionen auf den Überblick bzw. die Berechnung im Hintergrund vervollständigen (Christian)
 72. LaTeX-Erzeugung in der Deployment-Testumgebung ermöglichen (Olav)
 
@@ -81,7 +78,9 @@ Inzwischen behoben:
 63. Warte-Animation aktualisieren, wegen der geänderten Hintergrund-Farben (Olav)
 60. Ausnahme-Optionen korrekt wieder herstellen beim neu Laden der Hauptseite (Quan) - dieser Bug wurde nicht behoben, sondern via Bugs #67 bis #70 genauer beschrieben
 71. Warte-Animation in den Titel des Überblicks einfügen (Olav)
-
+67. Notenfeld bleibt angezeigt, unabhängig von der Ausnahme-Option "Note steichen" (Quan)
+68b. Ausnahme-Otionen-Einstellungen aus auswahl.xml auslesen und entsprechend anzeigen (Quan)
+69. Durch Ausnahme-Optionen geänderte Credits müssen ein Aktualisieren der Seite überstehen (Quan)
 
 
 Nicht behoben:
