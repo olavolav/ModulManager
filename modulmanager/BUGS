@@ -23,7 +23,7 @@ Noch zu beheben:
 66. Dropdown-Boxen haben keinen Einfluß auf den Überblick und verschwinden beim Reload - allerdings ist das vielelicht ein Artefakt von Bug #65, da das Dropdown-Menü ja ohenhin nicht dort sein sollte (Christian, evtl. Quan und Olav)
 68a. Ausnahme-Optionen-Einstellungen sollen zusätzlich in der Auswahl-XML verfügbar sein, evtl. schon erledigt (Christian)
 70. Auswirkungen der Ausnahme-Optionen auf den Überblick bzw. die Berechnung im Hintergrund vervollständigen (Christian)
-72. LaTeX-Erzeugung in der Deployment-Testumgebung ermöglichen (Olav)
+73. Button-Hintergrund auf der Export-Seite fehlt (Olav)
 
 
 
@@ -81,6 +81,8 @@ Inzwischen behoben:
 67. Notenfeld bleibt angezeigt, unabhängig von der Ausnahme-Option "Note steichen" (Quan)
 68b. Ausnahme-Otionen-Einstellungen aus auswahl.xml auslesen und entsprechend anzeigen (Quan)
 69. Durch Ausnahme-Optionen geänderte Credits müssen ein Aktualisieren der Seite überstehen (Quan)
+72. LaTeX-Erzeugung in der Deployment-Testumgebung ermöglichen (Olav)
+
 
 
 Nicht behoben:

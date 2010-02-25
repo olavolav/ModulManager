@@ -16,25 +16,28 @@
 \usepackage[scaled]{helvet}
 \renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
 
+% \setpapersize[landscape]{A4}
+\setmargnohfrb{18mm}{18mm}{18mm}{18mm}
+
 \begin{document}
 
-% Klappt gerade nicht, das PDF muss neu als reiner Pfad hinzugefügt werden (OS)
-% Versuch hinzugefügt, aber noch nciht getestet (!)
+% Klappt gerade nicht, das PDF muss neu als reiner Pfad ohne Schrift hinzugefügt werden (OS)
+% Versuch hinzugefügt, aber noch nicht getestet (!)
 \begin{figure}[h]
 \center
 \includegraphics[width=7cm]{../../../public/images/LaTeX/LogoMMbeta.pdf}
 \end{figure}
 
 
-\section*{ModulManager der Fakultät Physik}
+%\section*{ModulManager der Fakultät Physik}
 
-Vielen Dank, dass Sie den ModulManager der Fakultät Physik benutzt haben. Wir hoffen, er war Ihnen behilflich.
+\noindent Vielen Dank, dass Sie den ModulManager der Fakultät Physik benutzt haben. Wir hoffen, er war Ihnen behilflich.
 
 \begin{itemize}
 	\item Gewählte Prüfungsordnungs-Version: <%= @version.name %>
 	\item Gewählter Schwerpunkt: <%= @schwerpunkt %>
 	\item Mit ETCS-Credits gewichtete, hochgerechnete Note: <%= @grade %>
-	\item Erstellt am: \today
+	\item Erstellt am \today
 \end{itemize}
 
 
@@ -43,6 +46,7 @@ Vielen Dank, dass Sie den ModulManager der Fakultät Physik benutzt haben. Wir h
 Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausgewählt wurden.
 
 <% counter = 1 %>
+<% notenstring = "" %>
 <% @semesters.each do |s| %>
 
 \subsection*{<%= counter %>. Semester}
@@ -54,16 +58,22 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
         <% if m.class == CustomModule %>
             \item <%= m.name %> (vom Benutzer erstellt), <%= m.credits %> Credits
         <% else %>
-            \item <%= m.moduledata.name+m.moduledata.subname.to_s %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits
-        <% end %>
-
-		<% if m.grade != nil %>
-			\\ Note: <%= m.grade %>
-			% Hier sollte natürlich noch ein Abfrage rein, ob das Modul benotet ist oder nur keine Note
-			% eingegeben wurde. (OS)
-		<% end %>
-
-    <% end %>
+			% In diesem Block wird die Bezeichnung der Note angegeben, weil LaTeX keine Zeilenuebergaenge
+			% innerhalb von Itemize-Items mag (OS)
+			<% if m.grade != nil %>
+				<% notenstring = "Note "+m.grade %>
+			<% else %>
+			<% if m.moduledata.has_grade == false %>
+			    <% notenstring = "unbenotetes Modul" %>
+			<% elsif m.has_grade == false %>
+			    <% notenstring = "Note gestrichen" %>
+			<% else %>
+			    <% notenstring = "keine Note angegeben" %>
+			<% end %>
+			<% end %>
+            \item <%= m.moduledata.name+m.moduledata.subname.to_s %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits, <%= notenstring %> 
+        	<% end %>
+ 	<% end %>
 
 \end{itemize}
 
@@ -73,7 +83,6 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
 \subsection*{Auflistung nach Kategorien (``Studienberater-Ansicht'')}
 
 Es folgt eine Auflistung der von Ihnen gewählten Module nach den Kategorien der von Ihnen gewählten Prüfungsordnung.
-
 Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs bei der Studienberatung zu nutzen, nehmen Sie bitte den folgenden Abschnitt dorthin mit.
 
 <% @categories.each do |name, modules| %>
@@ -90,37 +99,30 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
 	        <% if m.class == CustomModule %>
 	            \item <%= m.name %> (vom Benutzer erstellt), <%= m.credits %> Credits
 	        <% else %>
-	            \item <%= m.moduledata.name+m.moduledata.subname.to_s %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits
-	        <% end %>
-                        \\ Note:
+
+			% Noten-Block genau wie oben (OS)
 			<% if m.grade != nil %>
-				<%= m.grade %>
-				% Hier sollte natürlich noch ein Abfrage rein, ob das Modul benotet ist oder nur keine Note
-				% eingegeben wurde. (OS)
-                        <% else %>
-                            <% if m.moduledata.has_grade == false %>
-                                unbenotetes Modul
-                            <% elsif m.has_grade == false %>
-                                Note gestrichen
-                            <% else %>
-                                keine Note angegeben
-                            <% end %>
+				<% notenstring = "Note "+m.grade %>
+			<% else %>
+			<% if m.moduledata.has_grade == false %>
+			    <% notenstring = "unbenotetes Modul" %>
+			<% elsif m.has_grade == false %>
+			    <% notenstring = "Note gestrichen" %>
+			<% else %>
+			    <% notenstring = "keine Note angegeben" %>
+			<% end %>
 			<% end %>
 
-	        <% end %>
+	            \item <%= m.moduledata.name+m.moduledata.subname.to_s %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits, <%= notenstring %> 
+
+				<% end %>
+				<% end %>
 		\end{itemize}
-	<% end %>
+		<% end %>
 
 <% end %>
 
 
-\subsection*{Auflistung aller eingetragenen Studienmodule}
-<% @studmodules.each do |mod| %>
-    \begin{itemize}
-        \item <%= mod.name %> (<%= mod.short %>), <%= mod.credits %> C
-        \\<%= mod.description %>
-    \end{itemize}
-<% end %>
 
 \subsection*{Weitere Informationen (Stand: 22.10.09)}
 
