@@ -1,4 +1,9 @@
 
+// Falls JavaScript funktioniert, die entspr. Warnung verstecken (OS)
+$(document).ready(function(){
+	$("#javascriptdoesnotwork").css("display","none");
+});
+
 var  authenticityToken = function() {
     return $('#token').attr("content");
 }

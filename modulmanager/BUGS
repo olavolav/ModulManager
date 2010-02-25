@@ -8,7 +8,6 @@ Noch zu beheben:
 25. FAQ-Seite schreiben (Olav)
 27. Deployment testen (Christian)
 29. Copyright-Angaben hinzufügen (Olav)
-33. Vorgeschaltete JavaScript-Test-Seite und Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
 44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
@@ -82,6 +81,7 @@ Inzwischen behoben:
 69. Durch Ausnahme-Optionen geänderte Credits müssen ein Aktualisieren der Seite überstehen (Quan)
 72. LaTeX-Erzeugung in der Deployment-Testumgebung ermöglichen (Olav)
 73. Button-Hintergrund auf der Export-Seite fehlt (Olav)
+33a. Vorgeschaltete JavaScript-Test-Seite einbauen (Olav)
 
 
 
@@ -91,3 +91,4 @@ Nicht behoben:
 24. HTTPS anschauen, einbauen falls sich der Aufwand in Grenzen hält (Christian)
 40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
 74. Kategorien dürfen keine Leerzeichen enthalten (Christian)
+33b. Vorgeschaltete Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
