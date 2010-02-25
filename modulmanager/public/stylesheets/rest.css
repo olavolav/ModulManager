@@ -52,7 +52,7 @@ select {
 
 .knopf {
 	border : 1px #AAA outset;
-	background: white url("../images/Button-Hintergrund.gif");
+	background: white url("../images/Button-Hintergrund-Link.gif");
 	background-repeat: repeat;
 	background-position: top left;		
 }
