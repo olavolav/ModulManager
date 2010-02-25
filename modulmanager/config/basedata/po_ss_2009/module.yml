@@ -461,7 +461,7 @@
     sub-name: ": Grundlagen der Rechnerbedienung und Programmierung"
     credits: 2
     id: B.Phy.605
-    beschreibung: "Erstes Teilmodul - Lernziele: Grundlagen der Rechnerbedienung, elementare Programmier-kenntnisse in einer modernen Hochsprache."
+    beschreibung: "Erstes Teilmodul - Lernziele: Grundlagen der Rechnerbedienung, elementare Programmierkenntnisse in einer modernen Hochsprache."
     sub-module: B.Phy.605.2
     note: nein
 
