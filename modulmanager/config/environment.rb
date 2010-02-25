@@ -30,6 +30,8 @@ Rails::Initializer.run do |config|
   
   # This is the PDF export gem via LaTeX, see http://rtex.rubyforge.org (OS)
   config.gem "rtex"
+  # pdflatex path hack as suggested by AS, i.e. http://www.ruby-forum.com/topic/156150
+  ENV['PATH'] = "#{ENV['PATH']}:/kunden/sorgesolutions.de/webs/adiungi.net/rortest/TexLive/bin/i386-linux"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

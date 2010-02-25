@@ -1,25 +1,28 @@
-\documentclass[a4paper,ngerman,11pt]{article}
+\documentclass[a4paper,ngerman,10pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
-\usepackage{microtype,ellipsis,fixltx2e,mparhack,graphicx,url}
+% \usepackage{microtype,fixltx2e,mparhack,graphicx,url}
+\usepackage{fixltx2e,graphicx,url}
 % \usepackage[pdftex,bookmarks=true,hypertexnames=false,bookmarksnumbered=true]{hyperref}
 \usepackage{textcomp}
 \usepackage{vmargin}
 \usepackage[scaled=0.9]{helvet}
 \usepackage{longtable}
-\normalfont % in case the EC fonts aren't available
+% \normalfont % in case the EC fonts aren't available
 \usepackage{verbatim}
 
-\fontfamily{helvetica}
-\renewcommand*\familydefault{\sfdefault}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
 
 \begin{document}
 
+% Klappt gerade nicht, das PDF muss neu als reiner Pfad hinzugefügt werden (OS)
+% Versuch hinzugefügt, aber noch nciht getestet (!)
 \begin{figure}[h]
 \center
-% Der Pfad hier muss natürlich noch angepasst werden (OS)
-\includegraphics[width=7cm]{../../../public/images/LaTeX/LogoMM.pdf}
+\includegraphics[width=7cm]{../../../public/images/LaTeX/LogoMMbeta.pdf}
 \end{figure}
 
 
