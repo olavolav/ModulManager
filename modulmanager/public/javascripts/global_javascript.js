@@ -47,9 +47,10 @@ $(document).ready(function(){
 	$("#pleasewait").hide("slow");
 
 	// Klickbare Info-Buttons sollen beim drüberfahren animiert werden (OS)
-	$(".ipunkt,.ueberblick_info_box,.fragebild").mouseenter(function(){
-		$(this).animate({opacity: 0.4}, 0);
-		$(this).animate({opacity: 1.0}, 200);
+	// Für das Analogon im Überblick siehe ueberblick.js
+	$(".ipunkt_td, .fragebild").mouseenter(function(){
+		$(this).animate({opacity: 0.4}, "fast");
+		$(this).animate({opacity: 1.0}, "slow");
 		// alert("mouseenter!");
 	});
 	

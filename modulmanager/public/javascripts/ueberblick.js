@@ -63,14 +63,16 @@ var ueberblick = function(){
 
 
         }).responseText;
-
-        // Test, ob man die Bildchen im Firefox zum Blinken bringt, wenn man die Bilder alle versteckt
-        // und dann sofort wieder anzeigt (OS)
-        //$("#ueberblick img").css("display","none");
-        //$("#ueberblick img").css("display","inline");
 		
 		//check_error();
 		ajax_error();
+
+		// Klickbare Info-Buttons sollen beim drüberfahren animiert werden, wie schon in global_javascript.js (OS)
+		$(".ueberblick_info_box").mouseenter(function(){
+			$(this).animate({opacity: 0.4}, "fast");
+			$(this).animate({opacity: 1.0}, "slow");
+			// alert("mouseenter!");
+		});
 		
 
 }// ende function
