@@ -81,6 +81,7 @@ Inzwischen behoben:
 72. LaTeX-Erzeugung in der Deployment-Testumgebung ermöglichen (Olav)
 73. Button-Hintergrund auf der Export-Seite fehlt (Olav)
 33a. Vorgeschaltete JavaScript-Test-Seite einbauen (Olav)
+40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht (Olav)
 
 
 
@@ -88,7 +89,6 @@ Nicht behoben:
 ==============
 
 24. HTTPS anschauen, einbauen falls sich der Aufwand in Grenzen hält (Christian)
-40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
 74. Kategorien dürfen keine Leerzeichen enthalten (Christian)
 33b. Vorgeschaltete Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
 44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
