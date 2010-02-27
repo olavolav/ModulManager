@@ -7,11 +7,6 @@
  /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
-// wenn der Überblick fertig geladen wurde, den Lade-Balken verscheinden lassen (OS)
-$(document).ready(function(){
-	$("#pleasewait").hide("slow");
-});
-
 var get_modul_info_in_overview =  function(modul_id){
 		//alert(modul_id);
         $("#box_info").empty();

@@ -42,6 +42,20 @@ var warten_semester_animation = "<img src='images/Warten-HintergrundSemester.gif
 
 
 
+// wenn der Überblick fertig geladen wurde, den Lade-Balken verscheinden lassen (OS)
+$(document).ready(function(){
+	$("#pleasewait").hide("slow");
+
+	// Klickbare Info-Buttons sollen beim drüberfahren animiert werden (OS)
+	$(".ipunkt,.ueberblick_info_box,.fragebild").mouseenter(function(){
+		$(this).animate({opacity: 0.4}, 0);
+		$(this).animate({opacity: 1.0}, 200);
+		// alert("mouseenter!");
+	});
+	
+});
+
+
 //token
 
 /*var Global_Token = {
@@ -224,6 +238,8 @@ var selection_input_check = function(input_noten){
     }
 				
 }
+
+
 
 // Diese Funktion gehï¿½rt zu show_pool_by_out, also zum Ziehen eines Moduls vom Pool in die
 // Auswahl. (im Such-Modus)

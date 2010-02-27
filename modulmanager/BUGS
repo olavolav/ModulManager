@@ -9,7 +9,6 @@ Noch zu beheben:
 27. Deployment testen (Christian)
 29. Copyright-Angaben hinzufügen (Olav)
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
-44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
 48. Schwerpunkte unterteilen (Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
@@ -92,3 +91,4 @@ Nicht behoben:
 40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht? (Olav)
 74. Kategorien dürfen keine Leerzeichen enthalten (Christian)
 33b. Vorgeschaltete Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
+44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
