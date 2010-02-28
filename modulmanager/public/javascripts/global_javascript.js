@@ -44,7 +44,7 @@ var warten_semester_animation = "<img src='images/Warten-HintergrundSemester.gif
 
 // wenn der Überblick fertig geladen wurde, den Lade-Balken verscheinden lassen (OS)
 $(document).ready(function(){
-	$("#pleasewait").hide("slow");
+	$("#pleasewait").slideUp("slow");
 
 	// Klickbare Info-Buttons sollen beim drüberfahren animiert werden (OS)
 	// Für das Analogon im Überblick siehe ueberblick.js
