@@ -333,6 +333,9 @@ class AbfragenController < ApplicationController
     id = params[:id]
     regel = Connection.find(:first, :conditions => "id = '#{id}'")
     mods = selection.selection_modules
+    @name = regel.name
+    # Das hier muss natürlich noch ersetzt werden (OS)
+    @description = "Zu dieser Kategorie ist momentan keine Beschreibung verfügbar."
     ff = regel.evaluate mods, get_errors(selection)
     ff == 1 ? @fullfilled_string = "<span style='color:green'>erfüllt</span>" : @fullfilled_string = "<span style='color:red'>nicht erfüllt</span>"
     ff == 1 ? @fullfilled = true : @fullfilled = false
