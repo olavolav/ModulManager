@@ -1,5 +1,25 @@
 class CreditRule < Rule
 
+  def collected_credits selected_modules, non_permitted_modules
+    credits = 0
+    rule_modules = self.category.modules unless self.category == nil
+    evaluation_modules = Rule::remove_modules_from_array selected_modules, non_permitted_modules
+
+    evaluation_modules.each do |e_module|
+      unless e_module.categories.length < 1
+        if e_module.categories.include? self.category
+          if rule_modules.include? e_module.moduledata
+            e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
+          end
+        end
+      end
+    end
+    return credits
+  end
+
+
+
+
   def act_credits selected_modules, non_permitted_modules = nil
     credits = 0
     rule_modules = Array.new

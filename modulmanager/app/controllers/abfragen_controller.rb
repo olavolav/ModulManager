@@ -295,7 +295,7 @@ class AbfragenController < ApplicationController
     ff = regel.evaluate mods, get_errors(selection)
     ff == 1 ? @fullfilled_string = "<span style='color:green'>erfüllt</span>" : @fullfilled_string = "<span style='color:red'>nicht erfüllt</span>"
     ff == 1 ? @fullfilled = true : @fullfilled = false
-    @credits_earned = regel.credits_earned mods, get_errors(selection)
+    @credits_earned = regel.collected_credits mods, get_errors(selection)
     @credits_needed = regel.credits_needed
     @modules_earned = regel.modules_earned mods
     @modules_needed = regel.modules_needed

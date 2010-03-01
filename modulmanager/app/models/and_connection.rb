@@ -1,34 +1,66 @@
 class AndConnection < Connection
 
-  #  def credits_earned selected_modules
-  def credits_earned selected_modules, non_permitted_modules
+  def collected_credits selected_modules, non_permitted_modules = Array.new
     credits = 0
+    my_modules = self.modules
 
-    if self.child_connections.length > 0
-      self.child_connections.each do |connection|
-        #        credits += connection.credits_earned selected_modules
-        credits += connection.credits_earned selected_modules, non_permitted_modules
-      end
-    elsif self.child_rules.length > 0
-      self.child_rules.each do |rule|
-        if rule.class == CreditRule
-          #          credits += rule.act_credits selected_modules
-          credits += rule.act_credits selected_modules, non_permitted_modules
-          
-          #          if rule.category != nil && rule.category.exclusive == 1
-          #            selected_modules.each { |selected_module|
-          #              data = selected_module.moduledata
-          #              if rule.category.modules.include? data
-          #                non_permitted_modules.push data
-          #              end
-          #            }
-          #          end
+    selected_modules.each do |s_module|
+      unless non_permitted_modules.include? s_module.moduledata
+        if my_modules.include? s_module.moduledata
+          if s_module.credits == nil
+            credits += s_module.moduledata.credits
+          else
+            credits += s_module.credits
+          end
+        else
         end
+      else
       end
     end
 
     return credits
   end
+
+
+
+
+
+  ##    def credits_earned selected_modules
+  #  def credits_earned selected_modules, non_permitted_modules
+  #    credits = 0
+  #
+  #    if self.child_connections.length > 0
+  #      self.child_connections.each do |connection|
+  #        #        credits += connection.credits_earned selected_modules
+  #        credits += connection.credits_earned selected_modules, non_permitted_modules
+  #      end
+  #    elsif self.child_rules.length > 0
+  #      self.child_rules.each do |rule|
+  #        if rule.class == CreditRule
+  #          #          credits += rule.act_credits selected_modules
+  #          credits += rule.act_credits selected_modules, non_permitted_modules
+  #
+  ##          puts "Evaluated Rule #{rule.category.name}"
+  ##          puts "Before: #{non_permitted_modules.length}"
+  #
+  #          if rule.category != nil && rule.category.exclusive == 1
+  #            selected_modules.each { |selected_module|
+  #              data = selected_module.moduledata
+  #              if rule.category.modules.include? data
+  #                unless non_permitted_modules.include? data
+  #                  non_permitted_modules.push data
+  #                end
+  #              end
+  #            }
+  #          end
+  ##          puts "After: #{non_permitted_modules.length}"
+  ##          non_permitted_modules.each { |mod| puts "#{mod.name} (non-permitted)" }
+  #        end
+  #      end
+  #    end
+  #
+  #    return credits
+  #  end
 
   def modules_earned selected_modules
     modules = 0
@@ -57,6 +89,7 @@ class AndConnection < Connection
     elsif self.child_rules.length > 0
       self.child_rules.each { |d| return -1 unless d.evaluate(selected_modules, options) == 1 }
     end
+    return -1 unless self.collected_credits(selected_modules) >= self.credits_needed
     return 1
   end
 

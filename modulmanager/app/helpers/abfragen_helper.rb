@@ -1,5 +1,20 @@
 module AbfragenHelper
 
+  def build_html non_permitted_modules
+
+  end
+
+  def select_image fullfillment_status
+    if fullfillment_status == 1
+      return "iPunkt.png"
+    elsif fullfillment_status == -1
+      return "Ausrufezeichen.png"
+    elsif fullfillment_status == 0
+      return "Fragezeichen.png"
+    end
+  end
+
+
   def build_html_rules_recursive r, padding_left, padding_addition, non_permitted_modules
     image = ""
     name = r.name
@@ -7,8 +22,8 @@ module AbfragenHelper
     selection = current_selection
     fullfilled = r.evaluate selection.selection_modules, non_permitted_modules
     credits_needed = r.credits_needed
-#    credits_earned = r.credits_earned selection.selection_modules
-    credits_earned = r.credits_earned selection.selection_modules, non_permitted_modules
+#    credits_earned = r.credits_earned selection.selection_modules, non_permitted_modules
+    credits_earned = r.collected_credits selection.selection_modules, non_permitted_modules
 
 
     case fullfilled

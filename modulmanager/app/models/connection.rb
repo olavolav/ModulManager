@@ -20,6 +20,34 @@ class Connection < ActiveRecord::Base
     :class_name => "Studmodule",
     :foreign_key => "owner_id"
 
+  def modules
+    puts "========================================"
+    puts "Connection #{self.name}"
+    puts "Collecting modules..."
+    modules = Array.new
+    if self.child_rules.length > 0
+      puts "Having #{self.child_rules.length} child_rules"
+      self.child_rules.each do |rule|
+        puts "Cycling #{rule.category.modules.length} modules..."
+        rule.category.modules.each do |m|
+          puts "Pushing module..."
+          modules.push m
+        end
+#        modules = modules.concat rule.modules
+      end
+      puts "Having #{modules.length} modules!"
+    end
+
+    if self.child_connections.length > 0
+      puts "Having cild_connections"
+      self.child_connections.each do |connection|
+        modules = modules.concat connection.modules
+      end
+    end
+    modules.uniq!
+    return modules
+  end
+
   def self.create_and_connection name, child_rules = nil, child_connections = nil, focus = nil, version = nil
     c = AndConnection.create :name => name, :focus => focus, :version => version
     if child_rules != nil

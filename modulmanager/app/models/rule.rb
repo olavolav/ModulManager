@@ -8,6 +8,9 @@ class Rule < ActiveRecord::Base
     :join_table => "rules_studmodules",
     :class_name => "Studmodule"
 
+  belongs_to :parent_connection,
+    :class_name => "Connection",
+    :foreign_key => "parent_id"
   
 
   def self.create_min_credit_rule_for_focus count, module_string
