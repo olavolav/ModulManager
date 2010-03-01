@@ -4,9 +4,9 @@ class Rule < ActiveRecord::Base
     :class_name => "Category",
     :foreign_key => "category_id"
 
-  has_and_belongs_to_many :modules,
-    :join_table => "rules_studmodules",
-    :class_name => "Studmodule"
+#  has_and_belongs_to_many :modules,
+#    :join_table => "rules_studmodules",
+#    :class_name => "Studmodule"
 
   belongs_to :parent_connection,
     :class_name => "Connection",

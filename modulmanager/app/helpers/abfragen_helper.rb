@@ -1,8 +1,8 @@
 module AbfragenHelper
 
-  def build_html non_permitted_modules
-
-  end
+#  def build_html non_permitted_modules
+#
+#  end
 
   def select_image fullfillment_status
     if fullfillment_status == 1
@@ -25,15 +25,15 @@ module AbfragenHelper
 #    credits_earned = r.credits_earned selection.selection_modules, non_permitted_modules
     credits_earned = r.collected_credits selection.selection_modules, non_permitted_modules
 
-
-    case fullfilled
-    when 1
-      image = "iPunkt.png"
-    when -1
-      image = "Ausrufezeichen.png"
-    when 0
-      image = "Fragezeichen.png"
-    end
+    image = select_image fullfilled
+#    case fullfilled
+#    when 1
+#      image = "iPunkt.png"
+#    when -1
+#      image = "Ausrufezeichen.png"
+#    when 0
+#      image = "Fragezeichen.png"
+#    end
 
 
     element = <<EOF

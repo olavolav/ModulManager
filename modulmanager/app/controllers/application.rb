@@ -4,16 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def get_note
-    puts "Berechne Note!"
     selection = current_selection
     grade = Hash.new(0)
     credits = 0
 
     selection.semesters.each do |s|
-      puts "Durchlaufe Semester #{s.count}..."
       if s.count > 0
         s.modules.each do |m|
-          puts "Werte Modul #{m.id} aus..."
 
           permitted = 1
           m.moduledata.permission == nil ? permitted = 1 : permitted = m.moduledata.permission.evaluate(selection.semesters, m.semester.count)

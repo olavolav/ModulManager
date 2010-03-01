@@ -28,7 +28,7 @@ class CreditRule < Rule
     evaluation_modules = Rule::remove_modules_from_array selected_modules, non_permitted_modules
 
     rule_modules = self.category.modules unless self.category == nil
-    self.modules.each { |m| rule_modules.push m }
+#    self.modules.each { |m| rule_modules.push m }
 
     evaluation_modules.each do |em|
 
@@ -62,9 +62,9 @@ class CreditRule < Rule
     return credits
   end
 
-  # options beinhaltet die Module, deren Bedingungen noch nicht erfüllt sind
   def evaluate selected_modules, non_permitted_modules = nil
     credits_in_selection = act_credits selected_modules, non_permitted_modules
+#    credits_in_selection = self.collected_credits selected_modules, non_permitted_modules
     if self.relation == "min"
       if credits_in_selection < self.count
         return -1

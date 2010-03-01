@@ -8,7 +8,7 @@ class ModuleRule < Rule
     evaluation_modules = Rule::remove_modules_from_array selected_modules, non_permitted_modules
 
     rule_modules = self.category.modules unless self.category == nil
-    self.modules.each { |m| rule_modules.push m }
+#    self.modules.each { |m| rule_modules.push m }
 
     evaluation_modules.each do |em|
 
