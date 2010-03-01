@@ -698,14 +698,13 @@ var info_box_selection = function(modul_id){
 
 var info_box = function(modul_id){
     $("#box_info").empty();
-    $("#info_box").dialog('open');
     $("#box_info_exception").hide();
     $("#box_info_combobox").hide();
     $("#box_info_overview").hide();
     $("#box_info_pool").show();
         
-    ajax_to_server_by_get_module_info(modul_id);
-
+		ajax_to_server_by_get_pool_module_info(modul_id);
+    $("#info_box").dialog('open');
 }
 
 var update_modul_in_selection = function (){
@@ -1051,6 +1050,8 @@ var ajax_to_server_by_get_module_info = function (modul_id){
         contentType: 'application/x-www-form-urlencoded',
         data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
         success : function(html){
+	
+				// alert(html);
     		
     		// alle Ausnahme-Option ersmal auf Null setzen
     		$("#exception_credit").attr("checked", "");
@@ -1093,6 +1094,25 @@ var ajax_to_server_by_get_module_info = function (modul_id){
     });
 	
 }
+
+var ajax_to_server_by_get_pool_module_info = function (modul_id){
+    $.ajax({
+
+        type : 'POST',
+        url  : '/abfragen/get_pool_module_info',
+        async: false,
+        dataType:'text',
+        contentType: 'application/x-www-form-urlencoded',
+        data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
+        success : function(html){
+	
+				// alert(html);
+				$("#info_box #box_info").append(html);
+        }
+    });
+	
+}
+
 var ajax_to_server_by_add = function (modul_id,semester,cat_id){
     
     //alert(authenticityToken());

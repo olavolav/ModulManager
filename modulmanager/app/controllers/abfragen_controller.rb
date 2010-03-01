@@ -116,11 +116,52 @@ class AbfragenController < ApplicationController
 
       @permission = m2.moduledata.permission
     end
-
+    
     m2.has_grade ? @has_grade = 1 : @has_grade = 0
     m2.permission_removed ? @has_warning = 0 : @has_warning = 1
     m2.moduledata.has_grade ? @has_general_grade = 1 : @has_general_grade = 0
 
+    respond_to do |format|
+      format.html {render :file => "abfragen/module_info", :layout => false}
+    end
+
+  end
+
+  def get_pool_module_info
+
+    mod = Studmodule.find(params[:module_id])
+    if mod.short.include? "custom"
+      @name = mod.name
+      @description = "Dies ist ein Modul, bei dem Sie die entsprechenden Informationen " +
+        "selbst eintragen können. Ziel ist, dass Sie auch Module aus anderen Fakultäten im " +
+        "ModulManager darstellen können."
+      @short = "-"
+      @credits = 0
+      @permission = nil
+      @custom_credits = nil
+    else
+      @name         = mod.name
+      @description  = mod.description
+      @short        = mod.short
+      @credits      = mod.credits
+      
+      if mod.univzid != nil
+        @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +
+          "?expand=0" +
+          "&moduleCall=webinfo" +
+          "&publishConfFile=webinfo&" +
+          "publishSubDir=veranstaltung" +
+          "&publishid=#{mod.univzid}" +
+          "&state=verpublish" +
+          "&status=init" +
+          "&vmfile=no"
+      else
+        @univz_link = nil
+      end
+    
+      # @permission = mod.permission
+    end
+    
     respond_to do |format|
       format.html {render :file => "abfragen/module_info", :layout => false}
     end

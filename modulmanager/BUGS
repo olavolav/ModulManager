@@ -22,8 +22,6 @@ Noch zu beheben:
 68a. Ausnahme-Optionen-Einstellungen sollen zusätzlich in der Auswahl-XML verfügbar sein, evtl. schon erledigt (Christian)
 70. Auswirkungen der Ausnahme-Optionen auf den Überblick bzw. die Berechnung im Hintergrund vervollständigen (Christian)
 74. Modul-Abhängigkeiten werden nicht richtig behoben - z.B. ist "Mehrbenutzersysteme in der Praxis I" auf rot, selbst wenn man "Computergestütztes wissenschaftliches Rechnen" in der Auswahl hat (Christian)
-75. Die Info-Box von Modulen im Pool ist leer - das liegt daran, dass seit einiger Zeit die Funktion get_module_info in abfragen_controller.rb seine Informationen nur noch aus der momentanen Auswahl holt (Christian)
-
 
 
 
@@ -85,6 +83,7 @@ Inzwischen behoben:
 73. Button-Hintergrund auf der Export-Seite fehlt (Olav)
 33a. Vorgeschaltete JavaScript-Test-Seite einbauen (Olav)
 40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht (Olav)
+75. Die Info-Box von Modulen im Pool ist leer - das liegt daran, dass seit einiger Zeit die Funktion get_module_info in abfragen_controller.rb seine Informationen nur noch aus der momentanen Auswahl holt (Christian)
 
 
 
