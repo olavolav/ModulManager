@@ -360,8 +360,8 @@
 .ui-dialog .ui-dialog-titlebar {
 	padding: .5em .3em .3em 1em;
 	position: relative;
-	background: white url("../../images/Button-Hintergrund.gif");
-	background-repeat: repeat;
+	background: #d8eef7 url("../../images/Modul-Hintergrund.png");
+	background-repeat: no-repeat;
 	background-position: top left;		
 }
 .ui-dialog .ui-dialog-title { float: left; margin: .1em 0 .2em; } 
