@@ -11,7 +11,7 @@ var get_modul_info_in_overview =  function(modul_id){
 		//alert(modul_id);
         $("#box_info").empty();
         $("#box_info_exception").hide();
-        $("#box_info_pool").hide();
+        $("#box_info_pool").show();
         $("#box_info_combobox").hide();
         $("#info_box").dialog('open');
         var html = $.ajax({
