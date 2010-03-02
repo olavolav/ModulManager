@@ -53,9 +53,8 @@ a:visited {
 }
 
 #pleasewait {
-	background-color: #EAEAFF;
-	/*height: 50px;*/
-	border-bottom: 1px #3b809d solid;
+	background-color: #EAEAEA;
+	border-bottom: 1px #AAA solid;
 	padding: 0.5em;
 	text-align: center;
 }

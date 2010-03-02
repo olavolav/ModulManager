@@ -36,7 +36,7 @@ var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='padding-right:3px;'>
 var pfeil_leer = "<img src='images/Pfeil-Rechts-Leer.png' style='padding-right:3px;'>";
 	
 var warten_weiss = "<img src='images/Warten-HintergrundWeiss.gif' style='padding-right:3px;'>";
-var warten_blau = "<img src='images/Warten-HintergrundBlau.gif' style='padding-right:3px;'>";
+var warten_blau = "<img src='images/Warten-HintergrundGrau.gif' style='padding-right:3px;'>";
 var warten_semester_animation = "<img src='images/Warten-HintergrundSemester.gif' style='padding-right:3px;'>";
 
 
