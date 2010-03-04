@@ -26,9 +26,6 @@ class Connection < ActiveRecord::Base
       self.child_rules.each do |rule|
         unless rule.category == nil
           modules = modules.concat rule.category.modules
-#          rule.category.modules.each do |m|
-#            modules.push m
-#          end
         end
       end
     end
@@ -42,8 +39,55 @@ class Connection < ActiveRecord::Base
     return modules
   end
 
-  def self.create_and_connection name, child_rules = nil, child_connections = nil, focus = nil, version = nil
-    c = AndConnection.create :name => name, :focus => focus, :version => version
+  def categories
+    categories = Array.new
+    if self.child_rules.length > 0
+      self.child_rules.each do |rule|
+        categories.push rule.category unless rule.category == nil
+      end
+    end
+
+    if self.child_connections.length > 0
+      self.child_connections.each do |connection|
+        categories = categories.concat connection.categories
+      end
+    end
+    categories.uniq!
+    return categories
+  end
+
+  def removeable_grades
+    counter = 0
+    self.categories.each do |category|
+      counter += category.grade_remove
+    end
+    return counter
+  end
+
+  def removed_grades selected_modules
+    counter = 0
+    selected_modules.each do |mod|
+      if mod.has_grade == false
+        self.categories.each do |category|
+          if category.modules.include? mod.moduledata
+            counter += 1
+          end
+        end
+      end
+    end
+    return counter
+  end
+
+  def removed_too_many_grades? selected_modules
+    if removed_grades(selected_modules) > removeable_grades
+      return true
+    else
+      return false
+    end
+  end
+
+  def self.create_and_connection name, description, child_rules = nil, child_connections = nil, focus = nil, version = nil
+    c = AndConnection.create :name => name, :description => description, :focus => focus, :version => version
     if child_rules != nil
       c.child_rules = child_rules
     elsif child_connections != nil
@@ -65,15 +109,11 @@ class Connection < ActiveRecord::Base
   end
 
   def collect_child_rules selection
-
     array = Array.new
-
     self.child_connections.each do |child|
       array.push child.name if child.evaluate(selection.selection_modules) != 1
     end
-
     return array
-
   end
   
 end

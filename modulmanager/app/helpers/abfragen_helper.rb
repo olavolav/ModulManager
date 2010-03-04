@@ -58,6 +58,7 @@ EOF
 
       list = "#{element}<ul>"
 
+      # TODO Hier muss nach Position sortiert werden!!!
       r.child_connections.each do |cc|
         list += <<EOF
   <li>

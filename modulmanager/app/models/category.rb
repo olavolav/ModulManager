@@ -12,9 +12,11 @@ class Category < ActiveRecord::Base
     :class_name => "Studmodule",
     :join_table => "categories_studmodules"
 
-  has_and_belongs_to_many :rules,
+  #  has_and_belongs_to_many :rules,
+  has_many :rules,
     :class_name => "Rule",
-    :join_table => "categories_rules"
+    :foreign_key => "category_id"
+#    :join_table => "categories_rules"
 
   belongs_to :version,
     :class_name => "Version",

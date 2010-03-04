@@ -104,7 +104,7 @@ class RegelParserController < ApplicationController
 
       end
       
-      schwerpunkt = create_min_focus_rule(focus["name"], kategorien, version)
+      schwerpunkt = create_min_focus_rule(focus["name"], focus["beschreibung"], kategorien, version)
     end
 
   end
@@ -278,66 +278,103 @@ class RegelParserController < ApplicationController
   end
 
   def read_group_file filename, version
-
     dummie_counter = 1
 
-    y = extract_yaml(filename)
-    parent_groups = Array.new
-    module_groups = Array.new
-    y.each do |element|
-      if element["untergruppen"] == nil
-        module_groups.push element
-      elsif element["module"] == nil
-        parent_groups.push element
-      end
+    yaml_data = extract_yaml(filename)
+
+    i = 0
+    yaml_data.each do |data|
+      data["position"] = i
+      i += 1
     end
-    module_groups.each do |mg|
 
-      mg["sichtbar"] == "nein" ? visible = false : visible = true
+    groups = Array.new
+    groups[0] = yaml_data
 
-      modules_and_children = Studmodule::get_array_from_module_string(mg["module"])
-      new_cat = Category.create :name => mg["name"],
-        :description => mg["beschreibung"],
-        :version => version,
-        :modules => modules_and_children,
-        :modus => mg["modus"],
-        :visible => visible
-      if mg["dummies"] != nil
-        mg["dummies"].times do
-          dummie = Studmodule.create :name => "(Sonstiges Modul)",
-            :short => "custom#{dummie_counter}",
-            :parts => 1
-          new_cat.modules << dummie
-          dummie_counter += 1
+    i = 0
+    last_level = false
+
+    until last_level
+      groups[i+1] = Array.new
+      level_up = Array.new
+      groups[i].each do |group|
+        if group["untergruppen"] == nil
+          level_up.push group["name"]
+        elsif group["module"] == nil
+          subgroups = group["untergruppen"].split(",")
+          subgroups.each {|s| s.strip!}
+          level_up = level_up.concat subgroups
         end
       end
-      if mg["note-streichen"] != nil
-        new_cat.grade_remove = mg["note-streichen"]
+      level_up.uniq!
+      level_up.each do |groupname|
+        groups[i].each do |group|
+          if group["name"] == groupname
+            groups[i+1].push group
+          end
+        end
       end
-      if mg["überschneidung"] == "mehrfach"
-        new_cat.exclusive = 1
+      if groups[i+1].length > 0
+        groups[i+1].each {|group| groups[i].delete group}
       end
-      new_cat.save
-      create_min_standard_connection(mg["name"], mg["credits"], mg["anzahl"], version)
+      last_level = true
+      groups[i].each { |group| last_level = false if group["module"] == nil }
+      i += 1
     end
-    parent_groups.each do |pg|
 
-      pg["sichtbar"] == "nein" ? visible = false : visible = true
+    i = groups.length - 1
 
-      Category.create :name => pg["name"],
-        :description => pg["beschreibung"],
-        :version => version,
-        :sub_categories => Category::get_array_from_category_string(pg["untergruppen"]),
-        :modus => pg["modus"],
-        :visible => visible
-      Connection::create_and_connection(
-        pg["name"],
-        nil,
-        Connection::get_connection_array_from_category_string(pg["untergruppen"]),
-        0,
-        version
-      )
+    until i == -1
+
+      groups[i].each do |group|
+
+        group["sichtbar"] == "nein" ? visible = false : visible = true
+
+        c = Category.new
+        c.name = group["name"]
+        c.description = group["beschreibung"]
+        c.version = version
+        c.visible = visible
+        c.position = group["position"]
+          
+        if group["untergruppen"] == nil
+          c.modus = group["modus"]
+          modules = Studmodule::get_array_from_module_string group["module"]
+          c.modules = modules
+          unless group["dummies"] == nil
+            group["dummies"].times do
+              dummie = Studmodule.create :name => "(Sonstiges Modul)",
+                :short => "custom##{dummie_counter}",
+                :parts => 1
+              c.modules << dummie
+              dummie_counter += 1
+            end
+          end
+          unless group["note-streichen"] == nil
+            c.grade_remove = group["note-streichen"]
+          end
+          if group["überschneidung"] == "mehrfach"
+            c.exclusive = 1
+          end
+          c.save
+          create_min_standard_connection(group["name"], group["beschreibung"], group["credits"], group["anzahl"], version)
+        elsif group["module"] == nil
+          c.sub_categories = Category::get_array_from_category_string group["untergruppen"]
+          Connection::create_and_connection(
+            group["name"],
+            group["beschreibung"],
+            nil,
+            Connection::get_connection_array_from_category_string(group["untergruppen"]),
+            0,
+            version
+          )
+          c.save
+        end
+      end
+
+      i -= 1
     end
+
   end
 
   def extract_yaml filename
@@ -346,11 +383,11 @@ class RegelParserController < ApplicationController
     return y
   end
 
-  def create_min_focus_rule name, sub_groups, version = nil
+  def create_min_focus_rule name, description, sub_groups, version = nil
 
     sub_groups_array = Array.new
     sub_groups.each do |s|
-      sg = Connection::create_and_connection s["name"], [
+      sg = Connection::create_and_connection s["name"], description, [
         Rule::create_min_credit_rule_for_focus(s["credits"], s["shorts"]),
         Rule::create_min_module_rule_for_focus(s["modules"], s["shorts"])
       ]
@@ -358,6 +395,7 @@ class RegelParserController < ApplicationController
     end
     return Connection::create_and_connection(
       name,
+      description,
       nil,
       sub_groups_array,
       1,
@@ -366,11 +404,11 @@ class RegelParserController < ApplicationController
     
   end
 
-  def create_min_standard_connection name, credits = nil, modules = nil, version = nil
+  def create_min_standard_connection name, description, credits = nil, modules = nil, version = nil
     child_rules = Array.new
     child_rules.push(Rule::create_min_credit_rule_for_standard(credits, name)) unless credits == nil
     child_rules.push(Rule::create_min_module_rule_for_standard(modules, name)) unless modules == nil
-    r = Connection::create_and_connection(name, child_rules, nil, 0, version)
+    r = Connection::create_and_connection(name, description, child_rules, nil, 0, version)
     return r
   end
 

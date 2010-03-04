@@ -4,9 +4,9 @@ class Rule < ActiveRecord::Base
     :class_name => "Category",
     :foreign_key => "category_id"
 
-#  has_and_belongs_to_many :modules,
-#    :join_table => "rules_studmodules",
-#    :class_name => "Studmodule"
+  has_and_belongs_to_many :modules,
+    :join_table => "rules_studmodules",
+    :class_name => "Studmodule"
 
   belongs_to :parent_connection,
     :class_name => "Connection",
@@ -41,7 +41,7 @@ class Rule < ActiveRecord::Base
       # Studmodules
       remove.each do |rem|
         array.delete mod if mod.moduledata.id == rem.id
-      end
+      end unless remove == nil
     end
     # SelectedModules
     return array
@@ -57,6 +57,48 @@ class Rule < ActiveRecord::Base
 
   def directory_string
 
+  end
+
+  def removeable_grades
+    unless self.category == nil
+      return self.category.grade_remove
+    end
+    return 0
+  end
+
+  def removed_grades selected_modules
+    counter = 0
+    unless self.category == nil
+      selected_modules.each do |mod|
+        if mod.has_grade == false
+          if self.category.modules.include? mod.moduledata
+            counter += 1
+          end
+        end
+      end
+    end
+    return counter
+  end
+
+  def removed_too_many_grades? selected_modules
+#    unless self.category == nil
+#      allowed = self.category.grade_remove
+#      counted = 0
+#      selected_modules.each do |s_mod|
+#        if s_mod.has_grade == false
+#          if self.category.modules.include? s_mod.moduledata
+#            counted += 1
+#          end
+#        end
+#      end
+#      return true if counted > allowed
+#    end
+#    return false
+    if removed_grades(selected_modules) > removeable_grades
+      return true
+    else
+      return false
+    end
   end
 
 end

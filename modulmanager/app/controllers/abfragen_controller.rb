@@ -273,14 +273,10 @@ class AbfragenController < ApplicationController
     selection = current_selection
     selection.selection_modules.each do |m|
       if m.moduledata.id == id.to_i
-        m.moduledata.categories.each do |category|
-          if category.grade_remove_allowed? m.moduledata, selection
-            m.has_grade = false
-            m.save
-            render :text => "success"
-            return
-          end
-        end
+        m.has_grade = false
+        m.save
+        render :text => "success"
+        return
       end
     end
     render :text => "error"
@@ -331,27 +327,23 @@ class AbfragenController < ApplicationController
   def info
     selection = current_selection
     id = params[:id]
-    regel = Connection.find(:first, :conditions => "id = '#{id}'")
-    mods = selection.selection_modules
-    @name = regel.name
-    # Das hier muss natürlich noch ersetzt werden (OS)
-    @description = "Zu dieser Kategorie ist momentan keine Beschreibung verfügbar."
-    ff = regel.evaluate mods, get_errors(selection)
+    @regel = Connection.find(:first, :conditions => "id = '#{id}'")
+    @mods = selection.selection_modules
+#    @description = "Zu dieser Kategorie ist momentan keine Beschreibung verfügbar."
+    ff = @regel.evaluate @mods, get_errors(selection)
     ff == 1 ? @fullfilled_string = "<span style='color:green'>erfüllt</span>" : @fullfilled_string = "<span style='color:red'>nicht erfüllt</span>"
     ff == 1 ? @fullfilled = true : @fullfilled = false
-    @credits_earned = regel.collected_credits mods, get_errors(selection)
-    @credits_needed = regel.credits_needed
-    @modules_earned = regel.modules_earned mods
-    @modules_needed = regel.modules_needed
-    @available_modules = Array.new
+    @credits_earned     = @regel.collected_credits @mods, get_errors(selection)
 
-    if regel.child_connections.length > 0
-      @child_rules = regel.collect_child_rules current_selection
+    @available_modules  = Array.new
+
+    if @regel.child_connections.length > 0
+      @child_rules = @regel.collect_child_rules current_selection
     else
-      modules = regel.collect_unique_modules_from_children_without_custom
+      modules = @regel.collect_unique_modules_from_children_without_custom
       modules.each do |m|
         found = false
-        mods.each { |mod| found = true if mod.moduledata.id == m.id }
+        @mods.each { |mod| found = true if mod.moduledata.id == m.id }
         @available_modules.push m unless found
       end
     end
