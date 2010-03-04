@@ -69,30 +69,20 @@ class AbfragenController < ApplicationController
 
     selection = current_selection
     m2 = nil
+    @categories = Array.new
+
     selection.selection_modules.each do |m|
       m2 = m if m.moduledata.short == mod.short
     end
-
+    @id = m2.id
     if mod.short.include? "custom"
-      #      selection = current_selection
-      #      m2 = nil
-      #      selection.selection_modules.each do |m|
-      #        m2 = m if m.moduledata.short == mod.short
-      #      end
-
-      #      unless m2 == nil
       @name = m2.name
       @description = "Dies ist ein von Ihnen konfiguriertes Modul."
       @short = "-"
       @credits = m2.credits
       @permission = nil
       @custom_credits = m2.credits
-      #      end
     else
-      #      @name         = mod.name
-      #      @description  = mod.description
-      #      @short        = mod.short
-      #      @credits      = mod.credits
       @name         = m2.moduledata.name
       @description  = m2.moduledata.description
       @short        = m2.moduledata.short
@@ -115,6 +105,11 @@ class AbfragenController < ApplicationController
       end
 
       @permission = m2.moduledata.permission
+      m2.moduledata.categories.each do |category|
+        unless category.exclusive == 1
+          @categories.push category
+        end
+      end
     end
     
     m2.has_grade ? @has_grade = 1 : @has_grade = 0
@@ -169,30 +164,58 @@ class AbfragenController < ApplicationController
   end
 
   def add_module_to_selection
-    selection = current_selection
-    unless semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
+
+    selection       = current_selection
+
+    semester_count  = params[:sem_count]
+    module_id       = params[:mod_id]
+    category_id     = extract_category_id(params[:cat_id])
+
+    semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
+    if semester == nil
       semester = Semester.create(:count => params[:sem_count])
       selection.semesters << semester
     end
-    id = params[:mod_id]
-    cat_id = extract_category_id(params[:cat_id])
-    parent_module = Studmodule.find(id)
-    my_module = SelectedModule.create(:moduledata => parent_module)
-    my_module.categories = Array.new
-    #    my_module.categories << Category.find(cat_id) unless cat_id == nil || cat_id == ""
 
-    cat_id == nil || cat_id == "" ? cat = nil : cat = Category.find(cat_id)
-    unless cat == nil
-      if cat.exclusive == 1 && parent_module.categories.length > 1
-        my_module.categories = parent_module.categories
-      else
-        my_module.categories << cat
-      end
-    end
+    studmodule      = Studmodule.find(module_id)
+    selected_module = SelectedModule.create(:moduledata => studmodule)
 
-    my_module.save
-    semester.modules << my_module
+    selected_module.category = Category.find(category_id)
+
+    selected_module.save
+
+    semester.modules << selected_module
+
     render :text => "Module added successfully..."
+
+
+
+
+
+#    selection = current_selection
+#    unless semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
+#      semester = Semester.create(:count => params[:sem_count])
+#      selection.semesters << semester
+#    end
+#    id = params[:mod_id]
+#    cat_id = extract_category_id(params[:cat_id])
+#    parent_module = Studmodule.find(id)
+#    my_module = SelectedModule.create(:moduledata => parent_module)
+#    my_module.categories = Array.new
+#    #    my_module.categories << Category.find(cat_id) unless cat_id == nil || cat_id == ""
+#
+#    cat_id == nil || cat_id == "" ? cat = nil : cat = Category.find(cat_id)
+#    unless cat == nil
+#      if cat.exclusive == 1 && parent_module.categories.length > 1
+#        my_module.categories = parent_module.categories
+#      else
+#        my_module.categories << cat
+#      end
+#    end
+#
+#    my_module.save
+#    semester.modules << my_module
+#    render :text => "Module added successfully..."
   end
 
   def add_custom_module_to_selection

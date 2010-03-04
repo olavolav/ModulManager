@@ -12,6 +12,10 @@ class Category < ActiveRecord::Base
     :class_name => "Studmodule",
     :join_table => "categories_studmodules"
 
+  has_many :selected_modules,
+    :class_name => "SelectedModule",
+    :foreign_key => "category_id"
+
   #  has_and_belongs_to_many :rules,
   has_many :rules,
     :class_name => "Rule",

@@ -172,22 +172,29 @@ class MainController < ApplicationController
 
   def set_category
     id = params[:mod_id]
-    cat_id = extract_category_id(params[:cat_id])
+    cat_id = params[:cat_id]
 
-    mod = nil
+    mod = SelectedModule.find(:first, :conditions => "module_id = #{id}")
 
-    selection = current_selection
+    mod.category = Category.find(cat_id)
+    mod.save
 
-    selection.selection_modules.each do |m|
-      mod = m if m.moduledata.id == id
-    end
+    render :text => "success"
 
-    #    category = Category.find(cat_id)
-
-    mod.category = Category.find(cat_id) unless mod == nil ||
-      mod.save
-    
-    render :text => "Category changed successfully..."
+#    mod = nil
+#
+#    selection = current_selection
+#
+#    selection.selection_modules.each do |m|
+#      mod = m if m.moduledata.id == id
+#    end
+#
+#    #    category = Category.find(cat_id)
+#
+#    mod.category = Category.find(cat_id) unless mod == nil ||
+#      mod.save
+#
+#    render :text => "Category changed successfully..."
 
   end
 

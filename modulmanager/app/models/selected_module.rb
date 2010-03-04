@@ -12,4 +12,8 @@ class SelectedModule < ActiveRecord::Base
     :class_name => "Category",
     :join_table => "categories_selected_modules"
 
+  belongs_to :category,
+    :class_name => "Category",
+    :foreign_key => "category_id"
+
 end

@@ -4,23 +4,29 @@ class AndConnection < Connection
     non_permitted_modules = Array.new if non_permitted_modules == nil
     credits = 0
     my_modules = self.modules
-
     selected_modules.each do |s_module|
       unless s_module.class == Semester
         unless non_permitted_modules.include? s_module.moduledata
-          if my_modules.include? s_module.moduledata
-            if s_module.credits == nil
-              credits += s_module.moduledata.credits
-            else
-              credits += s_module.credits
+          if s_module.category != nil
+            if self.categories.include? s_module.category
+              if s_module.credits == nil
+                credits += s_module.moduledata.credits
+              else
+                credits += s_module.credits
+              end
             end
           else
+            if my_modules.include? s_module.moduledata
+              if s_module.credits == nil
+                credits += s_module.moduledata.credits
+              else
+                credits += s_module.credits
+              end
+            end
           end
-        else
         end
       end
     end
-
     return credits
   end
 
@@ -28,61 +34,35 @@ class AndConnection < Connection
     non_permitted_modules  = Array.new if non_permitted_modules == nil
     modules = 0
     my_modules = self.modules
-
     selected_modules.each do |s_module|
       unless s_module.class == Semester
         unless non_permitted_modules.include? s_module.moduledata
-          if my_modules.include? s_module.moduledata
-            modules += 1
+          if s_module.category != nil
+            if self.categories.include? s_module.category
+              modules += 1
+            end
           else
+            if my_modules.include? s_module.moduledata
+              modules += 1
+            end
           end
-        else
         end
       end
     end
-
     return modules
   end
 
-#  def modules_earned selected_modules
-#    modules = 0
-#
-#    if self.child_connections.length > 0
-#      self.child_connections.each do |connection|
-#        modules += connection.modules_earned selected_modules
-#      end
-#    elsif self.child_rules.length > 0
-#      self.child_rules.each do |rule|
-#        if rule.class == ModuleRule
-#          #          modules += rule.act_modules selected_modules
-#          modules += rule.collected_modules selected_modules
-#        end
-#      end
-#    end
-#
-#    return modules
-#  end
-
   def evaluate selected_modules, options = nil
-    puts "evaluating"
     if self.child_connections.length > 0
-      puts "checking child-connections"
       self.child_connections.each { |d| return -1 unless d.evaluate(selected_modules, options) == 1 }
-      puts "child-connections OK"
     elsif self.child_rules.length > 0
-      puts "checking child-rules"
       self.child_rules.each { |d| return -1 unless d.evaluate(selected_modules, options) == 1 }
-      puts "child-rules OK"
     end
     if self.collected_credits(selected_modules, options) >= self.credits_needed
-      puts "earned enough credits"
       if self.collected_modules(selected_modules, options) >= self.modules_needed
-        puts "earned enough modules"
         return 1
       end
     end
-    puts "something went wrong"
-#    return 1 if self.collected_credits(selected_modules) >= self.credits_needed && self.collected_modules(selected_modules) >= self.modules_needed
     return -1
   end
 
@@ -116,7 +96,6 @@ class AndConnection < Connection
 
     self.child_rules.each do |rule|
       rule.category.modules.each { |m| module_ids.push m.id } unless rule.category == nil
-      #      rule.modules.each { |m| module_ids.push m.id }
     end
 
     if self.child_connections.length > 0
