@@ -1001,15 +1001,17 @@ var ajax_to_server_by_remove_warning = function(module_id) {
 };
 
 var ajax_to_server_by_set_category = function(module_id, category_id) {
-    $.ajax({
-        type: "POST",
-        url: "main/set_category",
-        dataType: "text",
-        cache: false,
-        async: true,
-        data: "mod_id="+module_id+"&cat_id="+category_id+"&"+authenticityTokenParameter(),
-        contentType: "application/x-www-form-urlencoded"
-    });
+    if(category_id != undefined) {
+        $.ajax({
+            type: "POST",
+            url: "main/set_category",
+            dataType: "text",
+            cache: false,
+            async: true,
+            data: "mod_id="+module_id+"&cat_id="+category_id+"&"+authenticityTokenParameter(),
+            contentType: "application/x-www-form-urlencoded"
+        });
+    }
 };
 
 var ajax_to_server_by_grade = function(modul_id,grade){
@@ -1047,13 +1049,14 @@ var ajax_to_server_by_get_grade = function(){
 }
 
 function ajax_server_by_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id){
+    category_id = category_id.split("_");
     $.ajax({
         type:"POST",
         url :"abfragen/add_custom_module_to_selection",
         dataType:"text",
         cache:false,
         async:false,
-        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id+"&"+"cat_id="+category_id+"&"+authenticityTokenParameter(),
+        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id+"&"+"cat_id="+category_id[1]+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
         success: function(data){
             ueberblick();
@@ -1081,13 +1084,14 @@ function ajax_custom_checbox(custom_id){
 }
 
 function ajax_set_custom_checbox(custom_id,cat_id_array){
+    cat_id_array = cat_id_array.split("_");
     $.ajax({
         type:"POST",
         url :"main/set_category",
         dataType:"text",
         cache:false,
         async:false,
-        data:"mod_id="+custom_id+"&"+"cat_id="+cat_id_array+"&"+authenticityTokenParameter(),
+        data:"mod_id="+custom_id+"&"+"cat_id="+cat_id_array[1]+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
         error : function(a,b,c){
             alert ("AJAX-Fehler: set_category");

@@ -254,9 +254,9 @@ class AbfragenController < ApplicationController
     cat_id = params[:cat_id]
     if cat_id.class == Array
       cat_id.categories = Array.new
-      cat_id.each { |c| my_module.categories << Category.find(extract_category_id(c)) }
+      cat_id.each { |c| my_module.categories << Category.find(c) }
     elsif cat_id.class == String
-      my_module.categories << Category.find(extract_category_id(cat_id))
+      my_module.categories << Category.find(cat_id)
     end
 
     my_module.save

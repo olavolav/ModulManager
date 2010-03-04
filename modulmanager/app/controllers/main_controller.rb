@@ -160,10 +160,10 @@ class MainController < ApplicationController
       end
     end
 
-#    # TODO Anpassen, so dass dies dynamisch erzeugt wird!!!
-#    @categories = Array.new
-#    @categories.push Category.find(:first, :conditions => "name = 'Nicht Physikalisch'")
-#    @categories.push Category.find(:first, :conditions => "name = 'Mathematisch-Naturwissenschaftlich'")
+    #    # TODO Anpassen, so dass dies dynamisch erzeugt wird!!!
+    #    @categories = Array.new
+    #    @categories.push Category.find(:first, :conditions => "name = 'Nicht Physikalisch'")
+    #    @categories.push Category.find(:first, :conditions => "name = 'Mathematisch-Naturwissenschaftlich'")
 
     respond_to do |format|
       format.html { render :action => "_check_category", :layout => false }
@@ -176,25 +176,27 @@ class MainController < ApplicationController
 
     mod = SelectedModule.find(:first, :conditions => "module_id = #{id}")
 
-    mod.category = Category.find(cat_id)
-    mod.save
+    unless mod == nil
+      mod.category = Category.find(cat_id)
+      mod.save
+    end
 
     render :text => "success"
 
-#    mod = nil
-#
-#    selection = current_selection
-#
-#    selection.selection_modules.each do |m|
-#      mod = m if m.moduledata.id == id
-#    end
-#
-#    #    category = Category.find(cat_id)
-#
-#    mod.category = Category.find(cat_id) unless mod == nil ||
-#      mod.save
-#
-#    render :text => "Category changed successfully..."
+    #    mod = nil
+    #
+    #    selection = current_selection
+    #
+    #    selection.selection_modules.each do |m|
+    #      mod = m if m.moduledata.id == id
+    #    end
+    #
+    #    #    category = Category.find(cat_id)
+    #
+    #    mod.category = Category.find(cat_id) unless mod == nil ||
+    #      mod.save
+    #
+    #    render :text => "Category changed successfully..."
 
   end
 
@@ -291,7 +293,7 @@ class MainController < ApplicationController
     doc.root.each_element('//semester') do |s|
       my_semester = Semester.create :count => s.attributes['count']
       my_selection.semesters << my_semester
-#      custom_count = 0
+      #      custom_count = 0
       s.elements.each do |m|
 
         my_module = SelectedModule.create :moduledata => Studmodule.find(m.attributes['moduledata']),
@@ -303,21 +305,21 @@ class MainController < ApplicationController
 
         my_semester.modules << my_module
 
-#        if m.attributes['id'] == "custom"
-#          custom_count += 1
-#          my_module = CustomModule.create
-#          my_module.short = "custom#{custom_count}"
-#          my_module.grade = m.attributes['grade']
-#          my_module.name = m.attributes['name']
-#          my_module.credits = m.attributes['credits']
-#          my_semester.modules << my_module
-#        else
-#          my_module = Studmodule.find(:first, :conditions => "short = '#{m.attributes['short']}'")
-#          my_semester.studmodules << my_module
-#          s = SelectedModule.find(:first, :conditions => "module_id = '#{my_module.id}'")
-#          s.grade = m.attributes['grade']
-#          s.save
-#        end
+        #        if m.attributes['id'] == "custom"
+        #          custom_count += 1
+        #          my_module = CustomModule.create
+        #          my_module.short = "custom#{custom_count}"
+        #          my_module.grade = m.attributes['grade']
+        #          my_module.name = m.attributes['name']
+        #          my_module.credits = m.attributes['credits']
+        #          my_semester.modules << my_module
+        #        else
+        #          my_module = Studmodule.find(:first, :conditions => "short = '#{m.attributes['short']}'")
+        #          my_semester.studmodules << my_module
+        #          s = SelectedModule.find(:first, :conditions => "module_id = '#{my_module.id}'")
+        #          s.grade = m.attributes['grade']
+        #          s.save
+        #        end
         
       end
     end
