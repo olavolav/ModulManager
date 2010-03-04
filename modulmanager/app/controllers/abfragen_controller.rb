@@ -110,11 +110,14 @@ class AbfragenController < ApplicationController
           @categories.push category
         end
       end
+
     end
     
     m2.has_grade ? @has_grade = 1 : @has_grade = 0
     m2.permission_removed ? @has_warning = 0 : @has_warning = 1
     m2.moduledata.has_grade ? @has_general_grade = 1 : @has_general_grade = 0
+
+    m2.category == nil ? @selected_cat = nil : @selected_cat = m2.category.id
 
     respond_to do |format|
       format.html {render :file => "abfragen/module_info", :layout => false}
