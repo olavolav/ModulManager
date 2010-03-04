@@ -139,7 +139,12 @@ class MainController < ApplicationController
   def combo_category
     id = params[:mod_id]
     mod = Studmodule.find(id)
-    @categories = mod.categories.uniq!
+    @categories = Array.new
+    mod.categories.each do |category|
+      unless category.exclusive == 1
+        @categories.push category
+      end
+    end
     respond_to do |format|
       format.html { render :action => "combo_category", :layout => false }
     end
@@ -151,7 +156,7 @@ class MainController < ApplicationController
     @categories = Array.new
     mod.categories.each do |category|
       if category.exclusive
-        @categorie.push category
+        @categories.push category
       end
     end
 

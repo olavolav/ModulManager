@@ -102,7 +102,7 @@
 
   - name: Spezielle Themen
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
-    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.511, B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.553.2, B.Phy.554, B.Phy.554.2, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.563.2, B.Phy.564, B.Phy.564.2, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.573.2, B.Phy.574, B.Phy.574.2, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.583.2, B.Phy.584, B.Phy.584.2, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.593.2, B.Phy.594, B.Phy.594.2"
+    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.510.2, B.Phy.511, B.Phy.511.2, B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.553.2, B.Phy.554, B.Phy.554.2, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.563.2, B.Phy.564, B.Phy.564.2, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.573.2, B.Phy.574, B.Phy.574.2, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.583.2, B.Phy.584, B.Phy.584.2, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.593.2, B.Phy.594, B.Phy.594.2"
     credits: 12
 
   - name: Nicht Physikalisch
