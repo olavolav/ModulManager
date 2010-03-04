@@ -174,9 +174,9 @@ class AbfragenController < ApplicationController
     module_id       = params[:mod_id]
     category_id     = extract_category_id(params[:cat_id])
 
-    semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
+    semester = selection.semesters.find(:first, :conditions => "count = #{semester_count}")
     if semester == nil
-      semester = Semester.create(:count => params[:sem_count])
+      semester = Semester.create(:count => semester_count)
       selection.semesters << semester
     end
 

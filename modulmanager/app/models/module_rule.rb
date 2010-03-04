@@ -1,14 +1,19 @@
 class ModuleRule < Rule
 
   def collected_modules selected_modules, non_permitted_modules = nil
-
     modules = 0
     rule_modules = self.category.modules unless self.category == nil
     evaluation_modules = Rule::remove_modules_from_array selected_modules, non_permitted_modules
 
     evaluation_modules.each do |e_module|
-      unless e_module.categories.length < 1 && e_module.moduledata.categories.length < 1
-        if e_module.categories.include?(self.category) || e_module.moduledata.categories.include?(self.category)
+      if e_module.category != nil && e_module.category.exclusive != 1
+        if e_module.category == self.category
+          if rule_modules.include? e_module.moduledata
+            modules += 1
+          end
+        end
+      elsif e_module.moduledata.categories.length > 0
+        if e_module.moduledata.categories.include? self.category
           if rule_modules.include? e_module.moduledata
             modules += 1
           end
@@ -73,27 +78,17 @@ class ModuleRule < Rule
   #  end
 
   def evaluate selected_modules, non_permitted_modules = nil
-    puts "checking module-rule..."
     return -1 if self.removed_too_many_grades? selected_modules
-    puts "not removed too many grades..."
-    #    credits_in_selection = act_credits selected_modules, non_permitted_modules
     modules_in_selection = self.collected_modules selected_modules, non_permitted_modules
-    puts "modules_in_selection : #{modules_in_selection}"
-    puts "self.count : #{self.count}"
     if self.relation == "min"
-      puts "min-relation"
       if modules_in_selection < self.count
-        puts "not enough modules"
         return -1
       end
     elsif self.relation == "max"
-      puts "max-relation"
       if modules_in_selection > self.count
-        puts "too much modules"
         return -1
       end
     end
-    puts "everything is OK"
     return 1
   end
 

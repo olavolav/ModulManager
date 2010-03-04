@@ -6,7 +6,7 @@ class CreditRule < Rule
     evaluation_modules = Rule::remove_modules_from_array selected_modules, non_permitted_modules
 
     evaluation_modules.each do |e_module|
-      if e_module.category != nil
+      if e_module.category != nil && e_module.category.exclusive != 1
         if e_module.category == self.category
           if rule_modules.include? e_module.moduledata
             e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits

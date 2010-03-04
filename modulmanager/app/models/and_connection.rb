@@ -7,7 +7,7 @@ class AndConnection < Connection
     selected_modules.each do |s_module|
       unless s_module.class == Semester
         unless non_permitted_modules.include? s_module.moduledata
-          if s_module.category != nil
+          if s_module.category != nil && s_module.category.exclusive != 1
             if self.categories.include? s_module.category
               if s_module.credits == nil
                 credits += s_module.moduledata.credits
@@ -37,7 +37,7 @@ class AndConnection < Connection
     selected_modules.each do |s_module|
       unless s_module.class == Semester
         unless non_permitted_modules.include? s_module.moduledata
-          if s_module.category != nil
+          if s_module.category != nil && s_module.category.exclusive != 1
             if self.categories.include? s_module.category
               modules += 1
             end
