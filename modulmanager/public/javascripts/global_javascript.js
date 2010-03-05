@@ -1189,6 +1189,12 @@ var check_error_all_modul_in_selection = function(){
             if(check_error("error_"+mod_id)){
                 set_image_to_red_ipunkt_and_error_to_yes(this);
             }
+						else {
+							var noten_input = $(this).find(".noten_input");
+							if($(this).find("span.modul_has_grade").text() == "nein")
+								set_image_to_green_ipunkt(noten_input);
+							else set_image_to_ipunkt(noten_input);
+						}
         });
     });
 }
