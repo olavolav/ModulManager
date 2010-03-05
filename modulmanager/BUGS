@@ -10,18 +10,17 @@ Noch zu beheben:
 29. Copyright-Angaben hinzufügen (Olav)
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
-48. Schwerpunkte unterteilen (Olav)
+48. Schwerpunkte unterteilen, nicht nur als Text (Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
-57. Dynamische Auswahl der Vorauswahl in application.rb und application_helper.rb (Christian)
-59. Korrekte Anzahl von "Note streichen"-Optionen aus der PO eintragen (Olav)
-61. Überblicks-Info-Box-Fehlermeldungen auch bei gewähltem Schwerpunkt entfernen (Christian)
 62. In den Info-Boxen von als fehlerhaft ausgewerteten Kategorien erscheint manchmal ein Sub-Name (z.B. ": Administration von MS-Windows (B.Phy.511.2)" bei Wahlpflichmodule/Einführungen) (Christian)
-64. Beschreibungs-Tag der gruppen.yml wird in der Info-Box des Überblicks nicht angezeigt (Christian)
-65. Bei Modulen im Profilierungsbereich kommt trotz (oder wegen?) des mehrfach-Tags in der gruppen.yml eine Dropdown-Box - das war ja genau der Witz, dass das Modul für mehrere Gruppen zählt und eben nicht ausgewählt werden muss (Christian)
-66. Dropdown-Boxen haben keinen Einfluß auf den Überblick und verschwinden beim Reload - allerdings ist das vielelicht ein Artefakt von Bug #65, da das Dropdown-Menü ja ohenhin nicht dort sein sollte (Christian, evtl. Quan und Olav)
 68a. Ausnahme-Optionen-Einstellungen sollen zusätzlich in der Auswahl-XML verfügbar sein, evtl. schon erledigt (Christian)
 70. Auswirkungen der Ausnahme-Optionen auf den Überblick bzw. die Berechnung im Hintergrund vervollständigen (Christian)
-74. Modul-Abhängigkeiten werden nicht richtig behoben - z.B. ist "Mehrbenutzersysteme in der Praxis I" auf rot, selbst wenn man "Computergestütztes wissenschaftliches Rechnen" in der Auswahl hat (Christian)
+76. Die Pflicht/Wahlpflicht-Icons sind weg. Glaube die Angabe in der Pool-Abfrage fehlt. (Christian)
+77. Combobox geht zum Teil nicht, siehe mein Commit vorhin. Interessanterweise scheint es bei manchen Modulen zu gehen, also bei Mehrbenutzersysteme funktioniert's, bei AstroGeo nicht. Komisch. (Christian)
+78. Bei SP Nanostrukturphysik: Spezialisierungspraktikum Nanostrukturphysik hat eine Combobox mit nur einem Eintrag (Christian)
+79. Bei SP Nanostrukturphysik: Info-Box von Nanostrukturphysik geht nicht (Christian)
+80. Die Modul-Info-Box fragt jetzt wieder jedes Mal den Überblick ab, egal ob man was verändert hat oder nicht. (Christian & Olav)
+81. Die Reihenfolge der Kategorien von Überblick und Pool ist nicht ganz die gleiche, s. Grundkurs (Olav)
 
 
 
@@ -84,6 +83,13 @@ Inzwischen behoben:
 33a. Vorgeschaltete JavaScript-Test-Seite einbauen (Olav)
 40. Hervorhebung von Buttons, wenn man mit dem Mauszeiger drüber geht (Olav)
 75. Die Info-Box von Modulen im Pool ist leer - das liegt daran, dass seit einiger Zeit die Funktion get_module_info in abfragen_controller.rb seine Informationen nur noch aus der momentanen Auswahl holt (Christian)
+64. Beschreibungs-Tag der gruppen.yml wird in der Info-Box des Überblicks nicht angezeigt (Christian)
+57. Dynamische Auswahl der Vorauswahl in application.rb und application_helper.rb (Christian)
+74. Modul-Abhängigkeiten werden nicht richtig behoben - z.B. ist "Mehrbenutzersysteme in der Praxis I" auf rot, selbst wenn man "Computergestütztes wissenschaftliches Rechnen" in der Auswahl hat (Christian)
+65. Bei Modulen im Profilierungsbereich kommt trotz (oder wegen?) des mehrfach-Tags in der gruppen.yml eine Dropdown-Box - das war ja genau der Witz, dass das Modul für mehrere Gruppen zählt und eben nicht ausgewählt werden muss (Christian)
+66. Dropdown-Boxen haben keinen Einfluß auf den Überblick und verschwinden beim Reload - allerdings ist das vielelicht ein Artefakt von Bug #65, da das Dropdown-Menü ja ohenhin nicht dort sein sollte (Christian, evtl. Quan und Olav)
+59. Korrekte Anzahl von "Note streichen"-Optionen aus der PO eintragen (Olav)
+61. Überblicks-Info-Box-Fehlermeldungen auch bei gewähltem Schwerpunkt entfernen (Christian)
 
 
 
