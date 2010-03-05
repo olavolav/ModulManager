@@ -142,7 +142,7 @@ class MainController < ApplicationController
     @selected_cat = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}").category
     @categories = Array.new
     mod.categories.each do |category|
-      unless category.exclusive == 1
+      unless category.exclusive == 1 || category.focus != nil
         @categories.push category
       end
     end

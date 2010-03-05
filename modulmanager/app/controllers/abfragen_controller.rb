@@ -106,7 +106,7 @@ class AbfragenController < ApplicationController
 
       @permission = m2.moduledata.permission
       m2.moduledata.categories.each do |category|
-        unless category.exclusive == 1
+        unless category.exclusive == 1 || category.focus != nil
           @categories.push category
         end
       end
