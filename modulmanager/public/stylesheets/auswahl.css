@@ -7,24 +7,19 @@
 	border-spacing:0px;
 }
 
-
-/*.auswahlmodul li {
-	float:left;
-	
-}
-
-.auswahlmodul li.credits {
-	float:right;
-	
-}
-*/
 .noten_input {
 	border: 1px solid #bdc7d8;
+	background-color: #F8F8F8;
 	height: 15px;
 	margin: 0px;
 	padding: 0px;
 	text-align: center;
 	cursor: auto;
+}
+
+select {
+	background-color: #F8F8F8;
+	border: 1px #AAA solid;
 }
 
 .semester_content {
@@ -103,7 +98,7 @@ fieldset {
 }
 		
 /* Ausnahme-Optionen (OS) */
-.credit-option, .warnung-option, .note-option {
+.credit-option, .warnung-option, .note-option, .drop_down_menu {
 	padding-left: 30px;
 	color: #3b809d;
 }
