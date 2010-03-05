@@ -732,6 +732,9 @@ var session_auswahl_rekursiv = function(root){
             var mod_has_warning=$(this).attr("has_warning");
             var modul_im_pool = $("#pool").find("div#"+mod_id);
             var das_erste = $(modul_im_pool).eq(0);
+
+						var modul_has_additional_info = $("#pool").find("div#"+mod_id).find(".additional_info").eq(0).text();
+						// alert("ModID="+mod_id+", AddInfo="+modul_has_additional_info);
 			
             // die originalen Module verstecken
             //und den span.inAuswahl auf "ja" setzen
@@ -794,6 +797,7 @@ var session_auswahl_rekursiv = function(root){
             if($(auswahl_modul_clone).find(".modul_parent_attr").text()!="nein"){
                 $(auswahl_modul_clone).show();
             }
+
             // VoratBOX
             if(parent_id == "0"){
                 var sem = $("#middle").find("#semesterBOX .subsemester");
@@ -806,6 +810,13 @@ var session_auswahl_rekursiv = function(root){
                     $(this).find(".subsemester").append(auswahl_modul_clone);
                 }
             });//ende each intern
+
+						// Falls nötig, noch die zusätzliche Combobox anzeigen
+						if(modul_has_additional_info == "true") {
+								// alert("Hier kommt vom Server noch eine Combobox.");
+								ajax_combobox(mod_id);
+								$(auswahl_modul_clone).find(".additional_info").text("drop_down_schon_in_auswahl");
+						}
             return;
         }// ende Bl�tter
         //check semester
@@ -1003,17 +1014,18 @@ var ajax_to_server_by_remove_warning = function(module_id) {
 };
 
 var ajax_to_server_by_set_category = function(module_id, category_id) {
+		alert("POST main/set_category: mod_id="+module_id+"&cat_id="+category_id+"&"+authenticityTokenParameter());
     if(category_id != undefined) {
         $.ajax({
             type: "POST",
             url: "main/set_category",
             dataType: "text",
             cache: false,
-            async: true,
+            async: false,
             data: "mod_id="+module_id+"&cat_id="+category_id+"&"+authenticityTokenParameter(),
             contentType: "application/x-www-form-urlencoded"
         });
-    }
+    };
 };
 
 var ajax_to_server_by_grade = function(modul_id,grade){
@@ -1041,7 +1053,7 @@ function ajax_combobox(mod_id){
         url :"main/combo_category",
         dataType:"text",
         cache:false,
-        async:false,
+        async:true,
         data:"mod_id="+mod_id+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
         success:function(html){
@@ -1049,7 +1061,14 @@ function ajax_combobox(mod_id){
                 $(this).find(">.subsemester").children().not("h5").each(function(){
                     var this_mod_id = $(this).attr("id");
                     if(this_mod_id == mod_id){
-                        $(this).find("> p.drop_down_menu").css("display","block").append(html);
+												var ourmenu = $(this).find("> p.drop_down_menu");
+                        ourmenu.show().append(html);
+												ourmenu = ourmenu.find("select");
+												ourmenu.change(function() {
+													alert("Dropdown-Menü verändert zu: "+ourmenu.find(":selected").text()+", value="+String(ourmenu.val()));
+													ajax_to_server_by_set_category(this_mod_id,ourmenu.val());
+											    ueberblick();													
+												});
                     }
                 });
             });
@@ -1292,18 +1311,11 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
         set_image_to_red_ipunkt_and_error_to_yes(ui_draggable);
     }
 
-
     var additional_info = $(ui_draggable).find(".additional_info").text();
-
     if (additional_info == "true") {
         ajax_combobox(modul_id);
         $(ui_draggable).find(".additional_info").text("drop_down_schon_in_auswahl");
-
-//        var ueberschrift = $(ui_draggable).find(".modul_name").text() + " (Kann in versch. Gruppen eingebracht werden)";
-//        $(ui_draggable).find(".modul_name").text(ueberschrift);
     }
-
-
 
 
 }//ende drop in auswahl
