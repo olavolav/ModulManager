@@ -66,6 +66,28 @@ class AndConnection < Connection
     return -1
   end
 
+  def evaluate_with_focus selected_modules, non_permitted_modules, focus
+    if self.child_connections.length > 0
+      self.child_connections.each { |d| return -1 unless d.evaluate_with_focus(selected_modules, non_permitted_modules, focus) == 1 }
+    elsif self.child_rules.length > 0
+      self.child_rules.each { |d| return -1 unless d.evaluate_with_focus(selected_modules, non_permitted_modules, focus) == 1 }
+    end
+    if self.credits_for_focus(selected_modules, non_permitted_modules, focus) >= self.credits_needed
+      if self.modules_for_focue(selected_modules, non_permitted_modules, focus) >= self.modules_needed
+        return 1
+      end
+    end
+    return -1
+  end
+
+  def credits_for_focus selected_modules, n_p_m, focus
+
+  end
+
+  def modules_for_focus selected_modules, n_p_m, focus
+
+  end
+
   def credits_needed
     credits = 0
     if self.child_connections.length > 0

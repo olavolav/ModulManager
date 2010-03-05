@@ -137,8 +137,9 @@ class MainController < ApplicationController
   end
 
   def combo_category
-    id = params[:mod_id]
+    @id = params[:mod_id]
     mod = Studmodule.find(id)
+    @selected_cat = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}").category
     @categories = Array.new
     mod.categories.each do |category|
       unless category.exclusive == 1

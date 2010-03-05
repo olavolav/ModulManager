@@ -87,16 +87,16 @@ class ApplicationController < ActionController::Base
   end
 
   def create_standard_selection
-    semesters = create_pre_selection
+    semesters = create_pre_selection nil, get_latest_po
     ms = ModuleSelection.create :version => get_latest_po,
       :semesters => semesters
     return ms.id
   end
 
-  def create_pre_selection focus_name = nil
+  def create_pre_selection focus_name = nil, version = nil
     focus_name = "standard" if focus_name == nil
-    # TODO Muss noch variabel gestaltet werden
-    pre_selection_file = File.open("config/basedata/po_ss_2009/vorauswahl.yml")
+    version == nil ? path = current_selection.version.path : path = version.path
+    pre_selection_file = File.open("config/basedata/#{path}/vorauswahl.yml")
 
     y = YAML::load(pre_selection_file)
 
@@ -116,23 +116,17 @@ class ApplicationController < ActionController::Base
 
         i = 0
         semesters.each do |content|
-
           i += 1
-
           shorts = content.split(", ")
-
           s = Semester.new :count => i
           shorts.each do |short|
-            puts short
             m = Studmodule.find(:first, :conditions => "short = '#{short}'")
             s.studmodules << m
           end
           s.save
           return_array.push s
         end
-
       end
-
     end
     return return_array
   end

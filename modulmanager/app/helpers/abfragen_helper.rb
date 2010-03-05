@@ -1,9 +1,5 @@
 module AbfragenHelper
 
-#  def build_html non_permitted_modules
-#
-#  end
-
   def select_image fullfillment_status
     if fullfillment_status == 1
       return "iPunkt.png"
@@ -22,19 +18,9 @@ module AbfragenHelper
     selection = current_selection
     fullfilled = r.evaluate selection.selection_modules, non_permitted_modules
     credits_needed = r.credits_needed
-#    credits_earned = r.credits_earned selection.selection_modules, non_permitted_modules
     credits_earned = r.collected_credits selection.selection_modules, non_permitted_modules
 
     image = select_image fullfilled
-#    case fullfilled
-#    when 1
-#      image = "iPunkt.png"
-#    when -1
-#      image = "Ausrufezeichen.png"
-#    when 0
-#      image = "Fragezeichen.png"
-#    end
-
 
     element = <<EOF
   <div>
@@ -58,15 +44,14 @@ EOF
 
       list = "#{element}<ul>"
 
-      # TODO Hier muss nach Position sortiert werden!!!
-      r.child_connections.each do |cc|
+      child_connections = Connection.find(:all, :conditions => "parent_id = #{r.id}", :order => "position ASC")
+      child_connections.each do |cc|
         list += <<EOF
   <li>
     #{build_html_rules_recursive(cc, (padding_left + padding_addition), padding_addition, non_permitted_modules)}
   </li>
 EOF
       end
-
       list += "</ul>"
       return list
 
@@ -74,6 +59,21 @@ EOF
       return "#{element}"
     end
   end
+
+
+  def build_html_focus_rules_recursive rule, padding_left, padding_addition, non_permitted_modules
+    image = ""
+    name = rule.name
+    id = rule.id
+    selection = current_selection
+
+    fullfilled = rule.evaluate_with_focus selection.selection_modules, non_permitted_modules
+    credits_needed = rule.credits_needed
+    credits_earned = rule.collected_credits selection.selection_modules, non_permitted_modules
+
+    image = select_image fullfilled
+  end
+
 
   def build_xml_bachelor_recursive(c, xml, modus)
     modus = c.modus unless c.modus == nil

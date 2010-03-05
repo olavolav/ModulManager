@@ -10,6 +10,7 @@
   <li style='height: 12px;'>&nbsp;</li>
 
   <% unless @focus_rules == nil %>
+    <%#= "<li>#{build_html_focus_rules_recursive @rules, 5, 5, @errors, @focus}</li>" %>
     <%= "<li>#{build_html_rules_recursive @focus_rules, 5, 5, @errors}</li>" %>
   <% end %>
 

@@ -68,7 +68,8 @@ class RegelParserController < ApplicationController
     version = Version.create :name => y["name"],
       :short => y["kurz"],
       :description => y["beschreibung"],
-      :date => y["datum"]
+      :date => y["datum"],
+      :path => y["pfad"]
 
     return version
   end
@@ -350,7 +351,7 @@ class RegelParserController < ApplicationController
             c.exclusive = 1
           end
           c.save
-          create_min_standard_connection(group["name"], group["beschreibung"], group["credits"], group["anzahl"], version)
+          create_min_standard_connection(group["name"], group["beschreibung"], group["credits"], group["anzahl"], version, group["position"])
         elsif group["module"] == nil
           c.sub_categories = Category::get_array_from_category_string group["untergruppen"]
           Connection::create_and_connection(
@@ -359,7 +360,8 @@ class RegelParserController < ApplicationController
             nil,
             Connection::get_connection_array_from_category_string(group["untergruppen"]),
             0,
-            version
+            version,
+            group["position"]
           )
           c.save
         end
@@ -397,11 +399,11 @@ class RegelParserController < ApplicationController
     
   end
 
-  def create_min_standard_connection name, description, credits = nil, modules = nil, version = nil
+  def create_min_standard_connection name, description, credits = nil, modules = nil, version = nil, position = nil
     child_rules = Array.new
     child_rules.push(Rule::create_min_credit_rule_for_standard(credits, name)) unless credits == nil
     child_rules.push(Rule::create_min_module_rule_for_standard(modules, name)) unless modules == nil
-    r = Connection::create_and_connection(name, description, child_rules, nil, 0, version)
+    r = Connection::create_and_connection(name, description, child_rules, nil, 0, version, position)
     return r
   end
 
