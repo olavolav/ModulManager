@@ -183,7 +183,8 @@ class AbfragenController < ApplicationController
     studmodule      = Studmodule.find(module_id)
     selected_module = SelectedModule.create(:moduledata => studmodule)
 
-    selected_module.category = Category.find(category_id)
+    category = Category.find(category_id)
+    category.focus == nil ? selected_module.category = category : selected_module.category = selected_module.moduledata.categories[0]
 
     selected_module.save
 
