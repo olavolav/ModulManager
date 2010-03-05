@@ -96,7 +96,7 @@ class AndConnection < Connection
     credits = 0
     selected_modules.each do |smodule|
       unless smodule.class == Semester
-        unless n_p_m.include? smodule
+        unless n_p_m.include? smodule.moduledata
           if self.modules.include? smodule.moduledata
             if smodule.credits == nil
               credits += smodule.moduledata.credits
