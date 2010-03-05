@@ -24,8 +24,12 @@ class Connection < ActiveRecord::Base
     modules = Array.new
     if self.child_rules.length > 0
       self.child_rules.each do |rule|
-        unless rule.category == nil
-          modules = modules.concat rule.category.modules
+        if rule.is_part_of_focus?
+          modules = modules.concat rule.modules
+        else
+          unless rule.category == nil
+            modules = modules.concat rule.category.modules
+          end
         end
       end
     end
@@ -114,6 +118,38 @@ class Connection < ActiveRecord::Base
       array.push child.name if child.evaluate(selection.selection_modules) != 1
     end
     return array
+  end
+
+  def has_parent_focus?
+    if self.focus == 1
+      return true
+    else
+      return false
+    end
+  end
+
+  def is_part_of_focus?
+    if self.has_parent_focus?
+      return true
+    else
+      if self.parent == nil
+        return false
+      else
+        return self.parent.is_part_of_focus?
+      end
+    end
+  end
+
+  def parent_focus
+    if self.has_parent_focus?
+      return Focus.find(:first, :conditions => "name = #{self.name}")
+    else
+      if self.parent == nil
+        return nil
+      else
+        return self.parent.parent_focus
+      end
+    end
   end
   
 end

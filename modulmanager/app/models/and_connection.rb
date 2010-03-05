@@ -53,39 +53,70 @@ class AndConnection < Connection
   end
 
   def evaluate selected_modules, options = nil
-    if self.child_connections.length > 0
-      self.child_connections.each { |d| return -1 unless d.evaluate(selected_modules, options) == 1 }
-    elsif self.child_rules.length > 0
-      self.child_rules.each { |d| return -1 unless d.evaluate(selected_modules, options) == 1 }
+    if self.has_parent_focus?
+      return evaluate_with_focus selected_modules, options
+    else
+      if self.child_connections.length > 0
+        self.child_connections.each { |d| return -1 unless d.evaluate(selected_modules, options) == 1 }
+      elsif self.child_rules.length > 0
+        self.child_rules.each { |d| return -1 unless d.evaluate(selected_modules, options) == 1 }
+      end
+      if self.collected_credits(selected_modules, options) >= self.credits_needed
+        if self.collected_modules(selected_modules, options) >= self.modules_needed
+          return 1
+        end
+      end
+      return -1
     end
-    if self.collected_credits(selected_modules, options) >= self.credits_needed
-      if self.collected_modules(selected_modules, options) >= self.modules_needed
+  end
+
+  def evaluate_with_focus selected_modules, non_permitted_modules
+    if self.child_connections.length > 0
+      self.child_connections.each { |d| return -1 unless d.evaluate_with_focus(selected_modules, non_permitted_modules) == 1 }
+    elsif self.child_rules.length > 0
+      self.child_rules.each { |d| return -1 unless d.evaluate_with_focus(selected_modules, non_permitted_modules) == 1 }
+    end
+    if self.collected_credits_with_focus(selected_modules, non_permitted_modules) >= self.credits_needed
+      if self.collected_modules_with_focus(selected_modules, non_permitted_modules) >= self.modules_needed
+        puts "CONNECTION IS RETURNING 1"
         return 1
       end
     end
+    puts "CONNECTION IS RETURNING -1"
     return -1
   end
 
-  def evaluate_with_focus selected_modules, non_permitted_modules, focus
-    if self.child_connections.length > 0
-      self.child_connections.each { |d| return -1 unless d.evaluate_with_focus(selected_modules, non_permitted_modules, focus) == 1 }
-    elsif self.child_rules.length > 0
-      self.child_rules.each { |d| return -1 unless d.evaluate_with_focus(selected_modules, non_permitted_modules, focus) == 1 }
-    end
-    if self.credits_for_focus(selected_modules, non_permitted_modules, focus) >= self.credits_needed
-      if self.modules_for_focue(selected_modules, non_permitted_modules, focus) >= self.modules_needed
-        return 1
+  def collected_credits_with_focus selected_modules, n_p_m
+    credits = 0
+    selected_modules.each do |smodule|
+      unless smodule.class == Semester
+        unless n_p_m.include? smodule
+          if self.modules.include? smodule.moduledata
+            if smodule.credits == nil
+              credits += smodule.moduledata.credits
+            else
+              credits += smodule.credits
+            end
+          end
+        end
       end
     end
-    return -1
+    puts "CONNECTION COUNTED #{credits} CREDITS"
+    return credits
   end
 
-  def credits_for_focus selected_modules, n_p_m, focus
-
-  end
-
-  def modules_for_focus selected_modules, n_p_m, focus
-
+  def collected_modules_with_focus selected_modules, n_p_m
+    modules = 0
+    selected_modules.each do |smodule|
+      unless smodule.class == Semester
+        unless n_p_m.include? smodule.moduledata
+          if self.modules.include? smodule.moduledata
+            modules += 1
+          end
+        end
+      end
+    end
+    return modules
   end
 
   def credits_needed
@@ -136,21 +167,17 @@ class AndConnection < Connection
     found = false
     module_array = collect_unique_modules_from_children
     deletion = Array.new
-
     module_array.each do |mod|
       if mod.short.include? "custom"
         deletion.push mod
         found = true
       end
     end
-
     if found
       deletion.each { |d| module_array.delete d }
       module_array.push Studmodule.new :name => "Sonstiges Modul", :short => "" if found
     end
-
     return module_array
-
   end
-
+  
 end

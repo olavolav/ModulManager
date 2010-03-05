@@ -55,10 +55,6 @@ class Rule < ActiveRecord::Base
     return found
   end
 
-  def directory_string
-
-  end
-
   def removeable_grades
     unless self.category == nil
       return self.category.grade_remove
@@ -81,20 +77,19 @@ class Rule < ActiveRecord::Base
   end
 
   def removed_too_many_grades? selected_modules
-#    unless self.category == nil
-#      allowed = self.category.grade_remove
-#      counted = 0
-#      selected_modules.each do |s_mod|
-#        if s_mod.has_grade == false
-#          if self.category.modules.include? s_mod.moduledata
-#            counted += 1
-#          end
-#        end
-#      end
-#      return true if counted > allowed
-#    end
-#    return false
     if removed_grades(selected_modules) > removeable_grades
+      return true
+    else
+      return false
+    end
+  end
+
+  def parent_focus
+    return self.parent_connection.parent_focus
+  end
+
+  def is_part_of_focus?
+    if self.parent_connection.is_part_of_focus?
       return true
     else
       return false

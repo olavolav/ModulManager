@@ -1,8 +1,8 @@
 class Focus < ActiveRecord::Base
 
-  has_and_belongs_to_many :modules,
-    :class_name => "Studmodule",
-    :join_table => "foci_studmodules"
+#  has_and_belongs_to_many :modules,
+#    :class_name => "Studmodule",
+#    :join_table => "foci_studmodules"
 
   has_many :groups,
     :class_name => "Group",
@@ -15,5 +15,38 @@ class Focus < ActiveRecord::Base
   belongs_to :version,
     :class_name => "Version",
     :foreign_key => "version_id"
+
+#  has_one :connection,
+#    :class_name => "Connection",
+#    :foreign_key => "focus"
+
+  def rules
+    rules = Array.new
+    self.categories.each do |category|
+      rules = rules.concat category.rules
+    end
+    return rules
+  end
+
+  def category_modules
+    modules = Array.new
+    self.categories.each do |category|
+      modules = modules.concat category.modules
+    end
+    return modules
+  end
+
+  def rule_modules
+    modules = Array.new
+    self.rules.each do |rule|
+      modules = modules.concat rule.modules
+    end
+    return modules
+  end
+
+  def main_connection
+    connection = Connection.find(:first, :conditions => "name = #{self.name}")
+    return connection
+  end
 
 end
