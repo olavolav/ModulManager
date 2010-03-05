@@ -1,1 +1,4 @@
-<%= select(:category, :category_id, @categories.collect {|p| [p.name, p.id]}, :selected => @selected_cat) unless @categories.length == 0 %>
+<p>
+  Einbringen in:
+  <%= select(:category, :category_id, @categories.collect {|p| [p.name, p.id]}, :selected => @selected_cat) unless @categories.length == 0 %>
+</p>

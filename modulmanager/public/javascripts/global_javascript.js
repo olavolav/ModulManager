@@ -640,9 +640,11 @@ var update_modul_in_selection = function (){
         ajax_to_server_by_add_grade(modul_id);
     }
     // category
-    var category_id = $("#category_category_id").val();
-    ajax_to_server_by_set_category(modul_id, category_id);
-     
+//    var category_id = $("#category_category_id").val();
+//    ajax_to_server_by_set_category(modul_id, category_id);
+
+
+
     //checken, ob man �berhaupt Ausnahme-Optionen veraendert hat.
     // erst wenn ja dann wird ueberblick() akktuallisiert
     //    if($("#exception_change").val()=="true"){
@@ -1029,6 +1031,37 @@ var ajax_to_server_by_grade = function(modul_id,grade){
     });
 }
 
+
+
+function ajax_combobox(mod_id){
+    $("#box_info_combobox").empty();
+    $("#box_info,#box_info_pool,#box_info_exception,#box_info_overview").hide();
+    $.ajax({
+        type:"POST",
+        url :"main/combo_category",
+        dataType:"text",
+        cache:false,
+        async:false,
+        data:"mod_id="+mod_id+"&"+authenticityTokenParameter(),
+        contentType:'application/x-www-form-urlencoded',
+        success:function(html){
+            $("#semester-content").find(".semester").each(function(){
+                $(this).find(">.subsemester").children().not("h5").each(function(){
+                    var this_mod_id = $(this).attr("id");
+                    if(this_mod_id == mod_id){
+                        $(this).find("> p.drop_down_menu").css("display","block").append(html);
+                    }
+                });
+            });
+        },
+        error : function(a,b,c){
+            alert ("AJAX-Fehler: custom_checkbox");
+        }
+    });
+}
+
+
+
 //----------------------------
 
 
@@ -1230,8 +1263,9 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
                     rekursiv_pool_by_out(this_category, 0);
                 }
                 else {
-                    if (number_of_visible_items_in_category(this_category) == 1)
+                    if (number_of_visible_items_in_category(this_category) == 1) {
                         flip_arrow_of_category("leer", this_category);
+                    }
                 }
             }
         });
@@ -1257,6 +1291,21 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
     if (check_error(modul_id)) {
         set_image_to_red_ipunkt_and_error_to_yes(ui_draggable);
     }
+
+
+    var additional_info = $(ui_draggable).find(".additional_info").text();
+
+    if (additional_info == "true") {
+        ajax_combobox(modul_id);
+        $(ui_draggable).find(".additional_info").text("drop_down_schon_in_auswahl");
+
+//        var ueberschrift = $(ui_draggable).find(".modul_name").text() + " (Kann in versch. Gruppen eingebracht werden)";
+//        $(ui_draggable).find(".modul_name").text(ueberschrift);
+    }
+
+
+
+
 }//ende drop in auswahl
 
 //implement :   custom_modul_drop_in_auswahl---------------------------------------------

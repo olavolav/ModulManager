@@ -6,11 +6,12 @@
   <% if @univz_link != nil %>
     <p class="univz">UniVZ-Link (Dummy): <a href="<%= @univz_link %>" target="_blank"><%= @name %></a></p>
   <% end %>
-  <% unless @categories.length <= 1 %>
-    <p>Dieses Modul wird in folgenden Bereich eingebracht:
-      <%= select(:category, :category_id, @categories.collect {|p| [p.name, p.id]}, :selected => @selected_cat) unless @categories.length == 0 %>
-    </p>
-  <% end %>
+    
+  <%# unless @categories.length <= 1 %>
+    <%#= "<p>Dieses Modul wird in folgenden Bereich eingebracht:" %>
+      <%#= select(:category, :category_id, @categories.collect {|p| [p.name, p.id]}, :selected => @selected_cat) unless @categories.length == 0 %>
+    <%#= "</p>" %>
+  <%# end %>
 
   <% unless @permission == nil %>
     <p>Voraussetzungen:

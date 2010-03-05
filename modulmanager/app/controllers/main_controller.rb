@@ -138,7 +138,7 @@ class MainController < ApplicationController
 
   def combo_category
     @id = params[:mod_id]
-    mod = Studmodule.find(id)
+    mod = Studmodule.find(@id)
     @selected_cat = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}").category
     @categories = Array.new
     mod.categories.each do |category|
