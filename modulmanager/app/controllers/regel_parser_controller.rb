@@ -121,7 +121,6 @@ class RegelParserController < ApplicationController
       elsif m["zulassung"]  == nil && m["sub-module"] == nil
         free_modules.push m
       else
-        puts "MODULE #{m["id"]} WURDE NICHT ZUGEORDNET!!!"
       end
 
     end

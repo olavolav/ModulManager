@@ -83,7 +83,12 @@ class ApplicationController < ActionController::Base
 
   def current_selection
     session[:selection_id] ||= create_standard_selection
-    ModuleSelection.find session[:selection_id]
+    selection = ModuleSelection.find session[:selection_id]
+
+#    puts "currently in selection:"
+#    selection.modules.each {|m| puts "- #{m.name}"}
+
+    return selection
   end
 
   def create_standard_selection

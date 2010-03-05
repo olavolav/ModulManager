@@ -191,35 +191,6 @@ class AbfragenController < ApplicationController
     semester.modules << selected_module
 
     render :text => "Module added successfully..."
-
-
-
-
-
-#    selection = current_selection
-#    unless semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
-#      semester = Semester.create(:count => params[:sem_count])
-#      selection.semesters << semester
-#    end
-#    id = params[:mod_id]
-#    cat_id = extract_category_id(params[:cat_id])
-#    parent_module = Studmodule.find(id)
-#    my_module = SelectedModule.create(:moduledata => parent_module)
-#    my_module.categories = Array.new
-#    #    my_module.categories << Category.find(cat_id) unless cat_id == nil || cat_id == ""
-#
-#    cat_id == nil || cat_id == "" ? cat = nil : cat = Category.find(cat_id)
-#    unless cat == nil
-#      if cat.exclusive == 1 && parent_module.categories.length > 1
-#        my_module.categories = parent_module.categories
-#      else
-#        my_module.categories << cat
-#      end
-#    end
-#
-#    my_module.save
-#    semester.modules << my_module
-#    render :text => "Module added successfully..."
   end
 
   def add_custom_module_to_selection
@@ -275,7 +246,6 @@ class AbfragenController < ApplicationController
         found = true if c == "_"
       end
     end
-    puts id
     return id
   end
 

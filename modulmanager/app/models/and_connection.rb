@@ -1,55 +1,63 @@
 class AndConnection < Connection
 
   def collected_credits selected_modules, non_permitted_modules = Array.new
-    non_permitted_modules = Array.new if non_permitted_modules == nil
-    credits = 0
-    my_modules = self.modules
-    selected_modules.each do |s_module|
-      unless s_module.class == Semester
-        unless non_permitted_modules.include? s_module.moduledata
-          if s_module.category != nil && s_module.category.exclusive != 1
-            if self.categories.include? s_module.category
-              if s_module.credits == nil
-                credits += s_module.moduledata.credits
-              else
-                credits += s_module.credits
+    if self.is_part_of_focus?
+      return self.collected_credits_with_focus selected_modules, non_permitted_modules
+    else
+      non_permitted_modules = Array.new if non_permitted_modules == nil
+      credits = 0
+      my_modules = self.modules
+      selected_modules.each do |s_module|
+        unless s_module.class == Semester
+          unless non_permitted_modules.include? s_module.moduledata
+            if s_module.category != nil && s_module.category.exclusive != 1
+              if self.categories.include? s_module.category
+                if s_module.credits == nil
+                  credits += s_module.moduledata.credits
+                else
+                  credits += s_module.credits
+                end
               end
-            end
-          else
-            if my_modules.include? s_module.moduledata
-              if s_module.credits == nil
-                credits += s_module.moduledata.credits
-              else
-                credits += s_module.credits
+            else
+              if my_modules.include? s_module.moduledata
+                if s_module.credits == nil
+                  credits += s_module.moduledata.credits
+                else
+                  credits += s_module.credits
+                end
               end
             end
           end
         end
       end
+      return credits
     end
-    return credits
   end
 
   def collected_modules selected_modules, non_permitted_modules = Array.new
-    non_permitted_modules  = Array.new if non_permitted_modules == nil
-    modules = 0
-    my_modules = self.modules
-    selected_modules.each do |s_module|
-      unless s_module.class == Semester
-        unless non_permitted_modules.include? s_module.moduledata
-          if s_module.category != nil && s_module.category.exclusive != 1
-            if self.categories.include? s_module.category
-              modules += 1
-            end
-          else
-            if my_modules.include? s_module.moduledata
-              modules += 1
+    if self.is_part_of_focus?
+      return self.collected_modules_with_focus selected_modules, non_permitted_modules
+    else
+      non_permitted_modules  = Array.new if non_permitted_modules == nil
+      modules = 0
+      my_modules = self.modules
+      selected_modules.each do |s_module|
+        unless s_module.class == Semester
+          unless non_permitted_modules.include? s_module.moduledata
+            if s_module.category != nil && s_module.category.exclusive != 1
+              if self.categories.include? s_module.category
+                modules += 1
+              end
+            else
+              if my_modules.include? s_module.moduledata
+                modules += 1
+              end
             end
           end
         end
       end
+      return modules
     end
-    return modules
   end
 
   def evaluate selected_modules, options = nil
@@ -78,11 +86,9 @@ class AndConnection < Connection
     end
     if self.collected_credits_with_focus(selected_modules, non_permitted_modules) >= self.credits_needed
       if self.collected_modules_with_focus(selected_modules, non_permitted_modules) >= self.modules_needed
-        puts "CONNECTION IS RETURNING 1"
         return 1
       end
     end
-    puts "CONNECTION IS RETURNING -1"
     return -1
   end
 
@@ -101,7 +107,6 @@ class AndConnection < Connection
         end
       end
     end
-    puts "CONNECTION COUNTED #{credits} CREDITS"
     return credits
   end
 

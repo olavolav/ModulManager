@@ -211,7 +211,6 @@ class MainController < ApplicationController
         found = true if c == "_"
       end
     end
-    puts id
     return id
   end
 
