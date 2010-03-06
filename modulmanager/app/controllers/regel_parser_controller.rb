@@ -329,9 +329,11 @@ class RegelParserController < ApplicationController
         c.version = version
         c.visible = visible
         c.position = group["position"]
+
+        c.modus = group["modus"]
           
         if group["untergruppen"] == nil
-          c.modus = group["modus"]
+#          c.modus = group["modus"]
           modules = Studmodule::get_array_from_module_string group["module"]
           c.modules = modules
           unless group["dummies"] == nil

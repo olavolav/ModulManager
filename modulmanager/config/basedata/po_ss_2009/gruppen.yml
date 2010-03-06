@@ -36,7 +36,7 @@
   - name: Grundkurs
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
     untergruppen: "Experimentell, Theorie"
-    modus: p
+#    modus: p
 
   - name: Experimentell
     beschreibung: "In diesem Bereich werden die experimentellen Grundlagen der klassischen und modernen Physik vermittelt."
