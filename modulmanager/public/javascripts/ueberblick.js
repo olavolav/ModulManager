@@ -1,78 +1,70 @@
 
- /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
- //  diese Funktion ueberblickrekursiv() gibt den Überblick in der linken Spalten.-//
- //  die gibt alle Fehlern und Warnungen aus.                                      //
- //  Und die Funktion ueberblick() ruft ueberblick-XML per AJAX auf                //
- //  check_error() gibt die Errors von action abfragen/errors in div-id #table_error aus
- /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+//  diese Funktion ueberblickrekursiv() gibt den ï¿½berblick in der linken Spalten.-//
+//  die gibt alle Fehlern und Warnungen aus.                                      //
+//  Und die Funktion ueberblick() ruft ueberblick-XML per AJAX auf                //
+//  check_error() gibt die Errors von action abfragen/errors in div-id #table_error aus
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
 var get_modul_info_in_overview =  function(modul_id){
-		//alert(modul_id);
-        $("#box_info").empty();
-        $("#box_info_exception").hide();
-        $("#box_info_pool").show();
-        $("#box_info_combobox").hide();
-        $("#info_box").dialog('open');
-        var html = $.ajax({
+    //alert(modul_id);
+    $("#box_info").empty();
+    $("#box_info_exception").hide();
+    $("#box_info_pool").show();
+    $("#box_info_combobox").hide();
+    $("#info_box").dialog('open');
+    var html = $.ajax({
 
-                type : 'POST',
-                url  : '/abfragen/info/'+modul_id,
-                data:authenticityTokenParameter(),
-                async: false,
-                contentType: 'application/x-www-form-urlencoded',
-                success : function(html){
+        type : 'POST',
+        url  : '/abfragen/info/'+modul_id,
+        data:authenticityTokenParameter(),
+        async: false,
+        contentType: 'application/x-www-form-urlencoded',
+        success : function(html){
 
-                        $("#box_info").empty();
-                        $("#box_info").append(html);
-                        //$("#box_info_exception").hide();
-                        //$("#box_info_pool").hide();
-                        $("#box_info_overview").hide();
+            $("#box_info").empty();
+            $("#box_info").append(html);
+            //$("#box_info_exception").hide();
+            //$("#box_info_pool").hide();
+            $("#box_info_overview").hide();
 
-        		},
-                error: function(a,b,c){
-                        alert("problem with /abfragen/info");
-                }
+        },
+        error: function(a,b,c){
+            alert("problem with /abfragen/info");
+        }
 
 
 
-        }).responseText;
+    }).responseText;
 
 }
 var ueberblick = function(){
-	
-				$("#ueberblick #ueberblick-wird-aktualisiert").show();
-
-        var html = $.ajax({
-                type : 'GET',
-                url  : '/abfragen/ueberblick',
-                async: false,
-                contentType: 'application/x-www-form-urlencoded',
-                success : function(html){
-
-                        $("#ueberblick #ueberblick_baum").empty();
-                        //$("#ueberblick #ueberblick_baum").html(html+"<script type='text/javascript'>bindThickBoxEvents();</script>");
-						$("#ueberblick #ueberblick_baum").html(html);
-                        ajax_to_server_by_get_grade();
-
-
-                },
-                error: function(a,b,c){
-                        alert("problem with /abfragen/ueberblick");
-                }
-
-
-        }).responseText;
-		
-		//check_error();
-		ajax_error();
-
-		// Klickbare Info-Buttons sollen beim drüberfahren animiert werden, wie schon in global_javascript.js (OS)
-		$(".ueberblick_info_box").mouseenter(function(){
-			$(this).animate({opacity: 0.4}, "fast");
-			$(this).animate({opacity: 1.0}, "slow");
-			// alert("mouseenter!");
-		});
-		
-
+    $("#ueberblick #ueberblick-wird-aktualisiert").show();
+    var html = $.ajax({
+        type : 'GET',
+        url  : '/abfragen/ueberblick',
+        async: false,
+        contentType: 'application/x-www-form-urlencoded',
+        success : function(html){
+            $("#ueberblick #ueberblick_baum").empty();
+            $("#ueberblick #ueberblick_baum").html(html);
+            ajax_to_server_by_get_grade();
+        },
+        error: function(a,b,c){
+            alert("problem with /abfragen/ueberblick");
+        }
+    }).responseText;
+    //check_error();
+    ajax_error();
+    // Klickbare Info-Buttons sollen beim drï¿½berfahren animiert werden, wie schon in global_javascript.js (OS)
+    $(".ueberblick_info_box").mouseenter(function(){
+        $(this).animate({
+            opacity: 0.4
+        }, "fast");
+        $(this).animate({
+            opacity: 1.0
+        }, "slow");
+    // alert("mouseenter!");
+    });
 }// ende function
