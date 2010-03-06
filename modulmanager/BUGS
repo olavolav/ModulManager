@@ -20,6 +20,7 @@ Noch zu beheben:
 86. Dummy-Modul steht da immer mit Ausnahme-Option "Credit-Zahl geändert" (Olav & Christian)
 88. Text in der Info-Box beim Dummy-Modul-Einfügen stimmt nicht (Olav)
 89. In der Auswahl-Abfrage steht bei jedem Modul custom_credits="true" und has_warning="true", stimmt das so? (Christian)
+90. Fehlermeldungen in den Überblicks-Info-Boxen sind merkwürdig, wenn z.B. "-2 Module gefordert" sind (Olav)
 
 
 

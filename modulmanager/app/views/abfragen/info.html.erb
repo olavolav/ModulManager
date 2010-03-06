@@ -2,9 +2,16 @@
   <h1><%= @regel.name %></h1>
   <p class='description'><%= @regel.description %></p>
 
-<p>Die Bedingungen dieser Kategorie sind <strong><%= @fullfilled_string %>.</strong><br>
-  Es werden momentan <%= @credits_earned %> von <%= @regel.credits_needed %> Credits sowie <%= @regel.collected_modules @mods %> von <%= @regel.modules_needed %> erforderlichen Modulen eingebracht.
-  Außerdem wurden <%= @regel.removed_grades @mods %> Noten von <%= @regel.removeable_grades %> erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote.
+	<p>Die Bedingungen dieser Kategorie sind <strong><%= @fullfilled_string %>.</strong><br>
+	Es werden momentan <%= @credits_earned %> von <%= @regel.credits_needed %> Credits
+	sowie <%= @regel.collected_modules @mods %> von <%= @regel.modules_needed %>
+	erforderlichen Modulen eingebracht.
+	
+	<% if @regel.removeable_grades > 0%>
+		Außerdem wurden <%= @regel.removed_grades @mods %> Noten von <%= @regel.removeable_grades %> erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote.
+	<% else %>
+		In dieser Kategorie ist das Streichen von Noten nicht zulässig.
+	<% end %>
 </p>
 
 <% if @regel.removed_too_many_grades? @mods %>
@@ -27,8 +34,8 @@ Es sind zu viele Noten gestrichen worden!
 <%# unless @fullfilled || @child_rules.length > 0 %>
 <% unless @fullfilled %>
   <p style="color: red;">Um in diesem Bereich alle Bedingungen zu erfüllen, müssen Sie folglich noch
-    <%= @regel.modules_needed - @regel.collected_modules(@mods) %> Module sowie
-    <%= @regel.credits_needed - @credits_earned %> Credits erbringen.</p>
+    <%= [@regel.modules_needed - @regel.collected_modules(@mods), 0].max %> Module sowie
+    <%= [@regel.credits_needed - @credits_earned, 0].max %> Credits erbringen.</p>
 
   <% if @available_modules.length > 0 %>
     <p>Zur Erfüllung dieser Bedingungen kann aus den folgenden, noch nicht absolvierten Modulen gewählt werden:
@@ -44,8 +51,6 @@ Es sind zu viele Noten gestrichen worden!
 
 <p>Bitte beachten Sie:
 <ul>
-  <!-- ><li>Sollte hier ein Modul fehlen, so wurde dieses wahrscheinlich schon für eine andere Kategorie berücksichtigt.</li>
-		<li>Bitte auch immer überprüfen, ob alle Module gültig eingebracht werden können, oder ob noch Voraussetzungen zu erfüllen sind!</li> -->
   <li>Module werden für diese Kategorie nicht mehr angezeigt, wenn sie bereits in eine andere Kategorie eingebracht werden.</li>
   <li>Module werden nur für die Auswertung dieser Kategorie einbrechnet, falls ihre Voraussetzungen erfüllt sind (d.h. günes oder gelbes Modul-Info-Symbol)</li>
 </ul>
