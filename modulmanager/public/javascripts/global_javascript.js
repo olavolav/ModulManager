@@ -69,7 +69,7 @@ var change_credit_and_add_name_in_selection = function(handle){
 var flip_module_infoicon_on_event = function(type,handle){
     // gefragt is handle zur Kategorie
     var this_class = $(handle).attr("class");
-    if(!($(handle).hasClass("auswahl_modul_clone")||$(handle).hasClass("auswahl_modul")||$(handle).hasClass("custom_modul"))) {
+    if(!($(handle).hasClass("auswahl_modul_clone")||$(handle).hasClass("auswahl_modul")||$(handle).hasClass("custom_modul")||$(handle).hasClass("pool_modul"))) {
         alert("Fehler: Handle in flip_module_infoicon_on_event() ist kein Modul (class="+this_class+")!");
     }
 	
