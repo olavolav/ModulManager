@@ -13,14 +13,7 @@ Noch zu beheben:
 48. Schwerpunkte unterteilen, nicht nur als Text (Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
 62. In den Info-Boxen von als fehlerhaft ausgewerteten Kategorien erscheint manchmal ein Sub-Name (z.B. ": Administration von MS-Windows (B.Phy.511.2)" bei Wahlpflichmodule/Einführungen) (Christian)
-68a. Ausnahme-Optionen-Einstellungen sollen zusätzlich in der Auswahl-XML verfügbar sein, evtl. schon erledigt (Christian)
-70. Auswirkungen der Ausnahme-Optionen auf den Überblick bzw. die Berechnung im Hintergrund vervollständigen (Christian)
-76. Die Pflicht/Wahlpflicht-Icons sind weg. Glaube die Angabe in der Pool-Abfrage fehlt. (Christian)
 77. Combobox geht zum Teil nicht, siehe mein Commit vorhin. Interessanterweise scheint es bei manchen Modulen zu gehen, also bei Mehrbenutzersysteme funktioniert's, bei AstroGeo nicht. Komisch. (Christian)
-78. Bei SP Nanostrukturphysik: Spezialisierungspraktikum Nanostrukturphysik hat eine Combobox mit nur einem Eintrag (Christian)
-79. Bei SP Nanostrukturphysik: Info-Box von Nanostrukturphysik geht nicht (Christian)
-80. Die Modul-Info-Box fragt jetzt wieder jedes Mal den Überblick ab, egal ob man was verändert hat oder nicht. (Christian & Olav)
-81. Die Reihenfolge der Kategorien von Überblick und Pool ist nicht ganz die gleiche, s. Grundkurs (Olav)
 
 
 
@@ -90,6 +83,13 @@ Inzwischen behoben:
 66. Dropdown-Boxen haben keinen Einfluß auf den Überblick und verschwinden beim Reload - allerdings ist das vielelicht ein Artefakt von Bug #65, da das Dropdown-Menü ja ohenhin nicht dort sein sollte (Christian, evtl. Quan und Olav)
 59. Korrekte Anzahl von "Note streichen"-Optionen aus der PO eintragen (Olav)
 61. Überblicks-Info-Box-Fehlermeldungen auch bei gewähltem Schwerpunkt entfernen (Christian)
+68a. Ausnahme-Optionen-Einstellungen sollen zusätzlich in der Auswahl-XML verfügbar sein, evtl. schon erledigt (Christian)
+70. Auswirkungen der Ausnahme-Optionen auf den Überblick bzw. die Berechnung im Hintergrund vervollständigen (Christian)
+76. Die Pflicht/Wahlpflicht-Icons sind weg. Glaube die Angabe in der Pool-Abfrage fehlt. (Christian)
+78. Bei SP Nanostrukturphysik: Spezialisierungspraktikum Nanostrukturphysik hat eine Combobox mit nur einem Eintrag (Christian)
+79. Bei SP Nanostrukturphysik: Info-Box von Nanostrukturphysik geht nicht (Christian)
+80. Die Modul-Info-Box fragt jetzt wieder jedes Mal den Überblick ab, egal ob man was verändert hat oder nicht. (Christian & Olav)
+81. Die Reihenfolge der Kategorien von Überblick und Pool ist nicht ganz die gleiche, s. Grundkurs (Christian)
 
 
 

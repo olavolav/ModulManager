@@ -174,7 +174,8 @@ EOF
       }
 
     elsif c.sub_categories != []
-      c.sub_categories.each do |d|
+      sub_categories = Category.find(:all, :conditions => "category_id = #{c.id}", :order => "position ASC")
+      sub_categories.each do |d|
         if d.visible
           xml.category(:category_id => "category_#{d.id}", :name => d.name) do
             build_xml_bachelor_recursive d, xml, modus
