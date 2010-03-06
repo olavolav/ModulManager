@@ -5,8 +5,8 @@
 //              Diese Datei enth�lt folgende Funktionen: 
 //					session_auswahl(),
 //					drop_in_auswahl (),drop_in_pool()
-//					ajax_to_server_by_add(),
-//					ajax_to_server_by_remove(),ajax_to_server_by_grade(),
+//					ajax_serverupdate_add(),
+//					ajax_serverupdate_remove(),ajax_serverupdate_grade(),
 //					auswahlAnzeige(),
 //					modul_loeschen(),get_custom_modul()
 //
@@ -146,9 +146,9 @@ var selection_input_check = function(input_noten){
             if(!check_error_by_span(input_noten)){
                 set_image_to_green_ipunkt(input_noten);
             }
-            ajax_to_server_by_grade(modul_id,new_float);
+            ajax_serverupdate_grade(modul_id,new_float);
             // hier kann man Note klicken
-            ajax_to_server_by_get_grade();
+            ajax_request_grade();
         }
         $("#note_berechnen").text("");
     }
@@ -542,7 +542,7 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
     // else alert("Aha, das Modul wurde verschoben, dann loeschen wir es besser nicht.");
 
     // AJAX aufrufen und Session-DB aktualisieren
-    ajax_to_server_by_remove(mod_id);
+    ajax_serverupdate_remove(mod_id);
     if((kopf_modul_check == "0")&&(parent_attr_check=="nein")&&(all_sem_destroy!="10000")){
         ueberblick();
     }
@@ -563,7 +563,7 @@ var info_box_selection = function(modul_id){
     $("#box_info_combobox").hide();
     $("#box_info_overview").hide();
 		
-    ajax_to_server_by_get_module_info(modul_id);
+    ajax_request_module_info(modul_id);
     $('#info_box').dialog('open');
 		
 }
@@ -575,7 +575,7 @@ var info_box = function(modul_id){
     $("#box_info_overview").hide();
     $("#box_info_pool").show();
         
-    ajax_to_server_by_get_pool_module_info(modul_id);
+    ajax_request_pool_module_info(modul_id);
     $("#info_box").dialog('open');
 }
 
@@ -616,26 +616,26 @@ var update_modul_in_selection = function (){
         $("#credit_exception_change").attr("value","false");
         $(this_modul).find(".modul_credit").text(v+" C");
         $(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
-        ajax_change_credits(modul_id,v);
+        ajax_serverupdate_change_credits(modul_id,v);
     }
 		
     //warnung
     if (warn_checked == "checkbox") {
-        ajax_to_server_by_remove_warning(modul_id);
+        ajax_serverupdate_remove_warning(modul_id);
         $(this_warn).html("Ausnahme: Warnungen deaktiviert");
     } else if(warn_checked==undefined) {
-        ajax_to_server_by_add_warning(modul_id);
+        ajax_serverupdate_add_warning(modul_id);
     }
     //note
     if(note_checked=="checkbox") {
-        ajax_to_server_by_remove_grade(modul_id);
+        ajax_serverupdate_remove_grade(modul_id);
         $(this_note).html("Ausnahme: Note wird nicht eingebracht");
     } else if(note_checked==undefined) {
-        ajax_to_server_by_add_grade(modul_id);
+        ajax_serverupdate_add_grade(modul_id);
     }
     // category
     //    var category_id = $("#category_category_id").val();
-    //    ajax_to_server_by_set_category(modul_id, category_id);
+    //    ajax_serverupdate_set_category(modul_id, category_id);
 
 
 
@@ -662,7 +662,7 @@ var update_dummy_modul_in_selection = function(dummy_modul){
         $(dummy_modul).find("p.note-option").css("display","block").text("Ausnahme: Note wird nicht eingebracht");
         var dummy_id = $(dummy_modul).find("> span.modul_id").text();
         //alert("Dummy_id = "+dummy_id);
-        ajax_to_server_by_remove_grade(dummy_id);
+        ajax_serverupdate_remove_grade(dummy_id);
         $("#note_checkbox").attr("checked","");
     }
     return 0;
@@ -808,7 +808,7 @@ var session_auswahl_rekursiv = function(root){
             // Falls nötig, noch die zusätzliche Combobox anzeigen
             if(modul_has_additional_info == "true") {
                 // alert("Hier kommt vom Server noch eine Combobox.");
-                ajax_combobox(mod_id);
+                ajax_request_combobox(mod_id);
                 $(auswahl_modul_clone).find(".additional_info").text("drop_down_schon_in_auswahl");
             }
             return;
@@ -859,7 +859,7 @@ var session_auswahl = function (){
 
 //   AJAX zum Server---------------------------------------------------------------------	
 
-var ajax_to_server_by_get_module_info = function (modul_id){
+var ajax_request_module_info = function (modul_id){
     $.ajax({
         type : 'POST',
         url  : '/abfragen/get_module_info',
@@ -898,7 +898,7 @@ var ajax_to_server_by_get_module_info = function (modul_id){
     });
 }
 
-var ajax_to_server_by_get_pool_module_info = function (modul_id){
+var ajax_request_pool_module_info = function (modul_id){
     $.ajax({
         type : 'POST',
         url  : '/abfragen/get_pool_module_info',
@@ -912,7 +912,7 @@ var ajax_to_server_by_get_pool_module_info = function (modul_id){
     });
 }
 
-var ajax_to_server_by_add = function (modul_id,semester,cat_id){
+var ajax_serverupdate_add = function (modul_id,semester,cat_id){
     $.ajax({
         type: 'POST',
         url  : 'abfragen/add_module_to_selection',
@@ -924,7 +924,7 @@ var ajax_to_server_by_add = function (modul_id,semester,cat_id){
     });//ende Ajax
 }
 
-var ajax_to_server_by_remove = function (modul_id){
+var ajax_serverupdate_remove = function (modul_id){
     $.ajax({
         type: 'POST',
         url  : 'abfragen/remove_module_from_selection',
@@ -939,7 +939,7 @@ var ajax_to_server_by_remove = function (modul_id){
     });//ende Ajax
 }// ende
 
-var ajax_to_server_by_remove_semester = function (sem_count){
+var ajax_serverupdate_remove_semester = function (sem_count){
     //alert("sem_count="+sem_count);
     $.ajax({
 			
@@ -959,7 +959,7 @@ var ajax_to_server_by_remove_semester = function (sem_count){
 	
 }
 
-var ajax_to_server_by_add_grade = function(module_id) {
+var ajax_serverupdate_add_grade = function(module_id) {
     $.ajax({
         type:"POST",
         url:"abfragen/add_grade",
@@ -971,7 +971,7 @@ var ajax_to_server_by_add_grade = function(module_id) {
     });
 };
 
-var ajax_to_server_by_remove_grade = function(module_id) {
+var ajax_serverupdate_remove_grade = function(module_id) {
     $.ajax({
         type: "POST",
         url: "abfragen/remove_grade",
@@ -983,7 +983,7 @@ var ajax_to_server_by_remove_grade = function(module_id) {
     });
 };
 
-var ajax_to_server_by_add_warning = function(module_id) {
+var ajax_serverupdate_add_warning = function(module_id) {
     $.ajax({
         type: "POST",
         url: "abfragen/add_warning",
@@ -995,7 +995,7 @@ var ajax_to_server_by_add_warning = function(module_id) {
     });
 };
 
-var ajax_to_server_by_remove_warning = function(module_id) {
+var ajax_serverupdate_remove_warning = function(module_id) {
     $.ajax({
         type: "POST",
         url: "abfragen/remove_warning",
@@ -1007,7 +1007,7 @@ var ajax_to_server_by_remove_warning = function(module_id) {
     });
 };
 
-var ajax_to_server_by_set_category = function(module_id, category_id) {
+var ajax_serverupdate_set_category = function(module_id, category_id) {
     //		alert("POST main/set_category: mod_id="+module_id+"&cat_id="+category_id+"&"+authenticityTokenParameter());
     if(category_id != undefined) {
         $.ajax({
@@ -1022,7 +1022,7 @@ var ajax_to_server_by_set_category = function(module_id, category_id) {
     };
 };
 
-var ajax_to_server_by_grade = function(modul_id,grade){
+var ajax_serverupdate_grade = function(modul_id,grade){
     $.ajax({
         type:"POST",
         url :"abfragen/save_module_grade",
@@ -1039,7 +1039,7 @@ var ajax_to_server_by_grade = function(modul_id,grade){
 
 
 
-function ajax_combobox(mod_id){
+function ajax_request_combobox(mod_id){
     $("#box_info_combobox").empty();
     $("#box_info,#box_info_pool,#box_info_exception,#box_info_overview").hide();
     $.ajax({
@@ -1060,7 +1060,7 @@ function ajax_combobox(mod_id){
                         ourmenu = ourmenu.find("select");
                         ourmenu.change(function() {
                             //                            alert("Dropdown-Menü verändert zu: "+ourmenu.find(":selected").text()+", value="+String(ourmenu.val()));
-                            ajax_to_server_by_set_category(this_mod_id,ourmenu.val());
+                            ajax_serverupdate_set_category(this_mod_id,ourmenu.val());
                             ueberblick();
                         });
                     }
@@ -1078,7 +1078,7 @@ function ajax_combobox(mod_id){
 //----------------------------
 
 
-var ajax_to_server_by_get_grade = function(){
+var ajax_request_grade = function(){
     $.ajax({
         type : 'GET',
         url  : '/abfragen/note',
@@ -1094,7 +1094,7 @@ var ajax_to_server_by_get_grade = function(){
     });
 }
 
-function ajax_server_by_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id){
+function ajax_serverupdate_add_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id){
     category_id = category_id.split("_");
     $.ajax({
         type:"POST",
@@ -1110,7 +1110,8 @@ function ajax_server_by_custom(this_name,this_credit_point_float,category_id,cus
     });
 }
 
-function ajax_custom_checbox(custom_id){
+// Diese Funktion wird scheinbar nicht mehr benutzt (OS)
+function ajax_request_custom_checkbox(custom_id){
     $("#dummy_checkbox").empty();
     $.ajax({
         type:"POST",
@@ -1129,6 +1130,7 @@ function ajax_custom_checbox(custom_id){
     });
 }
 
+// Diese Funktion wird scheinbar nicht mehr benutzt (OS)
 function ajax_set_custom_checbox(custom_id,cat_id_array){
     cat_id_array = cat_id_array.split("_");
     $.ajax({
@@ -1145,7 +1147,7 @@ function ajax_set_custom_checbox(custom_id,cat_id_array){
     });
 }//ende
 
-function ajax_change_credits(mod_id,credits){
+function ajax_serverupdate_change_credits(mod_id,credits){
     $.ajax({
         type:"POST",
         url :"abfragen/change_credits",
@@ -1207,7 +1209,7 @@ var error_table_builder = function(root){
 
 
 
-function ajax_error(){
+function update_errors(){
 	
     var XML =  $.ajax({
 		
@@ -1289,7 +1291,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
             }
         });
     } else {
-        ajax_to_server_by_remove(modul_id);
+        ajax_serverupdate_remove(modul_id);
     }
 	
     // append hier
@@ -1297,14 +1299,14 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
     $(this_subsemester).append(ui_draggable);
 	
     // DATEN mit modul_id und semester zum Server(action add_module_to_selection) schicken
-    ajax_to_server_by_add(modul_id, semester, cat_id);
+    ajax_serverupdate_add(modul_id, semester, cat_id);
 	
     if (kopf_modul_in_pool == "nein") {
         ueberblick();
     }
     else {
         $(ui_draggable).find(".head_modul_in_pool").text("nein");
-        ajax_to_server_by_get_grade();
+        ajax_request_grade();
     }
     // check error-Regel
     if (check_error(modul_id)) {
@@ -1313,7 +1315,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 
     var additional_info = $(ui_draggable).find(".additional_info").text();
     if (additional_info == "true") {
-        ajax_combobox(modul_id);
+        ajax_request_combobox(modul_id);
         $(ui_draggable).find(".additional_info").text("drop_down_schon_in_auswahl");
     }
 
@@ -1353,7 +1355,7 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
         $(this_child).show();
         change_module_style_to_auswahl(this);
         $(this_sub).append(this_child);
-        ajax_to_server_by_add(this_id,semester);
+        ajax_serverupdate_add(this_id,semester);
 		
     });
     ueberblick();

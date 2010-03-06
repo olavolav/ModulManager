@@ -4,11 +4,11 @@ $(document).ready(function(){
 	$("#javascriptdoesnotwork").css("display","none");
 });
 
-var  authenticityToken = function() {
+var authenticityToken = function() {
     return $('#token').attr("content");
 }
 
-var  authenticityTokenParameter = function(){
+var authenticityTokenParameter = function(){
    return 'authenticity_token=' + encodeURIComponent(authenticityToken());
 }
 var update_schwerpunkt = function(s_id){

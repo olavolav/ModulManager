@@ -144,7 +144,7 @@ $(function(){
         open : function(event,ui){
             name.attr("value","");
             credit.attr("value","");
-            ajax_custom_checbox($(custom_id).attr("value"));
+            ajax_request_custom_checkbox($(custom_id).attr("value"));
 				
 				
         },

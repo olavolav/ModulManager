@@ -38,14 +38,14 @@ var ueberblick = function(){
         success : function(html){
             $("#ueberblick #ueberblick_baum").empty();
             $("#ueberblick #ueberblick_baum").html(html);
-            ajax_to_server_by_get_grade();
+            ajax_request_grade();
         },
         error: function(a,b,c){
             alert("problem with /abfragen/ueberblick");
         }
     }).responseText;
     //check_error();
-    ajax_error();
+    update_errors();
     // Klickbare Info-Buttons sollen beim dr�berfahren animiert werden, wie schon in global_javascript.js (OS)
     $(".ueberblick_info_box").mouseenter(function(){
         $(this).animate({

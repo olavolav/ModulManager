@@ -14,6 +14,8 @@ Noch zu beheben:
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
 62. In den Info-Boxen von als fehlerhaft ausgewerteten Kategorien erscheint manchmal ein Sub-Name (z.B. ": Administration von MS-Windows (B.Phy.511.2)" bei Wahlpflichmodule/Einführungen) (Christian)
 77. Combobox geht zum Teil nicht, siehe mein Commit vorhin. Interessanterweise scheint es bei manchen Modulen zu gehen, also bei Mehrbenutzersysteme funktioniert's, bei AstroGeo nicht. Komisch. (Christian)
+82. Beim Beheben eines Modul-Fehlers wird das Icon von benoteten Modulen immer gelb, nie ggf. grün (Olav)
+83. Die Buttons auf der Statseite sind nicht klar genug eine Auswahl (Olav)
 
 
 
