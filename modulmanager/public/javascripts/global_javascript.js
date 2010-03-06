@@ -19,10 +19,9 @@ var wahlbild = "<img src='images/Wahl.png'>";
 var unbekannter_modus_bild = "<img src='images/ModusUnbekannt.png'>";
 	
 var fragebild = "<img src='images/Fragezeichen.png'>";
-var green_ipunkt = "<img src='images/iPunkt.png'>";
-var ipunkt = "<img src='images/iPunktGelb.png'>";
-var rote_ipunkt = "<img src='images/Ausrufezeichen.png'>";
-var rote_ipunkt_passiv = "<img src='images/Ausrufezeichen.png'>";
+var gruener_ipunkt = "<img src='images/iPunkt.png'>";
+var gelber_ipunkt = "<img src='images/iPunktGelb.png'>";
+var roter_ipunkt = "<img src='images/Ausrufezeichen.png'>";
 	
 var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-4px; left:8px;'>";
 var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='padding-right:3px;'>";
@@ -59,44 +58,73 @@ var change_credit_and_add_name_in_selection = function(handle){
     return 0;
 }
 
-var change_credit_and_remove_name_in_pool = function(handle){
-    //credit �ndern
-    var c_text =$(handle).find(".total_modul_credit").text();
-    $(handle).find(".modul_credit").text(c_text+" C");
-    //name remove
-    var n_text = $(handle).find(".modul_name_in_pool").text();
-    $(handle).find(".modul_name").text(n_text);
+// Diese Funktion ändert entgegen dem Namen nicht nur die Farbe des Info-Icons, sondern setzt auch
+// den ".is_error"-Text des Moduls (OS)
+// Diese Funktion ersetzt die alten Funktionen:
+// - set_image_to_gruener_ipunkt
+// - set_image_to_green_or_red_ipunkt
+// - set_image_to_red_ipunkt_and_error_to_yes
+// - set_image_to_ipunkt
+// Fehlt möglicherweise noch: Ausnahme-Optionen-Verhalten
+var flip_module_infoicon_on_event = function(type,handle){
+    // gefragt is handle zur Kategorie
+    var this_class = $(handle).attr("class");
+    if(!($(handle).hasClass("auswahl_modul_clone")||$(handle).hasClass("auswahl_modul")||$(handle).hasClass("custom_modul"))) {
+        alert("Fehler: Handle in flip_module_infoicon_on_event() ist kein Modul (class="+this_class+")!");
+    }
 	
-    return 0;
-}
-
-// green_ipunkt beim Checken Noten_Input
-var set_image_to_green_ipunkt = function(noten_input){
-    var this_parent = $(noten_input).parent().parent().get(0);
-    $(this_parent).siblings().find(".ipunkt").html(green_ipunkt);
-}
-
-// green_or_red_ipunkt beim Checken error im Fall: unbenoteten Module.
-var set_image_to_green_or_red_ipunkt = function(handle){
-    var mod_id =$(handle).find(">span.modul_id").text();
-    // check error: wenn ja--> red image. wenn nein-->green image
-    if(check_error(mod_id)){
-        $(handle).find(".ipunkt").html(rote_ipunkt_passiv);
-    }
-    else{
-        $(handle).find(".ipunkt").html(green_ipunkt);
-    }
-}
-
-var set_image_to_red_ipunkt_and_error_to_yes = function(ui_draggable){
-    $(ui_draggable).find(".ipunkt").html(rote_ipunkt_passiv);
-    $(ui_draggable).find(".is_error").text("ja");
-}
-
-// ipunkt ist gelb.
-var set_image_to_ipunkt = function(noten_input){
-    var this_parent = $(noten_input).parent().parent().get(0);
-    $(this_parent).siblings().find(".ipunkt").html(ipunkt);
+    switch(type){
+			// Die ersten beiden Events sollten optimiert sein, da die Fehler-Überprüfung bei jeder
+			// Änderung aufgerufen wird. Bei den Noten-Events unten ist das nicht so wichtig.
+	    case "error":
+				// In dem Fall ist klar, was passieren muss, unabhängig von der Note wird das Icon auf
+				// rot gesetzt, falls das nicht ohnehin schon der Fall ist:
+				if ($(handle).find(".is_error").text() != "ja") {
+			  	$(handle).find(".ipunkt").html(roter_ipunkt);
+					// Soll hier noch eine jQuery-Animation rein?
+			  	$(handle).find(".is_error").text("ja");
+				}
+				break;
+				
+	    case "no_error":
+				if ($(handle).find(".is_error").text() != "nein") {
+			  	$(handle).find(".is_error").text("nein");
+					// Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
+					if (($(handle).find(".modul_has_grade").text()=="ja")&&($(handle).find(".noten_input").val()!="Note"))
+				  	$(handle).find(".ipunkt").html(gelber_ipunkt);
+				  else $(handle).find(".ipunkt").html(gruener_ipunkt);
+				}
+				break;
+				
+	    case "entered_grade":
+				// Falls kein Fehler vorliegt, wird das Icon auf grün gesetzt
+				if ($(handle).find(".is_error").text() != "ja")
+					$(handle).find(".ipunkt").html(gruener_ipunkt);
+				break;
+				
+	    case "invalid_grade":
+				// Falls kein Fehler vorliegt, wird das Icon auf gelb gesetzt
+				if ($(handle).find(".is_error").text() != "ja")
+					$(handle).find(".ipunkt").html(gelber_ipunkt);
+				break;
+			
+			case "init":
+				// Das ist für den Fall gedacht, wenn man ein Modul in die Auwahl zieht, und also alle
+				// anderen Event-Arten möglich sind
+				// Nur benutzt in der Funktion change_module_style_to_auswahl
+				if ($(handle).find(".is_error").text() == "nein") {
+					// Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
+					if (($(handle).find(".modul_has_grade").text()=="ja") && (($(handle).find(".noten_input").val()!="Note")||($(handle).find(".noten_input").val()!="")))
+				  	$(handle).find(".ipunkt").html(gelber_ipunkt);
+				  else $(handle).find(".ipunkt").html(gruener_ipunkt);
+				}
+				else $(handle).find(".ipunkt").html(roter_ipunkt);
+				
+				break;
+				
+			default:
+				alert("Fehler in flip_module_infoicon_on_event: Typ "+type+" unbekannt!");
+		}
 }
 
 var selection_input_value_is_nill = function(input_noten){
@@ -115,6 +143,7 @@ var selection_input_check = function(input_noten){
     var modul_id        = $(input_noten).attr("rel");
     var trim_grade      = $.trim(this_grade);
     var check_komma     = this_grade.search(/./);
+		var module_handle   = $(input_noten).parent().parent().parent().parent().parent().parent();
     
     if(check_komma != -1){
         this_original = this_grade.replace(/\./,",");
@@ -125,9 +154,7 @@ var selection_input_check = function(input_noten){
     if(isNaN(this_float)){
         alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
         $(input_noten).attr("value","Note");
-        if(!check_error_by_span(input_noten)){
-            set_image_to_ipunkt(input_noten);
-        }
+				flip_module_infoicon_on_event("invalid_grade",module_handle);
         $("#note_berechnen").text("");
     } else {
         //suche nach ',' in String trim_grade dann verwandel es zum '.'
@@ -136,16 +163,15 @@ var selection_input_check = function(input_noten){
 
         if(new_float < 1 || new_float > 4 ){
             alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
-            if(!check_error_by_span(input_noten)){
-                set_image_to_ipunkt(input_noten);
-            }
+						flip_module_infoicon_on_event("invalid_grade",module_handle);
             $(input_noten).attr("value","Note");
             $("#note_berechnen").text("");
         } else {
             $(input_noten).attr("value",this_original);
-            if(!check_error_by_span(input_noten)){
-                set_image_to_green_ipunkt(input_noten);
-            }
+						flip_module_infoicon_on_event("entered_grade",module_handle);
+            // if(!check_error_by_span(input_noten)){
+            //     set_image_to_gruener_ipunkt(input_noten);
+            // }
             ajax_serverupdate_grade(modul_id,new_float);
             // hier kann man Note klicken
             ajax_request_grade();
@@ -774,12 +800,11 @@ var session_auswahl_rekursiv = function(root){
                     this_grade = mod_grade.replace(/\./,",");
                 }
                 $(this_noten).val(this_grade);
-                set_image_to_green_ipunkt(this_noten);
+								flip_module_infoicon_on_event("entered_grade",auswahl_modul_clone);
             }
-            //check error action
-            if(check_error(mod_id)){
-                set_image_to_red_ipunkt_and_error_to_yes(auswahl_modul_clone);
-            }
+            if (check_error(mod_id))
+							flip_module_infoicon_on_event("error",auswahl_modul_clone);
+
             $(auswahl_modul_clone).find("span.inAuswahl").text("ja");
             //check nach Kopfmodul. Wenn ja dann credit name und head_modul_in_pool ver�ndern
             if($(auswahl_modul_clone).find(".modul_parts").text()!="0"){
@@ -1059,7 +1084,7 @@ function ajax_request_combobox(mod_id){
                         ourmenu.show().append(html);
                         ourmenu = ourmenu.find("select");
                         ourmenu.change(function() {
-                            //                            alert("Dropdown-Menü verändert zu: "+ourmenu.find(":selected").text()+", value="+String(ourmenu.val()));
+                            // alert("Dropdown-Menü verändert zu: "+ourmenu.find(":selected").text()+", value="+String(ourmenu.val()));
                             ajax_serverupdate_set_category(this_mod_id,ourmenu.val());
                             ueberblick();
                         });
@@ -1181,15 +1206,9 @@ var check_error_all_modul_in_selection = function(){
     $("#semester-content").find(".semester").each(function(){
         $(this).find(">.subsemester").children().not("h5").each(function(){
             var mod_id = $(this).attr("id");
-            if(check_error("error_"+mod_id)){
-                set_image_to_red_ipunkt_and_error_to_yes(this);
-            }
-            else {
-                var noten_input = $(this).find(".noten_input");
-                if($(this).find("span.modul_has_grade").text() == "nein")
-                    set_image_to_green_ipunkt(noten_input);
-                else set_image_to_ipunkt(noten_input);
-            }
+            if (check_error("error_"+mod_id))
+								flip_module_infoicon_on_event("error",this);
+            else flip_module_infoicon_on_event("no_error",this);
         });
     });
 }
@@ -1208,7 +1227,7 @@ var error_table_builder = function(root){
 
 
 
-function update_errors(){
+function update_module_errors(){
 	
     var XML =  $.ajax({
 		
@@ -1309,7 +1328,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
     }
     // check error-Regel
     if (check_error(modul_id)) {
-        set_image_to_red_ipunkt_and_error_to_yes(ui_draggable);
+				flip_module_infoicon_on_event("error",ui_draggable);
     }
 
     var additional_info = $(ui_draggable).find(".additional_info").text();
@@ -1524,7 +1543,7 @@ var poolrekursiv = function(XMLhandle){
 
                 "<td style=' width:22px;display:none' class='ipunkt_td'>" +
                 "<a style='cursor:pointer' onclick='javascript:info_box_selection("+modul_id+");'>"+
-                "<span class='ipunkt' style='padding:1px 2px 0px 0px;'>"+ipunkt+"</span>"+
+                "<span class='ipunkt' style='padding:1px 2px 0px 0px;'>"+gelber_ipunkt+"</span>"+
                 "</a>"+
                 "</td>" +
 
@@ -1629,9 +1648,9 @@ var change_module_style_to_pool = function(handle){
         }
 		
     });
-    //$(handle).find(".ipunkt_td").html(ipunkt).css("display","none");
+    //$(handle).find(".ipunkt_td").html(gelber_ipunkt).css("display","none");
     $(handle).find(".ipunkt_td").css("display","none");
-    $(handle).find(".ipunkt").html(ipunkt);
+    $(handle).find(".ipunkt").html(gelber_ipunkt);
     $(handle).find(".noten_input_td").css("display","none");
 	
     return 0;
@@ -1646,22 +1665,21 @@ var change_module_style_to_auswahl = function(handle){
     $(handle).find("div.icon_loeschen").css("display","block");
     $(handle).find(".fragebild_td").css("display","none");
 	
-    jQuery.each(jQuery.browser, function(i) {
-        if($.browser.msie){
+    // Hack, da IE die CSS display-Art "table-cell" nicht unterstützt
+		// Könnte man evtl. mit jQuery show() und hide() umgehen... (OS)
+		jQuery.each(jQuery.browser, function(i) {
+        if ($.browser.msie) {
             $(handle).find(".ipunkt_td").css("display","inline");
-            //check ob unbenoten ist
-            if ($(handle).find("span.modul_has_grade").text() != "nein"   ){
-                $(handle).find(".noten_input_td").css("display", "inline");
-            }
-            else set_image_to_green_or_red_ipunkt(handle);
+            // check ob unbenoten ist
+            if ($(handle).find("span.modul_has_grade").text() != "nein")
+            	$(handle).find(".noten_input_td").css("display", "inline");
         }
         else {
             $(handle).find(".ipunkt_td").css("display","table-cell");
-            if ($(handle).find("span.modul_has_grade").text() != "nein"   ){
-                $(handle).find(".noten_input_td").css("display", "table-cell");
-            }
-            else set_image_to_green_or_red_ipunkt(handle);
+            if ($(handle).find("span.modul_has_grade").text() != "nein")
+            	$(handle).find(".noten_input_td").css("display", "table-cell");
         }
+				flip_module_infoicon_on_event("init",handle);
     });
     return 0;
 }

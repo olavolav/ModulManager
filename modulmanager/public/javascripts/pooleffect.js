@@ -106,11 +106,9 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
             }
 				
         })
-        ajax_server_by_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id);
+        ajax_serverupdate_add_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id);
         return true;
     }
-	
-	
 } 
 
 

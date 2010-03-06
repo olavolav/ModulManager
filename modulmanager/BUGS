@@ -16,6 +16,11 @@ Noch zu beheben:
 77. Combobox geht zum Teil nicht, siehe mein Commit vorhin. Interessanterweise scheint es bei manchen Modulen zu gehen, also bei Mehrbenutzersysteme funktioniert's, bei AstroGeo nicht. Komisch. (Christian)
 82. Beim Beheben eines Modul-Fehlers wird das Icon von benoteten Modulen immer gelb, nie ggf. grün (Olav)
 83. Die Buttons auf der Statseite sind nicht klar genug eine Auswahl (Olav)
+84. Modul-Vorbedingungen werden in der Pool-Info-Box nicht angezeigt (Christian & Olav)
+85. Dummy-Modul-Kategorie-Checkboxen werden nicht alle angezeigt (Olav & Christian)
+86. Dummy-Modul steht da immer mit Ausnahme-Option "Credit-Zahl geändert" (Olav & Christian)
+87. Name des Dummy-Moduls bleibt nicht erhalten (Christian & Quan)
+88. Text in der Info-Box beim Dummy-Modul-Einfügen stimmt nicht (Olav)
 
 
 

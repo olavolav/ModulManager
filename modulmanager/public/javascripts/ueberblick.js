@@ -45,7 +45,7 @@ var ueberblick = function(){
         }
     }).responseText;
     //check_error();
-    update_errors();
+    update_module_errors();
     // Klickbare Info-Buttons sollen beim dr�berfahren animiert werden, wie schon in global_javascript.js (OS)
     $(".ueberblick_info_box").mouseenter(function(){
         $(this).animate({
