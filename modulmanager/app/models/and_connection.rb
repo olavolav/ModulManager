@@ -4,9 +4,7 @@ class AndConnection < Connection
     if self.is_part_of_focus?
       return self.collected_credits_with_focus selected_modules, non_permitted_modules
     else
-      non_permitted_modules = Array.new if non_permitted_modules == nil
       credits = 0
-      my_modules = self.modules
       selected_modules.each do |s_module|
         unless s_module.class == Semester
           unless non_permitted_modules.include? s_module.moduledata
@@ -19,7 +17,7 @@ class AndConnection < Connection
                 end
               end
             else
-              if my_modules.include? s_module.moduledata
+              if self.modules.include? s_module.moduledata
                 if s_module.credits == nil
                   credits += s_module.moduledata.credits
                 else
@@ -38,9 +36,7 @@ class AndConnection < Connection
     if self.is_part_of_focus?
       return self.collected_modules_with_focus selected_modules, non_permitted_modules
     else
-      non_permitted_modules  = Array.new if non_permitted_modules == nil
       modules = 0
-      my_modules = self.modules
       selected_modules.each do |s_module|
         unless s_module.class == Semester
           unless non_permitted_modules.include? s_module.moduledata
@@ -49,7 +45,7 @@ class AndConnection < Connection
                 modules += 1
               end
             else
-              if my_modules.include? s_module.moduledata
+              if self.modules.include? s_module.moduledata
                 modules += 1
               end
             end
@@ -61,6 +57,7 @@ class AndConnection < Connection
   end
 
   def evaluate selected_modules, options = nil
+    options = Array.new if options == nil
     if self.has_parent_focus?
       return evaluate_with_focus selected_modules, options
     else
