@@ -521,7 +521,6 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
             if(($(this_mod).attr("class")!="partial_modul")||($(this_mod).attr("class")!="partial_modul ui-draggable")){
                 if($(this_mod).find("span.custom").text()!="custom"){
                     $(this_mod).show();
-                    
                 }
                 else alert("ich bin da das Dummy in search-active");
             }
@@ -542,16 +541,11 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
     }
     // else alert("Aha, das Modul wurde verschoben, dann loeschen wir es besser nicht.");
 
-    
-
     // AJAX aufrufen und Session-DB aktualisieren
     ajax_to_server_by_remove(mod_id);
     if((kopf_modul_check == "0")&&(parent_attr_check=="nein")&&(all_sem_destroy!="10000")){
         ueberblick();
     }
-    
-    
-
 }//ende sub_modul_loeschen
 
 //info_box
@@ -645,16 +639,16 @@ var update_modul_in_selection = function (){
 
 
 
-    //checken, ob man �berhaupt Ausnahme-Optionen veraendert hat.
-    // erst wenn ja dann wird ueberblick() akktuallisiert
-    //    if($("#exception_change").val()=="true"){
-    //        ueberblick();
-    //        $("#exception_change").attr("value","false");
-    //    }
+    //    checken, ob man �berhaupt Ausnahme-Optionen veraendert hat.
+    //        erst wenn ja dann wird ueberblick() akktuallisiert
+    if($("#exception_change").val()=="true"){
+        ueberblick();
+        $("#exception_change").attr("value","false");
+    }
 
-    // Übergangsweise wird immer der Überblick aktualisiert, damit die Veränderungen
-    // in der Bereichs-ComboBox sichtbar werden
-    ueberblick();
+// Übergangsweise wird immer der Überblick aktualisiert, damit die Veränderungen
+// in der Bereichs-ComboBox sichtbar werden
+//    ueberblick();
 
 }//ende
 
@@ -1065,7 +1059,7 @@ function ajax_combobox(mod_id){
                         ourmenu.show().append(html);
                         ourmenu = ourmenu.find("select");
                         ourmenu.change(function() {
-//                            alert("Dropdown-Menü verändert zu: "+ourmenu.find(":selected").text()+", value="+String(ourmenu.val()));
+                            //                            alert("Dropdown-Menü verändert zu: "+ourmenu.find(":selected").text()+", value="+String(ourmenu.val()));
                             ajax_to_server_by_set_category(this_mod_id,ourmenu.val());
                             ueberblick();
                         });

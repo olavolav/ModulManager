@@ -1,4 +1,3 @@
-
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 //  diese Funktion ueberblickrekursiv() gibt den �berblick in der linken Spalten.-//
 //  die gibt alle Fehlern und Warnungen aus.                                      //
@@ -6,39 +5,29 @@
 //  check_error() gibt die Errors von action abfragen/errors in div-id #table_error aus
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-
 var get_modul_info_in_overview =  function(modul_id){
-    //alert(modul_id);
     $("#box_info").empty();
     $("#box_info_exception").hide();
     $("#box_info_pool").show();
     $("#box_info_combobox").hide();
     $("#info_box").dialog('open');
     var html = $.ajax({
-
         type : 'POST',
         url  : '/abfragen/info/'+modul_id,
         data:authenticityTokenParameter(),
         async: false,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
-
             $("#box_info").empty();
             $("#box_info").append(html);
-            //$("#box_info_exception").hide();
-            //$("#box_info_pool").hide();
             $("#box_info_overview").hide();
-
         },
         error: function(a,b,c){
             alert("problem with /abfragen/info");
         }
-
-
-
     }).responseText;
-
 }
+
 var ueberblick = function(){
     $("#ueberblick #ueberblick-wird-aktualisiert").show();
     var html = $.ajax({
@@ -65,6 +54,5 @@ var ueberblick = function(){
         $(this).animate({
             opacity: 1.0
         }, "slow");
-    // alert("mouseenter!");
     });
 }// ende function
