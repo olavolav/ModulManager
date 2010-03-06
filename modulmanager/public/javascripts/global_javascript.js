@@ -1206,8 +1206,7 @@ var check_error_all_modul_in_selection = function(){
     $("#semester-content").find(".semester").each(function(){
         $(this).find(">.subsemester").children().not("h5").each(function(){
             var mod_id = $(this).attr("id");
-            if (check_error("error_"+mod_id))
-								flip_module_infoicon_on_event("error",this);
+            if (check_error("error_"+mod_id)) flip_module_infoicon_on_event("error",this);
             else flip_module_infoicon_on_event("no_error",this);
         });
     });

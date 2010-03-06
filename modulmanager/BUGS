@@ -14,7 +14,6 @@ Noch zu beheben:
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
 62. In den Info-Boxen von als fehlerhaft ausgewerteten Kategorien erscheint manchmal ein Sub-Name (z.B. ": Administration von MS-Windows (B.Phy.511.2)" bei Wahlpflichmodule/Einführungen) (Christian)
 77. Combobox geht zum Teil nicht, siehe mein Commit vorhin. Interessanterweise scheint es bei manchen Modulen zu gehen, also bei Mehrbenutzersysteme funktioniert's, bei AstroGeo nicht. Komisch. (Christian)
-82. Beim Beheben eines Modul-Fehlers wird das Icon von benoteten Modulen immer gelb, nie ggf. grün (Olav)
 83. Die Buttons auf der Statseite sind nicht klar genug eine Auswahl (Olav)
 84. Modul-Vorbedingungen werden in der Pool-Info-Box nicht angezeigt (Christian & Olav)
 85. Dummy-Modul-Kategorie-Checkboxen werden nicht alle angezeigt (Olav & Christian)
@@ -97,6 +96,7 @@ Inzwischen behoben:
 79. Bei SP Nanostrukturphysik: Info-Box von Nanostrukturphysik geht nicht (Christian)
 80. Die Modul-Info-Box fragt jetzt wieder jedes Mal den Überblick ab, egal ob man was verändert hat oder nicht. (Christian & Olav)
 81. Die Reihenfolge der Kategorien von Überblick und Pool ist nicht ganz die gleiche, s. Grundkurs (Christian)
+82. Beim Beheben eines Modul-Fehlers wird das Icon von benoteten Modulen immer gelb, nie ggf. grün (Olav)
 
 
 
