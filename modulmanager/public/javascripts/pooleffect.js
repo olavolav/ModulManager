@@ -45,12 +45,12 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 	
     //ajax bei set_category
     if(cat_check){
-        ajax_set_custom_checbox(custom_id,cat_id_array);
+        ajax_serverupdate_custom_checkbox(custom_id,cat_id_array);
     //alert("check"+cat_id_array[0]);
     }
     else{
 		
-        ajax_set_custom_checbox(custom_id,category_id);
+        ajax_serverupdate_custom_checkbox(custom_id,category_id);
     //alert("nicht check"+category_id);
     }
 	

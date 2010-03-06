@@ -1130,8 +1130,7 @@ function ajax_request_custom_checkbox(custom_id){
     });
 }
 
-// Diese Funktion wird scheinbar nicht mehr benutzt (OS)
-function ajax_set_custom_checbox(custom_id,cat_id_array){
+function ajax_serverupdate_custom_checkbox(custom_id,cat_id_array){
     cat_id_array = cat_id_array.split("_");
     $.ajax({
         type:"POST",
