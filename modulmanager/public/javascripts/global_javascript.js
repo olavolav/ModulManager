@@ -154,6 +154,7 @@ var selection_input_check = function(input_noten){
     if(isNaN(this_float)){
         alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
         $(input_noten).attr("value","Note");
+				ajax_serverupdate_grade_reset(modul_id);
 				flip_module_infoicon_on_event("invalid_grade",module_handle);
         $("#note_berechnen").text("");
     } else {
@@ -165,6 +166,7 @@ var selection_input_check = function(input_noten){
             alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
 						flip_module_infoicon_on_event("invalid_grade",module_handle);
             $(input_noten).attr("value","Note");
+						ajax_serverupdate_grade_reset(modul_id);
             $("#note_berechnen").text("");
         } else {
             $(input_noten).attr("value",this_original);
@@ -1064,6 +1066,10 @@ var ajax_serverupdate_grade = function(modul_id,grade){
     });
 }
 
+var ajax_serverupdate_grade_reset = function(modul_id,grade) {
+	// Nicht schön, funktioniert aber. (OS)
+	ajax_serverupdate_grade(modul_id,"");
+}
 
 
 function ajax_request_combobox(mod_id){
@@ -1109,7 +1115,7 @@ var ajax_request_grade = function(){
     $.ajax({
         type : 'GET',
         url  : '/abfragen/note',
-        async: false,
+        async: true,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
             $("#die_note").empty();

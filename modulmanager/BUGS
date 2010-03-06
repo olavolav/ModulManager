@@ -20,7 +20,6 @@ Noch zu beheben:
 86. Dummy-Modul steht da immer mit Ausnahme-Option "Credit-Zahl geändert" (Olav & Christian)
 88. Text in der Info-Box beim Dummy-Modul-Einfügen stimmt nicht (Olav)
 89. In der Auswahl-Abfrage steht bei jedem Modul custom_credits="true" und has_warning="true", stimmt das so? (Christian)
-90. Fehlermeldungen in den Überblicks-Info-Boxen sind merkwürdig, wenn z.B. "-2 Module gefordert" sind (Olav)
 
 
 
@@ -99,6 +98,8 @@ Inzwischen behoben:
 81. Die Reihenfolge der Kategorien von Überblick und Pool ist nicht ganz die gleiche, s. Grundkurs (Christian)
 82. Beim Beheben eines Modul-Fehlers wird das Icon von benoteten Modulen immer gelb, nie ggf. grün (Olav)
 87. Name des Dummy-Moduls bleibt nicht erhalten (Olav)
+90. Fehlermeldungen in den Überblicks-Info-Boxen sind merkwürdig, wenn z.B. "-2 Module gefordert" sind (Olav)
+91. Das Eingeben einer ungültigen Note nach einer gültigen setzt die Information im Backend nicht wieder zurück (Olav)
 
 
 
