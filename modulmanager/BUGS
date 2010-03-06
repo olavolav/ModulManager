@@ -20,6 +20,7 @@ Noch zu beheben:
 86. Dummy-Modul steht da immer mit Ausnahme-Option "Credit-Zahl geändert" (Olav & Christian)
 88. Text in der Info-Box beim Dummy-Modul-Einfügen stimmt nicht (Olav)
 89. In der Auswahl-Abfrage steht bei jedem Modul custom_credits="true" und has_warning="true", stimmt das so? (Christian)
+92. Das Note zurücksetzen funktioniert immer noch nicht vollständig (Christian & Olav)
 
 
 
