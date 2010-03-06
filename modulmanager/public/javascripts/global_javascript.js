@@ -715,6 +715,7 @@ var change_custom_in_pool_by_session_load = function(das_erste,custom_name,custo
 var change_custom_in_selection_by_session_load = function(auswahl_modul_clone,custom_name,custom_credit){
 	
     //alert("hi change custom");
+		// alert("change_custom_in_selection_by_session_load: custom_name="+custom_name);
     $(auswahl_modul_clone).find(".modul_name").text(custom_name);
     $(auswahl_modul_clone).find(".modul_credit").text(custom_credit+" C");
     $(auswahl_modul_clone).attr("class","pool_modul ui-draggable");
@@ -765,7 +766,8 @@ var session_auswahl_rekursiv = function(root){
                 $(this).find("span.inAuswahl").text("ja");
             });
             //custom_modul laden: Name und credit ver�ndern
-            if($(this).hasClass("custom")){
+            if ($(this).attr("class") == "custom") {
+								// alert("Inserting custom module into selection...");
                 var custom_name = $(this).attr("name");
                 var custom_credit    = $(this).attr("credits");
                 change_custom_in_selection_by_session_load(auswahl_modul_clone,custom_name,custom_credit);
