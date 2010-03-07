@@ -14,7 +14,6 @@ Noch zu beheben:
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
 62. In den Info-Boxen von als fehlerhaft ausgewerteten Kategorien erscheint manchmal ein Sub-Name (z.B. ": Administration von MS-Windows (B.Phy.511.2)" bei Wahlpflichmodule/Einführungen) (Christian)
 77. Combobox geht zum Teil nicht, siehe mein Commit vorhin. Interessanterweise scheint es bei manchen Modulen zu gehen, also bei Mehrbenutzersysteme funktioniert's, bei AstroGeo nicht. Komisch. (Christian)
-83. Die Buttons auf der Statseite sind nicht klar genug eine Auswahl (Olav)
 84. Modul-Vorbedingungen werden in der Pool-Info-Box nicht angezeigt (Christian & Olav)
 85. Dummy-Modul-Kategorie-Checkboxen werden nicht alle angezeigt (Olav & Christian)
 86. Dummy-Modul steht da immer mit Ausnahme-Option "Credit-Zahl geändert" (Olav & Christian)
@@ -101,6 +100,7 @@ Inzwischen behoben:
 87. Name des Dummy-Moduls bleibt nicht erhalten (Olav)
 90. Fehlermeldungen in den Überblicks-Info-Boxen sind merkwürdig, wenn z.B. "-2 Module gefordert" sind (Olav)
 91. Das Eingeben einer ungültigen Note nach einer gültigen setzt die Information im Backend nicht wieder zurück (Olav)
+83. Die Buttons auf der Statseite sind nicht klar genug eine Auswahl (Olav)
 
 
 

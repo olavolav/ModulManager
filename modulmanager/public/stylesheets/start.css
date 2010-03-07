@@ -51,14 +51,14 @@ select {
 }
 
 .active {
-	border : 1px #AAA solid;
+	border : 1px #AAA inset;
 	background: #d8eef7 url("../images/Button-Hintergrund-Aktiv.png");
 	background-repeat: repeat;
 	background-position: top left;		
 }
 .passive {
-	border : 1px #AAA solid;
-	background: white url("../images/Button-Hintergrund.png");
+	border : 1px #AAA outset;
+	background: #d8eef7 url("../images/Button-Hintergrund.png");
 	background-repeat: repeat;
 	background-position: top left;		
 }
