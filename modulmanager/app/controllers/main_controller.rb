@@ -1,5 +1,7 @@
 class MainController < ApplicationController
   
+  $MMversion = "1 (beta)"
+  
   def start
     @schwerpunkte = Focus.all
     @version = current_selection.version
@@ -109,7 +111,7 @@ class MainController < ApplicationController
     @categories = sort_by_category @modules
 
     respond_to do |format|
-      format.pdf
+      format.pdf { render :filename => "ModulManager.pdf"}
       format.html { render :action => "get_pdf" }
       format.xml { render :xml => @categories.to_xml }
     end

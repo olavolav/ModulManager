@@ -37,7 +37,7 @@
 	\item Gewählte Prüfungsordnungs-Version: <%= @version.name %>
 	\item Gewählter Schwerpunkt: <%= @schwerpunkt %>
 	\item Mit ETCS-Credits gewichtete, hochgerechnete Note: <%= @grade %>
-	\item Erstellt am \today
+	\item Erstellt am \today{} mit ModulManager-Version <%= $MMversion %>
 \end{itemize}
 
 
