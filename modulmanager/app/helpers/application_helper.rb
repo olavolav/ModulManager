@@ -4,8 +4,8 @@ module ApplicationHelper
     session[:selection_id] ||= create_standard_selection
     selection = ModuleSelection.find session[:selection_id]
 
-#    puts "currently in selection:"
-#    selection.modules.each {|m| puts "- #{m.name}"}
+    #    puts "currently in selection:"
+    #    selection.modules.each {|m| puts "- #{m.name}"}
 
     return selection
 
@@ -19,6 +19,15 @@ module ApplicationHelper
   end
 
   def create_pre_selection focus_name = nil, version = nil
+
+    unless session[:selection_id] == nil
+      selection = current_selection
+      selection.semesters.each do |semester|
+        semester.modules.each {|mod| mod.destroy}
+        semester.destroy
+      end
+    end
+
     focus_name = "standard" if focus_name == nil
     version == nil ? path = current_selection.version.path : path = version.path
     pre_selection_file = File.open("config/basedata/#{path}/vorauswahl.yml")
@@ -46,7 +55,9 @@ module ApplicationHelper
           s = Semester.new :count => i
           shorts.each do |short|
             m = Studmodule.find(:first, :conditions => "short = '#{short}'")
-            s.studmodules << m
+            sm = SelectedModule.new :moduledata => m, :category => m.categories[0]
+            #            s.studmodules << m
+            s.modules << sm
           end
           s.save
           return_array.push s

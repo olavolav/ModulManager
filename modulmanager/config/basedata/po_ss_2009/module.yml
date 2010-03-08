@@ -161,7 +161,8 @@
     beschreibung: "Erstes Teilmodul - Lernziele: Umgang mit Linux in Netzwerken"
     sub-module: B.Phy.511.2
 
-  - name: ": Administration von MS-Windows"
+  - name: Mehrbenutzersysteme in der Praxis II
+    sub-name: ": Administration von MS-Windows"
     credits: 2
     beschreibung: "Zweites Teilmodul - Lernziele: Grundlagen der Administration von MS-Windowsrechnern, Anlegen von Benutzern, Sicherheitsaspekte"
     id: B.Phy.511.2
