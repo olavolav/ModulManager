@@ -304,7 +304,11 @@ class AbfragenController < ApplicationController
     selection.semesters.each do |s|
       s.modules.each do |m|
         if m.module_id.to_i == module_id.to_i
-          m.grade = grade
+          if grade == "" || grade == 0
+            m.grade = nil
+          else
+            m.grade = grade
+          end
           m.save
         end
       end
