@@ -248,11 +248,12 @@
       <label for="credit">Credit Point</label>
       <input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all" />
       <div id="note_streichen">
-                  Note streichen:
-                  <input type="checkbox" name="note_checkbox" id="note_checkbox" value="checkbox" style='display:inline'/>
+	      <p>Bitte wählen Sie aus, welche Eigenschaften dieses Modul hat:<br>
+	      <input type="checkbox" name="note_checkbox" id="note_checkbox" value="checkbox" style='display:inline'> Modul ist unbenotet</p>
       </div>
-      <label for="category_id">Kategorie</label>
-          <div id="dummy_checkbox"></div>
+      <p><label for="category_id">Bitte wählen Sie aus, in welche Kategorien dieses Modul einzubringen ist. Falls Sie nichts auswählen, wird automatisch die nur die Kategorie gewählt, aus der Sie das Modul gezogen haben.</label>
+      <div id="dummy_checkbox"></div>
+	</p>
 
      <!-- <select id="category_id" name="category_id">
         <%= options_from_collection_for_select(@categories, :id, :option_name, nil) %>

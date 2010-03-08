@@ -1,3 +1,5 @@
 <% @categories.each do |cat| %>
-<input type="checkbox" value="<%= cat.id %>" id="category_<%= cat.id %>"><%= cat.name %></input>
+<input type="checkbox" value="<%= cat.id %>" style="display:inline;" id="category_<%= cat.id %>">
+	<%= cat.name %> <br>
+</input>
 <% end unless @categories == nil %>
