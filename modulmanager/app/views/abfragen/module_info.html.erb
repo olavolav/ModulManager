@@ -7,10 +7,14 @@
     <p class="univz">UniVZ-Link (Dummy): <a href="<%= @univz_link %>" target="_blank"><%= @name %></a></p>
   <% end %>
     
-  <%# unless @categories.length <= 1 %>
-    <%#= "<p>Dieses Modul wird in folgenden Bereich eingebracht:" %>
-      <%#= select(:category, :category_id, @categories.collect {|p| [p.name, p.id]}, :selected => @selected_cat) unless @categories.length == 0 %>
-    <%#= "</p>" %>
+  <!-- Der folgene Teil ist natürlich noch nicht fertig, Dummy-Module fehlen (OS) -->
+  <% if @categories.length == 1 %>
+    <p>Dieses Modul wird in folgenden Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %>
+  <% elsif @categories.length > 1%>
+	<p>Dieses Modul kann in mehrere Bereiche eingebracht werden - die entsprechende Auswahl können sie direkt unter dem Modul-Titel vornehmen.</p>
+  <% end %>
+      <%#= @categories.collect {|p| [p.name, p.id]} unless @categories.length == 0 %>
+    </p>
   <%# end %>
 
   <% unless @permission == nil %>

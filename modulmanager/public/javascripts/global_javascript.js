@@ -1163,7 +1163,7 @@ function ajax_request_custom_checkbox(custom_id){
             $("#dummy_checkbox").append(html);
         },
         error : function(a,b,c){
-            alert ("AJAX-Fehler: custom_checbox");
+            alert ("AJAX-Fehler: ajax_request_custom_checkbox");
         }
     });
 }
