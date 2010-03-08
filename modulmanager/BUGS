@@ -14,6 +14,7 @@ Noch zu beheben:
 84. Modul-Vorbedingungen werden in der Pool-Info-Box nicht angezeigt (Christian & Olav)
 86. Dummy-Modul steht da immer mit Ausnahme-Option "Credit-Zahl geändert" (Olav & Christian)
 88. Text in der Info-Box beim Dummy-Modul-Einfügen stimmt nicht (Olav)
+85. Dummy-Modul-Kategorie-Checkboxen werden nicht alle angezeigt (Olav & Christian)
 
 
 
@@ -98,7 +99,6 @@ Inzwischen behoben:
 62. In den Info-Boxen von als fehlerhaft ausgewerteten Kategorien erscheint manchmal ein Sub-Name (z.B. ": Administration von MS-Windows (B.Phy.511.2)" bei Wahlpflichmodule/Einführungen) (Christian)
 92. Das Note zurücksetzen funktioniert immer noch nicht vollständig (Christian & Olav)
 77. Combobox geht zum Teil nicht, siehe mein Commit vorhin. Interessanterweise scheint es bei manchen Modulen zu gehen, also bei Mehrbenutzersysteme funktioniert's, bei AstroGeo nicht. (Christian)
-85. Dummy-Modul-Kategorie-Checkboxen werden nicht alle angezeigt (Olav & Christian)
 
 
 
