@@ -8,7 +8,7 @@
 //					ajax_serverupdate_add(),
 //					ajax_serverupdate_remove(),ajax_serverupdate_grade(),
 //					auswahlAnzeige(),
-//					modul_loeschen(),get_custom_modul()
+//					modul_loeschen(),show_next_custom_modul_in_pool()
 //
 //--------------------------------------------------------------------------------------
 
@@ -298,8 +298,9 @@ var custom_modul_rekursiv = function (handle){
     });
 }
 
-var get_custom_modul = function(category_id){
-    //alert("hallo get_custom_modul mit "+category_id);
+// Funktion umbenannt, war früher get_custom (OS)
+var show_next_custom_modul_in_pool = function(category_id){
+    // alert("hallo show_next_custom_modul_in_pool mit "+category_id);
     // die Funktion zeigt nur ein display_none Custom_modul in einem Category im  Pool an
 	
     var this_cat = $("#pool").find("#"+category_id);
@@ -315,7 +316,7 @@ var get_custom_modul = function(category_id){
     $(the_first).removeClass("custom_modul").addClass("pool_modul ui-draggable");
     $(the_first).show();
 	
-}//ende get_custom_modul
+}//ende show_next_custom_modul_in_pool
 
 var get_and_change_custom_modul_in_the_table = function(modul_id,new_name,cat_id){
 	
@@ -480,9 +481,9 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
 			
     }
     $(this_mod).attr("class",pool_modul);
-    //check nach Head-modul. Wenn ja, dann setze span.modul_parts_exsit auf "nein"
-    if ($(this_mod).find("span.modul_parts_exsit").text()=="ja"){
-        $(this_mod).find("span.modul_parts_exsit").text("nein");
+    //check nach Head-modul. Wenn ja, dann setze span.modul_parts_exist auf "nein"
+    if ($(this_mod).find("span.modul_parts_exist").text()=="ja"){
+        $(this_mod).find("span.modul_parts_exist").text("nein");
     }
     var this_id = $(this_mod).attr("id");
     var this_modul = $(this_mod);
@@ -710,6 +711,7 @@ var update_dummy_modul_in_selection = function(dummy_modul){
 
 // session_auswahl() implementieren. Die ruft action abfragen/auswahl per AJAX auf
 
+// Diese Funktion wird offensichtlich nie benutzt (OS)
 var change_custom_in_pool_by_session_load = function(das_erste,custom_name,custom_credit){
     //alert("Hallo custom_change");
     $(das_erste).find(".modul_name").text(custom_name);
@@ -821,7 +823,7 @@ var session_auswahl_rekursiv = function(root){
             if($(auswahl_modul_clone).find(".modul_parts").text()!="0"){
                 $(auswahl_modul_clone).find(".head_modul_in_pool").text("nein");
                 change_credit_and_add_name_in_selection(auswahl_modul_clone);
-                $(auswahl_modul_clone).find(".modul_parts_exsit").text("ja");
+                $(auswahl_modul_clone).find(".modul_parts_exist").text("ja");
             }
             //check nach Teil-Modul
             if($(auswahl_modul_clone).find(".modul_parent_attr").text()!="nein"){
@@ -1377,7 +1379,7 @@ var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dra
 
 var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
     //parts_exit  aus "ja" setzen
-    $(ui_draggable).find("span.modul_parts_exsit").text("ja");
+    $(ui_draggable).find("span.modul_parts_exist").text("ja");
 	
     var this_sub = $(this_semester).find("div.subsemester");
     var this_vater = $(ui_draggable).parent().get(0);
@@ -1466,8 +1468,7 @@ var poolrekursiv = function(XMLhandle){
 
                 //check Modul_ART : Pflicht? WP?
                 var bild;
-                // so sollte es eigentlich sein (ist mit CB besprochen):
-                switch(modul_mode) {
+                switch (modul_mode) {
                     case "p":
                         bild = pflichtbild;
                         break;
@@ -1480,11 +1481,7 @@ var poolrekursiv = function(XMLhandle){
                         break;
                     default:
                         bild = unbekannter_modus_bild;
-                        break;
                 }
-                // momentaner Hack:
-                //                if (modul_mode == "p") bild = pflichtbild;
-                //                else bild = wahlpflichtbild;
 
                 // hiet ist span.inAuswahl f�r die Besetzung eines Modul in Auswahl gedacht.
                 //span.custom sagt, dass ein modul normal oder ein dummy-modul ist
@@ -1536,7 +1533,7 @@ var poolrekursiv = function(XMLhandle){
                 "<span class='additional_info' style='display:none'>"+additional_info+"</span>"+
                 "<span class='head_modul_in_pool' style='display:none'>"+kopf_modul_in_pool+"</span>"+
                 "<span class='modul_parts' style='display:none'>"+modul_parts+"</span>"+
-                "<span class='modul_parts_exsit' style='display:none'>"+"nein"+"</span>"+
+                "<span class='modul_parts_exist' style='display:none'>"+"nein"+"</span>"+
                 "<span class='modul_parent_attr' style='display:none'>"+modul_parent_attr+"</span>"+
                 "<span class='add_sel_name_in_sel' style='display:none'>"+this_sel_name+"</span>"+
                 "<span class='modul_name_in_pool' style='display:none'>"+modul_name+"</span>"+
@@ -1616,7 +1613,7 @@ var pool = function(){
    
     hide_partial_modul();
     session_auswahl();
-    //get_custom_modul();
+    //show_next_custom_modul_in_pool();
     custom_modul_in_the_search_table_rekursiv();
     custom_modul_rekursiv(this_pool);
     ueberblick();
@@ -1647,14 +1644,14 @@ var change_module_style_to_pool = function(handle){
         $(handle).find("> span.additional_info").text("true");
     }
     
-    // checke nach Dummy-Modul. Wenn ja dann den Name wieder auf den Standardname (hier: (sonstiges Modul)) setzen
+    // checke nach Dummy-Modul. Wenn ja dann den Name wieder auf den Standardname (hier: "(Sonstiges Modul)") setzen
     // und span.custom_exist=nein setzen und class=custom_modul, 
     // damit dieses Dummy nicht im Pool angezeigt wird(sonst mehr als 2 Dummies im pool vorkommen
     var dummy_name = $(handle).find("span.custom").text();
     if(dummy_name == "custom"){
         var dummy_standard_name=$(handle).find("span.modul_name_in_pool").text();
         $(handle).find("> table tbody tr td.modul_name").text(dummy_standard_name);
-        $(handle).find("span.custom_exsit").text("nein");
+        $(handle).find("span.custom_exist").text("nein");
         $(handle).attr("class","custom_modul");
         $(handle).hide();
     }

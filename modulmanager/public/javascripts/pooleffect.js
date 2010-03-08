@@ -55,17 +55,18 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 	
 	
     //alert("cat_id in custom_check="+category_id);
-    var this_credit=credit.val();
-    var this_name =name.val();
+    var this_credit = credit.val();
+    var this_name = name.val();
     var this_credit_float = parseFloat(this_credit);
 	
 	
-    if(name.val().length < min){
+    if (name.val().length < min){
 		
         name.addClass('ui-state-error');
         updateTips("Bitte geben Sie ein Namen ein.",tips);
         return false;
     }
+		else this_name = "Sonstiges Modul: "+this_name;
 	
     if(this_credit.length < min || isNaN(this_credit_float)){
         credit.addClass('ui-state-error');
@@ -87,11 +88,11 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         var cus_modul = $("#pool #"+custom_id);
         var name=$("#name");
         var credit=$("#credit");
-        var na = name.attr("value");
+        // var na = name.attr("value");
         var cre = credit.attr("value");
         $(cus_modul).attr("class","auswahl_modul ui-draggable");
         //$(cus_modul).find("span.custom").text("non-custom");
-        $(cus_modul).find(".modul_name").text(na);
+        $(cus_modul).find(".modul_name").text(this_name);
         $(cus_modul).find(".modul_credit").text(cre+" C");
         change_module_style_to_auswahl(cus_modul);
         $(cus_modul).find("span.inAuswahl").text("ja");
@@ -148,28 +149,25 @@ $(function(){
         buttons:{
             "Fertig":function(){
 					
-                var iValid=false;
                 allFields.removeClass('ui-state-error');
 
-                iValid = custom_check(name,credit,category,custom_semester,custom_id,tips,1,4);
-					
-                if (iValid) {
+                if (custom_check(name,credit,category,custom_semester,custom_id,tips,1,4)) {
 						
-                    var na = name.attr("value");
+                    var na = "Sonstiges Modul: "+name.attr("value");
                     var cre = credit.attr("value");
                     var cat = category.attr("value");
                     var cus_sem=custom_semester.attr("value");
                     var cus_id=custom_id.attr("value");
 						
-                    var cus_modul = $("#pool #"+cus_id);
+                    var cus_modul = $("#semester-content #"+cus_id);
                     // custom_modul soll auch in VorratBox sein
 						
-                    var this_exsit = $(cus_modul).find("span.custom_exist").text();
+                    var this_exist = $(cus_modul).find("span.custom_exist").text();
                     var cus_cat_id=$(cus_modul).find(".custom_category").text();
-                    if(this_exsit=="nein"){
+                    if(this_exist=="nein"){
                         $(cus_modul).find("span.custom_exist").text("ja");
-                        get_custom_modul(cus_cat_id);
-                        //get_custom_modul_in_the_search_table();
+                        show_next_custom_modul_in_pool(cus_cat_id);
+                        //show_next_custom_modul_in_pool_in_the_search_table();
                         get_and_change_custom_modul_in_the_table(cus_id,na,cus_cat_id);
 							
                     }
@@ -338,11 +336,11 @@ $(function(){
             var custom_text = $(ui.draggable).find("span.custom").text();
             var parts_text  = $(ui.draggable).find("span.modul_parts").text();
 				 
-            var parts_exsit  = $(ui.draggable).find("span.modul_parts_exsit").html();
+            var parts_exist  = $(ui.draggable).find("span.modul_parts_exist").html();
 				
             if(custom_text == "non-custom") {
                 //check nach Teil_modul
-                if((parts_text!="0") && (parts_exsit=="nein")){
+                if((parts_text!="0") && (parts_exist=="nein")){
                     change_credit_and_add_name_in_selection(ui_draggable);
                     drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
                     partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
@@ -433,10 +431,10 @@ var sem_hinzu = function(){
 				 
                 var custom_text = $(ui.draggable).find("span.custom").text();
                 var parts_text  = $(ui.draggable).find("span.modul_parts").text();
-                var parts_exsit  = $(ui.draggable).find("span.modul_parts_exsit").html();
+                var parts_exist  = $(ui.draggable).find("span.modul_parts_exist").html();
                 if(custom_text == "non-custom") {
                     //check nach Teil_modul
-                    if((parts_text!="0") && (parts_exsit=="nein")){
+                    if((parts_text!="0") && (parts_exist=="nein")){
                         partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
                     }
                     drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
