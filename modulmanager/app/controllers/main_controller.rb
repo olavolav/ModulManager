@@ -157,9 +157,9 @@ class MainController < ApplicationController
     id = params[:mod_id]
     mod = Studmodule.find(id)
     @categories = Array.new
-#    Category.find(:all, :conditions => "exclusive = 1").each do |category|
-#      @categories.push category
-#    end
+    Category.find(:all, :conditions => "exclusive = 1").each do |category|
+      @categories.push category
+    end
 
 #    mod.categories.each do |category|
 #      if category.exclusive
