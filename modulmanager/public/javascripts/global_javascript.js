@@ -1074,7 +1074,7 @@ var ajax_serverupdate_grade = function(modul_id,grade){
 
 var ajax_serverupdate_grade_reset = function(modul_id,grade) {
     // Nicht schön, funktioniert aber. (OS)
-    ajax_serverupdate_grade(modul_id,"");
+    ajax_serverupdate_grade(modul_id, 0);
 }
 
 
@@ -1149,7 +1149,6 @@ function ajax_serverupdate_add_custom(this_name,this_credit_point_float,category
     });
 }
 
-// Diese Funktion wird scheinbar nicht mehr benutzt (OS)
 function ajax_request_custom_checkbox(custom_id){
     $("#dummy_checkbox").empty();
     $.ajax({
@@ -1170,17 +1169,20 @@ function ajax_request_custom_checkbox(custom_id){
 }
 
 function ajax_serverupdate_custom_checkbox(custom_id,cat_id_array){
-    cat_id_array = cat_id_array.split("_");
+	// Wie in custom_check angemerkt, müssen wir erst den ersten Array-Eintrag löschen (OS)
+	cat_id_array.shift();
+	// alert("ajax_serverupdate_custom_checkbox: cat_id_array="+(cat_id_array.join(",")));
+
     $.ajax({
         type:"POST",
         url :"main/set_category",
         dataType:"text",
         cache:false,
         async:false,
-        data:"mod_id="+custom_id+"&"+"cat_id="+cat_id_array[1]+"&"+authenticityTokenParameter(),
+        data:"mod_id="+custom_id+"&"+"cat_id="+cat_id_array.join(",")+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
         error : function(a,b,c){
-            alert ("AJAX-Fehler: set_category");
+            alert ("AJAX-Fehler: ajax_serverupdate_custom_checkbox");
         }
     });
 }//ende

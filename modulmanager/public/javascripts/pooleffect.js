@@ -26,32 +26,31 @@ function updateTips(t,tips) {
 
 var custom_check = function(name,credit,category,custom_semester,custom_id,tips,min,max){
     var cat_check=false;
-    var cat_id_array= new Array();
+		// Wir fangen mit einem Array-Element an, weil JavaScript bei nur einem Eintrag keinen
+		// Array übergibt (OS)
+    var cat_id_array= new Array(1);
+		cat_id_array[0] = -1;
     $("#dummy_checkbox input[type='checkbox']").each(function(){
         if($(this).is(":checked")){
             //alert("ja, checked");
             cat_check = true;
             //alert("ID="+$(this).attr("id"));
-            cat_id_array.push($(this).attr("id"));
+            cat_id_array.push($(this).attr("value"));
         }
-		
     });
-	
-	
 	
     var custom_semester=custom_semester.attr("value");
     var custom_id=custom_id.attr("value");
     var category_id = category.attr("value");
 	
     //ajax bei set_category
-    if(cat_check){
-        ajax_serverupdate_custom_checkbox(custom_id,cat_id_array);
-    //alert("check"+cat_id_array[0]);
-    }
+    if(cat_check) ajax_serverupdate_custom_checkbox(custom_id,cat_id_array);
+		// Wenn keine Checkbox ausgewählt wird, wird die Kategorie übergeben, aus der das
+		// Dummy-Modul kommt (OS)
     else{
-		
-        ajax_serverupdate_custom_checkbox(custom_id,category_id);
-    //alert("nicht check"+category_id);
+				cat_id_array.push(category_id.split("_")[1]);
+        ajax_serverupdate_custom_checkbox(custom_id,cat_id_array);
+    		//alert("nicht check"+category_id);
     }
 	
 	
