@@ -794,7 +794,8 @@ var session_auswahl_rekursiv = function(root){
             //geaenderte Credits? und Warnung deaktivieren?
             //wenn ja dann die entsprechenen Meldungen anzeigen
             if(mod_credit!=""){
-                $(auswahl_modul_clone).find("p.credit-option").html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
+								if ($(this).attr("class") != "custom")
+                	$(auswahl_modul_clone).find("p.credit-option").html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
                 $(auswahl_modul_clone).find("td.modul_credit").text(mod_credit+" C");
             }
             if(mod_has_warning=="false"){
@@ -925,6 +926,12 @@ var ajax_request_module_info = function (modul_id){
                 $("#note_streichen_checkbox").css("display", "none");
             } else {
                 $("#note_streichen_checkbox").css("display", "table-row");
+            }
+						// Vorläufig kann man Dummy-Modul-Credits nur beim Erstellen ändern (OS)
+            if($("#semester-content").find("#"+modul_id+" span.custom").text() == "custom") {
+                $("#credits_aendern_checkbox").css("display", "none");
+            } else {
+                $("#credits_aendern_checkbox").css("display", "table-row");
             }
         }/*,
                 error: function(a,b,c){
