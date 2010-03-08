@@ -9,7 +9,7 @@
     
   <!-- Der folgene Teil ist natürlich noch nicht fertig, Dummy-Module fehlen (OS) -->
   <% if @categories.length == 1 %>
-    <p>Dieses Modul wird in folgenden Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %>
+    <p>Dieses Modul wird in folgendem Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %>
   <% elsif @categories.length > 1%>
 	<p>Dieses Modul kann in mehrere Bereiche eingebracht werden - die entsprechende Auswahl können sie direkt unter dem Modul-Titel vornehmen.</p>
   <% end %>
