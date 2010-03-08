@@ -156,15 +156,16 @@ class MainController < ApplicationController
   def _check_category
     id = params[:mod_id]
     mod = Studmodule.find(id)
-#    @categories = Array.new
+    @categories = Array.new
 #    Category.find(:all, :conditions => "exclusive = 1").each do |category|
 #      @categories.push category
 #    end
-    mod.categories.each do |category|
-      if category.exclusive
-        @categories.push category
-      end
-    end
+
+#    mod.categories.each do |category|
+#      if category.exclusive
+#        @categories.push category
+#      end
+#    end
 
     respond_to do |format|
       format.html { render :action => "_check_category", :layout => false }
