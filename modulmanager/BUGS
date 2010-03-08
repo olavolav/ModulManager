@@ -15,6 +15,9 @@ Noch zu beheben:
 86. Dummy-Modul steht da immer mit Ausnahme-Option "Credit-Zahl geändert" (Olav & Christian)
 88. Text in der Info-Box beim Dummy-Modul-Einfügen stimmt nicht (Olav)
 85. Dummy-Modul-Kategorie-Checkboxen werden nicht alle angezeigt (Olav & Christian)
+93. Checkboxen von Dummy-Modulen besser gestaten und Hinweis hinzufügen, dass man die ursprüngliche Kategorie bekommt, wenn man nichts auswählt (Olav)
+94. Wenn man ein Dummy-Modul einfügt, wird nicht automatisch das nächste angezeigt (Olav & Quan)
+95. Bei Dummy-Modulen kommt nach dem Neu laden: "Ausnahme: Credit-Zahl wurde verändert" (Olav & Christian)
 
 
 
