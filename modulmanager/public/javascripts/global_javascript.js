@@ -620,21 +620,21 @@ var update_modul_in_selection = function (){
 
 }//ende
 
-var update_dummy_modul_in_selection = function(dummy_modul){
-    //alert("Hallo update dummy");
-    //check ob man das Note-streichen im Dialog ankreuzt
-    var ch =$("#custom_dialog form #note_streichen #note_checkbox:checked").val();
-    //alert("checked="+ch);
-	
-    if(ch=="checkbox"){
-        $(dummy_modul).find("p.note-option").css("display","block").text("Ausnahme: Note wird nicht eingebracht");
-        var dummy_id = $(dummy_modul).find("> span.modul_id").text();
-        //alert("Dummy_id = "+dummy_id);
-        ajax_serverupdate_remove_grade(dummy_id);
-        $("#note_checkbox").attr("checked","");
-    }
-    return 0;
-}	
+// var update_dummy_modul_in_selection = function(dummy_modul){
+//     //alert("Hallo update dummy");
+//     //check ob man das Note-streichen im Dialog ankreuzt
+//     var ch =$("#custom_dialog form #note_streichen #note_checkbox:checked").val();
+//     //alert("checked="+ch);
+// 	
+//     if(ch=="checkbox"){
+//         $(dummy_modul).find("p.note-option").css("display","block").text("Ausnahme: Note wird nicht eingebracht");
+//         var dummy_id = $(dummy_modul).find("> span.modul_id").text();
+//         //alert("Dummy_id = "+dummy_id);
+//         ajax_serverupdate_remove_grade(dummy_id);
+//         $("#note_checkbox").attr("checked","");
+//     }
+//     return 0;
+// }	
 
 var change_custom_in_selection_by_session_load = function(auswahl_modul_clone,custom_name,custom_credit){
 	
@@ -689,6 +689,7 @@ var session_auswahl_rekursiv = function(root){
                 // alert("Inserting custom module into selection...");
                 var custom_name = $(this).attr("name");
                 var custom_credit    = $(this).attr("credits");
+								modPropChange(modul_id,"modul_has_grade",$(this).attr("has_general_grade"));
                 change_custom_in_selection_by_session_load(auswahl_modul_clone,custom_name,custom_credit);
             }
 			
@@ -1054,7 +1055,7 @@ var ajax_request_grade = function(){
 function ajax_serverupdate_add_custom(this_name,this_credit_point_float,cat_id_array,custom_semester,custom_id,has_grade){
 		// Wie in custom_check angemerkt, müssen wir erst den ersten Array-Eintrag löschen (OS)
 		cat_id_array.shift();
-		alert("ajax_serverupdate_custom_checkbox: cat_id_array="+(cat_id_array.join(","))+", has_grade="+has_grade);
+		// alert("ajax_serverupdate_custom_checkbox: cat_id_array="+(cat_id_array.join(","))+", has_grade="+has_grade);
     $.ajax({
         type:"POST",
         url :"abfragen/add_custom_module_to_selection",
@@ -1449,7 +1450,7 @@ var poolrekursiv = function(XMLhandle){
 
                 appendString += "<div class='" + modul_id + "_parent ' rel='mod_parent'><div class='nichtleer'></div><div class='"+
                 pool_modul_class+"' id='" + modul_id + "' >" +
-                "<div class='icon_loeschen' onclick='modul_loeschen(" +
+                "<div class='icon_loeschen' style='display:none;' onclick='modul_loeschen(" +
                 modul_id +","+modul_id+")'>" +loeschenbild +"</div>" +
                 "<span class='modul_id' style='display:none'>"+modul_id+"</span>"+
 				
@@ -1568,7 +1569,8 @@ var change_module_style_to_pool = function(modul_id,handle){
         $(handle).hide();
     }
     // is_error auf "true" setzen
-    $(handle).find(".is_error").text("false");
+    // $(handle).find(".is_error").text("false");
+		modPropChange(modul_id,"is_error","false");
    	
     jQuery.each(jQuery.browser, function(i) {
         if($.browser.msie){

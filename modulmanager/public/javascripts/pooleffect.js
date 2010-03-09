@@ -49,8 +49,9 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 		if (!cat_check) cat_id_array.push(category_id.split("_")[1]);
 
 		// Ist das Modul benotet? (OS)
-		var has_grade = true;
-		if ($("#hat_note input[type='checkbox']").is(":checked")) has_grade = false;
+		var has_grade = "true";
+		if ($("#hat_note input[type='checkbox']").is(":checked")) has_grade = "false";
+		modPropChange(custom_id,"modul_has_grade",has_grade);
 		
     //alert("cat_id in custom_check="+category_id);
     var this_credit = credit.val();
@@ -89,7 +90,6 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         $(cus_modul).attr("class","auswahl_modul ui-draggable");
         $(cus_modul).find(".modul_name").text(this_name);
         $(cus_modul).find(".modul_credit").text(cre+" C");
-        change_module_style_to_auswahl(custom_id,cus_modul);
         modPropChange(custom_id,"inAuswahl","true");
         $("#middle").find(".semester").each(function(){
             var this_id = $(this).attr("id");
@@ -97,10 +97,11 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
                 var this_subsemester = $(this).find(".subsemester");
                 $(this_subsemester).append(cus_modul);
                 //check Noten streichen
-                update_dummy_modul_in_selection(cus_modul);
+                // update_dummy_modul_in_selection(cus_modul);
             }
 				
         })
+        change_module_style_to_auswahl(custom_id,cus_modul);
         ajax_serverupdate_add_custom(this_name,this_credit_point_float,cat_id_array,custom_semester,custom_id,has_grade);
         return true;
     }
