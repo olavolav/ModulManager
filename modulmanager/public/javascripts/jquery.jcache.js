@@ -82,7 +82,7 @@ Usage:
 			{
 				this.cache_length++;
 			}
-			else alert("jCache Warning: createItem: Key already exists.");
+			else alert("jCache Warning: createItem: Key ("+pKey+") already exists.");
 
 			this.keys.push(pKey);
 			this.items[pKey] = pValue;
@@ -106,7 +106,7 @@ Usage:
 			if (typeof(this.items[pKey]) == 'undefined') 
 			{
 				this.cache_length++;
-				alert("jCache Warning: changeItem: Key does not exist.");
+				alert("jCache Warning: changeItem: Key ("+pKey+") does not exist.");
 			}
 
 			this.keys.push(pKey);

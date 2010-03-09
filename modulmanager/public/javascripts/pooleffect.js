@@ -30,6 +30,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 		// Array übergibt (OS)
     var cat_id_array= new Array(1);
 		cat_id_array[0] = -1;
+		
     $("#dummy_checkbox input[type='checkbox']").each(function(){
         if($(this).is(":checked")){
             //alert("ja, checked");
@@ -43,25 +44,29 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
     var custom_id=custom_id.attr("value");
     var category_id = category.attr("value");
 	
-    //ajax bei set_category
-    if(cat_check) ajax_serverupdate_custom_checkbox(custom_id,cat_id_array);
+    //ajax bei set_category (veraltet, OS)
+    // if(cat_check) ajax_serverupdate_custom_checkbox(custom_id,cat_id_array);
+    // else{
+    // 				cat_id_array.push(category_id.split("_")[1]);
+    //     ajax_serverupdate_custom_checkbox(custom_id,cat_id_array);
+    // 		//alert("nicht check"+category_id);
+    // }
+
 		// Wenn keine Checkbox ausgewählt wird, wird die Kategorie übergeben, aus der das
 		// Dummy-Modul kommt (OS)
-    else{
-				cat_id_array.push(category_id.split("_")[1]);
-        ajax_serverupdate_custom_checkbox(custom_id,cat_id_array);
-    		//alert("nicht check"+category_id);
-    }
-	
-	
+		if (!cat_check) cat_id_array.push(category_id.split("_")[1]);
+
+		// Ist das Modul benotet? (OS)
+		var has_grade = true;
+		if ($("#hat_note input[type='checkbox']").is(":checked")) has_grade = false;
+		
     //alert("cat_id in custom_check="+category_id);
     var this_credit = credit.val();
     var this_name = name.val();
     var this_credit_float = parseFloat(this_credit);
 	
 	
-    if (name.val().length < min){
-		
+    if (name.val().length < min){		
         name.addClass('ui-state-error');
         updateTips("Bitte geben Sie ein Namen ein.",tips);
         return false;
@@ -96,7 +101,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         $(cus_modul).find(".modul_credit").text(cre+" C");
         change_module_style_to_auswahl(custom_id,cus_modul);
         // $(cus_modul).find("span.inAuswahl").text("true");
-        modPropChange(custom_id,"span.inAuswahl","true");
+        modPropChange(custom_id,"inAuswahl","true");
         $("#middle").find(".semester").each(function(){
             var this_id = $(this).attr("id");
             if(this_id == custom_semester){
@@ -107,7 +112,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
             }
 				
         })
-        ajax_serverupdate_add_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id);
+        ajax_serverupdate_add_custom(this_name,this_credit_point_float,cat_id_array,custom_semester,custom_id,has_grade);
         return true;
     }
 } 
@@ -157,7 +162,7 @@ $(function(){
                     var na = "Sonstiges Modul: "+name.attr("value");
                     var cre = credit.attr("value");
                     var cat = category.attr("value");
-                    var cus_sem=custom_semester.attr("value");
+                    var cus_sem = custom_semester.attr("value");
                     var cus_id=custom_id.attr("value");
 						
                     var cus_modul = $("#semester-content #"+cus_id);
@@ -169,7 +174,8 @@ $(function(){
                     var cus_cat_id = modProp(cus_id,"custom_category");
                     if(this_exist=="false"){
                         // $(cus_modul).find("span.custom_exist").text("true");
-												modPropChange(custom_id,"custom_exist","true");
+												// War das hier etwa ein Bug? (OS)
+												// modPropChange(cus_id,"custom_exist","true");
                         show_next_custom_modul_in_pool(cus_cat_id);
                         //show_next_custom_modul_in_pool_in_the_search_table();
                         get_and_change_custom_modul_in_the_table(cus_id,na,cus_cat_id);

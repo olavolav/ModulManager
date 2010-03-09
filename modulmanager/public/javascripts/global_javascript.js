@@ -1170,15 +1170,17 @@ var ajax_request_grade = function(){
     });
 }
 
-function ajax_serverupdate_add_custom(this_name,this_credit_point_float,category_id,custom_semester,custom_id){
-    category_id = category_id.split("_");
+function ajax_serverupdate_add_custom(this_name,this_credit_point_float,cat_id_array,custom_semester,custom_id,has_grade){
+		// Wie in custom_check angemerkt, müssen wir erst den ersten Array-Eintrag löschen (OS)
+		cat_id_array.shift();
+		alert("ajax_serverupdate_custom_checkbox: cat_id_array="+(cat_id_array.join(","))+", has_grade="+has_grade);
     $.ajax({
         type:"POST",
         url :"abfragen/add_custom_module_to_selection",
         dataType:"text",
         cache:false,
         async:false,
-        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id+"&"+"cat_id="+category_id[1]+"&"+authenticityTokenParameter(),
+        data:"name="+this_name+"&"+"credits="+this_credit_point_float+"&"+"sem_count="+custom_semester+"&"+"mod_id="+custom_id+"&"+"cat_id="+cat_id_array.join(",")+"&"+"has_grade="+has_grade+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
         success: function(data){
             ueberblick();
@@ -1205,24 +1207,25 @@ function ajax_request_custom_checkbox(custom_id){
     });
 }
 
-function ajax_serverupdate_custom_checkbox(custom_id,cat_id_array){
-	// Wie in custom_check angemerkt, müssen wir erst den ersten Array-Eintrag löschen (OS)
-	cat_id_array.shift();
-	// alert("ajax_serverupdate_custom_checkbox: cat_id_array="+(cat_id_array.join(",")));
-
-    $.ajax({
-        type:"POST",
-        url :"main/set_category",
-        dataType:"text",
-        cache:false,
-        async:false,
-        data:"mod_id="+custom_id+"&"+"cat_id="+cat_id_array.join(",")+"&"+authenticityTokenParameter(),
-        contentType:'application/x-www-form-urlencoded',
-        error : function(a,b,c){
-            alert ("AJAX-Fehler: ajax_serverupdate_custom_checkbox");
-        }
-    });
-}//ende
+// Hat sich erledigt, die Parameter werden jetzt direkt beim Modul-einfügen übergeben (OS)
+// function ajax_serverupdate_custom_checkbox(custom_id,cat_id_array){
+// 	// Wie in custom_check angemerkt, müssen wir erst den ersten Array-Eintrag löschen (OS)
+// 	cat_id_array.shift();
+// 	// alert("ajax_serverupdate_custom_checkbox: cat_id_array="+(cat_id_array.join(",")));
+// 
+//     $.ajax({
+//         type:"POST",
+//         url :"main/set_category",
+//         dataType:"text",
+//         cache:false,
+//         async:false,
+//         data:"mod_id="+custom_id+"&"+"cat_id="+cat_id_array.join(",")+"&"+authenticityTokenParameter(),
+//         contentType:'application/x-www-form-urlencoded',
+//         error : function(a,b,c){
+//             alert ("AJAX-Fehler: ajax_serverupdate_custom_checkbox");
+//         }
+//     });
+// }//ende
 
 function ajax_serverupdate_change_credits(modul_id,credits){
     $.ajax({
