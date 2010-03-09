@@ -26,7 +26,7 @@ Usage:
 	 * a too big value on a too big web apps may affect system memory.
 	 * Default is 10.
 	 */
-	this.maxSize = 10000;
+	this.maxSize = 4000;
 	
     /**
      * An array to keep track of the cache keys
@@ -65,14 +65,66 @@ Usage:
 			if (this.cache_length > this.maxSize)
 			{
 				// Da wir das nicht wollen, wird besser eine Warnung angezeigt (OS)
-				alert("jCache Warning: Out of cache memory, deleting oldest keys.");
+				alert("jCache Warning: setItem: Out of cache memory, deleting oldest keys.");
 				this.removeOldestItem();
 			}
 		}
+		// else alert("jCache Warning: Value undefined.");
 	   
 		return pValue;
 	}
 	
+	this.createItem = function(pKey, pValue)
+	{
+		if (typeof(pValue) != 'undefined') 
+		{
+			if (typeof(this.items[pKey]) == 'undefined') 
+			{
+				this.cache_length++;
+			}
+			else alert("jCache Warning: createItem: Key already exists.");
+
+			this.keys.push(pKey);
+			this.items[pKey] = pValue;
+			
+			if (this.cache_length > this.maxSize)
+			{
+				// Da wir das nicht wollen, wird besser eine Warnung angezeigt (OS)
+				alert("jCache Warning: createItem: Out of cache memory, deleting oldest keys.");
+				this.removeOldestItem();
+			}
+		}
+		// else alert("jCache Warning: Value undefined.");
+	   
+		return pValue;
+	}
+
+	this.changeItem = function(pKey, pValue)
+	{
+		if (typeof(pValue) != 'undefined') 
+		{
+			if (typeof(this.items[pKey]) == 'undefined') 
+			{
+				this.cache_length++;
+				alert("jCache Warning: changeItem: Key does not exist.");
+			}
+
+			this.keys.push(pKey);
+			this.items[pKey] = pValue;
+			
+			if (this.cache_length > this.maxSize)
+			{
+				// Da wir das nicht wollen, wird besser eine Warnung angezeigt (OS)
+				alert("jCache Warning: changeItem: Out of cache memory, deleting oldest keys.");
+				this.removeOldestItem();
+			}
+		}
+		// else alert("jCache Warning: Value undefined.");
+	   
+		return pValue;
+	}
+	
+
 	/*
 	 * @desc	Removes an item from the cache using its key
 	 * @param 	string Key of the item
@@ -137,7 +189,9 @@ Usage:
 	// dump entire Cache content to HTML table (OS)
 	this.dumpCache = function()
 	{
-		var HTMLstring = "<table cellspacing='8'><tr><td><strong>#</strong></td><td><strong>key</strong></td><td><strong>value</strong></td></tr>";
+		var HTMLstring = "<p>Memory: "+this.cache_length+" of "+this.maxSize+" slots used.</p>";
+		HTMLstring += "<table cellspacing='8'><tr><td><strong>#</strong></td><td><strong>key</strong></td>"+
+			"<td><strong>value</strong></td></tr>";
 		
 		for (var i=0; i<this.cache_length; i++) {
 			HTMLstring += "<tr><td>"+i+"</td><td>"+this.keys[i]+"</td><td>"+this.items[keys[i]]+"</td></tr>";

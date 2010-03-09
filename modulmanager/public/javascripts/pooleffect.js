@@ -96,7 +96,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         $(cus_modul).find(".modul_credit").text(cre+" C");
         change_module_style_to_auswahl(custom_id,cus_modul);
         // $(cus_modul).find("span.inAuswahl").text("true");
-        modPropSet(custom_id,"span.inAuswahl","true");
+        modPropChange(custom_id,"span.inAuswahl","true");
         $("#middle").find(".semester").each(function(){
             var this_id = $(this).attr("id");
             if(this_id == custom_semester){
@@ -169,7 +169,7 @@ $(function(){
                     var cus_cat_id = modProp(cus_id,"custom_category");
                     if(this_exist=="false"){
                         // $(cus_modul).find("span.custom_exist").text("true");
-												modPropSet(custom_id,"custom_exist","true");
+												modPropChange(custom_id,"custom_exist","true");
                         show_next_custom_modul_in_pool(cus_cat_id);
                         //show_next_custom_modul_in_pool_in_the_search_table();
                         get_and_change_custom_modul_in_the_table(cus_id,na,cus_cat_id);
