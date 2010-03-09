@@ -311,9 +311,11 @@ jQuery(function ($) {
 							// falls das Modul nicht in der Auswahl ist, das Modul anzeigen und
 							// den Baum im Pool rekursiv öffnen
 							var modul = $("#pool").find("#"+array_id[i]);
-							var modul_span = $(modul).find("span.inAuswahl").eq(0).text();
+							// var modul_span = $(modul).find("span.inAuswahl").eq(0).text();
+							var modul_span = modProp(array_id[i],"inAuswahl");
 							//modul-parent für ein Teil_modul
-							var modul_parent = $(modul).find("span.modul_parent_attr").eq(0).text();
+							// var modul_parent = $(modul).find("span.id_of_parent_modul").eq(0).text();
+							var modul_parent = modProp(array_id[i],"id_of_parent_modul");
 							
 							
 							if((modul_span=="nein")&&(modul_parent=="nein")){
@@ -435,8 +437,8 @@ jQuery(function ($) {
 											$(tr_show).each(function(){
 												
 												if (($(this).attr("rel") == "pool_modul")||($(this).attr("rel") == "pool_modul ui_draggable")) {
-													var mod_id = $(this).attr("class");
-													array_id.push(mod_id);
+													var modul_id = $(this).attr("class");
+													array_id.push(modul_id);
 												}
 											});	
 											

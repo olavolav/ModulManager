@@ -47,12 +47,14 @@ $(document).ready(function(){
     });
 });
 
-var change_credit_and_add_name_in_selection = function(handle){
+var change_credit_and_add_name_in_selection = function(modul_id,handle){
     //credit �ndern
-    var c_text =$(handle).find(".credits_in_selection").text();
+    // var c_text = $(handle).find(".credits_in_selection").text();
+		var c_text = modProp(modul_id,"credits_in_selection");
     $(handle).find(".modul_credit").text(c_text+" C");
     //name hizuf�gen
-    var n_text = $(handle).find(".add_sel_name_in_sel").text();
+    // var n_text = $(handle).find(".add_sel_name_in_sel").text();
+		var n_text = modProp(modul_id,"add_sel_name_in_sel");
     $(handle).find(".modul_name").append(n_text);
 	
     return 0;
@@ -66,31 +68,36 @@ var change_credit_and_add_name_in_selection = function(handle){
 // - set_image_to_red_ipunkt_and_error_to_yes
 // - set_image_to_ipunkt
 // Fehlt möglicherweise noch: Ausnahme-Optionen-Verhalten
-var flip_module_infoicon_on_event = function(type,handle){
+var flip_module_infoicon_on_event = function(type,modul_id,handle){
     // gefragt is handle zur Kategorie
     var this_class = $(handle).attr("class");
     if(!($(handle).hasClass("auswahl_modul_clone")||$(handle).hasClass("auswahl_modul")||$(handle).hasClass("custom_modul")||$(handle).hasClass("pool_modul"))) {
-        alert("Fehler: Handle in flip_module_infoicon_on_event() ist kein Modul (class="+this_class+")!");
+        alert("Fehler: Handle in flip_module_infoicon_on_event("+type+") ist kein Modul (class="+this_class+")!");
     }
 	
     switch(type){
         // Die ersten beiden Events sollten optimiert sein, da die Fehler-Überprüfung bei jeder
         // Änderung aufgerufen wird. Bei den Noten-Events unten ist das nicht so wichtig.
         case "error":
+						// alert("flip_module_infoicon_on_event: error event triggered.");
             // In dem Fall ist klar, was passieren muss, unabhängig von der Note wird das Icon auf
             // rot gesetzt, falls das nicht ohnehin schon der Fall ist:
-            if ($(handle).find(".is_error").text() != "ja") {
+            // if ($(handle).find(".is_error").text() != "ja") {
+	          if (modProp(modul_id,"is_error") != "ja") {
                 $(handle).find(".ipunkt").html(roter_ipunkt);
-                // Soll hier noch eine jQuery-Animation rein?
-                $(handle).find(".is_error").text("ja");
+                // $(handle).find(".is_error").text("ja");
+								modPropSet(modul_id,"is_error","ja");
             }
             break;
 				
         case "no_error":
-            if ($(handle).find(".is_error").text() != "nein") {
-                $(handle).find(".is_error").text("nein");
+            // if ($(handle).find(".is_error").text() != "nein") {
+            if (modProp(modul_id,"is_error") != "nein") {
+                // $(handle).find(".is_error").text("nein");
+                modPropSet(modul_id,"is_error","nein");
                 // Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
-                if (($(handle).find(".modul_has_grade").text()=="ja")&&($(handle).find(".noten_input").val()!="Note"))
+                // if (($(handle).find(".modul_has_grade").text()=="ja")&&($(handle).find(".noten_input").val()!="Note"))
+                if ((modProp(modul_id,"modul_has_grade")=="ja")&&($(handle).find(".noten_input").val()!="Note"))
                     $(handle).find(".ipunkt").html(gelber_ipunkt);
                 else $(handle).find(".ipunkt").html(gruener_ipunkt);
             }
@@ -98,13 +105,15 @@ var flip_module_infoicon_on_event = function(type,handle){
 				
         case "entered_grade":
             // Falls kein Fehler vorliegt, wird das Icon auf grün gesetzt
-            if ($(handle).find(".is_error").text() != "ja")
+            // if ($(handle).find(".is_error").text() != "ja")
+            if (modProp(modul_id,"is_error") != "ja")
                 $(handle).find(".ipunkt").html(gruener_ipunkt);
             break;
 				
         case "invalid_grade":
             // Falls kein Fehler vorliegt, wird das Icon auf gelb gesetzt
-            if ($(handle).find(".is_error").text() != "ja")
+            // if ($(handle).find(".is_error").text() != "ja")
+            if (modProp(modul_id,"is_error") != "ja")
                 $(handle).find(".ipunkt").html(gelber_ipunkt);
             break;
 			
@@ -112,9 +121,10 @@ var flip_module_infoicon_on_event = function(type,handle){
             // Das ist für den Fall gedacht, wenn man ein Modul in die Auwahl zieht, und also alle
             // anderen Event-Arten möglich sind
             // Nur benutzt in der Funktion change_module_style_to_auswahl
-            if ($(handle).find(".is_error").text() == "nein") {
+            // if ($(handle).find(".is_error").text() == "nein") {
+            if (modProp(modul_id,"is_error") == "nein") {
                 // Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
-                if (($(handle).find(".modul_has_grade").text()=="ja") && (($(handle).find(".noten_input").val()!="Note")||($(handle).find(".noten_input").val()!="")))
+                if ((modProp(modul_id,"modul_has_grade")=="ja") && (($(handle).find(".noten_input").val()!="Note")||($(handle).find(".noten_input").val()!="")))
                     $(handle).find(".ipunkt").html(gelber_ipunkt);
                 else $(handle).find(".ipunkt").html(gruener_ipunkt);
             }
@@ -127,14 +137,14 @@ var flip_module_infoicon_on_event = function(type,handle){
     }
 }
 
-var selection_input_value_is_nill = function(input_noten){
-    var result=true;
-    var this_val = $(input_noten).val();
-    if(this_val != ""){
-        result=false;
-    }
-    return result;
-}
+// var selection_input_value_is_nill = function(input_noten){
+//     var result=true;
+//     var this_val = $(input_noten).val();
+//     if(this_val != ""){
+//         result=false;
+//     }
+//     return result;
+// }
 
 
 var selection_input_check = function(input_noten){
@@ -155,7 +165,7 @@ var selection_input_check = function(input_noten){
         alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
         $(input_noten).attr("value","Note");
         ajax_serverupdate_grade_reset(modul_id);
-        flip_module_infoicon_on_event("invalid_grade",module_handle);
+        flip_module_infoicon_on_event("invalid_grade",modul_id,module_handle);
         $("#note_berechnen").text("");
     } else {
         //suche nach ',' in String trim_grade dann verwandel es zum '.'
@@ -165,18 +175,18 @@ var selection_input_check = function(input_noten){
         if(new_float == 0) {
             ajax_serverupdate_grade_reset(modul_id);
             $(input_noten).attr("value", "Note");
-            flip_module_infoicon_on_event("invalid_grade", module_handle);
+            flip_module_infoicon_on_event("invalid_grade",modul_id,module_handle);
             ajax_request_grade();
         }
         else if(new_float < 1 || new_float > 4 ){
             alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
-            flip_module_infoicon_on_event("invalid_grade",module_handle);
+            flip_module_infoicon_on_event("invalid_grade",modul_id,module_handle);
             $(input_noten).attr("value","Note");
             ajax_serverupdate_grade_reset(modul_id);
             $("#note_berechnen").text("");
         } else {
             $(input_noten).attr("value",this_original);
-            flip_module_infoicon_on_event("entered_grade",module_handle);
+            flip_module_infoicon_on_event("entered_grade",modul_id,module_handle);
             // if(!check_error_by_span(input_noten)){
             //     set_image_to_gruener_ipunkt(input_noten);
             // }
@@ -381,33 +391,33 @@ var custom_modul_in_the_search_table_rekursiv = function(){
 	
 }
 
-// Wof�r ist diese Funktion? Bitte noch kommentieren oder l�schen (OS)
-var modul_search = function(){
-	
-    $("#suche").show();
-    var this_tr = $("#suche").find("tr");
-    $(this_tr).each(function(){
-        var this_display = $(this).css("display");
-        if(this_display=="block"){
-            alert("ja");
-        }
-		
-    });
-		
-	
-	
-}//ende function
+// var modul_search = function(){
+// 	
+//     $("#suche").show();
+//     var this_tr = $("#suche").find("tr");
+//     $(this_tr).each(function(){
+//         var this_display = $(this).css("display");
+//         if(this_display=="block"){
+//             alert("ja");
+//         }
+// 		
+//     });
+// 		
+// 	
+// 	
+// }//ende function
 
 
 ///////////////////MODULLOESCHEN loeschen////////////////////////
 /// bei Click auf <div class="modul_loeschen">
 /// neuerdings auch beim Ziehen zum Pool (OS)
-var partial_modul_loeschen = function (mod_id,all_sem_destroy){
+var partial_modul_loeschen = function (modul_id,all_sem_destroy){
     //alert("hallo partial_modul_loeschen");
     //alert("hallo sub "+all_sem_destroy);
     //suche teil-Module
     $("#middle div.subsemester").find("div").each(function(){
-        if($(this).find(".modul_parent_attr").text()== mod_id){
+	      // if($(this).find(".id_of_parent_modul").text()== modul_id){
+        if (modProp(modul_id,"id_of_parent_modul") == modul_id) {
             var this_id = $(this).attr("id");
             //alert(this_id);
             sub_modul_loeschen(this,this_id,all_sem_destroy);
@@ -415,47 +425,52 @@ var partial_modul_loeschen = function (mod_id,all_sem_destroy){
     });
     ueberblick();
 }
-var modul_loeschen = function (mod_id,all_sem_destroy){
+
+var modul_loeschen = function (modul_id,all_sem_destroy){
     // Die Schleife hier sollte eigentlich unnoetig sein, wenn jedes Modul nur 1x in der
     // Auswahl sein kann, ausser bei Drop in den Pool, dann 2x: (OS)
     // Letzteres sollte man vielleicht nochmal anschauen irgendwann. (OS)
-    // if ($("#semester-content div.semester").find("div#"+mod_id).length > 1)
-    //alert("Warnung: Dieses Modul (ID "+mod_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+mod_id).length+"-mal enthalten!");
+    // if ($("#semester-content div.semester").find("div#"+modul_id).length > 1)
+    //alert("Warnung: Dieses Modul (ID "+modul_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+modul_id).length+"-mal enthalten!");
 	
-    //alert(mod_id);
     //alert("sem_detroy="+all_sem_destroy);
-    //$("#semester-content div.semester").find("div#"+mod_id).each(function(){
-    $("#middle div.semester").find("div#"+mod_id).each(function(){
+    //$("#semester-content div.semester").find("div#"+modul_id).each(function(){
+    $("#middle div.semester").find("div#"+modul_id).each(function(){
 		
-        var this_mod_parts = $(this).find(".modul_parts").text();
-        var this_mod_par_attr = $(this).find("span.modul_parent_attr").text();
+        // var this_mod_parts = $(this).find(".modul_parts").text();
+        var this_mod_parts = modProp(modul_id,"modul_parts");
+        // var this_mod_par_id = $(this).find("span.id_of_parent_modul").text();
+        var this_mod_par_id = modProp(modul_id,"id_of_parent_modul");
         //alert("Mod-Parts ="+this_mod_parts);
         //check nach Teil-Modul
-        if((this_mod_parts != "0")|| (this_mod_par_attr !="nein")){
+        if((this_mod_parts != "0") || (this_mod_par_id !="nein")){
             var check = confirm("Dieses Modul besteht aus mehreren Teilmodulen - wenn Sie es entfernen, werden alle weiteren Teile ebenfalls entfernt.");
             if(check == true){
 				
-                if(this_mod_par_attr != "nein"){
+                if(this_mod_par_id != "nein"){
                     //hier ist Teil-modul
                     //such nach head-modul-->l�schen
-                    var head_modul = $("#middle div.semester").find("div#"+this_mod_par_attr);
+                    var head_modul = $("#middle div.semester").find("div#"+this_mod_par_id);
                     change_credit_and_remove_name_in_pool(head_modul);
-                    $(head_modul).find(".head_modul_in_pool").text("ja");
-                    sub_modul_loeschen(head_modul,this_mod_par_attr,all_sem_destroy);
-                    partial_modul_loeschen(this_mod_par_attr,all_sem_destroy);
+                    // $(head_modul).find(".head_modul_in_pool").text("ja");
+										modPropSet(this_mod_par_id,"head_modul_in_pool","ja");
+										
+                    sub_modul_loeschen(head_modul,this_mod_par_id,all_sem_destroy);
+                    partial_modul_loeschen(this_mod_par_id,all_sem_destroy);
                 }
                 else{
                     //hier ist head-Modul
                     // setzen "ja" beim span.head_modul_in_pool ( wegen AJAX)
-                    $(this).find(".head_modul_in_pool").text("ja");
+                    // $(this).find(".head_modul_in_pool").text("ja");
+										modPropSet(modul_id,"head_modul_in_pool","ja");
                     change_credit_and_remove_name_in_pool(this);
-                    sub_modul_loeschen(this,mod_id,all_sem_destroy);
-                    partial_modul_loeschen(mod_id,all_sem_destroy);
+                    sub_modul_loeschen(this,modul_id,all_sem_destroy);
+                    partial_modul_loeschen(modul_id,all_sem_destroy);
                 }
             }
         }
         else{
-            sub_modul_loeschen(this,mod_id,all_sem_destroy);
+            sub_modul_loeschen(this,modul_id,all_sem_destroy);
         }
     });
 
@@ -464,14 +479,16 @@ var modul_loeschen = function (mod_id,all_sem_destroy){
 }//ende modul_loeschen
 
 
-var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
+var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
 	
 		
     // alert("hallo modul_loeschen (Schleife, 1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
     // aendere CSS style
-    change_module_style_to_pool(this_mod);
-    var kopf_modul_check = $(this_mod).find(".modul_parts").text();
-    var parent_attr_check = $(this_mod).find(".modul_parent_attr").text();
+    change_module_style_to_pool(modul_id,this_mod);
+    // var kopf_modul_check = $(this_mod).find(".modul_parts").text();
+    var kopf_modul_check = modProp(modul_id,"modul_parts");
+    // var parent_attr_check = $(this_mod).find(".id_of_parent_modul").text();
+    var parent_attr_check = modProp(modul_id,"id_of_parent_modul");
     var pool_modul = "pool_modul";
     //wenn ein Teil_modul ist, dann hat das class "partial",
     // damit das nicht in Pool angezeigt wird.
@@ -482,15 +499,17 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
     }
     $(this_mod).attr("class",pool_modul);
     //check nach Head-modul. Wenn ja, dann setze span.modul_parts_exist auf "nein"
-    if ($(this_mod).find("span.modul_parts_exist").text()=="ja"){
-        $(this_mod).find("span.modul_parts_exist").text("nein");
-    }
+    // if ($(this_mod).find("span.modul_parts_exist").text()=="ja"){
+    //     $(this_mod).find("span.modul_parts_exist").text("nein");
+    // }
+    if (modProp(modul_id,"modul_parts_exist")=="ja") modPropSet(modul_id,"modul_parts_exist","nein");
+
     var this_id = $(this_mod).attr("id");
     var this_modul = $(this_mod);
     var modul_itself_has_not_been_moved = true;
     // ersmal hide
     $(this_modul).hide();
-    // suche nach mod_id_parent im Pool
+    // suche nach modul_id_parent im Pool
 		
     // alert("Dieses Modul (bzw. dessen Parent) kommt im Pool "+($("#pool ."+this_id+"_parent").length)+" mal vor.");
 					
@@ -519,12 +538,12 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
                     if (pool_modul != "partial_modul") {
                         //alert("pool_modul = "+pool_modul);
                         //check nach dummy.
-                        if($(this).find("span.custom").text()!="custom"){
-                            $(this).find("#" + mod_id).css("display", "block");
-                        }
+                        // if($(this).find("span.custom").text()!="custom"){
+                        if (modProp(modul_id,"custom") != "custom")
+                            $(this).find("#" + modul_id).css("display", "block");
                     }
                 }
-            // else $(this).find("#"+mod_id).css("display","none");
+            // else $(this).find("#"+modul_id).css("display","none");
             }
 				
         }// ende if leer
@@ -537,8 +556,9 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
             else if (arrow_type == "unten") {
                 if ((!search_is_active()) || $(this).is(".search_modul")) {
                 	
-                    if($(this).find("span.custom").text()!="custom")
-                        $(this).find("#"+mod_id).css("display","block");
+                    // if($(this).find("span.custom").text()!="custom")
+                    if (modProp(modul_id,"custom") != "custom")
+                        $(this).find("#"+modul_id).css("display","block");
                 //else alert("na, hier bist du wieder ein dummy");
                 // alert("test: 1");
                 }
@@ -546,21 +566,19 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
         }
 
         // inAuswahl-Tag setzen (OS)
-        $(this).find("#"+mod_id+" span.inAuswahl").text("nein");
-        // alert("inAuswahl gesetzt auf (OS): "+$(this).find("#"+mod_id+" span.inAuswahl").text());
+        // $(this).find("#"+modul_id+" span.inAuswahl").text("nein");
+        modPropSet(modul_id,"inAuswahl","nein");
+        // alert("inAuswahl gesetzt auf (OS): "+$(this).find("#"+modul_id+" span.inAuswahl").text());
 			
         if (search_is_active() && $(this).is(".search_modul") &&
             ((which_arrow_is_visible($(this).parent())!="rechts")||($(the_father).is(".pool_category")))) {
-            //$(this).find("#"+mod_id).css("display","block");
-            var this_mod = $(this).find("#"+mod_id).eq(0);
+            //$(this).find("#"+modul_id).css("display","block");
+            var this_mod = $(this).find("#"+modul_id).eq(0);
             if(($(this_mod).attr("class")!="partial_modul")||($(this_mod).attr("class")!="partial_modul ui-draggable")){
-                if($(this_mod).find("span.custom").text()!="custom"){
-                    $(this_mod).show();
-                }
+                // if($(this_mod).find("span.custom").text()!="custom"){
+                if (modProp(modul_id,"custom") != "custom") $(this_mod).show();
                 else alert("ich bin da das Dummy in search-active");
             }
-				
-            // alert("test: 2");
             rekursiv_pool_by_in(the_father);
         }
         else if (which_arrow_is_visible(the_father) == "leer")
@@ -577,7 +595,8 @@ var sub_modul_loeschen = function (this_mod,mod_id,all_sem_destroy){
     // else alert("Aha, das Modul wurde verschoben, dann loeschen wir es besser nicht.");
 
     // AJAX aufrufen und Session-DB aktualisieren
-    ajax_serverupdate_remove(mod_id);
+		// alert("sub_modul_loeschen: ajax_serverupdate_remove("+modul_id+")");
+    ajax_serverupdate_remove(modul_id);
     if((kopf_modul_check == "0")&&(parent_attr_check=="nein")&&(all_sem_destroy!="10000")){
         ueberblick();
     }
@@ -712,16 +731,17 @@ var update_dummy_modul_in_selection = function(dummy_modul){
 // session_auswahl() implementieren. Die ruft action abfragen/auswahl per AJAX auf
 
 // Diese Funktion wird offensichtlich nie benutzt (OS)
-var change_custom_in_pool_by_session_load = function(das_erste,custom_name,custom_credit){
-    //alert("Hallo custom_change");
-    $(das_erste).find(".modul_name").text(custom_name);
-    $(das_erste).find(".modul_credit").text(custom_credit+" C");
-    $(das_erste).attr("class","pool_modul ui-draggable");
-    $(das_erste).find(".custom_exist").text("ja");
-
-    return 0;
-	
-}
+// var change_custom_in_pool_by_session_load = function(das_erste,custom_name,custom_credit){
+//     //alert("Hallo custom_change");
+//     $(das_erste).find(".modul_name").text(custom_name);
+//     $(das_erste).find(".modul_credit").text(custom_credit+" C");
+//     $(das_erste).attr("class","pool_modul ui-draggable");
+//     // $(das_erste).find(".custom_exist").text("ja");
+//     modPropSet($(das_erste).attr("id"),"custom_exist","ja");
+// 
+//     return 0;
+// 	
+// }
 var change_custom_in_selection_by_session_load = function(auswahl_modul_clone,custom_name,custom_credit){
 	
     //alert("hi change custom");
@@ -729,16 +749,16 @@ var change_custom_in_selection_by_session_load = function(auswahl_modul_clone,cu
     $(auswahl_modul_clone).find(".modul_name").text(custom_name);
     $(auswahl_modul_clone).find(".modul_credit").text(custom_credit+" C");
     $(auswahl_modul_clone).attr("class","pool_modul ui-draggable");
-    $(auswahl_modul_clone).find(".custom_exist").text("ja");
+    // $(auswahl_modul_clone).find(".custom_exist").text("ja");
+		modPropSet($(auswahl_modul_clone).attr("id"),"custom_exist","ja");
 
     return 0;
-	
 }
 
-var set_mod_has_grade_to_no = function(handle){
-    $(handle).find("span.modul_has_grade").text("nein");
-	
-}
+// var set_mod_has_grade_to_no = function(handle){
+//     $(handle).find("span.modul_has_grade").text("nein");
+//     $(handle).find("span.modul_has_grade").text("nein");	
+// }
 
 var session_auswahl_rekursiv = function(root){
 	
@@ -752,7 +772,7 @@ var session_auswahl_rekursiv = function(root){
             var parent_id = $(parent).attr("count");
             // entsprechenem  modul_id im Pool suchen, dann clonen ins Auswahl
             // dann verstecken die originalen Module im Pool
-            var mod_id = $(this).attr("id");
+            var modul_id = $(this).attr("id");
             var mod_grade = $(this).attr("grade");
             //has_general_grade:Das zeit an, ob dieses Modul normalerweise benotet ist.
             //momentan has_general_grade noch nicht benutzt. Es soll set_mod_has_grade_to_no(auswahl_modul_clone) benuztz werden, 
@@ -761,11 +781,12 @@ var session_auswahl_rekursiv = function(root){
             var mod_has_grade=$(this).attr("has_grade");
             var mod_credit=$(this).attr("credits");
             var mod_has_warning=$(this).attr("has_warning");
-            var modul_im_pool = $("#pool").find("div#"+mod_id);
+            var modul_im_pool = $("#pool").find("div#"+modul_id);
             var das_erste = $(modul_im_pool).eq(0);
 
-            var modul_has_additional_info = $("#pool").find("div#"+mod_id).find(".additional_info").eq(0).text();
-            // alert("ModID="+mod_id+", AddInfo="+modul_has_additional_info);
+            // var modul_has_additional_info = $("#pool").find("div#"+modul_id).find(".additional_info").eq(0).text();
+            var modul_has_additional_info = modProp(modul_id,"additional_info");
+            // alert("ModID="+modul_id+", AddInfo="+modul_has_additional_info);
 			
             // die originalen Module verstecken
             //und den span.inAuswahl auf "ja" setzen
@@ -773,7 +794,8 @@ var session_auswahl_rekursiv = function(root){
             var auswahl_modul_clone=$(das_erste).clone(true);
             $(modul_im_pool).each(function(){
                 $(this).hide();
-                $(this).find("span.inAuswahl").text("ja");
+                // $(this).find("span.inAuswahl").text("ja");
+                modPropSet(modul_id,"inAuswahl","ja");
             });
             //custom_modul laden: Name und credit ver�ndern
             if ($(this).attr("class") == "custom") {
@@ -792,7 +814,7 @@ var session_auswahl_rekursiv = function(root){
                 $(auswahl_modul_clone).find("p.note-option").html("Ausnahme: Note wird nicht eingebracht");
             }			
             $(auswahl_modul_clone).attr("class","auswahl_modul_clone");
-            change_module_style_to_auswahl(auswahl_modul_clone);
+            change_module_style_to_auswahl(modul_id,auswahl_modul_clone);
             //geaenderte Credits? und Warnung deaktivieren?
             //wenn ja dann die entsprechenen Meldungen anzeigen
             if(mod_credit!=""){
@@ -813,22 +835,25 @@ var session_auswahl_rekursiv = function(root){
                     this_grade = mod_grade.replace(/\./,",");
                 }
                 $(this_noten).val(this_grade);
-                flip_module_infoicon_on_event("entered_grade",auswahl_modul_clone);
+                flip_module_infoicon_on_event("entered_grade",modul_id,auswahl_modul_clone);
             }
-            if (check_error(mod_id))
-                flip_module_infoicon_on_event("error",auswahl_modul_clone);
+            if (check_error(modul_id))
+                flip_module_infoicon_on_event("error",modul_id,auswahl_modul_clone);
 
             $(auswahl_modul_clone).find("span.inAuswahl").text("ja");
             //check nach Kopfmodul. Wenn ja dann credit name und head_modul_in_pool ver�ndern
-            if($(auswahl_modul_clone).find(".modul_parts").text()!="0"){
-                $(auswahl_modul_clone).find(".head_modul_in_pool").text("nein");
-                change_credit_and_add_name_in_selection(auswahl_modul_clone);
-                $(auswahl_modul_clone).find(".modul_parts_exist").text("ja");
+            // if($(auswahl_modul_clone).find(".modul_parts").text()!="0"){
+            if(modProp(modul_id,"modul_parts") != "0"){
+                // $(auswahl_modul_clone).find(".head_modul_in_pool").text("nein");
+                modPropSet(modul_id,"head_modul_in_pool","nein");
+                change_credit_and_add_name_in_selection(modul_id,auswahl_modul_clone);
+                // $(auswahl_modul_clone).find(".modul_parts_exist").text("ja");
+                modPropSet(modul_id,"modul_parts_exist","ja");
             }
+
             //check nach Teil-Modul
-            if($(auswahl_modul_clone).find(".modul_parent_attr").text()!="nein"){
-                $(auswahl_modul_clone).show();
-            }
+            // if($(auswahl_modul_clone).find(".id_of_parent_modul").text()!="nein"){
+            if(modProp(modul_id,"id_of_parent_modul") != "nein") $(auswahl_modul_clone).show();
 
             // VoratBOX
             if(parent_id == "0"){
@@ -846,8 +871,9 @@ var session_auswahl_rekursiv = function(root){
             // Falls nötig, noch die zusätzliche Combobox anzeigen
             if(modul_has_additional_info == "true") {
                 // alert("Hier kommt vom Server noch eine Combobox.");
-                ajax_request_combobox(mod_id);
-                $(auswahl_modul_clone).find(".additional_info").text("drop_down_schon_in_auswahl");
+                ajax_request_combobox(modul_id);
+                // $(auswahl_modul_clone).find(".additional_info").text("drop_down_schon_in_auswahl");
+                modPropSet(modul_id,"additional_info","drop_down_schon_in_auswahl");
             }
             return;
         }// ende Bl�tter
@@ -943,6 +969,7 @@ var ajax_request_module_info = function (modul_id){
 }
 
 var ajax_request_pool_module_info = function (modul_id){
+		// alert("ajax_request_pool_module_info: modul_id="+modul_id);
     $.ajax({
         type : 'POST',
         url  : '/abfragen/get_pool_module_info',
@@ -957,6 +984,7 @@ var ajax_request_pool_module_info = function (modul_id){
 }
 
 var ajax_serverupdate_add = function (modul_id,semester,cat_id){
+		// alert("ajax_serverupdate_add: modul_id="+modul_id+", semester="+semester+", cat_id="+cat_id);
     $.ajax({
         type: 'POST',
         url  : 'abfragen/add_module_to_selection',
@@ -1052,7 +1080,7 @@ var ajax_serverupdate_remove_warning = function(module_id) {
 };
 
 var ajax_serverupdate_set_category = function(module_id, category_id) {
-    //		alert("POST main/set_category: mod_id="+module_id+"&cat_id="+category_id+"&"+authenticityTokenParameter());
+    //		alert("POST main/set_category: modul_id="+module_id+"&cat_id="+category_id+"&"+authenticityTokenParameter());
     if(category_id != undefined) {
         $.ajax({
             type: "POST",
@@ -1087,7 +1115,7 @@ var ajax_serverupdate_grade_reset = function(modul_id,grade) {
 }
 
 
-function ajax_request_combobox(mod_id){
+function ajax_request_combobox(modul_id){
     $("#box_info_combobox").empty();
     $("#box_info,#box_info_pool,#box_info_exception,#box_info_overview").hide();
     $.ajax({
@@ -1096,19 +1124,19 @@ function ajax_request_combobox(mod_id){
         dataType:"text",
         cache:false,
         async:true,
-        data:"mod_id="+mod_id+"&"+authenticityTokenParameter(),
+        data:"mod_id="+modul_id+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
         success:function(html){
             $("#semester-content").find(".semester").each(function(){
                 $(this).find(">.subsemester").children().not("h5").each(function(){
-                    var this_mod_id = $(this).attr("id");
-                    if(this_mod_id == mod_id){
+                    var this_modul_id = $(this).attr("id");
+                    if(this_modul_id == modul_id){
                         var ourmenu = $(this).find("> p.drop_down_menu");
                         ourmenu.show().append(html);
                         ourmenu = ourmenu.find("select");
                         ourmenu.change(function() {
                             // alert("Dropdown-Menü verändert zu: "+ourmenu.find(":selected").text()+", value="+String(ourmenu.val()));
-                            ajax_serverupdate_set_category(this_mod_id,ourmenu.val());
+                            ajax_serverupdate_set_category(this_modul_id,ourmenu.val());
                             ueberblick();
                         });
                     }
@@ -1196,14 +1224,14 @@ function ajax_serverupdate_custom_checkbox(custom_id,cat_id_array){
     });
 }//ende
 
-function ajax_serverupdate_change_credits(mod_id,credits){
+function ajax_serverupdate_change_credits(modul_id,credits){
     $.ajax({
         type:"POST",
         url :"abfragen/change_credits",
         dataType:"text",
         cache:false,
         async:false,
-        data:"mod_id="+mod_id+"&"+"credits="+credits+"&"+authenticityTokenParameter(),
+        data:"mod_id="+modul_id+"&"+"credits="+credits+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
         error : function(a,b,c){
             alert ("AJAX-Fehler: change_credits");
@@ -1212,6 +1240,7 @@ function ajax_serverupdate_change_credits(mod_id,credits){
 }
 
 var check_error = function(error_id){
+		// alert ("check_error: error_id="+error_id);
     var check=false;
     $("#middle #error_table").children().each(function(){
         if($(this).attr("id")==error_id){
@@ -1221,28 +1250,30 @@ var check_error = function(error_id){
     return check;
 }//ende
 
-var check_error_by_span = function(noten_input){
-    var this_parent = $(noten_input).parent().get(0);
-    var this_text = $(this_parent).find(">.is_error").text();
-    return this_text == "ja";
-}
+// var check_error_by_span = function(noten_input){
+//     var this_parent = $(noten_input).parent().get(0);
+//     var this_text = $(this_parent).find(">.is_error").text();
+//     return (this_text == "ja");
+// }
 
 var check_error_all_modul_in_selection = function(){
     $("#semester-content").find(".semester").each(function(){
         $(this).find(">.subsemester").children().not("h5").each(function(){
-            var mod_id = $(this).attr("id");
-            if (check_error("error_"+mod_id)) flip_module_infoicon_on_event("error",this);
-            else flip_module_infoicon_on_event("no_error",this);
+            var modul_id = $(this).attr("id");
+						// War das ein Bug? (OS)
+            if (check_error("error_"+modul_id)) flip_module_infoicon_on_event("error",modul_id,this);
+            // if (check_error(modul_id)) flip_module_infoicon_on_event("error",modul_id,this);
+            else flip_module_infoicon_on_event("no_error",modul_id,this);
         });
     });
 }
 
 var error_table_builder = function(root){
     $(root).children().each(function(){
-        var mod_id = $(this).attr("id");
-        //alert("error_id="+mod_id);
-        //$("div#error_table").append("<div id='problem_"+mod_id+"'>"+mod_id+"</div>");
-        $("#middle #error_table").append("<div id='error_"+mod_id+"'>"+mod_id+"</div>");
+        var modul_id = $(this).attr("id");
+        //alert("error_id="+modul_id);
+        //$("div#error_table").append("<div id='problem_"+modul_id+"'>"+modul_id+"</div>");
+        $("#middle #error_table").append("<div id='error_"+modul_id+"'>"+modul_id+"</div>");
 		
     });
 	
@@ -1285,8 +1316,9 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 	
     var this_draggable_class = $(ui_draggable).attr("class");
     //    var kopf_modul_check = $(ui_draggable).find(".modul_parts").text();
-    var kopf_modul_in_pool = $(ui_draggable).find(".head_modul_in_pool").text();
-    var cat_id = $(ui_draggable).find(".cat_id").text();
+    var kopf_modul_in_pool = modProp(modul_id,"head_modul_in_pool");
+    // var cat_id = $(ui_draggable).find(".cat_id").text();
+    var cat_id = modProp(modul_id,"cat_id");
     //    var additional_info = $(ui_draggable).find(".additional_info").text();
 	
     // check ob das reingezogenem Modul aus POOL kommt.
@@ -1295,9 +1327,10 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
     // dann wieder add per AJAX
 	
     if ((this_draggable_class == "pool_modul ui-draggable") || (this_draggable_class == "pool_modul")) {
-        change_module_style_to_auswahl(ui_draggable);
-        $(ui_draggable).find("span.inAuswahl").text("ja");
-        $(ui_draggable).attr("class", "auswahl_modul");
+        change_module_style_to_auswahl(modul_id,ui_draggable);
+        // $(ui_draggable).find("span.inAuswahl").text("ja");
+        modPropSet(modul_id,"inAuswahl","ja");
+        $(ui_draggable).attr("class", "auswahl_modul_moving");
 		
         // Falls das Modul die "search_modul"-Eigenschaft hat, wird nat�rlich auch gerade gesucht,
         // die entspr. Abfrage er�brigt sich also.
@@ -1312,12 +1345,15 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
         }
 		
         // Die anderen gleichen Module verstecken (fast gleich zum Prozedere oben)
-        $("." + modul_id + "_parent").each(function(){
+        $("." + modul_id + "_parent").not(".auswahl_modul_moving").each(function() {
+						var here_module_id = $(this).attr("id");
             // ...falls das nicht das direkt verschobene Modul ist, denn der append-Befehl kommt
             // ja erst sp�ter (OS)
-            if ($(this).find("span.inAuswahl").text() == "nein") {
+            // if ($(this).find("span.inAuswahl").text() == "nein") {
+            // if (modProp(modul_id,"inAuswahl") == "nein") {
                 // inAuswahl-Tag setzen und Modul verstecken (OS):
-                $(this).find("span.inAuswahl").text("ja");
+                // $(this).find("span.inAuswahl").text("ja");
+                // modPropSet(here_module_id,"inAuswahl","ja");
                 $(this).find(".pool_modul,.search_modul").css("display", "none");
                 // hier ein parent() weniger als oben, weil wir ja schon surch die parent-Divs laufen (OS)
                 var this_category = $(this).parent();
@@ -1326,12 +1362,15 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
                     rekursiv_pool_by_out(this_category, 0);
                 }
                 else {
-                    if (number_of_visible_items_in_category(this_category) == 1) {
+										// alert("number_of_visible_items_in_category = "+number_of_visible_items_in_category(this_category));
+                    if (number_of_visible_items_in_category(this_category) == 0) {
                         flip_arrow_of_category("leer", this_category);
                     }
                 }
-            }
+            // }
         });
+				$(ui_draggable).attr("class", "auswahl_modul");
+        
     } else {
         ajax_serverupdate_remove(modul_id);
     }
@@ -1347,18 +1386,21 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
         ueberblick();
     }
     else {
-        $(ui_draggable).find(".head_modul_in_pool").text("nein");
+        // $(ui_draggable).find(".head_modul_in_pool").text("nein");
+        modPropSet(modul_id,"head_modul_in_pool","nein");
         ajax_request_grade();
     }
     // check error-Regel
     if (check_error(modul_id)) {
-        flip_module_infoicon_on_event("error",ui_draggable);
+        flip_module_infoicon_on_event("error",modul_id,ui_draggable);
     }
 
-    var additional_info = $(ui_draggable).find(".additional_info").text();
+    // var additional_info = $(ui_draggable).find(".additional_info").text();
+    var additional_info = modProp(modul_id,"additional_info");
     if (additional_info == "true") {
         ajax_request_combobox(modul_id);
-        $(ui_draggable).find(".additional_info").text("drop_down_schon_in_auswahl");
+        // $(ui_draggable).find(".additional_info").text("drop_down_schon_in_auswahl");
+        modPropSet(modul_id,"additional_info","drop_down_schon_in_auswahl");
     }
 
 
@@ -1369,7 +1411,8 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
 	
     var check_open=false;
-    var cat_id = $(ui_draggable).find(".cat_id").text();
+    // var cat_id = $(ui_draggable).find(".cat_id").text();
+    var cat_id = modProp(modul_id,"cat_id");
     $("#custom_semester").attr("value",semester);
     $("#custom_id").attr("value",modul_id);
     $("#custom_cat_id").attr("value",cat_id);
@@ -1379,7 +1422,8 @@ var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dra
 
 var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
     //parts_exit  aus "ja" setzen
-    $(ui_draggable).find("span.modul_parts_exist").text("ja");
+    // $(ui_draggable).find("span.modul_parts_exist").text("ja");
+    modPropSet(modul_id,"modul_parts_exist","ja");
 	
     var this_sub = $(this_semester).find("div.subsemester");
     var this_vater = $(ui_draggable).parent().get(0);
@@ -1387,7 +1431,8 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
     // bring  partial-modul ins Auswahl
     var the_first=$("#pool").find("."+modul_id+"_parent").eq(0);
     var partial_module = $(the_first).nextAll().filter(function(index){
-        return $(this).find("span.modul_parent_attr").text()==modul_id;
+        // return $(this).find("span.id_of_parent_modul").text()==modul_id;
+        return (modProp($(this).attr("id"),"id_of_parent_modul") == modul_id);
     });
 	
     $(partial_module).each(function(){
@@ -1395,7 +1440,7 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
         $(this_child).attr("class","auswahl_modul partial_modul");
         var this_id = $(this_child).attr("id");
         $(this_child).show();
-        change_module_style_to_auswahl(this);
+        change_module_style_to_auswahl(modul_id,this);
         $(this_sub).append(this_child);
         ajax_serverupdate_add(this_id,semester);
 		
@@ -1441,6 +1486,7 @@ var poolrekursiv = function(XMLhandle){
                 break;
 				
             case "module":
+								var modul_id = $(this).attr("id");
                 parent_name = $(parent).attr("name");
                 var parent_id   = $(parent).attr("category_id");
                 //                var parent_a    = $("#pool #"+parent_id).find("a");
@@ -1451,14 +1497,13 @@ var poolrekursiv = function(XMLhandle){
                 var modul_name = $(this).find("name").text();
                 var modul_mode = $(this).find("mode").text();
                 var credits = $(this).find("credits").text();
-                //                var modul_short = $(this).find("short").text();
+                // var modul_short = $(this).find("short").text();
                 var modul_parts = $(this).find("parts").text();
 				
 				
 				 
-                var modul_id = $(this).attr("id");
                 var modul_class=$(this).attr("class");
-                //                var check_modul_partial=$(this).attr("partial");
+                // var check_modul_partial=$(this).attr("partial");
                 var additional_info = $(this).attr("additional_server_info");
                 var has_grade="ja";
                 var modul_has_grade=$(this).attr("has_grade");
@@ -1488,10 +1533,10 @@ var poolrekursiv = function(XMLhandle){
                 //span.custom_exist sagt, dass das dummy-modul bereits im pool ist
                 var this_sel_name=$(this).find("add_sel_name").text();
                 var pool_modul_class="pool_modul";
-                var modul_parent_attr="nein";
+                var id_of_parent_modul="nein";
                 var partial_mod_name="";
                 var kopf_modul_in_pool="nein";
-                //
+              
                 if(modul_parts!="0"){
                     kopf_modul_in_pool="ja";
                 }
@@ -1499,7 +1544,7 @@ var poolrekursiv = function(XMLhandle){
                 // Teil_modul_ name wird angeh�ngt
                 if($(this).attr("parent") != ""){
                     pool_modul_class="partial_modul";
-                    modul_parent_attr=$(this).attr("parent");
+                    id_of_parent_modul=$(this).attr("parent");
                     //check nach Teil_Modul_Name add_sel_name
                     partial_mod_name = this_sel_name;
                 }
@@ -1520,25 +1565,52 @@ var poolrekursiv = function(XMLhandle){
                     credits=total_credits;
                 }
 				
+								modPropSet(modul_id,"name",modul_name);
+								modPropSet(modul_id,"modul_has_grade",has_grade);
+								modPropSet(modul_id,"class",modul_class);
+								modPropSet(modul_id,"category_name",parent_name);
+								modPropSet(modul_id,"category_id",category_id);
+								modPropSet(modul_id,"mode",modul_mode);
+								modPropSet(modul_id,"credits",credits);
+								modPropSet(modul_id,"short",$(this).find("short").text());
+								modPropSet(modul_id,"add_sel_name",this_sel_name);
+
+								modPropSet(modul_id,"inAuswahl","nein");
+								modPropSet(modul_id,"cat_id",parent_id);
+								modPropSet(modul_id,"custom",modul_class);
+								modPropSet(modul_id,"custom_exist","nein");
+								modPropSet(modul_id,"custom_category",custom_category);
+								modPropSet(modul_id,"additional_info",additional_info);
+								modPropSet(modul_id,"head_modul_in_pool",kopf_modul_in_pool);
+								modPropSet(modul_id,"modul_parts",modul_parts);
+								modPropSet(modul_id,"modul_parts_exist","nein");
+								modPropSet(modul_id,"id_of_parent_modul",id_of_parent_modul);
+								modPropSet(modul_id,"add_sel_name_in_sel",this_sel_name);
+								modPropSet(modul_id,"modul_name_in_pool",modul_name);
+								modPropSet(modul_id,"total_modul_credit",this_total_credits);
+								modPropSet(modul_id,"credits_in_selection",credits_in_selection);
+
+								modPropSet(modul_id,"is_error","nein");
+
                 appendString += "<div class='" + modul_id + "_parent ' rel='mod_parent'><div class='nichtleer'></div><div class='"+
                 pool_modul_class+"' id='" + modul_id + "' >" +
                 "<div class='icon_loeschen' style='display:none; cursor:pointer; float:right; width:12px;height:0px;overflow:visible;' onclick='modul_loeschen(" +
                 modul_id +","+modul_id+")'>" +loeschenbild +"</div>" +
-                "<span class='inAuswahl' style='display:none'>nein</span>" +
-                "<span class='cat_id' style='display:none'>"+parent_id+"</span>"+
-                "<span class='custom' style='display:none'>"+modul_class+"</span>"+
+                // "<span class='inAuswahl' style='display:none'>nein</span>" +
+                // "<span class='cat_id' style='display:none'>"+parent_id+"</span>"+
+                // "<span class='custom' style='display:none'>"+modul_class+"</span>"+
                 "<span class='modul_id' style='display:none'>"+modul_id+"</span>"+
-                "<span class='custom_exist' style='display:none'>nein</span>"+
-                "<span class='custom_category' style='display:none'>"+custom_category+"</span>"+
-                "<span class='additional_info' style='display:none'>"+additional_info+"</span>"+
-                "<span class='head_modul_in_pool' style='display:none'>"+kopf_modul_in_pool+"</span>"+
-                "<span class='modul_parts' style='display:none'>"+modul_parts+"</span>"+
-                "<span class='modul_parts_exist' style='display:none'>"+"nein"+"</span>"+
-                "<span class='modul_parent_attr' style='display:none'>"+modul_parent_attr+"</span>"+
-                "<span class='add_sel_name_in_sel' style='display:none'>"+this_sel_name+"</span>"+
-                "<span class='modul_name_in_pool' style='display:none'>"+modul_name+"</span>"+
-                "<span class='total_modul_credit' style='display:none'>"+this_total_credits+"</span>"+
-                "<span class='credits_in_selection' style='display:none'>"+credits_in_selection+"</span>"+
+                // "<span class='custom_exist' style='display:none'>nein</span>"+
+                // "<span class='custom_category' style='display:none'>"+custom_category+"</span>"+
+                // "<span class='additional_info' style='display:none'>"+additional_info+"</span>"+
+                // "<span class='head_modul_in_pool' style='display:none'>"+kopf_modul_in_pool+"</span>"+
+                // "<span class='modul_parts' style='display:none'>"+modul_parts+"</span>"+
+                // "<span class='modul_parts_exist' style='display:none'>nein</span>"+
+                // "<span class='id_of_parent_modul' style='display:none'>"+id_of_parent_modul+"</span>"+
+                // "<span class='add_sel_name_in_sel' style='display:none'>"+this_sel_name+"</span>"+
+                // "<span class='modul_name_in_pool' style='display:none'>"+modul_name+"</span>"+
+                // "<span class='total_modul_credit' style='display:none'>"+this_total_credits+"</span>"+
+                // "<span class='credits_in_selection' style='display:none'>"+credits_in_selection+"</span>"+
 				
                 "<table cellspacing='0' cellpadding='0' style='width:100%; border:1px;'>" +
                 "<tbody>" +
@@ -1554,9 +1626,9 @@ var poolrekursiv = function(XMLhandle){
 
                 "<td style='width:25px;display:none;margin-right:0px;' class='noten_input_td' >" +
                 "<span class='noten'>" +
-                "<span class='modul_has_grade' style='display:none;'>"+has_grade+"</span>"+
+                // "<span class='modul_has_grade' style='display:none;'>"+has_grade+"</span>"+
                 "<input class='noten_input' type='text' size='5' style='margin-right:5px;' rel='"+modul_id+"' value='Note' />"+
-                "<span class='is_error' style='display:none'>nein</span>"+
+                // "<span class='is_error' style='display:none'>nein</span>"+
                 "</span>" +
                 "</td>" +
 
@@ -1627,7 +1699,7 @@ var search_is_active = function(){
     return ($("#qs").val() != "" );
 }
 
-var change_module_style_to_pool = function(handle){
+var change_module_style_to_pool = function(modul_id,handle){
     // style fuer Ausnahme-optionen
     $(handle).find("> p.credit-option").css("display","none").empty();
     $(handle).find("> p.warnung-option").css("display","none").empty();
@@ -1635,23 +1707,29 @@ var change_module_style_to_pool = function(handle){
     $(handle).find("> div.icon_loeschen").css("display","none");
     
     //auf originale Credits setzen im Fall Credits-Veraenderung
-    var original_credits = $(handle).find("> span.credits_in_selection").text();
+    // var original_credits = $(handle).find("> span.credits_in_selection").text();
+		var original_credits = modProp(modul_id,"credits_in_selection");
     //    var hi =$(handle).find("> table tbody tr td.modul_credit").text();
     $(handle).find("> table tbody tr td.modul_credit").text(original_credits+" C");
    
     $(handle).find("> p.drop_down_menu").css("display","none").empty();
-    if($(handle).find("> span.additional_info").text()=="drop_down_schon_in_auswahl"){
-        $(handle).find("> span.additional_info").text("true");
+    // if($(handle).find("> span.additional_info").text()=="drop_down_schon_in_auswahl"){
+	  if(modProp(modul_id,"additional_info") == "drop_down_schon_in_auswahl"){
+        // $(handle).find("> span.additional_info").text("true");
+				modPropSet(modul_id,"additional_info","true");
     }
     
     // checke nach Dummy-Modul. Wenn ja dann den Name wieder auf den Standardname (hier: "(Sonstiges Modul)") setzen
     // und span.custom_exist=nein setzen und class=custom_modul, 
     // damit dieses Dummy nicht im Pool angezeigt wird(sonst mehr als 2 Dummies im pool vorkommen
-    var dummy_name = $(handle).find("span.custom").text();
+    // var dummy_name = $(handle).find("span.custom").text();
+		var dummy_name = modProp(modul_id,"custom");
     if(dummy_name == "custom"){
-        var dummy_standard_name=$(handle).find("span.modul_name_in_pool").text();
+        // var dummy_standard_name=$(handle).find("span.modul_name_in_pool").text();
+				modProp(modul_id,"modul_name_in_pool");
         $(handle).find("> table tbody tr td.modul_name").text(dummy_standard_name);
-        $(handle).find("span.custom_exist").text("nein");
+        // $(handle).find("span.custom_exist").text("nein");
+				modPropSet(modul_id,"custom_exist","nein");
         $(handle).attr("class","custom_modul");
         $(handle).hide();
     }
@@ -1676,7 +1754,7 @@ var change_module_style_to_pool = function(handle){
 }
 
 
-var change_module_style_to_auswahl = function(handle){
+var change_module_style_to_auswahl = function(modul_id,handle){
     // style f�r option
     $(handle).find("p.credit-option").css("display","block");
     $(handle).find("p.warnung-option").css("display","block");
@@ -1690,15 +1768,17 @@ var change_module_style_to_auswahl = function(handle){
         if ($.browser.msie) {
             $(handle).find(".ipunkt_td").css("display","inline");
             // check ob unbenoten ist
-            if ($(handle).find("span.modul_has_grade").text() != "nein")
+            // if ($(handle).find("span.modul_has_grade").text() != "nein")
+						if (modProp(modul_id,"modul_has_grade") != "nein")
                 $(handle).find(".noten_input_td").css("display", "inline");
         }
         else {
             $(handle).find(".ipunkt_td").css("display","table-cell");
-            if ($(handle).find("span.modul_has_grade").text() != "nein")
+            // if ($(handle).find("span.modul_has_grade").text() != "nein")
+						if (modProp(modul_id,"modul_has_grade") != "nein")
                 $(handle).find(".noten_input_td").css("display", "table-cell");
         }
-        flip_module_infoicon_on_event("init",handle);
+        flip_module_infoicon_on_event("init",modul_id,handle);
     });
     return 0;
 }
@@ -1707,4 +1787,19 @@ var module_div_present_in_parent = function(parent_handle){
     // recht uebler Hack (OS)
     var result = ($(parent_handle).text() != "")
     return result;
+}
+
+
+// New jCache functions: (OS)
+var modPropSet = function(module_id,property,value) {
+	// alert("Setting property ("+property+") of module ("+module_id+") to value ("+value+")");
+	$.jCache.setItem("m"+module_id+"::"+property, value);
+}
+var modProp = function(module_id,property) {
+	return $.jCache.getItem("m"+module_id+"::"+property);
+}
+
+var display_cache = function() {
+	text = $.jCache.dumpCache();
+	$("#CacheDump").empty().append(text);
 }

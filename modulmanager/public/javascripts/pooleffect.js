@@ -94,8 +94,9 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         //$(cus_modul).find("span.custom").text("non-custom");
         $(cus_modul).find(".modul_name").text(this_name);
         $(cus_modul).find(".modul_credit").text(cre+" C");
-        change_module_style_to_auswahl(cus_modul);
-        $(cus_modul).find("span.inAuswahl").text("ja");
+        change_module_style_to_auswahl(custom_id,cus_modul);
+        // $(cus_modul).find("span.inAuswahl").text("ja");
+        modPropSet(custom_id,"span.inAuswahl","ja");
         $("#middle").find(".semester").each(function(){
             var this_id = $(this).attr("id");
             if(this_id == custom_semester){
@@ -162,10 +163,13 @@ $(function(){
                     var cus_modul = $("#semester-content #"+cus_id);
                     // custom_modul soll auch in VorratBox sein
 						
-                    var this_exist = $(cus_modul).find("span.custom_exist").text();
-                    var cus_cat_id=$(cus_modul).find(".custom_category").text();
+                    // var this_exist = $(cus_modul).find("span.custom_exist").text();
+                    var this_exist = modProp(custom_id,"custom_exist");
+                    // var cus_cat_id=$(cus_modul).find(".custom_category").text();
+                    var cus_cat_id = modProp(custom_id,"custom_category");
                     if(this_exist=="nein"){
-                        $(cus_modul).find("span.custom_exist").text("ja");
+                        // $(cus_modul).find("span.custom_exist").text("ja");
+												modPropSet(custom_id,"custom_exist","ja");
                         show_next_custom_modul_in_pool(cus_cat_id);
                         //show_next_custom_modul_in_pool_in_the_search_table();
                         get_and_change_custom_modul_in_the_table(cus_id,na,cus_cat_id);
@@ -294,7 +298,7 @@ $(function(){
 	
     $("#pool .pool_modul").hide();
 	
-    $("#voratbox").droppable({
+    $("#vorratbox").droppable({
 		
         hoverClass:'drophover',
         drop : function(event,ui){
@@ -309,11 +313,11 @@ $(function(){
         hoverClass : 'drophover',
         drop: function(event, ui){
             var ui_draggable = $(ui.draggable);
-            var mod_id = $(ui.draggable).attr("id");
+            var modul_id = $(ui.draggable).attr("id");
             var this_pool = $(this);
             $(ui.helper).remove();
             // neuerdings die gleiche Funktion wie wenn man auf den L�schen-Knopf klickt:
-            modul_loeschen(mod_id);
+            modul_loeschen(modul_id);
         }
     });
 		
@@ -333,15 +337,16 @@ $(function(){
             var modul_id = $(ui.draggable).attr("id");
             var modul_class = $(ui.draggable).attr("class");
 				 
-            var custom_text = $(ui.draggable).find("span.custom").text();
-            var parts_text  = $(ui.draggable).find("span.modul_parts").text();
-				 
-            var parts_exist  = $(ui.draggable).find("span.modul_parts_exist").html();
+            // var custom_text = $(ui.draggable).find("span.custom").text();
+            var custom_text = modProp(modul_id,"custom");
+            // var parts_text  = $(ui.draggable).find("span.modul_parts").text();
+            var parts_text  = modProp(modul_id,"modul_parts");				 
+            var parts_exist  = modProp(modul_id,"modul_parts_exist");
 				
             if(custom_text == "non-custom") {
                 //check nach Teil_modul
                 if((parts_text!="0") && (parts_exist=="nein")){
-                    change_credit_and_add_name_in_selection(ui_draggable);
+                    change_credit_and_add_name_in_selection(modul_id,ui_draggable);
                     drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
                     partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
                 } else {
@@ -510,7 +515,8 @@ var toggle_category = function(category_id){
         case "rechts":
             // Kategorie �ffnen
             var count = 0;
-            $(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
+            // $(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
+            $(handle).children().not("a, .nichtleer").each(function(){
                 var this_class = $(this).attr("class");
                 // Pr�fen, ob sich darunter Kategorien oder Module befinden
                 if((this_class=="pool_category")||(this_class=="search_category")) {
@@ -530,7 +536,8 @@ var toggle_category = function(category_id){
                 }
                 else {
                     $(this).children().each(function(){
-                        if ($(this).find(">span.inAuswahl").text()=="nein") {
+                        // if ($(this).find(">span.inAuswahl").text()=="nein") {
+                        if (modProp($(this).parent().attr("class").split("_")[0],"inAuswahl") == "nein") {
                             if (search_is_active()) {
                                 if ($(this).parent().is(".search_modul")) {
                                     if ($(this).attr("class") != "partial_modul") {
@@ -566,7 +573,8 @@ var toggle_category = function(category_id){
             // Kategorie schlie�en
             flip_arrow_of_category("rechts",handle);
             // Elemente darunter verstecken
-            $(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
+            // $(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
+            $(handle).children().not("a, .nichtleer").each(function(){
                 var this_class = $(this).attr("class");
                 // Pr�fen, ob sich darunter Kategorien oder Module befinden
                 if((this_class=="pool_category")||(this_class=="search_category"))
@@ -591,7 +599,8 @@ var number_of_visible_items_in_category = function(handle){
     }
 		
     var count = 0;
-    $(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
+    // $(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
+    $(handle).children().not("a, .nichtleer").each(function(){
         this_class = $(this).attr("class");
         // Zun�chst Pr�fen, ob sich darunter Kategorien oder Module befinden
         if((this_class=="pool_category")||(this_class=="search_category")) {
@@ -603,8 +612,10 @@ var number_of_visible_items_in_category = function(handle){
             }
             else count++;
         } else { // also geht es um Module
-            $(this).children().each(function(){
-                if (($(this).find(">span.inAuswahl").text()=="nein")&&($(this).is(".pool_modul"))) {
+            $(this).children().not(".auswahl_modul_moving").each(function(){
+                // if (($(this).find(">span.inAuswahl").text()=="nein")&&($(this).is(".pool_modul"))) {
+								// Leider ein wenig unschön, aber geht (OS)
+                if ((modProp($(this).parent().attr("class").split("_")[0],"inAuswahl")=="nein")&&($(this).is(".pool_modul"))) {
                     if (search_is_active()) {
                         if ($(this).parent().is(".search_modul")) {
                             count++;
