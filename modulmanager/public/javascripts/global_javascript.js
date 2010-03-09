@@ -728,7 +728,8 @@ var session_auswahl_rekursiv = function(root){
             if (check_error(modul_id))
                 flip_module_infoicon_on_event("error",modul_id,auswahl_modul_clone);
 
-            $(auswahl_modul_clone).find("span.inAuswahl").text("true");
+            // $(auswahl_modul_clone).find("span.inAuswahl").text("true");
+						modPropChange(modul_id,"inAuswahl","true");
             //check nach Kopfmodul. Wenn ja dann credit name und head_modul_in_pool ver�ndern
             if(modProp(modul_id,"modul_parts") != "0"){
                 modPropChange(modul_id,"head_modul_in_pool","false");
@@ -1197,7 +1198,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
             rekursiv_pool_by_out(this_category, 1);
         }
         else {
-            if (number_of_visible_items_in_category(this_category) == 1) {
+            if (number_of_visible_items_in_category(this_category) == 0) {
                 flip_arrow_of_category("leer", this_category);
             }
         }
