@@ -318,7 +318,7 @@ jQuery(function ($) {
 							var modul_parent = modProp(array_id[i],"id_of_parent_modul");
 							
 							
-							if((modul_span=="nein")&&(modul_parent=="nein")){
+							if((modul_span=="false")&&(modul_parent=="false")){
 								
 								$(this).show();
 								$(modul).show();

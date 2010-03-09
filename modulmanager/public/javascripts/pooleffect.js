@@ -95,8 +95,8 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         $(cus_modul).find(".modul_name").text(this_name);
         $(cus_modul).find(".modul_credit").text(cre+" C");
         change_module_style_to_auswahl(custom_id,cus_modul);
-        // $(cus_modul).find("span.inAuswahl").text("ja");
-        modPropSet(custom_id,"span.inAuswahl","ja");
+        // $(cus_modul).find("span.inAuswahl").text("true");
+        modPropSet(custom_id,"span.inAuswahl","true");
         $("#middle").find(".semester").each(function(){
             var this_id = $(this).attr("id");
             if(this_id == custom_semester){
@@ -164,12 +164,12 @@ $(function(){
                     // custom_modul soll auch in VorratBox sein
 						
                     // var this_exist = $(cus_modul).find("span.custom_exist").text();
-                    var this_exist = modProp(custom_id,"custom_exist");
+                    var this_exist = modProp(cus_id,"custom_exist");
                     // var cus_cat_id=$(cus_modul).find(".custom_category").text();
-                    var cus_cat_id = modProp(custom_id,"custom_category");
-                    if(this_exist=="nein"){
-                        // $(cus_modul).find("span.custom_exist").text("ja");
-												modPropSet(custom_id,"custom_exist","ja");
+                    var cus_cat_id = modProp(cus_id,"custom_category");
+                    if(this_exist=="false"){
+                        // $(cus_modul).find("span.custom_exist").text("true");
+												modPropSet(custom_id,"custom_exist","true");
                         show_next_custom_modul_in_pool(cus_cat_id);
                         //show_next_custom_modul_in_pool_in_the_search_table();
                         get_and_change_custom_modul_in_the_table(cus_id,na,cus_cat_id);
@@ -345,7 +345,7 @@ $(function(){
 				
             if(custom_text == "non-custom") {
                 //check nach Teil_modul
-                if((parts_text!="0") && (parts_exist=="nein")){
+                if((parts_text!="0") && (parts_exist=="false")){
                     change_credit_and_add_name_in_selection(modul_id,ui_draggable);
                     drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
                     partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
@@ -439,7 +439,7 @@ var sem_hinzu = function(){
                 var parts_exist  = $(ui.draggable).find("span.modul_parts_exist").html();
                 if(custom_text == "non-custom") {
                     //check nach Teil_modul
-                    if((parts_text!="0") && (parts_exist=="nein")){
+                    if((parts_text!="0") && (parts_exist=="false")){
                         partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
                     }
                     drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
@@ -536,8 +536,8 @@ var toggle_category = function(category_id){
                 }
                 else {
                     $(this).children().each(function(){
-                        // if ($(this).find(">span.inAuswahl").text()=="nein") {
-                        if (modProp($(this).parent().attr("class").split("_")[0],"inAuswahl") == "nein") {
+                        // if ($(this).find(">span.inAuswahl").text()=="false") {
+                        if (modProp($(this).parent().attr("class").split("_")[0],"inAuswahl") == "false") {
                             if (search_is_active()) {
                                 if ($(this).parent().is(".search_modul")) {
                                     if ($(this).attr("class") != "partial_modul") {
@@ -613,9 +613,9 @@ var number_of_visible_items_in_category = function(handle){
             else count++;
         } else { // also geht es um Module
             $(this).children().not(".auswahl_modul_moving").each(function(){
-                // if (($(this).find(">span.inAuswahl").text()=="nein")&&($(this).is(".pool_modul"))) {
+                // if (($(this).find(">span.inAuswahl").text()=="false")&&($(this).is(".pool_modul"))) {
 								// Leider ein wenig unschön, aber geht (OS)
-                if ((modProp($(this).parent().attr("class").split("_")[0],"inAuswahl")=="nein")&&($(this).is(".pool_modul"))) {
+                if ((modProp($(this).parent().attr("class").split("_")[0],"inAuswahl")=="false")&&($(this).is(".pool_modul"))) {
                     if (search_is_active()) {
                         if ($(this).parent().is(".search_modul")) {
                             count++;
