@@ -82,6 +82,9 @@ class AbfragenController < ApplicationController
       @credits = m2.credits
       @permission = nil
       @custom_credits = m2.credits
+      m2.categories.each {|c| @categories.push c.name}
+      @categories.uniq!
+      @custom = true
     else
       @name         = m2.moduledata.name
       @description  = m2.moduledata.description

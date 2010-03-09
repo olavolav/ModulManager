@@ -6,16 +6,25 @@
   <% if @univz_link != nil %>
     <p class="univz">UniVZ-Link (Dummy): <a href="<%= @univz_link %>" target="_blank"><%= @name %></a></p>
   <% end %>
-    
+
   <!-- Der folgene Teil ist natürlich noch nicht fertig, Dummy-Module fehlen (OS) -->
-  <% if @categories.length == 1 %>
-    <p>Dieses Modul wird in folgendem Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %>
-  <% elsif @categories.length > 1%>
-	<p>Dieses Modul kann in mehrere Bereiche eingebracht werden - die entsprechende Auswahl können sie direkt unter dem Modul-Titel vornehmen.</p>
+  <% if @custom %>
+  <p>Dieses Modul wird in folgende Bereiche eingebracht:
+  <ul>
+    <% @categories.each do |category| %>
+    <li>
+      <%= category %>
+    </li>
+    <% end %>
+  </ul>
+  </p>
+  <% else %>
+    <% if @categories.length == 1 %>
+      <p>Dieses Modul wird in folgendem Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %>
+      <% elsif @categories.length > 1%>
+      <p>Dieses Modul kann in mehrere Bereiche eingebracht werden - die entsprechende Auswahl können sie direkt unter dem Modul-Titel vornehmen.</p>
+    <% end %>
   <% end %>
-      <%#= @categories.collect {|p| [p.name, p.id]} unless @categories.length == 0 %>
-    </p>
-  <%# end %>
 
   <% unless @permission == nil %>
     <p>Voraussetzungen:
