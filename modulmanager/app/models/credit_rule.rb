@@ -6,16 +6,20 @@ class CreditRule < Rule
     evaluation_modules = Rule::remove_modules_from_array selected_modules, non_permitted_modules
 
     evaluation_modules.each do |e_module|
-      if e_module.category != nil && e_module.category.exclusive != 1
-        if e_module.category == self.category
-          if rule_modules.include? e_module.moduledata
-            e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
+      if e_module.class == CustomModule
+        e_module.categories.each { |category| credits += e_module.credits if self.category == category }
+      else
+        if e_module.category != nil && e_module.category.exclusive != 1
+          if e_module.category == self.category
+            if rule_modules.include? e_module.moduledata
+              e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
+            end
           end
-        end
-      elsif e_module.moduledata.categories.length > 0
-        if e_module.moduledata.categories.include? self.category
-          if rule_modules.include? e_module.moduledata
-            e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
+        elsif e_module.moduledata.categories.length > 0
+          if e_module.moduledata.categories.include? self.category
+            if rule_modules.include? e_module.moduledata
+              e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
+            end
           end
         end
       end
@@ -25,7 +29,7 @@ class CreditRule < Rule
 
   def collected_credits_with_focus selected_modules, n_p_m
 
-#    puts "EVALUATING CREDIT-RULE #{self.id}"
+    #    puts "EVALUATING CREDIT-RULE #{self.id}"
 
     credits = 0
     n_p_m = Array.new if n_p_m == nil
@@ -41,7 +45,7 @@ class CreditRule < Rule
         end
       end
     end
-#    puts "COUNTED #{credits} CREDITS"
+    #    puts "COUNTED #{credits} CREDITS"
     return credits
   end
 
@@ -75,7 +79,7 @@ class CreditRule < Rule
         return -1
       end
     end
-#    puts "RETURNING 1"
+    #    puts "RETURNING 1"
     return 1
   end
 

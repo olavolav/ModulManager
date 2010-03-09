@@ -8,20 +8,26 @@ class AndConnection < Connection
       selected_modules.each do |s_module|
         unless s_module.class == Semester
           unless non_permitted_modules.include? s_module.moduledata
-            if s_module.category != nil && s_module.category.exclusive != 1
-              if self.categories.include? s_module.category
-                if s_module.credits == nil
-                  credits += s_module.moduledata.credits
-                else
-                  credits += s_module.credits
-                end
-              end
+            if s_module.class == CustomModule
+              found = false
+              s_module.categories.each { |category| found = true if self.categories.include? category }
+              credits += s_module.credits if found
             else
-              if self.modules.include? s_module.moduledata
-                if s_module.credits == nil
-                  credits += s_module.moduledata.credits
-                else
-                  credits += s_module.credits
+              if s_module.category != nil && s_module.category.exclusive != 1
+                if self.categories.include? s_module.category
+                  if s_module.credits == nil
+                    credits += s_module.moduledata.credits
+                  else
+                    credits += s_module.credits
+                  end
+                end
+              else
+                if self.modules.include? s_module.moduledata
+                  if s_module.credits == nil
+                    credits += s_module.moduledata.credits
+                  else
+                    credits += s_module.credits
+                  end
                 end
               end
             end
@@ -40,13 +46,19 @@ class AndConnection < Connection
       selected_modules.each do |s_module|
         unless s_module.class == Semester
           unless non_permitted_modules.include? s_module.moduledata
-            if s_module.category != nil && s_module.category.exclusive != 1
-              if self.categories.include? s_module.category
-                modules += 1
-              end
+            if s_module.class == CustomModule
+              found = false
+              s_module.categories.each { |category| found = true if self.categories.include? category }
+              modules += 1 if found
             else
-              if self.modules.include? s_module.moduledata
-                modules += 1
+              if s_module.category != nil && s_module.category.exclusive != 1
+                if self.categories.include? s_module.category
+                  modules += 1
+                end
+              else
+                if self.modules.include? s_module.moduledata
+                  modules += 1
+                end
               end
             end
           end
