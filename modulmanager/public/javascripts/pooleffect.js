@@ -44,14 +44,6 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
     var custom_id=custom_id.attr("value");
     var category_id = category.attr("value");
 	
-    //ajax bei set_category (veraltet, OS)
-    // if(cat_check) ajax_serverupdate_custom_checkbox(custom_id,cat_id_array);
-    // else{
-    // 				cat_id_array.push(category_id.split("_")[1]);
-    //     ajax_serverupdate_custom_checkbox(custom_id,cat_id_array);
-    // 		//alert("nicht check"+category_id);
-    // }
-
 		// Wenn keine Checkbox ausgewählt wird, wird die Kategorie übergeben, aus der das
 		// Dummy-Modul kommt (OS)
 		if (!cat_check) cat_id_array.push(category_id.split("_")[1]);
@@ -93,14 +85,11 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         var cus_modul = $("#pool #"+custom_id);
         var name=$("#name");
         var credit=$("#credit");
-        // var na = name.attr("value");
         var cre = credit.attr("value");
         $(cus_modul).attr("class","auswahl_modul ui-draggable");
-        //$(cus_modul).find("span.custom").text("non-custom");
         $(cus_modul).find(".modul_name").text(this_name);
         $(cus_modul).find(".modul_credit").text(cre+" C");
         change_module_style_to_auswahl(custom_id,cus_modul);
-        // $(cus_modul).find("span.inAuswahl").text("true");
         modPropChange(custom_id,"inAuswahl","true");
         $("#middle").find(".semester").each(function(){
             var this_id = $(this).attr("id");
@@ -168,9 +157,7 @@ $(function(){
                     var cus_modul = $("#semester-content #"+cus_id);
                     // custom_modul soll auch in VorratBox sein
 						
-                    // var this_exist = $(cus_modul).find("span.custom_exist").text();
                     var this_exist = modProp(cus_id,"custom_exist");
-                    // var cus_cat_id=$(cus_modul).find(".custom_category").text();
                     var cus_cat_id = modProp(cus_id,"custom_category");
                     if(this_exist=="false"){
                         // $(cus_modul).find("span.custom_exist").text("true");
@@ -192,15 +179,6 @@ $(function(){
 			
 			
     });
-		
-		
-    // check Noten_streichen fuer Dummy_modul
-    // da wird #exception_change als SpeicherOrt f�r das Ankreuzen benutzt
-    //$("#custom_dialog #note_streichen").click(function(){
-    //	 $("#exception_change").attr("value","true");
-    //die Funktion update_dummy_modul_in_selection check das exception_change
-			 
-    // })
 			
     ////Ausname-Optionen checken. Bei jeder Ver�nderung wird dann die Funktion �berblick erneut geladen.
     // exception_change ist fuer Note streichen und Warnung deaktivieren verantwortlich
@@ -364,9 +342,7 @@ $(function(){
             var modul_id = $(ui.draggable).attr("id");
             var modul_class = $(ui.draggable).attr("class");
 				 
-            // var custom_text = $(ui.draggable).find("span.custom").text();
             var custom_text = modProp(modul_id,"custom");
-            // var parts_text  = $(ui.draggable).find("span.modul_parts").text();
             var parts_text  = modProp(modul_id,"modul_parts");				 
             var parts_exist  = modProp(modul_id,"modul_parts_exist");
 				
@@ -542,7 +518,6 @@ var toggle_category = function(category_id){
         case "rechts":
             // Kategorie �ffnen
             var count = 0;
-            // $(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
             $(handle).children().not("a, .nichtleer").each(function(){
                 var this_class = $(this).attr("class");
                 // Pr�fen, ob sich darunter Kategorien oder Module befinden
@@ -563,12 +538,10 @@ var toggle_category = function(category_id){
                 }
                 else {
                     $(this).children().each(function(){
-                        // if ($(this).find(">span.inAuswahl").text()=="false") {
                         if (modProp($(this).parent().attr("class").split("_")[0],"inAuswahl") == "false") {
                             if (search_is_active()) {
                                 if ($(this).parent().is(".search_modul")) {
                                     if ($(this).attr("class") != "partial_modul") {
-                                        //alert("hier bist du ");
                                         $(this).css("display", "block");
                                         count++;
                                     }
@@ -600,7 +573,6 @@ var toggle_category = function(category_id){
             // Kategorie schlie�en
             flip_arrow_of_category("rechts",handle);
             // Elemente darunter verstecken
-            // $(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
             $(handle).children().not("a, .nichtleer").each(function(){
                 var this_class = $(this).attr("class");
                 // Pr�fen, ob sich darunter Kategorien oder Module befinden
@@ -626,7 +598,6 @@ var number_of_visible_items_in_category = function(handle){
     }
 		
     var count = 0;
-    // $(handle).children().not("a, .nichtleer, .inAuswahl").each(function(){
     $(handle).children().not("a, .nichtleer").each(function(){
         this_class = $(this).attr("class");
         // Zun�chst Pr�fen, ob sich darunter Kategorien oder Module befinden
@@ -640,8 +611,7 @@ var number_of_visible_items_in_category = function(handle){
             else count++;
         } else { // also geht es um Module
             $(this).children().not(".auswahl_modul_moving").each(function(){
-                // if (($(this).find(">span.inAuswahl").text()=="false")&&($(this).is(".pool_modul"))) {
-								// Leider ein wenig unschön, aber geht (OS)
+ 								// Leider ein wenig unschön, aber geht (OS)
                 if ((modProp($(this).parent().attr("class").split("_")[0],"inAuswahl")=="false")&&($(this).is(".pool_modul"))) {
                     if (search_is_active()) {
                         if ($(this).parent().is(".search_modul")) {

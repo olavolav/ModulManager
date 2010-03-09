@@ -206,14 +206,6 @@ jQuery(function ($) {
 				{   
 				
 				
-				    // Table muss zu
-					/*var this_tr =$("table#suche tbody tr"); 
-					$(this_tr).each(function(){
-						$(this).css("display","none");
-						
-					});*/
-					
-				
 					//alle bildchen wieder auf pfeil-rechts setzen 
 					$("#pool").show();
 					var this_children = $("#pool").children();
@@ -225,18 +217,6 @@ jQuery(function ($) {
 							$(this).addClass("pool_category");
 							
 						}
-						
-						/*$(this).find("span").each(function(){
-							var this_id = $(this).attr("class");
-							if(this_id == "pfeil_rechts"){
-								$(this).css("display","inline");
-							}
-							else if(this_id="pfeil_unten"){
-								$(this).css("display","none");
-							}
-							
-							
-						});*/
 						
 						$(this).find("span.pfeil_rechts").each(function(){
 							
@@ -311,7 +291,6 @@ jQuery(function ($) {
 							// falls das Modul nicht in der Auswahl ist, das Modul anzeigen und
 							// den Baum im Pool rekursiv öffnen
 							var modul = $("#pool").find("#"+array_id[i]);
-							// var modul_span = $(modul).find("span.inAuswahl").eq(0).text();
 							var modul_span = modProp(array_id[i],"inAuswahl");
 							//modul-parent für ein Teil_modul
 							// var modul_parent = $(modul).find("span.id_of_parent_modul").eq(0).text();
