@@ -12,7 +12,6 @@ Noch zu beheben:
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
 84. Modul-Vorbedingungen werden in der Pool-Info-Box nicht angezeigt (Christian & Olav)
-85. Dummy-Modul-Kategorie-Checkboxen werden nicht alle angezeigt (Olav & Christian)
 95. Checkbox für unbenotete Dummy-Module funktioniert nicht (Olav & Quan)
 96. Wünschenswert wäre, wenn man auch bei einem Dummy-Modulen in der Auswahl sehen kann, zu welcher Kategorie es gehört (Christian)
 
@@ -103,6 +102,7 @@ Inzwischen behoben:
 88. Text in der Info-Box beim Dummy-Modul-Einfügen stimmt nicht (Olav)
 86. Bei Dummy-Modulen kommt nach dem Neu laden: "Ausnahme: Credit-Zahl wurde verändert" (Olav & Christian)
 94. Wenn man ein Dummy-Modul einfügt, wird nicht mehr automatisch das nächste angezeigt (Olav & Quan)
+85. Dummy-Modul-Kategorie-Checkboxen werden nicht alle angezeigt (Olav & Christian)
 
 
 

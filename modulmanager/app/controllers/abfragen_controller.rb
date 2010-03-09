@@ -206,7 +206,9 @@ class AbfragenController < ApplicationController
 
     studmodule = Studmodule.find(params[:mod_id])
 
-    unless my_module = CustomModule.find(:first, :conditions => "short = '#{studmodule.short}'")
+    my_module = CustomModule.find(:first, :conditions => "short = '#{studmodule.short}'")
+
+    if my_module == nil
       my_module = CustomModule.create(
         :moduledata => studmodule,
         :short => studmodule.short,
@@ -224,12 +226,19 @@ class AbfragenController < ApplicationController
     semester.save
 
     cat_id = params[:cat_id]
-    if cat_id.class == Array
-      cat_id.categories = Array.new
-      cat_id.each { |c| my_module.categories << Category.find(c) }
-    elsif cat_id.class == String
-      my_module.categories << Category.find(cat_id)
+
+    cat_array = cat_id.split(",")
+    cat_array.each do |category_id|
+      category_id.strip!
+      my_module.categories << Category.find(category_id)
     end
+
+#    if cat_id.class == Array
+#      cat_id.categories = Array.new
+#      cat_id.each { |c| my_module.categories << Category.find(c) }
+#    elsif cat_id.class == String
+#      my_module.categories << Category.find(cat_id)
+#    end
 
     my_module.save
 
