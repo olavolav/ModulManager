@@ -233,16 +233,22 @@ class AbfragenController < ApplicationController
       my_module.categories << Category.find(category_id)
     end
 
-#    if cat_id.class == Array
-#      cat_id.categories = Array.new
-#      cat_id.each { |c| my_module.categories << Category.find(c) }
-#    elsif cat_id.class == String
-#      my_module.categories << Category.find(cat_id)
-#    end
+    #    if cat_id.class == Array
+    #      cat_id.categories = Array.new
+    #      cat_id.each { |c| my_module.categories << Category.find(c) }
+    #    elsif cat_id.class == String
+    #      my_module.categories << Category.find(cat_id)
+    #    end
 
     my_module.save
 
-    render :text => "CostumModule created and added successfully..."
+    @m = my_module
+
+    respond_to do |format|
+      format.xml { render :action => "add_custom_module_to_selection", :layout => false }
+    end
+
+    #    render :text => "CostumModule created and added successfully..."
   end
 
   def extract_category_id id_string
