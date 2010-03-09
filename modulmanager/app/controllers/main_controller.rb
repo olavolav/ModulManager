@@ -1,6 +1,7 @@
 class MainController < ApplicationController
   
   $MMversion = "1 (beta)"
+  $DebugMode = true
   
   def start
     @schwerpunkte = Focus.all

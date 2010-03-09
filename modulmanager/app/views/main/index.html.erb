@@ -92,9 +92,10 @@
 		<a onClick="javascript:font_size(10);"><img alt="10px" style="cursor:pointer;" src="images/FontSize-Small.png"></a>
 		<a onClick="javascript:font_size(12);"><img alt="12px" style="cursor:pointer;" src="images/FontSize-Medium.png"></a>
 		<a onClick="javascript:font_size(14);"><img alt="14px" style="cursor:pointer;" src="images/FontSize-Large.png"></a>
-		
-		<p>Debug: <a onClick="javascript:display_cache();" style="cursor:pointer;text-decoration:underline;">Cache anzeigen</a></p>
-		
+
+<% if $DebugMode %>		
+		<p>Debug: <a onClick="javascript:display_cache();" style="cursor:pointer;text-decoration:underline;">Modul-Cache anzeigen</a></p>
+<% end %>		
 		
       <p>Navigation zu anderen ModulManager-Seiten:</p>
 
@@ -283,7 +284,7 @@
 <!--<div id="footer">
                 footer
 </div>-->
-
-<div id="CacheDump" style="clear:both;"></div>
-
+<% if $DebugMode %>
+<div id="CacheDump" title="CacheDump" style="clear:both;"></div>
+<% end %>
 

@@ -1802,4 +1802,5 @@ var modProp = function(module_id,property) {
 var display_cache = function() {
 	text = $.jCache.dumpCache();
 	$("#CacheDump").empty().append(text);
+	$('#CacheDump').dialog('open');
 }

@@ -258,6 +258,27 @@ $(function(){
         }
     });
 
+
+    $("#CacheDump").dialog({
+        modal:true,
+        height:400,
+        width:550,
+        position:'center',
+        autoOpen:false,
+                
+        open:function(event,ui){
+			 		
+            //$("#exception_credit") wird in ajax_to_server_by_get_module_info behandelt.
+            $("#CacheDump").show();
+					
+        },
+        buttons:{
+            "OK":function(){
+                $("#CacheDump").dialog('close');
+							
+            }
+        }
+    });
 		
 		
     // pool();
