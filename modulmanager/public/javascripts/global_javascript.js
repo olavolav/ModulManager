@@ -820,7 +820,7 @@ var ajax_request_module_info = function (modul_id){
             $("#exception_note").attr("checked", "");
             $("#info_box #box_info").append(html);
             // Mein Versuch, die Checkboxen zu selektieren, wenn die entsprechenden Optionen gesetzt sind...
-            if($("#has_grade").text() == '0') {
+            if(($("#has_grade").text() == '0')&&(modProp(modul_id,"modul_has_grade") == "true")) {
                 $("#exception_note").attr("checked", "checked");
             }
             if($("#has_warning").text() == '0') {
@@ -832,13 +832,15 @@ var ajax_request_module_info = function (modul_id){
             } else {
                 $("#exception_credit").attr("value","Credits");
             }
-            if($("#has_general_grade").text() == 0) {
+            // if($("#has_general_grade").text() == 0) {
+						if(modProp(modul_id,"modul_has_grade") != "true") {
                 $("#note_streichen_checkbox").css("display", "none");
             } else {
                 $("#note_streichen_checkbox").css("display", "table-row");
             }
 						// Vorläufig kann man Dummy-Modul-Credits nur beim Erstellen ändern (OS)
-            if($("#semester-content").find("#"+modul_id+" span.custom").text() == "custom") {
+            // if($("#semester-content").find("#"+modul_id+" span.custom").text() == "custom") {
+						if (modProp(modul_id,"custom") == "custom") {
                 $("#credits_aendern_checkbox").css("display", "none");
             } else {
                 $("#credits_aendern_checkbox").css("display", "table-row");
