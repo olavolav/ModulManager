@@ -13,6 +13,15 @@ Noch zu beheben:
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
 84. Modul-Vorbedingungen werden in der Pool-Info-Box nicht angezeigt (Christian & Olav)
 100. Rückgabe-Parameter des add_custom_module_to_selection-Aufrufes auswerten und in die Anzeige einbinden (Olav)
+101. Farbe des Info-Icons in der Auswahl bleibt nicht notwendigerweise immer auf grün, wenn man 'Warnungen deaktivieren' gewählt hat (Olav)
+102. Teilmodulen hinzufügen und löschen geht nicht, siehe jCache-Fehlermeldung (Olav)
+103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzichen MatNat-Combobox-Eintrag (Christian)
+104. Module in Spezialisierungspraktikum können zwar laut PO auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden, aber das kommt nicht vor, setzen wir also nicht um; aber wir brauchen einen entspr. Hinweis in den Modul-Kategorie-Beschreibungen (Olav)
+105. In den Text bei Dummy-Modul das Beispiel "Informatik I" einbauen (Olav)
+106. Dummy-Modul wird mit Note 0.0 im Backend initialisiert (Olav & evtl. Christian)
+107. PDF-Export: Module unr in den Kategorien anzeigen, wo sie tatsächlich eingebracht werden (Christian)
+108. Auwahl der Combobox wird beim neu laden nicht wieder richtig gesetzt (Olav)
+109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 
 
 

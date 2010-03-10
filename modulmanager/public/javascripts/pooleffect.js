@@ -626,7 +626,7 @@ var number_of_visible_items_in_category = function(handle){
             });
         }
     });
-		alert("number_of_visible_items_in_category: count="+count);
+		// alert("number_of_visible_items_in_category: count="+count);
     return (count);
 }
 
