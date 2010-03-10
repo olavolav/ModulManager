@@ -12,7 +12,6 @@ Noch zu beheben:
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
 84. Modul-Vorbedingungen werden in der Pool-Info-Box nicht angezeigt (Christian & Olav)
-100. Rückgabe-Parameter des add_custom_module_to_selection-Aufrufes auswerten und in die Anzeige einbinden (Olav)
 101. Farbe des Info-Icons in der Auswahl bleibt nicht notwendigerweise immer auf grün, wenn man 'Warnungen deaktivieren' gewählt hat (Olav)
 103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzichen MatNat-Combobox-Eintrag (Christian)
 105. In den Text bei Dummy-Modul das Beispiel "Informatik I" einbauen (Olav)
@@ -128,3 +127,4 @@ Nicht behoben:
 33b. Vorgeschaltete Auflösungs-Warnung ("Breite min. 1024 Pixel") einbauen (Olav)
 44. LaTeX-Vorlage auf Tabellenform umschreiben (Olav)
 48. Schwerpunkte unterteilen, nicht nur als Text (Olav)
+100. Rückgabe-Parameter des add_custom_module_to_selection-Aufrufes auswerten und in die Anzeige einbinden (Olav)
