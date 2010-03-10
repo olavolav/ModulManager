@@ -20,7 +20,7 @@ Noch zu beheben:
 105. In den Text bei Dummy-Modul das Beispiel "Informatik I" einbauen (Olav)
 106. Dummy-Modul wird mit Note 0.0 im Backend initialisiert (Olav & evtl. Christian)
 107. PDF-Export: Module unr in den Kategorien anzeigen, wo sie tatsächlich eingebracht werden (Christian)
-108. Auwahl der Combobox wird beim neu laden nicht wieder richtig gesetzt (Olav)
+108. Auwahl der Combobox wird beim neu laden nicht wieder richtig gesetzt (Christian)
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 
 
