@@ -115,8 +115,8 @@ Inzwischen behoben:
 98. Noten-Feld wird bei unbenotetem Dummy-Modul nicht sofort ausgeblendet (Olav)
 96. Wünschenswert wäre, wenn man auch bei einem Dummy-Modulen in der Auswahl sehen kann, zu welcher Kategorie es gehört (Christian)
 99. has_general_grade-Eigenschaft muss vom Frontend bei Dummy-Modulen richtig übersetzt werden (Olav)
-102. Teilmodulen hinzufügen und löschen geht nicht, siehe jCache-Fehlermeldung (Olav)
 104. Module in Spezialisierungspraktikum können zwar laut PO auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden, aber das kommt nicht vor, setzen wir also nicht um; aber wir brauchen einen entspr. Hinweis in den Modul-Kategorie-Beschreibungen (Olav)
+102. Teilmodulen hinzufügen und löschen geht nicht, siehe jCache-Fehlermeldung (Olav)
 
 
 

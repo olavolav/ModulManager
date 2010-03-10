@@ -57,6 +57,19 @@ var change_credit_and_add_name_in_selection = function(modul_id,handle){
 	
     return 0;
 }
+var change_credit_and_remove_name_in_pool = function(modul_id,handle){
+    //credit ï¿½ndern
+    var c_text = modProp(modul_id,"credits_in_selection");
+    $(handle).find(".modul_credit").text(c_text+" C");
+	
+    //name remove
+    // var n_text = $(handle).find(".modul_name_in_pool").text();
+    var n_text = modProp(modul_id,"modul_name_in_pool");
+    $(handle).find(".modul_name").text(n_text);
+	
+    return 0;	
+}
+
 
 // Diese Funktion ändert entgegen dem Namen nicht nur die Farbe des Info-Icons, sondern setzt auch
 // den ".is_error"-Text des Moduls (OS)
@@ -354,12 +367,13 @@ var custom_modul_in_the_search_table_rekursiv = function(){
 /// bei Click auf <div class="modul_loeschen">
 /// neuerdings auch beim Ziehen zum Pool (OS)
 var partial_modul_loeschen = function (modul_id,all_sem_destroy){
-    //alert("hallo partial_modul_loeschen");
+    // alert("partial_modul_loeschen");
     //alert("hallo sub "+all_sem_destroy);
     //suche teil-Module
     $("#middle div.subsemester").find("div").each(function(){
-        if (modProp(modul_id,"id_of_parent_modul") == modul_id) {
-            var this_id = $(this).attr("id");
+				var this_id = $(this).attr("id");
+        if ((this_id != "") && (modProp(this_id,"id_of_parent_modul") == modul_id)) {            
+						// alert ("partial_modul_loeschen: jetzt Aufruf von sub_modul_loeschen mit modul_id="+this_id);
             sub_modul_loeschen(this,this_id,all_sem_destroy);
         }
     });
@@ -378,27 +392,29 @@ var modul_loeschen = function (modul_id,all_sem_destroy){
     $("#middle div.semester").find("div#"+modul_id).each(function(){
 		
         var this_mod_parts = modProp(modul_id,"modul_parts");
-        var this_mod_par_id = modProp(modul_id,"id_of_parent_modul");
+        var this_mod_parent_id = modProp(modul_id,"id_of_parent_modul");
         //check nach Teil-Modul
-        if((this_mod_parts != "0") || (this_mod_par_id !="false")){
+        if((this_mod_parts != "0") || (this_mod_parent_id !="false")){
             var check = confirm("Dieses Modul besteht aus mehreren Teilmodulen - wenn Sie es entfernen, werden alle weiteren Teile ebenfalls entfernt.");
             if(check == true){
 				
-                if(this_mod_par_id != "false"){
+                if(this_mod_parent_id != "false"){
+										// alert ("modul_loeschen: Modul mit mehreren Teilmodulen - dies ist einer der untergeordneten Teile.");
                     //hier ist Teil-modul
                     //such nach head-modul-->l�schen
-                    var head_modul = $("#middle div.semester").find("div#"+this_mod_par_id);
-                    change_credit_and_remove_name_in_pool(head_modul);
-										modPropChange(this_mod_par_id,"head_modul_in_pool","true");
+                    var head_modul = $("#middle div.semester").find("div#"+this_mod_parent_id);
+                    change_credit_and_remove_name_in_pool(this_mod_parent_id,head_modul);
 										
-                    sub_modul_loeschen(head_modul,this_mod_par_id,all_sem_destroy);
-                    partial_modul_loeschen(this_mod_par_id,all_sem_destroy);
+                    sub_modul_loeschen(head_modul,this_mod_parent_id,all_sem_destroy);
+                    partial_modul_loeschen(this_mod_parent_id,all_sem_destroy);
+										modPropChange(this_mod_parent_id,"head_modul_in_pool","true");
                 }
                 else{
+										// alert ("modul_loeschen: Modul mit mehreren Teilmodulen - dies ist der Kopf.");
                     //hier ist head-Modul
-                    // setzen "true" beim span.head_modul_in_pool ( wegen AJAX)
+                    // setzen "true" beim span.head_modul_in_pool (wegen AJAX)
 										modPropChange(modul_id,"head_modul_in_pool","true");
-                    change_credit_and_remove_name_in_pool(this);
+                    change_credit_and_remove_name_in_pool(modul_id,this);
                     sub_modul_loeschen(this,modul_id,all_sem_destroy);
                     partial_modul_loeschen(modul_id,all_sem_destroy);
                 }
@@ -416,19 +432,15 @@ var modul_loeschen = function (modul_id,all_sem_destroy){
 
 var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
 
-    // alert("hallo modul_loeschen (Schleife, 1x pro Modul in der Auwahl) class: "+$(this).attr("class"));
+    // alert("sub_modul_loeschen: id="+modul_id+", class="+$(this_mod).attr("class"));
     // aendere CSS style
     change_module_style_to_pool(modul_id,this_mod);
     var kopf_modul_check = modProp(modul_id,"modul_parts");
     var parent_attr_check = modProp(modul_id,"id_of_parent_modul");
     var pool_modul = "pool_modul";
-    //wenn ein Teil_modul ist, dann hat das class "partial",
-    // damit das nicht in Pool angezeigt wird.
-    if($(this_mod).attr("class")=="auswahl_modul partial_modul"){
-        //alert("du bist teil_modul");
-        pool_modul = "partial_modul";
-			
-    }
+    //wenn ein Teil_modul ist, dann hat das class "partial", damit das nicht in Pool angezeigt wird.
+    if ($(this_mod).attr("class")=="auswahl_modul partial_modul") pool_modul = "partial_modul";
+
     $(this_mod).attr("class",pool_modul);
     if (modProp(modul_id,"modul_parts_exist")=="true") modPropChange(modul_id,"modul_parts_exist","false");
 
@@ -1286,19 +1298,40 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 	
     // bring  partial-modul ins Auswahl
     var the_first=$("#pool").find("."+modul_id+"_parent").eq(0);
-    var partial_module = $(the_first).nextAll().filter(function(index){
-        return (modProp($(this).attr("id"),"id_of_parent_modul") == modul_id);
-    });
+
+		//     var partial_module = $(the_first).nextAll().filter(function(index){
+		//         return (modProp($(this).attr("id"),"id_of_parent_modul") == modul_id);
+		//     });
+		// alert("partial_modul_drop_in_auswahl: Anzahl der zu verschiebenden Sub-Module: "+$(partial_module).length);
+		// 	
+		//     $(partial_module).each(function(){
+		//         var this_child = $(this).children().eq(1);
+		//         $(this_child).attr("class","auswahl_modul partial_modul");
+		//         var this_id = $(this_child).attr("id");
+		//         $(this_child).show();
+		//         change_module_style_to_auswahl(modul_id,this);
+		//         $(this_sub).append(this_child);
+		//         ajax_serverupdate_add(this_id,semester);
+		// 
+		//     });
+
+    // alert("partial_modul_drop_in_auswahl: Suche nach Sub-Modulen");
+		var partial_module = $(the_first).nextAll().each(function(index){
+				// Das .children().eq(1) ist ein Hack, um nicht das "nichtleer"-Div auszuwählen (OS)
+				this_id = $(this).children().eq(1).attr("id");
+				// alert("partial_modul_drop_in_auswahl: this_id="+this_id+", class="+$(this).children().eq(1).attr("class"));
+				
+        if ((this_id!="") && (modProp(this_id,"id_of_parent_modul") == modul_id)) {
+					// alert("partial_modul_drop_in_auswahl: Sub-Modul gefunden: modul_id="+this_id);
+	        var this_child = $(this).children().eq(1);
+	        $(this_child).attr("class","auswahl_modul partial_modul");
+	        // var this_id = $(this_child).attr("id");
+	        $(this_child).show();
+	        change_module_style_to_auswahl(this_id,this_child);
+	        $(this_sub).append(this_child);
+	        ajax_serverupdate_add(this_id,semester);
 	
-    $(partial_module).each(function(){
-        var this_child = $(this).children().eq(1);
-        $(this_child).attr("class","auswahl_modul partial_modul");
-        var this_id = $(this_child).attr("id");
-        $(this_child).show();
-        change_module_style_to_auswahl(modul_id,this);
-        $(this_sub).append(this_child);
-        ajax_serverupdate_add(this_id,semester);
-		
+				}
     });
     ueberblick();
 	
