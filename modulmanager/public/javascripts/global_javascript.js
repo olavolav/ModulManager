@@ -1514,7 +1514,7 @@ var poolrekursiv = function(XMLhandle){
                 "</a>"+
                 "</td>" +
 
-                "<td class='modul_credit' style='width:32px;text-align:right;font-weight:bold'>" +
+                "<td class='modul_credit' style='width:29px;text-align:right;font-weight:bold'>" +
                 credits +" C" +
                 "</td>" +
                 "</tr>" + "</tbody>" + "</table>" +
