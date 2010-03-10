@@ -89,7 +89,7 @@
     untergruppen: "Nicht Physikalisch, Mathematisch-Naturwissenschaftlich"
 
   - name: Spezialisierungs-Praktikum
-    beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
+    beschreibung: "Bitte beachten Sie: Nach der Prüfungsordnung ist es prinzipiell möglich, Module dieser Kategorie auch in den Profilierungs-Bereich einzubringen - da dies jedoch die absolute Ausnahme darstellt, erlaubt der ModulManager diese Konfiguration nicht."
     module: "B.Phy.403, B.Phy.404, B.Phy.405, B.Phy.406, B.Phy.407, B.Phy.408"
     anzahl: 1
     credits: 6
