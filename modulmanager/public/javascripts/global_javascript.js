@@ -97,44 +97,48 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
 	          if (modProp(modul_id,"error") != "true") {
 								var icon = $(handle).find(".ipunkt");
                 $(icon).html(roter_ipunkt);
-								modPropChange(modul_id,"error","true");
 
-								$(icon).animate({opacity: 0.1}, "fast");
-								$(icon).animate({opacity: 1.0}, "fast");
-								$(icon).animate({opacity: 0.1}, "fast");
-								$(icon).animate({opacity: 1.0}, "fast");
-								$(icon).animate({opacity: 0.1}, "fast");
-								$(icon).animate({opacity: 1.0}, "fast");
+								if (modProp(modul_id,"error") != "unknown") {
+									$(icon).animate({opacity: 0.1}, "fast");
+									$(icon).animate({opacity: 1.0}, "fast");
+									$(icon).animate({opacity: 0.1}, "fast");
+									$(icon).animate({opacity: 1.0}, "fast");
+									$(icon).animate({opacity: 0.1}, "fast");
+									$(icon).animate({opacity: 1.0}, "fast");
+								}
+								modPropChange(modul_id,"error","true");
             }
             break;
 				
         case "no_error":
             if (modProp(modul_id,"error") != "false") {
-                modPropChange(modul_id,"error","false");
                 // Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
 								var icon = $(handle).find(".ipunkt");
                 if ((modProp(modul_id,"modul_has_grade")=="true")&&($(handle).find(".noten_input").val()=="Note"))
                     icon.html(gelber_ipunkt);
                 else icon.html(gruener_ipunkt);
 
-								$(icon).animate({opacity: 0.1}, "fast");
-								$(icon).animate({opacity: 1.0}, "fast");
-								$(icon).animate({opacity: 0.1}, "fast");
-								$(icon).animate({opacity: 1.0}, "fast");
-								$(icon).animate({opacity: 0.1}, "fast");
-								$(icon).animate({opacity: 1.0}, "fast");
+								if (modProp(modul_id,"error") != "unknown") {
+									$(icon).animate({opacity: 0.1}, "fast");
+									$(icon).animate({opacity: 1.0}, "fast");
+									$(icon).animate({opacity: 0.1}, "fast");
+									$(icon).animate({opacity: 1.0}, "fast");
+									$(icon).animate({opacity: 0.1}, "fast");
+									$(icon).animate({opacity: 1.0}, "fast");
+								}
+								modPropChange(modul_id,"error","false");
             }
             break;
 				
         case "entered_grade":
             // Falls kein Fehler vorliegt, wird das Icon auf grün gesetzt
-            if (modProp(modul_id,"error") != "true")
+            if (modProp(modul_id,"error") == "false")
                 $(handle).find(".ipunkt").html(gruener_ipunkt);
             break;
 				
         case "invalid_grade":
             // Falls kein Fehler vorliegt, wird das Icon auf gelb gesetzt
-            if (modProp(modul_id,"error") != "true")
+            if (modProp(modul_id,"error") == "false")
                 $(handle).find(".ipunkt").html(gelber_ipunkt);
             break;
 			
@@ -466,8 +470,9 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
     var modul_itself_has_not_been_moved = true;
     // ersmal hide
     $(this_modul).hide();
-    // suche nach modul_id_parent im Pool
-		
+		modPropChange(modul_id,"error","unknown");
+
+    // suche nach modul_id_parent im Pool		
     // alert("Dieses Modul (bzw. dessen Parent) kommt im Pool "+($("#pool ."+this_id+"_parent").length)+" mal vor.");					
     $("#pool ."+this_id+"_parent").each(function(){
 
@@ -754,8 +759,8 @@ var session_auswahl_rekursiv = function(root){
                 $(this_noten).val(this_grade);
                 flip_module_infoicon_on_event("entered_grade",modul_id,auswahl_modul_clone);
             }
-            if (modProp(modul_id,"error"))
-                flip_module_infoicon_on_event("error",modul_id,auswahl_modul_clone);
+            // if (modProp(modul_id,"error") == "true")
+            //     flip_module_infoicon_on_event("error",modul_id,auswahl_modul_clone);
 
             // $(auswahl_modul_clone).find("span.inAuswahl").text("true");
 						modPropChange(modul_id,"inAuswahl","true");
@@ -1488,7 +1493,7 @@ var poolrekursiv = function(XMLhandle){
 								modPropForce(modul_id,"total_modul_credit",this_total_credits);
 								modPropForce(modul_id,"credits_in_selection",credits_in_selection);
 
-								modPropForce(modul_id,"error","false");
+								modPropForce(modul_id,"error","unknown");
 
                 appendString += "<div class='" + modul_id + "_parent ' rel='mod_parent'><div class='nichtleer'></div><div class='"+
                 pool_modul_class+"' id='" + modul_id + "' >" +

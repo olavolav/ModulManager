@@ -20,7 +20,9 @@ Noch zu beheben:
 108. Auwahl der Combobox wird beim neu laden nicht wieder richtig gesetzt (Christian)
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 110. Info-Box von Sub-Modulen in leer (Christian, evtl. Olav)
-111. Wünschenswert wäre die gleiche Animation der Info-Icons bei einem Fehler wie im Überblick, dazu müsste aber die Fehler-Auswertung im Frontend auf jCache umgebaut werden (Olav)
+112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der INfo-Box nicht angezeigt (Christian)
+113. Note berechnen: Reset von Noten von Teilmodulen schient nicht zu gehen (Christian)
+114. Note berechnen: Ergebnis ist nicht exakt, vielleicht ein Integer/Float-Thema? (Christian)
 
 
 
@@ -117,6 +119,7 @@ Inzwischen behoben:
 99. has_general_grade-Eigenschaft muss vom Frontend bei Dummy-Modulen richtig übersetzt werden (Olav)
 104. Module in Spezialisierungspraktikum können zwar laut PO auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden, aber das kommt nicht vor, setzen wir also nicht um; aber wir brauchen einen entspr. Hinweis in den Modul-Kategorie-Beschreibungen (Olav)
 102. Teilmodulen hinzufügen und löschen geht nicht, siehe jCache-Fehlermeldung (Olav)
+111. Wünschenswert wäre die gleiche Animation der Info-Icons bei einem Fehler wie im Überblick, dazu müsste aber die Fehler-Auswertung im Frontend auf jCache umgebaut werden (Olav)
 
 
 
