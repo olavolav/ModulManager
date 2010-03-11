@@ -20,6 +20,7 @@ Noch zu beheben:
 108. Auwahl der Combobox wird beim neu laden nicht wieder richtig gesetzt (Christian)
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 110. Info-Box von Sub-Modulen in leer (Christian, evtl. Olav)
+111. Wünschenswert wäre die gleiche Animation der Info-Icons bei einem Fehler wie im Überblick, dazu müsste aber die Fehler-Auswertung im Frontend auf jCache umgebaut werden (Olav)
 
 
 
