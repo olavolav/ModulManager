@@ -89,35 +89,52 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
     switch(type){
         // Die ersten beiden Events sollten optimiert sein, da die Fehler-Überprüfung bei jeder
         // Änderung aufgerufen wird. Bei den Noten-Events unten ist das nicht so wichtig.
+				// Was hier noch fehlt ist die Auswirkung der "Warnung deaktivieren"-AO (OS)
         case "error":
 						// alert("flip_module_infoicon_on_event: error event triggered.");
             // In dem Fall ist klar, was passieren muss, unabhängig von der Note wird das Icon auf
             // rot gesetzt, falls das nicht ohnehin schon der Fall ist:
-	          if (modProp(modul_id,"is_error") != "true") {
-                $(handle).find(".ipunkt").html(roter_ipunkt);
-								modPropChange(modul_id,"is_error","true");
+	          if (modProp(modul_id,"error") != "true") {
+								var icon = $(handle).find(".ipunkt");
+                $(icon).html(roter_ipunkt);
+								modPropChange(modul_id,"error","true");
+
+								$(icon).animate({opacity: 0.1}, "fast");
+								$(icon).animate({opacity: 1.0}, "fast");
+								$(icon).animate({opacity: 0.1}, "fast");
+								$(icon).animate({opacity: 1.0}, "fast");
+								$(icon).animate({opacity: 0.1}, "fast");
+								$(icon).animate({opacity: 1.0}, "fast");
             }
             break;
 				
         case "no_error":
-            if (modProp(modul_id,"is_error") != "false") {
-                modPropChange(modul_id,"is_error","false");
+            if (modProp(modul_id,"error") != "false") {
+                modPropChange(modul_id,"error","false");
                 // Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
-                if ((modProp(modul_id,"modul_has_grade")=="true")&&($(handle).find(".noten_input").val()!="Note"))
-                    $(handle).find(".ipunkt").html(gelber_ipunkt);
-                else $(handle).find(".ipunkt").html(gruener_ipunkt);
+								var icon = $(handle).find(".ipunkt");
+                if ((modProp(modul_id,"modul_has_grade")=="true")&&($(handle).find(".noten_input").val()=="Note"))
+                    icon.html(gelber_ipunkt);
+                else icon.html(gruener_ipunkt);
+
+								$(icon).animate({opacity: 0.1}, "fast");
+								$(icon).animate({opacity: 1.0}, "fast");
+								$(icon).animate({opacity: 0.1}, "fast");
+								$(icon).animate({opacity: 1.0}, "fast");
+								$(icon).animate({opacity: 0.1}, "fast");
+								$(icon).animate({opacity: 1.0}, "fast");
             }
             break;
 				
         case "entered_grade":
             // Falls kein Fehler vorliegt, wird das Icon auf grün gesetzt
-            if (modProp(modul_id,"is_error") != "true")
+            if (modProp(modul_id,"error") != "true")
                 $(handle).find(".ipunkt").html(gruener_ipunkt);
             break;
 				
         case "invalid_grade":
             // Falls kein Fehler vorliegt, wird das Icon auf gelb gesetzt
-            if (modProp(modul_id,"is_error") != "true")
+            if (modProp(modul_id,"error") != "true")
                 $(handle).find(".ipunkt").html(gelber_ipunkt);
             break;
 			
@@ -125,18 +142,18 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
             // Das ist für den Fall gedacht, wenn man ein Modul in die Auwahl zieht, und also alle
             // anderen Event-Arten möglich sind
             // Nur benutzt in der Funktion change_module_style_to_auswahl
-            if (modProp(modul_id,"is_error") == "false") {
+            // if (modProp(modul_id,"error") == "false") {
                 // Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
                 if ((modProp(modul_id,"modul_has_grade")=="true") && (($(handle).find(".noten_input").val()!="Note")||($(handle).find(".noten_input").val()!="")))
                     $(handle).find(".ipunkt").html(gelber_ipunkt);
                 else $(handle).find(".ipunkt").html(gruener_ipunkt);
-            }
-            else $(handle).find(".ipunkt").html(roter_ipunkt);
+            // }
+            // else $(handle).find(".ipunkt").html(roter_ipunkt);
 				
             break;
 				
         default:
-            alert("Fehler in flip_module_infoicon_on_event: Typ "+type+" unbekannt!");
+            alert("Fehler in flip_module_infoicon_on_event: Event-Typ "+type+" unbekannt!");
     }
 }
 
@@ -725,8 +742,8 @@ var session_auswahl_rekursiv = function(root){
             if(mod_has_warning=="false"){
                 $(auswahl_modul_clone).find("p.warnung-option").html("Ausnahme: Warnungen deaktiviert");
             }
-            // Noten setzen
-            if(mod_grade != "" ){
+            // Noten setzen, Note von 0 wird nicht gewertet (OS)
+            if((mod_grade != "" )&&(parseFloat(mod_grade) > 0.5)){
                 var this_noten=$(auswahl_modul_clone).find(".noten_input");
                 var this_grade = mod_grade;
                 //set comma
@@ -737,7 +754,7 @@ var session_auswahl_rekursiv = function(root){
                 $(this_noten).val(this_grade);
                 flip_module_infoicon_on_event("entered_grade",modul_id,auswahl_modul_clone);
             }
-            if (check_error(modul_id))
+            if (modProp(modul_id,"error"))
                 flip_module_infoicon_on_event("error",modul_id,auswahl_modul_clone);
 
             // $(auswahl_modul_clone).find("span.inAuswahl").text("true");
@@ -1119,42 +1136,6 @@ function ajax_serverupdate_change_credits(modul_id,credits){
     });
 }
 
-var check_error = function(error_id){
-		// alert ("check_error: error_id="+error_id);
-    var check=false;
-    $("#middle #error_table").children().each(function(){
-        if($(this).attr("id")==error_id){
-            check=true;
-        }
-    });
-    return check;
-}//ende
-
-var check_error_all_modul_in_selection = function(){
-    $("#semester-content").find(".semester").each(function(){
-        $(this).find(">.subsemester").children().not("h5").each(function(){
-            var modul_id = $(this).attr("id");
-						// War das ein Bug? (OS)
-            if (check_error("error_"+modul_id)) flip_module_infoicon_on_event("error",modul_id,this);
-            // if (check_error(modul_id)) flip_module_infoicon_on_event("error",modul_id,this);
-            else flip_module_infoicon_on_event("no_error",modul_id,this);
-        });
-    });
-}
-
-var error_table_builder = function(root){
-    $(root).children().each(function(){
-        var modul_id = $(this).attr("id");
-        //alert("error_id="+modul_id);
-        //$("div#error_table").append("<div id='problem_"+modul_id+"'>"+modul_id+"</div>");
-        $("#middle #error_table").append("<div id='error_"+modul_id+"'>"+modul_id+"</div>");
-		
-    });
-	
-    check_error_all_modul_in_selection();
-}
-
-
 
 function update_module_errors(){
 	
@@ -1172,12 +1153,41 @@ function update_module_errors(){
         }
     }).responseXML;
 	
-    // error_table aufbauen
-	
+    // error_table aufbauen, war früher die Funktion error_table_builder (OS)
     $("#middle #error_table").empty();
     var root = XML.documentElement;
-    error_table_builder(root);
+		var HTMLstring = "";
+    $(root).children().each(function(){
+        var modul_id = $(this).attr("id");
+        //alert("error_id="+modul_id);
+        HTMLstring += "<div id='error_"+modul_id+"'>"+modul_id+"</div>";
+    });
+		$("#middle #error_table").append(HTMLstring);
+
+    // Fehler-Einträge auswerten; war früher die Funktion check_error_all_modul_in_selection (OS)
+		$("#semester-content").find(".semester").each(function(){
+				// Das mit "h5" ist noch unschön (OS)
+        $(this).find(">.subsemester").children().not("h5").each(function(){
+            var modul_id = $(this).attr("id");
+						// Wie dort beschrieben, setzt die Funktion flip_module_infoicon_on_event auch die
+						// jCache-"error"-Werte - somit kann überprüft werden, ob sich der Fehler-Wert verändert
+						// hat und ggf. eine Animation angezeigt werden (OS)
+            if (check_error_on_init("error_"+modul_id))
+							flip_module_infoicon_on_event("error",modul_id,this);
+            else flip_module_infoicon_on_event("no_error",modul_id,this);
+        });
+    });		
 }
+var check_error_on_init = function(error_id){
+		// alert ("check_error: error_id="+error_id);
+    var check=false;
+    $("#middle #error_table").children().each(function(){
+        if($(this).attr("id")==error_id){
+            check=true;
+        }
+    });
+    return check;
+}//ende
 
 
 // DROP in Auswahl
@@ -1260,10 +1270,6 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
         // $(ui_draggable).find(".head_modul_in_pool").text("false");
         modPropChange(modul_id,"head_modul_in_pool","false");
         ajax_request_grade();
-    }
-    // check error-Regel
-    if (check_error(modul_id)) {
-        flip_module_infoicon_on_event("error",modul_id,ui_draggable);
     }
 
     // var additional_info = $(ui_draggable).find(".additional_info").text();
@@ -1482,7 +1488,7 @@ var poolrekursiv = function(XMLhandle){
 								modPropForce(modul_id,"total_modul_credit",this_total_credits);
 								modPropForce(modul_id,"credits_in_selection",credits_in_selection);
 
-								modPropForce(modul_id,"is_error","false");
+								modPropForce(modul_id,"error","false");
 
                 appendString += "<div class='" + modul_id + "_parent ' rel='mod_parent'><div class='nichtleer'></div><div class='"+
                 pool_modul_class+"' id='" + modul_id + "' >" +
@@ -1606,7 +1612,7 @@ var change_module_style_to_pool = function(modul_id,handle){
     }
     // is_error auf "true" setzen
     // $(handle).find(".is_error").text("false");
-		modPropChange(modul_id,"is_error","false");
+		modPropChange(modul_id,"error","false");
    	
     jQuery.each(jQuery.browser, function(i) {
         if($.browser.msie){

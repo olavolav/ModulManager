@@ -2,7 +2,6 @@
 //  diese Funktion ueberblickrekursiv() gibt den �berblick in der linken Spalten.-//
 //  die gibt alle Fehlern und Warnungen aus.                                      //
 //  Und die Funktion ueberblick() ruft ueberblick-XML per AJAX auf                //
-//  check_error() gibt die Errors von action abfragen/errors in div-id #table_error aus
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 var info_box_overview =  function(modul_id){
@@ -44,9 +43,11 @@ var ueberblick = function(){
             alert("problem with /abfragen/ueberblick");
         }
     }).responseText;
-		update_category_errors();
-    //check_error();
+		
+		// Fehler von Modulen und Kategorien auswerten
     update_module_errors();
+		update_category_errors();
+
     // Klickbare Info-Buttons sollen beim dr�berfahren animiert werden, wie schon in global_javascript.js (OS)
     $(".ueberblick_info_box").mouseenter(function(){
         $(this).animate({
