@@ -32,13 +32,13 @@ select {
 /*	border: 1px #AAA solid;
 	background: #FAFAFF; */
 	width:100%;
-	/* background: #FFFFAF url("../images/Semester-Hintergrund.gif");
-	background-repeat: repeat;
-	background-position: top left; */
+	background: #FAFAFD url("../images/Semester-Hintergrund.gif");
+	background-repeat: no-repeat;
+	background-position: top left;
 	/* border: 1px #F0F0F0 solid;
 	background: #FDFDE0; */
 	border: 1px #F0F0F0 solid;
-	background: #FAFAFD;
+/*	background: #FAFAFD;*/
 	
 	padding: 8px;
 	margin-bottom: 10px;
@@ -82,7 +82,10 @@ h3,h4,h5 {
 	/* background-image: url("../images/Pool-Hintergrund-Droppable.gif");
 	background-repeat: repeat;
 	background-position: top left; */
-	background-color: #FFA0A0;
+/*	background-color: #FFA0A0;*/
+	background: #FFA0A0 url("../images/Semester-Hintergrund-OnHover.gif");
+	background-repeat: no-repeat;
+	background-position: top left;
 }
 
 

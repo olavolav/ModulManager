@@ -30,7 +30,7 @@ a:visited {
 }
 
 #container{
-	background-color: white;
+/*	background-color: white;*/
 	/*height:3000px;*/
 	
 }
@@ -43,10 +43,13 @@ a:visited {
 }
 
 #subnavi {
-	background-color: #F4F4FF;
+/*	background-color: #F4F4FF;*/
 	/*height: 50px;*/
 	border-bottom: 1px #AAA solid;
 	padding: 0.5em;
+	background: #F4F4FF url("../images/Subnavi-Hintergrund.png");
+	background-repeat: no-repeat;
+	background-position: top left;
 	/*margin-left: 1em;
 		margin-right: 1em;
 		margin-bottom: 1em;*/
@@ -135,8 +138,10 @@ a:visited {
 	background-position: top left;	*/
 }
 
-#content{
-/*	background-color:red;*/
+#content {
+	background: #FAFAFD url("../images/Semester-Hintergrund.gif");
+	background-repeat: no-repeat;
+	background-position: top left;
 }
 
 #left{
@@ -234,8 +239,11 @@ a:visited {
 /*		background: #FFFFAF url("../images/Pool-Hintergrund.gif");
 		background-repeat: repeat;
 		background-position: top left; */
+		background: #FAFAFD url("../images/Semester-Hintergrund.gif");
+		background-repeat: no-repeat;
+		background-position: top left;
 		border: 1px #F0F0F0 solid;
-		background: #FAFAFD;
+/*		background: #FAFAFD;*/
 		margin: 3px;
 		padding:2px;
 		height:100%;
