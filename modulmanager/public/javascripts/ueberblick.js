@@ -44,6 +44,7 @@ var ueberblick = function(){
             alert("problem with /abfragen/ueberblick");
         }
     }).responseText;
+		update_category_errors();
     //check_error();
     update_module_errors();
     // Klickbare Info-Buttons sollen beim dr�berfahren animiert werden, wie schon in global_javascript.js (OS)
@@ -56,3 +57,35 @@ var ueberblick = function(){
         }, "slow");
     });
 }// ende function
+
+var update_category_errors = function() {
+	// Durch alle Kategorien gehen und Fehler-Wert extrahieren - wäre nett, wenn das in Zukunft
+	// eleganter möglich wäre (OS)
+	$("#ueberblick").find(".ueberblick_info_box").each(function(){
+		var cat_id = $(this).attr("id").split("#")[1];
+		var cat_fehler = "false";
+		if ($(this).find("a > img").attr("alt") != "Ipunkt") cat_fehler = "true";
+		// alert("update_category_errors: alt="+$(this).find("a > img").attr("alt")+", error="+cat_fehler);
+		
+		// Testen, ob dieser neue Wert auch dem Wert im Cache entspricht, bzw. vorher, ob er existiert
+		if ($.jCache.hasItem("c"+cat_id+"::error")) {
+			if ($.jCache.getItem("c"+cat_id+"::error")==cat_fehler) {
+				// also hat sich nichts geändert
+				// alert("update_category_errors: Kategorie #"+cat_id+" unverändert, error="+cat_fehler);
+			}
+			else {
+				$.jCache.changeItem("c"+cat_id+"::error",cat_fehler);
+				// alert("update_category_errors: Kategorie #"+cat_id+" hat sich verändert, jetzt error="+cat_fehler);
+				// also hat sich der Fehler-Wert verändert
+				$(this).animate({opacity: 0.1}, "fast");
+				$(this).animate({opacity: 1.0}, "fast");
+				$(this).animate({opacity: 0.1}, "fast");
+				$(this).animate({opacity: 1.0}, "fast");
+				$(this).animate({opacity: 0.1}, "fast");
+				$(this).animate({opacity: 1.0}, "fast");
+			}
+		}
+		// Falls das also der erste Aufruf nach dem neu Laden war, Cache-Werte setzen
+		else $.jCache.createItem("c"+cat_id+"::error",cat_fehler);
+	});
+}
