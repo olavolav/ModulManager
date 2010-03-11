@@ -103,6 +103,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         })
         change_module_style_to_auswahl(custom_id,cus_modul);
         ajax_serverupdate_add_custom(this_name,this_credit_point_float,cat_id_array,custom_semester,custom_id,has_grade);
+				ajax_serverupdate_grade_reset(custom_id);
         return true;
     }
 } 

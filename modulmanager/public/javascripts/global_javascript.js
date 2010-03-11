@@ -175,7 +175,7 @@ var selection_input_check = function(input_noten){
 	
     var this_float      = parseFloat(trim_grade);
 	
-    if(isNaN(this_float)){
+    if((this_grade=="") || isNaN(this_float)){
         alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
         $(input_noten).attr("value","Note");
         ajax_serverupdate_grade_reset(modul_id);
@@ -204,10 +204,10 @@ var selection_input_check = function(input_noten){
 
             ajax_serverupdate_grade(modul_id,new_float);
             // hier kann man Note klicken
-            ajax_request_grade();
         }
         $("#note_berechnen").text("");
     }
+    ajax_request_grade();
 }
 
 // Diese Funktion geh�rt zu show_pool_by_out, also zum Ziehen eines Moduls vom Pool in die
@@ -1028,9 +1028,9 @@ var ajax_serverupdate_grade = function(modul_id,grade){
     });
 }
 
-var ajax_serverupdate_grade_reset = function(modul_id,grade) {
+var ajax_serverupdate_grade_reset = function(modul_id) {
     // Nicht schön, funktioniert aber. (OS)
-    ajax_serverupdate_grade(modul_id, 0);
+    ajax_serverupdate_grade(modul_id, "");
 }
 
 
