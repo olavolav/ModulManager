@@ -29,7 +29,7 @@ module AbfragenHelper
         <td class='ueberblick_name'>#{name}</td>
         <td class='ueberblick_image'>
           <div class='ueberblick_info_box' id='box##{id}' >
-            <a  alt='Weitere Informationen' onClick='javascript:get_modul_info_in_overview(#{id});'>
+            <a  alt='Weitere Informationen' onClick='javascript:info_box_overview(#{id});'>
               #{image_tag image}
             </a>
          </div>
@@ -80,7 +80,7 @@ EOF
         <td class='ueberblick_name'>#{name}</td>
         <td class='ueberblick_image'>
           <div class='ueberblick_info_box' id='box##{id}' >
-            <a  alt='Weitere Informationen' onClick='javascript:get_modul_info_in_overview(#{id});'>
+            <a  alt='Weitere Informationen' onClick='javascript:info_box_overview(#{id});'>
               #{image_tag image}
             </a>
          </div>

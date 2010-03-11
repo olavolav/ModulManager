@@ -5,7 +5,7 @@
 //  check_error() gibt die Errors von action abfragen/errors in div-id #table_error aus
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-var get_modul_info_in_overview =  function(modul_id){
+var info_box_overview =  function(modul_id){
     $("#box_info").empty();
     $("#box_info_exception").hide();
     $("#box_info_pool").show();
