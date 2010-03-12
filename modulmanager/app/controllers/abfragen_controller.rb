@@ -67,13 +67,14 @@ class AbfragenController < ApplicationController
 
     mod = Studmodule.find(params[:module_id])
 
-    selection = current_selection
+#    selection = current_selection
     m2 = nil
     @categories = Array.new
 
-    selection.selection_modules.each do |m|
-      m2 = m if m.moduledata.short == mod.short
-    end
+#    selection.selection_modules.each do |m|
+#      m2 = m if m.moduledata.short == mod.short
+#    end
+    m2 = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}")
     @id = m2.id
     if mod.short.include? "custom"
       @name = m2.name
