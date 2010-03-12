@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
           permitted = 1
           m.moduledata.permission == nil ? permitted = 1 : permitted = m.moduledata.permission.evaluate(selection.semesters, m.semester.count)
-          if (permitted == 1 || m.permission_removed) && m.has_grade
+          if (permitted == 1 || m.permission_removed) && m.has_grade && m.grade != nil && m.grade != 0.0
             if m.moduledata.children != [] && m.moduledata.children != nil
               teil_kumul = 0
               teil_credits = 0
@@ -67,6 +67,11 @@ class ApplicationController < ActionController::Base
                 credits += m.credits.to_f
               end
             elsif m.class == CustomModule
+#              if m.has_grade
+#                if m.grade != 0.0 && m.grade != nil
+#
+#                end
+#              end
               note_gewichtet = (m.credits.to_f * m.grade.to_f)
               grade["gesamt"] += note_gewichtet
               credits += m.credits.to_f

@@ -15,7 +15,6 @@ Noch zu beheben:
 101. Farbe des Info-Icons in der Auswahl bleibt nicht notwendigerweise immer auf grün, wenn man 'Warnungen deaktivieren' gewählt hat (Olav)
 103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzichen MatNat-Combobox-Eintrag (Christian)
 105. In den Text bei Dummy-Modul das Beispiel "Informatik I" einbauen (Olav)
-106. Note mit Dummy-Modulen wird falsch berechnet, so ändert sich zum Beispiel die Gesamtnote, wenn man ein Dummy-Modul in die Auswahl einfügt, ohne eine Note anzugeben (Christian)
 107. PDF-Export: Module unr in den Kategorien anzeigen, wo sie tatsächlich eingebracht werden (Christian)
 108. Auwahl der Combobox wird beim neu laden nicht wieder richtig gesetzt (Christian)
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
@@ -120,6 +119,7 @@ Inzwischen behoben:
 102. Teilmodulen hinzufügen und löschen geht nicht, siehe jCache-Fehlermeldung (Olav)
 111. Wünschenswert wäre die gleiche Animation der Info-Icons bei einem Fehler wie im Überblick, dazu müsste aber die Fehler-Auswertung im Frontend auf jCache umgebaut werden (Olav)
 113. Note berechnen: Reset von Noten von Teilmodulen schient nicht zu gehen (Olav)
+106. Note mit Dummy-Modulen wird falsch berechnet, so ändert sich zum Beispiel die Gesamtnote, wenn man ein Dummy-Modul in die Auswahl einfügt, ohne eine Note anzugeben (Christian)
 
 
 
