@@ -1,11 +1,11 @@
 
 
 #content {
-	
 	margin : 7% 15% 7% 15%;
 	border : 1px black solid;
-	/* background-color :  #dddddd; */
-	background-color :  #F0F0F0;
+	background: #FAFAFD url("../images/Semester-Hintergrund.gif");
+	background-repeat: no-repeat;
+	background-position: top left;
 	padding: 1em;
 }
 

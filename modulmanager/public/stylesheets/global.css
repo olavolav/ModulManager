@@ -139,9 +139,9 @@ a:visited {
 }
 
 #content {
-	background: #FAFAFD url("../images/Semester-Hintergrund.gif");
-	background-repeat: no-repeat;
-	background-position: top left;
+	/*background: #FAFAFD url("../images/Semester-Hintergrund.gif");
+		background-repeat: no-repeat;
+		background-position: top left;*/
 }
 
 #left{
