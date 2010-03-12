@@ -7,21 +7,54 @@
   # w = Wahlmodule               #
   ################################
 
+  - name: Bachelor
+    # hier wird nicht extra 180C gefordert, weil sich diese automatisch aus den Untergruppen ergeben (OS)
+    beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
+    untergruppen: "Pflichtmodule, Wahlpflichtmodule"
+
+
   # ==============================
   # Pflichtmodule
   # ==============================
+
+  # Um die seperaten Note-streichen-Regelungen zu ermöglichen, werden die Grundkurse nochmals unterteilt
+  # - name: Grundkurs
+  #   beschreibung: "In diesem Bereich werden die experimentellen und theoretischen Grundlagen der klassischen und modernen Physik vermittelt."
+  #   # Beschreibungs-Texte stammen aus §16 StO
+  #   module: "B.Phy.101, B.Phy.102, B.Phy.103, B.Phy.104, B.Phy.201, B.Phy.202, B.Phy.203"
+  #   anzahl: 7
+  #   credits: 54
+  #   # Angabe stammt auf §14 PO
+  #   note-streichen: 2
+
+
   - name: Pflichtmodule
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
     untergruppen: "Grundkurs, Praktika, Mathematik, Schlüsselkompetenzen, Abschlussarbeit"
     modus: p
 
   - name: Grundkurs
-    beschreibung: "In diesem Bereich werden die experimentellen und theoretischen Grundlagen der klassischen und modernen Physik vermittelt."
+    beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
+    untergruppen: "Experimentell, Theorie"
+#    modus: p
+
+  - name: Experimentell
+    beschreibung: "In diesem Bereich werden die experimentellen Grundlagen der klassischen und modernen Physik vermittelt."
     # Beschreibungs-Texte stammen aus §16 StO
-    module: "B.Phy.101, B.Phy.102, B.Phy.103, B.Phy.104, B.Phy.201, B.Phy.202, B.Phy.203"
-    anzahl: 7
-    credits: 54
-    note-streichen: 2
+    module: "B.Phy.101, B.Phy.102, B.Phy.103, B.Phy.104"
+    anzahl: 4
+    credits: 30
+    # Angabe stammt auf §14 PO
+    note-streichen: 1
+
+  - name: Theorie
+    beschreibung: "In diesem Bereich werden die theoretischen Grundlagen der klassischen und modernen Physik vermittelt."
+    # Beschreibungs-Texte stammen aus §16 StO
+    module: "B.Phy.201, B.Phy.202, B.Phy.203"
+    anzahl: 3
+    credits: 24
+    # Angabe stammt auf §14 PO
+    note-streichen: 1
 
   - name: Praktika
     beschreibung: "In Grund- und Fortgeschrittenenpraktika sollen wichtige Techniken des naturwissenschaftlichen Experimentierens erlernt werden."
@@ -34,6 +67,7 @@
     module: "B.Phy.303, B.Phy.304, B.Mat.011, B.Mat.012"
     anzahl: 4
     credits: 33
+    note-streichen: 1
 
   - name: Abschlussarbeit
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
@@ -45,17 +79,17 @@
   # Wahlpflichtmodule
   # ===========================
 
-  - name: Profilierungsbereich
-    beschreibung: "Durch Kombination ausgewählter Module können individuelle Studienprofile und Studienschwerpunkte gestaltet werden. Dazu müssen Module im Umfang von 6 C aus dem mathematisch-naturwissenschaftlichen Bereich gewählt werden und Module im Umfang von 12 C aus einem nichtphysikalischen Gebiet; je nach gewähltem Studienprofil sind hier Module aus den Gebieten Biologie, Chemie, Informatik, Mathematik oder Volkswirtschaft empfehlenswert. Doch können auch Module aus anderen Gebieten gewählt werden."
-    untergruppen: "Nicht Physikalisch, Mathematisch-Naturwissenschaftlich"
-
   - name: Wahlpflichtmodule
     beschreibung: "Die Modulmenge aller Wahlpflichtmodule"
     untergruppen: "Spezialisierungs-Praktikum, Einführungen, Spezielle Themen, Profilierungsbereich"
     modus: wp
 
+  - name: Profilierungsbereich
+    beschreibung: "Durch Kombination ausgewählter Module können individuelle Studienprofile und Studienschwerpunkte gestaltet werden. Dazu müssen Module im Umfang von 6 C aus dem mathematisch-naturwissenschaftlichen Bereich gewählt werden und Module im Umfang von 12 C aus einem nichtphysikalischen Gebiet; je nach gewähltem Studienprofil sind hier Module aus den Gebieten Biologie, Chemie, Informatik, Mathematik oder Volkswirtschaft empfehlenswert. Doch können auch Module aus anderen Gebieten gewählt werden."
+    untergruppen: "Nicht Physikalisch, Mathematisch-Naturwissenschaftlich"
+
   - name: Spezialisierungs-Praktikum
-    beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
+    beschreibung: "Bitte beachten Sie: Nach der Prüfungsordnung ist es prinzipiell möglich, Module dieser Kategorie auch in den Profilierungs-Bereich einzubringen - da dies jedoch die absolute Ausnahme darstellt, erlaubt der ModulManager diese Konfiguration nicht."
     module: "B.Phy.403, B.Phy.404, B.Phy.405, B.Phy.406, B.Phy.407, B.Phy.408"
     anzahl: 1
     credits: 6
@@ -68,7 +102,7 @@
 
   - name: Spezielle Themen
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
-    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.511, B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.553.2, B.Phy.554, B.Phy.554.2, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.563.2, B.Phy.564, B.Phy.564.2, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.573.2, B.Phy.574, B.Phy.574.2, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.583.2, B.Phy.584, B.Phy.584.2, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.593.2, B.Phy.594, B.Phy.594.2"
+    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.510.2, B.Phy.511, B.Phy.511.2, B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.553.2, B.Phy.554, B.Phy.554.2, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.563.2, B.Phy.564, B.Phy.564.2, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.573.2, B.Phy.574, B.Phy.574.2, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.583.2, B.Phy.584, B.Phy.584.2, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.593.2, B.Phy.594, B.Phy.594.2"
     credits: 12
 
   - name: Nicht Physikalisch
@@ -95,7 +129,8 @@
     anzahl: 3
     credits: 18
 
-  - name: Bachelor
-    # hier wird nicht extra 180C gefordert, weil sich diese automatisch aus den Untergruppen ergeben (OS)
-    beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
-    untergruppen: "Pflichtmodule, Wahlpflichtmodule"
+
+
+
+
+
