@@ -67,13 +67,13 @@ class AbfragenController < ApplicationController
 
     mod = Studmodule.find(params[:module_id])
 
-#    selection = current_selection
+    #    selection = current_selection
     m2 = nil
     @categories = Array.new
 
-#    selection.selection_modules.each do |m|
-#      m2 = m if m.moduledata.short == mod.short
-#    end
+    #    selection.selection_modules.each do |m|
+    #      m2 = m if m.moduledata.short == mod.short
+    #    end
     m2 = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}")
     @id = m2.id
     if mod.short.include? "custom"
@@ -187,8 +187,10 @@ class AbfragenController < ApplicationController
     studmodule      = Studmodule.find(module_id)
     selected_module = SelectedModule.create(:moduledata => studmodule)
 
-    category = Category.find(category_id)
-    category.focus == nil ? selected_module.category = category : selected_module.category = selected_module.moduledata.categories[0]
+    unless category_id == nil
+      category = Category.find(category_id)
+      category.focus == nil ? selected_module.category = category : selected_module.category = selected_module.moduledata.categories[0]
+    end
 
     selected_module.save
 
@@ -265,6 +267,7 @@ class AbfragenController < ApplicationController
         found = true if c == "_"
       end
     end
+    return nil if id == ""
     return id
   end
 
