@@ -34,20 +34,38 @@ class ApplicationController < ActionController::Base
 
               m.moduledata.children.each do |child|
 
-                selection.selection_modules.each do |modul|
-                  if modul.moduledata.id == child.id
-                    ges_credits += modul.moduledata.credits
-                    if modul.grade != nil
-                      if m.credits == nil || m.credits == ""
-                        teil_kumul += modul.grade.to_f * modul.moduledata.credits.to_f
-                        teil_credits += modul.moduledata.credits.to_f
-                      else
-                        teil_kumul += modul.grade.to_f * modul.credits.to_f
-                        teil_credits += modul.credits.to_f
-                      end
-                    end
+                child_data = SelectedModule.find(:first, :conditions => "module_id = #{child.id}")
+
+                if child_data.credits == nil
+                  ges_credits += child_data.moduledata.credits
+                else
+                  ges_credits += child_data.credits
+                end
+
+                unless child_data.grade == nil
+                  if child_data.credits == nil || child_data.credits == ""
+                    teil_kumul += child_data.grade.to_f * child_data.moduledata.to_f
+                    teil_credits += child_data.moduledata.credits.to_f
+                  else
+                    teil_kumul += child_data.grade.to_f * child_data.to_f
+                    teil_credits += child_data.credits.to_f
                   end
                 end
+
+#                selection.selection_modules.each do |modul|
+#                  if modul.moduledata.id == child.id
+#                    ges_credits += modul.moduledata.credits
+#                    if modul.grade != nil
+#                      if m.credits == nil || m.credits == ""
+#                        teil_kumul += modul.grade.to_f * modul.moduledata.credits.to_f
+#                        teil_credits += modul.moduledata.credits.to_f
+#                      else
+#                        teil_kumul += modul.grade.to_f * modul.credits.to_f
+#                        teil_credits += modul.credits.to_f
+#                      end
+#                    end
+#                  end
+#                end
 
               end
 
