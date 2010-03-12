@@ -268,11 +268,12 @@ class AbfragenController < ApplicationController
   end
 
   def remove_module_from_selection
-    current_selection.selection_modules.each { |m| 
+    current_selection.selection_modules.each do |m|
       if (m.class == CustomModule && m.id == params[:mod_id]) || (m.module_id.to_i == params[:mod_id].to_i)
+        m.categories.each { |category| m.categories.delete category }
         m.destroy
       end
-    }
+    end
     render :text => "Module removed from selection..."
   end
 
