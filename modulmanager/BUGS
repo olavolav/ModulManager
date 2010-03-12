@@ -19,6 +19,11 @@ Noch zu beheben:
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der Info-Box nicht angezeigt (Christian)
 115. Dropdown-Box-Optionen sind doppelt (Christian)
+116. Module mit Teilmodulen werden im SP nicht vollständig einbebracht, z.B. 'Spezielle Themen der Astro- und Geophysik III' gibt im Astro-SP nur 3 von 2*3 Credits (Christian)
+117. "Note gestrichen"-AO-Checkbox wird in der Info-Box nicht richtig gesetzt (Olav)
+118. "Note gestrichen"-AO wird nicht sofort im Überblick ausgewertet (Olav)
+119. Wenn man nur zu viele Noten gestrichen hat, wird trotzdem in rot ein Hinweis auf fehlende Credits ausgegeben (Olav & Christian)
+120. Hinweis auf noch benötigte Module ist unklar, s. Mail von AS vom 12.03.10 (Olav)
 
 
 
