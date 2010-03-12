@@ -18,7 +18,7 @@ Noch zu beheben:
 107. PDF-Export: Module nur in den Kategorien anzeigen, wo sie tatsächlich eingebracht werden (Christian)
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der Info-Box nicht angezeigt (Christian)
-114. Note berechnen: Ergebnis ist nicht exakt, vielleicht ein Integer/Float-Thema? (Christian)
+115. Dropdown-Box-Optionen sind doppelt (Christian)
 
 
 
@@ -120,6 +120,7 @@ Inzwischen behoben:
 106. Note mit Dummy-Modulen wird falsch berechnet, so ändert sich zum Beispiel die Gesamtnote, wenn man ein Dummy-Modul in die Auswahl einfügt, ohne eine Note anzugeben (Christian)
 108. Auwahl der Combobox wird beim neu laden nicht wieder richtig gesetzt (Christian)
 110. Info-Box von Sub-Modulen in leer (Christian, evtl. Olav)
+114. Note berechnen: Ergebnis ist nicht exakt, vielleicht ein Integer/Float-Thema? (Christian)
 
 
 
