@@ -38,13 +38,21 @@ $(document).ready(function(){
     // Klickbare Info-Buttons sollen beim dr�berfahren animiert werden (OS)
     // F�r das Analogon im �berblick siehe ueberblick.js
     $(".ipunkt_td, .fragebild").mouseenter(function(){
-        $(this).animate({
-            opacity: 0.4
-        }, "fast");
-        $(this).animate({
-            opacity: 1.0
-        }, "fast");
+        $(this).animate({opacity: 0.4}, "fast");
+        $(this).animate({opacity: 1.0}, "fast");
     });
+
+		// Zur besseren Hervorhebung des Einführungs-Buttons für Neulinge (OS)
+		$("#GetStartedImage").animate({opacity: 0.1}, "slow");
+		$("#GetStartedImage").animate({opacity: 1.0}, "fast");
+		$("#GetStartedImage").animate({opacity: 0.1}, "slow");
+		$("#GetStartedImage").animate({opacity: 1.0}, "fast");
+		$("#GetStartedImage").animate({opacity: 0.1}, "slow");
+		$("#GetStartedImage").animate({opacity: 1.0}, "fast");
+		$("#GetStartedImage").animate({opacity: 0.1}, "slow");
+		$("#GetStartedImage").animate({opacity: 1.0}, "fast");
+		$("#GetStartedImage").animate({opacity: 0.1}, "slow");
+		$("#GetStartedImage").animate({opacity: 1.0}, "fast");
 });
 
 var change_credit_and_add_name_in_selection = function(modul_id,handle){
@@ -73,11 +81,6 @@ var change_credit_and_remove_name_in_pool = function(modul_id,handle){
 
 // Diese Funktion ändert entgegen dem Namen nicht nur die Farbe des Info-Icons, sondern setzt auch
 // den ".is_error"-Text des Moduls (OS)
-// Diese Funktion ersetzt die alten Funktionen:
-// - set_image_to_gruener_ipunkt
-// - set_image_to_green_or_red_ipunkt
-// - set_image_to_red_ipunkt_and_error_to_yes
-// - set_image_to_ipunkt
 // Fehlt möglicherweise noch: Ausnahme-Optionen-Verhalten
 var flip_module_infoicon_on_event = function(type,modul_id,handle){
     // gefragt is handle zur Kategorie
@@ -586,6 +589,7 @@ var info_box = function(modul_id){
     $("#info_box").dialog('open');
 }
 
+// Diese Funktion wird nach der Auswahl-Info-Box aufgerufen und enthält die entspr. Auswirkungen (OS)
 var update_modul_in_selection = function (){
     //checken ob das Modul in Vorratbox
     var modul_in_vorratbox = false;
@@ -604,20 +608,75 @@ var update_modul_in_selection = function (){
         this_modul=$("#semesterBOX .subsemester").find("div#"+modul_id).eq(0);
     }
 	
-    var v=$("#exception_credit").val();
-    var warn_checked = $("#exception_warn:checked").val();
-    var note_checked = $("#exception_note:checked").val();
+    var any_AO_changed = false;
+		var v=$("#exception_credit").val();
+		var credits_entered = (v!="Credits")&&(v!="");
+    var warn_checked = ($("#exception_warn:checked").val()=="checkbox");
+    var note_checked = ($("#exception_note:checked").val()=="checkbox");
+    // var this_credit =$(this_modul).find("p.credit-option");
+		
+		// Ausnahme-Optionen im Cache aktualisieren: Note steichen
+		if ((modProp(modul_id,"AO_ignore_grade")=="true") != note_checked) {
+			any_AO_changed = true;
+			if (note_checked) {
+				modPropChange(modul_id,"AO_ignore_grade","true");
+				$(this_modul).find("p.note-option").show();
+				ajax_serverupdate_remove_grade(modul_id);
+			}
+			else {
+				modPropChange(modul_id,"AO_ignore_grade","false");
+				$(this_modul).find("p.note-option").hide();
+				ajax_serverupdate_add_grade(modul_id);
+			}
+		}
+
+		// Ausnahme-Optionen im Cache aktualisieren: Warnung deaktivieren
+		if ((modProp(modul_id,"AO_disable_warning")=="true") != warn_checked) {
+			any_AO_changed = true;
+			if (warn_checked) {
+				modPropChange(modul_id,"AO_disable_warning","true");
+				$(this_modul).find("p.note-option").show();
+				ajax_serverupdate_remove_warning(modul_id);
+			}
+			else {
+				modPropChange(modul_id,"AO_disable_warning","false");
+				$(this_modul).find("p.note-option").hide();
+				ajax_serverupdate_add_warning(modul_id);
+			}
+		}
+		
+		// Ausnahme-Optionen im Cache aktualisieren: Ausnahme-Credits
+		if ($("#exception_credit").val()) {
+			modPropChange(modul_id,"AO_disable_warning","true");
+			$(this_modul).find("p.credit-option").show();
+		}
+		else {
+			modPropChange(modul_id,"AO_disable_warning","false");
+			$(this_modul).find("p.credit-option").hide();
+		}
+
+		if ((modProp(modul_id,"AO_custom_credits")=="true") != warn_checked) {
+			any_AO_changed = true;
+			if (warn_checked) {
+				modPropChange(modul_id,"AO_disable_warning","true");
+				$(this_modul).find("p.note-option").show();
+				ajax_serverupdate_remove_warning(modul_id);
+			}
+			else {
+				modPropChange(modul_id,"AO_disable_warning","false");
+				$(this_modul).find("p.note-option").hide();
+				ajax_serverupdate_add_warning(modul_id);
+			}
+		}
 		
     // entfernen credit-option,warnung- und note-option falls die schon bereits vorhanden sind
-    var this_credit =$(this_modul).find("p.credit-option");
-    
-    var this_warn = $(this_modul).find("p.warnung-option");
-    $(this_warn).html("");
-    var this_note =$(this_modul).find("p.note-option");
-    $(this_note).html("");
+    // var this_warn = $(this_modul).find("p.warnung-option");
+    // $(this_warn).html("");
+    // var this_note =$(this_modul).find("p.note-option");
+    // $(this_note).html("");
 		
     if(v!="Credits" && v!="" && credit_exception_change=="true"){
-        $(this_credit).html("");
+        // $(this_credit).html("");
         $("#exception_change").attr("value","true");
         $("#credit_exception_change").attr("value","false");
         $(this_modul).find(".modul_credit").text(v+" C");
@@ -626,49 +685,34 @@ var update_modul_in_selection = function (){
     }
 		
     //warnung
-    if (warn_checked == "checkbox") {
-        ajax_serverupdate_remove_warning(modul_id);
-        $(this_warn).html("Ausnahme: Warnungen deaktiviert");
-    } else if(warn_checked==undefined) {
-        ajax_serverupdate_add_warning(modul_id);
-    }
+    // if (warn_checked == "checkbox") {
+    //     ajax_serverupdate_remove_warning(modul_id);
+    //     $(this_warn).html("Ausnahme: Warnungen deaktiviert");
+    // } else if(warn_checked==undefined) {
+    //     ajax_serverupdate_add_warning(modul_id);
+    // }
     //note
-    if(note_checked=="checkbox") {
-        ajax_serverupdate_remove_grade(modul_id);
-        $(this_note).html("Ausnahme: Note wird nicht eingebracht");
-    } else if(note_checked==undefined) {
-        ajax_serverupdate_add_grade(modul_id);
-    }
+    // if(note_checked=="checkbox") {
+    //     ajax_serverupdate_remove_grade(modul_id);
+    //     $(this_note).html("Ausnahme: Note wird nicht eingebracht");
+    // } else if(note_checked==undefined) {
+    //     ajax_serverupdate_add_grade(modul_id);
+    // }
 
 
     //    checken, ob man �berhaupt Ausnahme-Optionen veraendert hat.
     //        erst wenn ja dann wird ueberblick() akktuallisiert
-    if($("#exception_change").val()=="true"){
-        ueberblick();
-        $("#exception_change").attr("value","false");
-    }
+    // if($("#exception_change").val()=="true"){
+    //     ueberblick();
+    //     $("#exception_change").attr("value","false");
+    // }
+		if (any_AO_changed) ueberblick();
 
 // Übergangsweise wird immer der Überblick aktualisiert, damit die Veränderungen
 // in der Bereichs-ComboBox sichtbar werden
 //    ueberblick();
 
 }//ende
-
-// var update_dummy_modul_in_selection = function(dummy_modul){
-//     //alert("Hallo update dummy");
-//     //check ob man das Note-streichen im Dialog ankreuzt
-//     var ch =$("#custom_dialog form #note_streichen #note_checkbox:checked").val();
-//     //alert("checked="+ch);
-// 	
-//     if(ch=="checkbox"){
-//         $(dummy_modul).find("p.note-option").css("display","block").text("Ausnahme: Note wird nicht eingebracht");
-//         var dummy_id = $(dummy_modul).find("> span.modul_id").text();
-//         //alert("Dummy_id = "+dummy_id);
-//         ajax_serverupdate_remove_grade(dummy_id);
-//         $("#note_checkbox").attr("checked","");
-//     }
-//     return 0;
-// }	
 
 var change_custom_in_selection_by_session_load = function(auswahl_modul_clone,custom_name,custom_credit){
 	
@@ -719,7 +763,8 @@ var session_auswahl_rekursiv = function(root){
                 modPropChange(modul_id,"inAuswahl","true");
             });
             //custom_modul laden: Name und credit ver�ndern
-            if ($(this).attr("class") == "custom") {
+            // if ($(this).attr("class") == "custom") {
+            if (modProp(modul_id,"custom") == "custom") {
                 // alert("Inserting custom module into selection...");
                 var custom_name = $(this).attr("name");
                 var custom_credit    = $(this).attr("credits");
@@ -733,19 +778,25 @@ var session_auswahl_rekursiv = function(root){
 			
             // check ob die Note derzeit gestrichen wurde.
             if(mod_has_grade=="false"){
-                $(auswahl_modul_clone).find("p.note-option").html("Ausnahme: Note wird nicht eingebracht");
-            }			
+                $(auswahl_modul_clone).find("p.note-option").show();
+								modPropChange(modul_id,"AO_ignore_grade","true");
+            }
+
             $(auswahl_modul_clone).attr("class","auswahl_modul_clone");
             change_module_style_to_auswahl(modul_id,auswahl_modul_clone);
             //geaenderte Credits? und Warnung deaktivieren?
             //wenn ja dann die entsprechenen Meldungen anzeigen
             if(mod_credit!=""){
-								if ($(this).attr("class") != "custom")
-                	$(auswahl_modul_clone).find("p.credit-option").html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
+								if ($(this).attr("class") != "custom") {
+                	$(auswahl_modul_clone).find("p.credit-option").show();
+									modPropChange(modul_id,"custom_credits","true"); // oder besser die Anzahl? (OS)
+								}
                 $(auswahl_modul_clone).find("td.modul_credit").text(mod_credit+" C");
             }
+
             if(mod_has_warning=="false"){
-                $(auswahl_modul_clone).find("p.warnung-option").html("Ausnahme: Warnungen deaktiviert");
+                $(auswahl_modul_clone).find("p.warnung-option").show();
+								modPropChange(modul_id,"AO_disable_warning","true");
             }
             // Noten setzen, Note von 0 wird nicht gewertet (OS)
             if((mod_grade != "" )&&(parseFloat(mod_grade) > 0.5)){
@@ -759,10 +810,7 @@ var session_auswahl_rekursiv = function(root){
                 $(this_noten).val(this_grade);
                 flip_module_infoicon_on_event("entered_grade",modul_id,auswahl_modul_clone);
             }
-            // if (modProp(modul_id,"error") == "true")
-            //     flip_module_infoicon_on_event("error",modul_id,auswahl_modul_clone);
 
-            // $(auswahl_modul_clone).find("span.inAuswahl").text("true");
 						modPropChange(modul_id,"inAuswahl","true");
             //check nach Kopfmodul. Wenn ja dann credit name und head_modul_in_pool ver�ndern
             if(modProp(modul_id,"modul_parts") != "0"){
@@ -850,35 +898,45 @@ var ajax_request_module_info = function (modul_id){
         data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
         success : function(html){
             // alle Ausnahme-Option ersmal auf Null setzen
-            $("#exception_credit").attr("checked", "");
+            // $("#exception_credit").attr("checked", "");
+            $("#exception_credit").attr("value", "Credits");
             $("#exception_warn").attr("checked", "");
             $("#exception_note").attr("checked", "");
             $("#info_box #box_info").append(html);
+
+						alert("ajax_request_module_info: AO im Cache: AO_ignore_grade="+modProp(modul_id,"AO_disable_warning")+", AO_custom_credits="+modProp(modul_id,"AO_custom_credits")+", AO_ignore_grade="+modProp(modul_id,"AO_ignore_grade"));
             // Mein Versuch, die Checkboxen zu selektieren, wenn die entsprechenden Optionen gesetzt sind...
-            if(($("#has_grade").text() == '0')&&(modProp(modul_id,"modul_has_grade") == "true")) {
+            // if(($("#has_grade").text() == '0')&&(modProp(modul_id,"modul_has_grade") == "true")) {
+            if(modProp(modul_id,"AO_ignore_grade") == "true") {
+	 							if (modProp(modul_id,"modul_has_grade") != "true")
+									alert("ajax_request_module_info: Warnung: Unbenotetes Modul hat \"Note streichen\"-Option gesetzt");
                 $("#exception_note").attr("checked", "checked");
             }
-            if($("#has_warning").text() == '0') {
+            // if($("#has_warning").text() == '0') {
+            if(modProp(modul_id,"AO_disable_warning") == "true") {
                 $("#exception_warn").attr("checked", "checked");
             }
-            if($("#custom_credits").text() != -1) {
-                var this_credits =$("#custom_credits").text();
-                $("#exception_credit").attr("value",this_credits);
-            } else {
-                $("#exception_credit").attr("value","Credits");
+            // if($("#custom_credits").text() != -1) {
+            //     var this_credits =$("#custom_credits").text();
+            //     $("#exception_credit").attr("value",this_credits);
+            // }
+            if(modProp(modul_id,"AO_custom_credits") != "false") {
+                // var this_credits =$("#custom_credits").text();
+                // $("#exception_credit").attr("value",this_credits);
+                $("#exception_credit").attr("value",modProp(modul_id,"AO_custom_credits"));
             }
             // if($("#has_general_grade").text() == 0) {
 						if(modProp(modul_id,"modul_has_grade") != "true") {
-                $("#note_streichen_checkbox").css("display", "none");
+                $("#note_streichen_checkbox").hide();
             } else {
-                $("#note_streichen_checkbox").css("display", "table-row");
+                $("#note_streichen_checkbox").show();
             }
 						// Vorläufig kann man Dummy-Modul-Credits nur beim Erstellen ändern (OS)
             // if($("#semester-content").find("#"+modul_id+" span.custom").text() == "custom") {
 						if (modProp(modul_id,"custom") == "custom") {
-                $("#credits_aendern_checkbox").css("display", "none");
+                $("#credits_aendern_checkbox").hide();
             } else {
-                $("#credits_aendern_checkbox").css("display", "table-row");
+                $("#credits_aendern_checkbox").show();
             }
         }/*,
                 error: function(a,b,c){
@@ -955,8 +1013,8 @@ var ajax_serverupdate_add_grade = function(module_id) {
         type:"POST",
         url:"abfragen/add_grade",
         dataType:"text",
-        cache:false,
-        async:true,
+        cache: false,
+        async: false,
         data:"mod_id="+module_id+"&"+authenticityTokenParameter(),
         contentType:"application/x-www-form-urlencoded"
     });
@@ -968,7 +1026,7 @@ var ajax_serverupdate_remove_grade = function(module_id) {
         url: "abfragen/remove_grade",
         dataType: "text",
         cache: false,
-        async: true,
+        async: false,
         data: "mod_id="+module_id+"&"+authenticityTokenParameter(),
         contentType: "application/x-www-form-urlencoded"
     });
@@ -1495,6 +1553,10 @@ var poolrekursiv = function(XMLhandle){
 
 								modPropForce(modul_id,"error","unknown");
 
+								modPropForce(modul_id,"AO_custom_credits","false");
+								modPropForce(modul_id,"AO_disable_warning","false");
+								modPropForce(modul_id,"AO_ignore_grade","false");
+
                 appendString += "<div class='" + modul_id + "_parent ' rel='mod_parent'><div class='nichtleer'></div><div class='"+
                 pool_modul_class+"' id='" + modul_id + "' >" +
                 "<div class='icon_loeschen' style='display:none;' onclick='modul_loeschen(" +
@@ -1530,9 +1592,10 @@ var poolrekursiv = function(XMLhandle){
                 "</td>" +
                 "</tr>" + "</tbody>" + "</table>" +
                 "<p class='drop_down_menu' style='display:none'></p>"+
-                "<p class='credit-option' style='display:none'></p>"+
-                "<p class='warnung-option' style='display:none'></p>"+
-                "<p class='note-option' style='display:none'></p>"+
+                // Ausnahme-Options-Hinweise verstecken
+								"<p class='credit-option' style='display:none'>Ausnahme: Credit-Anzahl wurde verändert</p>"+
+                "<p class='warnung-option' style='display:none'>Ausnahme: Warnungen deaktiviert</p>"+
+                "<p class='note-option' style='display:none'>Ausnahme: Note wird nicht eingebracht</p>"+
                 "</div></div>";
 
                 //kopieren das Modul in search_table  f�r die Suche
@@ -1569,17 +1632,14 @@ var pool = function(){
     $("#pool").empty();
 	
     // Pool anzeigen
-    $("#pool").append(poolrekursiv(root));
-	
-	
+    $("#pool").append(poolrekursiv(root));	
    
     hide_partial_modul();
     session_auswahl();
     //show_next_custom_modul_in_pool();
     custom_modul_in_the_search_table_rekursiv();
     custom_modul_rekursiv(this_pool);
-    ueberblick();
-	
+    ueberblick();	
 	
 }//ende pool
 
@@ -1591,9 +1651,16 @@ var search_is_active = function(){
 
 var change_module_style_to_pool = function(modul_id,handle){
     // style fuer Ausnahme-optionen
-    $(handle).find("> p.credit-option").css("display","none").empty();
-    $(handle).find("> p.warnung-option").css("display","none").empty();
-    $(handle).find("> p.note-option").css("display","none").empty();
+    // $(handle).find("> p.credit-option").css("display","none").empty();
+    // $(handle).find("> p.warnung-option").css("display","none").empty();
+    // $(handle).find("> p.note-option").css("display","none").empty();
+    $(handle).find("> p.credit-option").css("display","none");
+    $(handle).find("> p.warnung-option").css("display","none");
+    $(handle).find("> p.note-option").css("display","none");
+		modPropForce(modul_id,"AO_custom_credits","false");
+		modPropForce(modul_id,"AO_disable_warning","false");
+		modPropForce(modul_id,"AO_ignore_grade","false");
+
     $(handle).find("> div.icon_loeschen").css("display","none");
     
     //auf originale Credits setzen im Fall Credits-Veraenderung
@@ -1639,9 +1706,10 @@ var change_module_style_to_pool = function(modul_id,handle){
 
 var change_module_style_to_auswahl = function(modul_id,handle){
     // style f�r option
-    $(handle).find("p.credit-option").css("display","block");
-    $(handle).find("p.warnung-option").css("display","block");
-    $(handle).find("p.note-option").css("display","block");
+    // $(handle).find("p.credit-option").css("display","block");
+    // $(handle).find("p.warnung-option").css("display","block");
+    // $(handle).find("p.note-option").css("display","block");
+
     $(handle).find("div.icon_loeschen").css("display","block");
     $(handle).find(".fragebild_td").css("display","none");
 	

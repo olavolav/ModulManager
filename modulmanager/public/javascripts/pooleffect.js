@@ -186,16 +186,16 @@ $(function(){
     // exception_change ist fuer Note streichen und Warnung deaktivieren verantwortlich
     // credit_exception_change ist extra fuer Credit-Zahl-Aenderung
 		
-    $("#exception_credit").click(function(){
-        $(this).attr("value","");
-    })
-		 
-    $("#exception_credit").keydown(function(){
-        $("#credit_exception_change").attr("value","true");
-    })
-    $("#exception_warn,#exception_note").click(function(){
-        $("#exception_change").attr("value","true");
-    })
+    // $("#exception_credit").click(function(){
+    //     $(this).attr("value","");
+    // })
+    // 		 
+    // $("#exception_credit").keydown(function(){
+    //     $("#credit_exception_change").attr("value","true");
+    // })
+    // $("#exception_warn,#exception_note").click(function(){
+    //     $("#exception_change").attr("value","true");
+    // })
 		 
 		 
 		 			
@@ -211,26 +211,25 @@ $(function(){
         autoOpen:false,
                 
         open:function(event,ui){
+	
+						// Neuerdings werden sämtliche AO in der Funktion ajax_to_server_by_get_module_info
+						// behandelt. (OS)
 			 		
             //$("#exception_credit") wird in ajax_to_server_by_get_module_info behandelt.
-            $("#box_info").show();
+            // $("#box_info").show();
 					
             //Ob Note streichen gecheckt
-            if($("#exception_note").is(":checked")){
-                //alert("Aha, du bist schon beim Note streichen gecheckt");
-                $("#exception_note").attr("checked","checked");
-            }
-            else{
-                $("#exception_note").attr("checked","");
-            }
+            // if($("#exception_note").is(":checked")){
+						// if (modProp(modul_id,"AO_ignore_grade")=="true")
+						//                 $("#exception_note").attr("checked","checked");
+						//             else $("#exception_note").attr("checked","");
+
             // Ob Warning gecheckt
-            if($("#exception_warn").is(":checked")){
-                //alert("Aha, du bist schon beim Warning gecheckt");
-                $("#exception_warn").attr("checked","checked");
-            }
-            else {
-                $("#exception_warn").attr("checked","");
-            }
+            // if($("#exception_warn").is(":checked")){
+						// if (modProp(modul_id,"AO_disable_warning")=="true")
+						//                 //alert("Aha, du bist schon beim Warning gecheckt");
+						//                 $("#exception_warn").attr("checked","checked");
+						//             else $("#exception_warn").attr("checked","");
 					
         },
         buttons:{
