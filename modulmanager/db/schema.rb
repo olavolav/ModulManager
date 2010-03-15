@@ -87,16 +87,6 @@ ActiveRecord::Schema.define(:version => 20100304231518) do
     t.integer  "version_id"
   end
 
-  create_table "groups", :force => true do |t|
-    t.string   "name"
-    t.integer  "credits"
-    t.integer  "count"
-    t.integer  "focus_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "modus"
-  end
-
   create_table "groups_studmodules", :id => false, :force => true do |t|
     t.integer "group_id"
     t.integer "studmodule_id"

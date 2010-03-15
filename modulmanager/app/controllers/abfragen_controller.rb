@@ -92,7 +92,7 @@ class AbfragenController < ApplicationController
       @short        = m2.moduledata.short
       @credits      = m2.moduledata.credits
       
-      m2.credits != nil && m2.credits != "" ? @custom_credits = m2.credits : @custom_credits = -1
+      m2.credits != nil && m2.credits != "" ? @custom_credits = m2.credits : @custom_credits = false
 
       if m2.moduledata.univzid != nil
         @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +

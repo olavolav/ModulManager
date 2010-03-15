@@ -9,28 +9,29 @@
 
   <!-- Der folgene Teil ist natürlich noch nicht fertig, Dummy-Module fehlen (OS) -->
   <% if @custom %>
-  <p>Dieses Modul wird in folgende Bereiche eingebracht:
-  <ul>
-    <% @categories.each do |category| %>
-    <li>
-      <%= category %>
-    </li>
-    <% end %>
-  </ul>
-  </p>
-  <% else %>
-    <% if @categories.length == 1 %>
-      <p>Dieses Modul wird in folgendem Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %>
-      <% elsif @categories.length > 1%>
-      <p>Dieses Modul kann in mehrere Bereiche eingebracht werden - die entsprechende Auswahl können sie direkt unter dem Modul-Titel vornehmen.</p>
-    <% end %>
-  <% end %>
-
-  <% unless @permission == nil %>
-    <p>Voraussetzungen:
+    <p>Dieses Modul wird in folgende Bereiche eingebracht:
     <ul>
-      <%= permission_tree @permission %>
-    </ul></p>
+      <% @categories.each do |category| %>
+        <li>
+          <%= category %>
+        </li>
+      <% end %>
+    </ul>
+  </p>
+  <div id="custom_credits" style="display: none;"><%= @custom_credits %></div>
+<% else %>
+  <% if @categories.length == 1 %>
+    <p>Dieses Modul wird in folgendem Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %>
+    <% elsif @categories.length > 1%>
+    <p>Dieses Modul kann in mehrere Bereiche eingebracht werden - die entsprechende Auswahl können sie direkt unter dem Modul-Titel vornehmen.</p>
+  <% end %>
+<% end %>
+
+<% unless @permission == nil %>
+  <p>Voraussetzungen:
+  <ul>
+    <%= permission_tree @permission %>
+  </ul></p>
 <% end %>
 </div>
 <!-- <div id="has_grade" style="display:none;"><%#= @has_grade %></div>
