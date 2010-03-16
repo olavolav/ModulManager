@@ -55,6 +55,14 @@ $(document).ready(function(){
 		$("#GetStartedImage").animate({opacity: 1.0}, "fast");
 });
 
+var authenticityToken = function() {
+    return $('#token').attr("content");
+}
+var authenticityTokenParameter = function(){
+   return 'authenticity_token=' + encodeURIComponent(authenticityToken());
+}
+
+
 var change_credit_and_add_name_in_selection = function(modul_id,handle){
     //credit �ndern
 		var c_text = modProp(modul_id,"credits_in_selection");
