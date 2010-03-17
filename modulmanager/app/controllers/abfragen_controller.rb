@@ -2,7 +2,6 @@ class AbfragenController < ApplicationController
 
   def ueberblick
     selection = current_selection
-
     @errors = get_errors selection
     @super_rules = Connection.find(:all,
       :conditions => "parent_id IS NULL AND focus = 0 AND version_id = '#{selection.version.id}'")
@@ -10,7 +9,6 @@ class AbfragenController < ApplicationController
       @focus_rules = Connection.find(:first,
         :conditions => "name = '#{selection.focus.name}' AND version_id = '#{selection.version.id}'")
     end
-
     respond_to do |format|
       format.html { render :action => "ueberblick", :layout => false }
     end
@@ -20,7 +18,6 @@ class AbfragenController < ApplicationController
 
   def get_errors selection
     errors = Array.new
-
     selection.semesters.each do |semester|
       if semester.count > 0
         count = semester.count
@@ -57,27 +54,16 @@ class AbfragenController < ApplicationController
   def errors
     selection = current_selection
     @errors = get_errors selection
-
     respond_to do |format|
       format.xml { render :action => "errors", :layout => false }
     end
   end
 
   def get_module_info
-
     mod = Studmodule.find(params[:module_id])
-
-    #    selection = current_selection
     m2 = nil
     @categories = Array.new
-
-    #    selection.selection_modules.each do |m|
-    #      m2 = m if m.moduledata.short == mod.short
-    #    end
-
-#    m2 = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}")
     m2 = current_selection.selection_modules.find(:first, :conditions => "module_id = #{mod.id}")
-
     @id = m2.id
     if mod.short.include? "custom"
       @name = m2.name
@@ -85,7 +71,6 @@ class AbfragenController < ApplicationController
       @short = "-"
       @credits = m2.credits
       @permission = nil
-      #      @custom_credits = m2.credits
       m2.categories.each {|c| @categories.push c.name}
       @categories.uniq!
       @custom = true
@@ -93,12 +78,7 @@ class AbfragenController < ApplicationController
       @name         = m2.moduledata.name
       @description  = m2.moduledata.description
       @short        = m2.moduledata.short
-
       m2.credits == nil ? @credits = m2.moduledata.credits : @credits = m2.credits
-
-      #      @credits      = m2.moduledata.credits
-      #      m2.credits != nil && m2.credits != "" ? @custom_credits = m2.credits : @custom_credits = false
-
       if m2.moduledata.univzid != nil
         @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +
           "?expand=0" +
@@ -112,31 +92,20 @@ class AbfragenController < ApplicationController
       else
         @univz_link = nil
       end
-
       @permission = m2.moduledata.permission
       m2.moduledata.categories.each do |category|
         unless category.exclusive == 1 || category.focus != nil
           @categories.push category
         end
       end
-
     end
-    
-    # Nicht mehr nötig, da die AO im jCache gespeichert sind (OS)
-    # m2.has_grade ? @has_grade = 1 : @has_grade = 0
-    # m2.permission_removed ? @has_warning = 0 : @has_warning = 1
-    # m2.moduledata.has_grade ? @has_general_grade = 1 : @has_general_grade = 0
-
     m2.category == nil ? @selected_cat = nil : @selected_cat = m2.category.id
-
     respond_to do |format|
       format.html {render :file => "abfragen/module_info", :layout => false}
     end
-
   end
 
   def get_pool_module_info
-
     mod = Studmodule.find(params[:module_id])
     if mod.short.include? "custom"
       @name = mod.name
@@ -152,7 +121,6 @@ class AbfragenController < ApplicationController
       @description  = mod.description
       @short        = mod.short
       @credits      = mod.credits
-      
       if mod.univzid != nil
         @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +
           "?expand=0" +
@@ -166,60 +134,42 @@ class AbfragenController < ApplicationController
       else
         @univz_link = nil
       end
-    
-      # @permission = mod.permission
     end
-    
     respond_to do |format|
       format.html {render :file => "abfragen/module_info", :layout => false}
     end
-
   end
 
   def add_module_to_selection
-
     selection       = current_selection
-
     semester_count  = params[:sem_count]
     module_id       = params[:mod_id]
     category_id     = extract_category_id(params[:cat_id])
-
     semester = selection.semesters.find(:first, :conditions => "count = #{semester_count}")
     if semester == nil
       semester = Semester.create(:count => semester_count)
       selection.semesters << semester
     end
-
     studmodule      = Studmodule.find(module_id)
     selected_module = SelectedModule.create(:moduledata => studmodule)
-
     unless category_id == nil
       category = Category.find(category_id)
       category.focus == nil ? selected_module.category = category : selected_module.category = selected_module.moduledata.categories[0]
     end
-
     selected_module.save
-
     semester.modules << selected_module
-
     render :text => "Module added successfully..."
   end
 
   def add_custom_module_to_selection
-
     selection = current_selection
-
     my_module = nil
-
     unless semester = selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
       semester = Semester.create(:count => params[:sem_count])
       selection.semesters << semester
     end
-
     studmodule = Studmodule.find(params[:mod_id])
-
     my_module = CustomModule.find(:first, :conditions => "short = '#{studmodule.short}'")
-
     if my_module == nil
       my_module = CustomModule.create(
         :moduledata => studmodule,
@@ -231,36 +181,20 @@ class AbfragenController < ApplicationController
       my_module.credits = params[:credits]
       my_module.name = params[:name]
     end
-
     params[:has_grade] == nil ? my_module.has_grade = true : my_module.has_grade = params[:has_grade]
-
     semester.modules << my_module
     semester.save
-
     cat_id = params[:cat_id]
-
     cat_array = cat_id.split(",")
     cat_array.each do |category_id|
       category_id.strip!
       my_module.categories << Category.find(category_id)
     end
-
-    #    if cat_id.class == Array
-    #      cat_id.categories = Array.new
-    #      cat_id.each { |c| my_module.categories << Category.find(c) }
-    #    elsif cat_id.class == String
-    #      my_module.categories << Category.find(cat_id)
-    #    end
-
     my_module.save
-
     @m = my_module
-
     respond_to do |format|
       format.xml { render :action => "add_custom_module_to_selection", :layout => false }
     end
-
-    #    render :text => "CostumModule created and added successfully..."
   end
 
   def extract_category_id id_string
@@ -289,16 +223,9 @@ class AbfragenController < ApplicationController
 
   def remove_semester_from_selection
     s1 = current_selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
-
-#    s1 = Semester.find(
-#      :first,
-#      :conditions => "selection_id = #{current_selection.id} AND count = #{params[:sem_count]}").destroy
-
     modules = s1.modules
     modules.each { |m| m.destroy }
-
     s1.destroy
-
     render :text => "Semester removed from selection..."
   end
 
@@ -367,7 +294,6 @@ class AbfragenController < ApplicationController
     id = params[:id]
     @regel = Connection.find(:first, :conditions => "id = '#{id}'")
     @mods = selection.selection_modules
-    #    @description = "Zu dieser Kategorie ist momentan keine Beschreibung verfügbar."
     ff = @regel.evaluate @mods, get_errors(selection)
     ff == 1 ? @fullfilled_string = "<span style='color:green'>erfüllt</span>" : @fullfilled_string = "<span style='color:red'>nicht erfüllt</span>"
     ff == 1 ? @fullfilled = true : @fullfilled = false
@@ -403,18 +329,8 @@ class AbfragenController < ApplicationController
     else
       mod.credits = credits
     end
+    mod.save
     render :text => "success"
-
-#    selection = current_selection
-#    selection.selection_modules.each do |m|
-#      if m.moduledata.id == mod_id.to_i
-#        m.credits = credits
-#        m.save
-#        render :text => "success"
-#        return
-#      end
-#    end
-#    render :text => "error"
   end
 
   def remove_warning

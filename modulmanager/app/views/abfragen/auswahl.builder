@@ -1,19 +1,11 @@
 custom_count = 0
 
 xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
-
 xml.auswahl(:id => @selection.id) do
-
   xml.focus(:id => @selection.focus.id, :name => @selection.focus.name) if @selection.focus
-
-
-
   xml.semesters do
-
     @selection.semesters.sort_by { |sem| sem.count }.each do |s|
-    
       xml.semester(:count => s.count, :id => "sem#{s.id}") do
-
         s.modules.each do |m|
           m.has_grade == nil ? has_grade = m.moduledata.has_grade : has_grade = m.has_grade
           if m.class == CustomModule
@@ -26,7 +18,6 @@ xml.auswahl(:id => @selection.id) do
               :short => "custom#{custom_count}",
               :name => m.name,
               :categories => categories,
-              #              :credits => m.credits,
               :custom_credits => m.credits,
               :grade => m.grade,
               :class => "custom",
@@ -48,8 +39,7 @@ xml.auswahl(:id => @selection.id) do
                 :has_grade => has_grade
               )
             else
-              #              m.credits == m.moduledata.credits ? custom_credits = false : custom_credits = true
-              if m.credits != nil && m.credits != m.moduledata.credits
+              if m.credits != nil
                 custom_credits = m.credits
               else
                 custom_credits = false
@@ -59,7 +49,6 @@ xml.auswahl(:id => @selection.id) do
               xml.module(:id => m.moduledata.id,
                 :grade => m.grade,
                 :has_grade => has_grade,
-                #                :credits => m.credits,
                 :has_general_grade => has_general_grade,
                 :has_warning => has_warning,
                 :custom_credits => custom_credits
@@ -67,13 +56,7 @@ xml.auswahl(:id => @selection.id) do
             end
           end
         end
-
       end
-
     end
-
   end
-
-
-
 end
