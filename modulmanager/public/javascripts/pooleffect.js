@@ -90,6 +90,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         $(cus_modul).attr("class","auswahl_modul ui-draggable");
         $(cus_modul).find(".modul_name").text(this_name);
         $(cus_modul).find(".modul_credit").text(cre+" C");
+				modPropChange(custom_id,"credits_in_selection",cre);
         modPropChange(custom_id,"inAuswahl","true");
         $("#middle").find(".semester").each(function(){
             var this_id = $(this).attr("id");

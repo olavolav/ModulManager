@@ -62,10 +62,10 @@ var authenticityTokenParameter = function(){
    return 'authenticity_token=' + encodeURIComponent(authenticityToken());
 }
 
-
+// Diese Funktion wird nur für Module aus Teilmodulen aufgerufen! (OS)
 var change_credit_and_add_name_in_selection = function(modul_id,handle){
     //credit �ndern
-		var c_text = modProp(modul_id,"credits");
+		var c_text = modProp(modul_id,"credits_in_selection");
     $(handle).find(".modul_credit").text(c_text+" C");
     //name hizuf�gen
 		var n_text = modProp(modul_id,"add_sel_name_in_sel");
@@ -754,7 +754,7 @@ var session_auswahl_rekursiv = function(root){
             //Has_grade zeigt an, ob das Modul derzeit benotet ist, d.h. die Note gestrichen wurde.
             var mod_has_grade=$(this).attr("has_grade");
             // var mod_credit=$(this).attr("credits");
-						var mod_credit = modProp(modul_id,"credits");
+						// var mod_credit = modProp(modul_id,"credits");
 						var mod_custom_credit = $(this).attr("custom_credits");
             var mod_has_warning=$(this).attr("has_warning");
             var modul_im_pool = $("#pool").find("div#"+modul_id);
@@ -1529,7 +1529,7 @@ var poolrekursiv = function(XMLhandle){
                 //check nach total_credits, die nur im Pool beim Kopfmodul angezeigt wird.
                 var this_total_credits="0";
                 var total_credits=$(this).attr("total_credits");
-                // var credits_in_selection = credits;
+                var credits_in_selection = credits;
 				
                 if(total_credits!=""){
                     this_total_credits=total_credits;// f�r das KopfmodulModul, das wieder zur�ck in Pool ist
@@ -1562,8 +1562,9 @@ var poolrekursiv = function(XMLhandle){
 								modPropForce(modul_id,"id_of_parent_modul",id_of_parent_modul);
 								modPropForce(modul_id,"add_sel_name_in_sel",this_sel_name);
 								modPropForce(modul_id,"modul_name_in_pool",modul_name);
-								modPropForce(modul_id,"total_modul_credit",this_total_credits);
-								// modPropForce(modul_id,"credits_in_selection",credits_in_selection);
+								// Dies wird bei Modulen aus Teilmodulen benötigt (OS)
+								modPropForce(modul_id,"credits_in_pool",this_total_credits);
+								modPropForce(modul_id,"credits_in_selection",credits_in_selection);
 
 								modPropForce(modul_id,"error","unknown");
 
@@ -1664,10 +1665,7 @@ var search_is_active = function(){
 }
 
 var change_module_style_to_pool = function(modul_id,handle){
-    // style fuer Ausnahme-optionen
-    // $(handle).find("> p.credit-option").css("display","none").empty();
-    // $(handle).find("> p.warnung-option").css("display","none").empty();
-    // $(handle).find("> p.note-option").css("display","none").empty();
+
     $(handle).find("> p.credit-option").css("display","none");
     $(handle).find("> p.warnung-option").css("display","none");
     $(handle).find("> p.note-option").css("display","none");
@@ -1719,14 +1717,17 @@ var change_module_style_to_pool = function(modul_id,handle){
 
 
 var change_module_style_to_auswahl = function(modul_id,handle){
-    // style f�r option
-    // $(handle).find("p.credit-option").css("display","block");
-    // $(handle).find("p.warnung-option").css("display","block");
-    // $(handle).find("p.note-option").css("display","block");
 
     $(handle).find("div.icon_loeschen").css("display","block");
     $(handle).find(".fragebild_td").css("display","none");
 	
+    //auf richtige Credits setzen (=normale Credits falls keine Teilmodule)
+		var credits_for_display = modProp(modul_id,"credits_in_selection");
+		if (modProp(modul_id,"AO_custom_credits") != "false")
+			credits_for_display = modProp(modul_id,"AO_custom_credits");
+		// alert("change_module_style_to_auswahl: credits="+modProp(modul_id,"credits")+", credits_in_selection="+modProp(modul_id,"credits_in_selection")+", credits_in_pool="+modProp(modul_id,"credits_in_pool"));
+    $(handle).find("> table tbody tr td.modul_credit").text(credits_for_display+" C");
+
     // Hack, da IE die CSS display-Art "table-cell" nicht unterstützt
     // Könnte man evtl. mit jQuery show() und hide() umgehen... (OS)
     jQuery.each(jQuery.browser, function(i) {
