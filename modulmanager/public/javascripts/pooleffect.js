@@ -212,25 +212,9 @@ $(function(){
                 
         open:function(event,ui){
 	
-						// Neuerdings werden sämtliche AO in der Funktion ajax_to_server_by_get_module_info
-						// behandelt. (OS)
-			 		
-            //$("#exception_credit") wird in ajax_to_server_by_get_module_info behandelt.
-            // $("#box_info").show();
-					
-            //Ob Note streichen gecheckt
-            // if($("#exception_note").is(":checked")){
-						// if (modProp(modul_id,"AO_ignore_grade")=="true")
-						//                 $("#exception_note").attr("checked","checked");
-						//             else $("#exception_note").attr("checked","");
-
-            // Ob Warning gecheckt
-            // if($("#exception_warn").is(":checked")){
-						// if (modProp(modul_id,"AO_disable_warning")=="true")
-						//                 //alert("Aha, du bist schon beim Warning gecheckt");
-						//                 $("#exception_warn").attr("checked","checked");
-						//             else $("#exception_warn").attr("checked","");
-					
+						// Neuerdings werden sämtliche AO schon vorher, in der Funktion
+						// ajax_request_module_info behandelt. (OS)
+			 							
         },
         buttons:{
             "OK":function(){

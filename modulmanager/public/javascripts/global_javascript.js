@@ -65,7 +65,7 @@ var authenticityTokenParameter = function(){
 
 var change_credit_and_add_name_in_selection = function(modul_id,handle){
     //credit �ndern
-		var c_text = modProp(modul_id,"credits_in_selection");
+		var c_text = modProp(modul_id,"credits");
     $(handle).find(".modul_credit").text(c_text+" C");
     //name hizuf�gen
 		var n_text = modProp(modul_id,"add_sel_name_in_sel");
@@ -75,7 +75,7 @@ var change_credit_and_add_name_in_selection = function(modul_id,handle){
 }
 var change_credit_and_remove_name_in_pool = function(modul_id,handle){
     //credit ï¿½ndern
-    var c_text = modProp(modul_id,"credits_in_selection");
+    var c_text = modProp(modul_id,"credits");
     $(handle).find(".modul_credit").text(c_text+" C");
 	
     //name remove
@@ -617,8 +617,6 @@ var update_modul_in_selection = function (){
     }
 	
     var any_AO_changed = false;
-		var v=$("#exception_credit").val();
-		var credits_entered = (v!="Credits")&&(v!="");
     var warn_checked = ($("#exception_warn:checked").val()=="checkbox");
     var note_checked = ($("#exception_note:checked").val()=="checkbox");
     // var this_credit =$(this_modul).find("p.credit-option");
@@ -654,26 +652,44 @@ var update_modul_in_selection = function (){
 		}
 		
 		// Ausnahme-Optionen im Cache aktualisieren: Ausnahme-Credits
-		if ($("#exception_credit").val()) {
-			modPropChange(modul_id,"AO_disable_warning","true");
-			$(this_modul).find("p.credit-option").show();
-		}
-		else {
-			modPropChange(modul_id,"AO_disable_warning","false");
-			$(this_modul).find("p.credit-option").hide();
-		}
+		// if ($("#exception_credit").val()) {
+		// 	modPropChange(modul_id,"AO_disable_warning","true");
+		// 	$(this_modul).find("p.credit-option").show();
+		// }
+		// else {
+		// 	modPropChange(modul_id,"AO_disable_warning","false");
+		// 	$(this_modul).find("p.credit-option").hide();
+		// }
 
-		if ((modProp(modul_id,"AO_custom_credits")=="true") != warn_checked) {
-			any_AO_changed = true;
-			if (warn_checked) {
-				modPropChange(modul_id,"AO_disable_warning","true");
-				$(this_modul).find("p.note-option").show();
-				ajax_serverupdate_remove_warning(modul_id);
-			}
-			else {
-				modPropChange(modul_id,"AO_disable_warning","false");
-				$(this_modul).find("p.note-option").hide();
-				ajax_serverupdate_add_warning(modul_id);
+		var v=$("#exception_credit").val();
+		// alert("update_modul_in_selection: Inhalt von #exception_credit: "+v);
+		// var credits_entered = (v!="Credits")&&(v!="");
+		var entered_a_number = (v!="")&&(!isNaN(v))&&(parseInt(v)>=0);
+		var credits_input_is_valid = (v=="Credits")||(v=="")||entered_a_number;
+		// alert("update_modul_in_selection: credits_input_is_valid="+credits_input_is_valid+", entered_a_number="+entered_a_number+", parseInt(v)="+parseInt(v));
+		
+		if ((modProp(modul_id,"custom")=="non-custom") && credits_input_is_valid) {
+			if (
+				// Abfrage, ob überhaupt AO-Credits eingegeben sind oder waren
+				((modProp(modul_id,"AO_custom_credits")!="false") != entered_a_number)
+				// Falls Credits eingegeben sind, sind sie gleich dem gespeicherten Wert?
+				|| ((modProp(modul_id,"AO_custom_credits")!="false")&&(modProp(modul_id,"AO_custom_credits")!=v))
+				)	
+			{
+			
+				any_AO_changed = true;
+				if (entered_a_number) {
+					modPropChange(modul_id,"AO_custom_credits",v);
+	        $(this_modul).find(".modul_credit").text(v+" C");
+					$(this_modul).find("p.credit-option").show();
+		      ajax_serverupdate_change_credits(modul_id,v);
+				}
+				else {
+					modPropChange(modul_id,"AO_custom_credits","false");
+	        $(this_modul).find(".modul_credit").text(modProp(modul_id,"credits")+" C");
+					$(this_modul).find("p.credit-option").hide();
+		      ajax_serverupdate_credits_reset(modul_id);
+				}
 			}
 		}
 		
@@ -683,14 +699,14 @@ var update_modul_in_selection = function (){
     // var this_note =$(this_modul).find("p.note-option");
     // $(this_note).html("");
 		
-    if(v!="Credits" && v!="" && credit_exception_change=="true"){
-        // $(this_credit).html("");
-        $("#exception_change").attr("value","true");
-        $("#credit_exception_change").attr("value","false");
-        $(this_modul).find(".modul_credit").text(v+" C");
-        $(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
-        ajax_serverupdate_change_credits(modul_id,v);
-    }
+    // if(v!="Credits" && v!="" && credit_exception_change=="true"){
+    //     // $(this_credit).html("");
+    //     $("#exception_change").attr("value","true");
+    //     $("#credit_exception_change").attr("value","false");
+    //     $(this_modul).find(".modul_credit").text(v+" C");
+    //     $(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
+    //     ajax_serverupdate_change_credits(modul_id,v);
+    // }
 		
     //warnung
     // if (warn_checked == "checkbox") {
@@ -715,12 +731,7 @@ var update_modul_in_selection = function (){
     //     $("#exception_change").attr("value","false");
     // }
 		if (any_AO_changed) ueberblick();
-
-// Übergangsweise wird immer der Überblick aktualisiert, damit die Veränderungen
-// in der Bereichs-ComboBox sichtbar werden
-//    ueberblick();
-
-}//ende
+}
 
 var change_custom_in_selection_by_session_load = function(auswahl_modul_clone,custom_name,custom_credit){
 	
@@ -753,7 +764,9 @@ var session_auswahl_rekursiv = function(root){
             //damit Noten_feld weg ist.
             //Has_grade zeigt an, ob das Modul derzeit benotet ist, d.h. die Note gestrichen wurde.
             var mod_has_grade=$(this).attr("has_grade");
-            var mod_credit=$(this).attr("credits");
+            // var mod_credit=$(this).attr("credits");
+						var mod_credit = modProp(modul_id,"credits");
+						var mod_custom_credit = $(this).attr("custom_credits");
             var mod_has_warning=$(this).attr("has_warning");
             var modul_im_pool = $("#pool").find("div#"+modul_id);
             var das_erste = $(modul_im_pool).eq(0);
@@ -794,12 +807,13 @@ var session_auswahl_rekursiv = function(root){
             change_module_style_to_auswahl(modul_id,auswahl_modul_clone);
             //geaenderte Credits? und Warnung deaktivieren?
             //wenn ja dann die entsprechenen Meldungen anzeigen
-            if(mod_credit!=""){
-								if ($(this).attr("class") != "custom") {
+            if(mod_custom_credit != "false") {
+								// if ($(this).attr("class") != "custom") {
+								if (modProp(modul_id,"custom") != "custom") {
                 	$(auswahl_modul_clone).find("p.credit-option").show();
-									modPropChange(modul_id,"custom_credits","true"); // oder besser die Anzahl? (OS)
+									modPropChange(modul_id,"AO_custom_credits",mod_custom_credit);
 								}
-                $(auswahl_modul_clone).find("td.modul_credit").text(mod_credit+" C");
+                $(auswahl_modul_clone).find("td.modul_credit").text(mod_custom_credit+" C");
             }
 
             if(mod_has_warning=="false"){
@@ -1046,7 +1060,7 @@ var ajax_serverupdate_add_warning = function(module_id) {
         url: "abfragen/add_warning",
         dataType: "text",
         cache: false,
-        async: true,
+        async: false,
         data: "mod_id="+module_id+"&"+authenticityTokenParameter(),
         contentType: "application/x-www-form-urlencoded"
     });
@@ -1058,7 +1072,7 @@ var ajax_serverupdate_remove_warning = function(module_id) {
         url: "abfragen/remove_warning",
         dataType: "text",
         cache: false,
-        async: true,
+        async: false,
         data: "mod_id="+module_id+"&"+authenticityTokenParameter(),
         contentType: "application/x-www-form-urlencoded"
     });
@@ -1108,7 +1122,7 @@ function ajax_request_combobox(modul_id){
         url :"main/combo_category",
         dataType:"text",
         cache:false,
-        async:true,
+        async:false,
         data:"mod_id="+modul_id+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
         success:function(html){
@@ -1143,7 +1157,7 @@ var ajax_request_grade = function(){
     $.ajax({
         type : 'GET',
         url  : '/abfragen/note',
-        async: true,
+        async: false,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
             $("#die_note").empty();
@@ -1206,7 +1220,10 @@ function ajax_serverupdate_change_credits(modul_id,credits){
         }
     });
 }
-
+function ajax_serverupdate_credits_reset(modul_id){
+	// Absprache mit CB steht noch aus (OS)
+	ajax_serverupdate_change_credits(modul_id,"false");
+}
 
 function update_module_errors(){
 	
@@ -1523,7 +1540,7 @@ var poolrekursiv = function(XMLhandle){
                 //check nach total_credits, die nur im Pool beim Kopfmodul angezeigt wird.
                 var this_total_credits="0";
                 var total_credits=$(this).attr("total_credits");
-                var credits_in_selection = credits;
+                // var credits_in_selection = credits;
 				
                 if(total_credits!=""){
                     this_total_credits=total_credits;// f�r das KopfmodulModul, das wieder zur�ck in Pool ist
@@ -1557,7 +1574,7 @@ var poolrekursiv = function(XMLhandle){
 								modPropForce(modul_id,"add_sel_name_in_sel",this_sel_name);
 								modPropForce(modul_id,"modul_name_in_pool",modul_name);
 								modPropForce(modul_id,"total_modul_credit",this_total_credits);
-								modPropForce(modul_id,"credits_in_selection",credits_in_selection);
+								// modPropForce(modul_id,"credits_in_selection",credits_in_selection);
 
 								modPropForce(modul_id,"error","unknown");
 
@@ -1672,7 +1689,7 @@ var change_module_style_to_pool = function(modul_id,handle){
     $(handle).find("> div.icon_loeschen").css("display","none");
     
     //auf originale Credits setzen im Fall Credits-Veraenderung
-		var original_credits = modProp(modul_id,"credits_in_selection");
+		var original_credits = modProp(modul_id,"credits");
     $(handle).find("> table tbody tr td.modul_credit").text(original_credits+" C");
    
     $(handle).find("> p.drop_down_menu").css("display","none").empty();
