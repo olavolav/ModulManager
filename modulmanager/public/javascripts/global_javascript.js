@@ -641,29 +641,18 @@ var update_modul_in_selection = function (){
 			any_AO_changed = true;
 			if (warn_checked) {
 				modPropChange(modul_id,"AO_disable_warning","true");
-				$(this_modul).find("p.note-option").show();
+				$(this_modul).find("p.warnung-option").show();
 				ajax_serverupdate_remove_warning(modul_id);
 			}
 			else {
 				modPropChange(modul_id,"AO_disable_warning","false");
-				$(this_modul).find("p.note-option").hide();
+				$(this_modul).find("p.warnung-option").hide();
 				ajax_serverupdate_add_warning(modul_id);
 			}
 		}
-		
-		// Ausnahme-Optionen im Cache aktualisieren: Ausnahme-Credits
-		// if ($("#exception_credit").val()) {
-		// 	modPropChange(modul_id,"AO_disable_warning","true");
-		// 	$(this_modul).find("p.credit-option").show();
-		// }
-		// else {
-		// 	modPropChange(modul_id,"AO_disable_warning","false");
-		// 	$(this_modul).find("p.credit-option").hide();
-		// }
 
 		var v=$("#exception_credit").val();
 		// alert("update_modul_in_selection: Inhalt von #exception_credit: "+v);
-		// var credits_entered = (v!="Credits")&&(v!="");
 		var entered_a_number = (v!="")&&(!isNaN(v))&&(parseInt(v)>=0);
 		var credits_input_is_valid = (v=="Credits")||(v=="")||entered_a_number;
 		// alert("update_modul_in_selection: credits_input_is_valid="+credits_input_is_valid+", entered_a_number="+entered_a_number+", parseInt(v)="+parseInt(v));
