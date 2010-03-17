@@ -39,9 +39,7 @@ Es sind zu viele Noten gestrichen worden!
 
 <% end %>
 
-<%# unless @fullfilled || @child_rules.length > 0 %>
-<%# unless @fullfilled %>
-<% if ((!@fullfilled) && (@child_rules == nil || @child_rules.length == 0)) %>
+<% if (@child_rules == nil || @child_rules.length == 0) %>
 
   <p>
 	Um die Anforderungen in diesem Bereich zu erfüllen, müssen Sie noch
