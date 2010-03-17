@@ -1,14 +1,18 @@
 <div class='modul-info'>
-  <h1><%= @regel.name %></h1>
+  <h1>Bereich: <%= @regel.name %></h1>
   <p class='description'><%= @regel.description %></p>
 
-	<p>Die Bedingungen dieser Kategorie sind <strong><%= @fullfilled_string %>.</strong><br>
+	<h2>Anforderungen dieses Bereiches</h2>
+	<p>Die Bedingungen dieses Bereiches sind <strong><%= @fullfilled_string %>.</strong><br>
 	Es werden momentan <%= @credits_earned %> von <%= @regel.credits_needed %> Credits
-	sowie <%= @regel.collected_modules @mods %> von <%= @regel.modules_needed %>
-	erforderlichen Modulen eingebracht.
+	<% if @regel.modules_needed > 0 %>
+		sowie <%= @regel.collected_modules @mods %> der <%= @regel.modules_needed %> in diesem Bereich
+		erforderlichen Modulen
+	<% end %>
+	eingebracht.
 	
 	<% if @regel.removeable_grades > 0%>
-		Außerdem wurden <%= @regel.removed_grades @mods %> Noten von <%= @regel.removeable_grades %> erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote.
+		Außerdem wurden <%= @regel.removed_grades @mods %> von <%= @regel.removeable_grades %> erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote.
 	<% else %>
 		In dieser Kategorie ist das Streichen von Noten nicht zulässig.
 	<% end %>
@@ -32,8 +36,10 @@ Es sind zu viele Noten gestrichen worden!
 <% end %>
 
 <%# unless @fullfilled || @child_rules.length > 0 %>
-<% unless @fullfilled %>
-  <p style="color: red;">Um in diesem Bereich alle Bedingungen zu erfüllen, müssen Sie folglich noch
+<%# unless @fullfilled %>
+<% if ((!@fullfilled) && (@child_rules == nil || @child_rules.length == 0)) %>
+  <p>Um die Anforderungen in diesem Bereich zu erfüllen, müssen Sie noch
+	
     <%= [@regel.modules_needed - @regel.collected_modules(@mods), 0].max %> Module sowie
     <%= [@regel.credits_needed - @credits_earned, 0].max %> Credits erbringen.</p>
 
@@ -49,6 +55,7 @@ Es sind zu viele Noten gestrichen worden!
   <% end %>
 <% end %>
 
+<h2>Anmerkungen zur Auswertung</h2>
 <p>Bitte beachten Sie:
 <ul>
   <li>Module werden für diese Kategorie nicht mehr angezeigt, wenn sie bereits in eine andere Kategorie eingebracht werden.</li>
