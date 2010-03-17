@@ -18,7 +18,7 @@ Noch zu beheben:
 112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der Info-Box nicht angezeigt (Christian)
 116. Module mit Teilmodulen werden im SP nicht vollständig einbebracht, z.B. 'Spezielle Themen der Astro- und Geophysik III' gibt im Astro-SP nur 3 von 2*3 Credits (Christian)
 120. Hinweis auf noch benötigte Module ist unklar, s. Mail von AS vom 12.03.10 (Olav)
-121. Fehler im Überblick: SP Nanostrukturphysik wählen und dann "Einführung in die Festkörper- und Materialphysik" löschen - in der Tat scheint das Problem immer zu entstehen, wenn ein Modul-Fehler auftritt (Christian)
+121. Fehler im Überblick: SP Nanostrukturphysik wählen und dann "Einführung in die Festkörper- und Materialphysik" löschen - in der Tat scheint das Problem immer zu entstehen, wenn ein Modul-Fehler auftritt, denn via die AO "Warnung deaktivieren" kann man ihn wieder umgehen (Christian)
 122. Dummy-Module haben in abfragen/auswahl keinen has_warning-Tag (Christian)
 123. Info-Box von Modulen im Pool ist leer, s. Fehlermeldung in der Log-Datei (Christian)
 124. Info-Box von in die Auswahl gezogenen Modulen mit mehreren möglichen Bereichen (z.B. Einführungen) ist vor einem Neu Laden der Seite leer (Christian)
