@@ -916,7 +916,7 @@ var ajax_request_module_info = function (modul_id){
             $("#exception_note").attr("checked", "");
             $("#info_box #box_info").append(html);
 
-						alert("ajax_request_module_info: AO im Cache: AO_ignore_grade="+modProp(modul_id,"AO_disable_warning")+", AO_custom_credits="+modProp(modul_id,"AO_custom_credits")+", AO_ignore_grade="+modProp(modul_id,"AO_ignore_grade"));
+						// alert("ajax_request_module_info: AO im Cache: AO_ignore_grade="+modProp(modul_id,"AO_disable_warning")+", AO_custom_credits="+modProp(modul_id,"AO_custom_credits")+", AO_ignore_grade="+modProp(modul_id,"AO_ignore_grade"));
             // Mein Versuch, die Checkboxen zu selektieren, wenn die entsprechenden Optionen gesetzt sind...
             // if(($("#has_grade").text() == '0')&&(modProp(modul_id,"modul_has_grade") == "true")) {
             if(modProp(modul_id,"AO_ignore_grade") == "true") {
@@ -1609,9 +1609,9 @@ var poolrekursiv = function(XMLhandle){
                 "</tr>" + "</tbody>" + "</table>" +
                 "<p class='drop_down_menu' style='display:none'></p>"+
                 // Ausnahme-Options-Hinweise verstecken
+                "<p class='note-option' style='display:none'>Note gestrichen</p>"+
 								"<p class='credit-option' style='display:none'>Ausnahme: Credit-Anzahl wurde verändert</p>"+
                 "<p class='warnung-option' style='display:none'>Ausnahme: Warnungen deaktiviert</p>"+
-                "<p class='note-option' style='display:none'>Ausnahme: Note wird nicht eingebracht</p>"+
                 "</div></div>";
 
                 //kopieren das Modul in search_table  f�r die Suche
