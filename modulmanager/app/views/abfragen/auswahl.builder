@@ -21,7 +21,8 @@ xml.auswahl(:id => @selection.id) do
               :custom_credits => m.credits,
               :grade => m.grade,
               :class => "custom",
-              :has_general_grade => has_grade
+              :has_general_grade => has_grade,
+              :has_warning => ""
             )
           else
             if m.class == PartialModule
