@@ -321,10 +321,8 @@ class AbfragenController < ApplicationController
   def change_credits
     credits = params[:credits]
     mod_id = params[:mod_id]
-
     mod = current_selection.selection_modules.find(:first, :conditions => "module_id = #{mod_id}")
-
-    if mod.moduledata.credits == credits || credits == false
+    if mod.moduledata.credits == credits || credits == "false"
       mod.credits = nil
     else
       mod.credits = credits
