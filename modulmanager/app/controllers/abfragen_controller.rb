@@ -74,7 +74,10 @@ class AbfragenController < ApplicationController
     #    selection.selection_modules.each do |m|
     #      m2 = m if m.moduledata.short == mod.short
     #    end
-    m2 = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}")
+
+#    m2 = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}")
+    m2 = current_selection.selection_modules.find(:first, :conditions => "module_id = #{mod.id}")
+
     @id = m2.id
     if mod.short.include? "custom"
       @name = m2.name
@@ -285,11 +288,17 @@ class AbfragenController < ApplicationController
   end
 
   def remove_semester_from_selection
-    s1 = Semester.find(
-      :first,
-      :conditions => "selection_id = #{current_selection.id} AND count = #{params[:sem_count]}").destroy
+    s1 = current_selection.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
+
+#    s1 = Semester.find(
+#      :first,
+#      :conditions => "selection_id = #{current_selection.id} AND count = #{params[:sem_count]}").destroy
+
     modules = s1.modules
     modules.each { |m| m.destroy }
+
+    s1.destroy
+
     render :text => "Semester removed from selection..."
   end
 
@@ -387,18 +396,25 @@ class AbfragenController < ApplicationController
     credits = params[:credits]
     mod_id = params[:mod_id]
 
-    selection = current_selection
+    mod = current_selection.selection_modules.find(:first, :conditions => "module_id = #{mod_id}")
 
-    selection.selection_modules.each do |m|
-
-      if m.moduledata.id == mod_id.to_i
-        m.credits = credits
-        m.save
-        render :text => "success"
-        return
-      end
+    if mod.moduledata.credits == credits || credits == false
+      mod.credits = nil
+    else
+      mod.credits = credits
     end
-    render :text => "error"
+    render :text => "success"
+
+#    selection = current_selection
+#    selection.selection_modules.each do |m|
+#      if m.moduledata.id == mod_id.to_i
+#        m.credits = credits
+#        m.save
+#        render :text => "success"
+#        return
+#      end
+#    end
+#    render :text => "error"
   end
 
   def remove_warning

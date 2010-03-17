@@ -142,7 +142,10 @@ class MainController < ApplicationController
   def combo_category
     @id = params[:mod_id]
     mod = Studmodule.find(@id)
-    @selected_cat = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}").category
+
+    @selected_cat = current_selection.selection_modules.find(:first, :conditions => "module_id = #{mod.id}").category
+#    @selected_cat = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}").category
+
     @categories = Array.new
     mod.categories.each do |category|
       unless category.exclusive == 1 || category.focus != nil
@@ -155,8 +158,8 @@ class MainController < ApplicationController
   end
 
   def _check_category
-    id = params[:mod_id]
-    mod = Studmodule.find(id)
+#    id = params[:mod_id]
+#    mod = Studmodule.find(id)
     @categories = Array.new
     Category.find(:all, :conditions => "exclusive = 1").each do |category|
       @categories.push category
@@ -177,7 +180,8 @@ class MainController < ApplicationController
     id = params[:mod_id]
     cat_id = params[:cat_id]
 
-    mod = SelectedModule.find(:first, :conditions => "module_id = #{id}")
+    mod = current_selection.selection_modules.find(:first, :conditions => "module_id = #{id}")
+#    mod = SelectedModule.find(:first, :conditions => "module_id = #{id}")
 
     unless mod == nil
       mod.category = Category.find(cat_id)
@@ -185,21 +189,6 @@ class MainController < ApplicationController
     end
 
     render :text => "success"
-
-    #    mod = nil
-    #
-    #    selection = current_selection
-    #
-    #    selection.selection_modules.each do |m|
-    #      mod = m if m.moduledata.id == id
-    #    end
-    #
-    #    #    category = Category.find(cat_id)
-    #
-    #    mod.category = Category.find(cat_id) unless mod == nil ||
-    #      mod.save
-    #
-    #    render :text => "Category changed successfully..."
 
   end
 
@@ -306,22 +295,6 @@ class MainController < ApplicationController
           :grade => m.attributes['grade']
 
         my_semester.modules << my_module
-
-        #        if m.attributes['id'] == "custom"
-        #          custom_count += 1
-        #          my_module = CustomModule.create
-        #          my_module.short = "custom#{custom_count}"
-        #          my_module.grade = m.attributes['grade']
-        #          my_module.name = m.attributes['name']
-        #          my_module.credits = m.attributes['credits']
-        #          my_semester.modules << my_module
-        #        else
-        #          my_module = Studmodule.find(:first, :conditions => "short = '#{m.attributes['short']}'")
-        #          my_semester.studmodules << my_module
-        #          s = SelectedModule.find(:first, :conditions => "module_id = '#{my_module.id}'")
-        #          s.grade = m.attributes['grade']
-        #          s.save
-        #        end
         
       end
     end

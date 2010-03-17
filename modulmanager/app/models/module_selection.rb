@@ -12,6 +12,11 @@ class ModuleSelection < ActiveRecord::Base
     :class_name => "Version",
     :foreign_key => "version_id"
 
+  has_many :selection_modules,
+    :through => :semesters,
+    :class_name => "SelectedModule",
+    :source => :modules
+
   def modules
     modules = Array.new
     self.semesters.each do |s|
@@ -24,16 +29,16 @@ class ModuleSelection < ActiveRecord::Base
     modules
   end
 
-  def selection_modules
-    mods = Array.new
-    self.semesters.each do |s|
-      if s.count > 0
-        s.modules.each do |sm|
-          mods.push sm
-        end
-      end
-    end
-    mods
-  end
+#  def selection_modules
+#    mods = Array.new
+#    self.semesters.each do |s|
+#      if s.count > 0
+#        s.modules.each do |sm|
+#          mods.push sm
+#        end
+#      end
+#    end
+#    mods
+#  end
 
 end

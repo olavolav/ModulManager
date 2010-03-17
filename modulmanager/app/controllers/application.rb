@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
 
               m.moduledata.children.each do |child|
 
-                child_data = SelectedModule.find(:first, :conditions => "module_id = #{child.id}")
+                child_data = current_selection.selection_modules.find(:first, :conditions => "module_id = #{child.id}")
+#                child_data = SelectedModule.find(:first, :conditions => "module_id = #{child.id}")
 
                 if child_data.credits == nil
                   ges_credits += child_data.moduledata.credits
