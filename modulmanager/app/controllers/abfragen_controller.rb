@@ -82,7 +82,7 @@ class AbfragenController < ApplicationController
       @short = "-"
       @credits = m2.credits
       @permission = nil
-      @custom_credits = m2.credits
+      #      @custom_credits = m2.credits
       m2.categories.each {|c| @categories.push c.name}
       @categories.uniq!
       @custom = true
@@ -90,9 +90,11 @@ class AbfragenController < ApplicationController
       @name         = m2.moduledata.name
       @description  = m2.moduledata.description
       @short        = m2.moduledata.short
-      @credits      = m2.moduledata.credits
-      
-      m2.credits != nil && m2.credits != "" ? @custom_credits = m2.credits : @custom_credits = false
+
+      m2.credits == nil ? @credits = m2.moduledata.credits : @credits = m2.credits
+
+      #      @credits      = m2.moduledata.credits
+      #      m2.credits != nil && m2.credits != "" ? @custom_credits = m2.credits : @custom_credits = false
 
       if m2.moduledata.univzid != nil
         @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +

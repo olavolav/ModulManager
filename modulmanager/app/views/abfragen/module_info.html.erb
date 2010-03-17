@@ -18,7 +18,9 @@
       <% end %>
     </ul>
   </p>
-  <div id="custom_credits" style="display: none;"><%= @custom_credits %></div>
+  <%#*<div id="custom_credits" style="display: none;">%>
+    <%#= @custom_credits %>
+  <%#*</div>%>
 <% else %>
   <% if @categories.length == 1 %>
     <p>Dieses Modul wird in folgendem Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %>
