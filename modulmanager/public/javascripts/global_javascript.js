@@ -106,16 +106,18 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
             // In dem Fall ist klar, was passieren muss, unabhängig von der Note wird das Icon auf
             // rot gesetzt, falls das nicht ohnehin schon der Fall ist:
 	          if (modProp(modul_id,"error") != "true") {
-								var icon = $(handle).find(".ipunkt");
-                $(icon).html(roter_ipunkt);
+								if(modProp(modul_id,"AO_disable_warning") != "true") {
+									var icon = $(handle).find(".ipunkt");
+	                $(icon).html(roter_ipunkt);
 
-								if (modProp(modul_id,"error") != "unknown") {
-									$(icon).animate({opacity: 0.1}, "fast");
-									$(icon).animate({opacity: 1.0}, "fast");
-									$(icon).animate({opacity: 0.1}, "fast");
-									$(icon).animate({opacity: 1.0}, "fast");
-									$(icon).animate({opacity: 0.1}, "fast");
-									$(icon).animate({opacity: 1.0}, "fast");
+									if (modProp(modul_id,"error") != "unknown") {
+										$(icon).animate({opacity: 0.1}, "fast");
+										$(icon).animate({opacity: 1.0}, "fast");
+										$(icon).animate({opacity: 0.1}, "fast");
+										$(icon).animate({opacity: 1.0}, "fast");
+										$(icon).animate({opacity: 0.1}, "fast");
+										$(icon).animate({opacity: 1.0}, "fast");
+									}
 								}
 								modPropChange(modul_id,"error","true");
             }
@@ -154,10 +156,9 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
             break;
 			
         case "init":
-            // Das ist für den Fall gedacht, wenn man ein Modul in die Auwahl zieht, und also alle
-            // anderen Event-Arten möglich sind
-            // Nur benutzt in der Funktion change_module_style_to_auswahl
-            // if (modProp(modul_id,"error") == "false") {
+            // Das ist für den Fall gedacht, wenn man ein Modul in die Auswahl zieht (oder beim Session
+						// laden), und also alle anderen Event-Arten möglich sind
+            // if ((modProp(modul_id,"error")=="false")||(modProp(modul_id,"AO_disable_warning") != "true")) {
                 // Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
                 if ((modProp(modul_id,"modul_has_grade")=="true") && (($(handle).find(".noten_input").val()!="Note")||($(handle).find(".noten_input").val()!="")))
                     $(handle).find(".ipunkt").html(gelber_ipunkt);

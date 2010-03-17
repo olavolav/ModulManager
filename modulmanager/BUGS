@@ -12,7 +12,6 @@ Noch zu beheben:
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
 84. Modul-Vorbedingungen werden in der Pool-Info-Box nicht angezeigt (Christian & Olav)
-101. Farbe des Info-Icons in der Auswahl bleibt nicht notwendigerweise immer auf grün, wenn man 'Warnungen deaktivieren' gewählt hat (Olav)
 103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzichen MatNat-Combobox-Eintrag (Christian)
 105. In den Text bei Dummy-Modul das Beispiel "Informatik I" einbauen (Olav)
 107. PDF-Export: Module nur in den Kategorien anzeigen, wo sie tatsächlich eingebracht werden (Christian)
@@ -21,7 +20,7 @@ Noch zu beheben:
 116. Module mit Teilmodulen werden im SP nicht vollständig einbebracht, z.B. 'Spezielle Themen der Astro- und Geophysik III' gibt im Astro-SP nur 3 von 2*3 Credits (Christian)
 119. Wenn man nur zu viele Noten gestrichen hat, wird trotzdem in rot ein Hinweis auf fehlende Credits ausgegeben (Olav & Christian)
 120. Hinweis auf noch benötigte Module ist unklar, s. Mail von AS vom 12.03.10 (Olav)
-121. Fehler im Überblick: SP Nanostrukturphysik wählen und dann "Einführung in die Festkörper- und Materialphysik" löschen (Christian)
+121. Fehler im Überblick: SP Nanostrukturphysik wählen und dann "Einführung in die Festkörper- und Materialphysik" löschen - könnte sein, dass das mit dem entstehenden Modul-Fehler zusammen hängt (Christian)
 122. Dummy-Module haben in abfragen/auswahl keinen has_warning-Tag (Christian)
 
 
@@ -128,6 +127,7 @@ Inzwischen behoben:
 115. Dropdown-Box-Optionen sind doppelt (Christian)
 117. "Note gestrichen"-AO-Checkbox wird in der Info-Box nicht richtig gesetzt (Olav)
 118. "Note gestrichen"-AO wird nicht sofort im Überblick ausgewertet (Olav)
+101. Farbe des Info-Icons in der Auswahl bleibt nicht notwendigerweise immer auf grün, wenn man 'Warnungen deaktivieren' gewählt hat (Olav)
 
 
 
