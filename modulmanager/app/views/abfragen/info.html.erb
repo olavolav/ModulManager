@@ -18,15 +18,19 @@
 	<% end %>
 </p>
 
+<% if !@fullfilled %>
+<h2>Problematik</h2>
+
 <% if @regel.removed_too_many_grades? @mods %>
-<p style="color: red;">
+<p>
 Es sind zu viele Noten gestrichen worden!
 </p>
 <% end %>
 
 <% if @child_rules != nil && @child_rules.length > 0 %>
 
-  <p>In diesem Bereich müssen noch folgende Unterbereiche erfüllt werden:</p>
+  <p>
+	In diesem Bereich müssen noch folgende Unterbereiche erfüllt werden:</p>
   <ul>
     <% @child_rules.each do |child| %>
       <li><%= child %></li>
@@ -38,7 +42,9 @@ Es sind zu viele Noten gestrichen worden!
 <%# unless @fullfilled || @child_rules.length > 0 %>
 <%# unless @fullfilled %>
 <% if ((!@fullfilled) && (@child_rules == nil || @child_rules.length == 0)) %>
-  <p>Um die Anforderungen in diesem Bereich zu erfüllen, müssen Sie noch
+
+  <p>
+	Um die Anforderungen in diesem Bereich zu erfüllen, müssen Sie noch
 	
     <%= [@regel.modules_needed - @regel.collected_modules(@mods), 0].max %> Module sowie
     <%= [@regel.credits_needed - @credits_earned, 0].max %> Credits erbringen.</p>
@@ -53,6 +59,7 @@ Es sind zu viele Noten gestrichen worden!
       <% end %>
     </ul></p>
   <% end %>
+<% end %>
 <% end %>
 
 <h2>Anmerkungen zur Auswertung</h2>

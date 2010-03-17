@@ -6,7 +6,6 @@ Noch zu beheben:
 2. Buttons sind im Firefox nur via Text anklickbar (Olav)
 11. Name ist bei unbenoteten Modulen zu nah an dem Info-Icon (Olav)
 25. FAQ-Seite schreiben (Olav)
-27. Deployment testen (Christian)
 29. Copyright-Angaben hinzufügen (Olav)
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
 45. Fehlermeldungen in den PDF-Export einbinden (Christian & Olav)
@@ -130,6 +129,7 @@ Inzwischen behoben:
 118. "Note gestrichen"-AO wird nicht sofort im Überblick ausgewertet (Olav)
 101. Farbe des Info-Icons in der Auswahl bleibt nicht notwendigerweise immer auf grün, wenn man 'Warnungen deaktivieren' gewählt hat (Olav)
 119. Wenn man nur zu viele Noten gestrichen hat, wird trotzdem in rot ein Hinweis auf fehlende Credits ausgegeben (Olav & Christian)
+27. Deployment testen (Christian)
 
 
 
