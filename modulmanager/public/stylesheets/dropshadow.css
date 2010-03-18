@@ -1,0 +1,23 @@
+.wrap1, .wrap2, .wrap3 {
+	display:inline-table;
+	/* \*/display:block;/**/
+}
+
+.wrap1 {
+	float:left;
+	background:url("../images/dropshadow/shadow-2500px.gif") right bottom repeat;
+}
+
+.wrap2 {
+	background:url("../images/dropshadow/corner_bl.gif") left bottom no-repeat;
+}
+
+.wrap3 {
+	padding:0 4px 4px 0;
+	background:url("../images/dropshadow/corner_tr.gif") right top no-repeat;
+}
+
+#content-wrapper {
+	margin : 7% 15% 7% 15%;
+	padding-bottom: 7%;
+}

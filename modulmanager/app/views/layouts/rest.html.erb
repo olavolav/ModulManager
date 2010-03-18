@@ -9,13 +9,24 @@
 
     <%= stylesheet_link_tag 'global' %>
     <%= stylesheet_link_tag 'rest' %>
+    <%= stylesheet_link_tag 'dropshadow' %>
 
 
   </head>
   <body>
 
-    <%= yield %>
-
-
+	<!-- wrappers for dropshadow elements (OS) -->
+	<div id="content-wrapper">
+	 <div class="wrap1">
+	  <div class="wrap2">
+	   <div class="wrap3">
+		
+		<%= yield %>
+		
+	   </div>
+	  </div>
+	 </div>
+	</div>
+	
   </body>
 </html>

@@ -1,12 +1,15 @@
 
-
 #content {
-	margin : 7% 15% 7% 15%;
-	border : 1px black solid;
+	margin: 0px 20px 20px 0px;
+	border : 1px #AAA solid;
 	background: #FAFAFD url("../images/Semester-Hintergrund.gif");
 	background-repeat: no-repeat;
 	background-position: top left;
 	padding: 1em;
+}
+
+p {
+	margin-top: 12px;
 }
 
 a {

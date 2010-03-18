@@ -10,6 +10,7 @@
 
     <%= stylesheet_link_tag 'global' %>
     <%= stylesheet_link_tag 'start' %>
+    <%= stylesheet_link_tag 'dropshadow' %>
     <!-- <%= javascript_include_tag "prototype" %> -->
 
     <script type="text/javascript" src="javascripts/jquery-1.4.2.min.js"> </script>
@@ -22,7 +23,20 @@
 
   </head>
   <body>
-    <%= yield %>
+
+	<!-- wrappers for dropshadow elements (OS) -->
+	<div id="content-wrapper">
+	 <div class="wrap1">
+	  <div class="wrap2">
+	   <div class="wrap3">
+		
+		<%= yield %>
+		
+	   </div>
+	  </div>
+	 </div>
+	</div>
+	
   </body>
 </html>
 
