@@ -1,0 +1,9 @@
+// ==ClosureCompiler==
+// @output_file_name modulmanager.js
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @code_url http://rortest.adiungi.net/javascripts/global_javascript.js
+// @code_url http://rortest.adiungi.net/javascripts/jquery.jcache.js
+// @code_url http://rortest.adiungi.net/javascripts/jquery.quicksearch.js
+// @code_url http://rortest.adiungi.net/javascripts/pooleffect.js
+// @code_url http://rortest.adiungi.net/javascripts/ueberblick.js
+// ==/ClosureCompiler==
