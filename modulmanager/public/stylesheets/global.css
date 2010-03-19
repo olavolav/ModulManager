@@ -65,7 +65,7 @@ a:visited {
 }
 
 #shadowbar {
-	heigth: 7px;
+	height: 7px;
 	background: white url("../images/schatten.gif");
 	background-repeat: repeat-x;
 	background-position: top left;	

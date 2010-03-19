@@ -13,24 +13,24 @@
 //--------------------------------------------------------------------------------------
 
 // photo path
-var wahlpflichtbild = "<img width='20' heigth='20' src='images/Wahlpflicht.png'>";
-var pflichtbild = "<img width='20' heigth='20' src='images/Pflicht.png'>";
-var wahlbild = "<img width='20' heigth='20' src='images/Wahl.png'>";
-var unbekannter_modus_bild = "<img width='20' heigth='20' src='images/ModusUnbekannt.png'>";
+var wahlpflichtbild = "<img width='20' height='20' src='images/Wahlpflicht.png'>";
+var pflichtbild = "<img width='20' height='20' src='images/Pflicht.png'>";
+var wahlbild = "<img width='20' height='20' src='images/Wahl.png'>";
+var unbekannter_modus_bild = "<img width='20' height='20' src='images/ModusUnbekannt.png'>";
 	
-var fragebild = "<img width='20' heigth='20' src='images/Fragezeichen.png'>";
-var gruener_ipunkt = "<img width='20' heigth='20' src='images/iPunkt.png'>";
-var gelber_ipunkt = "<img width='20' heigth='20' src='images/iPunktGelb.png'>";
-var roter_ipunkt = "<img width='20' heigth='20' src='images/Ausrufezeichen.png'>";
+var fragebild = "<img width='20' height='20' src='images/Fragezeichen.png'>";
+var gruener_ipunkt = "<img width='20' height='20' src='images/iPunkt.png'>";
+var gelber_ipunkt = "<img width='20' height='20' src='images/iPunktGelb.png'>";
+var roter_ipunkt = "<img width='20' height='20' src='images/Ausrufezeichen.png'>";
 	
 var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-4px; left:8px;'>";
 var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='padding-right:3px;'>";
 var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='padding-right:3px;'>";
 var pfeil_leer = "<img src='images/Pfeil-Rechts-Leer.png' style='padding-right:3px;'>";
 	
-var warten_weiss = "<img width='16' heigth='16' src='images/Warten-HintergrundWeiss.gif' style='padding-right:3px;'>";
-var warten_blau = "<img width='16' heigth='16' src='images/Warten-HintergrundGrau.gif' style='padding-right:3px;'>";
-var warten_semester_animation = "<img width='16' heigth='16' src='images/Warten-HintergrundSemester.gif' style='padding-right:3px;'>";
+var warten_weiss = "<img width='16' height='16' src='images/Warten-HintergrundWeiss.gif' style='padding-right:3px;'>";
+var warten_blau = "<img width='16' height='16' src='images/Warten-HintergrundGrau.gif' style='padding-right:3px;'>";
+var warten_semester_animation = "<img width='16' height='16' src='images/Warten-HintergrundSemester.gif' style='padding-right:3px;'>";
 
 // wenn der �berblick fertig geladen wurde, den Lade-Balken verscheinden lassen (OS)
 $(document).ready(function(){
