@@ -29,9 +29,9 @@ var info_box_overview =  function(modul_id){
 
 var ueberblick = function(){
 	
+		$("#ueberblick #ueberblick-wird-aktualisiert").show();
   	update_module_errors();
 
-    $("#ueberblick #ueberblick-wird-aktualisiert").show();
     var html = $.ajax({
         type : 'GET',
         url  : '/abfragen/ueberblick',
