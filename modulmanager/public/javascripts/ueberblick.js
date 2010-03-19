@@ -28,35 +28,39 @@ var info_box_overview =  function(modul_id){
 }
 
 var ueberblick = function(){
+	
+  	update_module_errors();
+
     $("#ueberblick #ueberblick-wird-aktualisiert").show();
     var html = $.ajax({
         type : 'GET',
         url  : '/abfragen/ueberblick',
-        async: false,
+        async: true,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
             $("#ueberblick #ueberblick_baum").empty();
             $("#ueberblick #ueberblick_baum").html(html);
             ajax_request_grade();
+
+						// Fehler von Modulen und Kategorien auswerten
+						update_category_errors();
+
+				    // Klickbare Info-Buttons sollen beim dr�berfahren animiert werden, wie schon in global_javascript.js (OS)
+				    $(".ueberblick_info_box").mouseenter(function(){
+				        $(this).animate({
+				            opacity: 0.4
+				        }, "fast");
+				        $(this).animate({
+				            opacity: 1.0
+				        }, "slow");
+				    });
+
         },
         error: function(a,b,c){
             alert("problem with /abfragen/ueberblick");
         }
     }).responseText;
 		
-		// Fehler von Modulen und Kategorien auswerten
-    update_module_errors();
-		update_category_errors();
-
-    // Klickbare Info-Buttons sollen beim dr�berfahren animiert werden, wie schon in global_javascript.js (OS)
-    $(".ueberblick_info_box").mouseenter(function(){
-        $(this).animate({
-            opacity: 0.4
-        }, "fast");
-        $(this).animate({
-            opacity: 1.0
-        }, "slow");
-    });
 }// ende function
 
 var update_category_errors = function() {

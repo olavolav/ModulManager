@@ -1221,40 +1221,41 @@ function update_module_errors(){
 		
         type : 'GET',
         url  : '/abfragen/errors',
-        async: false,
+        async: true,
         contentType: 'application/x-www-form-urlencoded',
         success : function(xml){
-        //alert(xml);
+
+			    // error_table aufbauen, war früher die Funktion error_table_builder (OS)
+			    $("#middle #error_table").empty();
+			    var root = XML.documentElement;
+					var HTMLstring = "";
+			    $(root).children().each(function(){
+			        var modul_id = $(this).attr("id");
+			        //alert("error_id="+modul_id);
+			        HTMLstring += "<div id='error_"+modul_id+"'>"+modul_id+"</div>";
+			    });
+					$("#middle #error_table").append(HTMLstring);
+
+			    // Fehler-Einträge auswerten; war früher die Funktion check_error_all_modul_in_selection (OS)
+					$("#semester-content").find(".semester").each(function(){
+							// Das mit "h5" ist noch unschön (OS)
+			        $(this).find(">.subsemester").children().not("h5").each(function(){
+			            var modul_id = $(this).attr("id");
+									// Wie dort beschrieben, setzt die Funktion flip_module_infoicon_on_event auch die
+									// jCache-"error"-Werte - somit kann überprüft werden, ob sich der Fehler-Wert verändert
+									// hat und ggf. eine Animation angezeigt werden (OS)
+			            if (check_error_on_init("error_"+modul_id))
+										flip_module_infoicon_on_event("error",modul_id,this);
+			            else flip_module_infoicon_on_event("no_error",modul_id,this);
+			        });
+			    });		
+
         },
         error: function(a,b,c){
             alert("AJAX-Fehler: /errors");
         }
     }).responseXML;
 	
-    // error_table aufbauen, war früher die Funktion error_table_builder (OS)
-    $("#middle #error_table").empty();
-    var root = XML.documentElement;
-		var HTMLstring = "";
-    $(root).children().each(function(){
-        var modul_id = $(this).attr("id");
-        //alert("error_id="+modul_id);
-        HTMLstring += "<div id='error_"+modul_id+"'>"+modul_id+"</div>";
-    });
-		$("#middle #error_table").append(HTMLstring);
-
-    // Fehler-Einträge auswerten; war früher die Funktion check_error_all_modul_in_selection (OS)
-		$("#semester-content").find(".semester").each(function(){
-				// Das mit "h5" ist noch unschön (OS)
-        $(this).find(">.subsemester").children().not("h5").each(function(){
-            var modul_id = $(this).attr("id");
-						// Wie dort beschrieben, setzt die Funktion flip_module_infoicon_on_event auch die
-						// jCache-"error"-Werte - somit kann überprüft werden, ob sich der Fehler-Wert verändert
-						// hat und ggf. eine Animation angezeigt werden (OS)
-            if (check_error_on_init("error_"+modul_id))
-							flip_module_infoicon_on_event("error",modul_id,this);
-            else flip_module_infoicon_on_event("no_error",modul_id,this);
-        });
-    });		
 }
 var check_error_on_init = function(error_id){
 		// alert ("check_error: error_id="+error_id);
@@ -1413,7 +1414,7 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 	        $(this_child).show();
 	        change_module_style_to_auswahl(this_id,this_child);
 	        $(this_sub).append(this_child);
-	        ajax_serverupdate_add(this_id,semester);
+	        ajax_serverupdate_add(this_id,semester,cat_id);
 	
 				}
     });

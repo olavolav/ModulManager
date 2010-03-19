@@ -40,8 +40,8 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         }
     });
 	
-    var custom_semester=custom_semester.attr("value");
-    var custom_id=custom_id.attr("value");
+    custom_semester=custom_semester.attr("value");
+    custom_id=custom_id.attr("value");
     var category_id = category.attr("value");
 	
 		// Wenn keine Checkbox ausgewählt wird, wird die Kategorie übergeben, aus der das
@@ -84,8 +84,8 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         //Das dummy in Auswahl stecken. Name und Credit anpassen
         // check das Note_streichen von Anfang an
         var cus_modul = $("#pool #"+custom_id);
-        var name=$("#name");
-        var credit=$("#credit");
+        name = $("#name");
+        credit = $("#credit");
         var cre = credit.attr("value");
         $(cus_modul).attr("class","auswahl_modul ui-draggable");
         $(cus_modul).find(".modul_name").text(this_name);
