@@ -31,7 +31,7 @@ Rails::Initializer.run do |config|
   # This is the PDF export gem via LaTeX, see http://rtex.rubyforge.org (OS)
   config.gem "rtex"
   # pdflatex path hack as suggested by AS, i.e. http://www.ruby-forum.com/topic/156150
-  ENV['PATH'] = "#{ENV['PATH']}:/kunden/sorgesolutions.de/webs/adiungi.net/rortest/TexLive/bin/i386-linux"
+  ENV['PATH'] = "#{ENV['PATH']}:/kunden/sorgesolutions.de/webs/adiungi.net/rortest/TexLive/bin/i386-linux:/usr/local/texlive/2008/bin/universal-darwin"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
@@ -43,7 +43,7 @@ Rails::Initializer.run do |config|
 
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
-  # config.log_level = :debug
+  config.log_level = :warn
 
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.
