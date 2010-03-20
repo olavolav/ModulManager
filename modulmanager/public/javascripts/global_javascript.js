@@ -32,7 +32,7 @@ var warten_weiss = "<img width='16' height='16' src='images/Warten-HintergrundWe
 var warten_blau = "<img width='16' height='16' src='images/Warten-HintergrundGrau.gif' style='padding-right:3px;'>";
 var warten_semester_animation = "<img width='16' height='16' src='images/Warten-HintergrundSemester.gif' style='padding-right:3px;'>";
 
-// wenn der �berblick fertig geladen wurde, den Lade-Balken verscheinden lassen (OS)
+// wenn der �berblick fertig geladen wurde, den Lade-Balken verschwinden lassen (OS)
 $(document).ready(function(){
     $("#pleasewait").slideUp("slow");
     // Klickbare Info-Buttons sollen beim dr�berfahren animiert werden (OS)
@@ -219,7 +219,8 @@ var selection_input_check = function(input_noten){
         }
         $("#note_berechnen").text("");
     }
-    ajax_request_grade();
+		// Das Folgende wird jetzt direkt nach dem erfolgreichen Noten-Übermitteln aufgerufen (OS)
+    // ajax_request_grade();
 }
 
 // Diese Funktion geh�rt zu show_pool_by_out, also zum Ziehen eines Moduls vom Pool in die
@@ -1076,9 +1077,12 @@ var ajax_serverupdate_set_category = function(module_id, category_id) {
             url: "main/set_category",
             dataType: "text",
             cache: false,
-            async: false,
+            async: true,
             data: "mod_id="+module_id+"&cat_id="+category_id+"&"+authenticityTokenParameter(),
-            contentType: "application/x-www-form-urlencoded"
+            contentType: "application/x-www-form-urlencoded",
+						success: function() {
+							ueberblick();
+						}
         });
     };
 };
@@ -1089,10 +1093,14 @@ var ajax_serverupdate_grade = function(modul_id,grade){
         url :"abfragen/save_module_grade",
         dataType:"text",
         cache:false,
-        async:false,
+        async:true,
         data:"mod_id="+modul_id+"&"+"grade="+grade+"&"+authenticityTokenParameter(),
-        contentType:'application/x-www-form-urlencoded'/*,
-        error : function(a,b,c){
+        contentType:'application/x-www-form-urlencoded',
+				success: function() {
+					ajax_request_grade();
+				}
+
+        /* error : function(a,b,c){
             alert ("AJAX-Fehler: save_module_grade");
         }*/
     });
@@ -1126,7 +1134,9 @@ function ajax_request_combobox(modul_id){
                         ourmenu.change(function() {
                             // alert("Dropdown-Menü verändert zu: "+ourmenu.find(":selected").text()+", value="+String(ourmenu.val()));
                             ajax_serverupdate_set_category(this_modul_id,ourmenu.val());
-                            ueberblick();
+														// Im Zuge des Umbaus hin zu Asynchronen Transfers wird der Überblick jetzt direkt
+														// in der Funktion ajax_serverupdate_set_category aktualisiert (OS)
+                            // ueberblick();
                         });
                     }
                 });
@@ -1147,7 +1157,7 @@ var ajax_request_grade = function(){
     $.ajax({
         type : 'GET',
         url  : '/abfragen/note',
-        async: false,
+        async: true,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
             $("#die_note").empty();
@@ -1227,7 +1237,7 @@ function update_module_errors(){
 
 			    // error_table aufbauen, war früher die Funktion error_table_builder (OS)
 			    $("#middle #error_table").empty();
-			    var root = XML.documentElement;
+			    var root = xml.documentElement;
 					var HTMLstring = "";
 			    $(root).children().each(function(){
 			        var modul_id = $(this).attr("id");
@@ -1251,7 +1261,7 @@ function update_module_errors(){
 			    });		
 
         },
-        error: function(a,b,c){
+        error: function(){
             alert("AJAX-Fehler: /errors");
         }
     }).responseXML;
