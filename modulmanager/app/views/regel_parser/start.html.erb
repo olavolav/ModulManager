@@ -1,26 +1,28 @@
-<h1>Parsing comleted</h1>
+<div id="content">
+	<h1>Parsing comleted</h1>
 
-<table>
-  <tr>
-    <th>Component</th>
-    <th>created</th>
-  </tr>
-  <tr>
-    <td>Modules</td>
-    <td><%= Studmodule.all.length %></td>
-  </tr>
-  <tr>
-    <td>Rules</td>
-    <td><%= Rule.all.length %></td>
-  </tr>
-  <tr>
-    <td>Focus</td>
-    <td><%= Focus.all.length %></td>
-  </tr>
-  <tr>
-    <td>Categories</td>
-    <td><%= Category.all.length %></td>
-  </tr>
-</table>
+	<table>
+	  <tr>
+	    <th>Component</th>
+	    <th>created</th>
+	  </tr>
+	  <tr>
+	    <td>Modules</td>
+	    <td><%= Studmodule.all.length %></td>
+	  </tr>
+	  <tr>
+	    <td>Rules</td>
+	    <td><%= Rule.all.length %></td>
+	  </tr>
+	  <tr>
+	    <td>Focus</td>
+	    <td><%= Focus.all.length %></td>
+	  </tr>
+	  <tr>
+	    <td>Categories</td>
+	    <td><%= Category.all.length %></td>
+	  </tr>
+	</table>
 
-<p><%= link_to "Clear database tables", :action => "clear" %></p>
+	<p><%= link_to "Clear database tables", :action => "clear" %></p>
+</div>
