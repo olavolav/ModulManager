@@ -28,12 +28,8 @@ class CreditRule < Rule
   end
 
   def collected_credits_with_focus selected_modules, n_p_m
-
-    #    puts "EVALUATING CREDIT-RULE #{self.id}"
-
     credits = 0
     n_p_m = Array.new if n_p_m == nil
-
     selected_modules.each do |smodule|
       unless n_p_m.include? smodule.moduledata
         if self.modules.include? smodule.moduledata
@@ -45,7 +41,6 @@ class CreditRule < Rule
         end
       end
     end
-    #    puts "COUNTED #{credits} CREDITS"
     return credits
   end
 
@@ -79,7 +74,6 @@ class CreditRule < Rule
         return -1
       end
     end
-    #    puts "RETURNING 1"
     return 1
   end
 
