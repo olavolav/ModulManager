@@ -21,7 +21,6 @@ Noch zu beheben:
 121. Fehler im Überblick: SP Nanostrukturphysik wählen und dann "Einführung in die Festkörper- und Materialphysik" löschen - in der Tat scheint das Problem immer zu entstehen, wenn ein Modul-Fehler auftritt, denn via die AO "Warnung deaktivieren" kann man ihn wieder umgehen (Christian)
 123. Info-Box von Modulen im Pool ist leer, s. Fehlermeldung in der Log-Datei (Christian)
 124. Info-Box von in die Auswahl gezogenen Modulen mit mehreren möglichen Bereichen (z.B. Einführungen) ist vor einem Neu Laden der Seite leer (Christian)
-125. Note von Modulen aus Teilmodulen: Funktioniert nicht richtig, wenn mehrere Teile benotet sind, wie z.B. bei ST-Astro-3; Verhalten sollte so sein: die Modul-Durchschnitts-Note wird zunächst aus allen benoteten Teilmodulen gebildet, bei denen einen Note eingetragen ist - für die Gesamt-Note wird dann dieser Wert mit den Gesamt-Modul-Credits gewichtet, wieder im Sinne einer Hochrechnung eben (Christian & Olav)
 
 
 
@@ -132,6 +131,7 @@ Inzwischen behoben:
 27. Deployment testen (Christian)
 122. Dummy-Module haben in abfragen/auswahl keinen has_warning-Tag (Christian)
 126. Das Hinzufügen von Sub-Modulen wird nicht mehr ins Backend übertragen (Olav)
+125. Note von Modulen aus Teilmodulen: Funktioniert nicht richtig, wenn mehrere Teile benotet sind, wie z.B. bei ST-Astro-3; Verhalten sollte so sein: die Modul-Durchschnitts-Note wird zunächst aus allen benoteten Teilmodulen gebildet, bei denen einen Note eingetragen ist - für die Gesamt-Note wird dann dieser Wert mit den Gesamt-Modul-Credits gewichtet, wieder im Sinne einer Hochrechnung eben (Christian & Olav)
 
 
 
