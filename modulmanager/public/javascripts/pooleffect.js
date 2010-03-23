@@ -237,10 +237,8 @@ $(function(){
         autoOpen:false,
                 
         open:function(event,ui){
-			 		
-            //$("#exception_credit") wird in ajax_to_server_by_get_module_info behandelt.
-            $("#CacheDump").show();
-					
+	
+            $("#CacheDump").show();					
         },
         buttons:{
             "OK":function(){
@@ -489,7 +487,7 @@ var sem_loeschen = function(l){
                 //ajax aufrufen
                 // wir rufen nur Ajax auf wenn es sich um ein nicht leer semester handelt.
                 if (this_modules.length > 0) {
-                    ajax_to_server_by_remove_semester(lint);
+                    ajax_serverupdate_remove_semester(lint);
                 }
             }
         } // ende confirm
