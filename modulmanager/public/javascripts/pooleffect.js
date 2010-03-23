@@ -335,7 +335,7 @@ $(function(){
             if(custom_text == "non-custom") {
                 //check nach Teil_modul
                 if((parts_text!="0") && (parts_exist=="false")){
-                    change_credit_and_add_name_in_selection(modul_id,ui_draggable);
+                    change_TM_credit_and_add_name_in_selection(modul_id,ui_draggable);
                     drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
                     partial_modul_drop_in_auswahl(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper);
                 } else {

@@ -131,6 +131,7 @@ Inzwischen behoben:
 119. Wenn man nur zu viele Noten gestrichen hat, wird trotzdem in rot ein Hinweis auf fehlende Credits ausgegeben (Olav & Christian)
 27. Deployment testen (Christian)
 122. Dummy-Module haben in abfragen/auswahl keinen has_warning-Tag (Christian)
+126. Das Hinzufügen von Sub-Modulen wird nicht mehr ins Backend übertragen (Olav)
 
 
 

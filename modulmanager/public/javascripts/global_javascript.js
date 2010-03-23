@@ -63,7 +63,7 @@ var authenticityTokenParameter = function(){
 }
 
 // Diese Funktion wird nur für Module aus Teilmodulen aufgerufen! (OS)
-var change_credit_and_add_name_in_selection = function(modul_id,handle){
+var change_TM_credit_and_add_name_in_selection = function(modul_id,handle){
     //credit �ndern
 		var c_text = modProp(modul_id,"credits_in_selection");
     $(handle).find(".modul_credit").text(c_text+" C");
@@ -828,7 +828,7 @@ var session_auswahl_rekursiv = function(root){
             //check nach Kopfmodul. Wenn ja dann credit name und head_modul_in_pool ver�ndern
             if(modProp(modul_id,"modul_parts") != "0"){
                 modPropChange(modul_id,"head_modul_in_pool","false");
-                change_credit_and_add_name_in_selection(modul_id,auswahl_modul_clone);
+                change_TM_credit_and_add_name_in_selection(modul_id,auswahl_modul_clone);
                 modPropChange(modul_id,"modul_parts_exist","true");
             }
 
@@ -1424,7 +1424,7 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
 	        $(this_child).show();
 	        change_module_style_to_auswahl(this_id,this_child);
 	        $(this_sub).append(this_child);
-	        ajax_serverupdate_add(this_id,semester,cat_id);
+	        ajax_serverupdate_add(this_id,semester);
 	
 				}
     });
