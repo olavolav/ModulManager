@@ -905,11 +905,14 @@ var ajax_request_module_info = function (modul_id){
     $.ajax({
         type : 'POST',
         url  : '/abfragen/get_module_info',
+        cache: false,
         async: false,
         dataType:'text',
         contentType: 'application/x-www-form-urlencoded',
         data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
         success : function(html){
+						// alert("ajax_request_module_info: html="+html);
+
             // alle Ausnahme-Option ersmal auf Null setzen
             // $("#exception_credit").attr("checked", "");
             $("#exception_credit").attr("value", "Credits");
@@ -963,11 +966,14 @@ var ajax_request_pool_module_info = function (modul_id){
     $.ajax({
         type : 'POST',
         url  : '/abfragen/get_pool_module_info',
+        cache: false,
         async: false,
         dataType:'text',
         contentType: 'application/x-www-form-urlencoded',
         data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
         success : function(html){
+	
+						// alert("ajax_request_pool_module_info: html="+html);
             $("#info_box #box_info").append(html);
         }
     });
@@ -1114,15 +1120,15 @@ var ajax_serverupdate_grade_reset = function(modul_id) {
 
 function ajax_request_combobox(modul_id){
     $("#box_info_combobox").empty();
-    $("#box_info,#box_info_pool,#box_info_exception,#box_info_overview").hide();
+
     $.ajax({
-        type:"POST",
-        url :"main/combo_category",
-        dataType:"text",
-        cache:false,
-        async:false,
-        data:"mod_id="+modul_id+"&"+authenticityTokenParameter(),
-        contentType:'application/x-www-form-urlencoded',
+        type: "POST",
+        url : "main/combo_category",
+        dataType: "text",
+        cache: false,
+        async: false,
+        data: "mod_id="+modul_id+"&"+authenticityTokenParameter(),
+        contentType: 'application/x-www-form-urlencoded',
         success:function(html){
             $("#semester-content").find(".semester").each(function(){
                 $(this).find(">.subsemester").children().not("h5").each(function(){
