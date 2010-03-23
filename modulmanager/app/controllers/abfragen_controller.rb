@@ -107,6 +107,7 @@ class AbfragenController < ApplicationController
 
   def get_pool_module_info
     mod = Studmodule.find(params[:module_id])
+    @categories = Array.new
     if mod.short.include? "custom"
       @name = mod.name
       @description = "Dies ist ein Modul, bei dem Sie die entsprechenden Informationen " +
@@ -116,6 +117,7 @@ class AbfragenController < ApplicationController
       @credits = 0
       @permission = nil
       @custom_credits = nil
+      mod.categories.each {|c| @categories.push c}
     else
       @name         = mod.name
       @description  = mod.description
@@ -133,6 +135,11 @@ class AbfragenController < ApplicationController
           "&vmfile=no"
       else
         @univz_link = nil
+      end
+      mod.categories.each do |category|
+        unless category.exclusive == 1 || category.focus != nil
+          @categories.push category
+        end
       end
     end
     respond_to do |format|
