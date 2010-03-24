@@ -41,13 +41,18 @@ class Rule < ActiveRecord::Base
   end
 
   def self.remove_modules_from_array array, remove
+    deletion_indexes = Array.new
+    i = 0
     # SelectedModules
     array.each do |mod|
       # Studmodules
       remove.each do |rem|
-        array.delete mod if mod.moduledata.id == rem.id
+        deletion_indexes.push i if mod.moduledata == rem.id
+#        array.delete mod if mod.moduledata.id == rem.id
       end unless remove == nil
+      i += 1
     end
+    deletion_indexes.each { |i| array.delete_at i }
     # SelectedModules
     return array
   end
