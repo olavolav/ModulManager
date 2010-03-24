@@ -17,6 +17,13 @@ Noch zu beheben:
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der Info-Box nicht angezeigt (Christian)
 120. Hinweis auf noch benötigte Module ist unklar, s. Mail von AS vom 12.03.10 (Olav)
+127. Note berechnen funktioniert nicht immer - z.B. bei Comp. wiss. Rechnen wird die Note ans Backend übermittelt, aber die Gesamtnote ist immer noch "?", s. Mail von AS vom 24.03.10 (Christian)
+128. Mail von SK vom 24.03.10: Es ist keine globale Hinergrundfarbe definiert, das könnte zu Problemen führen, bei nicht bei allen ist das standardmäßig weiß (Olav)
+129. Mail von SK vom 24.03.10: Wünschenswert wäre ein Hinweis, bei der Note-steichen-AO, ob man das überhaupt darf (Christian & Olav)
+130. Mail von SK vom 24.03.10: Der Mechanismus, um Standard-Credits wieder herzustellen, ist nicht klar (Olav)
+131. Mail von SK vom 24.03.10: Den Abstand innerhalb der Auflistungen verringern (Olav)
+132. Mail von SK vom 24.03.10: Netz-Adressen der Studienberatung ins PDF (Olav)
+133. Mail von SK vom 24.03.10: Beim Import: Überall heißt die PO "Version AM 34b vom 01.10.2009"; Außer wenn ich "nein" klick und dann eine "Neue PO" auswähle - dort heißt sie plötzlich  "PO Soße 2009"; das ist verwirrend. (Christian)
 
 
 
