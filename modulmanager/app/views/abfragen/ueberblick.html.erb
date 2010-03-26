@@ -4,14 +4,14 @@
 <ul class="ueberblick">
 
   <% @super_rules.each do |s| %>
-    <%= "<li>#{build_html_rules_recursive s, 5, 5, @errors}</li>" %>
+    <%= "<li>#{build_html_rules_recursive s, @errors}</li>" %>
   <% end %>
 
-  <li style='height: 12px;'>&nbsp;</li>
+  <li style='height: 4px;'>&nbsp;</li>
 
   <% unless @focus_rules == nil %>
     <%#= "<li>#{build_html_focus_rules_recursive @focus_rules, 5, 5, @errors}</li>" %>
-    <%= "<li>#{build_html_rules_recursive @focus_rules, 5, 5, @errors}</li>" %>
+    <%= "<li>#{build_html_rules_recursive @focus_rules, @errors}</li>" %>
   <% end %>
 
 </ul>

@@ -281,7 +281,7 @@ var hide_navi = function(){
     $("#navi_optional").slideUp();
     $("#navimovedown").show();
     $("#navimoveup").hide();
-    $("#ueberblick").css("width","22%");
+    $("#ueberblick").css("width","23%");
     $("#ueberblick").css("position","fixed");
     $("#middle").css("margin-left","24%");
     $("#help_optional").hide();

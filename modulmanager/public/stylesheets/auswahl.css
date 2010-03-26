@@ -28,17 +28,9 @@ select {
 }
 
 .semester, #vorratbox {
-	/* border: 1px #DEB887 solid; */
-/*	border: 1px #AAA solid;
-	background: #FAFAFF; */
 	width:100%;
-	background: #FAFAFD url("../images/Semester-Hintergrund.gif");
-	background-repeat: no-repeat;
-	background-position: top left;
-	/* border: 1px #F0F0F0 solid;
-	background: #FDFDE0; */
 	border: 1px #F0F0F0 solid;
-/*	background: #FAFAFD;*/
+	background: #F7F7F7;
 	
 	padding: 8px;
 	margin-bottom: 10px;

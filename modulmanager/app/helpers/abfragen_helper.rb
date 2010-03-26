@@ -11,7 +11,7 @@ module AbfragenHelper
   end
 
 
-  def build_html_rules_recursive r, padding_left, padding_addition, non_permitted_modules
+  def build_html_rules_recursive r, non_permitted_modules
     image = ""
     name = r.name
     id = r.id
@@ -21,12 +21,18 @@ module AbfragenHelper
     credits_earned = r.collected_credits selection.selection_modules, non_permitted_modules
 
     image = select_image fullfilled
+    if @is_odd_line
+      class_tag = "odd"
+    else
+      class_tag = "even"
+    end
+    @is_odd_line = !@is_odd_line
 
     element = <<EOF
-  <div>
+  <div class='#{class_tag}'>
     <table cellspacing='0'>
       <tr>
-        <td class='ueberblick_name'>#{name}</td>
+        <td class='ueberblick_name' style='padding-left:3px'>#{name}</td>
         <td class='ueberblick_image'>
           <div class='ueberblick_info_box' id='box##{id}' >
             <a  alt='Weitere Informationen' onClick='javascript:info_box_overview(#{id});'>
@@ -34,7 +40,7 @@ module AbfragenHelper
             </a>
          </div>
         </td>
-        <td class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</td>
+        <td class='ueberblick_credits'style='padding-right:3px'>#{credits_earned} / #{credits_needed} C</td>
       </tr>
     </table>
   </div>
@@ -48,7 +54,7 @@ EOF
       child_connections.each do |cc|
         list += <<EOF
   <li>
-    #{build_html_rules_recursive(cc, (padding_left + padding_addition), padding_addition, non_permitted_modules)}
+    #{build_html_rules_recursive(cc, non_permitted_modules)}
   </li>
 EOF
       end
@@ -61,56 +67,57 @@ EOF
   end
 
 
-  def build_html_focus_rules_recursive r, padding_left, padding_addition, non_permitted_modules
-
-    image = ""
-    name = r.name
-    id = r.id
-    selection = current_selection
-    fullfilled = r.evaluate_with_focus selection.selection_modules, non_permitted_modules
-    credits_needed = r.credits_needed
-    credits_earned = r.collected_credits_with_focus selection.selection_modules, non_permitted_modules
-
-    image = select_image fullfilled
-
-    element = <<EOF
-  <div>
-    <table cellspacing='0'>
-      <tr>
-        <td class='ueberblick_name'>#{name}</td>
-        <td class='ueberblick_image'>
-          <div class='ueberblick_info_box' id='box##{id}' >
-            <a  alt='Weitere Informationen' onClick='javascript:info_box_overview(#{id});'>
-              #{image_tag image}
-            </a>
-         </div>
-        </td>
-        <td class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</td>
-      </tr>
-    </table>
-  </div>
-EOF
-
-    if r.child_connections != []
-
-      list = "#{element}<ul>"
-
-      child_connections = Connection.find(:all, :conditions => "parent_id = #{r.id}", :order => "position ASC")
-      child_connections.each do |cc|
-        list += <<EOF
-  <li>
-    #{build_html_focus_rules_recursive(cc, (padding_left + padding_addition), padding_addition, non_permitted_modules)}
-  </li>
-EOF
-      end
-      list += "</ul>"
-      return list
-
-    elsif r.child_connections == []
-      return "#{element}"
-    end
-
-  end
+# Veraltete Funktion (OS)
+#   def build_html_focus_rules_recursive r, padding_left, padding_addition, non_permitted_modules
+# 
+#     image = ""
+#     name = r.name
+#     id = r.id
+#     selection = current_selection
+#     fullfilled = r.evaluate_with_focus selection.selection_modules, non_permitted_modules
+#     credits_needed = r.credits_needed
+#     credits_earned = r.collected_credits_with_focus selection.selection_modules, non_permitted_modules
+# 
+#     image = select_image fullfilled
+# 
+#     element = <<EOF
+#   <div>
+#     <table cellspacing='0'>
+#       <tr>
+#         <td class='ueberblick_name'>#{name}</td>
+#         <td class='ueberblick_image'>
+#           <div class='ueberblick_info_box' id='box##{id}' >
+#             <a  alt='Weitere Informationen' onClick='javascript:info_box_overview(#{id});'>
+#               #{image_tag image}
+#             </a>
+#          </div>
+#         </td>
+#         <td class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</td>
+#       </tr>
+#     </table>
+#   </div>
+# EOF
+# 
+#     if r.child_connections != []
+# 
+#       list = "#{element}<ul>"
+# 
+#       child_connections = Connection.find(:all, :conditions => "parent_id = #{r.id}", :order => "position ASC")
+#       child_connections.each do |cc|
+#         list += <<EOF
+#   <li>
+#     #{build_html_focus_rules_recursive(cc, (padding_left + padding_addition), padding_addition, non_permitted_modules)}
+#   </li>
+# EOF
+#       end
+#       list += "</ul>"
+#       return list
+# 
+#     elsif r.child_connections == []
+#       return "#{element}"
+#     end
+# 
+#   end
 
 
   def build_xml_bachelor_recursive(c, xml, modus)

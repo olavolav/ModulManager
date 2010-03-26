@@ -9,6 +9,7 @@ class AbfragenController < ApplicationController
       @focus_rules = Connection.find(:first,
         :conditions => "name = '#{selection.focus.name}' AND version_id = '#{selection.version.id}'")
     end
+    @is_odd_line = true
     respond_to do |format|
       format.html { render :action => "ueberblick", :layout => false }
     end

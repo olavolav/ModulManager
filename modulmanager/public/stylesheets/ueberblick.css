@@ -6,29 +6,16 @@
     width: 100%; */
 }
 
-/* #loader {
-	float: left;
-} */
-
-/*ul.voraussetzungen, .voraussetzungen ul {
-    padding-left: 0px;
-    margin: 5px;
-}*/
-
 .grade {
     margin: 10px;
 }
 
 #ueberblick ul {
-    width: 100%;
-    list-style: none;
+	width: 100%;
+	list-style: none;
 	padding: 0px;
 	margin: 0px;
-/*	border-left: 1px #aaa solid;*/
-	/*background: #fafafd url("../images/Ueberblick-Hintergrund.gif");
-		background-repeat: repeat-y;
-		background-position: top left;*/
-	border-left: 1px #D0D0D0 solid;
+	border-left: 1px #F7F7F7 dotted;
 }
 
 #ueberblick_baum > ul {
@@ -37,23 +24,29 @@
 
 #ueberblick li {
 	padding: 0px;
-	margin-left: 7px;	
+	margin-left: 5px;
 }
 
 #ueberblick table {
 	width: 100%;
 }
 
-/*test, raus mit der width-Angabe (OS)
-.ueberblick_name {
-    min-width: 90%;
-    width: 90%;
-}*/
+#ueberblick_baum tr {
+	height: 21px;
+}
+
+#ueberblick_baum .odd {
+	background: #F7F7F7;
+}
+
+#ueberblick_baum .even {
+/*	border-left: 1px #F7F7F7 solid;*/
+}
 
 .ueberblick_image {
-    width: 20px;
-/*    min-width: 20px;*/
-	padding-left: 2px;
+  width: 20px;
+	padding: 0px;
+	position: relative;
 	cursor: pointer;
 }
 .ueberblick_info_box:hover .ueberblick_info_text {
@@ -65,15 +58,6 @@
     text-align: right;
     font-size: smaller;
 }
-/*.ueberblick_info_text {
-    border: 1px outset white;
-    position: fixed;
-    top: 5px;
-    left: 5px;
-    color: white;
-    background-color: green;
-    display: none;
-}*/
 
 .ueberblick_category {
 
