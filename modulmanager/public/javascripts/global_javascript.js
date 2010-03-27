@@ -896,7 +896,7 @@ var session_auswahl = function (){
     session_auswahl_rekursiv(root);
     // Loeschen anzeigen.Wir suchen das letzten Semester.
     var last_semester = $("#semester-content div.semester:last");
-    $(last_semester).find("a.semesterloeschen").css("display","inline");
+    $(last_semester).find("a.semesterloeschen").css("display","block");
 }//ende 
 
 //   AJAX zum Server---------------------------------------------------------------------	

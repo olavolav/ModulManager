@@ -23,7 +23,7 @@ ul li{
 	float: left;
 }
 
-#schwerpunkt a, #preufungsordnung a {
+#schwerpunkt a, #pruefungsordnung a {
 	display: block;
 	cursor: pointer;
 }
@@ -74,14 +74,16 @@ select {
 #bestaetigen .linkbutton {
 	width: 100px;
 	min-height: 18px;
-	margin : 0.3em;
+	padding: 4px;
+	margin: 4px;
 	text-align : center;
 	float: right;
 	color: black;
 	border : 1px #AAA solid;
 	background: white url("../images/Button-Hintergrund-Link.gif");
 	background-repeat: repeat;
-	background-position: top left;		
+	background-position: top left;
+	display: block;	
 }
 
 #javascriptdoesnotwork {

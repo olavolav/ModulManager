@@ -77,7 +77,6 @@ a:visited {
 }
 
 #subnavi-ul li{
-	width: 40%;
 	list-style-type: none;
 	/* border : 1px #3b809d outset; */
 	border : 1px #AAA solid;
@@ -91,14 +90,16 @@ a:visited {
 }
 
 #subnavi-ul a, #subnavi-ul a {
+	width: 40%;
 	color: #444;
 	text-decoration: none;
+	display: block;
 }
 
-#subnavi-ul a:hover {
+/*#subnavi-ul a:hover {
 	color: black;
 	text-decoration: underline;
-}
+}*/
 
 #navimoveup, #navimovedown, #semesterhinzu, .semesterloeschen, #helpmovedown {
 	width: 150px;
@@ -111,6 +112,10 @@ a:visited {
 	background-position: top left;
 	cursor: pointer;
 	padding: 4px;
+}
+
+#semesterhinzu, .semesterloeschen {
+	display: block;
 }
 
 #navimoveup {
