@@ -3,7 +3,6 @@ BUGS
 Noch zu beheben:
 ================
 
-2. Buttons sind im Firefox nur via Text anklickbar (Olav)
 11. Name ist bei unbenoteten Modulen zu nah an dem Info-Icon (Olav)
 25. FAQ-Seite schreiben (Olav)
 29. Copyright-Angaben hinzufügen (Olav)
@@ -140,6 +139,7 @@ Inzwischen behoben:
 123. Info-Box von Modulen im Pool ist leer, s. Fehlermeldung in der Log-Datei (Olav)
 124. Info-Box von in die Auswahl gezogenen Modulen mit mehreren möglichen Bereichen (z.B. Einführungen) ist vor einem Neu Laden der Seite leer (Olav)
 121. Fehler im Überblick: SP Nanostrukturphysik wählen und dann "Einführung in die Festkörper- und Materialphysik" löschen - in der Tat scheint das Problem immer zu entstehen, wenn ein Modul-Fehler auftritt, denn via die AO "Warnung deaktivieren" kann man ihn wieder umgehen (Christian)
+2. Buttons sind im Firefox nur via Text anklickbar (Olav)
 
 
 
