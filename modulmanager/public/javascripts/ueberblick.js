@@ -15,6 +15,7 @@ var info_box_overview =  function(modul_id){
         url  : '/abfragen/info/'+modul_id,
         data:authenticityTokenParameter(),
         async: false,
+				cache: false,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
             $("#box_info").empty();
@@ -36,6 +37,7 @@ var ueberblick = function(){
         type : 'GET',
         url  : '/abfragen/ueberblick',
         async: true,
+				cache: false,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
             $("#ueberblick #ueberblick_baum").empty();

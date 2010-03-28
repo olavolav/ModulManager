@@ -53,6 +53,7 @@ $(document).ready(function(){
 		$("#GetStartedImage").animate({opacity: 1.0}, "fast");
 		$("#GetStartedImage").animate({opacity: 0.1}, "slow");
 		$("#GetStartedImage").animate({opacity: 1.0}, "fast");
+		
 });
 
 var authenticityToken = function() {
@@ -883,6 +884,7 @@ var session_auswahl = function (){
     var XML = $.ajax({
         type : 'GET',
         url  : 'abfragen/auswahl',
+				cache: false,
         async: false,
         contentType: 'application/x-www-form-urlencoded',
         error : function(a,b,c){
@@ -1164,6 +1166,7 @@ var ajax_request_grade = function(){
         type : 'GET',
         url  : '/abfragen/note',
         async: true,
+				cache: false,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
             $("#die_note").empty();
@@ -1238,6 +1241,7 @@ function update_module_errors(){
         type : 'GET',
         url  : '/abfragen/errors',
         async: true,
+				cache: false,
         contentType: 'application/x-www-form-urlencoded',
         success : function(xml){
 
@@ -1654,6 +1658,7 @@ var pool = function(){
         type: 'GET',
         url: 'abfragen/pool',
         async: false,
+				cache: false,
         contentType: 'application/x-www-form-urlencoded',
         error : function(a,b,c){
             alert("AJAX-Fehler: pool");
