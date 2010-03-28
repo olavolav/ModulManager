@@ -10,12 +10,18 @@
     margin: 10px;
 }
 
-#ueberblick ul {
+#ueberblick_baum ul {
 	width: 100%;
 	list-style: none;
 	padding: 0px;
 	margin: 0px;
-	border-left: 1px #F7F7F7 dotted;
+	border-left: 1px #F7F7F7 dotted;	
+}
+
+#ueberblick_baum li:hover {
+	border-left: 1px #AAA dotted;
+	/* Darauf achten, dass dieser margin + border das margin von #ueberblick li ergeben (OS) */
+	margin-left: 4px;
 }
 
 #ueberblick_baum > ul {
