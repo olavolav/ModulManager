@@ -48,7 +48,7 @@ var ueberblick = function(){
 						update_category_errors();
 
 				    // Klickbare Info-Buttons sollen beim dr�berfahren animiert werden, wie schon in global_javascript.js (OS)
-				    $(".ueberblick_info_box").mouseenter(function(){
+				    $(".ueberblick_info_box,#ueberblick-pin-passiv,#ueberblick-pin-aktiv").mouseenter(function(){
 				        $(this).animate({
 				            opacity: 0.4
 				        }, "fast");
@@ -56,6 +56,12 @@ var ueberblick = function(){
 				            opacity: 1.0
 				        }, "slow");
 				    });
+				
+						// Falls der Überblick fixiert ist, muss noch das richtige Icon angezeigt werden (OS)
+						if($("#left").css("position")=="fixed") {
+							$("#left #ueberblick-pin-passiv").hide();
+							$("#left #ueberblick-pin-aktiv").show();
+						}
 
         },
         error: function(a,b,c){
