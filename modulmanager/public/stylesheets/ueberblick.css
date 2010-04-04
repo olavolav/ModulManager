@@ -1,5 +1,5 @@
 #ueberblick {
-	margin: 4px;
+	margin: 3px;
     /* Das Folgende wird dynamisch gesetzt, wenn man das Navigationsmenue ausblendet,
 	   siehe global_javascript.js (OS)
 	position: fixed;

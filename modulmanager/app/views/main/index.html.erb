@@ -188,7 +188,11 @@
       <!--hier ist POOL und SUCHEN************************************-->
 
 
-      <h2>Zur Verf&uuml;gung stehende Module:</h2>
+      <h2>Zur Verf&uuml;gung stehende Module:
+		<img width='20' height='20' id="pool-pin-passiv" src="images/Pin-Passiv.png" alt="Modul-Pool fixieren" onClick="javascript:change_fixation('pool an');">
+		<img width='20' height='20' id="pool-pin-aktiv" src="images/Pin-Aktiv.png" alt="Modul-Pool nicht mehr fixieren" style="display:none;" onClick="javascript:change_fixation('pool aus');">
+	  </h2>
+
       <div id="suche_bereich">
         <table id="suche" style="border:2px red solid; display:none">
           <tbody></tbody>

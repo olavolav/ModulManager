@@ -56,12 +56,45 @@ $(document).ready(function(){
 		
 });
 
+var change_fixation = function(type) {
+	// alert("change_fixation: type="+type);
+	
+	switch(type) {
+		case "ueberblick an":
+	    $("#left").css("position","fixed");
+			$("#ueberblick #ueberblick-pin-passiv").hide();
+			$("#ueberblick #ueberblick-pin-aktiv").show();
+			break;
+			
+		case "ueberblick aus":
+	    $("#left").css("position","absolute");
+			$("#ueberblick #ueberblick-pin-passiv").show();
+			$("#ueberblick #ueberblick-pin-aktiv").hide();
+			break;
+			
+		case "pool an":
+	    $("#right").css("position","fixed");
+			$("#right #pool-pin-passiv").hide();
+			$("#right #pool-pin-aktiv").show();
+			break;
+			
+		case "pool aus":
+	    $("#right").css("position","absolute");
+			$("#right #pool-pin-passiv").show();
+			$("#right #pool-pin-aktiv").hide();
+			break;
+			
+		default:
+			alert("Fehler in change_fixation: Event-Typ '"+type+"' unbekannt!");
+	}
+};
+
 var authenticityToken = function() {
     return $('#token').attr("content");
-}
+};
 var authenticityTokenParameter = function(){
    return 'authenticity_token=' + encodeURIComponent(authenticityToken());
-}
+};
 
 // Diese Funktion wird nur für Module aus Teilmodulen aufgerufen! (OS)
 var change_TM_credit_and_add_name_in_selection = function(modul_id,handle){
@@ -73,7 +106,7 @@ var change_TM_credit_and_add_name_in_selection = function(modul_id,handle){
     $(handle).find(".modul_name").append(n_text);
 	
     return 0;
-}
+};
 var change_credit_and_remove_name_in_pool = function(modul_id,handle){
     //credit ï¿½ndern
     var c_text = modProp(modul_id,"credits");
@@ -85,7 +118,7 @@ var change_credit_and_remove_name_in_pool = function(modul_id,handle){
     $(handle).find(".modul_name").text(n_text);
 	
     return 0;	
-}
+};
 
 
 // Diese Funktion ändert entgegen dem Namen nicht nur die Farbe des Info-Icons, sondern setzt auch
@@ -172,7 +205,7 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
         default:
             alert("Fehler in flip_module_infoicon_on_event: Event-Typ "+type+" unbekannt!");
     }
-}
+};
 
 var selection_input_check = function(input_noten){
     var this_original;
@@ -222,7 +255,7 @@ var selection_input_check = function(input_noten){
     }
 		// Das Folgende wird jetzt direkt nach dem erfolgreichen Noten-Übermitteln aufgerufen (OS)
     // ajax_request_grade();
-}
+};
 
 // Diese Funktion geh�rt zu show_pool_by_out, also zum Ziehen eines Moduls vom Pool in die
 // Auswahl. (im Such-Modus)
@@ -244,7 +277,7 @@ function rekursiv_pool_by_out(handle, initial_tolerance){
         $(handle).css("display","none");
         if ($(parent).attr("id") != "pool") rekursiv_pool_by_out(parent,0);
     }
-}
+};
 
 // Das wird nur aufgerufen, wenn ein Modul in den Pool zurueck kommt (via modul_loeschen), dass
 // mit der momentanen Suche überein stimmt
@@ -261,12 +294,12 @@ function rekursiv_pool_by_in(first_father){
         rekursiv_pool_by_in(this_parent);
     }
     return;
-}
+};
 
 // Aendern der Schriftgrösse
 function font_size(points){
     $("body,table").css("font-size",points+"px");
-}
+};
 
 
 // Anzeigen bzw. verstecken der anfaenglichen Hilfe und der Navigations-Knoepfe
@@ -274,31 +307,25 @@ var show_navi = function(){
     $("#navi_optional").slideDown();
     $("#navimovedown").toggle();
     $("#navimoveup").show();
-    $("#ueberblick").css("width","100%");
-    $("#ueberblick").css("position","relative");
-    $("#middle").css("margin-left","1%");
-}
+};
 var hide_navi = function(){
     $("#navi_optional").slideUp();
     $("#navimovedown").show();
     $("#navimoveup").hide();
-    $("#ueberblick").css("width","23%");
-    $("#ueberblick").css("position","fixed");
-    $("#middle").css("margin-left","24%");
     $("#help_optional").hide();
     $("#helpmovedown").show();
-}
+};
 var show_minihelp = function(){
     $("#help_optional").slideDown();
     $("#helpmovedown").hide();
-}
+};
 
 
 // Fixieren bzw. 
 
 var hide_partial_modul = function(){
     $("#pool .partial_modul").hide();
-}
+};
 
 //--------CUSTOM-MODUL--------------------------------------------------------------------
 
@@ -332,7 +359,7 @@ var custom_modul_rekursiv = function (handle){
             return;
         }
     });
-}
+};
 
 // Funktion umbenannt, war früher get_custom (OS)
 var show_next_custom_modul_in_pool = function(category_id){
@@ -352,7 +379,7 @@ var show_next_custom_modul_in_pool = function(category_id){
     $(the_first).removeClass("custom_modul").addClass("pool_modul ui-draggable");
     $(the_first).show();
 	
-}//ende show_next_custom_modul_in_pool
+};//ende show_next_custom_modul_in_pool
 
 var get_and_change_custom_modul_in_the_table = function(modul_id,new_name,cat_id){
 	
@@ -366,7 +393,7 @@ var get_and_change_custom_modul_in_the_table = function(modul_id,new_name,cat_id
         }
     }).eq(0);
     $(the_first).attr("rel","pool_modul").show();
-}
+};
 
 
 var custom_modul_in_the_search_table_rekursiv = function(){
@@ -396,7 +423,7 @@ var custom_modul_in_the_search_table_rekursiv = function(){
         }
 		
     });
-}
+};
 
 ///////////////////MODULLOESCHEN loeschen////////////////////////
 /// bei Click auf <div class="modul_loeschen">
@@ -413,7 +440,7 @@ var partial_modul_loeschen = function (modul_id,all_sem_destroy){
         }
     });
     ueberblick();
-}
+};
 
 var modul_loeschen = function (modul_id,all_sem_destroy){
     // Die Schleife hier sollte eigentlich unnoetig sein, wenn jedes Modul nur 1x in der
@@ -462,7 +489,7 @@ var modul_loeschen = function (modul_id,all_sem_destroy){
 
     
 
-}//ende modul_loeschen
+};//ende modul_loeschen
 
 
 var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
@@ -568,7 +595,7 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
     if((kopf_modul_check == "0")&&(parent_attr_check=="false")&&(all_sem_destroy!="10000")){
         ueberblick();
     }
-}//ende sub_modul_loeschen
+};//ende sub_modul_loeschen
 
 //info_box
 
@@ -587,7 +614,7 @@ var info_box_selection = function(modul_id){
     ajax_request_module_info(modul_id);
     $('#info_box').dialog('open');
 		
-}
+};
 
 var info_box = function(modul_id){
     $("#box_info").empty();
@@ -598,7 +625,7 @@ var info_box = function(modul_id){
         
     ajax_request_pool_module_info(modul_id);
     $("#info_box").dialog('open');
-}
+};
 
 // Diese Funktion wird nach der Auswahl-Info-Box aufgerufen und enthält die entspr. Auswirkungen (OS)
 var update_modul_in_selection = function (){
@@ -723,7 +750,7 @@ var update_modul_in_selection = function (){
     //     $("#exception_change").attr("value","false");
     // }
 		if (any_AO_changed) ueberblick();
-}
+};
 
 var change_custom_in_selection_by_session_load = function(auswahl_modul_clone,custom_name,custom_credit){
 	
@@ -735,7 +762,7 @@ var change_custom_in_selection_by_session_load = function(auswahl_modul_clone,cu
 		modPropChange($(auswahl_modul_clone).attr("id"),"custom_exist","true");
 
     return 0;
-}
+};
 
 var session_auswahl_rekursiv = function(root){
 	
@@ -876,7 +903,7 @@ var session_auswahl_rekursiv = function(root){
         }// ende else if
         session_auswahl_rekursiv(this);
     });//ende each
-}//ende 
+};//ende 
 
 //session_auswahl-----------------------------------------------------------------------
 
@@ -899,7 +926,7 @@ var session_auswahl = function (){
     // Loeschen anzeigen.Wir suchen das letzten Semester.
     var last_semester = $("#semester-content div.semester:last");
     $(last_semester).find("a.semesterloeschen").css("display","block");
-}//ende 
+};//ende 
 
 //   AJAX zum Server---------------------------------------------------------------------	
 
@@ -961,7 +988,7 @@ var ajax_request_module_info = function (modul_id){
                         alert(b);
                 }*/
     });
-}
+};
 
 var ajax_request_pool_module_info = function (modul_id){
 		// alert("ajax_request_pool_module_info: modul_id="+modul_id);
@@ -979,7 +1006,7 @@ var ajax_request_pool_module_info = function (modul_id){
             $("#info_box #box_info").append(html);
         }
     });
-}
+};
 
 var ajax_serverupdate_add = function (modul_id,semester,cat_id){
 		// alert("ajax_serverupdate_add: modul_id="+modul_id+", semester="+semester+", cat_id="+cat_id);
@@ -992,7 +1019,7 @@ var ajax_serverupdate_add = function (modul_id,semester,cat_id){
         data  : "mod_id="+modul_id+"&"+"sem_count="+semester+"&"+"cat_id="+cat_id+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded'
     });//ende Ajax
-}
+};
 
 var ajax_serverupdate_remove = function (modul_id){
     $.ajax({
@@ -1007,7 +1034,7 @@ var ajax_serverupdate_remove = function (modul_id){
             alert("problem with remove_module_from_selection");
         }*/
     });//ende Ajax
-}// ende
+};// ende
 
 var ajax_serverupdate_remove_semester = function (sem_count){
     //alert("sem_count="+sem_count);
@@ -1027,7 +1054,7 @@ var ajax_serverupdate_remove_semester = function (sem_count){
     });
     ueberblick();
 	
-}
+};
 
 var ajax_serverupdate_add_grade = function(module_id) {
     $.ajax({
@@ -1112,12 +1139,12 @@ var ajax_serverupdate_grade = function(modul_id,grade){
             alert ("AJAX-Fehler: save_module_grade");
         }*/
     });
-}
+};
 
 var ajax_serverupdate_grade_reset = function(modul_id) {
     // Nicht schön, funktioniert aber. (OS)
     ajax_serverupdate_grade(modul_id, "");
-}
+};
 
 
 function ajax_request_combobox(modul_id){
@@ -1154,7 +1181,7 @@ function ajax_request_combobox(modul_id){
             alert ("AJAX-Fehler: custom_checkbox");
         }
     });
-}
+};
 
 
 
@@ -1176,7 +1203,7 @@ var ajax_request_grade = function(){
             alert("AJAX-Fehler: note");
         }
     });
-}
+};
 
 function ajax_serverupdate_add_custom(this_name,this_credit_point_float,cat_id_array,custom_semester,custom_id,has_grade){
 		// Wie in custom_check angemerkt, müssen wir erst den ersten Array-Eintrag löschen (OS)
@@ -1194,7 +1221,7 @@ function ajax_serverupdate_add_custom(this_name,this_credit_point_float,cat_id_a
             ueberblick();
         }
     });
-}
+};
 
 function ajax_request_custom_checkbox(custom_id){
     $("#dummy_checkbox").empty();
@@ -1213,7 +1240,7 @@ function ajax_request_custom_checkbox(custom_id){
             alert ("AJAX-Fehler: ajax_request_custom_checkbox");
         }
     });
-}
+};
 
 function ajax_serverupdate_change_credits(modul_id,credits){
     $.ajax({
@@ -1228,11 +1255,11 @@ function ajax_serverupdate_change_credits(modul_id,credits){
             alert ("AJAX-Fehler: change_credits");
         }
     });
-}
+};
 function ajax_serverupdate_credits_reset(modul_id){
 	// Absprache mit CB steht noch aus (OS)
 	ajax_serverupdate_change_credits(modul_id,"false");
-}
+};
 
 function update_module_errors(){
 	
@@ -1276,7 +1303,7 @@ function update_module_errors(){
         }
     }).responseXML;
 	
-}
+};
 var check_error_on_init = function(error_id){
 		// alert ("check_error: error_id="+error_id);
     var check=false;
@@ -1286,7 +1313,7 @@ var check_error_on_init = function(error_id){
         }
     });
     return check;
-}//ende
+};//ende
 
 
 // DROP in Auswahl
@@ -1379,7 +1406,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
     }
 
 
-}//ende drop in auswahl
+};//ende drop in auswahl
 
 //implement :   custom_modul_drop_in_auswahl---------------------------------------------
 
@@ -1392,7 +1419,7 @@ var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dra
     $("#custom_cat_id").attr("value",cat_id);
 	
     $('#custom_dialog').dialog('open');
-}
+};
 
 var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
     //parts_exit  aus "true" setzen
@@ -1440,7 +1467,7 @@ var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_dr
     });
     ueberblick();
 	
-}
+};
 
 
 //----Poolrekursive implementieren-------------------------------------------------------
@@ -1643,7 +1670,7 @@ var poolrekursiv = function(XMLhandle){
         }
     });
     return appendString;
-}//ende poolrekursiv
+};//ende poolrekursiv
 
 
 //POOL-Funktion gibt immer ganzen Module im POOL zur�ck, 
@@ -1679,13 +1706,13 @@ var pool = function(){
     custom_modul_rekursiv(this_pool);
     ueberblick();	
 	
-}//ende pool
+};//ende pool
 
 var search_is_active = function(){
     // Nicht besonders sch�n, funktioniert zum Beispiel nicht mehr, wenn man einen Start-
     // String im Such-Feld vorgibt. Reicht aber momentan. (OS)
     return ($("#qs").val() != "" );
-}
+};
 
 var change_module_style_to_pool = function(modul_id,handle){
 
@@ -1736,7 +1763,7 @@ var change_module_style_to_pool = function(modul_id,handle){
     $(handle).find(".noten_input_td").css("display","none");
 	
     return 0;
-}
+};
 
 
 var change_module_style_to_auswahl = function(modul_id,handle){
@@ -1768,37 +1795,37 @@ var change_module_style_to_auswahl = function(modul_id,handle){
         flip_module_infoicon_on_event("init",modul_id,handle);
     });
     return 0;
-}
+};
 
 var module_div_present_in_parent = function(parent_handle){
     // recht uebler Hack (OS)
     var result = ($(parent_handle).text() != "")
     return result;
-}
+};
 
 
 // New jCache functions: (OS)
 var modPropForce = function(module_id,property,value) {
 	// alert("Setting property ("+property+") of module ("+module_id+") to value ("+value+")");
 	$.jCache.setItem("m"+module_id+"::"+property, value);
-}
+};
 var modPropCreate = function(module_id,property,value) {
 	// alert("Setting property ("+property+") of module ("+module_id+") to value ("+value+")");
 	$.jCache.createItem("m"+module_id+"::"+property, value);
-}
+};
 var modPropChange = function(module_id,property,value) {
 	// alert("Setting property ("+property+") of module ("+module_id+") to value ("+value+")");
 	$.jCache.changeItem("m"+module_id+"::"+property, value);
-}
+};
 var modProp = function(module_id,property) {
 	return $.jCache.getItem("m"+module_id+"::"+property);
-}
+};
 
 var display_cache = function() {
 	text = $.jCache.dumpCache();
 	$("#CacheDump").empty().append(text);
 	$('#CacheDump').dialog('open');
-}
+};
 var clear_cache = function() {
 	$.jCache.clear();
-}
+};

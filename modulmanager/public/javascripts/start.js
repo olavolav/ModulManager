@@ -6,11 +6,11 @@ $(document).ready(function(){
 
 var authenticityToken = function() {
     return $('#token').attr("content");
-}
+};
 
 var authenticityTokenParameter = function(){
    return 'authenticity_token=' + encodeURIComponent(authenticityToken());
-}
+};
 var update_schwerpunkt = function(s_id){
 	
 	$(".schwerpunkt_oben").attr("class","schwerpunkt_oben passive");
@@ -31,7 +31,7 @@ var update_schwerpunkt = function(s_id){
     });
 	
 	$(".schwerpunkt_oben[id="+s_id+"]").attr("class","schwerpunkt_oben active");
-}
+};
 
 var update_pordnung = function(po_id){
 	
@@ -53,4 +53,4 @@ var update_pordnung = function(po_id){
     });
 	
 	$(".pruefungsordnung[id="+po_id+"]").attr("class","pruefungsordnung active");
-}
+};

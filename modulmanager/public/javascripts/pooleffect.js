@@ -107,7 +107,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 				ajax_serverupdate_grade_reset(custom_id);
         return true;
     }
-} 
+};
 
 
 
@@ -445,7 +445,7 @@ var sem_hinzu = function(){
             }// ende drop
         });//droppable
     });//ende function
-}//ende
+};//ende
 
 ///////////////////////////////////////////////////////////////////////////////////
 // "L�schen" bei SEMESTER wird geklick -------------------------------------------
@@ -492,7 +492,7 @@ var sem_loeschen = function(l){
             }
         } // ende confirm
     }
-}//ende
+};//ende
 
 var toggle_category = function(category_id){
     var handle = $("#pool").find("#"+category_id);
@@ -572,7 +572,7 @@ var toggle_category = function(category_id){
             alert("Fehler: Ungueltiger Pfeil-Wert in toggle_category().");
 		
     }
-}
+};
 
 var number_of_visible_items_in_category = function(handle){
     // gefragt is handle zur Kategorie
@@ -611,7 +611,7 @@ var number_of_visible_items_in_category = function(handle){
     });
 		// alert("number_of_visible_items_in_category: count="+count);
     return (count);
-}
+};
 
 var flip_arrow_of_category = function(type,handle){
     // gefragt is handle zur Kategorie
@@ -636,7 +636,7 @@ var flip_arrow_of_category = function(type,handle){
         default:
             alert("Fehler in flip_arrow_of_category: Typ "+type+" unbekannt!");
     }
-}
+};
 
 var which_arrow_is_visible = function(handle){
     // gefragt is handle zur Kategorie
@@ -651,4 +651,4 @@ var which_arrow_is_visible = function(handle){
         else if ($(handle).find(">a .pfeil_leer").css("display") == "inline") result = "leer";
     }
     return result;
-}
+};

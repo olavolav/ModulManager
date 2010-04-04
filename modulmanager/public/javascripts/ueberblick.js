@@ -26,7 +26,7 @@ var info_box_overview =  function(modul_id){
             alert("problem with /abfragen/info");
         }
     }).responseText;
-}
+};
 
 var ueberblick = function(){
 	
@@ -63,7 +63,7 @@ var ueberblick = function(){
         }
     }).responseText;
 		
-}// ende function
+};// ende function
 
 var update_category_errors = function() {
 	// Durch alle Kategorien gehen und Fehler-Wert extrahieren - wäre nett, wenn das in Zukunft
@@ -95,4 +95,4 @@ var update_category_errors = function() {
 		// Falls das also der erste Aufruf nach dem neu Laden war, Cache-Werte setzen
 		else $.jCache.createItem("c"+cat_id+"::error",cat_fehler);
 	});
-}
+};

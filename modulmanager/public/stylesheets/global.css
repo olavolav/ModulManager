@@ -38,6 +38,8 @@ a:visited {
 #container{
 /*	background-color: white;*/
 	/*height:3000px;*/
+	width: 100%;
+	min-width: 1000px;
 	
 }
 
@@ -49,16 +51,17 @@ a:visited {
 }
 
 #subnavi {
-/*	background-color: #F4F4FF;*/
-	/*height: 50px;*/
 	border-bottom: 1px #AAA solid;
 	padding: 0.5em;
 	background: #F4F4FF url("../images/Subnavi-Hintergrund.png");
 	background-repeat: no-repeat;
 	background-position: top left;
-	/*margin-left: 1em;
-		margin-right: 1em;
-		margin-bottom: 1em;*/
+}
+
+/* Angaben zu den Pin-Icons (OS)*/
+#ueberblick-pin-passiv, #ueberblick-pin-aktiv, #pool-pin-passiv, #pool-pin-aktiv {
+	float: right;
+	cursor: pointer;
 }
 
 #pleasewait {
@@ -155,27 +158,24 @@ a:visited {
 		background-position: top left;*/
 }
 
-#left{
-	
-	float: left;
-	width: 23%; /* das sollte auch bei ID 'ueberblick' eingetragen werden (s. auch #middle) (OS) */
-	/*border-right:1px black solid;*/
-	/*height:500px;*/
+#left {
+	position: absolute;
+	width: 24%;
 }
 
 #middle{
-	float: left;
-	width: 49%;
-	margin-left: 1%;
+	position: absolute;
+	left: 25%;
+	width: 47%;
 }
 
 #middle li{
-	list-style-type:none;
+	list-style-type: none;
 	background-color: #CCFFCC;
-	margin-bottom:3px;
+	margin-bottom: 3px;
 	height: 50px;
 	margin-left: 5px;
-	margin-right:5px;
+	margin-right: 5px;
 	
 	
 }
@@ -190,8 +190,9 @@ a:visited {
 
 #right{
 	
-	float: right;
-	width:24%;
+	position: absolute;
+	left: 75%;
+	width: 25%;
 }
 
 #subright{
@@ -233,18 +234,8 @@ a:visited {
 	
 }
 
-#subright-content{
-		/*border: 1px #DEB887 solid;*/
-/*		border: 1px #DEB887 solid;*/
-		/*background-color:#FFF68F;*/
-/*		background: #FFFFAF url("../images/Pool-Hintergrund.gif");
-		background-repeat: repeat;
-		background-position: top left; */
-		/*background: #FAFAFD url("../images/Semester-Hintergrund.gif");
-				background-repeat: no-repeat;
-				background-position: top left;*/
+#subright-content {
 		border: 1px #F0F0F0 solid;
-/*		background: #FAFAFD;*/
 		margin: 3px;
 		padding:2px;
 		height:100%;
