@@ -36,6 +36,12 @@ class AbfragenController < ApplicationController
   end
 
   public
+  
+  def submit_AJAX_warning_to_log
+    text = params[:text]
+    logger.warn "AJAX warning recorded: "+text
+    render :text => "Frontend AJAX warning recorded..."
+  end
 
   def auswahl
     @selection = current_selection

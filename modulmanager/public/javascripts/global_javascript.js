@@ -914,9 +914,9 @@ var session_auswahl = function (){
 				cache: false,
         async: false,
         contentType: 'application/x-www-form-urlencoded',
-        error : function(a,b,c){
-            alert("AJAX-Fehler: auswahl");
-        }
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=session_auswahl");
+				}
     }).responseXML;
     var root = XML.documentElement;
     // rekursiv aufrufen
@@ -983,10 +983,10 @@ var ajax_request_module_info = function (modul_id){
             } else {
                 $("#credits_aendern_checkbox").show();
             }
-        }/*,
-                error: function(a,b,c){
-                        alert(b);
-                }*/
+        },
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_request_module_info");
+				}
     });
 };
 
@@ -1004,7 +1004,10 @@ var ajax_request_pool_module_info = function (modul_id){
 	
 						// alert("ajax_request_pool_module_info: html="+html);
             $("#info_box #box_info").append(html);
-        }
+        },
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_request_pool_module_info");
+				}
     });
 };
 
@@ -1017,7 +1020,11 @@ var ajax_serverupdate_add = function (modul_id,semester,cat_id){
         dataType:'text',
         async :false,
         data  : "mod_id="+modul_id+"&"+"sem_count="+semester+"&"+"cat_id="+cat_id+"&"+authenticityTokenParameter(),
-        contentType:'application/x-www-form-urlencoded'
+        contentType:'application/x-www-form-urlencoded',
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_add");
+				}
+
     });//ende Ajax
 };
 
@@ -1029,10 +1036,10 @@ var ajax_serverupdate_remove = function (modul_id){
         dataType:'text',
         async :false,
         data  : "mod_id="+modul_id+"&"+authenticityTokenParameter(),
-        contentType:'application/x-www-form-urlencoded'/*,
-        error :  function (a,b,c){
-            alert("problem with remove_module_from_selection");
-        }*/
+        contentType:'application/x-www-form-urlencoded',
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_remove");
+				}
     });//ende Ajax
 };// ende
 
@@ -1046,10 +1053,10 @@ var ajax_serverupdate_remove_semester = function (sem_count){
         cache : false,
         async : false,
         data  : "sem_count="+sem_count+"&"+authenticityTokenParameter(),
-        contentType:'application/x-www-form-urlencoded'/*,
-        error : function (a,b,c){
-            alert("problem with abfragen/remove_semester_from_selection");
-        }*/
+        contentType:'application/x-www-form-urlencoded',
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_remove_semester");
+				}
 		
     });
     ueberblick();
@@ -1064,7 +1071,11 @@ var ajax_serverupdate_add_grade = function(module_id) {
         cache: false,
         async: false,
         data:"mod_id="+module_id+"&"+authenticityTokenParameter(),
-        contentType:"application/x-www-form-urlencoded"
+        contentType:"application/x-www-form-urlencoded",
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_add_grade");
+				}
+
     });
 };
 
@@ -1076,7 +1087,11 @@ var ajax_serverupdate_remove_grade = function(module_id) {
         cache: false,
         async: false,
         data: "mod_id="+module_id+"&"+authenticityTokenParameter(),
-        contentType: "application/x-www-form-urlencoded"
+        contentType: "application/x-www-form-urlencoded",
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_remove_grade");
+				}
+
     });
 };
 
@@ -1088,7 +1103,11 @@ var ajax_serverupdate_add_warning = function(module_id) {
         cache: false,
         async: false,
         data: "mod_id="+module_id+"&"+authenticityTokenParameter(),
-        contentType: "application/x-www-form-urlencoded"
+        contentType: "application/x-www-form-urlencoded",
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_add_warning");
+				}
+
     });
 };
 
@@ -1100,7 +1119,11 @@ var ajax_serverupdate_remove_warning = function(module_id) {
         cache: false,
         async: false,
         data: "mod_id="+module_id+"&"+authenticityTokenParameter(),
-        contentType: "application/x-www-form-urlencoded"
+        contentType: "application/x-www-form-urlencoded",
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_remove_warning");
+				}
+
     });
 };
 
@@ -1117,9 +1140,37 @@ var ajax_serverupdate_set_category = function(module_id, category_id) {
             contentType: "application/x-www-form-urlencoded",
 						success: function() {
 							ueberblick();
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_set_category");
 						}
         });
     };
+};
+
+var ajax_serverupdate_on_AJAX_warning = function(text){
+		// alert("ajax_serverupdate_on_AJAX_warning: start, text="+text);
+    $.ajax({
+        type: "POST",
+        url : "abfragen/submit_AJAX_warning_to_log",
+        dataType: "text",
+        cache: false,
+        async: true,
+				timeout: 2500,
+        data:"text="+text+"&"+authenticityTokenParameter(),
+        contentType:'application/x-www-form-urlencoded',
+				success: function() {
+					alert("AJAX-Warnung: Die letzte Aktion konnte nicht gespeichert werden. "+
+						"Das ModulManager-Team wurde unterrichtet, und wir werden uns so schnell "+
+						"wie möglich um das Problem kümmern.");
+					alert("debug="+text);
+				},
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+            alert ("AJAX-Fehler: Die Verbindung mit dem Server ist fehl geschlagen. "+
+						"Bitte überprüfen Sie Ihre Netzwerk-Verbindung.");
+						alert("debug="+text+", textStatus="+textStatus);	
+        }
+    });
 };
 
 var ajax_serverupdate_grade = function(modul_id,grade){
@@ -1133,11 +1184,10 @@ var ajax_serverupdate_grade = function(modul_id,grade){
         contentType:'application/x-www-form-urlencoded',
 				success: function() {
 					ajax_request_grade();
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_grade");
 				}
-
-        /* error : function(a,b,c){
-            alert ("AJAX-Fehler: save_module_grade");
-        }*/
     });
 };
 
@@ -1177,9 +1227,9 @@ function ajax_request_combobox(modul_id){
                 });
             });
         },
-        error : function(a,b,c){
-            alert ("AJAX-Fehler: custom_checkbox");
-        }
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_request_combobox");
+				}
     });
 };
 
@@ -1199,9 +1249,9 @@ var ajax_request_grade = function(){
             $("#die_note").empty();
             $("#die_note").append(html);
         },
-        error: function(a,b,c){
-            alert("AJAX-Fehler: note");
-        }
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_request_grade");
+				}
     });
 };
 
@@ -1219,7 +1269,11 @@ function ajax_serverupdate_add_custom(this_name,this_credit_point_float,cat_id_a
         contentType:'application/x-www-form-urlencoded',
         success: function(data){
             ueberblick();
-        }
+        },
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_add_custom");
+				}
+
     });
 };
 
@@ -1236,9 +1290,9 @@ function ajax_request_custom_checkbox(custom_id){
         success:function(html){
             $("#dummy_checkbox").append(html);
         },
-        error : function(a,b,c){
-            alert ("AJAX-Fehler: ajax_request_custom_checkbox");
-        }
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_request_custom_checkbox");
+				}
     });
 };
 
@@ -1251,9 +1305,9 @@ function ajax_serverupdate_change_credits(modul_id,credits){
         async:false,
         data:"mod_id="+modul_id+"&"+"credits="+credits+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
-        error : function(a,b,c){
-            alert ("AJAX-Fehler: change_credits");
-        }
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_serverupdate_change_credits");
+				}
     });
 };
 function ajax_serverupdate_credits_reset(modul_id){
@@ -1298,9 +1352,9 @@ function update_module_errors(){
 			    });		
 
         },
-        error: function(){
-            alert("AJAX-Fehler: /errors");
-        }
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_module_errors");
+				}
     }).responseXML;
 	
 };
@@ -1687,9 +1741,9 @@ var pool = function(){
         async: false,
 				cache: false,
         contentType: 'application/x-www-form-urlencoded',
-        error : function(a,b,c){
-            alert("AJAX-Fehler: pool");
-        }
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=pool");
+				}
     }).responseXML; //ende AJAX
 
     var root = XML.documentElement;

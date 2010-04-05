@@ -13,18 +13,19 @@ var info_box_overview =  function(modul_id){
     var html = $.ajax({
         type : 'POST',
         url  : '/abfragen/info/'+modul_id,
-        data:authenticityTokenParameter(),
+        data: authenticityTokenParameter(),
         async: false,
 				cache: false,
+				timeout: 3,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
             $("#box_info").empty();
             $("#box_info").append(html);
             $("#box_info_overview").hide();
         },
-        error: function(a,b,c){
-            alert("problem with /abfragen/info");
-        }
+				error: function(XMLHttpRequest, textStatus, errorThrown){
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=info_box_overview");
+				}
     }).responseText;
 };
 
@@ -64,9 +65,9 @@ var ueberblick = function(){
 						}
 
         },
-        error: function(a,b,c){
-            alert("problem with /abfragen/ueberblick");
-        }
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ueberblick");
+				}
     }).responseText;
 		
 };// ende function
