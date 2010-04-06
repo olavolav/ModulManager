@@ -54,6 +54,15 @@ $(document).ready(function(){
 		$("#GetStartedImage").animate({opacity: 0.1}, "slow");
 		$("#GetStartedImage").animate({opacity: 1.0}, "fast");
 		
+		/* Test-Code, falls man unwichtige Schaltflächen verschwinden lassen möchte (OS)
+		$(".semester .icon_loeschen").hide();
+		$(".auswahl_modul,.auswahl_modul_clone,.pool_modul,.custom_modul,.pool_modul_copy").mouseenter(function(){
+			$(this).find(".icon_loeschen").show();
+		});
+		$(".auswahl_modul,.auswahl_modul_clone,.pool_modul,.custom_modul,.pool_modul_copy").mouseleave(function(){
+			$(this).find(".icon_loeschen").hide();
+		}); */
+		
 });
 
 var change_fixation = function(type) {
