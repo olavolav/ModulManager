@@ -5,7 +5,7 @@ Hohe Priorität (Deadline):
 
 25. FAQ-Seite schreiben (Olav)
 29. Copyright-Angaben hinzufügen (Olav)
-45. Kurzform der Fehlermeldungen ("Problematik") in den PDF-Export einbinden (Christian)
+45. Kurzform der Fehlermeldungen ("Problematik") in den PDF-Export einbinden, d.h. den gleichen Text, aber ohne die teilweise länglichen Modul-Listen (Christian)
 103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzlichen MatNat-Combobox-Eintrag (Christian)
 107. PDF-Export: Module nur in den Kategorien anzeigen, wo sie tatsächlich eingebracht werden (Christian)
 112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der Info-Box nicht angezeigt (Christian)
@@ -18,8 +18,6 @@ Hohe Priorität (Deadline):
 ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden hilft nicht. Bei Standard-Modulen passiert es nicht. (Olav & Christian)
 138. Mail von SK vom 26.03.10: Nachdem ich den Plan abgespeichert und neu importiert hatte, hatte er einige Noten vergessen und der WP-Bereich ist komisch: "Er gibt mir 24 Credits für spez. Themen, obwohl ich nur 12 C sehe. Das könnte daran liegen, dass ich zwischendurch mal mehr spez. Themen hatte, die ich gelöscht habe" (Christian)
 140. Mail von SK vom 28.03.10: Sonstiges Modul hinzufügen, ein paar Daten eingeben; dann "Fertig", dann das Modul diretk wieder mit dem (x) löschen -> Meldung: "ich bin da das Dummy in search-active" (Olav)
-141. Schreibweise von "Modul-Manager", "ModulManager", "Modulmanager" usw. vereinheitlichen (Olav)
-142. Google Analytics wieder raus (Olav)
 143. Datenschutzhinweise hinzufügen (Olav)
 144. Vorratsbox in "Freiwillige Zusatzleistungen (gehen nicht in die Note ein)" umbenennen (Olav)
 145. Wenn man Module mit nicht-ganzzahligen Creditzahlen eingibt, rundet er ohne Warnung auf die nächste ganze Zahl ab - Warnung hinzufügen (Olav)
@@ -197,6 +195,8 @@ Inzwischen behoben:
 121. Fehler im Überblick: SP Nanostrukturphysik wählen und dann "Einführung in die Festkörper- und Materialphysik" löschen - in der Tat scheint das Problem immer zu entstehen, wenn ein Modul-Fehler auftritt, denn via die AO "Warnung deaktivieren" kann man ihn wieder umgehen (Christian)
 2. Buttons sind im Firefox nur via Text anklickbar (Olav)
 128. Mail von SK vom 24.03.10: Es ist keine globale Hinergrundfarbe definiert, das könnte zu Problemen führen, bei nicht bei allen ist das standardmäßig weiß (Olav)
+141. Schreibweise von "Modul-Manager", "ModulManager", "Modulmanager" usw. vereinheitlichen (Olav)
+142. Google Analytics wieder raus (Olav)
 
 
 
