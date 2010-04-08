@@ -17,7 +17,6 @@ Hohe Priorität (Deadline):
 ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden hilft nicht. Bei Standard-Modulen passiert es nicht. (Olav & Christian)
 138. Mail von SK vom 26.03.10: Nachdem ich den Plan abgespeichert und neu importiert hatte, hatte er einige Noten vergessen und der WP-Bereich ist komisch: "Er gibt mir 24 Credits für spez. Themen, obwohl ich nur 12 C sehe. Das könnte daran liegen, dass ich zwischendurch mal mehr spez. Themen hatte, die ich gelöscht habe" (Christian)
 143. Datenschutzhinweise hinzufügen (Olav)
-145. Wenn man Module mit nicht-ganzzahligen Creditzahlen eingibt, rundet er ohne Warnung auf die nächste ganze Zahl ab - Warnung hinzufügen (Olav)
 146. Überprüfung der Benutzereingaben, insbesondere beim Input, s. Mail von AG vom 31.03.10 (Christian)
 148. Alte PO hinzufügen (Olav & AS)
 149. Zweiten PDF-Export-Knopf, mit dem einzigen Unterschied, dass die Noten nicht angezeigt werden (Christian)
@@ -198,6 +197,7 @@ Inzwischen behoben:
 140. Mail von SK vom 28.03.10: Sonstiges Modul hinzufügen, ein paar Daten eingeben; dann "Fertig", dann das Modul diretk wieder mit dem (x) löschen -> Meldung: "ich bin da das Dummy in search-active" (Olav)
 144. Vorratsbox in "Freiwillige Zusatzleistungen (gehen nicht in die Note ein)" umbenennen (Olav)
 136. Mail von SK vom 26.03.10: Negative Credits werden akzeptiert (Olav)
+145. Wenn man Module mit nicht-ganzzahligen Creditzahlen eingibt, rundet er ohne Warnung auf die nächste ganze Zahl ab - Warnung hinzufügen (Olav)
 
 
 Nicht behoben:
