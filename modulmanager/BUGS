@@ -17,9 +17,7 @@ Hohe Priorität (Deadline):
 137. Mail von SK vom 26.03.10: Sonstiges Modul in die Vorratsbox geschoben (aus dem 2. Sem): "problem with /abfragen/ueberblick" und er updatet den Durchschnitt nicht, bis ich das Modul lösche. Das passiert auch, wenn
 ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden hilft nicht. Bei Standard-Modulen passiert es nicht. (Olav & Christian)
 138. Mail von SK vom 26.03.10: Nachdem ich den Plan abgespeichert und neu importiert hatte, hatte er einige Noten vergessen und der WP-Bereich ist komisch: "Er gibt mir 24 Credits für spez. Themen, obwohl ich nur 12 C sehe. Das könnte daran liegen, dass ich zwischendurch mal mehr spez. Themen hatte, die ich gelöscht habe" (Christian)
-140. Mail von SK vom 28.03.10: Sonstiges Modul hinzufügen, ein paar Daten eingeben; dann "Fertig", dann das Modul diretk wieder mit dem (x) löschen -> Meldung: "ich bin da das Dummy in search-active" (Olav)
 143. Datenschutzhinweise hinzufügen (Olav)
-144. Vorratsbox in "Freiwillige Zusatzleistungen (gehen nicht in die Note ein)" umbenennen (Olav)
 145. Wenn man Module mit nicht-ganzzahligen Creditzahlen eingibt, rundet er ohne Warnung auf die nächste ganze Zahl ab - Warnung hinzufügen (Olav)
 146. Überprüfung der Benutzereingaben, insbesondere beim Input, s. Mail von AG vom 31.03.10 (Christian)
 148. Alte PO hinzufügen (Olav & AS)
@@ -197,7 +195,8 @@ Inzwischen behoben:
 128. Mail von SK vom 24.03.10: Es ist keine globale Hinergrundfarbe definiert, das könnte zu Problemen führen, bei nicht bei allen ist das standardmäßig weiß (Olav)
 141. Schreibweise von "Modul-Manager", "ModulManager", "Modulmanager" usw. vereinheitlichen (Olav)
 142. Google Analytics wieder raus (Olav)
-
+140. Mail von SK vom 28.03.10: Sonstiges Modul hinzufügen, ein paar Daten eingeben; dann "Fertig", dann das Modul diretk wieder mit dem (x) löschen -> Meldung: "ich bin da das Dummy in search-active" (Olav)
+144. Vorratsbox in "Freiwillige Zusatzleistungen (gehen nicht in die Note ein)" umbenennen (Olav)
 
 
 Nicht behoben:
