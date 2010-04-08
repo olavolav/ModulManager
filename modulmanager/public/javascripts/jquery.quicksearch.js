@@ -200,7 +200,7 @@ jQuery(function ($) {
                         });
                 }
 				
-				// function from Modulmanager
+				// function from ModulManager
 				
 				function tree_close()
 				{   
@@ -268,7 +268,7 @@ jQuery(function ($) {
 					}
 				}
 				
-				// function from Modulmanager
+				// function from ModulManager
 				function show_modul_by_search(array_id)
 				{
 					
@@ -396,7 +396,7 @@ jQuery(function ($) {
 													
 												
                                         }
-										// -hier ist die Code von Modulmanager eingebunden
+										// -hier ist die Code von ModulManager eingebunden
 										// -wir suchen hier die table-row nach der Eingabe
 										// -var laenge sorgt dafür,dass es sich nichts ergeben bei
 										//leere Angabe im SuchenBereich, wenn laege max ist.
@@ -434,7 +434,7 @@ jQuery(function ($) {
 											tree_close();
 										}
 										
-										//ende Code von Modulmanager
+										//ende Code von ModulManager
 										
                                         stripe(el);
                                 }, options.delay/2);
