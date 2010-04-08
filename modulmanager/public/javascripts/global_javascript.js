@@ -216,7 +216,7 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
     }
 };
 
-var selection_input_check = function(input_noten){
+var grade_input_check = function(input_noten){
     var this_original;
     var this_grade      = $(input_noten).val();
     var modul_id        = $(input_noten).attr("rel");
@@ -692,7 +692,7 @@ var update_modul_in_selection = function (){
 
 		var v=$("#exception_credit").val();
 		// alert("update_modul_in_selection: Inhalt von #exception_credit: "+v);
-		var entered_a_number = (v!="")&&(!isNaN(v))&&(parseInt(v)>=0);
+		var entered_a_number = isUnsignedInteger(v); // (v!="")&&(!isNaN(v))&&(parseInt(v)>=0);
 		var credits_input_is_valid = (v=="Credits")||(v=="")||entered_a_number;
 		// alert("update_modul_in_selection: credits_input_is_valid="+credits_input_is_valid+", entered_a_number="+entered_a_number+", parseInt(v)="+parseInt(v));
 		

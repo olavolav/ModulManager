@@ -23,7 +23,12 @@ function updateTips(t,tips) {
 
 //---------------------------------------------------------
 
-
+function isInteger(s) {
+  return (s.toString().search(/^-?[0-9]+$/) == 0);
+}
+function isUnsignedInteger(s) {
+  return (s.toString().search(/^[0-9]+$/) == 0);
+}
 var custom_check = function(name,credit,category,custom_semester,custom_id,tips,min,max){
     var cat_check=false;
 		// Wir fangen mit einem Array-Element an, weil JavaScript bei nur einem Eintrag keinen
@@ -66,9 +71,10 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
     }
 		else this_name = "Sonstiges Modul: "+this_name;
 	
-    if(this_credit.length < min || isNaN(this_credit_float)){
+    // if(this_credit.length < min || isNaN(this_credit_float) || this_credit_float < 0){
+	  if(!isUnsignedInteger(this_credit)){
         credit.addClass('ui-state-error');
-        updateTips("Bitte geben Sie als Credits eine eine ganze Zahl ein.",tips);
+        updateTips("Bitte geben Sie als Credits eine eine ganze, positive Zahl ein.",tips);
         return false;
     }
     else{
@@ -382,7 +388,7 @@ $(function(){
     $("input.noten_input").change(function(e){
         if (check_change) {
             e.preventDefault();
-            selection_input_check(this);
+            grade_input_check(this);
         }
     });
 });//ende

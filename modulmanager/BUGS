@@ -13,7 +13,6 @@ Hohe Priorität (Deadline):
 133. Mail von SK vom 24.03.10: Beim Import: Überall heißt die PO "Version AM 34b vom 01.10.2009"; Außer wenn ich "nein" klick und dann eine "Neue PO" auswähle - dort heißt sie plötzlich  "PO Soße 2009"; das ist verwirrend. (Christian)
 134. Mail von JE vom 24.03.10: Man entferne das 6. Semester, dann füge man ein "sonstiges Modul" ein und wenn man dann die Bachelorarbeit wieder hinzufügt, dann wird die immer zum "sonstigen Modul" - sehr merkwürdig... (Olav)
 135. Mail von SK vom 24.03.10: im PDF steht nicht, dass man Noten gestrichen hat (Olav)
-136. Mail von SK vom 26.03.10: Negative Credits werden akzeptiert (Olav)
 137. Mail von SK vom 26.03.10: Sonstiges Modul in die Vorratsbox geschoben (aus dem 2. Sem): "problem with /abfragen/ueberblick" und er updatet den Durchschnitt nicht, bis ich das Modul lösche. Das passiert auch, wenn
 ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden hilft nicht. Bei Standard-Modulen passiert es nicht. (Olav & Christian)
 138. Mail von SK vom 26.03.10: Nachdem ich den Plan abgespeichert und neu importiert hatte, hatte er einige Noten vergessen und der WP-Bereich ist komisch: "Er gibt mir 24 Credits für spez. Themen, obwohl ich nur 12 C sehe. Das könnte daran liegen, dass ich zwischendurch mal mehr spez. Themen hatte, die ich gelöscht habe" (Christian)
@@ -23,6 +22,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 148. Alte PO hinzufügen (Olav & AS)
 149. Zweiten PDF-Export-Knopf, mit dem einzigen Unterschied, dass die Noten nicht angezeigt werden (Christian)
 150. Im Überblick in den Info-Boxen zu den verschiedenen Bereichen auch eine Liste mit allen in diesem Bereich eingebrachten Module einfügen (Christian)
+151. Hintergrundfarbe von Info-Boxen stimmt nicht (Olav)
 
 
 
@@ -197,6 +197,7 @@ Inzwischen behoben:
 142. Google Analytics wieder raus (Olav)
 140. Mail von SK vom 28.03.10: Sonstiges Modul hinzufügen, ein paar Daten eingeben; dann "Fertig", dann das Modul diretk wieder mit dem (x) löschen -> Meldung: "ich bin da das Dummy in search-active" (Olav)
 144. Vorratsbox in "Freiwillige Zusatzleistungen (gehen nicht in die Note ein)" umbenennen (Olav)
+136. Mail von SK vom 26.03.10: Negative Credits werden akzeptiert (Olav)
 
 
 Nicht behoben:
