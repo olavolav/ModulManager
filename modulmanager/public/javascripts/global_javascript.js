@@ -581,7 +581,7 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
             var this_mod = $(this).find("#"+modul_id).eq(0);
             if(($(this_mod).attr("class")!="partial_modul")||($(this_mod).attr("class")!="partial_modul ui-draggable")){
                 if (modProp(modul_id,"custom") != "custom") $(this_mod).show();
-                else alert("ich bin da das Dummy in search-active");
+                // else alert("ich bin da das Dummy in search-active");
             }
             rekursiv_pool_by_in(the_father);
         }
