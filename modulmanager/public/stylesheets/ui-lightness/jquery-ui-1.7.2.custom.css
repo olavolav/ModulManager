@@ -360,9 +360,10 @@
 .ui-dialog .ui-dialog-titlebar {
 	padding: .5em .3em .3em 1em;
 	position: relative;
-	background: #d8eef7 url("../../images/Modul-Hintergrund.png");
-	background-repeat: no-repeat;
-	background-position: top left;		
+	background-color: #d8eef7;
+	/* background:; url("../../images/Modul-Hintergrund.png");
+		background-repeat: no-repeat;
+		background-position: top left; */		
 }
 .ui-dialog .ui-dialog-title { float: left; margin: .1em 0 .2em; } 
 .ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
