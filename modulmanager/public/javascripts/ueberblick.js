@@ -16,7 +16,6 @@ var info_box_overview =  function(modul_id){
         data: authenticityTokenParameter(),
         async: false,
 				cache: false,
-				timeout: 3,
         contentType: 'application/x-www-form-urlencoded',
         success : function(html){
             $("#box_info").empty();

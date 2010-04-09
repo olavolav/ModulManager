@@ -153,7 +153,9 @@ jQuery(function ($) {
                 function make_form_input()
                 {
                         var val = (!is_empty(options.inputText)) ? options.inputText : ""
-                        return '<input type="text" value="' + val + '" style="margin:2px;" rel="' + options.randomElement  + '" class="' + options.inputClass + '" id="' + options.randomElement + '" /> ';
+                        return '<input type="text" value="' + val + '" style="margin:2px;display:inline;" rel="' + options.randomElement  +
+													'" class="' + options.inputClass + '" id="' + options.randomElement + '" /> ' +
+													' <a onClick="javascript:clear_search_form();">'+formresetbild+'</a>';
                 }
 
                 function make_form_loader()
@@ -202,7 +204,17 @@ jQuery(function ($) {
 				
 				// function from ModulManager
 				
-				function tree_close()
+				clear_search_form = function() {
+					// alert("clear_search_form: start");
+					if($("#qs").val() !== "") {
+						// alert("clear_search_form: reset!");
+						$("#qs").val("");
+						tree_close();
+					}
+				};
+				
+								
+				tree_close = function()
 				{   
 				
 				
@@ -277,6 +289,7 @@ jQuery(function ($) {
 					
 					//array_id kommt aus qs()
 					// alert("Anzahl uebereinstimmender Modul-IDs: "+array_id.length);
+					// In Zukunft wäre hier natürlich eine Anzeige nett, wenn keine Module gefunden werden (OS)
 					for(var i=0; i<array_id.length; i++)
 					{
 						// für jeden Modul-Container, der mit der ID aus dem Such-Ergebnis überinstimmt...

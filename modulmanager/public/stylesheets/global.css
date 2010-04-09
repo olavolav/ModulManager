@@ -285,3 +285,7 @@ a:visited {
 	margin-top: 12px;
 	padding-top: 6px;
 }
+
+#search_form_reset, #AO_credit_reset {
+	cursor: pointer;
+}

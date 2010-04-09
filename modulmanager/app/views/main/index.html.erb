@@ -18,7 +18,7 @@
     <div id="navi_optional">
 	  <a id="helpmovedown" onClick="javascript:show_minihelp();"><img width='20' height='20' id="GetStartedImage" src="images/GetStarted.png" style="margin-right:4px;">Kurze Einführung gefällig?</a>
 	<div id="help_optional" style="display:none;">
-      <p>Herzlich Willkommen zum ModulManager! Wie wäre es mit einem kurzen Einführungs-Video? (Prototyp!)</p>
+      <p>Herzlich Willkommen zum ModulManager!</p>
 
       <div id="minihelp">
         <h2>Kurzanleitung</h2>
@@ -222,15 +222,16 @@
   <div id="box_info_pool" style="color:gray;" >Ausnahme-Optionen: Nur bei Modulen in der Auswahl verfügbar.</div>
   <div id="box_info_exception">
     Ausnahme-Optionen:
-    <table cellspacing="4">
+    <table>
       <tbody>
-        <tr id="credits_aendern_checkbox"><td>Credit-Zahl:</td><td><input type="text" id="exception_credit" size="5" maxlength="5" rel="modul_id" value="Credits"/></td></tr>
-        <tr><td>Warnung deaktivieren:</td><td><input type="checkbox" id="exception_warn" name="exception_warn" value="checkbox" /></td></tr>
-        <tr id="note_streichen_checkbox"><td>Note streichen:</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox" /></td></tr>
+        <tr id="credits_aendern_checkbox"><td>Credit-Zahl:</td><td><input type="text" id="exception_credit" size="5" maxlength="5" rel="modul_id" value="Credits"/></td>
+		<td><a onClick="javascript:$('#exception_credit').val('Credits');">
+			<img id="AO_credit_reset" alt="reset" src="images/Reset-Form.png"></a>
+		</td></tr>
+        <tr><td>Warnung deaktivieren:</td><td><input type="checkbox" id="exception_warn" name="exception_warn" value="checkbox" /></td><td></td></tr>
+        <tr id="note_streichen_checkbox"><td>Note streichen:</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox" /></td><td></td></tr>
       </tbody>
     </table>
-     <!-- <input type="hidden" name="exception_change" id="exception_change" value="false"  />
-          <input type="hidden" name="credit_exception_change" id="credit_exception_change" value="false"  /> -->
   </div>
   <div id="box_info_overview"></div>
   <div id="box_info_combobox"></div>

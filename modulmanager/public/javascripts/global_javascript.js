@@ -24,6 +24,7 @@ var gelber_ipunkt = "<img width='20' height='20' src='images/iPunktGelb.png'>";
 var roter_ipunkt = "<img width='20' height='20' src='images/Ausrufezeichen.png'>";
 	
 var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-4px; left:8px;'>";
+var formresetbild = "<img id='search_form_reset' alt='reset' src='images/Reset-Form.png'>";
 var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='padding-right:3px;'>";
 var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='padding-right:3px;'>";
 var pfeil_leer = "<img src='images/Pfeil-Rechts-Leer.png' style='padding-right:3px;'>";
@@ -721,43 +722,6 @@ var update_modul_in_selection = function (){
 			}
 		}
 		
-    // entfernen credit-option,warnung- und note-option falls die schon bereits vorhanden sind
-    // var this_warn = $(this_modul).find("p.warnung-option");
-    // $(this_warn).html("");
-    // var this_note =$(this_modul).find("p.note-option");
-    // $(this_note).html("");
-		
-    // if(v!="Credits" && v!="" && credit_exception_change=="true"){
-    //     // $(this_credit).html("");
-    //     $("#exception_change").attr("value","true");
-    //     $("#credit_exception_change").attr("value","false");
-    //     $(this_modul).find(".modul_credit").text(v+" C");
-    //     $(this_credit).html("Ausnahme: Credit-Zahl wurde ver&auml;ndert");
-    //     ajax_serverupdate_change_credits(modul_id,v);
-    // }
-		
-    //warnung
-    // if (warn_checked == "checkbox") {
-    //     ajax_serverupdate_remove_warning(modul_id);
-    //     $(this_warn).html("Ausnahme: Warnungen deaktiviert");
-    // } else if(warn_checked==undefined) {
-    //     ajax_serverupdate_add_warning(modul_id);
-    // }
-    //note
-    // if(note_checked=="checkbox") {
-    //     ajax_serverupdate_remove_grade(modul_id);
-    //     $(this_note).html("Ausnahme: Note wird nicht eingebracht");
-    // } else if(note_checked==undefined) {
-    //     ajax_serverupdate_add_grade(modul_id);
-    // }
-
-
-    //    checken, ob man �berhaupt Ausnahme-Optionen veraendert hat.
-    //        erst wenn ja dann wird ueberblick() akktuallisiert
-    // if($("#exception_change").val()=="true"){
-    //     ueberblick();
-    //     $("#exception_change").attr("value","false");
-    // }
 		if (any_AO_changed) ueberblick();
 };
 
@@ -1176,7 +1140,7 @@ var ajax_serverupdate_on_AJAX_warning = function(text){
 				},
         error: function(XMLHttpRequest, textStatus, errorThrown){
             alert ("AJAX-Fehler: Die Verbindung mit dem Server ist fehl geschlagen. "+
-						"Bitte überprüfen Sie Ihre Netzwerk-Verbindung.");
+							"Bitte überprüfen Sie Ihre Netzwerk-Verbindung.");
 						alert("debug="+text+", textStatus="+textStatus);	
         }
     });

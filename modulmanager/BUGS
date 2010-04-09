@@ -21,7 +21,6 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 148. Alte PO hinzufügen (Olav & AS)
 149. Zweiten PDF-Export-Knopf, mit dem einzigen Unterschied, dass die Noten nicht angezeigt werden (Christian)
 150. Im Überblick in den Info-Boxen zu den verschiedenen Bereichen auch eine Liste mit allen in diesem Bereich eingebrachten Module einfügen (Christian)
-151. Hintergrundfarbe von Info-Boxen stimmt nicht (Olav)
 
 
 
@@ -36,7 +35,6 @@ Niedrige Priorität:
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 120. Hinweis auf noch benötigte Module ist unklar, s. Mail von AS vom 12.03.10 (Olav)
 129. Mail von SK vom 24.03.10: Wünschenswert wäre ein Hinweis, bei der Note-steichen-AO, ob man das überhaupt darf (Christian & Olav)
-130. Mail von SK vom 24.03.10: Der Mechanismus, um Standard-Credits wieder herzustellen, ist nicht klar (Olav)
 131. Mail von SK vom 24.03.10: Den Abstand innerhalb der Auflistungen verringern (Olav)
 132. Mail von SK vom 24.03.10: Netz-Adressen der Studienberatung ins PDF (Olav)
 139. Mail von SK vom 28.03.10: Startseite, dann sofort "ok" sage und dann recht schnell (noch während des Ladens) die Zurück-Funktion des Browsers (Firefox 3.5) verwende, kommt weiterhin ein Ajax-Fehler (Olav)
@@ -46,7 +44,6 @@ Niedrige Priorität:
 Restliches Feedback:
 ====================
 
-- "Clear entry"-Knopf am Suchen-Feld
 - "Letzte Aktion rückgängig machen" Knopf
 - Kein "(hochgerechnet)" mehr, wenn man alle Credits beisammen hat
 - die Auflistung nach Kategorien sollte auf einer neuen Seite anfangen
@@ -198,6 +195,9 @@ Inzwischen behoben:
 144. Vorratsbox in "Freiwillige Zusatzleistungen (gehen nicht in die Note ein)" umbenennen (Olav)
 136. Mail von SK vom 26.03.10: Negative Credits werden akzeptiert (Olav)
 145. Wenn man Module mit nicht-ganzzahligen Creditzahlen eingibt, rundet er ohne Warnung auf die nächste ganze Zahl ab - Warnung hinzufügen (Olav)
+151. Hintergrundfarbe von Info-Boxen stimmt nicht (Olav)
+130. Mail von SK vom 24.03.10: Der Mechanismus, um Standard-Credits wieder herzustellen, ist nicht klar (Olav)
+152. "Clear entry"-Knopf am Suchen-Feld hinzufügen (Olav)
 
 
 Nicht behoben:
