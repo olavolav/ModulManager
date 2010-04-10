@@ -27,7 +27,8 @@ select {
 	margin: 3px;
 }
 
-.semester, #vorratbox {
+/*.semester, #vorratbox {*/
+.semester {
 	width:100%;
 	border: 1px #F0F0F0 solid;
 	background: #F7F7F7;

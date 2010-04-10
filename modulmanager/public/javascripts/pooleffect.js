@@ -293,14 +293,14 @@ $(function(){
 	
     $("#pool .pool_modul").hide();
 	
-    $("#vorratbox").droppable({
-		
-        hoverClass:'drophover',
-        drop : function(event,ui){
-            $(this).append(ui.draggable);
-			
-        }
-    });
+    // $("#vorratbox").droppable({
+    // 		
+    //         hoverClass:'drophover',
+    //         drop : function(event,ui){
+    //             $(this).append(ui.draggable);
+    // 			
+    //         }
+    //     });
 	
     // zur�ck in POOL , also mach #pool droppable
     $("#pool").droppable({
