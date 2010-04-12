@@ -35,7 +35,6 @@ var warten_semester_animation = "<img width='16' height='16' src='images/Warten-
 
 // wenn der �berblick fertig geladen wurde, den Lade-Balken verschwinden lassen (OS)
 $(document).ready(function(){
-    $("#pleasewait").slideUp("slow");
     // Klickbare Info-Buttons sollen beim dr�berfahren animiert werden (OS)
     // F�r das Analogon im �berblick siehe ueberblick.js
     $(".ipunkt_td, .fragebild").mouseenter(function(){

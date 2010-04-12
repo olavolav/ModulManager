@@ -62,7 +62,9 @@ var ueberblick = function(){
 							$("#left #ueberblick-pin-passiv").hide();
 							$("#left #ueberblick-pin-aktiv").show();
 						}
-
+						
+						if ($("#pleasewait").css("display") != "none")
+							$("#pleasewait").slideUp("slow");
         },
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ueberblick");
