@@ -3,7 +3,6 @@ BUGS
 Hohe Priorität (Deadline):
 ==========================
 
-25. FAQ-Seite schreiben (Olav)
 29. Copyright-Angaben hinzufügen (Olav)
 45. Kurzform der Fehlermeldungen ("Problematik") in den PDF-Export einbinden, d.h. den gleichen Text, aber ohne die teilweise länglichen Modul-Listen (Christian)
 103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzlichen MatNat-Combobox-Eintrag (Christian)
@@ -64,7 +63,7 @@ Restliches Feedback:
 - Module wie das A-Praktikum können vom Nutzer nicht über Semestergrenzen hinweg angelegt werden. Dadurch unterscheiden sich Anzeige und tatsächliche Planung der Studierenden. Die kalkulierte Arbeitsbelastung des jeweiligen Semesters ist damit nicht realistisch.
 - Man kann z.B. das Modul Physik I jedem Semester zuweisen. Zu beachten ist jedoch, dass das Modul nur in Wintersemestern angeboten wird.
 - Berücksichtigt werden sollten noch Klausuren zu Nachschreibeterminen. Erst mit Bestehen der Klausur werden die Credits wirksam angerechnet, der Workload fällt jedoch bereits ggf. früher an.
-- Auch erscheint es möglich, Vorlesungen häufiger zu besuchen. Hier werden die Credits nur einmalig gutgeschrieben, der Workload fällt jedoch faktisch in mehreren Semestern an. Dieses lässt sich im Modul-manager jedoch derzeit nicht abbilden.
+- Auch erscheint es möglich, Vorlesungen häufiger zu besuchen. Hier werden die Credits nur einmalig gutgeschrieben, der Workload fällt jedoch faktisch in mehreren Semestern an. Dieses lässt sich im ModulManager jedoch derzeit nicht abbilden.
 - Bachelor-Studierende können während des Bachelor-Studiums bereits Master-Module belegen. Diese Credits und Noten werden jedoch im Studiengang überhaupt nicht angerechnet, jedoch fällt Workload an.
 - Fügt man z.B. Anorganische Chemie für Physiker hinzu, werden die Credit-Punkte sowohl im Nicht-Physikalischen als auch mathematisch-naturwissenschaftlichen Bereich gezählt. Setzt man die Credit-Zahl manuell hoch, so werden beide Bereich grün als abgedeckt gezählt, sodass das Modul versucht wird doppelt einzubringen. Dieses erscheint falsch. "Einbringen in" müsste hier angezeigt werden.
 - Für die unbenoteten Module sollte man eine Checkbox "belegt" eiführen und diese auch erst nach dem Abhaken grün werden lassen.
@@ -196,6 +195,7 @@ Inzwischen behoben:
 152. "Clear entry"-Knopf am Suchen-Feld hinzufügen (Olav)
 134. Mail von JE vom 24.03.10: Man entferne das 6. Semester, dann füge man ein Sonstiges Modul ein und wenn man dann die Bachelorarbeit wieder hinzufügt, dann wird die immer zum Sonstigen Modul - sehr merkwürdig... (Olav)
 154. Wird ein Modul in ein Semester gezogen, so wird dieses Semester rot umrandet. Dieses kann anfänglich so interpretiert werden, als ob dieses eine unzulässige Aktion sei (Olav)
+25. FAQ-Seite schreiben (Olav)
 
 
 Nicht behoben:
