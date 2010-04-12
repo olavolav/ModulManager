@@ -427,9 +427,9 @@ var sem_hinzu = function(){
                 var modul_id = $(ui.draggable).attr("id");
                 var modul_class = $(ui.draggable).attr("class");
 				 
-                var custom_text = $(ui.draggable).find("span.custom").text();
-                var parts_text  = $(ui.draggable).find("span.modul_parts").text();
-                var parts_exist  = $(ui.draggable).find("span.modul_parts_exist").html();
+                var custom_text = modProp(modul_id,"custom");
+                var parts_text  = modProp(modul_id,"modul_parts");
+                var parts_exist  = modProp(modul_id,"modul_parts_exist");
                 if(custom_text == "non-custom") {
                     //check nach Teil_modul
                     if((parts_text!="0") && (parts_exist=="false")){

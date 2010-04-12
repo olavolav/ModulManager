@@ -11,7 +11,6 @@ Hohe Priorität (Deadline):
 112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der Info-Box nicht angezeigt (Christian)
 127. Note berechnen funktioniert nicht immer - z.B. bei Comp. wiss. Rechnen wird die Note ans Backend übermittelt, aber die Gesamtnote ist immer noch "?", s. Mail von AS vom 24.03.10 (Christian)
 133. Mail von SK vom 24.03.10: Beim Import: Überall heißt die PO "Version AM 34b vom 01.10.2009"; Außer wenn ich "nein" klick und dann eine "Neue PO" auswähle - dort heißt sie plötzlich  "PO Soße 2009"; das ist verwirrend. (Christian)
-134. Mail von JE vom 24.03.10: Man entferne das 6. Semester, dann füge man ein "sonstiges Modul" ein und wenn man dann die Bachelorarbeit wieder hinzufügt, dann wird die immer zum "sonstigen Modul" - sehr merkwürdig... (Olav)
 135. Mail von SK vom 24.03.10: im PDF steht nicht, dass man Noten gestrichen hat (Olav)
 137. Mail von SK vom 26.03.10: Sonstiges Modul in die Vorratsbox geschoben (aus dem 2. Sem): "problem with /abfragen/ueberblick" und er updatet den Durchschnitt nicht, bis ich das Modul lösche. Das passiert auch, wenn
 ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden hilft nicht. Bei Standard-Modulen passiert es nicht. (Olav & Christian)
@@ -22,7 +21,6 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 149. Zweiten PDF-Export-Knopf, mit dem einzigen Unterschied, dass die Noten nicht angezeigt werden (Christian)
 150. Im Überblick in den Info-Boxen zu den verschiedenen Bereichen auch eine Liste mit allen in diesem Bereich eingebrachten Module einfügen (Christian)
 153. Nach Ziehen der Abschlussarbeit ins "0." Semester, also die freiwilligen Zusatzleistungen wird diese - im Gegensatz zur Note - trotzdem einberechnet (Christian)
-
 
 
 Niedrige Priorität:
@@ -50,19 +48,17 @@ Restliches Feedback:
 - die Auflistung nach Kategorien sollte auf einer neuen Seite anfangen
 - Universität Göttingen erwähnen und das Universitäts-Logo im Seitenkopf einblenden
 - Die Seite lässt sich nicht validieren
-- Beheben: Die Seite ist im Konqueror (v4.0.4) nicht nutzbar, da extentielle JS-Funktionen nicht korrekt funktionieren.
+- Beheben: Die Seite ist im Konqueror (v4.0.4) nicht nutzbar, da essentielle JS-Funktionen nicht korrekt funktionieren.
 - Beheben: Seite ist nicht barriere-frei
 - Beheben: Die Seite nutzt intensiv JavaScript. Ohne entsprechende Unterstützung ist die Seite nicht nutzbar, da es keine Fallback-Option gibt
 - Beheben: Vorlesungen aus der Mathe im Profilierungsbereich
-- Erklärung, warum men keine Vorlesungen findet
+- Erklärung, warum man keine Vorlesungen findet
 - "eject"-Symbol zum Einklappen der Navi vielleicht unpassend
 - Es fehlt der Bereich "Freiwillige Zusatzleistungen (gehen nicht in die Note ein)" (ok, habs gefunden, heißt scheinbar Vorratsbox) - oder man sollte das bei jedem Modul auswählen können via Combobox
 - "Bereich: Mathematisch-Naturwissenschaftlich Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
 - Was soll das hier: "Ausnahme-Optionen: Nur bei Modulen in der Auswahl verfügbar." in den Info-Boxen?
 - Im CIP-Pool: "Additional plugins are required to display all the media on this page." Ich kann den Flash-Player aber nicht so einfach installieren. Scheint aber auch ohne zu gehen.
 - Ich hab 3 Einführungen gehört (eine in den freiwilligen Zusatzleistungen). Im Moment stehen die im Modulmanager alle unter Einführungen und werden auch alle bei der Berechnung der Durchschnittsnote berücksichtigt, was nicht der Studienordnung entspricht. Ebenso berücksichtigt er auch alle Speziellen Themen, wenn ich mehr als 12 Credits angebe. Es sollte zumindest ne Warnung geben.
-- Wenn ich die Navigation ausblende, scrollt der "Überblick" nicht mehr mit und auf meinem Laptop kann ich die Durchschnittsnote nicht sehen
-- Noch mal Layout: Ich hab in meinem Firefox ne senkrechte Tableiste. In dem so verkleinerten Fenster rutscht das Demo-Video nach unten (unter die Kurzanleitung), das sieht komisch aus.
 - Zum Video: Untertitel wären nett, damit man sich das auch ohne Sound (z.B. im CIP-Pool) ansehen kann und was lernt.
 - In den FAQ steht ein mal "Studierende" und zwei mal "Studenten" - vielleicht auch einmal "Studentinnnen" schreiben?
 - Module wie das A-Praktikum können vom Nutzer nicht über Semestergrenzen hinweg angelegt werden. Dadurch unterscheiden sich Anzeige und tatsächliche Planung der Studierenden. Die kalkulierte Arbeitsbelastung des jeweiligen Semesters ist damit nicht realistisch.
@@ -199,6 +195,7 @@ Inzwischen behoben:
 151. Hintergrundfarbe von Info-Boxen stimmt nicht (Olav)
 130. Mail von SK vom 24.03.10: Der Mechanismus, um Standard-Credits wieder herzustellen, ist nicht klar (Olav)
 152. "Clear entry"-Knopf am Suchen-Feld hinzufügen (Olav)
+134. Mail von JE vom 24.03.10: Man entferne das 6. Semester, dann füge man ein Sonstiges Modul ein und wenn man dann die Bachelorarbeit wieder hinzufügt, dann wird die immer zum Sonstigen Modul - sehr merkwürdig... (Olav)
 
 
 Nicht behoben:
