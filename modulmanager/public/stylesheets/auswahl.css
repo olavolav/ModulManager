@@ -71,14 +71,8 @@ h3,h4,h5 {
 /*---- Farbe bei Over auf einem Semester------------*/
 /* Nicht hier weg bewegen, weil diese CSS-Datei nach global und pool geladen
    wird und deswegen dieser Style die anderen "überschreibt" (OS) */
-.drophover{
-	/* background-image: url("../images/Pool-Hintergrund-Droppable.gif");
-	background-repeat: repeat;
-	background-position: top left; */
-/*	background-color: #FFA0A0;*/
-	background: #FFA0A0 url("../images/Semester-Hintergrund-OnHover.gif");
-	background-repeat: no-repeat;
-	background-position: top left;
+.drophover {
+	background-color: #EEE;
 }
 
 

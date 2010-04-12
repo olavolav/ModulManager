@@ -62,7 +62,6 @@ Restliches Feedback:
 - Zum Video: Untertitel wären nett, damit man sich das auch ohne Sound (z.B. im CIP-Pool) ansehen kann und was lernt.
 - In den FAQ steht ein mal "Studierende" und zwei mal "Studenten" - vielleicht auch einmal "Studentinnnen" schreiben?
 - Module wie das A-Praktikum können vom Nutzer nicht über Semestergrenzen hinweg angelegt werden. Dadurch unterscheiden sich Anzeige und tatsächliche Planung der Studierenden. Die kalkulierte Arbeitsbelastung des jeweiligen Semesters ist damit nicht realistisch.
-- Wird ein Modul in ein Semester gezogen, so wird dieses Semester rot umrandet. Dieses kann anfänglich so interpretiert werden, als ob dieses eine unzulässige Aktion sei. Verwenden könnte man hier Farben wie grün, gelb oder blau.
 - Man kann z.B. das Modul Physik I jedem Semester zuweisen. Zu beachten ist jedoch, dass das Modul nur in Wintersemestern angeboten wird.
 - Berücksichtigt werden sollten noch Klausuren zu Nachschreibeterminen. Erst mit Bestehen der Klausur werden die Credits wirksam angerechnet, der Workload fällt jedoch bereits ggf. früher an.
 - Auch erscheint es möglich, Vorlesungen häufiger zu besuchen. Hier werden die Credits nur einmalig gutgeschrieben, der Workload fällt jedoch faktisch in mehreren Semestern an. Dieses lässt sich im Modul-manager jedoch derzeit nicht abbilden.
@@ -196,6 +195,7 @@ Inzwischen behoben:
 130. Mail von SK vom 24.03.10: Der Mechanismus, um Standard-Credits wieder herzustellen, ist nicht klar (Olav)
 152. "Clear entry"-Knopf am Suchen-Feld hinzufügen (Olav)
 134. Mail von JE vom 24.03.10: Man entferne das 6. Semester, dann füge man ein Sonstiges Modul ein und wenn man dann die Bachelorarbeit wieder hinzufügt, dann wird die immer zum Sonstigen Modul - sehr merkwürdig... (Olav)
+154. Wird ein Modul in ein Semester gezogen, so wird dieses Semester rot umrandet. Dieses kann anfänglich so interpretiert werden, als ob dieses eine unzulässige Aktion sei (Olav)
 
 
 Nicht behoben:
