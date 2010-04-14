@@ -272,7 +272,7 @@ class MainController < ApplicationController
     end
 
     if version_short == nil
-      my_selection.verion = get_latest_po
+      my_selection.version = get_latest_po
     else
       my_selection.version = Version.find(:first, :conditions => "short = '#{version_short}'")
     end
@@ -289,11 +289,26 @@ class MainController < ApplicationController
 
         my_module = SelectedModule.create :moduledata => Studmodule.find(m.attributes['moduledata']),
           :name => m.attributes['name'],
-          :credits => m.attributes['credits'],
+#          :credits => m.attributes['credits'],
           :has_grade => m.attributes['has_grade'],
-          :permission_removed => m.attributes['permission_removed'],
-          :grade => m.attributes['grade']
+          :permission_removed => m.attributes['permission_removed']
+#          :grade => m.attributes['grade']
 
+        grade = m.attributes['grade']
+        if grade != "" && grade != nil
+          my_module.grade = grade
+        else
+          my_module.grade = nil
+        end
+
+        credits = m.attributes['credits']
+        if credits != "" && credits != nil
+          my_module.credits = credits
+        else
+          my_module.credits = nil
+        end
+
+        my_module.save
         my_semester.modules << my_module
         
       end

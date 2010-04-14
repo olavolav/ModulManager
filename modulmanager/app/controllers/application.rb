@@ -4,83 +4,116 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def get_note
-    selection = current_selection
-    grade = Hash.new(0)
-    credits = 0
 
-    selection.semesters.each do |s|
-      if s.count > 0
-        s.modules.each do |m|
+    auswahl = current_selection
+    kumulierte_note = 0
+    kumulierte_credits = 0
 
-          permitted = 1
-          m.moduledata.permission == nil ? permitted = 1 : permitted = m.moduledata.permission.evaluate(selection.semesters, m.semester.count)
-            if (permitted == 1 || m.permission_removed) && m.has_grade && m.grade != nil && m.grade != 0.0
-              if m.moduledata.children != [] && m.moduledata.children != nil
-                teil_kumul = 0
-                teil_credits = 0
-
-                ges_credits = 0
-
-                if m.grade != nil
-                  if m.credits == "" || m.credits == nil
-                    teil_kumul += m.grade.to_f * m.moduledata.credits.to_f
-                    teil_credits += m.moduledata.credits.to_f
-                  else
-                    teil_kumul += m.grade.to_f * m.credits.to_f
-                    teil_credits += m.credits.to_f
-                  end
-                end
-                ges_credits += m.moduledata.credits
-
-                m.moduledata.children.each do |child|
-                  child_data = current_selection.selection_modules.find(:first, :conditions => "module_id = #{child.id}")
-                  if child_data.credits == nil
-                    ges_credits += child_data.moduledata.credits
-                  else
-                    ges_credits += child_data.credits
-                  end
-                  if child_data.grade == nil
-                    if child_data.credits == nil || child_data.credits == ""
-                      teil_credits += child_data.credits.to_f
-                    else
-                      teil_credits += child_data.moduledata.credits.to_f
-                    end
-                  else
-                    if child_data.credits == nil || child_data.credits == ""
-                      teil_kumul += child_data.grade.to_f * child_data.moduledata.credits.to_f
-                      teil_credits += child_data.moduledata.credits.to_f
-                    else
-                      teil_kumul += child_data.grade.to_f * child_data.credits.to_f
-                      teil_credits += child_data.credits.to_f
-                    end
-                  end
-                end
-                teil_credits > 0 ? note_gewichtet = (teil_kumul.to_f / teil_credits.to_f) : note_gewichtet = 0
-                grade["gesamt"] += (note_gewichtet.to_f * ges_credits.to_f)
-                credits += ges_credits.to_f unless note_gewichtet == 0
-              elsif m.moduledata.parent == nil && m.grade != nil && m.class != CustomModule
-                if m.credits == nil || m.credits == ""
-                  note_gewichtet = (m.moduledata.credits.to_f * m.grade.to_f)
-                  grade["gesamt"] += note_gewichtet
-                  credits += m.moduledata.credits.to_f
-                else
-                  note_gewichtet = (m.credits.to_f * m.grade.to_f)
-                  grade["gesamt"] += note_gewichtet
-                  credits += m.credits.to_f
-                end
-              elsif m.class == CustomModule
-                note_gewichtet = (m.credits.to_f * m.grade.to_f)
-                grade["gesamt"] += note_gewichtet
-                credits += m.credits.to_f
-              end
+    auswahl.semesters.each do |semester|
+      if semester.count > 0
+        semester.modules.each do |modul|
+          puts "Modul-Typ: " + modul.module_type
+          # Kann das Modul überhaupt gezählt werden?
+          if modul.is_allowed?(auswahl, semester.count)
+            note = modul.calculation_grade(auswahl).to_f
+            puts "Note: " + note.to_s
+            if note != 0
+              credits             = modul.calculation_credits(auswahl).to_f
+              puts "Credits: " + credits.to_s
+              kumulierte_note     += note * credits
+              kumulierte_credits  += credits
             end
           end
         end
+      else
+        # Nichts
+        # Das passiert nur, wenn Module aus der Vorratsbox aufgerufen werden...
       end
+    end
 
-    grade["gesamt"] = (((grade["gesamt"] * 100) / credits).round.to_f / 100) if credits > 0
+    puts "Kumulierte Note: " + kumulierte_note.to_s
+    puts "Kumulierte Credits: " + kumulierte_credits.to_s
+    return kumulierte_note / kumulierte_credits
 
-    return grade
+
+
+    #    selection = current_selection
+    #    grade = Hash.new(0)
+    #    credits = 0
+    #
+    #    selection.semesters.each do |s|
+    #      if s.count > 0
+    #        s.modules.each do |m|
+    #
+    #          permitted = 1
+    #          m.moduledata.permission == nil ? permitted = 1 : permitted = m.moduledata.permission.evaluate(selection.semesters, m.semester.count)
+    #          if (permitted == 1 || m.permission_removed) && m.has_grade && m.grade != nil && m.grade != 0.0
+    #            if m.moduledata.children != [] && m.moduledata.children != nil
+    #              teil_kumul = 0
+    #              teil_credits = 0
+    #
+    #              ges_credits = 0
+    #
+    #              if m.grade != nil
+    #                if m.credits == "" || m.credits == nil
+    #                  teil_kumul += m.grade.to_f * m.moduledata.credits.to_f
+    #                  teil_credits += m.moduledata.credits.to_f
+    #                else
+    #                  teil_kumul += m.grade.to_f * m.credits.to_f
+    #                  teil_credits += m.credits.to_f
+    #                end
+    #              end
+    #              ges_credits += m.moduledata.credits
+    #
+    #              m.moduledata.children.each do |child|
+    #                child_data = current_selection.selection_modules.find(:first, :conditions => "module_id = #{child.id}")
+    #                if child_data.credits == nil
+    #                  ges_credits += child_data.moduledata.credits
+    #                else
+    #                  ges_credits += child_data.credits
+    #                end
+    #                if child_data.grade == nil
+    #                  if child_data.credits == nil || child_data.credits == ""
+    #                    teil_credits += child_data.credits.to_f
+    #                  else
+    #                    teil_credits += child_data.moduledata.credits.to_f
+    #                  end
+    #                else
+    #                  if child_data.credits == nil || child_data.credits == ""
+    #                    teil_kumul += child_data.grade.to_f * child_data.moduledata.credits.to_f
+    #                    teil_credits += child_data.moduledata.credits.to_f
+    #                  else
+    #                    teil_kumul += child_data.grade.to_f * child_data.credits.to_f
+    #                    teil_credits += child_data.credits.to_f
+    #                  end
+    #                end
+    #              end
+    #              teil_credits > 0 ? note_gewichtet = (teil_kumul.to_f / teil_credits.to_f) : note_gewichtet = 0
+    #              grade["gesamt"] += (note_gewichtet.to_f * ges_credits.to_f)
+    #              credits += ges_credits.to_f unless note_gewichtet == 0
+    #            elsif m.moduledata.parent == nil && m.grade != nil && m.class != CustomModule
+    #              if m.credits == nil || m.credits == ""
+    #                note_gewichtet = (m.moduledata.credits.to_f * m.grade.to_f)
+    #                grade["gesamt"] += note_gewichtet
+    #                credits += m.moduledata.credits.to_f
+    #              else
+    #                note_gewichtet = (m.credits.to_f * m.grade.to_f)
+    #                grade["gesamt"] += note_gewichtet
+    #                credits += m.credits.to_f
+    #              end
+    #            elsif m.class == CustomModule
+    #              note_gewichtet = (m.credits.to_f * m.grade.to_f)
+    #              grade["gesamt"] += note_gewichtet
+    #              credits += m.credits.to_f
+    #            end
+    #          end
+    #        end
+    #      end
+    #    end
+    #
+    #    grade["gesamt"] = (((grade["gesamt"] * 100) / credits).round.to_f / 100) if credits > 0
+    #
+    #    return grade
   end
 
   def current_selection

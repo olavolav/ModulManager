@@ -4,7 +4,7 @@
   <% form_remote_tag :update => "problems", :url => { :action => "save_version"} do %>
 
     <p>
-      Neue Prüfungsordnung: <%= select_tag :version, options_from_collection_for_select(Version.all, "id", "short", @version) %>
+      Neue Prüfungsordnung: <%= select_tag :version, options_from_collection_for_select(Version.all, "id", "name", @version) %>
     </p>
 
     <p>
