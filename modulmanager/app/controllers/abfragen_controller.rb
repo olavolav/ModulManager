@@ -220,6 +220,7 @@ class AbfragenController < ApplicationController
     modul = auswahl.selection_modules.find(:first, :conditions => "module_id = #{params[:mod_id]}")
     modul.semester = auswahl.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
     modul.save
+    render :text => "Module semester changed successfully..."
   end
 
   def extract_category_id id_string
