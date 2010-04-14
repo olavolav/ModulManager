@@ -33,10 +33,12 @@ class ApplicationController < ActionController::Base
 
     puts "Kumulierte Note: " + kumulierte_note.to_s
     puts "Kumulierte Credits: " + kumulierte_credits.to_s
-    return kumulierte_note / kumulierte_credits
 
-
-
+    if kumulierte_credits > 0
+      return kumulierte_note / kumulierte_credits
+    else
+      return 0
+    end
     #    selection = current_selection
     #    grade = Hash.new(0)
     #    credits = 0
