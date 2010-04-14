@@ -30,6 +30,10 @@ class AbfragenController < ApplicationController
           end
           errors.push mod.moduledata unless permission == 1
         end
+      else
+        semester.modules.each do |mod|
+          errors.push mod.moduledata
+        end
       end
     end
     return errors
@@ -209,6 +213,13 @@ class AbfragenController < ApplicationController
     respond_to do |format|
       format.xml { render :action => "add_custom_module_to_selection", :layout => false }
     end
+  end
+
+  def change_semester_for_module
+    auswahl = current_selection
+    modul = auswahl.selection_modules.find(:first, :conditions => "module_id = #{params[:mod_id]}")
+    modul.semester = auswahl.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
+    modul.save
   end
 
   def extract_category_id id_string

@@ -121,10 +121,15 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def credits
-    if self[:credits] != nil
+    case self.module_type
+    when SelectedModule::module_type_custom
       return self[:credits]
     else
-      return self.moduledata.credits
+      if self[:credits] != nil
+        return self[:credits]
+      else
+        return self.moduledata.credits
+      end
     end
   end
 

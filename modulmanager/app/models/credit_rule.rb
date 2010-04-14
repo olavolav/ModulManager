@@ -18,7 +18,8 @@ class CreditRule < Rule
         elsif e_module.moduledata.categories.length > 0
           if e_module.moduledata.categories.include? self.category
             if rule_modules.include? e_module.moduledata
-              e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
+              #              e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
+              credits += e_module.credits unless e_module.credits == nil
             end
           end
         end

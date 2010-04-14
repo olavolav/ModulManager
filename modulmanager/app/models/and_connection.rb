@@ -24,7 +24,8 @@ class AndConnection < Connection
               else
                 if self.modules.include? s_module.moduledata
                   if s_module.credits == nil
-                    credits += s_module.moduledata.credits
+                    #                    credits += s_module.moduledata.credits
+                    credits += s_module.credits unless s_module.credits == nil
                   else
                     credits += s_module.credits
                   end
