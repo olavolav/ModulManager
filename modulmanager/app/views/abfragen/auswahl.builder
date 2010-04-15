@@ -40,7 +40,7 @@ xml.auswahl(:id => @selection.id) do
                 :has_grade => has_grade
               )
             else
-              if m.credits != nil
+              if m.has_custom_credits?
                 custom_credits = m.credits
               else
                 custom_credits = false

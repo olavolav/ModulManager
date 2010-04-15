@@ -133,6 +133,14 @@ class SelectedModule < ActiveRecord::Base
     end
   end
 
+  def has_custom_credits?
+    if self[:credits] == nil
+      return false
+    else
+      return true
+    end
+  end
+
   def grade
     if self[:grade] == nil
       return 0
