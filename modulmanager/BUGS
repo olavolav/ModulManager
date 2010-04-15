@@ -21,6 +21,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 150. Im Überblick in den Info-Boxen zu den verschiedenen Bereichen auch eine Liste mit allen in diesem Bereich eingebrachten Module einfügen (Christian)
 153. Nach Ziehen der Abschlussarbeit ins "0." Semester, also die freiwilligen Zusatzleistungen, wird diese - im Gegensatz zur Note - trotzdem einberechnet (Christian)
 155. Dummy-Modul in die Auswahl, wieder löschen, dann Baum zu- und wieder aufklappen; dann sind zwei Dummy-Module sichtbar, weil die class-Eigenschaft beim Löschen nicht wieder auf custom_module zurück gesetzt wird (Olav)
+156. Rails-Fehler bei /abfragen/note, wenn man ein Modul mit Teilmodulen hinzufügt, s. Log-Datei (Christian)
 
 
 Niedrige Priorität:
