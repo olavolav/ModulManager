@@ -60,6 +60,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 		
     //alert("cat_id in custom_check="+category_id);
     var this_credit = credit.val();
+		alert(name.attr("class"));
     var this_name = name.val();
     var this_credit_float = parseFloat(this_credit);
 	
@@ -174,7 +175,7 @@ $(function(){
 												// modPropChange(cus_id,"custom_exist","true");
                         show_next_custom_modul_in_pool(cus_cat_id);
                         //show_next_custom_modul_in_pool_in_the_search_table();
-                        get_and_change_custom_modul_in_the_table(cus_id,na,cus_cat_id);
+                        update_search_table_on_adding_custom_module_into_selection(cus_id,na,cus_cat_id);
 							
                     }
 						
@@ -527,12 +528,14 @@ var toggle_category = function(category_id){
                     }
                 }
                 else {
+										// Folglich sind hier keine Kategorien, sondern Module (OS)
                     $(this).children().each(function(){
-                        if (modProp($(this).parent().attr("class").split("_")[0],"inAuswahl") == "false") {
+												var modul_id = $(this).parent().attr("class").split("_")[0];
+                        if (modProp(modul_id,"inAuswahl") == "false") {
                             if (search_is_active()) {
                                 if ($(this).parent().is(".search_modul")) {
                                     if ($(this).attr("class") != "partial_modul") {
-                                        $(this).css("display", "block");
+                                        $(this).show();
                                         count++;
                                     }
                                 }
@@ -541,7 +544,7 @@ var toggle_category = function(category_id){
                                 // die folgende Abfrage ist n�tig, damit custom_modul-Divs nicht
                                 // angezeigt werden (OS)
                                 if ($(this).is(".pool_modul")) {
-                                    $(this).css("display","block");
+                                    $(this).show();
                                     count++;
                                 }
                             }
@@ -568,7 +571,7 @@ var toggle_category = function(category_id){
                 // Pr�fen, ob sich darunter Kategorien oder Module befinden
                 if((this_class=="pool_category")||(this_class=="search_category"))
                     $(this).css("display","none");
-                else $(this).find(">*").css("display","none")
+                else $(this).find(">*").css("display","none");
             });
             break;
         case "leer":

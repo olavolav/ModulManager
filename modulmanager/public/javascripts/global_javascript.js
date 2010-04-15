@@ -338,7 +338,7 @@ var hide_partial_modul = function(){
 
 //--------CUSTOM-MODUL--------------------------------------------------------------------
 
-var custom_modul_rekursiv = function (handle){
+var display_only_first_custom_module_on_init = function (handle){
     //    var handle_id = $(handle).attr("id");
     $(handle).children().not("a,.nichtleer").each(function(){
         
@@ -346,7 +346,7 @@ var custom_modul_rekursiv = function (handle){
         var this_rel    = $(this).attr("rel");
 			
         if (this_class == "pool_category") {
-            custom_modul_rekursiv(this);
+            display_only_first_custom_module_on_init(this);
         } else {
             if(this_rel =="mod_parent"){
                 var this_modul = $(this).children().not(".nichtleer").eq(0);
@@ -381,7 +381,7 @@ var show_next_custom_modul_in_pool = function(category_id){
     });
 	
     // class ver�ndern. custom-->pool_modul. Damit wird nur ein custom_modul im Pool ist
-    if(search_is_active){
+    if(search_is_active()){
         var father = $(the_first).parent().get(0);
         $(father).addClass("search_modul");
     }
@@ -390,10 +390,11 @@ var show_next_custom_modul_in_pool = function(category_id){
 	
 };//ende show_next_custom_modul_in_pool
 
-var get_and_change_custom_modul_in_the_table = function(modul_id,new_name,cat_id){
+var update_search_table_on_adding_custom_module_into_selection = function(modul_id,new_name,cat_id){
 	
     var this_tr = $("#suche").find("."+modul_id);
-    $(this_tr).find(">.td_custom_name").text(new_name);
+		$(this_tr).attr("rel","custom_modul");
+    // $(this_tr).find(">.td_custom_name").text(new_name); macht keinen Sinn (OS)
     //get the first custom modul
     var the_first = $("#suche").find("tr[rel='custom_modul']").filter(function(index){
         var this_text = $(this).find(">.cat_check").text();
@@ -405,7 +406,7 @@ var get_and_change_custom_modul_in_the_table = function(modul_id,new_name,cat_id
 };
 
 
-var custom_modul_in_the_search_table_rekursiv = function(){
+var enter_only_first_custom_module_into_search_table_on_init = function(){
     // custom_modul in Suche-Table
     //alert("custom in the table");
 	
@@ -508,11 +509,13 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
     change_module_style_to_pool(modul_id,this_mod);
     var kopf_modul_check = modProp(modul_id,"modul_parts");
     var parent_attr_check = modProp(modul_id,"id_of_parent_modul");
-    var pool_modul = "pool_modul";
-    //wenn ein Teil_modul ist, dann hat das class "partial", damit das nicht in Pool angezeigt wird.
-    if ($(this_mod).attr("class")=="auswahl_modul partial_modul") pool_modul = "partial_modul";
 
+    // Modul-Class wieder für den Pool richtig setzen (OS)
+		var pool_modul = "pool_modul";
+    if ($(this_mod).attr("class")=="auswahl_modul partial_modul") pool_modul = "partial_modul";
+		if (modProp(modul_id,"custom")=="custom") pool_modul = "custom_modul";
     $(this_mod).attr("class",pool_modul);
+
     if (modProp(modul_id,"modul_parts_exist")=="true") modPropChange(modul_id,"modul_parts_exist","false");
 
     var this_id = $(this_mod).attr("id");
@@ -523,7 +526,7 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
 		modPropChange(modul_id,"error","unknown");
 
     // suche nach modul_id_parent im Pool		
-    alert("Dieses Modul (bzw. dessen Parent) kommt im Pool "+($("#pool ."+this_id+"_parent").length)+" mal vor.");					
+    // alert("Dieses Modul (bzw. dessen Parent) kommt im Pool "+($("#pool ."+this_id+"_parent").length)+" mal vor.");					
     $("#pool ."+this_id+"_parent").each(function(){
 
         var arrow_type = which_arrow_is_visible($(this).parent());
@@ -549,10 +552,26 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
                         //alert("pool_modul = "+pool_modul);
                         //check nach dummy.
                         if (modProp(modul_id,"custom") != "custom")
-                            $(this).find("#"+modul_id).css("display", "block");
+                            $(this).find("#"+modul_id).show();
                     }
                 }
-            // else $(this).find("#"+modul_id).css("display","none");
+            		// else $(this).find("#"+modul_id).css("display","none");
+
+	              /* //if ((!(search_is_active())) || $(this).is(".search_modul")) {
+								$(this).find("#"+modul_id).hide();
+                if (pool_modul != "partial_modul") {
+	            		if (!(search_is_active())) {
+	                  //alert("pool_modul = "+pool_modul);
+	                  //check nach dummy.
+	                  if (modProp(modul_id,"custom") != "custom")
+	                    $(this).find("#"+modul_id).show();
+	                }
+									else if($(this).is(".search_modul"))
+										$(this).find("#"+modul_id).show();
+	              }
+            		// else $(this).find("#"+modul_id).css("display","none");
+								else if(modProp(modul_id,"custom") == "custom")
+									$(this).find("#"+modul_id).removeClass("auswahl_modul").addClass("custom_modul"); */
             }
 				
         }// ende if leer
@@ -1734,9 +1753,9 @@ var pool = function(){
    
     hide_partial_modul();
     session_auswahl();
-    //show_next_custom_modul_in_pool();
-    custom_modul_in_the_search_table_rekursiv();
-    custom_modul_rekursiv(this_pool);
+
+    enter_only_first_custom_module_into_search_table_on_init();
+    display_only_first_custom_module_on_init(this_pool);
     ueberblick();	
 	
 };//ende pool
@@ -1744,7 +1763,8 @@ var pool = function(){
 var search_is_active = function(){
     // Nicht besonders sch�n, funktioniert zum Beispiel nicht mehr, wenn man einen Start-
     // String im Such-Feld vorgibt. Reicht aber momentan. (OS)
-    return ($("#qs").val() != "" );
+		// alert("search_is_active: search_is_active="+($("#qs").val() != ""))
+    return ($("#qs").val() != "");
 };
 
 var change_module_style_to_pool = function(modul_id,handle){
