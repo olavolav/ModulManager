@@ -61,7 +61,7 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
 			% In diesem Block wird die Bezeichnung der Note angegeben, weil LaTeX keine Zeilenuebergaenge
 			% innerhalb von Itemize-Items mag (OS)
 			<% if m.grade != nil %>
-				<% notenstring = "Note "+m.grade %>
+				<% notenstring = "Note " + m.grade.to_s %>
 			<% else %>
 			<% if m.moduledata.has_grade == false %>
 			    <% notenstring = "unbenotetes Modul" %>
@@ -102,7 +102,7 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
 
 			% Noten-Block genau wie oben (OS)
 			<% if m.grade != nil %>
-				<% notenstring = "Note "+m.grade %>
+				<% notenstring = "Note " + m.grade.to_s %>
 			<% else %>
 			<% if m.moduledata.has_grade == false %>
 			    <% notenstring = "unbenotetes Modul" %>

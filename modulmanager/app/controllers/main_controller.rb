@@ -106,7 +106,7 @@ class MainController < ApplicationController
     selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = selection.focus.name
     @version = selection.version
     @modules = selection.selection_modules
-    @grade = get_note["gesamt"]
+    @grade = get_note
     @semesters = selection.semesters
 
     @categories = sort_by_category @modules
