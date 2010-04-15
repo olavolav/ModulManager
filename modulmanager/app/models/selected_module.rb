@@ -95,10 +95,12 @@ class SelectedModule < ActiveRecord::Base
 
         teilmodul = auswahl.selection_modules.find(:first, :conditions => "module_id = #{teilmodul_data.id}")
 
-        teilmodul_note = teilmodul.calculation_grade(auswahl).to_f
-        if teilmodul_note != 0
-          kumulierte_note     += teilmodul.credits.to_f * teilmodul_note
-          kumulierte_credits  += teilmodul.credits.to_f
+        if teilmodul != nil
+          teilmodul_note = teilmodul.calculation_grade(auswahl).to_f
+          if teilmodul_note != 0
+            kumulierte_note     += teilmodul.credits.to_f * teilmodul_note
+            kumulierte_credits  += teilmodul.credits.to_f
+          end
         end
       end
       if kumulierte_note > 0
