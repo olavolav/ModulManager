@@ -20,6 +20,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 149. Zweiten PDF-Export-Knopf, mit dem einzigen Unterschied, dass die Noten nicht angezeigt werden (Christian)
 150. Im Überblick in den Info-Boxen zu den verschiedenen Bereichen auch eine Liste mit allen in diesem Bereich eingebrachten Module einfügen (Christian)
 153. Nach Ziehen der Abschlussarbeit ins "0." Semester, also die freiwilligen Zusatzleistungen, wird diese - im Gegensatz zur Note - trotzdem einberechnet (Christian)
+155. Dummy-Modul in die Auswahl, wieder löschen, dann Baum zu- und wieder aufklappen; dann sind zwei Dummy-Module sichtbar, weil die class-Eigenschaft beim Löschen nicht wieder auf custom_module zurück gesetzt wird (Olav)
 
 
 Niedrige Priorität:
