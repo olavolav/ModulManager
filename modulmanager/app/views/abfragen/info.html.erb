@@ -2,64 +2,78 @@
   <h1>Bereich: <%= @regel.name %></h1>
   <p class='description'><%= @regel.description %></p>
 
-	<h2>Anforderungen dieses Bereiches</h2>
-	<p>Die Bedingungen dieses Bereiches sind <strong><%= @fullfilled_string %>.</strong><br>
+  <h2>Anforderungen dieses Bereiches</h2>
+  <p>Die Bedingungen dieses Bereiches sind <strong><%= @fullfilled_string %>.</strong><br />
 	Es werden momentan <%= @credits_earned %> von <%= @regel.credits_needed %> Credits
-	<% if @regel.modules_needed > 0 %>
-		sowie <%= @regel.collected_modules @mods %> der <%= @regel.modules_needed %> in diesem Bereich
-		erforderlichen Modulen
-	<% end %>
-	eingebracht.
-	
-	<% if @regel.removeable_grades > 0%>
-		Außerdem wurden <%= @regel.removed_grades @mods %> von <%= @regel.removeable_grades %> erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote.
-	<% else %>
-		In dieser Kategorie ist das Streichen von Noten nicht zulässig.
-	<% end %>
-</p>
-
-<% if !@fullfilled %>
-<h2>Problematik</h2>
-
-<% if @regel.removed_too_many_grades? @mods %>
-<p>
-Es sind zu viele Noten gestrichen worden!
-</p>
-<% end %>
-
-<% if @child_rules != nil && @child_rules.length > 0 %>
-
-  <p>
-	In diesem Bereich müssen noch folgende Unterbereiche erfüllt werden:</p>
-  <ul>
-    <% @child_rules.each do |child| %>
-      <li><%= child %></li>
+    <% if @regel.modules_needed > 0 %>
+      sowie <%= @regel.collected_modules @mods %> der <%= @regel.modules_needed %> in diesem Bereich
+      erforderlichen Modulen
     <% end %>
-  </ul>
+	eingebracht.
 
-<% end %>
+    <% if @regel.removeable_grades > 0%>
+      Außerdem wurden <%= @regel.removed_grades @mods %> von <%= @regel.removeable_grades %> erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote.
+    <% else %>
+      In dieser Kategorie ist das Streichen von Noten nicht zulässig.
+    <% end %>
+  </p>
 
-<% if (@child_rules == nil || @child_rules.length == 0) %>
+  <% if !@fullfilled %>
+    <h2>Problematik</h2>
 
-  <p>
-	Um die Anforderungen in diesem Bereich zu erfüllen, müssen Sie noch
-	
-    <%= [@regel.modules_needed - @regel.collected_modules(@mods), 0].max %> Module sowie
-    <%= [@regel.credits_needed - @credits_earned, 0].max %> Credits erbringen.</p>
+    <% if @regel.removed_too_many_grades? @mods %>
+      <p>
+        Es sind zu viele Noten gestrichen worden!
+      </p>
+    <% end %>
 
-  <% if @available_modules.length > 0 %>
-    <p>Zur Erfüllung dieser Bedingungen kann aus den folgenden Modulen gewählt werden:
-    <ul>
-      <% @available_modules.each do |m| %>
-        <li>
-          <%= m.name %> (<%= m.short %>)
-        </li>
-      <% end %>
-    </ul></p>
+    <% if @child_rules != nil && @child_rules.length > 0 %>
+
+      <p>
+        In diesem Bereich müssen noch folgende Unterbereiche erfüllt werden:</p>
+      <ul>
+        <% @child_rules.each do |child| %>
+          <li><%= child %></li>
+        <% end %>
+      </ul>
+
+    <% end %>
+
+    <% if (@child_rules == nil || @child_rules.length == 0) %>
+
+      <p>
+        Um die Anforderungen in diesem Bereich zu erfüllen, müssen Sie noch
+
+        <%= [@regel.modules_needed - @regel.collected_modules(@mods), 0].max %> Module sowie
+        <%= [@regel.credits_needed - @credits_earned, 0].max %> Credits erbringen.</p>
+
+      <% if @available_modules.length > 0 %>
+        <p>
+          Zur Erfüllung dieser Bedingungen kann aus den folgenden Modulen gewählt werden:
+        <ul>
+          <% @available_modules.each do |m| %>
+            <li>
+              <%= m.name %> (<%= m.short %>)
+            </li>
+          <% end %>
+        </ul>
+      </p>
+    <% end %>
+
   <% end %>
 <% end %>
+<% if @relevant_modules_in_selection.length > 0 %>
+  <p>
+    <u>Es werden bereits folgende Module eingebracht:</u>
+  <ul>
+    <% @relevant_modules_in_selection.each do |mod| %>
+      <li>
+        <%= mod.name %> (<%= mod.short %>)
+      </li>
+    <% end %>
+  </ul>
+  </p>
 <% end %>
-
 <h2>Anmerkungen zur Auswertung</h2>
 <p>Bitte beachten Sie:
 <ul>

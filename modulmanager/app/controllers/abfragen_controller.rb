@@ -81,7 +81,7 @@ class AbfragenController < ApplicationController
       @name = m2.name
       @description = "Dies ist ein von Ihnen konfiguriertes Modul."
       @short = "-"
-#      @credits = m2.credits
+      #      @credits = m2.credits
       @permission = nil
       m2.categories.each {|c| @categories.push c.name}
       @categories.uniq!
@@ -90,7 +90,7 @@ class AbfragenController < ApplicationController
       @name         = m2.moduledata.name
       @description  = m2.moduledata.description
       @short        = m2.moduledata.short
-#      m2.credits == nil ? @credits = m2.moduledata.credits : @credits = m2.credits
+      #      m2.credits == nil ? @credits = m2.moduledata.credits : @credits = m2.credits
       if m2.moduledata.univzid != nil
         @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +
           "?expand=0" +
@@ -327,10 +327,12 @@ class AbfragenController < ApplicationController
     @credits_earned     = @regel.collected_credits @mods, get_errors(selection)
 
     @available_modules  = Array.new
+    @relevant_modules_in_selection = Array.new
 
     if @regel.child_connections.length > 0
       @child_rules = @regel.collect_child_rules current_selection
     else
+      @relevant_modules_in_selection = @regel.relevant_modules_in_selection(selection)
       modules = @regel.collect_unique_modules_from_children_without_custom
       modules.each do |m|
         found = false

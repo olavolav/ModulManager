@@ -43,6 +43,14 @@ class Connection < ActiveRecord::Base
     return modules
   end
 
+  def relevant_modules_in_selection(auswahl)
+    relevante_module = Array.new
+    self.modules.each do |modul|
+      relevante_module.push(modul) if auswahl.modules.include? modul
+    end
+    return relevante_module
+  end
+
   def categories
     categories = Array.new
     if self.child_rules.length > 0
