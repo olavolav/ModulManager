@@ -58,9 +58,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 		if ($("#hat_note input[type='checkbox']").is(":checked")) has_grade = "false";
 		modPropChange(custom_id,"modul_has_grade",has_grade);
 		
-    //alert("cat_id in custom_check="+category_id);
     var this_credit = credit.val();
-		alert(name.attr("class"));
     var this_name = name.val();
     var this_credit_float = parseFloat(this_credit);
 	

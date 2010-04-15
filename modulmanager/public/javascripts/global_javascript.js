@@ -535,7 +535,7 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
         var the_father = $(this).parent();
         // alert("the_father class: "+the_father.attr("class"));
         if(!module_div_present_in_parent($(this))){
-          	alert("Modul ist nicht im Pool");
+          	// alert("Modul ist nicht im Pool");
 			
             $(this).append(this_modul);
             modul_itself_has_not_been_moved = false;
@@ -577,7 +577,7 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
         }// ende if leer
 			
         else { // Modul ist schon im Pool, nur versteckt
-            alert("Modul ist schon im Pool, nur versteckt");
+            // alert("Modul ist schon im Pool, nur versteckt");
             // check den Vater-Kategory, ob der gerade offen ist (neu, OS)
             if (arrow_type == "leer")
                 flip_arrow_of_category("rechts",$(this).parent());
