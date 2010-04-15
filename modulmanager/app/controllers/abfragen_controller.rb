@@ -76,11 +76,12 @@ class AbfragenController < ApplicationController
     @categories = Array.new
     m2 = current_selection.selection_modules.find(:first, :conditions => "module_id = #{mod.id}")
     @id = m2.id
+    @credits = m2.credits
     if mod.short.include? "custom"
       @name = m2.name
       @description = "Dies ist ein von Ihnen konfiguriertes Modul."
       @short = "-"
-      @credits = m2.credits
+#      @credits = m2.credits
       @permission = nil
       m2.categories.each {|c| @categories.push c.name}
       @categories.uniq!
@@ -89,7 +90,7 @@ class AbfragenController < ApplicationController
       @name         = m2.moduledata.name
       @description  = m2.moduledata.description
       @short        = m2.moduledata.short
-      m2.credits == nil ? @credits = m2.moduledata.credits : @credits = m2.credits
+#      m2.credits == nil ? @credits = m2.moduledata.credits : @credits = m2.credits
       if m2.moduledata.univzid != nil
         @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +
           "?expand=0" +
