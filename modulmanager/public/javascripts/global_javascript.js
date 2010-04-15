@@ -1287,6 +1287,7 @@ function ajax_serverupdate_move_module_within_selection(modul_id,sem_id) {
         async:false,
         data:"mod_id="+modul_id+"&"+"sem_count="+sem_id+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
+				// Achtung: Das hier ist immer nötig, da wir die Vorratsbox als normales Semester behandeln (OS)
         success: function(data){
             ueberblick();
         },
@@ -1392,12 +1393,12 @@ var check_error_on_init = function(error_id){
 
 // DROP in Auswahl
 var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper){
-    $('<div class="quick-alert">' + warten_semester_animation + 'Bitte warten!</div>').appendTo($(this_semester)).fadeIn("fast").animate({
-        opacity: 1.0
-    }, 1000).fadeOut("fast", function(){
-        $(this).remove();
-    });
-	
+    // $('<div class="quick-alert">' + warten_semester_animation + 'Bitte warten!</div>').appendTo($(this_semester)).fadeIn("fast").animate({
+    //     opacity: 1.0
+    // }, 1000).slideUp("fast", function(){
+    //     $(this).remove();
+    // });
+
     var this_draggable_class = $(ui_draggable).attr("class");
     var kopf_modul_in_pool = modProp(modul_id,"head_modul_in_pool");
     var cat_id = modProp(modul_id,"cat_id");
@@ -1465,9 +1466,8 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
     var this_subsemester = $(this_semester).find("div.subsemester");
     $(this_subsemester).append(ui_draggable);
 	
-	
     if (kopf_modul_in_pool == "false") {
-        ueberblick();
+    	ueberblick();
     }
     else {
         // $(ui_draggable).find(".head_modul_in_pool").text("false");
@@ -1475,9 +1475,7 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
         ajax_request_grade();
     }
 
-    // var additional_info = $(ui_draggable).find(".additional_info").text();
-    var additional_info = modProp(modul_id,"additional_info");
-    if (additional_info == "true") {
+    if (modProp(modul_id,"additional_info") == "true") {
         ajax_request_combobox(modul_id);
         modPropChange(modul_id,"additional_info","drop_down_schon_in_auswahl");
     }
