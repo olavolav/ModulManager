@@ -371,7 +371,7 @@ var display_only_first_custom_module_on_init = function (handle){
 };
 
 // Funktion umbenannt, war früher get_custom (OS)
-var show_next_custom_modul_in_pool = function(category_id){
+var show_next_custom_modul_in_pool = function(category_id,old_modul_id){
     // alert("hallo show_next_custom_modul_in_pool mit "+category_id);
     // die Funktion zeigt nur ein display_none Custom_modul in einem Category im  Pool an
 	
@@ -387,6 +387,10 @@ var show_next_custom_modul_in_pool = function(category_id){
     }
     $(the_first).removeClass("custom_modul").addClass("pool_modul ui-draggable");
     $(the_first).show();
+
+		// Altes Modul verstecken, falls man die Suche aktiviert hat und das Modul sofort
+		// wieder löscht (OS)
+		$(this_cat).find("."+old_modul_id+"_parent").removeClass("search_modul");
 	
 };//ende show_next_custom_modul_in_pool
 
@@ -411,13 +415,14 @@ var enter_only_first_custom_module_into_search_table_on_init = function(){
     //alert("custom in the table");
 	
     $("#suche").find("tr[rel='custom_modul']").each(function(){
+				var modul_id = $(this).attr("class");
         //alert("hall custom");
         var td_cat_check = $(this).find(">td.cat_check");
         var cat_id = $(td_cat_check).text();
         var check  = $(td_cat_check).attr("rel");
         //alert("cat_id ="+cat_id+"check ="+check);
 		
-        if(check == "noCheck"){
+        if((check == "noCheck") && (modProp(modul_id,"inAuswahl") != "true")){
             //alert("hallo check");
             $(this).attr("rel","pool_modul");
             $(this).show();
@@ -573,6 +578,9 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
 								else if(modProp(modul_id,"custom") == "custom")
 									$(this).find("#"+modul_id).removeClass("auswahl_modul").addClass("custom_modul"); */
             }
+
+						if(modProp(modul_id,"custom") == "custom")
+							$(this).find("#"+modul_id).removeClass("auswahl_modul").addClass("custom_modul").hide();
 				
         }// ende if leer
 			

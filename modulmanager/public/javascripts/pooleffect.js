@@ -171,7 +171,7 @@ $(function(){
                         // $(cus_modul).find("span.custom_exist").text("true");
 												// War das hier etwa ein Bug? (OS)
 												// modPropChange(cus_id,"custom_exist","true");
-                        show_next_custom_modul_in_pool(cus_cat_id);
+                        show_next_custom_modul_in_pool(cus_cat_id,cus_id);
                         //show_next_custom_modul_in_pool_in_the_search_table();
                         update_search_table_on_adding_custom_module_into_selection(cus_id,na,cus_cat_id);
 							
