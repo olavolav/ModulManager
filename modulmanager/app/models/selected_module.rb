@@ -199,11 +199,11 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def to_string_for_printing
-    text = self.name +
-      self.subname +
-      " (" + self.short + "), " +
-      self.credits + " Credits, " +
-      self.written_grade
+    text = self.name.to_s +
+      self.subname.to_s +
+      " (" + self.short.to_s + "), " +
+      self.credits.to_s + " Credits, " +
+      self.written_grade.to_s
     return text
   end
 

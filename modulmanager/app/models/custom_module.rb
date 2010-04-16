@@ -4,9 +4,9 @@ class CustomModule < SelectedModule
     :foreign_key => "category_id"
 
   def to_string_for_printing
-    text = self[:name] + " (vom Benutzer erstellt), " +
-      self.credits + " Credits, " +
-      self.written_grade
+    text = self[:name].to_s + " (vom Benutzer erstellt), " +
+      self.credits.to_s + " Credits, " +
+      self.written_grade.to_s
     return text
   end
 
