@@ -1,7 +1,27 @@
 <h2>&Uuml;berblick:
-<img width='20' height='20' id="ueberblick-pin-passiv" src="images/Pin-Passiv.png" alt="Überblick fixieren" onClick="javascript:change_fixation('ueberblick an');">
-<img width='20' height='20' id="ueberblick-pin-aktiv" src="images/Pin-Aktiv.png" alt="Überblick nicht mehr fixieren" style="display:none;" onClick="javascript:change_fixation('ueberblick aus');">
-<img id="ueberblick-wird-aktualisiert" src="images/Warten-HintergrundWeiss.gif" style="float:right;display:none;padding-right:3px;" alt="Lade...">
+<img
+  width='20'
+  height='20'
+  id="ueberblick-pin-passiv"
+  src="images/Pin-Passiv.png"
+  alt="Überblick fixieren"
+  onClick="javascript:change_fixation('ueberblick an');"
+  />
+<img
+  width='20'
+  height='20'
+  id="ueberblick-pin-aktiv"
+  src="images/Pin-Aktiv.png"
+  alt="Überblick nicht mehr fixieren"
+  style="display:none;"
+  onClick="javascript:change_fixation('ueberblick aus');"
+  />
+<img
+  id="ueberblick-wird-aktualisiert"
+  src="images/Warten-HintergrundWeiss.gif"
+  style="float:right;display:none;padding-right:3px;"
+  alt="Lade..."
+  />
 </h2>
 
 <ul class="ueberblick">
@@ -13,7 +33,6 @@
   <li style='height: 4px;'>&nbsp;</li>
 
   <% unless @focus_rules == nil %>
-    <%#= "<li>#{build_html_focus_rules_recursive @focus_rules, 5, 5, @errors}</li>" %>
     <%= "<li>#{build_html_rules_recursive @focus_rules, @errors}</li>" %>
   <% end %>
 

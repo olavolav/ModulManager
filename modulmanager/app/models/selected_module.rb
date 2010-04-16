@@ -169,4 +169,42 @@ class SelectedModule < ActiveRecord::Base
     return credits
   end
 
+  def name
+    return self.moduledata.name
+  end
+
+  def subname
+    unless self.moduledata.subname == nil
+      return self.moduledata.subname
+    else
+      return ""
+    end
+  end
+
+  def short
+    return self.moduledata.short
+  end
+
+  def written_grade
+    if self.has_grade == false
+      return "Note gestrichen"
+    end
+    if self.moduledata.has_grade == false
+      return "unbenotetes Modul"
+    end
+    if self.grade == 0
+      return "keine Note angegeben"
+    end
+    return "Note " + self.grade.to_s
+  end
+
+  def to_string_for_printing
+    text = self.name +
+      self.subname +
+      " (" + self.short + "), " +
+      self.credits + " Credits, " +
+      self.written_grade
+    return text
+  end
+
 end

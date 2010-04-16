@@ -46,35 +46,15 @@
 Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausgewählt wurden.
 
 <% counter = 1 %>
-<% notenstring = "" %>
+
 <% @semesters.each do |s| %>
 
 \subsection*{<%= counter %>. Semester}
 
 \begin{itemize}
-
-    <% s.modules.each do |m| %>
-
-        <% if m.class == CustomModule %>
-            \item <%= m.name %> (vom Benutzer erstellt), <%= m.credits %> Credits
-        <% else %>
-			% In diesem Block wird die Bezeichnung der Note angegeben, weil LaTeX keine Zeilenuebergaenge
-			% innerhalb von Itemize-Items mag (OS)
-			<% if m.grade != nil %>
-				<% notenstring = "Note " + m.grade.to_s %>
-			<% else %>
-			<% if m.moduledata.has_grade == false %>
-			    <% notenstring = "unbenotetes Modul" %>
-			<% elsif m.has_grade == false %>
-			    <% notenstring = "Note gestrichen" %>
-			<% else %>
-			    <% notenstring = "keine Note angegeben" %>
-			<% end %>
-			<% end %>
-            \item <%= m.moduledata.name+m.moduledata.subname.to_s %> (<%= m.moduledata.short %>), <%= m.moduledata.credits %> Credits, <%= notenstring %> 
-        	<% end %>
- 	<% end %>
-
+    <% s.modules.each do |modul| %>
+        \item <%= modul.to_string_for_printing %>
+    <% end %>
 \end{itemize}
 
 <% counter += 1 %>

@@ -28,10 +28,17 @@ class ApplicationController < ActionController::Base
     end
 
     if kumulierte_credits > 0
-      return kumulierte_note / kumulierte_credits
+      ungerundet = kumulierte_note / kumulierte_credits
+      return round_float_to(2, ungerundet)
     else
       return 0
     end
+  end
+
+  def round_float_to(i, float)
+    f = (10 ** i).to_f
+    nr = float * f
+    return nr.round / f
   end
 
   def current_selection
