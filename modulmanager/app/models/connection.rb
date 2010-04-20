@@ -20,6 +20,11 @@ class Connection < ActiveRecord::Base
     :class_name => "Studmodule",
     :foreign_key => "owner_id"
 
+  has_many :categories,
+    :through => :child_rules,
+    :class_name => "Rule",
+    :source => :category
+
   def modules
     modules = Array.new
     if self.child_rules.length > 0

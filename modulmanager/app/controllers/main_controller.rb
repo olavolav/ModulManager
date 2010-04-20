@@ -102,14 +102,16 @@ class MainController < ApplicationController
   end
   
   def get_pdf
-    selection = current_selection
-    selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = selection.focus.name
-    @version = selection.version
-    @modules = selection.selection_modules
+    @selection = current_selection
+    @selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = @selection.focus.name
+    @version = @selection.version
+    @modules = @selection.selection_modules
     @grade = get_note
-    @semesters = selection.semesters
+    @semesters = @selection.semesters
 
-    @categories = sort_by_category @modules
+#    @categories = AndConnection.find(:all, :conditions => "parent_id IS NULL")
+#    @categories = sort_by_category @modules
+    @categories = get_used_connections @modules
 
     respond_to do |format|
       format.pdf { render :filename => "ModulManager.pdf"}
@@ -137,6 +139,26 @@ class MainController < ApplicationController
     end
 
     return result
+  end
+
+  def get_used_categories selected_modules
+    kategorien = Array.new
+    selected_modules.each do |modul|
+      modul.categories.each {|kategorie| kategorien.push kategorie}
+      modul.moduledata.categories.each {|kategorie| kategorien.push kategorie}
+    end
+    return kategorien.uniq
+  end
+
+  def get_used_connections selected_modules
+    kategorien = get_used_categories selected_modules
+    verbindungen = Array.new
+    kategorien.each do |kategorie|
+      kategorie.connections.each do |verbindung|
+        verbindungen.push verbindung
+      end
+    end
+    return verbindungen.uniq
   end
 
   def combo_category

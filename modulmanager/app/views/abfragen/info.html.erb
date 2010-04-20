@@ -3,19 +3,8 @@
   <p class='description'><%= @regel.description %></p>
 
   <h2>Anforderungen dieses Bereiches</h2>
-  <p>Die Bedingungen dieses Bereiches sind <strong><%= @fullfilled_string %>.</strong><br />
-	Es werden momentan <%= @credits_earned %> von <%= @regel.credits_needed %> Credits
-    <% if @regel.modules_needed > 0 %>
-      sowie <%= @regel.collected_modules @mods %> der <%= @regel.modules_needed %> in diesem Bereich
-      erforderlichen Modulen
-    <% end %>
-	eingebracht.
-
-    <% if @regel.removeable_grades > 0%>
-      Außerdem wurden <%= @regel.removed_grades @mods %> von <%= @regel.removeable_grades %> erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote.
-    <% else %>
-      In dieser Kategorie ist das Streichen von Noten nicht zulässig.
-    <% end %>
+  <p>
+    <%= @regel.get_status_description_string_for_printing(@mods, @errors) %>
   </p>
 
   <% if !@fullfilled %>

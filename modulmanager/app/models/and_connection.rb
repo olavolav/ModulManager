@@ -194,5 +194,48 @@ class AndConnection < Connection
     end
     return module_array
   end
+
+  def get_status_description_string_for_printing(modules, errors, rtex = false)
+    text = "Die Anforderungen dieses Bereiches sind "
+    if rtex
+      if self.evaluate(modules, errors) != 1
+        text += "\textbf{nicht erfüllt.}"
+      else
+        text += "\textbf{erfüllt.}"
+      end
+      text += "\\"
+    else
+      text += "<strong>"
+      if self.evaluate(modules, errors) != 1
+        text += "<span style='color: red;'>nicht erfüllt.</span>"
+      else
+        text += "<span style='color: green;'>erfüllt.</span>"
+      end
+      text += "</strong><br />"
+    end
+    text += "Es werden momentan " +
+      self.collected_credits(modules, errors).to_s +
+      " von " +
+      self.credits_needed.to_s +
+      " Credits"
+    if self.modules_needed > 0
+      text += " sowie " +
+        self.collected_modules(modules, errors).to_s +
+        " der " +
+        self.modules_needed.to_s +
+        " in diesem Bereich erforderlichen Module "
+    end
+    text += " eingebracht."
+    if self.removeable_grades > 0
+      text += "Außerdem wurden " + 
+        self.removed_grades(modules).to_s +
+        " von " +
+        self.removeable_grades.to_s +
+        " erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote."
+    else
+      text += "In dieser Kategorie ist das Streichen von Noten nicht zulässig."
+    end
+    return text
+  end
   
 end

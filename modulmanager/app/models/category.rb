@@ -22,6 +22,11 @@ class Category < ActiveRecord::Base
     :foreign_key => "category_id"
 #    :join_table => "categories_rules"
 
+  has_many :connections,
+    :through => :rules,
+    :class_name => "Connection",
+    :source => :parent_connection
+
   belongs_to :version,
     :class_name => "Version",
     :foreign_key => "version_id"
