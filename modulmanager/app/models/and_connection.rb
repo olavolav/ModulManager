@@ -199,11 +199,11 @@ class AndConnection < Connection
     text = "Die Anforderungen dieses Bereiches sind "
     if rtex
       if self.evaluate(modules, errors) != 1
-        text += "\textbf{nicht erfüllt.}"
+        text += "\\textbf{nicht erfüllt.}"
       else
-        text += "\textbf{erfüllt.}"
+        text += "\\textbf{erfüllt.}"
       end
-      text += "\\"
+      text += "\\\\"
     else
       text += "<strong>"
       if self.evaluate(modules, errors) != 1

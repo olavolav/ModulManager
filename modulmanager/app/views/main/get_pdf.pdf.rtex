@@ -67,16 +67,14 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
 Es folgt eine Auflistung der von Ihnen gewählten Module nach den Kategorien der von Ihnen gewählten Prüfungsordnung.
 Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs bei der Studienberatung zu nutzen, nehmen Sie bitte den folgenden Abschnitt dorthin mit.
 
-<%# @categories.each do |name, modules| %>
 <% @categories.each do |cat| %>
-    \subsection*{<%= cat.name %>}
     <%= build_tex_rules_recursive cat, Array.new, @selection %>
     <% if cat.modules.length == 0 %>
         (leer)
     <% else %>
         \begin{itemize}
             <% cat.modules.each do |m| %>
-                \item <%#= m.to_string_for_printing(@show_grades) %>
+                \item <%= m.to_string_for_printing(@show_grades) %>
             <% end %>
         \end{itemize}
     <% end %>
