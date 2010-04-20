@@ -16,10 +16,6 @@ class Focus < ActiveRecord::Base
     :class_name => "Version",
     :foreign_key => "version_id"
 
-#  has_one :connection,
-#    :class_name => "Connection",
-#    :foreign_key => "focus"
-
   def rules
     rules = Array.new
     self.categories.each do |category|
@@ -47,6 +43,14 @@ class Focus < ActiveRecord::Base
   def main_connection
     connection = Connection.find(:first, :conditions => "name = #{self.name}")
     return connection
+  end
+
+  def contains_module? mod
+    my_modules = self.category_modules
+    if my_modules.include? mod
+      return true
+    end
+    return false
   end
 
 end

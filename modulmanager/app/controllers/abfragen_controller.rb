@@ -71,10 +71,13 @@ class AbfragenController < ApplicationController
   end
 
   def get_module_info
+    selection = current_selection
     mod = Studmodule.find(params[:module_id])
     m2 = nil
     @categories = Array.new
-    m2 = current_selection.selection_modules.find(:first, :conditions => "module_id = #{mod.id}")
+    @focus = selection.focus
+    m2 = selection.selection_modules.find(:first, :conditions => "module_id = #{mod.id}")
+    @module = mod
     @id = m2.id
     @credits = m2.credits
     if mod.short.include? "custom"
@@ -120,6 +123,8 @@ class AbfragenController < ApplicationController
   def get_pool_module_info
     mod = Studmodule.find(params[:module_id])
     @categories = Array.new
+    @focus = current_selection.focus
+    @module = mod
     if mod.short.include? "custom"
       @name = mod.name
       @description = "Dies ist ein Modul, bei dem Sie die entsprechenden Informationen " +

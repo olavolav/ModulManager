@@ -19,16 +19,19 @@
     </ul>
   </p>
   <%#*<div id="custom_credits" style="display: none;">%>
-    <%#= @custom_credits %>
+  <%#= @custom_credits %>
   <%#*</div>%>
 <% else %>
   <% if @categories.length == 1 %>
-    <p>Dieses Modul wird in folgendem Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %>
-    <% elsif @categories.length > 1%>
+    <p>Dieses Modul wird in folgendem Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %></p>
+  <% elsif @categories.length > 1%>
     <p>Dieses Modul kann in mehrere Bereiche eingebracht werden - die entsprechende Auswahl können sie direkt unter dem Modul-Titel vornehmen.</p>
   <% end %>
 <% end %>
 
+<% if @focus != nil && @focus.contains_module?(@module) %>
+    <p><strong>Dieses Modul wird auch für den von Ihnen gewählten Schwerpunkt eingebracht.</strong></p>
+<% end %>
 <% unless @permission == nil %>
   <p>Voraussetzungen:
   <ul>
