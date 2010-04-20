@@ -36,7 +36,9 @@
 \begin{itemize}
 	\item Gewählte Prüfungsordnungs-Version: <%= @version.name %>
 	\item Gewählter Schwerpunkt: <%= @schwerpunkt %>
-	\item Mit ETCS-Credits gewichtete, hochgerechnete Note: <%= @grade %>
+        <% unless @show_grades == false %>
+            \item Mit ETCS-Credits gewichtete, hochgerechnete Note: <%= @grade %>
+        <% end %>
 	\item Erstellt am \today{} mit ModulManager-Version <%= $MMversion %>
 \end{itemize}
 
@@ -53,7 +55,7 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
 
 \begin{itemize}
     <% s.modules.each do |modul| %>
-        \item <%= modul.to_string_for_printing %>
+        \item <%= modul.to_string_for_printing(@show_grades) %>
     <% end %>
 \end{itemize}
 
@@ -74,7 +76,7 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
     <% else %>
         \begin{itemize}
             <% cat.modules.each do |m| %>
-                \item <%#= m.to_string_for_printing %>
+                \item <%#= m.to_string_for_printing(@show_grades) %>
             <% end %>
         \end{itemize}
     <% end %>

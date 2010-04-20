@@ -198,12 +198,14 @@ class SelectedModule < ActiveRecord::Base
     return "Note " + self.grade.to_s
   end
 
-  def to_string_for_printing
+  def to_string_for_printing show_grade = true
     text = self.name.to_s +
       self.subname.to_s +
       " (" + self.short.to_s + "), " +
-      self.credits.to_s + " Credits, " +
-      self.written_grade.to_s
+      self.credits.to_s + " Credits"
+    unless show_grade == false
+      text += ", " + self.written_grade.to_s
+    end
     return text
   end
 

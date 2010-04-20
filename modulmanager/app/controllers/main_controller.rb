@@ -109,6 +109,8 @@ class MainController < ApplicationController
     @grade = get_note
     @semesters = @selection.semesters
 
+    @show_grades = params[:grades]
+
 #    @categories = AndConnection.find(:all, :conditions => "parent_id IS NULL")
 #    @categories = sort_by_category @modules
     @categories = get_used_connections @modules
