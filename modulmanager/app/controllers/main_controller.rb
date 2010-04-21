@@ -111,13 +111,18 @@ class MainController < ApplicationController
     @errors = get_errors @selection
 
     @show_grades = params[:grades]
+    puts @show_grades
 
     #    @categories = AndConnection.find(:all, :conditions => "parent_id IS NULL")
     #    @categories = sort_by_category @modules
     @categories = get_used_connections @modules
 
     respond_to do |format|
-      format.pdf { render :filename => "ModulManager.pdf"}
+      if @show_grades
+        format.pdf { render :filename => "ModulManager.pdf"}
+      else
+        format.pdf { render :filename => "ModulManager_keine_Noten.pdf" }
+      end
       format.html { render :action => "get_pdf" }
       format.xml { render :xml => @categories.to_xml }
     end
