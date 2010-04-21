@@ -108,11 +108,12 @@ class MainController < ApplicationController
     @modules = @selection.selection_modules
     @grade = get_note
     @semesters = @selection.semesters
+    @errors = get_errors @selection
 
     @show_grades = params[:grades]
 
-#    @categories = AndConnection.find(:all, :conditions => "parent_id IS NULL")
-#    @categories = sort_by_category @modules
+    #    @categories = AndConnection.find(:all, :conditions => "parent_id IS NULL")
+    #    @categories = sort_by_category @modules
     @categories = get_used_connections @modules
 
     respond_to do |format|
@@ -120,6 +121,28 @@ class MainController < ApplicationController
       format.html { render :action => "get_pdf" }
       format.xml { render :xml => @categories.to_xml }
     end
+  end
+  
+  def get_errors selection
+    errors = Array.new
+    selection.semesters.each do |semester|
+      if semester.count > 0
+        count = semester.count
+        semester.modules.each do |mod|
+          if mod.moduledata.permission == nil || mod.permission_removed
+            permission = 1
+          else
+            permission = mod.moduledata.permission.evaluate(selection.semesters, count)
+          end
+          errors.push mod.moduledata unless permission == 1
+        end
+      else
+        semester.modules.each do |mod|
+          errors.push mod.moduledata
+        end
+      end
+    end
+    return errors
   end
 
   def sort_by_category selected_modules
@@ -168,7 +191,7 @@ class MainController < ApplicationController
     mod = Studmodule.find(@id)
 
     @selected_cat = current_selection.selection_modules.find(:first, :conditions => "module_id = #{mod.id}").category
-#    @selected_cat = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}").category
+    #    @selected_cat = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}").category
 
     @categories = Array.new
     mod.categories.each do |category|
@@ -182,18 +205,18 @@ class MainController < ApplicationController
   end
 
   def _check_category
-#    id = params[:mod_id]
-#    mod = Studmodule.find(id)
+    #    id = params[:mod_id]
+    #    mod = Studmodule.find(id)
     @categories = Array.new
     Category.find(:all, :conditions => "exclusive = 1").each do |category|
       @categories.push category
     end
 
-#    mod.categories.each do |category|
-#      if category.exclusive
-#        @categories.push category
-#      end
-#    end
+    #    mod.categories.each do |category|
+    #      if category.exclusive
+    #        @categories.push category
+    #      end
+    #    end
 
     respond_to do |format|
       format.html { render :action => "_check_category", :layout => false }
@@ -205,7 +228,7 @@ class MainController < ApplicationController
     cat_id = params[:cat_id]
 
     mod = current_selection.selection_modules.find(:first, :conditions => "module_id = #{id}")
-#    mod = SelectedModule.find(:first, :conditions => "module_id = #{id}")
+    #    mod = SelectedModule.find(:first, :conditions => "module_id = #{id}")
 
     unless mod == nil
       mod.category = Category.find(cat_id)
@@ -313,10 +336,10 @@ class MainController < ApplicationController
 
         my_module = SelectedModule.create :moduledata => Studmodule.find(m.attributes['moduledata']),
           :name => m.attributes['name'],
-#          :credits => m.attributes['credits'],
-          :has_grade => m.attributes['has_grade'],
+          #          :credits => m.attributes['credits'],
+        :has_grade => m.attributes['has_grade'],
           :permission_removed => m.attributes['permission_removed']
-#          :grade => m.attributes['grade']
+        #          :grade => m.attributes['grade']
 
         grade = m.attributes['grade']
         if grade != "" && grade != nil

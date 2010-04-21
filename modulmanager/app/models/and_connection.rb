@@ -69,6 +69,36 @@ class AndConnection < Connection
     end
   end
 
+  def collected_modules_array selected_modules, non_permitted_modules = Array.new
+    if self.is_part_of_focus?
+      return self.collected_modules_array_with_focus
+    else
+      modules = Array.new
+      selected_modules.each do |s_module|
+        unless s_module.class == Semester
+          unless non_permitted_modules.include? s_module.moduledata
+            if s_module.class == CustomModule
+              found = false
+              s_module.categories.each {|category| found = true if self.categories.include? category}
+              modules.push s_module if found
+            else
+              if s_module.category != nil && s_module.category.exclusive != 1
+                if self.categories.include? s_module.category
+                  modules.push s_module
+                end
+              else
+                if self.modules.include? s_module.moduledata
+                  modules.push s_module
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+    return modules
+  end
+
   def evaluate selected_modules, options = nil
     options = Array.new if options == nil
     if self.has_parent_focus?

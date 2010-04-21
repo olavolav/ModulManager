@@ -73,7 +73,7 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
         (leer)
     <% else %>
         \begin{itemize}
-            <% cat.selected_modules(@selection).each do |m| %>
+            <% cat.collected_modules_array(@selection.selection_modules, @errors).each do |m| %>
                 \item <%= m.to_string_for_printing(@show_grades) %>
             <% end %>
         \end{itemize}
