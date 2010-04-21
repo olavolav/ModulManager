@@ -16,31 +16,30 @@ xml.session do
     end
   end
 
-  selection.semesters.each do |s|
-    xml.semester(:count => s.count) do
-      s.modules.each do |m|
-
-        xml.module(
-          :moduledata => m.module_id,
-          :name => m.name,
-          :credits => m.credits,
-          :has_grade => m.has_grade,
-          :permission_removed => m.permission_removed,
-          :grade => m.grade
-        )
-
-        
-
-
-
-#        if m.class == CustomModule
-#          xml.module(:id => "custom", :name => m.name, :grade => m.grade, :credits => m.credits)
-#        else
-#          xml.module(:id => m.moduledata.id, :name => m.moduledata.name, :short => m.moduledata.short, :grade => m.grade)
-#        end
-        
+  selection.semesters.each do |semester|
+    xml.semester(:count => semester.count) do
+      semester.modules.each do |modul|
+        xml.module(modul.get_persistence_hash)
       end
     end
   end
+
+
+
+
+#  selection.semesters.each do |s|
+#    xml.semester(:count => s.count) do
+#      s.modules.each do |m|
+#        xml.module(
+#          :moduledata => m.module_id,
+#          :name => m.name,
+#          :credits => m.credits,
+#          :has_grade => m.has_grade,
+#          :permission_removed => m.permission_removed,
+#          :grade => m.grade
+#        )
+#      end
+#    end
+#  end
 
 end

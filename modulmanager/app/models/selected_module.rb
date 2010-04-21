@@ -125,12 +125,12 @@ class SelectedModule < ActiveRecord::Base
   def credits
     case self.module_type
     when SelectedModule::module_type_custom
-      return self[:credits]
+      return self[:credits].to_i
     else
       if self[:credits] != nil
-        return self[:credits]
+        return self[:credits].to_i
       else
-        return self.moduledata.credits
+        return self.moduledata.credits.to_i
       end
     end
   end
@@ -147,7 +147,7 @@ class SelectedModule < ActiveRecord::Base
     if self[:grade] == nil
       return 0
     else
-      return self[:grade]
+      return self[:grade].to_f
     end
   end
 
@@ -207,6 +207,25 @@ class SelectedModule < ActiveRecord::Base
       text += ", " + self.written_grade.to_s
     end
     return text
+  end
+
+  def get_persistence_hash
+    result = Hash.new
+
+    result[:module_id]          = self[:module_id]
+    result[:grade]              = self[:grade]
+    result[:type]               = self[:type]
+    result[:name]               = self[:name]
+    result[:credits]            = self[:credits]
+    result[:short]              = self[:short]
+    result[:parent_id]          = self[:parent_id]
+    result[:category_id]        = self[:category_id]
+    result[:permission_removed] = self[:permission_removed]
+    result[:has_grade]          = self[:has_grade]
+    cat_ids = Array.new
+    self.categories.each { |c| cat_ids.push c.id }
+    result[:categories]         = cat_ids.join(",")
+    return result
   end
 
 end
