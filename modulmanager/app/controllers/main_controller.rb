@@ -110,7 +110,7 @@ class MainController < ApplicationController
     @semesters = @selection.semesters
     @errors = get_errors @selection
 
-    @show_grades = params[:grades]
+    @show_grades = (params[:grades] == "true")
     puts @show_grades
 
     #    @categories = AndConnection.find(:all, :conditions => "parent_id IS NULL")
@@ -121,7 +121,7 @@ class MainController < ApplicationController
       if @show_grades
         format.pdf { render :filename => "ModulManager.pdf"}
       else
-        format.pdf { render :filename => "ModulManager_keine_Noten.pdf" }
+        format.pdf { render :filename => "ModulManager (ohne Noten).pdf" }
       end
       format.html { render :action => "get_pdf" }
       format.xml { render :xml => @categories.to_xml }
