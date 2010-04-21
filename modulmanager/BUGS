@@ -6,14 +6,12 @@ Hohe Priorität (Deadline):
 29. Copyright-Angaben hinzufügen (Olav)
 45. Kurzform der Fehlermeldungen ("Problematik") in den PDF-Export einbinden, d.h. den gleichen Text, aber ohne die teilweise länglichen Modul-Listen (Christian)
 103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzlichen MatNat-Combobox-Eintrag (Christian)
-107. PDF-Export: Module nur in den Kategorien anzeigen, wo sie tatsächlich eingebracht werden (Christian)
 112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der Info-Box nicht angezeigt (Christian)
 135. Mail von SK vom 24.03.10: im PDF steht nicht, dass man Noten gestrichen hat (Olav)
 138. Mail von SK vom 26.03.10: Nachdem ich den Plan abgespeichert und neu importiert hatte, hatte er einige Noten vergessen und der WP-Bereich ist komisch: "Er gibt mir 24 Credits für spez. Themen, obwohl ich nur 12 C sehe. Das könnte daran liegen, dass ich zwischendurch mal mehr spez. Themen hatte, die ich gelöscht habe" (Christian)
 143. Datenschutzhinweise hinzufügen (Olav)
 146. Überprüfung der Benutzereingaben, insbesondere beim Input, s. Mail von AG vom 31.03.10 (Christian)
 148. Alte PO hinzufügen (Olav & AS)
-149. Zweiten PDF-Export-Knopf, mit dem einzigen Unterschied, dass die Noten nicht angezeigt werden (Christian)
 153. Nach Ziehen der Abschlussarbeit ins "0." Semester, also die freiwilligen Zusatzleistungen, wird diese - im Gegensatz zur Note - trotzdem einberechnet (Christian)
 156. Rails-Fehler bei /abfragen/note, wenn man ein Modul mit Teilmodulen hinzufügt, s. Log-Datei (Christian)
 157. Kleinen Einleitungstext "Was ist der MM?" hinzufügen (Olav)
@@ -200,6 +198,8 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 127. Note berechnen funktioniert nicht immer - z.B. bei Comp. wiss. Rechnen wird die Note ans Backend übermittelt, aber die Gesamtnote ist immer noch "?", s. Mail von AS vom 24.03.10 (Christian)
 133. Mail von SK vom 24.03.10: Beim Import: Überall heißt die PO "Version AM 34b vom 01.10.2009"; Außer wenn ich "nein" klick und dann eine "Neue PO" auswähle - dort heißt sie plötzlich  "PO Soße 2009"; das ist verwirrend. (Christian)
 131. Mail von SK vom 24.03.10: Den Abstand innerhalb der Auflistungen verringern (Olav)
+149. Zweiten PDF-Export-Knopf, mit dem einzigen Unterschied, dass die Noten nicht angezeigt werden (Christian)
+107. PDF-Export: Module nur in den Kategorien anzeigen, wo sie tatsächlich eingebracht werden (Christian)
 
 
 Nicht behoben:

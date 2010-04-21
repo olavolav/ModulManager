@@ -15,7 +15,7 @@ module MainHelper
 
   def build_tex_rules_recursive r, non_permitted_modules, selection
 
-    element = "\\subsection*{#{r.name}}"
+    element = "\\subsubsection*{#{r.name}}"
     if r.evaluate(selection.selection_modules, non_permitted_modules) != 1
       element += r.get_status_description_string_for_printing(selection.selection_modules, non_permitted_modules, true).to_s
     end

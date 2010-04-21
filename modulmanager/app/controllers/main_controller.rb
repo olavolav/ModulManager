@@ -121,7 +121,7 @@ class MainController < ApplicationController
       if @show_grades
         format.pdf { render :filename => "ModulManager.pdf"}
       else
-        format.pdf { render :filename => "ModulManager (ohne Noten).pdf" }
+        format.pdf { render :filename => "ModulManager ohne Noten.pdf" }
       end
       format.html { render :action => "get_pdf" }
       format.xml { render :xml => @categories.to_xml }

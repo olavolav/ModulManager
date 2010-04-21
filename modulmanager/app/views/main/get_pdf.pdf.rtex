@@ -17,12 +17,10 @@
 \renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
 
 \setmargnohfrb{18mm}{18mm}{18mm}{18mm}
-\newenvironment{compactitemize}{\begin{itemize}\itemsep -3pt}{\end{itemize}}
+\newenvironment{compactitemize}{\begin{itemize}\itemsep -2pt}{\end{itemize}}
 
 \begin{document}
 
-% Klappt gerade nicht, das PDF muss neu als reiner Pfad ohne Schrift hinzugefügt werden (OS)
-% Versuch hinzugefügt, aber noch nicht getestet (!)
 \begin{figure}[h]
 \center
 \includegraphics[width=7cm]{../../../public/images/LaTeX/LogoMMbeta.pdf}
@@ -31,14 +29,16 @@
 
 %\section*{ModulManager der Fakultät Physik}
 
-\noindent Vielen Dank, dass Sie den ModulManager der Fakultät Physik benutzt haben. Wir hoffen, er war Ihnen behilflich.
+\noindent Vielen Dank, dass Sie den ModulManager der Fakultät Physik der Universität Göttingen benutzt haben. Wir hoffen, er war Ihnen behilflich.
 
 \begin{compactitemize}
 	\item Gewählte Prüfungsordnungs-Version: <%= @version.name %>
 	\item Gewählter Schwerpunkt: <%= @schwerpunkt %>
-        <% unless @show_grades == false %>
-            \item Mit ETCS-Credits gewichtete, hochgerechnete Note: <%= @grade %>
-        <% end %>
+	<% if @show_grades %>
+		\item Mit ETCS-Credits gewichtete, hochgerechnete Note: <%= @grade %>
+	<% else %>
+		\item Evtl. eingetragene Noten werden nicht angezeigt.
+	<% end %>
 	\item Erstellt am \today{} mit ModulManager-Version <%= $MMversion %>
 \end{compactitemize}
 
@@ -51,7 +51,7 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
 
 <% @semesters.each do |s| %>
 
-\subsection*{<%= counter %>. Semester}
+\subsubsection*{<%= counter %>. Semester}
 
 \begin{compactitemize}
     <% s.modules.each do |modul| %>
@@ -84,7 +84,7 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
 
 \subsection*{Weitere Informationen (Stand: 22.10.09)}
 
-Falls Sie noch Fragen haben, stehen Ihnen die Studiunberater gern zu einem persönlichen Gespräch zur Verfügung.
+Falls Sie noch Fragen haben, stehen Ihnen die Studienberater gern zu einem persönlichen Gespräch zur Verfügung.
 Sprechzeiten nach Vereinbarung.
 
 Alternativ können Sie sich an die Zentrale Studienberatung (Wilhelmsplatz 4, Tel. +49 (0)551 / 39-113) wenden.
