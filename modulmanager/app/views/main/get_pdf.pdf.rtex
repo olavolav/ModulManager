@@ -16,8 +16,8 @@
 \usepackage[scaled]{helvet}
 \renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
 
-% \setpapersize[landscape]{A4}
 \setmargnohfrb{18mm}{18mm}{18mm}{18mm}
+\newenvironment{compactitemize}{\begin{itemize}\itemsep -3pt}{\end{itemize}}
 
 \begin{document}
 
@@ -33,14 +33,14 @@
 
 \noindent Vielen Dank, dass Sie den ModulManager der Fakultät Physik benutzt haben. Wir hoffen, er war Ihnen behilflich.
 
-\begin{itemize}
+\begin{compactitemize}
 	\item Gewählte Prüfungsordnungs-Version: <%= @version.name %>
 	\item Gewählter Schwerpunkt: <%= @schwerpunkt %>
         <% unless @show_grades == false %>
             \item Mit ETCS-Credits gewichtete, hochgerechnete Note: <%= @grade %>
         <% end %>
 	\item Erstellt am \today{} mit ModulManager-Version <%= $MMversion %>
-\end{itemize}
+\end{compactitemize}
 
 
 \subsection*{Chronologische Auflistung}
@@ -53,11 +53,11 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
 
 \subsection*{<%= counter %>. Semester}
 
-\begin{itemize}
+\begin{compactitemize}
     <% s.modules.each do |modul| %>
         \item <%= modul.to_string_for_printing(@show_grades) %>
     <% end %>
-\end{itemize}
+\end{compactitemize}
 
 <% counter += 1 %>
 <% end %>
@@ -72,11 +72,11 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
     <% if cat.modules.length == 0 %>
         (leer)
     <% else %>
-        \begin{itemize}
+        \begin{compactitemize}
             <% cat.collected_modules_array(@selection.selection_modules, @errors).each do |m| %>
                 \item <%= m.to_string_for_printing(@show_grades) %>
             <% end %>
-        \end{itemize}
+        \end{compactitemize}
     <% end %>
 <% end %>
 

@@ -8,8 +8,6 @@ Hohe Priorität (Deadline):
 103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzlichen MatNat-Combobox-Eintrag (Christian)
 107. PDF-Export: Module nur in den Kategorien anzeigen, wo sie tatsächlich eingebracht werden (Christian)
 112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der Info-Box nicht angezeigt (Christian)
-127. Note berechnen funktioniert nicht immer - z.B. bei Comp. wiss. Rechnen wird die Note ans Backend übermittelt, aber die Gesamtnote ist immer noch "?", s. Mail von AS vom 24.03.10 (Christian)
-133. Mail von SK vom 24.03.10: Beim Import: Überall heißt die PO "Version AM 34b vom 01.10.2009"; Außer wenn ich "nein" klick und dann eine "Neue PO" auswähle - dort heißt sie plötzlich  "PO Soße 2009"; das ist verwirrend. (Christian)
 135. Mail von SK vom 24.03.10: im PDF steht nicht, dass man Noten gestrichen hat (Olav)
 138. Mail von SK vom 26.03.10: Nachdem ich den Plan abgespeichert und neu importiert hatte, hatte er einige Noten vergessen und der WP-Bereich ist komisch: "Er gibt mir 24 Credits für spez. Themen, obwohl ich nur 12 C sehe. Das könnte daran liegen, dass ich zwischendurch mal mehr spez. Themen hatte, die ich gelöscht habe" (Christian)
 143. Datenschutzhinweise hinzufügen (Olav)
@@ -18,6 +16,8 @@ Hohe Priorität (Deadline):
 149. Zweiten PDF-Export-Knopf, mit dem einzigen Unterschied, dass die Noten nicht angezeigt werden (Christian)
 153. Nach Ziehen der Abschlussarbeit ins "0." Semester, also die freiwilligen Zusatzleistungen, wird diese - im Gegensatz zur Note - trotzdem einberechnet (Christian)
 156. Rails-Fehler bei /abfragen/note, wenn man ein Modul mit Teilmodulen hinzufügt, s. Log-Datei (Christian)
+157. Kleinen Einleitungstext "Was ist der MM?" hinzufügen (Olav)
+
 
 
 Niedrige Priorität:
@@ -31,7 +31,6 @@ Niedrige Priorität:
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 120. Hinweis auf noch benötigte Module ist unklar, s. Mail von AS vom 12.03.10 (Olav)
 129. Mail von SK vom 24.03.10: Wünschenswert wäre ein Hinweis, bei der Note-steichen-AO, ob man das überhaupt darf (Christian & Olav)
-131. Mail von SK vom 24.03.10: Den Abstand innerhalb der Auflistungen verringern (Olav)
 132. Mail von SK vom 24.03.10: Netz-Adressen der Studienberatung ins PDF (Olav)
 139. Mail von SK vom 28.03.10: Startseite, dann sofort "ok" sage und dann recht schnell (noch während des Ladens) die Zurück-Funktion des Browsers (Firefox 3.5) verwende, kommt weiterhin ein Ajax-Fehler (Olav)
 147. Hinweis, wenn die Credit-Zahlen im Überblick nicht summiert werden, wie beim Profilierungsbereich (Olav)
@@ -198,6 +197,9 @@ Inzwischen behoben:
 155. Dummy-Modul in die Auswahl, wieder löschen, dann Baum zu- und wieder aufklappen; dann sind zwei Dummy-Module sichtbar, weil die class-Eigenschaft beim Löschen nicht wieder auf custom_module zurück gesetzt wird (Olav)
 137. Mail von SK vom 26.03.10: Sonstiges Modul in die Vorratsbox geschoben (aus dem 2. Sem): "problem with /abfragen/ueberblick" und er updatet den Durchschnitt nicht, bis ich das Modul lösche. Das passiert auch, wenn
 ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden hilft nicht. Bei Standard-Modulen passiert es nicht. (Olav & Christian)
+127. Note berechnen funktioniert nicht immer - z.B. bei Comp. wiss. Rechnen wird die Note ans Backend übermittelt, aber die Gesamtnote ist immer noch "?", s. Mail von AS vom 24.03.10 (Christian)
+133. Mail von SK vom 24.03.10: Beim Import: Überall heißt die PO "Version AM 34b vom 01.10.2009"; Außer wenn ich "nein" klick und dann eine "Neue PO" auswähle - dort heißt sie plötzlich  "PO Soße 2009"; das ist verwirrend. (Christian)
+131. Mail von SK vom 24.03.10: Den Abstand innerhalb der Auflistungen verringern (Olav)
 
 
 Nicht behoben:
