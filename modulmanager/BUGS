@@ -6,7 +6,6 @@ Hohe Priorität (Deadline):
 29. Copyright-Angaben hinzufügen (Olav)
 45. Kurzform der Fehlermeldungen ("Problematik") in den PDF-Export einbinden, d.h. den gleichen Text, aber ohne die teilweise länglichen Modul-Listen (Christian)
 103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzlichen MatNat-Combobox-Eintrag (Christian)
-112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der Info-Box nicht angezeigt (Christian)
 135. Mail von SK vom 24.03.10: im PDF steht nicht, dass man Noten gestrichen hat (Olav)
 138. Mail von SK vom 26.03.10: Nachdem ich den Plan abgespeichert und neu importiert hatte, hatte er einige Noten vergessen und der WP-Bereich ist komisch: "Er gibt mir 24 Credits für spez. Themen, obwohl ich nur 12 C sehe. Das könnte daran liegen, dass ich zwischendurch mal mehr spez. Themen hatte, die ich gelöscht habe" (Christian)
 143. Datenschutzhinweise hinzufügen (Olav)
@@ -200,6 +199,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 131. Mail von SK vom 24.03.10: Den Abstand innerhalb der Auflistungen verringern (Olav)
 149. Zweiten PDF-Export-Knopf, mit dem einzigen Unterschied, dass die Noten nicht angezeigt werden (Christian)
 107. PDF-Export: Module nur in den Kategorien anzeigen, wo sie tatsächlich eingebracht werden (Christian)
+112. Wenn ein Modul sowohl in Bachelor aus auch im SP eingebracht wird, so wird das in der Info-Box nicht angezeigt (Christian)
 
 
 Nicht behoben:
