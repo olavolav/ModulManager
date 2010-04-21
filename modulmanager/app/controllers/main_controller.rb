@@ -310,7 +310,10 @@ class MainController < ApplicationController
   def shredder file
     xml = File.read(file)
     doc = REXML::Document.new(xml)
-    my_selection = ModuleSelection.create
+
+    selection = current_selection
+    selection.destroy
+    selection = ModuleSelection.new
 
     version_short = nil
     focus_name = nil
@@ -323,50 +326,31 @@ class MainController < ApplicationController
       focus_name = e.text
     end
 
-    if version_short == nil
-      my_selection.version = get_latest_po
+    using_version = Version.find(:first, :conditions => "short = '#{version_short}'")
+    if using_version == nil
+      selection.version = get_latest_po
     else
-      my_selection.version = Version.find(:first, :conditions => "short = '#{version_short}'")
+      selection.version = using_version
     end
-    if focus_name == nil
-      my_selection.focus = nil
-    else
-      my_selection.focus = Focus.find(:first, :conditions => "name = '#{focus_name}' AND version_id = '#{my_selection.version.id}'")
-    end
+
+    using_focus = Focus.find(:first, :conditions => "name = '#{focus_name}' AND version_id = '#{selection.version.id}'")
+    selection.focus = using_focus
+
     doc.root.each_element('//semester') do |s|
-      my_semester = Semester.create :count => s.attributes['count']
-      my_selection.semesters << my_semester
-      #      custom_count = 0
+      semester = Semester.new
+      semester.count = s.attributes['count']
       s.elements.each do |m|
-
-        my_module = SelectedModule.create :moduledata => Studmodule.find(m.attributes['moduledata']),
-          :name => m.attributes['name'],
-          #          :credits => m.attributes['credits'],
-        :has_grade => m.attributes['has_grade'],
-          :permission_removed => m.attributes['permission_removed']
-        #          :grade => m.attributes['grade']
-
-        grade = m.attributes['grade']
-        if grade != "" && grade != nil
-          my_module.grade = grade
-        else
-          my_module.grade = nil
-        end
-
-        credits = m.attributes['credits']
-        if credits != "" && credits != nil
-          my_module.credits = credits
-        else
-          my_module.credits = nil
-        end
-
-        my_module.save
-        my_semester.modules << my_module
-        
+        modul = SelectedModule.new
+        modul.fill_with_import_data(m.attributes)
+        modul.save
+        semester.modules << modul
       end
+      semester.save
+      selection.semesters << semester
     end
-    my_selection.save
-    session[:selection_id] = my_selection.id
+
+    selection.save
+    session[:selection_id] = selection.id
   end
 
 end

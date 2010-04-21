@@ -170,7 +170,11 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def name
-    return self.moduledata.name
+    if self[:name] == nil
+      return self.moduledata.name
+    else
+      return self[:name]
+    end
   end
 
   def subname
@@ -211,10 +215,9 @@ class SelectedModule < ActiveRecord::Base
 
   def get_persistence_hash
     result = Hash.new
-
     result[:module_id]          = self[:module_id]
     result[:grade]              = self[:grade]
-    result[:type]               = self[:type]
+    #    result[:type]               = self[:type]
     result[:name]               = self[:name]
     result[:credits]            = self[:credits]
     result[:short]              = self[:short]
@@ -225,7 +228,25 @@ class SelectedModule < ActiveRecord::Base
     cat_ids = Array.new
     self.categories.each { |c| cat_ids.push c.id }
     result[:categories]         = cat_ids.join(",")
+    result[:type] = "Custom" if self.class == CustomModule
     return result
+  end
+
+  def fill_with_import_data data
+    self[:module_id]            = data['module_id']
+    self[:grade]                = data['grade']
+    #    self[:type]                 = data['type']
+    self[:name]                 = data['name']
+    self[:credits]              = data['credits']
+    self[:short]                = data['short']
+    self[:parent_id]            = data['parent_id']
+    self[:category_id]          = data['category_id']
+    self[:permission_removed]   = data['permission_removed']
+    self[:has_grade]            = data['has_grade']
+    cat_ids = data['categories'].split(",")
+    cat_ids.each { |id| self.categories << Category.find(id.to_i) }
+    self[:type] = "CustomModule" if data['type'] == "Custom"
+    self.save
   end
 
 end
