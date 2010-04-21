@@ -226,14 +226,16 @@ class AndConnection < Connection
         " in diesem Bereich erforderlichen Module "
     end
     text += " eingebracht."
-    if self.removeable_grades > 0
-      text += "Außerdem wurden " + 
-        self.removed_grades(modules).to_s +
-        " von " +
-        self.removeable_grades.to_s +
-        " erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote."
-    else
-      text += "In dieser Kategorie ist das Streichen von Noten nicht zulässig."
+    unless rtex
+      if self.removeable_grades > 0
+        text += "Außerdem wurden " +
+          self.removed_grades(modules).to_s +
+          " von " +
+          self.removeable_grades.to_s +
+          " erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote."
+      else
+        text += "In dieser Kategorie ist das Streichen von Noten nicht zulässig."
+      end
     end
     return text
   end

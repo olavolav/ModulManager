@@ -48,6 +48,16 @@ class Connection < ActiveRecord::Base
     return modules
   end
 
+  def selected_modules selection
+    result = Array.new
+    selection.selection_modules.each do |modul|
+      if self.modules.include? modul.moduledata
+        result.push modul
+      end
+    end
+    return result
+  end
+
   def relevant_modules_in_selection(auswahl)
     relevante_module = Array.new
     self.modules.each do |modul|
