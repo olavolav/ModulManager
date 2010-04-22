@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session>
+  <version>
+    <id>2</id>
+    <short>PO SoSe 2009</short>
+  </version>
+  <focus>
+    <id>7</id>
+    <name>Nanostrukturphysik</name>
+  </focus>
+  <semester count="1">
+    <module parent_id="" category_id="34" permission_removed="" grade="1" name="" categories="" module_id="121" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="37" permission_removed="" grade="2" name="" categories="" module_id="180" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="37" permission_removed="" grade="3" name="" categories="" module_id="127" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="38" permission_removed="" grade="" name="" categories="" module_id="157" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="" type="Custom" permission_removed="" grade="" name="Sonstiges Modul: Mein Modul" categories="43,44" module_id="205" credits="12" short="custom#1" has_grade="false"/>
+  </semester>
+  <semester count="2">
+    <module parent_id="" category_id="34" permission_removed="" grade="4" name="" categories="" module_id="160" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="36" permission_removed="" grade="" name="" categories="" module_id="196" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="37" permission_removed="" grade="1" name="" categories="" module_id="162" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="38" permission_removed="" grade="2" name="" categories="" module_id="150" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="42" permission_removed="" grade="3" name="" categories="" module_id="158" credits="" short="" has_grade="true"/>
+  </semester>
+  <semester count="3">
+    <module parent_id="" category_id="34" permission_removed="" grade="4" name="" categories="" module_id="122" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="37" permission_removed="" grade="1" name="" categories="" module_id="126" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="35" permission_removed="" grade="2" name="" categories="" module_id="123" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="36" permission_removed="" grade="3" name="" categories="" module_id="191" credits="" short="" has_grade="true"/>
+  </semester>
+  <semester count="4">
+    <module parent_id="" category_id="34" permission_removed="" grade="4" name="" categories="" module_id="179" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="38" permission_removed="" grade="1" name="" categories="" module_id="174" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="35" permission_removed="" grade="2" name="" categories="" module_id="161" credits="" short="" has_grade="true"/>
+  </semester>
+  <semester count="5">
+    <module parent_id="" category_id="36" permission_removed="" grade="3" name="" categories="" module_id="125" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="35" permission_removed="" grade="4" name="" categories="" module_id="124" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="40" permission_removed="" grade="1" name="" categories="" module_id="200" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="41" permission_removed="" grade="2" name="" categories="" module_id="198" credits="" short="" has_grade="true"/>
+  </semester>
+  <semester count="6">
+    <module parent_id="" category_id="38" permission_removed="" grade="3" name="" categories="" module_id="149" credits="" short="" has_grade="true"/>
+    <module parent_id="" category_id="39" permission_removed="" grade="4" name="" categories="" module_id="186" credits="" short="" has_grade="true"/>
+  </semester>
+</session>

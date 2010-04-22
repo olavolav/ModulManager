@@ -217,11 +217,10 @@ class SelectedModule < ActiveRecord::Base
     result = Hash.new
     result[:module_id]          = self[:module_id]
     result[:grade]              = self[:grade]
-    #    result[:type]               = self[:type]
     result[:name]               = self[:name]
     result[:credits]            = self[:credits]
     result[:short]              = self[:short]
-    result[:parent_id]          = self[:parent_id]
+    #    result[:parent_id]          = self[:parent_id]
     result[:category_id]        = self[:category_id]
     result[:permission_removed] = self[:permission_removed]
     result[:has_grade]          = self[:has_grade]
@@ -233,20 +232,170 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def fill_with_import_data data
-    self[:module_id]            = data['module_id']
-    self[:grade]                = data['grade']
-    #    self[:type]                 = data['type']
-    self[:name]                 = data['name']
-    self[:credits]              = data['credits']
-    self[:short]                = data['short']
-    self[:parent_id]            = data['parent_id']
-    self[:category_id]          = data['category_id']
-    self[:permission_removed]   = data['permission_removed']
-    self[:has_grade]            = data['has_grade']
-    cat_ids = data['categories'].split(",")
-    cat_ids.each { |id| self.categories << Category.find(id.to_i) }
-    self[:type] = "CustomModule" if data['type'] == "Custom"
-    self.save
+    data.each do |key, val|
+      if val == ""
+        data[key] = nil
+      end
+    end
+    if SelectedModule.validate_data_import(data)
+      self[:module_id]            = data['module_id']
+      self.grade                  = data['grade']
+      self[:name]                 = data['name']
+      self[:credits]              = data['credits']
+      self[:short]                = data['short']
+      #    self[:parent_id]            = data['parent_id']
+      self[:category_id]          = data['category_id']
+      self[:permission_removed]   = data['permission_removed']
+      self[:has_grade]            = data['has_grade']
+      unless data['categories'] == "" || data['categories'] == nil
+        cat_ids = data['categories'].split(",")
+        cat_ids.each { |id| self.categories << Category.find(id.to_i) }
+      end
+      self[:type] = "CustomModule" if data['type'] == "Custom"
+      self.save
+      return true
+    else
+      return false
+    end
+  end
+
+  def grade=(grade)
+    if SelectedModule.check_grade(grade)
+      self[:grade] = grade if (grade.to_f >= 1.0 && grade.to_f <= 5.0) || grade == nil
+    end
+  end
+
+  def credits=(credits)
+    if SelectedModule.check_credits(credits)
+      self[:credits] = credits
+    end
+  end
+
+  def name=(name)
+    if SelectedModule.check_name(name)
+      self[:name] = name
+    end
+  end
+
+  def short=(short)
+    if SelectedModule.check_short(short)
+      self[:short] = short
+    end
+  end
+
+  def self.validate_data_import data
+    unless SelectedModule.check_grade(data['grade'].to_f)
+      puts "Falsche Note beim Import"
+      return false
+    end
+    unless SelectedModule.check_category_id(data['category_id'].to_i)
+      puts "Falsche Category_ID beim Import"
+      return false
+    end
+    unless SelectedModule.check_credits(data['credits'].to_i)
+      puts "Falsche Credits beim Import"
+      return false
+    end
+    unless SelectedModule.check_module_id(data['module_id'].to_i)
+      puts "Falsche Module_ID beim Import"
+      return false
+    end
+    unless SelectedModule.check_name(data['name'])
+      puts "Falscher Name beim Import"
+      return false
+    end
+    unless SelectedModule.check_permission_removed(data['permission_removed'])
+      puts "Falscher Parameter 'permission_removed' beim Import"
+      return false
+    end
+    unless SelectedModule.check_short(data['short'])
+      puts "Falsches Short beim Import"
+      return false
+    end
+    return true
+  end
+
+  def self.check_grade grade
+    grade = nil if grade == 0.0
+    allowed_classes = [Fixnum, Float, NilClass]
+    if allowed_classes.include? grade.class
+      if grade.to_f >= 1.0 && grade.to_f <= 5.0
+        return true
+      elsif grade == nil
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+
+  def self.check_credits credits
+    if credits.class == Fixnum
+      return true
+    else
+      return false
+    end
+  end
+
+  def self.check_module_id module_id
+    if module_id.class == Fixnum
+      if Studmodule.find(module_id) == nil
+        return false
+      else
+        return true
+      end
+    else
+      return false
+    end
+  end
+
+  def self.check_name name
+    if name != nil
+      forbidden_array = ["\\", "{", "}", "[", "]", "^"]
+      name.split("").each do |char|
+        if forbidden_array.include? char.to_s
+          return false
+        end
+      end
+    end
+    return true
+  end
+
+  def self.check_short short
+    if short != nil
+      forbidden_array = ["\\", "{", "}", "[", "]", "^"]
+      forbidden_array.each do |char|
+        if name.include? char
+          return false
+        end
+      end
+    end
+    return true
+  end
+
+  def self.check_category_id category_id
+    if category_id != nil
+      if category_id.class == Fixnum
+        if Category.find(category_id) == nil
+          return false
+        end
+      else
+        return false
+      end
+    end
+    return true
+  end
+
+  def self.check_permission_removed removed_parameter
+    if removed_parameter != nil
+      allowed_classes = ["true", "false"]
+      unless allowed_classes.include? removed_parameter
+        return false
+      end
+    end
+    return true
   end
 
 end

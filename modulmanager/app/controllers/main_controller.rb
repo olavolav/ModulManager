@@ -341,9 +341,12 @@ class MainController < ApplicationController
       semester.count = s.attributes['count']
       s.elements.each do |m|
         modul = SelectedModule.new
-        modul.fill_with_import_data(m.attributes)
-        modul.save
-        semester.modules << modul
+        if modul.fill_with_import_data(m.attributes)
+          modul.save
+          semester.modules << modul
+        else
+          puts "Fehler beim Import von Modul #{m.attributes['module_id']}"
+        end
       end
       semester.save
       selection.semesters << semester
