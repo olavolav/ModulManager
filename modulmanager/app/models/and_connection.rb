@@ -15,20 +15,11 @@ class AndConnection < Connection
             else
               if s_module.category != nil && s_module.category.exclusive != 1
                 if self.categories.include? s_module.category
-                  if s_module.credits == nil
-                    credits += s_module.moduledata.credits
-                  else
-                    credits += s_module.credits
-                  end
+                  credits += s_module.credits
                 end
               else
                 if self.modules.include? s_module.moduledata
-                  if s_module.credits == nil
-                    #                    credits += s_module.moduledata.credits
-                    credits += s_module.credits unless s_module.credits == nil
-                  else
-                    credits += s_module.credits
-                  end
+                  credits += s_module.credits
                 end
               end
             end
@@ -226,6 +217,11 @@ class AndConnection < Connection
   end
 
   def get_status_description_string_for_printing(modules, errors, rtex = false)
+
+    processing_modules = modules
+    modules = Array.new
+    processing_modules.each { |m| modules.push m if m.semester.count > 0 }
+
     text = "Die Anforderungen dieses Bereiches sind "
     if rtex
       if self.evaluate(modules, errors) != 1

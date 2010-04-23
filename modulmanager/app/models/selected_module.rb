@@ -16,6 +16,10 @@ class SelectedModule < ActiveRecord::Base
     :class_name => "Category",
     :foreign_key => "category_id"
 
+  def parent_selection
+    return self.semester.selection
+  end
+
   def is_head_module?
     if self.moduledata.children != nil && self.moduledata.children != []
       return true
@@ -396,6 +400,17 @@ class SelectedModule < ActiveRecord::Base
       end
     end
     return true
+  end
+
+  def is_permitted?
+    semester = self.parent_selection.semesters
+    semester.delete_if { |s| s.count <= 0 }
+    count = self.semester.count
+    if self.moduledata.permission == nil || self.permission_removed
+      return true
+    else
+      return self.moduledata.permission.evaluate(semester, count) == 1
+    end
   end
 
 end
