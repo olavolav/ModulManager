@@ -47,19 +47,28 @@
 
 Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausgewählt wurden.
 
-<% counter = 1 %>
-
+<% zusatz = nil %>
 <% @semesters.each do |s| %>
-
-\subsubsection*{<%= counter %>. Semester}
-
-\begin{compactitemize}
-    <% s.modules.each do |modul| %>
-        \item <%= modul.to_string_for_printing(@show_grades) %>
+    <% if s.count == 0 %>
+        <% zusatz = s %>
+    <% else %>
+        \subsubsection*{<%= s.count %>. Semester}
     <% end %>
-\end{compactitemize}
 
-<% counter += 1 %>
+    \begin{compactitemize}
+        <% s.modules.each do |modul| %>
+            \item <%= modul.to_string_for_printing(@show_grades) %>
+        <% end %>
+    \end{compactitemize}
+<% end %>
+
+<% unless zusatz == nil %>
+    \subsection*{Freiwillige Zusatzleistungen}
+    \begin{compactitemize}
+        <% zusatz.modules.each do |modul| %>
+            \item <%= modul.to_string_for_printing(@show_grades) %>
+        <% end %>
+    \end{compactitemize}
 <% end %>
 
 \subsection*{Auflistung nach Kategorien (``Studienberater-Ansicht'')}

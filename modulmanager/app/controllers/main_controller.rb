@@ -107,7 +107,7 @@ class MainController < ApplicationController
     @version = @selection.version
     @modules = @selection.selection_modules
     @grade = get_note
-    @semesters = @selection.semesters
+    @semesters = @selection.semesters.find(:all, :order => "count ASC")
     @errors = get_errors @selection
 
     @show_grades = (params[:grades] == "true")
