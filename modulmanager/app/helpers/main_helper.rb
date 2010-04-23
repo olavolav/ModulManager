@@ -29,7 +29,20 @@ module MainHelper
     elsif r.child_connections == []
       return "#{element}"
     end
+  end
 
+  def rtex_ao_message selected_module
+    messages = Array.new
+    if selected_module.has_removed_grade?
+      messages.push "Note gestrichen"
+    end
+    if selected_module.has_changed_credits?
+      messages.push "Credits geändert"
+    end
+    if selected_module.has_removed_permission?
+      messages.push "Warnungen deaktiviert"
+    end
+    return messages.join(", ")
   end
 
 end

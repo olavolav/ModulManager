@@ -413,4 +413,22 @@ class SelectedModule < ActiveRecord::Base
     end
   end
 
+  def has_changed_credits?
+    unless self[:credits] == nil
+      return true
+    end
+    return false
+  end
+
+  def has_removed_permission?
+    if self[:permission_removed] == true
+      return true
+    end
+    return false
+  end
+
+  def has_removed_grade?
+    return !self.has_grade
+  end
+
 end
