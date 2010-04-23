@@ -260,8 +260,8 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def grade=(grade)
-    if SelectedModule.check_grade(grade)
-      self[:grade] = grade if (grade.to_f >= 1.0 && grade.to_f <= 5.0) || grade == nil
+    if SelectedModule.check_grade(grade.to_f)
+      self[:grade] = grade
     end
   end
 
