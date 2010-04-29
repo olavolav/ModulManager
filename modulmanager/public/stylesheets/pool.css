@@ -1,16 +1,6 @@
-/* Diese Angaben finden sich jetzt in global.css
-.pool_modul ,.custom_modul, .pool_modul_copy {
-		margin-bottom    : 5px;
-		padding          : 1px 1px 0px 1px;
-		border           : 1px #3b809d outset;
-		cursor			 : move;
-		min-width        : 200px;
-		background: #d8eef7 url("../images/Modul-Hintergrund.gif");
-		background-repeat: repeat-x;
-		background-position: top left;
-		background: #d8eef7;
-		border: 1px #c8dee7 solid;
-} */
+/* Copyright 2009,2010 adiungi GmbH, http://www.adiungi.de
+for licensing questions please refer to the README
+Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 .pool_category {
 		padding: 2px;

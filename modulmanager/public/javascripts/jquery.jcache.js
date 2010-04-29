@@ -1,3 +1,7 @@
+/* Copyright 2009,2010 adiungi GmbH, http://www.adiungi.de
+for licensing questions please refer to the README
+Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
+
 /**
  * jCache - A client cache plugin for jQuery
  * Should come in handy when data needs to be cached in client to improve performance.

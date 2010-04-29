@@ -1,3 +1,7 @@
+/* Copyright 2009,2010 adiungi GmbH, http://www.adiungi.de
+for licensing questions please refer to the README
+Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
+
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 //  diese Funktion ueberblickrekursiv() gibt den �berblick in der linken Spalten.-//
 //  die gibt alle Fehlern und Warnungen aus.                                      //

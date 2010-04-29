@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100304231518) do
+ActiveRecord::Schema.define(:version => 20100422120848) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(:version => 20100304231518) do
     t.string   "name"
     t.integer  "credits"
     t.string   "short"
-    t.integer  "parent_id"
     t.integer  "category_id"
     t.boolean  "permission_removed"
     t.boolean  "has_grade",          :default => true

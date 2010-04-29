@@ -3,7 +3,6 @@ BUGS
 Hohe Priorität (Deadline):
 ==========================
 
-29. Copyright-Angaben hinzufügen (Olav)
 45. Kurzform der Fehlermeldungen ("Problematik") in den PDF-Export einbinden, d.h. den gleichen Text, aber ohne die teilweise länglichen Modul-Listen - hier fehlt nur noch der SP (Christian)
 103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzlichen MatNat-Combobox-Eintrag (Christian)
 143. Datenschutzhinweise hinzufügen (Olav)
@@ -206,6 +205,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 135. Mail von SK vom 24.03.10: im PDF steht nicht, dass man Noten gestrichen hat (Olav)
 160. Module mit Fehlern tauchen im PDF in der chronologischen Ansicht zwar auf, aber ohne Hinweis, und bei den Kategorien gar nicht. Als Minimal-Lösung müsste da in der chronologischen Auflistung ein Hinweis hin (Christian)
 158. Ich kann momentan trotz DB-Löschen etc. keine Noten berechnen, die kommen nicht im Backend an (Christian)
+29. Copyright-Angaben hinzufügen (Olav)
 
 
 Nicht behoben:

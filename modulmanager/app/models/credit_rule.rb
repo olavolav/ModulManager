@@ -1,3 +1,7 @@
+# Copyright 2009,2010 adiungi GmbH, http://www.adiungi.de
+# for licensing questions please refer to the README
+# Created by Christian Beulke, Van Quan Nguyen and Olav Stetter
+
 class CreditRule < Rule
 
   def collected_credits selected_modules, non_permitted_modules = nil
