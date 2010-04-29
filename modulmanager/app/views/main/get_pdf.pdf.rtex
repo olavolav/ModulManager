@@ -59,9 +59,7 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
         <% s.modules.each do |modul| %>
             \item <%= modul.to_string_for_printing(@show_grades) %>
 			<%= rtex_ao_message(modul) %>
-            <% unless modul.is_permitted? %>
-                Die Voraussetzungen für dieses Modul sind nicht erfüllt.
-            <% end %>
+            <% unless modul.is_permitted? %>Warnung: Die Voraussetzungen für dieses Modul sind nicht erfüllt. Es wird nur in der chronologischen Ansicht angezeigt, nicht jedoch in der Ansicht nach Kategorien (siehe unten).<% end %>
         <% end %>
     \end{compactitemize}
 <% end %>
@@ -90,9 +88,7 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
             <% cat.collected_modules_array(@selection.selection_modules, @errors).each do |m| %>
                 \item <%= m.to_string_for_printing(@show_grades) %>
 				<%= rtex_ao_message(m) %>
-                <% unless m.is_permitted? %>
-                    Die Voraussetzungen für dieses Modul sind nicht erfüllt.
-                <% end %>
+                <% unless m.is_permitted? %>Die Voraussetzungen für dieses Modul sind nicht erfüllt.<% end %>
             <% end %>
         \end{compactitemize}
     <% end %>
