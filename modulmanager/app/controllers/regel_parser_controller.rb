@@ -339,6 +339,8 @@ class RegelParserController < ApplicationController
         if group["untergruppen"] == nil
 #          c.modus = group["modus"]
           modules = Studmodule::get_array_from_module_string group["module"]
+          # (Test OS) logger.warn "get_array_from_module_string: "+(group["module"]).to_s
+          
           c.modules = modules
           unless group["dummies"] == nil
             group["dummies"].times do

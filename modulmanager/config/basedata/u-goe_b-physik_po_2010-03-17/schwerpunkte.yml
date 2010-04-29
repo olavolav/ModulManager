@@ -1,0 +1,114 @@
+---
+
+  - name: Nanostrukturphysik
+    beschreibung:
+    kategorien:
+
+      - name: Pflicht
+        module: B.Phy.503, B.Phy.403
+        anzahl: 2
+        credits: 12
+        modus: wp
+
+      - name: Spezielle Themen
+        module: B.Phy.507
+        anzahl: 1
+        credits: 12
+        modus: wp
+
+      - name: Profilierungsbereich
+        module: B.Bwl.02, B.OPH.07, B.Bwl.04
+        anzahl: 1
+        credits: 6
+        modus: wp
+
+
+  - name: Physikinformatik
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Inf.509, B.Inf.510, B.Phy.404
+        anzahl: 3
+        credits: 18
+        modus: wp
+      - name: Profilierungsbereich
+        module: B.Win.01, B.Win.04, B.Win.23
+        anzahl: 1
+        credits: 6
+        modus: wp
+
+  - name: Astro- und Geophysik
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Phy.501, B.Phy.405
+        anzahl: 2
+        credits: 12
+        modus: wp
+      - name: Spezielle Themen
+        module: B.Phy.505
+        anzahl: 1
+        credits: 12
+        modus: wp
+      - name: Profilierungsbereich
+        module: B.Phy.502, B.Phy.504
+        anzahl: 1
+        credits: 6
+        modus: wp
+
+  - name: Biophysik und Physik komplexer Systeme
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Phy.502, B.Phy.406
+        anzahl: 2
+        credits: 12
+        modus: wp
+      - name: Spezielle Themen
+        module: B.Phy.506
+        anzahl: 1
+        credits: 12
+        modus: wp
+      - name: Profilierungsbereich
+        module: B.Phy.501, B.Phy.503
+        anzahl: 1
+        credits: 6
+        modus: wp
+
+  - name: Festkörper- und Materialphysik
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Phy.503, B.Phy.407
+        anzahl: 2
+        credits: 12
+        modus: wp
+      - name: Spezielle Themen
+        module: B.Phy.507
+        anzahl: 1
+        credits: 12
+        modus: wp
+      - name: Profilierungsbereich
+        module: B.Phy.502, B.Phy.504
+        anzahl: 1
+        credits: 6
+        modus: wp
+
+  - name: Kern- und Teilchenphysik
+    beschreibung:
+    kategorien:
+      - name: Pflicht
+        module: B.Phy.504, B.Phy.408
+        anzahl: 2
+        credits: 12
+        modus: wp
+      - name: Spezielle Themen
+        module: B.Phy.508
+        anzahl: 1
+        credits: 12
+        modus: wp
+      - name: Profilierungsbereich
+        module: B.Phy.501, B.Phy.503
+        anzahl: 1
+        credits: 6
+        modus: wp
