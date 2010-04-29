@@ -33,16 +33,21 @@ module MainHelper
 
   def rtex_ao_message selected_module
     messages = Array.new
-    if selected_module.has_removed_grade?
-      messages.push "Note gestrichen"
-    end
+    # Note gestrichen kommt schon im Noten-Feld vor (OS)
+    # if selected_module.has_removed_grade?
+    #   messages.push "Note gestrichen"
+    # end
     if selected_module.has_changed_credits?
-      messages.push "Credits geändert"
+      messages.push "die Credits verändert"
     end
     if selected_module.has_removed_permission?
-      messages.push "Warnungen deaktiviert"
+      messages.push "eventuelle Warnungen deaktiviert"
     end
-    return messages.join(", ")
+    resultString = messages.join(" und ")
+    if resultString.length > 0
+      resultString = "\\\\Bitte beachten: Bei diesem Modul wurden " + resultString
+    end
+    return resultString
   end
 
 end

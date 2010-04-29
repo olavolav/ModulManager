@@ -15,8 +15,9 @@ Hohe Priorität (Deadline):
 158. Ich kann momentan trotz DB-Löschen etc. keine Noten berechnen, die kommen nicht im Backend an (Christian)
 159. Die 'Freiwilligen Zusatzleistungen' tauchen im PDF als z.B. '7. Semester' auf (Christian)
 160. Module mit Fehlern tauchen im PDF in der chronologischen Ansicht zwar auf, aber ohne Hinweis, und bei den Kategorien gar nicht. Als Minimal-Lösung müsste da in der chronologischen Auflistung ein Hinweis hin (Christian)
-161. Die anderen AO werden im PDF scheinbar ignoriert, also geänderte Credits zum Beispiel, da müsste ein Hinweis hin (Christian)
 162. Die Summierung der Credits im PDF stimmt irgendwie nicht - die aufgeführten Module stimmen aber, soweit ich das sehe, s. entspr. Mail von OS (Christian)
+163. Dummy-Module werden stets mit 0 Credits initialisiert, unabhängig von der Eingabe (Christian)
+164. In die "Freiwillige Zusatzleistungen"-Box gezogene Module verschwinden im Backend einfach (Christian)
 
 
 Niedrige Priorität:
@@ -204,6 +205,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 138. Mail von SK vom 26.03.10: Nachdem ich den Plan abgespeichert und neu importiert hatte, hatte er einige Noten vergessen und der WP-Bereich ist komisch: "Er gibt mir 24 Credits für spez. Themen, obwohl ich nur 12 C sehe. Das könnte daran liegen, dass ich zwischendurch mal mehr spez. Themen hatte, die ich gelöscht habe" (Christian)
 146. Überprüfung der Benutzereingaben, insbesondere beim Input, s. Mail von AG vom 31.03.10 (Christian)
 51. Daten / Modul-IDs aus UniVZ herausfinden und in module.yml eintragen; davor raus finden, wie wir die UNiVZ-Anbindung machen sollen (Olav)
+161. Die anderen AO werden im PDF scheinbar ignoriert, also geänderte Credits zum Beispiel, da müsste ein Hinweis hin (Christian)
 
 
 Nicht behoben:

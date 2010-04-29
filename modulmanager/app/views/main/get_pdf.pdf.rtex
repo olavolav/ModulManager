@@ -58,10 +58,10 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
     \begin{compactitemize}
         <% s.modules.each do |modul| %>
             \item <%= modul.to_string_for_printing(@show_grades) %>
+			<%= rtex_ao_message(modul) %>
             <% unless modul.is_permitted? %>
                 Die Voraussetzungen für dieses Modul sind nicht erfüllt.
             <% end %>
-            <%= rtex_ao_message(modul) %>
         <% end %>
     \end{compactitemize}
 <% end %>
@@ -71,8 +71,8 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
     \begin{compactitemize}
         <% zusatz.modules.each do |modul| %>
             \item <%= modul.to_string_for_printing(@show_grades) %>
+			<%= rtex_ao_message(modul) %>
         <% end %>
-        <%= rtex_ao_message(modul) %>
     \end{compactitemize}
 <% end %>
 
@@ -89,10 +89,10 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
         \begin{compactitemize}
             <% cat.collected_modules_array(@selection.selection_modules, @errors).each do |m| %>
                 \item <%= m.to_string_for_printing(@show_grades) %>
+				<%= rtex_ao_message(m) %>
                 <% unless m.is_permitted? %>
                     Die Voraussetzungen für dieses Modul sind nicht erfüllt.
                 <% end %>
-                <%= rtex_ao_message(m) %>
             <% end %>
         \end{compactitemize}
     <% end %>
