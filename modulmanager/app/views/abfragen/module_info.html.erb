@@ -4,7 +4,7 @@
   <p class='short'>Kurzbezeichnung: <%= @short %></p>
   <p class='credits'>Credits: <%= @credits %></p>
   <% if @univz_link != nil %>
-    <p class="univz">UniVZ-Link (Dummy): <a href="<%= @univz_link %>" target="_blank"><%= @name %></a></p>
+    <p class="univz">Externe Links: <a href="<%= @univz_link %>" target="_blank">Suche nach Modul in UniVZ</a></p>
   <% end %>
 
   <!-- Der folgene Teil ist natürlich noch nicht fertig, Dummy-Module fehlen (OS) -->
@@ -39,7 +39,3 @@
   </ul></p>
 <% end %>
 </div>
-<!-- <div id="has_grade" style="display:none;"><%#= @has_grade %></div>
-<div id="has_warning" style="display: none;"><%#= @has_warning %></div>
-<div id="custom_credits" style="display: none;"><%#= @custom_credits %></div>
-<div id="has_general_grade" style="display: none;"><%#= @has_general_grade %></div> -->

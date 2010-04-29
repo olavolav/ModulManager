@@ -95,15 +95,15 @@ class AbfragenController < ApplicationController
       @short        = m2.moduledata.short
       #      m2.credits == nil ? @credits = m2.moduledata.credits : @credits = m2.credits
       if m2.moduledata.univzid != nil
-        @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +
-          "?expand=0" +
-          "&moduleCall=webinfo" +
-          "&publishConfFile=webinfo&" +
-          "publishSubDir=veranstaltung" +
-          "&publishid=#{m2.moduledata.univzid}" +
-          "&state=verpublish" +
-          "&status=init" +
-          "&vmfile=no"
+        if m2.moduledata.univzid == "Automatisch"
+          @univz_link = "http://univz.uni-goettingen.de/qisserver/rds?state=change&type=3&" +
+          "moduleParameter=pordpos_sk&nextdir=change&next=TableSelect.vm&subdir=pord&pord.pltxt1=%22" +
+          @short + "%22&P_start=0&P_anzahl=20"
+        else
+          @univz_link = "http://univz.uni-goettingen.de/qisserver/rds?state=change&type=3&" +
+          "moduleParameter=pordpos_sk&nextdir=change&next=TableSelect.vm&subdir=pord&pord.pltxt1=%22" +
+          m2.moduledata.univzid + "%22&P_start=0&P_anzahl=20"
+        end
       else
         @univz_link = nil
       end
