@@ -212,6 +212,11 @@ class MainController < ApplicationController
 #        @categories.push category
 #      end
     end
+    found = false
+    @categories.each {|cat| found = true if cat.exclusive != 1}
+    unless found
+      @categories = Array.new
+    end
     respond_to do |format|
       format.html { render :action => "combo_category", :layout => false }
     end
