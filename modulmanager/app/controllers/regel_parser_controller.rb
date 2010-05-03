@@ -334,6 +334,8 @@ class RegelParserController < ApplicationController
         c.visible = visible
         c.position = group["position"]
 
+        c.unique_name = group["auswahl-name"]
+
         c.modus = group["modus"]
           
         if group["untergruppen"] == nil

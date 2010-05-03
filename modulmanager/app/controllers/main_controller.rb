@@ -204,9 +204,13 @@ class MainController < ApplicationController
 
     @categories = Array.new
     mod.categories.each do |category|
-      unless category.exclusive == 1 || category.focus != nil
+      unless category.focus != nil
         @categories.push category
       end
+
+#      unless category.exclusive == 1 || category.focus != nil
+#        @categories.push category
+#      end
     end
     respond_to do |format|
       format.html { render :action => "combo_category", :layout => false }

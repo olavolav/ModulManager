@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100422120848) do
+ActiveRecord::Schema.define(:version => 20100503073200) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20100422120848) do
     t.integer  "grade_remove", :default => 0
     t.integer  "exclusive",    :default => 0
     t.integer  "position"
+    t.string   "unique_name"
   end
 
   create_table "categories_selected_modules", :id => false, :force => true do |t|

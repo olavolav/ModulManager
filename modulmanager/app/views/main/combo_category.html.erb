@@ -7,7 +7,7 @@
           value="<%= category.id %>"
           <%= "selected" if category.id == @selected_cat.id %>
           >
-            <%= category.name %>
+            <%= category.unique_name == nil ? category.name : category.unique_name %>
         </option>
       <% end %>
       <%#*<option value="1612">Einführungen</option>%>
