@@ -245,7 +245,7 @@ class AndConnection < Connection
       else
         text += "<span style='color: green;'>erfüllt.</span>"
       end
-      text += "</strong><br />"
+      text += "</strong><br>"
     end
     text += "Es werden momentan " +
       self.collected_credits(modules, errors).to_s +
@@ -262,7 +262,7 @@ class AndConnection < Connection
     text += " eingebracht."
     unless rtex
       if self.removeable_grades > 0
-        text += "Außerdem wurden " +
+        text += " Außerdem wurden " +
           self.removed_grades(modules).to_s +
           " von " +
           self.removeable_grades.to_s +
