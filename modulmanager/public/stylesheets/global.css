@@ -64,6 +64,10 @@ a:visited {
 	background-position: top left;
 }
 
+#unilogo {
+	float: right;
+}
+
 /* Angaben zu den Pin-Icons (OS)*/
 #ueberblick-pin-passiv, #ueberblick-pin-aktiv, #pool-pin-passiv, #pool-pin-aktiv {
 	float: right;
@@ -141,17 +145,13 @@ a:visited {
 }
 
 #minihelp{
+	clear: right;
 	float: right;
-	/* border: 1px #909090 outset;
-	background: white; */
 	border: 1px #F0F0F0 solid;
 	background: #FAFAFD;
 	width: 50%;
-	padding: 10px;
-	margin-right: 10px;
-	/* background: white url("../images/Pool-Hintergrund.gif");
-	background-repeat: repeat;
-	background-position: top left;	*/
+	padding: 4px;
+	margin: 4px;
 }
 
 #content {
