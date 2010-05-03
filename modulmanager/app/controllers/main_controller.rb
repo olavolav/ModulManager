@@ -8,9 +8,10 @@ class MainController < ApplicationController
   $DebugMode = false
   
   def start
-    @schwerpunkte = Focus.all
-    @version = current_selection.version
-    @mein_schwerpunkt = current_selection.focus
+    selection = current_selection
+    @schwerpunkte = Focus.find(:all, :conditions => "version_id = #{selection.version.id}")
+    @version = selection.version
+    @mein_schwerpunkt = selection.focus
     respond_to do |format|
       format.html { render :action => "start" }
     end
