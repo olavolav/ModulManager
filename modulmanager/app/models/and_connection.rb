@@ -268,7 +268,7 @@ class AndConnection < Connection
           self.removeable_grades.to_s +
           " erlaubten Noten gestrichen und zählen somit nicht mit in die Gesamtnote."
       else
-        text += "In dieser Kategorie ist das Streichen von Noten nicht zulässig."
+        text += " In dieser Kategorie ist das Streichen von Noten nicht zulässig."
       end
     end
     return text
