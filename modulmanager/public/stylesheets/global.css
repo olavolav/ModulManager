@@ -4,6 +4,9 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 html {
 	background: white;
+	position: absolute;
+	width: 100%;
+	min-width: 1000px;
 }
 
 *{padding: 0; margin: 0;}
@@ -42,8 +45,7 @@ a:visited {
 #container{
 /*	background-color: white;*/
 	/*height:3000px;*/
-	width: 100%;
-	min-width: 1000px;
+	/*width: 100%;*/
 	
 }
 
