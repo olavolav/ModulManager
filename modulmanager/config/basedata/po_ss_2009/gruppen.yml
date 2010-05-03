@@ -107,21 +107,19 @@
 
   - name: Nicht Physikalisch
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
+    # Module aus der Mathematik sind hier nicht gelistet, da diese nach unserer Auswahl (PO+StO) alles
+    # Pflicht-Module sind. Würde momentan auch im Frontend nicht klar dargestellt werden. (OS)
+    auswahl-name: "Nicht-Phys. (Profilierungsbereich)"
     module: "B.Bio.118, B.Bio.112, B.Bwl.02, B.OPH.07, B.Bwl.04, B.Win.01, B.Win.04, B.Win.23, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3"
     credits: 12
     überschneidung: mehrfach
     dummies: 18
 
-#  - name: Mathematisch-Naturwissenschaftlich
-#    auswahl-name: Math.-Nat. (Profilierungsbereich)
-#    module: "B.Phy.606, B.Bio.118, B.Bio.112, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3"
-#    credits: 6
-#    beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
-#    überschneidung: mehrfach
-#    dummies: 18
-
   - name: Mathematisch-Naturwissenschaftlich
-    auswahl-name: Math.-Nat. (Profilierungsbereich)
+    auswahl-name: "Math.-Nat. (Profilierungsbereich)"
+    # Hier sind auch sämtliche Module der Wahlpflicht-Bereiche "Einführungen" und "Spezielle Themen"
+    # aufgelistet. Module aus dem Bereich "Spezialisierungs-Praktikum" könnten zwar prinzipiell auch
+    # eingebracht werden, aber das lassen wir nicht zu, da es kein realistischer Fall ist (->AS)
     module: "B.Phy.606, B.Bio.118, B.Bio.112, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3, B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.510, B.Phy.510.2, B.Phy.511, B.Phy.511.2, B.Phy.551, B.Phy.552, B.Phy.553, B.Phy.553.2, B.Phy.554, B.Phy.554.2, B.Phy.561, B.Phy.562, B.Phy.563, B.Phy.563.2, B.Phy.564, B.Phy.564.2, B.Phy.571, B.Phy.572, B.Phy.573, B.Phy.573.2, B.Phy.574, B.Phy.574.2, B.Phy.581, B.Phy.582, B.Phy.583, B.Phy.583.2, B.Phy.584, B.Phy.584.2, B.Phy.591, B.Phy.592, B.Phy.593, B.Phy.593.2, B.Phy.594, B.Phy.594.2"
     credits: 6
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
