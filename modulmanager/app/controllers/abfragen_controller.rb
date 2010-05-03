@@ -59,8 +59,9 @@ class AbfragenController < ApplicationController
   end
 
   def pool
-    @root = Category.find(:first, :conditions => "category_id IS null")
-    @schwerpunkte = Focus.all
+    selection = current_selection
+    @root = Category.find(:first, :conditions => "category_id IS null AND version_id = #{selection.version.id}")
+    @schwerpunkte = Focus.find(:all, :conditions => "version_id = #{selection.version.id}")
     respond_to do |format|
       format.xml { render :action => "pool", :layout => false }
     end

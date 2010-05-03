@@ -71,6 +71,13 @@ EOF
   end
 
   def build_xml_bachelor_recursive(c, xml, modus)
+
+    puts "---"
+    puts c.name
+    puts c.id
+    puts c.sub_categories.length
+    puts "---"
+
     modus = c.modus unless c.modus == nil
     if c.sub_categories == [] && c.modules != []
 
