@@ -322,14 +322,14 @@ var show_navi = function(){
     $("#navimoveup").show();
 };
 var hide_navi = function(){
-    $("#navi_optional").slideUp();
     $("#navimovedown").show();
     $("#navimoveup").hide();
     $("#help_optional").hide();
     $("#helpmovedown").show();
+    $("#navi_optional").slideUp();
 };
 var show_minihelp = function(){
-    $("#help_optional").slideDown();
+    $("#help_optional").show();
     $("#helpmovedown").hide();
 };
 
