@@ -37,6 +37,12 @@ class MainController < ApplicationController
     end
   end
 
+  def impressum
+    respond_to do |format|
+      format.html { render :layout => "rest" }
+    end
+  end
+
   def export
     respond_to do |format|
       format.html { render :layout => "rest" }
