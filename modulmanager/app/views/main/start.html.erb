@@ -11,38 +11,31 @@
 
   <div id="schwerpunkt">
 		Bitte Schwerpunkt auswählen:<br/>
-		(Bitte beachten: Die Schwerpunkte <i>Nanostrukturphysik</i> und <i>Physikinformatik</i> sind als berufsqualifizierende Bachelor-Abschlüsse konzipiert. Es wird dringend empfohlen, sich bei Wahl einer dieser Schwerpunkte direkt an die Studienberatung der Fakultät Physik zu wenden.)
+		(Bitte beachten: Die Schwerpunkte <i>Nanostrukturphysik</i> und <i>Physikinformatik</i> sind als berufsqualifizierende Bachelor-Abschlüsse konzipiert. Es wird dringend empfohlen, sich bei Wahl einer dieser Schwerpunkte direkt an die Studienberatung der Fakultät Physik zu wenden.)<br>
 		
-    <% selection = current_selection %>
-    <ul>
+	<% selection = current_selection %>
       <% (@mein_schwerpunkt == nil) ? class_tag = "active" : class_tag = "passive" %>
-      <a onClick='javascript:update_schwerpunkt(-1);'>
-        <li class='schwerpunkt_oben <%= class_tag %>' id="-1" >Kein Schwerpunkt</li>
+      <a onClick='javascript:update_schwerpunkt(-1);'class='schwerpunkt_oben <%= class_tag %>' id="-1">
+        Kein Schwerpunkt
       </a>
       <% @schwerpunkte.each do |s| %>
         <% class_tag = "passive" %>
         <% ((@mein_schwerpunkt.id == s.id) ? class_tag = "active" : class_tag = "passive") unless @mein_schwerpunkt == nil %>
-        <a onClick='javascript:update_schwerpunkt(<%= s.id %>);'>
-          <li class='schwerpunkt_oben <%= class_tag %>' id='<%= s.id %>'>
+        <a onClick='javascript:update_schwerpunkt(<%= s.id %>);' class='schwerpunkt_oben <%= class_tag %>' id='<%= s.id %>'>
             <%= s.name %>
-          </li>
         </a>
       <% end %>
-    </ul>
   </div>
 
   <div id="pruefungsordnung">
-	Bitte Prüfungsordnung auswählen:<br/>
-    <ul>
-      <% Version.all.each do |po| %>
-        <% (selection.version.id == po.id) ? class_tag = "active" : class_tag = "passive" %>
-        <a onClick='javascript:update_pordnung(<%= po.id %>);'>
-          <li class='pruefungsordnung <%= class_tag %>' id='<%= po.id %>'>
-            <%= po.name %>
-          </li>
-        </a>
-      <% end %>
-    </ul>
+	Bitte Prüfungsordnung auswählen:<br>
+	
+    <% Version.all.each do |po| %>
+      <% (selection.version.id == po.id) ? class_tag = "active" : class_tag = "passive" %>
+      <a onClick='javascript:update_pordnung(<%= po.id %>);'class='pruefungsordnung <%= class_tag %>' id='<%= po.id %>'>
+          <%= po.name %>
+      </a>
+    <% end %>
   </div>
 
 
@@ -59,7 +52,7 @@
     <div class="clear">&nbsp;</div>
   </div>
 
-	<p><%= link_to"Impressum und unsere Erklärung zum Datenschutz", :action => "impressum" %></p>
+	<p><%= link_to "Impressum und unsere Erklärung zum Datenschutz", :action => "impressum" %></p>
 
 </div>
 

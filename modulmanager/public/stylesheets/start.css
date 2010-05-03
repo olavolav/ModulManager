@@ -15,7 +15,7 @@ p {
 	margin-top: 12px;
 }
 
-ul li{
+#schwerpunkt a, #pruefungsordnung a {
 	width: 30%;
 	min-height: 35px;
 	list-style-type:none;
