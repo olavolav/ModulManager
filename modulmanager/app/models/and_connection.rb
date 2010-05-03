@@ -21,6 +21,10 @@ class AndConnection < Connection
                 if self.categories.include? s_module.category
                   credits += s_module.credits
                 end
+              elsif s_module.category != nil && s_module.category.exclusive == 1
+                if self.exclusive_modules.include? s_module.moduledata
+                  credits += s_module.credits
+                end
               else
                 if self.modules.include? s_module.moduledata
                   credits += s_module.credits

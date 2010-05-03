@@ -52,6 +52,31 @@ class Connection < ActiveRecord::Base
     return modules
   end
 
+  def exclusive_modules
+    modules = Array.new
+
+    if self.child_rules.length > 0
+      self.child_rules.each do |rule|
+        unless rule.category == nil
+          if rule.category.exclusive == 1
+            modules = modules.concat rule.category.modules
+          end
+        end
+      end
+    end
+
+
+    if self.child_connections.length > 0
+      self.child_connections.each do |connection|
+        modules = modules.concat connection.exclusive_modules
+      end
+    end
+
+    modules.uniq!
+
+    return modules
+  end
+
   def selected_modules selection
     result = Array.new
     selection.selection_modules.each do |modul|
