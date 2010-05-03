@@ -4,7 +4,6 @@
 \usepackage[ngerman]{babel}
 % \usepackage{microtype,fixltx2e,mparhack,graphicx,url}
 \usepackage{fixltx2e,graphicx,url}
-% \usepackage[pdftex,bookmarks=true,hypertexnames=false,bookmarksnumbered=true]{hyperref}
 \usepackage{textcomp}
 \usepackage{vmargin}
 \usepackage[scaled=0.9]{helvet}
@@ -19,6 +18,8 @@
 \setmargnohfrb{18mm}{18mm}{18mm}{18mm}
 \newenvironment{compactitemize}{\begin{itemize}\itemsep -2pt}{\end{itemize}}
 
+\usepackage[pdftex,bookmarks=true]{hyperref}
+
 \begin{document}
 
 \begin{figure}[h]
@@ -26,8 +27,7 @@
 \includegraphics[width=7cm]{../../../public/images/LaTeX/LogoMMbeta.pdf}
 \end{figure}
 
-
-%\section*{ModulManager der Fakultät Physik}
+\section*{ModulManager der Fakultät Physik}
 
 \noindent Vielen Dank, dass Sie den ModulManager der Fakultät Physik der Universität Göttingen benutzt haben. Wir hoffen, er war Ihnen behilflich.
 
@@ -42,8 +42,8 @@
 	\item Erstellt am \today{} mit ModulManager-Version <%= $MMversion %>
 \end{compactitemize}
 
-
 \subsection*{Chronologische Auflistung}
+%\currentpdfbookmark{text}{name}
 
 Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausgewählt wurden.
 
@@ -74,7 +74,7 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
     \end{compactitemize}
 <% end %>
 
-\subsection*{Auflistung nach Kategorien (``Studienberater-Ansicht'')}
+\subsection{Auflistung nach Kategorien (``Studienberater-Ansicht'')}
 
 Es folgt eine Auflistung der von Ihnen gewählten Module nach den Kategorien der von Ihnen gewählten Prüfungsordnung.
 Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs bei der Studienberatung zu nutzen, nehmen Sie bitte den folgenden Abschnitt dorthin mit.
@@ -98,9 +98,9 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
 
 \subsection*{Weitere Informationen (Stand: 22.10.09)}
 
-Falls Sie noch Fragen haben, stehen Ihnen die Studienberater gern zu einem persönlichen Gespräch zur Verfügung.
+Falls Sie noch Fragen haben, stehen Ihnen die \href{http://www.uni-goettingen.de/de/40392.html}{Studienberater} gern zu einem persönlichen Gespräch oder auch per \href{mailto:studienberatung_bachelor@physik.uni-goettingen.de}{e-Mail} zur Verfügung.
 Sprechzeiten nach Vereinbarung.
 
-Alternativ können Sie sich an die Zentrale Studienberatung (Wilhelmsplatz 4, Tel. +49 (0)551 / 39-113) wenden.
+Alternativ können Sie sich an die \href{http://www.uni-goettingen.de/de/1697.html}{Zentrale Studienberatung} (Wilhelmsplatz 4, Tel. +49 (0)551 / 39-113) wenden.
 
 \end{document}
