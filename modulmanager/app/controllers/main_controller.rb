@@ -6,6 +6,7 @@ class MainController < ApplicationController
   
   $MMversion = "1 (beta)"
   $DebugMode = false
+  $JavaScriptFilesCompiled = false
   
   def start
     selection = current_selection

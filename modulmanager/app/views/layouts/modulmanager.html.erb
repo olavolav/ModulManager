@@ -17,12 +17,16 @@
     <script type="text/javascript" src="javascripts/jquery-1.4.2.min.js"> </script>
     <script type="text/javascript" src="javascripts/jquery-ui-1.7.2.custom.min.js"></script>
 
+<% if $JavaScriptFilesCompiled %>
+	<script type="text/javascript" src="javascripts/modulmanager.js"></script>
+<% else %>
     <script type="text/javascript" src="javascripts/global_javascript.js"></script>
     <script type="text/javascript" src="javascripts/ueberblick.js"></script>
     <script type="text/javascript" src="javascripts/pooleffect.js"></script>
     <script type="text/javascript" src="javascripts/jquery.quicksearch.js"></script>
-	<script type="text/javascript" src="javascripts/jquery.jcache.js"></script>   
-	<!-- <script type="text/javascript" src="javascripts/modulmanager.js"></script> -->
+	<script type="text/javascript" src="javascripts/jquery.jcache.js"></script>
+<% end %>
+	  
 	<script type="text/javascript" charset="utf-8">
 					
       // es geht hier um unseres Quicksearch, das mit der Datei
