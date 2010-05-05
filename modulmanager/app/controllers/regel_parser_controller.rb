@@ -339,7 +339,7 @@ class RegelParserController < ApplicationController
           children = data["sub-module"].split(",")
           children.each do |child|
             child.strip!
-            fault = true if Studmodule.find(:first, :conditions => "short = '#{child}'") == nil
+            fault = true if Studmodule.find(:first, :conditions => "short = '#{child}' AND version_id = #{version.id}") == nil
           end
           m.children = Studmodule::get_array_from_module_string(data["sub-module"], version) unless fault
         end
