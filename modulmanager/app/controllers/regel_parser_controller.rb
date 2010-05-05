@@ -60,7 +60,7 @@ class RegelParserController < ApplicationController
 
   def initialize_po dir_name
     version = read_description_file "#{dir_name}/beschreibung.yml"
-    read_module_file "#{dir_name}/module.yml", version
+    read_module_file("#{dir_name}/module.yml", version)
     read_group_file("#{dir_name}/gruppen.yml", version)
     read_focus_file("#{dir_name}/schwerpunkte.yml", version)
 
@@ -348,7 +348,8 @@ class RegelParserController < ApplicationController
             group["dummies"].times do
               dummie = Studmodule.create :name => "(Sonstiges Modul)",
                 :short => "custom##{dummie_counter}",
-                :parts => 1
+                :parts => 1,
+                :version => version
               c.modules << dummie
               dummie_counter += 1
             end
@@ -367,7 +368,7 @@ class RegelParserController < ApplicationController
             group["name"],
             group["beschreibung"],
             nil,
-            Connection::get_connection_array_from_category_string(group["untergruppen"]),
+            Connection::get_connection_array_from_category_string(group["untergruppen"], version),
             0,
             version,
             group["position"]

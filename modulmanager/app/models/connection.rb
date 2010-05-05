@@ -152,13 +152,13 @@ class Connection < ActiveRecord::Base
     return c
   end
 
-  def self.get_connection_array_from_category_string string
+  def self.get_connection_array_from_category_string string, version
     connection_array = Array.new
 
     categories = string.split(",")
     categories.each do |c|
       c.strip!
-      connection_array.push Connection.find(:first, :conditions => "name = '#{c}'")
+      connection_array.push Connection.find(:first, :conditions => "name = '#{c}' AND version_id = #{version.id}")
     end
 
     return connection_array
