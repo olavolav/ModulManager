@@ -1,0 +1,17 @@
+---
+
+  - name: Schwerpunkt 1
+    beschreibung:
+    kategorien:
+
+      - name: Pflicht
+        module: B.1, B.2
+        anzahl: 2
+        credits: 2
+        modus: wp
+
+      - name: Sonstiges
+        module: B.3
+        anzahl: 1
+        credits: 1
+        modus: wp

@@ -81,12 +81,12 @@ class ApplicationController < ActionController::Base
 
       if p["name"] == focus_name
 
-        semesters.push p["semester1"]
-        semesters.push p["semester2"]
-        semesters.push p["semester3"]
-        semesters.push p["semester4"]
-        semesters.push p["semester5"]
-        semesters.push p["semester6"]
+        semesters.push p["semester1"] if p["semester1"] != nil
+        semesters.push p["semester2"] if p["semester2"] != nil
+        semesters.push p["semester3"] if p["semester3"] != nil
+        semesters.push p["semester4"] if p["semester4"] != nil
+        semesters.push p["semester5"] if p["semester5"] != nil
+        semesters.push p["semester6"] if p["semester6"] != nil
 
         i = 0
         semesters.each do |content|

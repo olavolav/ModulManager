@@ -1,0 +1,54 @@
+---
+
+  ################################
+  # Die verschiedenen Modi sind: #
+  # p = Pflichtmodule            #
+  # wp = Wahlpflichtmodule       #
+  # w = Wahlmodule               #
+  ################################
+
+  - name: Abschluss
+    beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
+    untergruppen: "Unterbereich 1, Unterbereich 2"
+
+
+  - name: Unterbereich 1
+    beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
+    untergruppen: "Unterste Ebene 1, Unterste Ebene 2"
+    modus: p
+
+  - name: Unterste Ebene 1
+    beschreibung: ""
+    module: "B.1"
+    anzahl: 1
+    credits: 1
+    note-streichen: 1
+
+  - name: Unterste Ebene 2
+    beschreibung: ""
+    module: "B.2"
+    anzahl: 1
+    credits: 1
+    note-streichen: 1
+
+
+  - name: Unterbereich 2
+    beschreibung: ""
+    untergruppen: "Spezieller Unterbereich 1, Spezieller Unterbereich 2"
+    modus: wp
+
+  - name: Spezieller Unterbereich 1
+    beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
+    auswahl-name: "Nicht-Phys. (Profilierungsbereich)"
+    module: "B.3, B.4"
+    credits: 1
+    überschneidung: mehrfach
+    dummies: 1
+
+  - name: Spezieller Unterbereich 2
+    auswahl-name: "Math.-Nat. (Profilierungsbereich)"
+    module: "B.3, B.4"
+    credits: 2
+    beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
+    überschneidung: mehrfach
+    dummies: 2
