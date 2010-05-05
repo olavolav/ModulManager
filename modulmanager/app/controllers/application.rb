@@ -69,7 +69,8 @@ class ApplicationController < ActionController::Base
     end
 
     focus_name = "standard" if focus_name == nil
-    version == nil ? path = current_selection.version.path : path = version.path
+    version = current_selection.version if version == nil
+    path = version.path
     pre_selection_file = File.open("config/basedata/#{path}/vorauswahl.yml")
 
     y = YAML::load(pre_selection_file)
@@ -94,7 +95,7 @@ class ApplicationController < ActionController::Base
           shorts = content.split(", ")
           s = Semester.new :count => i
           shorts.each do |short|
-            m = Studmodule.find(:first, :conditions => "short = '#{short}'")
+            m = Studmodule.find(:first, :conditions => "short = '#{short}' AND version_id = #{version.id}")
             sm = SelectedModule.new :moduledata => m, :category => m.categories[0]
             #            s.studmodules << m
             s.modules << sm

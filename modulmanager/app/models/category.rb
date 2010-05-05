@@ -43,12 +43,12 @@ class Category < ActiveRecord::Base
     return "#{self.super_category.name} / #{self.name}"
   end
 
-  def self.get_array_from_category_string categories_string
+  def self.get_array_from_category_string categories_string, version
     c = Array.new
     categories = categories_string.split(",")
     categories.each { |cat|
       cat.strip!
-      c.push Category.find(:first, :conditions => "name = '#{cat}'")
+      c.push Category.find(:first, :conditions => "name = '#{cat}' AND version_id = #{version.id}")
     }
     return c
   end

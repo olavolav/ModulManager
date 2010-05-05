@@ -32,12 +32,12 @@ class Studmodule < ActiveRecord::Base
     :class_name => "Studmodule",
     :foreign_key => "parent_id"
 
-  def self.get_array_from_module_string module_string
+  def self.get_array_from_module_string module_string, version
     mod_array = Array.new
     modules = module_string.split(",")
     modules.each { |m|
       m.strip!
-      mod = Studmodule.find(:first, :conditions => "short = '#{m}'")
+      mod = Studmodule.find(:first, :conditions => "short = '#{m}' AND version_id = #{version.id}")
       mod_array.push mod
     }
     return mod_array

@@ -17,8 +17,8 @@ class Rule < ActiveRecord::Base
     :foreign_key => "parent_id"
   
 
-  def self.create_min_credit_rule_for_focus count, module_string
-    mod_array = Studmodule::get_array_from_module_string module_string
+  def self.create_min_credit_rule_for_focus count, module_string, version
+    mod_array = Studmodule::get_array_from_module_string module_string, version
     mod_array.each do |mod|
       if mod.children != nil
         mod_array = mod_array.concat mod.children
@@ -27,20 +27,20 @@ class Rule < ActiveRecord::Base
     return CreditRule.create :count => count, :relation => "min", :modules => mod_array
   end
 
-  def self.create_min_module_rule_for_focus count, module_string
-    mod_array = Studmodule::get_array_from_module_string module_string
+  def self.create_min_module_rule_for_focus count, module_string, version
+    mod_array = Studmodule::get_array_from_module_string module_string, version
     return ModuleRule.create :count => count, :relation => "min", :modules => mod_array
   end
 
-  def self.create_min_credit_rule_for_standard count, category
+  def self.create_min_credit_rule_for_standard count, category, version
     r = CreditRule.create :count => count, :relation => "min",
-      :category => Category.find(:first, :conditions => "name = '#{category}'")
+      :category => Category.find(:first, :conditions => "name = '#{category}' AND version_id = #{version.id}")
     return r
   end
 
-  def self.create_min_module_rule_for_standard count, category
+  def self.create_min_module_rule_for_standard count, category, version
     r = ModuleRule.create :count => count, :relation => "min",
-      :category => Category.find(:first, :conditions => "name = '#{category}'")
+      :category => Category.find(:first, :conditions => "name = '#{category}' AND version_id = #{version.id}")
     return r
   end
 

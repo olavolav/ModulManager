@@ -21,7 +21,9 @@ class RegelParserController < ApplicationController
       po_entries.delete(".svn")
       po_entries.delete("README.txt")
 
+
       po_entries.each do |entry|
+        check_syntax "config/basedata/#{entry}"
         version = initialize_po "config/basedata/#{entry}"
       end
 
@@ -58,12 +60,134 @@ class RegelParserController < ApplicationController
 
   private
 
-  def initialize_po dir_name
-    version = read_description_file "#{dir_name}/beschreibung.yml"
-    read_module_file("#{dir_name}/module.yml", version)
-    read_group_file("#{dir_name}/gruppen.yml", version)
-    read_focus_file("#{dir_name}/schwerpunkte.yml", version)
+  def check_syntax dir_name
 
+    puts "===================================="
+    puts "Checking directory #{dir_name}"
+    puts "------------------------------------"
+    puts "beschreibung.yml"
+    y = extract_yaml("#{dir_name}/beschreibung.yml")
+    y.each do |key, value|
+      puts "wrong syntax in 'beschreibung.yml' -> #{key} : #{value}" unless key_word? key
+    end
+
+    puts "------------------------------------"
+    puts "gruppen.yml"
+    y = extract_yaml("#{dir_name}/gruppen.yml")
+    y.each do |element|
+      element.each do |key, value|
+        puts "wrong syntax in 'gruppen.yml' -> #{key} : #{value}" unless key_word? key
+      end
+    end
+
+    puts "------------------------------------"
+    puts "module.yml"
+    y = extract_yaml("#{dir_name}/module.yml")
+    y.each do |element|
+      element.each do |key, value|
+        puts "wrong syntax in 'module.yml' -> #{key} : #{value}" unless key_word? key
+      end
+    end
+
+    puts "------------------------------------"
+    puts "schwerpunkte.yml"
+    y = extract_yaml("#{dir_name}/schwerpunkte.yml")
+    y.each do |element|
+      element.each do |key, value|
+        puts "wrong syntax in 'schwerpunkte.yml' -> #{key} : #{value}" unless key_word? key
+      end
+    end
+
+    puts "------------------------------------"
+    puts "vorauswahl.yml"
+    y = extract_yaml("#{dir_name}/vorauswahl.yml")
+    y.each do |element|
+      element.each do |key, value|
+        puts "wrong syntax in 'vorauswahl.yml' -> #{key} : #{value}" unless key_word? key
+      end
+    end
+  end
+
+  def key_word? word
+    case word
+    when "name"
+      return true
+    when "kurz"
+      return true
+    when "pfad"
+      return true
+    when "datum"
+      return true
+    when "beschreibung"
+      return true
+    when "name"
+      return true
+    when "untergruppen"
+      return true
+    when "modus"
+      return true
+    when "anzahl"
+      return true
+    when "credits"
+      return true
+    when "note-streichen"
+      return true
+    when "überschneidung"
+      return true
+    when "dummies"
+      return true
+    when "auswahl-name"
+      return true
+    when "module"
+      return true
+    when "id"
+      return true
+    when "univzid"
+      return true
+    when "semester1"
+      return true
+    when "semester2"
+      return true
+    when "semester3"
+      return true
+    when "semester4"
+      return true
+    when "semester5"
+      return true
+    when "semester6"
+      return true
+    when "sub-name"
+      return true
+    when "sub-module"
+      return true
+    when "note"
+      return true
+    when "zulassung"
+      return true
+    when "kategorien"
+      return true
+    else
+      return false
+    end
+  end
+
+  def initialize_po dir_name
+    puts "==========================================="
+    puts "Initializing PO"
+    puts "-------------------------------------------"
+    puts "reading beschreibung.yml"
+    version = read_description_file "#{dir_name}/beschreibung.yml"
+    puts "-------------------------------------------"
+    puts "reading module.yml"
+    read_module_file("#{dir_name}/module.yml", version)
+    puts "-------------------------------------------"
+    puts "reading gruppen.yml"
+    read_group_file("#{dir_name}/gruppen.yml", version)
+    puts "-------------------------------------------"
+    puts "reading schwerpunkte.yml"
+    read_focus_file("#{dir_name}/schwerpunkte.yml", version)
+    puts "-------------------------------------------"
+    puts "returning version.id = #{version.id}"
     return version
   end
 
@@ -92,7 +216,7 @@ class RegelParserController < ApplicationController
         group = Category.create :name => k["name"],
           :credits => k["credits"],
           :count => k["anzahl"],
-          :modules => Studmodule::get_array_from_module_string(k["module"]),
+          :modules => Studmodule::get_array_from_module_string(k["module"], version),
           :modus => k["modus"]
         focus.categories << group
         kategorie = {
@@ -130,6 +254,11 @@ class RegelParserController < ApplicationController
     end
 
     while(late_modules.length > 0 || limited_modules.length > 0 || parent_modules.length > 0 || free_modules.length > 0)
+      puts "loop..."
+      puts "late_modules -> #{late_modules.length}"
+      puts "limited_modules -> #{limited_modules.length}"
+      puts "parent_modules -> #{parent_modules.length}"
+      puts "free_modules -> #{free_modules.length}"
 
       free_modules.each do |data|
         m = Studmodule.create :name => data["name"],
@@ -170,7 +299,7 @@ class RegelParserController < ApplicationController
         children = data["sub-module"].split(",")
         children.each do |child|
           child.strip!
-          fault = true if Studmodule.find(:first, :conditions => "short = '#{child}'") == nil
+          fault = true if Studmodule.find(:first, :conditions => "short = '#{child}' AND version_id = #{version.id}") == nil
         end
 
         unless fault
@@ -178,7 +307,7 @@ class RegelParserController < ApplicationController
             :credits                => data["credits"],
             :short                  => data["id"],
             :description            => data["beschreibung"],
-            :children               => Studmodule::get_array_from_module_string(data["sub-module"]),
+            :children               => Studmodule::get_array_from_module_string(data["sub-module"], version),
             :version                => version,
             :subname                => data["sub-name"],
             :univzid                => data["univzid"]
@@ -212,7 +341,7 @@ class RegelParserController < ApplicationController
             child.strip!
             fault = true if Studmodule.find(:first, :conditions => "short = '#{child}'") == nil
           end
-          m.children = Studmodule::get_array_from_module_string data["sub-module"] unless fault
+          m.children = Studmodule::get_array_from_module_string(data["sub-module"], version) unless fault
         end
         if create_limited_connection(data["zulassung"], m) && fault != true
           late_modules.delete data
@@ -235,7 +364,7 @@ class RegelParserController < ApplicationController
         fault = true if Studmodule.find(:first, :conditions => "short = '#{mod}'") == nil
       end
 
-      modules = Studmodule::get_array_from_module_string(z)
+      modules = Studmodule::get_array_from_module_string(z, owner.version)
 
       modules.each { |mod| rules.push PermissionRule.new :condition => mod }
 
@@ -339,8 +468,8 @@ class RegelParserController < ApplicationController
         c.modus = group["modus"]
           
         if group["untergruppen"] == nil
-#          c.modus = group["modus"]
-          modules = Studmodule::get_array_from_module_string group["module"]
+          #          c.modus = group["modus"]
+          modules = Studmodule::get_array_from_module_string group["module"], version
           # (Test OS) logger.warn "get_array_from_module_string: "+(group["module"]).to_s
           
           c.modules = modules
@@ -363,7 +492,7 @@ class RegelParserController < ApplicationController
           c.save
           create_min_standard_connection(group["name"], group["beschreibung"], group["credits"], group["anzahl"], version, group["position"])
         elsif group["module"] == nil
-          c.sub_categories = Category::get_array_from_category_string group["untergruppen"]
+          c.sub_categories = Category::get_array_from_category_string group["untergruppen"], version
           Connection::create_and_connection(
             group["name"],
             group["beschreibung"],
@@ -393,8 +522,8 @@ class RegelParserController < ApplicationController
     sub_groups_array = Array.new
     sub_groups.each do |s|
       sg = Connection::create_and_connection s["name"], description, [
-        Rule::create_min_credit_rule_for_focus(s["credits"], s["shorts"]),
-        Rule::create_min_module_rule_for_focus(s["modules"], s["shorts"])
+        Rule::create_min_credit_rule_for_focus(s["credits"], s["shorts"], version),
+        Rule::create_min_module_rule_for_focus(s["modules"], s["shorts"], version)
       ]
       sub_groups_array.push sg
     end
@@ -411,8 +540,8 @@ class RegelParserController < ApplicationController
 
   def create_min_standard_connection name, description, credits = nil, modules = nil, version = nil, position = nil
     child_rules = Array.new
-    child_rules.push(Rule::create_min_credit_rule_for_standard(credits, name)) unless credits == nil
-    child_rules.push(Rule::create_min_module_rule_for_standard(modules, name)) unless modules == nil
+    child_rules.push(Rule::create_min_credit_rule_for_standard(credits, name, version)) unless credits == nil
+    child_rules.push(Rule::create_min_module_rule_for_standard(modules, name, version)) unless modules == nil
     r = Connection::create_and_connection(name, description, child_rules, nil, 0, version, position)
     return r
   end
