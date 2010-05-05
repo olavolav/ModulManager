@@ -58,7 +58,7 @@
 
   - name: Praktika
     beschreibung: "In Grund- und Fortgeschrittenenpraktika sollen wichtige Techniken des naturwissenschaftlichen Experimentierens erlernt werden."
-    module: "B.Phy.401, B.Phy.402"
+    module: "B.phy.401, B.Phy.402"
     anzahl: 2
     credits: 15
 
@@ -96,13 +96,13 @@
 
   - name: Einführungen
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
-    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Inf.509, B.Inf.509.2, B.Inf.510, B.Inf.510.2"
+    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.inf.509, B.inf.509.2, B.inf.510, B.inf.510.2"
     anzahl: 2
     credits: 12
 
   - name: Spezielle Themen
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
-    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Inf.509, B.Inf.510, B.Phy.505, B.Phy.506, B.Phy.507, B.Phy.508"
+    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.inf.509, B.inf.510, B.phy.505, B.phy.506, B.phy.507, B.phy.508"
     credits: 12
 
   - name: Nicht Physikalisch
@@ -113,7 +113,7 @@
     dummies: 18
 
   - name: Mathematisch-Naturwissenschaftlich
-    module: "B.Phy.606, B.Bio.118, B.Bio.112, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3"
+    module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.phy.505, B.phy.506, B.phy.507, B.phy.508, B.inf.509, B.inf.510, B.Phy.606, B.Bio.118, B.Bio.112, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3"
     credits: 6
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
     überschneidung: mehrfach
@@ -125,7 +125,7 @@
 
   - name: Schlüsselkompetenzen
     beschreibung: "Fachübergreifende Planungs- und Problemlösungsfertigkeiten werden in Modulen über die Grundlagen des Experimentierens und des wissenschaftlichen Rechnens vermittelt. Techniken der Informationsgewinnung und Verarbeitung sowie Lehr- und Medienfertigkeiten können in einem Professionalisierungsseminar erworben  werden. Planungs- und Projektmanagement sowie Sozialkompetenzen wie Team- und Moderationsfähigkeit werden in von Studierenden selbst geplanten Experimenten  im Rahmen eines  Projektpraktikums erlernt.  Neben diesen Pflichtmodulen können freiwillig weitere  Module zu Schlüsselkompetenzen  aus dem vielfältigen Angebot der Universität gewählt werden."
-    module: "B.Phy.601, B.Phy.603, B.Phy.602, B.Phy.604"
+    module: "B.phy.601, B.phy.603, B.Phy.602, B.Phy.604"
     anzahl: 4
     credits: 18
 

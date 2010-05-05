@@ -42,13 +42,13 @@
 
   - name: Grundlagen des Experimentierens
     credits: 2
-    id: B.Phy.603
+    id: B.phy.603
     beschreibung: "Grundlegende Fähigkeiten im Durchführen und Auswerten von Experimenten"
     note: nein
 
   - name: Physikalisches Grundpraktikum
     credits: 12
-    id: B.Phy.401
+    id: B.phy.401
     beschreibung: "Anfängerpraktikum"
     note: ja
 
@@ -109,7 +109,7 @@
     credits: 6
     id: B.Phy.404
     zulassung:
-      - B.Phy.605
+      - B.phy.601
     beschreibung: "Lernziele: Umsetzung und Kontrolle von Sicherheitsaspekten, Beratung von Benutzern, praktische Hilfestellung für Benutzer im täglichen Betrieb."
 
   - name: Spezialisierungspraktikum Astro- und Geophysik
@@ -135,55 +135,55 @@
   - name: Mehrbenutzersysteme in der Praxis I
     sub-name: ": Linux Grundlagen"
     credits: 4
-    id: B.Inf.509
+    id: B.inf.509
     zulassung:
-      - B.Phy.605
+      - B.phy.601
     beschreibung: "Erstes Teilmodul - Lernziele: Grundlegende Kenntnisse im Umgang mit Unix, Erstellung von Batchskripten, Einrichten der Benutzerschnittstelle und –oberfläche."
-    sub-module: B.Inf.509.2
+    sub-module: B.inf.509.2
 
   - name: Mehrbenutzersysteme in der Praxis I
     sub-name: ": Administration von Linux"
     credits: 2
     beschreibung: "Zweites Teilmodul - Lernziele: Grundlagen der Administration von Unixrechnern, Anlegen von Benutzern, Sicherheitsaspekte"
-    id: B.Inf.509.2
+    id: B.inf.509.2
     zulassung:
-      - B.Phy.605
+      - B.phy.601
 
   - name: Mehrbenutzersysteme in der Praxis II
     sub-name: ": Linux im Netzwerk"
     credits: 4
-    id: B.Inf.510
+    id: B.inf.510
     zulassung:
-      - B.Inf.509
+      - B.inf.509
     beschreibung: "Erstes Teilmodul - Lernziele: Umgang mit Linux in Netzwerken"
-    sub-module: B.Inf.510.2
+    sub-module: B.inf.510.2
 
   - name: Mehrbenutzersysteme in der Praxis II
     sub-name: ": Administration von MS-Windows"
     credits: 2
     beschreibung: "Zweites Teilmodul - Lernziele: Grundlagen der Administration von MS-Windowsrechnern, Anlegen von Benutzern, Sicherheitsaspekte"
-    id: B.Inf.510.2
+    id: B.inf.510.2
     zulassung:
-      - B.Inf.509
+      - B.inf.509
 
   - name: Spezielle Themen der Astro- und Geophysik
     credits: 12
-    id: B.Phy.505
+    id: B.phy.505
     beschreibung: "Lernziele: Inhalte aktueller Forschung in der Astro- und Geophysik, Vertiefung des im Wahlpflichtbereich angeeigneten Verständnisses von Methoden und Modellen."
 
   - name: Spezielle Themen der Biophysik und Physik komplexer Systeme
     credits: 12
-    id: B.Phy.506
+    id: B.phy.506
     beschreibung: "Lernziele: Inhalte aktueller Forschung in der Biophysik und Physik komplexer Systeme, Vertiefung des im Wahlpflichtbereich angeeigneten Verständnisses von Methoden und Modellen."
 
   - name: Spezielle Themen der Festkörper- und Materialphysik
     credits: 12
-    id: B.Phy.507
+    id: B.phy.507
     beschreibung: "Lernziele: Inhalte aktueller Forschung in der Festkörper- und Materialphysik, Vertiefung des im Wahlpflichtbereich angeeigneten Verständnisses von Methoden und Modellen."
 
   - name: Spezielle Themen der Kern- und Teilchenphysik
     credits: 12
-    id: B.Phy.508
+    id: B.phy.508
     beschreibung: "Lernziele: Inhalte aktueller Forschung in der Kern- und Teilchenphysik, Vertiefung des im Wahlpflichtbereich angeeigneten Verständnisses von Methoden und Modellen."
 
 
@@ -298,7 +298,7 @@
 
   - name: Einführung in die Programmierung und ihre Anwendung in den Naturwissenschaften
     credits: 6
-    id: B.Phy.601
+    id: B.phy.601
     beschreibung: "Zu diesem Modul ist momentan keine Beschreibung verfügbar."
 
   - name: Bachelorarbeit
