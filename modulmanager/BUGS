@@ -27,6 +27,7 @@ Niedrige Priorität:
 139. Mail von SK vom 28.03.10: Startseite, dann sofort "ok" sage und dann recht schnell (noch während des Ladens) die Zurück-Funktion des Browsers (Firefox 3.5) verwende, kommt weiterhin ein Ajax-Fehler (Olav)
 147. Hinweis, wenn die Credit-Zahlen im Überblick nicht summiert werden, wie beim Profilierungsbereich (Olav)
 165. Unique-Name als Kategorie-Namen ins PDF einbauen
+167. Short-IDs der Studmodule case-insensitive auswerten lassen
 
 
 Restliches Feedback:
