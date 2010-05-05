@@ -254,6 +254,39 @@ $(function(){
             }
         }
     });
+
+    $("#help_optional").dialog({
+        modal:true,
+        height:400,
+        width:550,
+        position:'center',
+        autoOpen:false,
+        buttons:{
+            "OK":function(){
+                $("#help_optional").dialog('close');							
+            }
+        }
+    });
+
+
+    $("#CacheDump").dialog({
+        modal:true,
+        height:400,
+        width:550,
+        position:'center',
+        autoOpen:false,
+                
+        open:function(event,ui){
+	
+            $("#CacheDump").show();					
+        },
+        buttons:{
+            "OK":function(){
+                $("#CacheDump").dialog('close');
+							
+            }
+        }
+    });
 		
 		
     // pool();

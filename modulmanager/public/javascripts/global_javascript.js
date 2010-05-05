@@ -317,9 +317,9 @@ function font_size(points){
 
 // Anzeigen bzw. verstecken der anfaenglichen Hilfe und der Navigations-Knoepfe
 var show_navi = function(){
-    $("#navi_optional").slideDown();
-    $("#navimovedown").toggle();
+    $("#navimovedown").hide();
     $("#navimoveup").show();
+    $("#navi_optional").slideDown();
 };
 var hide_navi = function(){
     $("#navimovedown").show();
@@ -329,8 +329,9 @@ var hide_navi = function(){
     $("#navi_optional").slideUp();
 };
 var show_minihelp = function(){
-    $("#help_optional").show();
-    $("#helpmovedown").hide();
+	$('#help_optional').dialog('open');
+	// $("#help_optional").slideDown();
+	// $("#helpmovedown").slideUp();
 };
 
 
