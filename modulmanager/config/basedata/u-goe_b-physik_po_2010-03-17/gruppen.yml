@@ -113,6 +113,7 @@
     dummies: 18
 
   - name: Mathematisch-Naturwissenschaftlich
+    auswahl-name: "Math.-Nat. (Profilierungsbereich)"
     module: "B.Phy.501, B.Phy.502, B.Phy.503, B.Phy.504, B.Phy.505, B.Phy.506, B.Phy.507, B.Phy.508, B.Inf.509, B.Inf.510, B.Phy.606, B.Bio.118, B.Bio.112, B.Che.9105, B.Che.9106, B.Che.9108, B.Che.1302.1, B.Che.2301, B.Che.1401, B.Geo.402, B.Geo.402.2, B.Geo.402.3"
     credits: 6
     beschreibung: "Zu diesem Bereich ist momentan keine Beschreibung verfügbar."
