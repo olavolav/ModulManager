@@ -152,6 +152,7 @@ $(function(){
             name.attr("value","");
             credit.attr("value","");
             allFields.removeClass('ui-state-error');
+						tips.empty();
             ajax_request_custom_checkbox($(custom_id).attr("value"));
 								
         },
