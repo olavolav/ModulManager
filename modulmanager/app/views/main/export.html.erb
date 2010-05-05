@@ -1,13 +1,13 @@
 <div id="content">
-	<img id="unilogo" src="/images/uni-logo.png" alt="Universität">
+	<img id="unilogo" src="/images/uni-logo.png" alt="Logo der Universität">
 	<h3>Modul-Auswahl exportieren</h3>
 	<p>Fertig mit der Modul-Auswahl?</p>
 	
-	<p>Hier können Sie diese entweder als PDF-Dokument exportieren, um Ihre Auswahl auszudrucken oder für den Studienberater - oder aber im ModulManager-Format, die sie speichern und zu einem späteren Zeitpunkt wieder in den ModulManager laden können.</p>
+	<p>Hier können Sie diese entweder zum Ausdrucken als PDF-Dokument exportieren, beispielsweise für den Studienberater - oder aber im ModulManager-Format, welches Sie speichern und zu einem späteren Zeitpunkt wieder in den ModulManager laden können.</p>
 
-    <%= link_to "Modul-Auswahl als PDF speichern", {:action => "get_pdf", :grades => "true", :format => "pdf"}, {:class => "linkbuttonleft", :popup => true} %>
-    <%= link_to "Modul-Auswahl als PDF speichern (ohne Note)", {:action => "get_pdf", :grades => "false", :format => "pdf"}, {:class => "linkbuttonleft", :popup => true} %>
-    <%= link_to "Modul-Auswahl im ModulManager-Format speichern", {:action => "get_file"}, {:class => "linkbuttonleft", :popup => true} %>
+    <p><%= link_to "Modul-Auswahl als PDF", {:action => "get_pdf", :grades => "true", :format => "pdf"}, {:class => "linkbuttonleft", :popup => true} %>
+    <%= link_to "Modul-Auswahl als PDF (ohne Note)", {:action => "get_pdf", :grades => "false", :format => "pdf"}, {:class => "linkbuttonleft", :popup => true} %>
+    <%= link_to "Modul-Auswahl im ModulManager-Format speichern", {:action => "get_file"}, {:class => "linkbuttonleft", :popup => true} %></p>
 	
   <div id="bestaetigen">
     <%= link_to "Zurück", {:action => "index"}, :class => "linkbutton" %>
