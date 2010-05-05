@@ -11,6 +11,7 @@ Hohe Priorität (Deadline):
 162. Die Summierung der Credits im PDF stimmt irgendwie nicht - die aufgeführten Module stimmen aber, soweit ich das sehe, s. entspr. Mail von OS (Christian)
 163. Dummy-Module werden stets mit 0 Credits initialisiert, unabhängig von der Eingabe (Christian)
 164. In die "Freiwillige Zusatzleistungen"-Box gezogene Module verschwinden im Backend einfach (Christian)
+165. Ausnahme-Credits werden nur im Frontend angezeigt, aber nicht einberechnet
 
 
 Niedrige Priorität:
@@ -178,7 +179,6 @@ Inzwischen behoben:
 140. Mail von SK vom 28.03.10: Sonstiges Modul hinzufügen, ein paar Daten eingeben; dann "Fertig", dann das Modul diretk wieder mit dem (x) löschen -> Meldung: "ich bin da das Dummy in search-active" (Olav)
 144. Vorratsbox in "Freiwillige Zusatzleistungen (gehen nicht in die Note ein)" umbenennen (Olav)
 136. Mail von SK vom 26.03.10: Negative Credits werden akzeptiert (Olav)
-145. Wenn man Module mit nicht-ganzzahligen Creditzahlen eingibt, rundet er ohne Warnung auf die nächste ganze Zahl ab - Warnung hinzufügen (Olav)
 151. Hintergrundfarbe von Info-Boxen stimmt nicht (Olav)
 130. Mail von SK vom 24.03.10: Der Mechanismus, um Standard-Credits wieder herzustellen, ist nicht klar (Olav)
 152. "Clear entry"-Knopf am Suchen-Feld hinzufügen (Olav)
@@ -207,6 +207,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 157. Kleinen Einleitungstext "Was ist der MM?" hinzufügen (Olav)
 143. Datenschutzhinweise hinzufügen (Olav)
 132. Mail von SK vom 24.03.10: Netz-Adressen der Studienberatung ins PDF (Olav)
+145. Wenn man Module mit nicht-ganzzahligen Creditzahlen eingibt, rundet er ohne Warnung auf die nächste ganze Zahl ab - Warnung hinzufügen (Olav)
 
 
 Nicht behoben:

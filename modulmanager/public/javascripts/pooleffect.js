@@ -69,7 +69,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 	
     if (name.val().length < min){		
         name.addClass('ui-state-error');
-        updateTips("Bitte geben Sie ein Namen ein.",tips);
+        updateTips("Bitte geben Sie hier den Namen des Moduls ein.",tips);
         return false;
     }
 		else this_name = "Sonstiges Modul: "+this_name;
@@ -141,6 +141,8 @@ $(function(){
     var tips =$("#validateTips");
     var allFields = $([]).add(name).add(credit);
 		
+		var AOCbox = $("#exception_credit");
+            
     $("#custom_dialog").dialog({
         modal:true,
         height:300,
@@ -149,12 +151,12 @@ $(function(){
         open : function(event,ui){
             name.attr("value","");
             credit.attr("value","");
+            allFields.removeClass('ui-state-error');
             ajax_request_custom_checkbox($(custom_id).attr("value"));
-				
-				
+								
         },
         buttons:{
-            "Fertig":function(){
+            "OK":function(){
 					
                 allFields.removeClass('ui-state-error');
 
@@ -164,7 +166,7 @@ $(function(){
                     var cre = credit.attr("value");
                     var cat = category.attr("value");
                     var cus_sem = custom_semester.attr("value");
-                    var cus_id=custom_id.attr("value");
+                    var cus_id = custom_id.attr("value");
 						
                     var cus_modul = $("#semester-content #"+cus_id);
                     // custom_modul soll auch in VorratBox sein
@@ -192,26 +194,8 @@ $(function(){
 			
     });
 			
-    ////Ausname-Optionen checken. Bei jeder Ver�nderung wird dann die Funktion �berblick erneut geladen.
-    // exception_change ist fuer Note streichen und Warnung deaktivieren verantwortlich
-    // credit_exception_change ist extra fuer Credit-Zahl-Aenderung
-		
-    // $("#exception_credit").click(function(){
-    //     $(this).attr("value","");
-    // })
-    // 		 
-    // $("#exception_credit").keydown(function(){
-    //     $("#credit_exception_change").attr("value","true");
-    // })
-    // $("#exception_warn,#exception_note").click(function(){
-    //     $("#exception_change").attr("value","true");
-    // })
-		 
-		 
 		 			
-    // info_box------------------------------------------------------------
-			
-		 
+    // info_box------------------------------------------------------------		 
 		 
     $("#info_box").dialog({
         modal:true,
@@ -219,19 +203,32 @@ $(function(){
         width:550,
         position:'center',
         autoOpen:false,
-                
+				
         open:function(event,ui){
 	
 						// Neuerdings werden sämtliche AO schon vorher, in der Funktion
 						// ajax_request_module_info behandelt. (OS)
-			 							
+						
+						// AOCbox.removeClass('ui-state-error');
+						$("#validateCredits").empty();
+						AOCbox.focus(function(){
+							AOCbox.val("");
+						});
         },
         buttons:{
             "OK":function(){
-                if ($("#box_info_exception").css("display") == "block") {
-                    update_modul_in_selection();
+								var invalidInput = false;
+                if($("#box_info_exception").css("display") == "block") {
+										// Zunächst Testen, ob die Credits-Eingabe gültig ist.
+										var AOC = AOCbox.val();
+										if((AOC!="Credits")&&(!isUnsignedInteger(AOC))) {
+											// AOCbox.addClass("ui-state-error");
+											invalidInput = true;
+											updateTips("Bitte geben Sie als Credits eine eine ganze, positive Zahl ein oder setzen Sie die Credits zurück.",$("#validateCredits"));
+										}
+                    else update_modul_in_selection();
                 }
-                $("#info_box").dialog('close');
+                if(!invalidInput) $("#info_box").dialog('close');
 							
             }
         }

@@ -25,13 +25,9 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 	left: -8px;
 }
 
-
-/*-----------Liste------------*/
-
-/*ul li {
-	list-style-type : none;
-	
-}*/
+#validateTips, #validateCredits {
+	color: #cd0a0a;
+}
 
 img{border:0;} 
 

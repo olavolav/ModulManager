@@ -229,9 +229,12 @@
   <div id="box_info_pool" style="color:gray;" >Ausnahme-Optionen: Nur bei Modulen in der Auswahl verfügbar.</div>
   <div id="box_info_exception">
     Ausnahme-Optionen:
+  	<p id="validateCredits"></p>
     <table>
       <tbody>
-        <tr id="credits_aendern_checkbox"><td>Credit-Zahl:</td><td><input type="text" id="exception_credit" size="5" maxlength="5" rel="modul_id" value="Credits"/></td>
+        <tr id="credits_aendern_checkbox">
+			<td><label for="exception_credit">Credit-Zahl:</label></td>
+			<td><input type="text" name="exception_credit" id="exception_credit" size="5" maxlength="5" rel="modul_id" value="Credits" class="ui-widget-content ui-corner-all" style="padding:2px;"></td>
 		<td><a onClick="javascript:$('#exception_credit').val('Credits');">
 			<img id="AO_credit_reset" alt="reset" src="images/Reset-Form.png"></a>
 		</td></tr>
@@ -247,7 +250,8 @@
 
 
 <div id="custom_dialog" title="Eigenes Modul">
-  <p id="validateTips">Dieses Modul dient dazu, auch Module aus anderen Fakultäten im ModulManager behandeln zu können. Bitte tragen Sie die entsprechenden Daten ein.</p>
+  <p>Dieses Modul dient dazu, auch Module aus anderen Fakultäten im ModulManager behandeln zu können. Bitte tragen Sie die entsprechenden Daten ein.</p>
+  <p id="validateTips"></p>
   <form>
     <fieldset>
       <label for="name">Name:</label>
