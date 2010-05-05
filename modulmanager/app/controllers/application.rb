@@ -105,6 +105,7 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+    return_array.push Semester.create :count => 0 # Freiwillige Zusatzleistungen
     return return_array
   end
 
