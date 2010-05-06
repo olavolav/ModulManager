@@ -10,8 +10,6 @@
 
   <p>Herzlich Willkommen!</p>
   <% selection = current_selection %>
-	<%# oldPO = selection.version.id %>
-	<%# oldSP = @mein_schwerpunkt %>
 
 	<% unless @new_session===true %>
 		<p class="backtomain additionalnotes">Bitte beachten Sie, dass Sie bei einer Veränderung der Einstellungen unten wieder mit der Standard-Auswahl der Studienordnung beginnen - evtl. vorgenommene Modifikationen gehen also verloren.</p>
@@ -39,11 +37,6 @@
 	      Kein Schwerpunkt
 	    </a>
         <% po.foci.each do |s| %>
-          <%#
-            Hier kann der ganze Schwerpunkt-Code hin :-)
-            Mit schwerpunkt.id == @mein_schwerpunkt.id kann verglichen werden,
-            ob der anzuzeigende auch der aktuell gewählte Schwerpunkt ist.
-          %>
 		      <% class_tag = "passive" %>
 		      <% ((@mein_schwerpunkt.id == s.id) ? class_tag = "active" : class_tag = "passive") unless @mein_schwerpunkt == nil %>
 		  <a onClick='javascript:update_schwerpunkt(<%= s.id %>);' class='schwerpunkt_oben <%= class_tag %>' id='<%= s.id %>'>
@@ -65,7 +58,8 @@
 			<%#= link_to "Abbrechen", {:action => "index"}, :class => "linkbutton backtomain", :style => "display:none;" %>
 		<%# end %> -->
 
-	<%= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
+	<%#= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
+	<%= link_to "OK", {:action => "main"}, :class => "linkbutton" %>
 	
   </div>
 
