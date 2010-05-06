@@ -3,8 +3,6 @@ BUGS
 Hohe Priorität (Deadline):
 ==========================
 
-45. Kurzform der Fehlermeldungen ("Problematik") in den PDF-Export einbinden, d.h. den gleichen Text, aber ohne die teilweise länglichen Modul-Listen - hier fehlt nur noch der SP (Christian)
-162. Die Summierung der Credits im PDF stimmt irgendwie nicht - die aufgeführten Module stimmen aber, soweit ich das sehe, s. entspr. Mail von OS (Christian)
 
 
 Niedrige Priorität:
@@ -209,6 +207,8 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 103. Module in Einführungen und Spezielle Themen können auch in den Profilierungsbereich/MatNat-Bereich eingebracht werden; aber dann auch nur dort, d.h. diese Module bräuchten einen zusätzlichen MatNat-Combobox-Eintrag (Christian)
 159. Die 'Freiwilligen Zusatzleistungen' tauchen im PDF als z.B. '7. Semester' auf - das ist momentan wegen Bug #164 nicht reproduzierbar (Christian)
 148. Alte PO hinzufügen (Olav & AS)
+45. Kurzform der Fehlermeldungen ("Problematik") in den PDF-Export einbinden, d.h. den gleichen Text, aber ohne die teilweise länglichen Modul-Listen - hier fehlt nur noch der SP (Christian)
+162. Die Summierung der Credits im PDF stimmt irgendwie nicht - die aufgeführten Module stimmen aber, soweit ich das sehe, s. entspr. Mail von OS (Christian)
 
 
 Nicht behoben:

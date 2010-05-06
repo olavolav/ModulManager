@@ -1465,6 +1465,8 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 		else {
 			// Folglich wird das Modul nur innerhalb der Auswahl verschoben(OS)
 			ajax_serverupdate_move_module_within_selection(modul_id,semester);
+			if (((modProp(modul_id,"id_of_parent_modul")!="false")||(modProp(modul_id,"modul_parts")!="0"))&&(semester==0))
+				alert("Bitte beachten Sie: Laut Prüfungsordnung können Module mit mehrere Teilmodulen nur vollständig eingebracht werden. Bitte ziehen Sie also auch die anderen Teilmodule in die Freiwilligen Zusatzleistungen, oder entsfernen Sie alle Teilmodule aus diesen.");
     }
 	
     // append hier
@@ -1475,7 +1477,6 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
     	ueberblick();
     }
     else {
-        // $(ui_draggable).find(".head_modul_in_pool").text("false");
         modPropChange(modul_id,"head_modul_in_pool","false");
         ajax_request_grade();
     }
