@@ -115,7 +115,7 @@ class MainController < ApplicationController
   
   def get_pdf
     @selection = current_selection
-    @selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = @selection.focus.name
+#    @selection.focus == nil ? @schwerpunkt = "Kein Schwerpunkt gewählt" : @schwerpunkt = @selection.focus.name
     @version = @selection.version
     @modules = @selection.selection_modules
     @grade = get_note
@@ -125,8 +125,6 @@ class MainController < ApplicationController
     @show_grades = (params[:grades] == "true")
     puts @show_grades
 
-    #    @categories = AndConnection.find(:all, :conditions => "parent_id IS NULL")
-    #    @categories = sort_by_category @modules
     @categories = get_used_connections @modules
 
     respond_to do |format|

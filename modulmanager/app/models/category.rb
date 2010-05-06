@@ -73,4 +73,16 @@ class Category < ActiveRecord::Base
     return false
   end
 
+  def modules_in_selection selection
+    result = Array.new
+    selection.selection_modules.each do |m|
+      if self.selected_modules.include? m
+        result.push m
+      elsif self.modules.include? m.moduledata
+        result.push m
+      end
+    end
+    return result
+  end
+
 end

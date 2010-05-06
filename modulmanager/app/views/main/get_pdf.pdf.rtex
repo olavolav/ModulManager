@@ -94,6 +94,27 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
     <% end %>
 <% end %>
 
+<% unless @selection.focus == nil %>
+    \subsection{Schwerpunkt ``<%= @selection.focus.name %>''}
+    <% @selection.focus.categories.each do |c| %>
+        \subsubsection*{<%= c.name %>}
+        <% if c.modules_in_selection(@selection).length == 0 %>
+            (leer)
+        <% else %>
+            \begin{compactitemize}
+                <% c.modules_in_selection(@selection).each do |m| %>
+                    \item <%= m.to_string_for_printing(@show_grades) %>
+                        <%= rtex_ao_message(m) %>
+                        <% unless m.is_permitted? %>
+                            Die Voraussetzungen für dieses Modul sind nicht erfüllt.
+                        <% end %>
+                <% end %>
+            \end{compactitemize}
+        <% end %>
+    <% end %>
+<% else %>
+    \subsection{Schwerpunkt / nicht gewählt}
+<% end %>
 
 
 \subsection*{Weitere Informationen (Stand: 22.10.09)}
