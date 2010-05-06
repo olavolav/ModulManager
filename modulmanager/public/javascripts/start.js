@@ -17,7 +17,10 @@ var authenticityTokenParameter = function(){
 };
 var update_schwerpunkt = function(s_id){
 	
-	$(".schwerpunkt_oben").attr("class","schwerpunkt_oben passive");
+	var real_change = false;
+	if (!$(".schwerpunkt_oben[id="+s_id+"]").hasClass("active")) {
+		real_change = true;
+	}
 	
     // alert("hallo schwerpunkt "+s_id);
 
@@ -33,13 +36,20 @@ var update_schwerpunkt = function(s_id){
 					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_schwerpunkt");
 				}
     });
-	
-	$(".schwerpunkt_oben[id="+s_id+"]").attr("class","schwerpunkt_oben active");
+
+	if (real_change) {
+		$(".schwerpunkt_oben").attr("class","schwerpunkt_oben passive");
+		$(".backtomain").show();
+		$(".schwerpunkt_oben[id="+s_id+"]").attr("class","schwerpunkt_oben active");
+	}
 };
 
 var update_pordnung = function(po_id){
 	
-	$(".pruefungsordnung").attr("class","pruefungsordnung passive");
+	var real_change = false;
+	if (!$(".pruefungsordnung[id="+po_id+"]").hasClass("active")) {
+		real_change = true;
+	}
 
     // alert("hallo pruefungsordnung "+po_id);
 
@@ -56,9 +66,13 @@ var update_pordnung = function(po_id){
 				}
     });
 	
-	$(".pruefungsordnung[id="+po_id+"]").attr("class","pruefungsordnung active");
-	$(".SPsubclass").hide();
-	$(".SPsubclass[id=belongstoPOid"+po_id+"]").show();
+	if (real_change) {
+		$(".pruefungsordnung").attr("class","pruefungsordnung passive");
+		$(".pruefungsordnung[id="+po_id+"]").attr("class","pruefungsordnung active");
+		$(".backtomain").show();
+		$(".SPsubclass").hide();
+		$(".SPsubclass[id=belongstoPOid"+po_id+"]").show();
+	}
 };
 
 var ajax_serverupdate_on_AJAX_warning = function(text){
