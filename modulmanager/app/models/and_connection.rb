@@ -228,7 +228,7 @@ class AndConnection < Connection
 
     processing_modules = modules
     modules = Array.new
-    processing_modules.each { |m| modules.push m if m.semester.count > 0 }
+    processing_modules.each { |m| modules.push m if m.semester.count > 0 && errors.include?(m.moduledata) == false }
 
     text = "Die Anforderungen dieses Bereiches sind "
     if rtex
