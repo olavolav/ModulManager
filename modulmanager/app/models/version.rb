@@ -3,4 +3,7 @@
 # Created by Christian Beulke, Van Quan Nguyen and Olav Stetter
 
 class Version < ActiveRecord::Base
+
+  has_many :foci, :class_name => "Focus", :foreign_key => "version_id"
+
 end

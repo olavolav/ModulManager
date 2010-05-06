@@ -295,8 +295,9 @@ class MainController < ApplicationController
   end
 
   def version_selection
-    selection = current_selection
-    selection.version = Version.find(params[:version])
+    selection           = current_selection
+    selection.version   = Version.find(params[:version])
+    selection.focus     = nil
     selection.save
     render :text => selection.version.name
   end
