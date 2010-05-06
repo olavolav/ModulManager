@@ -247,11 +247,20 @@ class MainController < ApplicationController
   def set_category
     id = params[:mod_id]
     cat_id = params[:cat_id]
+    selection = current_selection
 
-    mod = current_selection.selection_modules.find(:first, :conditions => "module_id = #{id}")
+    mod = selection.selection_modules.find(:first, :conditions => "module_id = #{id}")
 
     unless mod == nil
-      mod.category = Category.find(cat_id)
+      new_cat = Category.find(cat_id)
+      mod.category = new_cat
+#      if mod.children != nil && mod.children.length > 0
+#        mod.children.each do |child|
+#          mod_to_change = current_selection.selection_modules.find(:first, :conditions => "module_id = #{child.id}")
+#          mod_to_change.category = new_cat
+#          mod_to_change.save
+#        end
+#      end
       mod.save
     end
 

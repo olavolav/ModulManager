@@ -178,6 +178,7 @@ class AbfragenController < ApplicationController
     if semester == nil
       semester = Semester.create(:count => semester_count)
       selection.semesters << semester
+      selection.save
     end
     studmodule      = Studmodule.find(module_id)
     selected_module = SelectedModule.create(:moduledata => studmodule)

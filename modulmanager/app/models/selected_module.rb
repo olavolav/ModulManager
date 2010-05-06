@@ -448,4 +448,19 @@ class SelectedModule < ActiveRecord::Base
     end
   end
 
+  def category
+    if self.parent == nil
+      return Category.find(self[:category_id])
+    else
+      selection = self.parent_selection
+      parent = selection.selection_modules.find(:first, :conditions => "module_id = #{self.parent.id}")
+      return parent.category
+#      return self.parent_selection.selection_modules.find(:first, :conditions => "module_id = #{self.moduledata.parent.id}").category
+    end
+  end
+
+  def parent
+    return self.moduledata.parent
+  end
+
 end
