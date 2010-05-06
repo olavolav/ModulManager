@@ -80,7 +80,7 @@ class Rule < ActiveRecord::Base
     counter = 0
     unless self.category == nil
       selected_modules.each do |mod|
-        if mod.has_grade == false
+        if mod.has_removed_grade?
           if self.category.modules.include? mod.moduledata
             counter += 1
           end

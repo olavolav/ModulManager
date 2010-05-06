@@ -10,20 +10,22 @@ class CreditRule < Rule
     evaluation_modules = Rule::remove_modules_from_array selected_modules, non_permitted_modules
 
     evaluation_modules.each do |e_module|
-      if e_module.class == CustomModule
-        e_module.categories.each { |category| credits += e_module.credits if self.category == category }
-      else
-        if e_module.category != nil && e_module.category.exclusive != 1
-          if e_module.category == self.category
-            if rule_modules.include? e_module.moduledata
-              e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
+      if e_module.semester.count > 0
+        if e_module.class == CustomModule
+          e_module.categories.each { |category| credits += e_module.credits if self.category == category }
+        else
+          if e_module.category != nil && e_module.category.exclusive != 1
+            if e_module.category == self.category
+              if rule_modules.include? e_module.moduledata
+                e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
+              end
             end
-          end
-        elsif e_module.moduledata.categories.length > 0
-          if e_module.moduledata.categories.include? self.category
-            if rule_modules.include? e_module.moduledata
-              #              e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
-              credits += e_module.credits unless e_module.credits == nil
+          elsif e_module.moduledata.categories.length > 0
+            if e_module.moduledata.categories.include? self.category
+              if rule_modules.include? e_module.moduledata
+                #              e_module.credits == nil ? credits += e_module.moduledata.credits : credits += e_module.credits
+                credits += e_module.credits unless e_module.credits == nil
+              end
             end
           end
         end
@@ -36,12 +38,14 @@ class CreditRule < Rule
     credits = 0
     n_p_m = Array.new if n_p_m == nil
     selected_modules.each do |smodule|
-      unless n_p_m.include? smodule.moduledata
-        if self.modules.include? smodule.moduledata
-          if smodule.credits == nil
-            credits += smodule.moduledata.credits
-          else
-            credits += smodule.credits
+      if smodule.semester.count > 0
+        unless n_p_m.include? smodule.moduledata
+          if self.modules.include? smodule.moduledata
+            if smodule.credits == nil
+              credits += smodule.moduledata.credits
+            else
+              credits += smodule.credits
+            end
           end
         end
       end
