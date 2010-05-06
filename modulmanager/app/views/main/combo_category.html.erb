@@ -1,4 +1,4 @@
-<% unless @categories.length <= 1 %>
+<% unless @categories.length <= 1 || @mod.parent != nil %>
   <p>
     Einbringen in:
     <select id="category_category_id" name="category[category_id]">

@@ -208,13 +208,13 @@ class MainController < ApplicationController
 
   def combo_category
     @id = params[:mod_id]
-    mod = Studmodule.find(@id)
+    @mod = Studmodule.find(@id)
 
-    @selected_cat = current_selection.selection_modules.find(:first, :conditions => "module_id = #{mod.id}").category
+    @selected_cat = current_selection.selection_modules.find(:first, :conditions => "module_id = #{@mod.id}").category
     #    @selected_cat = SelectedModule.find(:first, :conditions => "module_id = #{mod.id}").category
 
     @categories = Array.new
-    mod.categories.each do |category|
+    @mod.categories.each do |category|
       unless category.focus != nil
         @categories.push category
       end
