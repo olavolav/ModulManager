@@ -3,10 +3,10 @@
   <ul>
     <% @deprecated_modules.each do |m| %>
       <li>
-        <p>Name:    <%= m["name"] %></p>
-        <p>Kürzel:  <%= m["short"] %></p>
-        <p>Credits: <%= m["credits"] %></p>
-        <p>Note:    <%= m["grade"] %></p>
+        <p>Name:    <%= m[:name] %></p>
+        <p>Kürzel:  <%= m[:short] %></p>
+        <p>Credits: <%= m[:credits] %></p>
+        <p>Note:    <%= m[:grade] %></p>
       </li>
     <% end %>
   </ul>

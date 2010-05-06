@@ -83,20 +83,39 @@ class MainController < ApplicationController
     selection.version = new_version
     selection.save
     version_modules = Studmodule.find(:all, :conditions => "version_id = '#{selection.version.id}'")
-
     @deprecated_modules = Array.new
+    found = nil
 
     selection.selection_modules.each do |sm|
-      found = false
+
       version_modules.each do |vm|
-        found = true if (sm.moduledata.short == vm.short) && (sm.moduledata.credits == vm.credits)
+        if (vm.short == sm.moduledata.short) && (vm.credits == sm.moduledata.credits)
+          found = vm.id
+        else
+          if found == nil
+            found = nil
+          end
+        end
       end
-      unless found
-        @deprecated_modules.push({:name => sm.moduledata.name, :short => sm.moduledata.short, :credits => sm.moduledata.credits, :grade => sm.grade})
+      if found != nil
+        sm.set_module(found)
+        sm.save
+      else
+        @deprecated_modules.push(
+          {
+            :name => sm.moduledata.name,
+            :short => sm.moduledata.short,
+            :credits => sm.moduledata.credits,
+            :grade => sm.grade
+          }
+        )
         sm.destroy
       end
+      found = nil
+
     end
-    
+    selection.save
+
     respond_to do |format|
       format.html
     end
@@ -219,9 +238,9 @@ class MainController < ApplicationController
         @categories.push category
       end
 
-#      unless category.exclusive == 1 || category.focus != nil
-#        @categories.push category
-#      end
+      #      unless category.exclusive == 1 || category.focus != nil
+      #        @categories.push category
+      #      end
     end
     found = false
     @categories.each {|cat| found = true if cat.exclusive != 1}
@@ -254,13 +273,13 @@ class MainController < ApplicationController
     unless mod == nil
       new_cat = Category.find(cat_id)
       mod.category = new_cat
-#      if mod.children != nil && mod.children.length > 0
-#        mod.children.each do |child|
-#          mod_to_change = current_selection.selection_modules.find(:first, :conditions => "module_id = #{child.id}")
-#          mod_to_change.category = new_cat
-#          mod_to_change.save
-#        end
-#      end
+      #      if mod.children != nil && mod.children.length > 0
+      #        mod.children.each do |child|
+      #          mod_to_change = current_selection.selection_modules.find(:first, :conditions => "module_id = #{child.id}")
+      #          mod_to_change.category = new_cat
+      #          mod_to_change.save
+      #        end
+      #      end
       mod.save
     end
 
@@ -318,25 +337,25 @@ class MainController < ApplicationController
     render :text => selection.version.name
   end
 
-private
+  private
 
   def create_selection
     selection = current_selection
     if selection.focus == nil
-     selection.semesters = create_pre_selection "standard"
+      selection.semesters = create_pre_selection "standard"
     else
       selection.semesters = create_pre_selection selection.focus.name
     end
-#    found = false
-#    Focus.all.each do |f|
-#      if selection.focus == f
-#        found = true
-#        selection.semesters = create_pre_selection f.name
-#        selection.save
-#      end
-#    end
-#    selection.semesters = create_pre_selection "standard" unless found
-#    redirect_to :action => "index"
+    #    found = false
+    #    Focus.all.each do |f|
+    #      if selection.focus == f
+    #        found = true
+    #        selection.semesters = create_pre_selection f.name
+    #        selection.save
+    #      end
+    #    end
+    #    selection.semesters = create_pre_selection "standard" unless found
+    #    redirect_to :action => "index"
   end
 
   def shredder file

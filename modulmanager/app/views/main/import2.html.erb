@@ -7,6 +7,14 @@
          <p>
            <strong><%= @version.name %></strong>
          </p>
+
+         <p>
+           <% form_tag :action => "index" do  %>
+             <%= submit_tag "Weiter" %>
+           <% end %>
+         </p>
+
+         <!--
          <p>Soll diese auch weiterhin verwendet werden?</p>
 
 
@@ -21,6 +29,7 @@
              <%= submit_tag "Nein" %>
            <% end %>
          </p>
+         -->
 
        </div>
 

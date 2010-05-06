@@ -463,4 +463,8 @@ class SelectedModule < ActiveRecord::Base
     return self.moduledata.parent
   end
 
+  def set_module id
+    self[:module_id] = id
+  end
+
 end
