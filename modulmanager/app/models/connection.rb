@@ -123,7 +123,8 @@ class Connection < ActiveRecord::Base
   def removed_grades selected_modules
     counter = 0
     selected_modules.each do |mod|
-      if mod.has_grade == false
+      #      if mod.has_grade == false
+      if mod.has_removed_grade?
         self.categories.each do |category|
           if category.modules.include? mod.moduledata
             counter += 1

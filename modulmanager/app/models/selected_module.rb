@@ -441,7 +441,11 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def has_removed_grade?
-    return !self.has_grade
+    if self.is_custom_module?
+      return false
+    else
+      return !self.has_grade
+    end
   end
 
 end
