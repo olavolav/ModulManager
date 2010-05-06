@@ -154,6 +154,10 @@ a:visited {
 	margin: 4px;
 }*/
 
+#minihelp .table_line_highlight {
+	background: #F7F7F7;
+}
+
 #content {
 	/*background: #FAFAFD url("../images/Semester-Hintergrund.gif");
 		background-repeat: no-repeat;

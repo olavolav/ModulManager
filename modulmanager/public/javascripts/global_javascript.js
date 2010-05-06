@@ -324,8 +324,8 @@ var show_navi = function(){
 var hide_navi = function(){
     $("#navimovedown").show();
     $("#navimoveup").hide();
-    $("#help_optional").hide();
-    $("#helpmovedown").show();
+    // $("#help_optional").hide();
+    // $("#helpmovedown").show();
     $("#navi_optional").slideUp();
 };
 var show_minihelp = function(){
