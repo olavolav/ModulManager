@@ -57,7 +57,7 @@ class Category < ActiveRecord::Base
     counter = 0
     selected_modules = selection.selection_modules
     selected_modules.each do |sm|
-      if self.modules.include? sm.moduledata && sm.has_grade == false
+      if self.modules.include? sm.moduledata && sm.has_removed_grade?
         counter += 1
       end
     end
