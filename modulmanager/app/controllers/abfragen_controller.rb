@@ -102,12 +102,12 @@ class AbfragenController < ApplicationController
       if m2.moduledata.univzid != nil
         if m2.moduledata.univzid == "Automatisch"
           @univz_link = "http://univz.uni-goettingen.de/qisserver/rds?state=change&type=3&" +
-          "moduleParameter=pordpos_sk&nextdir=change&next=TableSelect.vm&subdir=pord&pord.pltxt1=%22" +
-          @short + "%22&P_start=0&P_anzahl=20"
+            "moduleParameter=pordpos_sk&nextdir=change&next=TableSelect.vm&subdir=pord&pord.pltxt1=%22" +
+            @short + "%22&P_start=0&P_anzahl=20"
         else
           @univz_link = "http://univz.uni-goettingen.de/qisserver/rds?state=change&type=3&" +
-          "moduleParameter=pordpos_sk&nextdir=change&next=TableSelect.vm&subdir=pord&pord.pltxt1=%22" +
-          m2.moduledata.univzid + "%22&P_start=0&P_anzahl=20"
+            "moduleParameter=pordpos_sk&nextdir=change&next=TableSelect.vm&subdir=pord&pord.pltxt1=%22" +
+            m2.moduledata.univzid + "%22&P_start=0&P_anzahl=20"
         end
       else
         @univz_link = nil
@@ -362,12 +362,16 @@ class AbfragenController < ApplicationController
     mod_id = params[:mod_id]
     mod = current_selection.selection_modules.find(:first, :conditions => "module_id = #{mod_id}")
     if mod.moduledata.credits == credits || credits == "false"
-      mod.credits = nil
+      new_credits = nil
     else
-      mod.credits = credits
+      new_credits = credits
     end
-    mod.save
-    render :text => "success"
+    if mod.set_credits_to new_credits
+      mod.save
+      render :text => "success" and return
+    else
+      render :text => "failed" and return
+    end
   end
 
   def remove_warning

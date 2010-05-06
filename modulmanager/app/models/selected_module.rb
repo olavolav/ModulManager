@@ -273,6 +273,15 @@ class SelectedModule < ActiveRecord::Base
     end
   end
 
+  def set_credits_to credits
+    old_credits = self.credits
+    self.credits = credits
+    unless self.credits == old_credits
+      return true
+    end
+    return false
+  end
+
   def credits=(credits)
     if SelectedModule.check_credits(credits)
       self[:credits] = credits
@@ -340,7 +349,7 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def self.check_credits credits
-    if credits.class == Fixnum
+    if ((credits.to_f*10)%10) == 0
       return true
     else
       return false
