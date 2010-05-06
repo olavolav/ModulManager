@@ -9,6 +9,11 @@ class MainController < ApplicationController
   $JavaScriptFilesCompiled = false
   
   def start
+    if session[:selection_id] == nil
+      @new_session = true
+    else
+      @new_session = false
+    end
     selection = current_selection
     @schwerpunkte = Focus.find(:all, :conditions => "version_id = #{selection.version.id}")
     @version = selection.version
