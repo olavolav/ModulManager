@@ -4,6 +4,10 @@
 
 class RegelParserController < ApplicationController
 
+  USER_ID, PASSWORD = "mm_admin_123", "georgia augusta"
+
+  before_filter :authenticate
+
   def start
     if (
         Rule.all.length == 0 &&
@@ -544,6 +548,12 @@ class RegelParserController < ApplicationController
     child_rules.push(Rule::create_min_module_rule_for_standard(modules, name, version)) unless modules == nil
     r = Connection::create_and_connection(name, description, child_rules, nil, 0, version, position)
     return r
+  end
+
+  def authenticate
+    authenticate_or_request_with_http_basic do |id, password|
+      id == USER_ID && password == PASSWORD
+    end
   end
 
 end
