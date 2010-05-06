@@ -202,18 +202,18 @@ class AbfragenController < ApplicationController
     if my_module == nil
       my_module = CustomModule.create(
         :moduledata => studmodule,
-        :short => studmodule.short,
-        :credits => params[:credits],
-        :name => params[:name]
+        :short      => studmodule.short,
+        :credits    => params[:credits],
+        :name       => params[:name]
       )
     else
       my_module.credits = params[:credits]
-      my_module.name = params[:name]
+      my_module.name    = params[:name]
     end
     params[:has_grade] == nil ? my_module.has_grade = true : my_module.has_grade = params[:has_grade]
     semester.modules << my_module
     semester.save
-    cat_id = params[:cat_id]
+    cat_id    = params[:cat_id]
     cat_array = cat_id.split(",")
     cat_array.each do |category_id|
       category_id.strip!
@@ -227,9 +227,16 @@ class AbfragenController < ApplicationController
   end
 
   def change_semester_for_module
-    auswahl = current_selection
-    modul = auswahl.selection_modules.find(:first, :conditions => "module_id = #{params[:mod_id]}")
-    modul.semester = auswahl.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
+    auswahl         = current_selection
+    modul           = auswahl.selection_modules.find(:first, :conditions => "module_id = #{params[:mod_id]}")
+    new_semester = auswahl.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
+    if new_semester == nil
+      new_semester = Semester.create :count => params[:sem_count]
+      auswahl.semesters << new_semester
+      auswahl.save
+    end
+    modul.semester = new_semester
+#    modul.semester  = auswahl.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
     modul.save
     render :text => "Module semester changed successfully..."
   end
