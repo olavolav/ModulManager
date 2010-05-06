@@ -27,7 +27,7 @@
 \includegraphics[width=7cm]{../../../public/images/LaTeX/LogoMMbeta.pdf}
 \end{figure}
 
-\section*{ModulManager der Fakultät Physik}
+% \section*{ModulManager der Fakultät Physik}
 
 \noindent Vielen Dank, dass Sie den ModulManager der Fakultät Physik der Universität Göttingen benutzt haben. Wir hoffen, er war Ihnen behilflich.
 
@@ -65,7 +65,7 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
 <% end %>
 
 <% unless zusatz == nil %>
-    \subsection*{Freiwillige Zusatzleistungen}
+    \subsubsection*{Freiwillige Zusatzleistungen}
     \begin{compactitemize}
         <% zusatz.modules.each do |modul| %>
             \item <%= modul.to_string_for_printing(@show_grades) %>
@@ -74,7 +74,7 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
     \end{compactitemize}
 <% end %>
 
-\subsection{Auflistung nach Kategorien (``Studienberater-Ansicht'')}
+\subsection*{Auflistung nach Kategorien (``Studienberater-Ansicht'')}
 
 Es folgt eine Auflistung der von Ihnen gewählten Module nach den Kategorien der von Ihnen gewählten Prüfungsordnung.
 Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs bei der Studienberatung zu nutzen, nehmen Sie bitte den folgenden Abschnitt dorthin mit.
@@ -95,9 +95,9 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
 <% end %>
 
 <% unless @selection.focus == nil %>
-    \subsection{Schwerpunkt ``<%= @selection.focus.name %>''}
+    % \subsection*{Schwerpunkt ``<%#= @selection.focus.name %>''}
     <% @selection.focus.categories.each do |c| %>
-        \subsubsection*{<%= c.name %>}
+        \subsubsection*{Schwerpunkt: <%= c.name %>}
         <% if c.modules_in_selection(@selection).length == 0 %>
             (leer)
         <% else %>
@@ -113,7 +113,7 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
         <% end %>
     <% end %>
 <% else %>
-    \subsection{Schwerpunkt / nicht gewählt}
+    \subsection*{Schwerpunkt / nicht gewählt}
 <% end %>
 
 
