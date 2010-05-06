@@ -245,7 +245,11 @@ class AndConnection < Connection
       if self.evaluate(modules, errors) != 1
         text += "nicht erfüllt."
       else
-        text += "erfüllt."
+        text += "erfüllt"
+        if self.removed_too_many_grades? modules
+          text += ", da zu viele Noten entfernt wurden"
+        end
+        text += "."
       end
       text += " "
     else
@@ -253,7 +257,11 @@ class AndConnection < Connection
       if self.evaluate(modules, errors) != 1
         text += "<span style='color: red;'>nicht erfüllt.</span>"
       else
-        text += "<span style='color: green;'>erfüllt.</span>"
+        text += "<span style='color: green;'>erfüllt"
+        if self.removed_too_many_grades? modules
+          text += ", da zu viele Noten entfernt wurden"
+        end
+        text += ".</span>"
       end
       text += "</strong><br>"
     end

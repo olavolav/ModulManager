@@ -84,6 +84,9 @@ Falls Sie sich entschliessen sollten, Ihre Auswahl als Grundlage eines Besuchs b
     <% if cat.modules.length == 0 %>
         (leer)
     <% else %>
+        <% if cat.removed_too_many_grades?(@modules) %>
+            Es sind zu viele Noten gestrichen!
+        <% end %>
         \begin{compactitemize}
             <% cat.collected_modules_array(@selection.selection_modules, @errors).each do |m| %>
                 \item <%= m.to_string_for_printing(@show_grades) %>
