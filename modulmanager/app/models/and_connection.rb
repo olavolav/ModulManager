@@ -11,23 +11,25 @@ class AndConnection < Connection
       credits = 0
       selected_modules.each do |s_module|
         unless s_module.class == Semester
-          unless non_permitted_modules.include? s_module.moduledata
-            if s_module.class == CustomModule
-              found = false
-              s_module.categories.each { |category| found = true if self.categories.include? category }
-              credits += s_module.credits if found
-            else
-              if s_module.category != nil && s_module.category.exclusive != 1
-                if self.categories.include? s_module.category
-                  credits += s_module.credits
-                end
-              elsif s_module.category != nil && s_module.category.exclusive == 1
-                if self.exclusive_modules.include? s_module.moduledata
-                  credits += s_module.credits
-                end
+          if s_module.semester.count > 0
+            unless non_permitted_modules.include? s_module.moduledata
+              if s_module.class == CustomModule
+                found = false
+                s_module.categories.each { |category| found = true if self.categories.include? category }
+                credits += s_module.credits if found
               else
-                if self.modules.include? s_module.moduledata
-                  credits += s_module.credits
+                if s_module.category != nil && s_module.category.exclusive != 1
+                  if self.categories.include? s_module.category
+                    credits += s_module.credits
+                  end
+                elsif s_module.category != nil && s_module.category.exclusive == 1
+                  if self.exclusive_modules.include? s_module.moduledata
+                    credits += s_module.credits
+                  end
+                else
+                  if self.modules.include? s_module.moduledata
+                    credits += s_module.credits
+                  end
                 end
               end
             end
@@ -45,19 +47,21 @@ class AndConnection < Connection
       modules = 0
       selected_modules.each do |s_module|
         unless s_module.class == Semester
-          unless non_permitted_modules.include? s_module.moduledata
-            if s_module.class == CustomModule
-              found = false
-              s_module.categories.each { |category| found = true if self.categories.include? category }
-              modules += 1 if found
-            else
-              if s_module.category != nil && s_module.category.exclusive != 1
-                if self.categories.include? s_module.category
-                  modules += 1
-                end
+          if s_module.semester.count > 0
+            unless non_permitted_modules.include? s_module.moduledata
+              if s_module.class == CustomModule
+                found = false
+                s_module.categories.each { |category| found = true if self.categories.include? category }
+                modules += 1 if found
               else
-                if self.modules.include? s_module.moduledata
-                  modules += 1
+                if s_module.category != nil && s_module.category.exclusive != 1
+                  if self.categories.include? s_module.category
+                    modules += 1
+                  end
+                else
+                  if self.modules.include? s_module.moduledata
+                    modules += 1
+                  end
                 end
               end
             end
@@ -75,19 +79,21 @@ class AndConnection < Connection
       modules = Array.new
       selected_modules.each do |s_module|
         unless s_module.class == Semester
-          unless non_permitted_modules.include? s_module.moduledata
-            if s_module.class == CustomModule
-              found = false
-              s_module.categories.each {|category| found = true if self.categories.include? category}
-              modules.push s_module if found
-            else
-              if s_module.category != nil && s_module.category.exclusive != 1
-                if self.categories.include? s_module.category
-                  modules.push s_module
-                end
+          if s_module.semester.count > 0
+            unless non_permitted_modules.include? s_module.moduledata
+              if s_module.class == CustomModule
+                found = false
+                s_module.categories.each {|category| found = true if self.categories.include? category}
+                modules.push s_module if found
               else
-                if self.modules.include? s_module.moduledata
-                  modules.push s_module
+                if s_module.category != nil && s_module.category.exclusive != 1
+                  if self.categories.include? s_module.category
+                    modules.push s_module
+                  end
+                else
+                  if self.modules.include? s_module.moduledata
+                    modules.push s_module
+                  end
                 end
               end
             end
@@ -135,12 +141,14 @@ class AndConnection < Connection
     credits = 0
     selected_modules.each do |smodule|
       unless smodule.class == Semester
-        unless n_p_m.include? smodule.moduledata
-          if self.modules.include? smodule.moduledata
-            if smodule.credits == nil
-              credits += smodule.moduledata.credits
-            else
-              credits += smodule.credits
+        if smodule.semester.count > 0
+          unless n_p_m.include? smodule.moduledata
+            if self.modules.include? smodule.moduledata
+              if smodule.credits == nil
+                credits += smodule.moduledata.credits
+              else
+                credits += smodule.credits
+              end
             end
           end
         end
@@ -153,9 +161,11 @@ class AndConnection < Connection
     modules = 0
     selected_modules.each do |smodule|
       unless smodule.class == Semester
-        unless n_p_m.include? smodule.moduledata
-          if self.modules.include? smodule.moduledata
-            modules += 1
+        if smodule.semester.count > 0
+          unless n_p_m.include? smodule.moduledata
+            if self.modules.include? smodule.moduledata
+              modules += 1
+            end
           end
         end
       end
