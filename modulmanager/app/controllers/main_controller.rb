@@ -231,18 +231,10 @@ class MainController < ApplicationController
   end
 
   def _check_category
-    #    id = params[:mod_id]
-    #    mod = Studmodule.find(id)
     @categories = Array.new
-    Category.find(:all, :conditions => "exclusive = 1").each do |category|
+    Category.find(:all, :conditions => "exclusive = 1 AND version_id = #{current_selection.version.id}").each do |category|
       @categories.push category
     end
-
-    #    mod.categories.each do |category|
-    #      if category.exclusive
-    #        @categories.push category
-    #      end
-    #    end
 
     respond_to do |format|
       format.html { render :action => "_check_category", :layout => false }
@@ -254,7 +246,6 @@ class MainController < ApplicationController
     cat_id = params[:cat_id]
 
     mod = current_selection.selection_modules.find(:first, :conditions => "module_id = #{id}")
-    #    mod = SelectedModule.find(:first, :conditions => "module_id = #{id}")
 
     unless mod == nil
       mod.category = Category.find(cat_id)
