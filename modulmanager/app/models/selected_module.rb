@@ -393,7 +393,7 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def self.check_category_id category_id
-    if category_id != nil
+    if category_id != nil && category_id != 0
       if category_id.class == Fixnum
         if Category.find(category_id) == nil
           return false
