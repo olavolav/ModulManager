@@ -305,6 +305,7 @@ class MainController < ApplicationController
     selection = current_selection
     selection.focus = focus
     selection.save
+    create_selection
     render :text => "Supi!"
   end
 
@@ -313,24 +314,30 @@ class MainController < ApplicationController
     selection.version   = Version.find(params[:version])
     selection.focus     = nil
     selection.save
+    create_selection
     render :text => selection.version.name
   end
 
+private
+
   def create_selection
     selection = current_selection
-    found = false
-    Focus.all.each do |f|
-      if selection.focus == f
-        found = true
-        selection.semesters = create_pre_selection f.name
-        selection.save
-      end
+    if selection.focus == nil
+     selection.semesters = create_pre_selection "standard"
+    else
+      selection.semesters = create_pre_selection selection.focus.name
     end
-    selection.semesters = create_pre_selection "standard" unless found
-    redirect_to :action => "index"
+#    found = false
+#    Focus.all.each do |f|
+#      if selection.focus == f
+#        found = true
+#        selection.semesters = create_pre_selection f.name
+#        selection.save
+#      end
+#    end
+#    selection.semesters = create_pre_selection "standard" unless found
+#    redirect_to :action => "index"
   end
-
-  private
 
   def shredder file
     xml = File.read(file)
