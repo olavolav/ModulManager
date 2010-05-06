@@ -10,8 +10,12 @@
 
   <p>Herzlich Willkommen!</p>
   <% selection = current_selection %>
-	<% oldPO = selection.version.id %>
-	<% oldSP = @mein_schwerpunkt %>
+	<%# oldPO = selection.version.id %>
+	<%# oldSP = @mein_schwerpunkt %>
+
+	<% unless @new_session===true %>
+		<p class="backtomain additionalnotes">Bitte beachten Sie, dass Sie bei einer Veränderung der Einstellungen unten wieder mit der Standard-Auswahl der Studienordnung beginnen - evtl. vorgenommene Modifikationen gehen also verloren.</p>
+	<% end %>
 
   <div id="pruefungsordnung">
 	<strong>1.</strong> Bitte wählen Sie zunächst die für Sie gültige Prüfungsordnung aus:<br>
@@ -52,18 +56,17 @@
   </div>
 
   <div id ="bestaetigen">
-	<% if @new_session===true %>
-    	<%= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
-	<% else %>
-		<p class="backtomain additionalnotes" style="display:none;">Bitte beachten Sie, dass Sie bei einer Veränderung der Einstellungen oben wieder mit der Standard-Auswahl der Studienordnung beginnen - evtl. vorgenommene Modifikationen gehen also verloren.
-		Falls Sie das nicht möchten, wählen Sie bitte "Abbrechen", um direkt wieder zur Hauptseite des ModulManagers zu gelangen.</p>
-		<%= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
-		<%= link_to "Abbrechen", {:action => "index"}, :class => "linkbutton backtomain", :style => "display:none;" %>
-	<% end %>
+	<!-- <%# if @new_session===true %>
+	    	<%#= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
+		<%# else %>
+			<p class="backtomain additionalnotes" style="display:none;">Bitte beachten Sie, dass Sie bei einer Veränderung der Einstellungen oben wieder mit der Standard-Auswahl der Studienordnung beginnen - evtl. vorgenommene Modifikationen gehen also verloren.
+			Falls Sie das nicht möchten, wählen Sie bitte "Abbrechen", um direkt wieder zur Hauptseite des ModulManagers zu gelangen.</p>
+			<%#= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
+			<%#= link_to "Abbrechen", {:action => "index"}, :class => "linkbutton backtomain", :style => "display:none;" %>
+		<%# end %> -->
+
+	<%= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
 	
-    <%# unless @mein_schwerpunkt == nil %>
-      <%#= link_to "Zurück", {:action => "index"}, :class => "linkbutton" %>
-    <%# end %>
   </div>
 
   <div class="clear">&nbsp;</div>
@@ -73,7 +76,3 @@
   <p><%= link_to "Impressum und unsere Erklärung zum Datenschutz", :action => "impressum" %></p>
 
 </div>
-
-<!-- <div id="made_changes" style="display:none;">false</div> -->
-
-<% @new_session %>
