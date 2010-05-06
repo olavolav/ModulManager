@@ -53,15 +53,15 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
         <% zusatz = s %>
     <% else %>
         \subsubsection*{<%= s.count %>. Semester}
+        \begin{compactitemize}
+            <% s.modules.each do |modul| %>
+                \item <%= modul.to_string_for_printing(@show_grades) %>
+                            <%= rtex_ao_message(modul) %>
+                <% unless modul.is_permitted? %>Warnung: Die Voraussetzungen für dieses Modul sind nicht erfüllt. Es wird nur in der chronologischen Ansicht angezeigt, nicht jedoch in der Ansicht nach Kategorien (siehe unten).<% end %>
+            <% end %>
+        \end{compactitemize}
     <% end %>
 
-    \begin{compactitemize}
-        <% s.modules.each do |modul| %>
-            \item <%= modul.to_string_for_printing(@show_grades) %>
-			<%= rtex_ao_message(modul) %>
-            <% unless modul.is_permitted? %>Warnung: Die Voraussetzungen für dieses Modul sind nicht erfüllt. Es wird nur in der chronologischen Ansicht angezeigt, nicht jedoch in der Ansicht nach Kategorien (siehe unten).<% end %>
-        <% end %>
-    \end{compactitemize}
 <% end %>
 
 <% unless zusatz == nil %>
