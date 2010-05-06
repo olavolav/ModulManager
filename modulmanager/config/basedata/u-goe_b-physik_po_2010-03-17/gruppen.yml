@@ -85,7 +85,7 @@
     modus: wp
 
   - name: Profilierungsbereich
-    beschreibung: "Durch Kombination ausgewählter Module können individuelle Studienprofile und Studienschwerpunkte gestaltet werden. Dazu müssen Module im Umfang von 6 C aus dem mathematisch-naturwissenschaftlichen Bereich gewählt werden und Module im Umfang von 12 C aus einem nichtphysikalischen Gebiet; je nach gewähltem Studienprofil sind hier Module aus den Gebieten Biologie, Chemie, Informatik, Mathematik oder Volkswirtschaft empfehlenswert. Doch können auch Module aus anderen Gebieten gewählt werden."
+    beschreibung: "Durch Kombination ausgewählter Module können individuelle Studienprofile und Studienschwerpunkte gestaltet werden. Dazu müssen Module im Umfang von 6 C aus dem mathematisch-naturwissenschaftlichen Bereich gewählt werden und Module im Umfang von 12 C aus einem nichtphysikalischen Gebiet; je nach gewähltem Studienprofil sind hier Module aus den Gebieten Biologie, Chemie, Informatik, Mathematik oder Volkswirtschaft empfehlenswert. Doch können auch Module aus anderen Gebieten gewählt werden.<br>Bitte beachten Sie, dass in den diesem Bereich untergeordneten Bereichen Module vorkommen, die in mehrere Unterbereiche eingebracht werden können. Folglich ist die angezeigte Credit-Zahl nicht notwendigerweise die Summe der Credits der Unterbereiche."
     untergruppen: "Nicht Physikalisch, Mathematisch-Naturwissenschaftlich"
 
   - name: Spezialisierungs-Praktikum
