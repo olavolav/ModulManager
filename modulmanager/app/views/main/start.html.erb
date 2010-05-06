@@ -9,40 +9,10 @@
   </div>
 
   <p>Herzlich Willkommen!</p>
-
-  <div id="schwerpunkt">
-		Bitte Schwerpunkt auswählen:<br/>
-		(Bitte beachten: Die Schwerpunkte <i>Nanostrukturphysik</i> und <i>Physikinformatik</i> sind als berufsqualifizierende Bachelor-Abschlüsse konzipiert. Es wird dringend empfohlen, sich bei Wahl einer dieser Schwerpunkte direkt an die Studienberatung der Fakultät Physik zu wenden.)<br>
-
-    <% selection = current_selection %>
-    <% (@mein_schwerpunkt == nil) ? class_tag = "active" : class_tag = "passive" %>
-    <a onClick='javascript:update_schwerpunkt(-1);'class='schwerpunkt_oben <%= class_tag %>' id="-1">
-      Kein Schwerpunkt
-    </a>
-
-    <% Version.find(:all).each do |po| %>
-        <% po.foci.each do |schwerpunkt| %>
-          <%#
-            Hier kann der ganze Schwerpunkt-Code hin :-)
-            Mit schwerpunkt.id == @mein_schwerpunkt.id kann verglichen werden,
-            ob der anzuzeigende auch der aktuell gewählte Schwerpunkt ist.
-          %>
-        <% end %>
-    <% end %>
-
-    <!--
-    <% @schwerpunkte.each do |s| %>
-      <% class_tag = "passive" %>
-      <% ((@mein_schwerpunkt.id == s.id) ? class_tag = "active" : class_tag = "passive") unless @mein_schwerpunkt == nil %>
-  <a onClick='javascript:update_schwerpunkt(<%= s.id %>);' class='schwerpunkt_oben <%= class_tag %>' id='<%= s.id %>'>
-      <%= s.name %>
-  </a>
-    <% end %>
-    -->
-  </div>
+  <% selection = current_selection %>
 
   <div id="pruefungsordnung">
-	Bitte Prüfungsordnung auswählen:<br>
+	<strong>1.</strong> Bitte wählen Sie zunächst die für Sie gültige Prüfungsordnung aus:<br>
 
     <% Version.all.each do |po| %>
       <% (selection.version.id == po.id) ? class_tag = "active" : class_tag = "passive" %>
@@ -52,20 +22,45 @@
     <% end %>
   </div>
 
+  <div id="schwerpunkt">
+		<strong>2.</strong> Bitte wählen Sie den gewünschten Schwerpunkt:<br/>
+		(Bitte beachten Sie dabei: Die Schwerpunkte <i>Nanostrukturphysik</i> und <i>Physikinformatik</i> sind als berufsqualifizierende Bachelor-Abschlüsse konzipiert. Es wird dringend empfohlen, sich bei Wahl einer dieser Schwerpunkte direkt an die Studienberatung der Fakultät Physik zu wenden.)<br>
+
+    <% Version.find(:all).each do |po| %>
+		<div class="SPsubclass" id="<%= "belongstoPOid"+po.id.to_s %>" <% unless po.id==selection.version.id %>style="display:none;"<%end%> >
+	    <% (@mein_schwerpunkt == nil) ? class_tag = "active" : class_tag = "passive" %>
+	    <a onClick='javascript:update_schwerpunkt(-1);' class='schwerpunkt_oben <%= class_tag %>' id="-1">
+	      Kein Schwerpunkt
+	    </a>
+        <% po.foci.each do |s| %>
+          <%#
+            Hier kann der ganze Schwerpunkt-Code hin :-)
+            Mit schwerpunkt.id == @mein_schwerpunkt.id kann verglichen werden,
+            ob der anzuzeigende auch der aktuell gewählte Schwerpunkt ist.
+          %>
+		      <% class_tag = "passive" %>
+		      <% ((@mein_schwerpunkt.id == s.id) ? class_tag = "active" : class_tag = "passive") unless @mein_schwerpunkt == nil %>
+		  <a onClick='javascript:update_schwerpunkt(<%= s.id %>);' class='schwerpunkt_oben <%= class_tag %>' id='<%= s.id %>'>
+		      <%= s.name %>
+		  </a>
+        <% end %>
+		</div>
+    <% end %>
+
+  </div>
 
   <div id ="bestaetigen">
-				Alternativ können Sie eine von Ihnen 
-    <%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.<br/>
-    <p>Wir bemühen uns, die im ModulManager dargestellten Information ständig auf dem neuesten Stand zu halten. Bitte beachten Sie dennoch, dass die Prüfungsordnung selbst das einzig rechtsverbindliche Dokument ist.</p>
-
     <%= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
 
     <% unless @mein_schwerpunkt == nil %>
       <%= link_to "Zurück", {:action => "index"}, :class => "linkbutton" %>
     <% end %>
-    <div class="clear">&nbsp;</div>
   </div>
 
+  <div class="clear">&nbsp;</div>
+  <p>Alternativ können Sie eine von Ihnen 
+<%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.</p>
+  <p>Wir bemühen uns, die im ModulManager dargestellten Information ständig auf dem neuesten Stand zu halten. Bitte beachten Sie dennoch, dass die Prüfungsordnung selbst das einzig rechtsverbindliche Dokument ist.</p>
   <p><%= link_to "Impressum und unsere Erklärung zum Datenschutz", :action => "impressum" %></p>
 
 </div>

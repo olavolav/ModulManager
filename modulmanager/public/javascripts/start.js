@@ -57,6 +57,8 @@ var update_pordnung = function(po_id){
     });
 	
 	$(".pruefungsordnung[id="+po_id+"]").attr("class","pruefungsordnung active");
+	$(".SPsubclass").hide();
+	$(".SPsubclass[id=belongstoPOid"+po_id+"]").show();
 };
 
 var ajax_serverupdate_on_AJAX_warning = function(text){

@@ -52,7 +52,8 @@ select {
 }
 
 
-#pruefungsordnung {
+#pruefungsordnung, #schwerpunkt {
+	padding-top: 10px;
 	clear: both;
 }
 
