@@ -17,11 +17,7 @@ var authenticityTokenParameter = function(){
 };
 var update_schwerpunkt = function(s_id){
 	
-	var real_change = false;
 	if (!$(".schwerpunkt_oben[id="+s_id+"]").hasClass("active")) {
-		real_change = true;
-	}
-	
     // alert("hallo schwerpunkt "+s_id);
 
     $.ajax({
@@ -37,7 +33,6 @@ var update_schwerpunkt = function(s_id){
 				}
     });
 
-	if (real_change) {
 		$(".schwerpunkt_oben").attr("class","schwerpunkt_oben passive");
 		// $(".backtomain").slideDown();
 		$(".schwerpunkt_oben[id="+s_id+"]").attr("class","schwerpunkt_oben active");
@@ -46,11 +41,7 @@ var update_schwerpunkt = function(s_id){
 
 var update_pordnung = function(po_id){
 	
-	var real_change = false;
 	if (!$(".pruefungsordnung[id="+po_id+"]").hasClass("active")) {
-		real_change = true;
-	}
-
     // alert("hallo pruefungsordnung "+po_id);
 
     $.ajax({
@@ -66,7 +57,6 @@ var update_pordnung = function(po_id){
 				}
     });
 	
-	if (real_change) {
 		$(".pruefungsordnung").attr("class","pruefungsordnung passive");
 		$(".pruefungsordnung[id="+po_id+"]").attr("class","pruefungsordnung active");
 		// $(".backtomain").slideDown();
