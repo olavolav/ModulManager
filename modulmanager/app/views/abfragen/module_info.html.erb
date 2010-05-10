@@ -3,8 +3,8 @@
   <p class='description'><%= @description %></p>
   <p class='short'>Kurzbezeichnung: <%= @short %></p>
   <p class='credits'>Credits: <%= @credits %></p>
-  <% if @univz_link != nil %>
-    <p class="univz">Externe Links: <a href="<%= @univz_link %>" target="_blank">Suche nach Modul in UniVZ</a></p>
+  <% if @univzid != nil %>
+    <p class="univz">Externe Links: <a href="<%#= @univz_link %><%= univz_url(@univzid,@short) %>" target="_blank">Suche nach Modul in UniVZ</a></p>
   <% end %>
 
   <!-- Der folgene Teil ist natürlich noch nicht fertig, Dummy-Module fehlen (OS) -->

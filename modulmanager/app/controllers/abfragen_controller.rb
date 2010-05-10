@@ -4,6 +4,8 @@
 
 class AbfragenController < ApplicationController
 
+  helper :all # just make sure to include all helpers
+
   def ueberblick
     selection = current_selection
     @errors = get_errors selection
@@ -98,20 +100,9 @@ class AbfragenController < ApplicationController
       @name         = m2.moduledata.name
       @description  = m2.moduledata.description
       @short        = m2.moduledata.short
+      @univzid      = mod.univzid
       #      m2.credits == nil ? @credits = m2.moduledata.credits : @credits = m2.credits
-      if m2.moduledata.univzid != nil
-        if m2.moduledata.univzid == "Automatisch"
-          @univz_link = "http://univz.uni-goettingen.de/qisserver/rds?state=change&type=3&" +
-            "moduleParameter=pordpos_sk&nextdir=change&next=TableSelect.vm&subdir=pord&pord.pltxt1=%22" +
-            @short + "%22&P_start=0&P_anzahl=20"
-        else
-          @univz_link = "http://univz.uni-goettingen.de/qisserver/rds?state=change&type=3&" +
-            "moduleParameter=pordpos_sk&nextdir=change&next=TableSelect.vm&subdir=pord&pord.pltxt1=%22" +
-            m2.moduledata.univzid + "%22&P_start=0&P_anzahl=20"
-        end
-      else
-        @univz_link = nil
-      end
+
       @permission = m2.moduledata.permission
       m2.moduledata.categories.each do |category|
         unless category.exclusive == 1 || category.focus != nil
@@ -145,19 +136,8 @@ class AbfragenController < ApplicationController
       @description  = mod.description
       @short        = mod.short
       @credits      = mod.credits
-      if mod.univzid != nil
-        @univz_link   = "http://univz.uni-goettingen.de/qisserver/rds" +
-          "?expand=0" +
-          "&moduleCall=webinfo" +
-          "&publishConfFile=webinfo&" +
-          "publishSubDir=veranstaltung" +
-          "&publishid=#{mod.univzid}" +
-          "&state=verpublish" +
-          "&status=init" +
-          "&vmfile=no"
-      else
-        @univz_link = nil
-      end
+      @univzid      = mod.univzid
+
       mod.categories.each do |category|
         unless category.exclusive == 1 || category.focus != nil
           @categories.push category

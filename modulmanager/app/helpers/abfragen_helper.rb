@@ -69,6 +69,24 @@ EOF
       return "#{element}"
     end
   end
+  
+  # URL zur Suche in UNiVZ generieren, für Modul-Info-Boxen (OS)
+  def univz_url(univzid,short)
+    if univzid != nil
+      if univzid == "Automatisch"
+        string = "http://univz.uni-goettingen.de/qisserver/rds?state=change&type=3&" +
+          "moduleParameter=pordpos_sk&nextdir=change&next=TableSelect.vm&subdir=pord&pord.pltxt1=%22" +
+          short + "%22&P_start=0&P_anzahl=20"
+      else
+        string = "http://univz.uni-goettingen.de/qisserver/rds?state=change&type=3&" +
+          "moduleParameter=pordpos_sk&nextdir=change&next=TableSelect.vm&subdir=pord&pord.pltxt1=%22" +
+          univzid + "%22&P_start=0&P_anzahl=20"
+      end
+    else
+      string = nil
+    end
+    return string
+  end
 
   def build_xml_bachelor_recursive(c, xml, modus)
 
