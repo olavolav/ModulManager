@@ -647,7 +647,7 @@ var info_box_selection = function(modul_id){
     //Modul in Auswahl zu finden		
 		
     $("#exception_credit").attr("rel",modul_id);
-    $("#box_info").empty();
+    $("#box_info").empty().append(warten_weiss);
     $("#box_info_exception").show();
     $("#box_info_pool").hide();
     $("#box_info_combobox").hide();
@@ -659,7 +659,7 @@ var info_box_selection = function(modul_id){
 };
 
 var info_box = function(modul_id){
-    $("#box_info").empty();
+    $("#box_info").empty().append(warten_weiss);
     $("#box_info_exception").hide();
     $("#box_info_combobox").hide();
     $("#box_info_overview").hide();
@@ -952,7 +952,7 @@ var ajax_request_module_info = function (modul_id){
             $("#exception_credit").attr("value", "Credits");
             $("#exception_warn").attr("checked", "");
             $("#exception_note").attr("checked", "");
-            $("#info_box #box_info").append(html);
+            $("#info_box #box_info").empty().append(html);
 
 						// alert("ajax_request_module_info: AO im Cache: AO_ignore_grade="+modProp(modul_id,"AO_disable_warning")+", AO_custom_credits="+modProp(modul_id,"AO_custom_credits")+", AO_ignore_grade="+modProp(modul_id,"AO_ignore_grade"));
             // Mein Versuch, die Checkboxen zu selektieren, wenn die entsprechenden Optionen gesetzt sind...
@@ -1008,7 +1008,7 @@ var ajax_request_pool_module_info = function (modul_id){
         success : function(html){
 	
 						// alert("ajax_request_pool_module_info: html="+html);
-            $("#info_box #box_info").append(html);
+            $("#info_box #box_info").empty().append(html);
         },
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_request_pool_module_info");

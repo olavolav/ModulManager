@@ -9,7 +9,7 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 var info_box_overview =  function(modul_id){
-    $("#box_info").empty();
+    $("#box_info").empty().append(warten_weiss);
     $("#box_info_exception").hide();
     $("#box_info_pool").show();
     $("#box_info_combobox").hide();
