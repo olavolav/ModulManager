@@ -22,8 +22,6 @@ Niedrige Priorität:
 167. Short-IDs der Studmodule case-insensitive auswerten lassen
 169. Mail von AG vom 07.05.10: Während im Header eine utf-8-Kodierung der Seite angekündigt wird, weist der Quelltext via meta-Tag (content-type) eine iso-8859-1-Kodierung aus, was aber falsch ist (es ist utf-8). Das kann von den Browsern unterschiedlich interpretiert werden, was zu Anzeigefehler führen kann. (Olav & Christian)
 170. Dem Impressum fehlen eine Reihe von Angaben nach § 5 TMG, z.B. eine Kontakt-E-Mail-Adresse. (Olav)
-171. 'Fakultät für Physik' statt 'Fakultät Physik' (Olav)
-
 
 
 Restliches Feedback:
@@ -218,6 +216,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 148. Alte PO hinzufügen (Olav & AS)
 45. Kurzform der Fehlermeldungen ("Problematik") in den PDF-Export einbinden, d.h. den gleichen Text, aber ohne die teilweise länglichen Modul-Listen - hier fehlt nur noch der SP (Christian)
 162. Die Summierung der Credits im PDF stimmt irgendwie nicht - die aufgeführten Module stimmen aber, soweit ich das sehe, s. entspr. Mail von OS (Christian)
+171. 'Fakultät für Physik' statt 'Fakultät Physik' (Olav)
 
 
 Nicht behoben:

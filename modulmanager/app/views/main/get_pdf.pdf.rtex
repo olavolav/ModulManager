@@ -27,9 +27,9 @@
 \includegraphics[width=7cm]{../../../public/images/LaTeX/LogoMMbeta.pdf}
 \end{figure}
 
-% \section*{ModulManager der Fakultät Physik}
+% \section*{ModulManager der Fakultät für Physik}
 
-\noindent Vielen Dank, dass Sie den ModulManager der Fakultät Physik der Universität Göttingen benutzt haben. Wir hoffen, er war Ihnen behilflich.
+\noindent Vielen Dank, dass Sie den ModulManager der Fakultät für Physik der Universität Göttingen benutzt haben. Wir hoffen, er war Ihnen behilflich.
 
 \begin{compactitemize}
 	\item Gewählte Prüfungsordnungs-Version: <%= @version.name %>
