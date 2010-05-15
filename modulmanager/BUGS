@@ -3,7 +3,6 @@ BUGS
 Hohe Priorität:
 ===============
 
-168. Mail von SK vom 09.05.10: Beim Hinzufügen von Modulen wie 'Praktikum Allgem. und Anorgan. Chemie f. Physiker' oder 'Mehrbenutzersysteme in der Praxis I' kommt es zu in der alten PO Backend-Fehlern mit den üblichen Folgeerscheinungen (Christian)
 
 
 Niedrige Priorität:
@@ -218,6 +217,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 45. Kurzform der Fehlermeldungen ("Problematik") in den PDF-Export einbinden, d.h. den gleichen Text, aber ohne die teilweise länglichen Modul-Listen - hier fehlt nur noch der SP (Christian)
 162. Die Summierung der Credits im PDF stimmt irgendwie nicht - die aufgeführten Module stimmen aber, soweit ich das sehe, s. entspr. Mail von OS (Christian)
 171. 'Fakultät für Physik' statt 'Fakultät Physik' (Olav)
+168. Mail von SK vom 09.05.10: Beim Hinzufügen von Modulen wie 'Praktikum Allgem. und Anorgan. Chemie f. Physiker' oder 'Mehrbenutzersysteme in der Praxis I' kommt es zu in der alten PO Backend-Fehlern mit den üblichen Folgeerscheinungen (Christian)
 
 
 Nicht behoben:

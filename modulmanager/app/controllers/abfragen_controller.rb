@@ -179,7 +179,7 @@ class AbfragenController < ApplicationController
       selection.semesters << semester
     end
     studmodule = Studmodule.find(params[:mod_id])
-    my_module = CustomModule.find(:first, :conditions => "short = '#{studmodule.short}'")
+    my_module = CustomModule.find(:first, :conditions => "short = '#{studmodule.short}' AND version_id = #{selection.version.id}")
     if my_module == nil
       my_module = CustomModule.create(
         :moduledata => studmodule,
@@ -217,7 +217,6 @@ class AbfragenController < ApplicationController
       auswahl.save
     end
     modul.semester = new_semester
-#    modul.semester  = auswahl.semesters.find(:first, :conditions => "count = #{params[:sem_count]}")
     modul.save
     render :text => "Module semester changed successfully..."
   end

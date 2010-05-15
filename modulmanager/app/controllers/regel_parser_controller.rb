@@ -366,7 +366,7 @@ class RegelParserController < ApplicationController
       modules = z.split(",")
       modules.each do |mod|
         mod.strip!
-        fault = true if Studmodule.find(:first, :conditions => "short = '#{mod}'") == nil
+        fault = true if Studmodule.find(:first, :conditions => "short = '#{mod}' AND version_id = #{owner.version.id}") == nil
       end
 
       modules = Studmodule::get_array_from_module_string(z, owner.version)
@@ -381,6 +381,7 @@ class RegelParserController < ApplicationController
       or_connection.save
       return true
     else
+      puts "Fault while creating limited connection (regel_parser_controller:384)"
       return false
     end
   end

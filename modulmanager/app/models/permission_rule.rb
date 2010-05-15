@@ -11,13 +11,19 @@ class PermissionRule < Rule
   def evaluate selected_semesters, my_semester
     selected_semesters.each do |semester|
       if my_semester.to_i >= semester.count && semester.count > 0
-        semester.studmodules.each { |m|
-          if m.short == self.condition.short
+        semester.studmodules.each do |m|
+          #          if m.short == self.condition.short
+          puts "Checking conditions..."
+          puts "Condition_id: #{self.condition_id}"
+          puts "Module_id: #{m.id}"
+          if m.id == self.condition_id
+            puts "---Conditions met!---"
             return 1
           end
-        }
+        end
       end
     end
+    puts "---Conditions not met!---"
     return -1
   end
 

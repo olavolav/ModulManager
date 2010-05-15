@@ -45,7 +45,7 @@ class Focus < ActiveRecord::Base
   end
 
   def main_connection
-    connection = Connection.find(:first, :conditions => "name = #{self.name}")
+    connection = Connection.find(:first, :conditions => "name = #{self.name} AND version_id = #{self.version.id}")
     return connection
   end
 

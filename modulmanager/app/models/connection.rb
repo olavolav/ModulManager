@@ -195,7 +195,7 @@ class Connection < ActiveRecord::Base
 
   def parent_focus
     if self.has_parent_focus?
-      return Focus.find(:first, :conditions => "name = #{self.name}")
+      return Focus.find(:first, :conditions => "name = #{self.name} AND version_id = #{self.version.id}")
     else
       if self.parent == nil
         return nil
