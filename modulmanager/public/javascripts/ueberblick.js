@@ -77,7 +77,7 @@ var ueberblick = function(){
 						
 						if ($.jCache.hasItem("AbfragenUeberblickInProgress")) {
 							var running = parseInt($.jCache.getItem("AbfragenUeberblickInProgress"));
-							alert("running = "+running);
+							// alert("running = "+running);
 							if (running > 0) $.jCache.changeItem("AbfragenUeberblickInProgress",running-1);
 							// Falls noch weitere Überblick-Anfragen laufen, Warte-Icon anzeigen (OS)
 							if (running > 1) $("#ueberblick #ueberblick-wird-aktualisiert").show();
