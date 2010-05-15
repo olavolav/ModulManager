@@ -60,6 +60,7 @@ class RegelParserController < ApplicationController
     ModuleSelection.all.each { |m| m.destroy; @sessions += 1 }
     SelectedModule.all.each { |sm| sm.destroy }
     Version.all.each { |v| v.destroy; @versions += 1 }
+    Semester.all.each { |s| s.destroy }
   end
 
   private
