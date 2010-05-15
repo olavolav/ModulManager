@@ -15,10 +15,8 @@ Niedrige Priorität:
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 120. Hinweis auf noch benötigte Module ist unklar, s. Mail von AS vom 12.03.10 (Olav)
 129. Mail von SK vom 24.03.10: Wünschenswert wäre ein Hinweis, bei der Note-steichen-AO, ob man das überhaupt darf (Christian & Olav)
-139. Mail von SK vom 28.03.10: Startseite, dann sofort "ok" sage und dann recht schnell (noch während des Ladens) die Zurück-Funktion des Browsers (Firefox 3.5) verwende, kommt weiterhin ein Ajax-Fehler (Olav)
 147. Hinweis, wenn die Credit-Zahlen im Überblick nicht summiert werden, wie beim Profilierungsbereich (Olav)
-165. Unique-Name als Kategorie-Namen ins PDF einbauen
-167. Short-IDs der Studmodule case-insensitive auswerten lassen
+167. Short-IDs der Studmodule case-insensitive auswerten lassen (Christian)
 
 
 Restliches Feedback:
@@ -54,6 +52,7 @@ Restliches Feedback:
 - Der Startseite fehlt eine Angabe, für welchen Studiengang das Angebot zur Verfügung steht
 - Zum Layout: Ist die Navigation zugeklappt, so befindet sich das Uni-Göttingen-Logo an falscher Stelle, es liegt über dem Schriftzug "Zur Verfügung stehende Module:" (Firefox 3.0, Linux). Der Pin-Button der linken Spalte liegt unter der Gesamtcredit-Zahl.
 - Der Quelltext (XHTML 1.0 Transitional) enthält 39 Fehler, siehe z.B. Mail von AG vom 07.05.10
+- Unique-Name als Kategorie-Namen ins PDF einbauen?
 
 
 Inzwischen behoben:
@@ -217,7 +216,8 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 168. Mail von SK vom 09.05.10: Beim Hinzufügen von Modulen wie 'Praktikum Allgem. und Anorgan. Chemie f. Physiker' oder 'Mehrbenutzersysteme in der Praxis I' kommt es zu in der alten PO Backend-Fehlern mit den üblichen Folgeerscheinungen (Christian)
 172. Wenn man zu schnell klickt, kann das Überblicks-Lade-Icon verschwinden, obwohl im Hintergrund noch Abfragen laufen (Olav)
 170. Mail von AG vom 07.05.10: Dem Impressum fehlen eine Reihe von Angaben nach § 5 TMG, z.B. eine Kontakt-E-Mail-Adresse. (Olav)
-169. Mail von AG vom 07.05.10: Während im Header eine utf-8-Kodierung der Seite angekündigt wird, weist der Quelltext via meta-Tag (content-type) eine iso-8859-1-Kodierung aus, was aber falsch ist (es ist utf-8). Das kann von den Browsern unterschiedlich interpretiert werden, was zu Anzeigefehler führen kann. (Olav & Christian)
+169. Mail von AG vom 07.05.10: Während im Header eine utf-8-Kodierung der Seite angekündigt wird, weist der Quelltext via meta-Tag (content-type) eine iso-8859-1-Kodierung aus, was aber falsch ist (es ist utf-8). Das kann von den Browsern unterschiedlich interpretiert werden, was zu Anzeigefehler führen kann. (Olav)
+139. Mail von SK vom 28.03.10: Startseite, dann sofort "ok" sage und dann recht schnell (noch während des Ladens) die Zurück-Funktion des Browsers (Firefox 3.5) verwende, kommt weiterhin ein Ajax-Fehler (Olav)
 
 
 Nicht behoben:
