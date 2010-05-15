@@ -37,6 +37,11 @@ var ueberblick = function(){
 		$("#ueberblick #ueberblick-wird-aktualisiert").show();
   	update_module_errors();
 
+		if ($.jCache.hasItem("AbfragenUeberblickInProgress")) {
+			var running = parseInt($.jCache.getItem("AbfragenUeberblickInProgress"));
+			$.jCache.changeItem("AbfragenUeberblickInProgress",running+1);
+		}
+
     var html = $.ajax({
         type : 'GET',
         url  : '/abfragen/ueberblick',
@@ -69,6 +74,14 @@ var ueberblick = function(){
 						
 						if ($("#pleasewait").css("display") != "none")
 							$("#pleasewait").slideUp("slow");
+						
+						if ($.jCache.hasItem("AbfragenUeberblickInProgress")) {
+							var running = parseInt($.jCache.getItem("AbfragenUeberblickInProgress"));
+							alert("running = "+running);
+							if (running > 0) $.jCache.changeItem("AbfragenUeberblickInProgress",running-1);
+							// Falls noch weitere Überblick-Anfragen laufen, Warte-Icon anzeigen (OS)
+							if (running > 1) $("#ueberblick #ueberblick-wird-aktualisiert").show();
+						}
         },
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ueberblick");
