@@ -17,8 +17,8 @@ Niedrige Priorität:
 129. Mail von SK vom 24.03.10: Wünschenswert wäre ein Hinweis, bei der Note-steichen-AO, ob man das überhaupt darf (Christian & Olav)
 167. Short-IDs der Studmodule case-insensitive auswerten lassen (Christian)
 173. Modul-Vorbedingungungs-Auswertung so verändern, dass die Vorbedingungen in vorangegangenen Semstern eingebracht werden müssen - im Moment geht das gleiche Semester auch noch (Christian)
-174. Erklärung der 'Warnung deaktivieren'-AO in die Hilfe, besonders im Hinblick auf Bug #173 (Olav)
 175. Hinweis, wenn die Credit-Zahlen im Überblick nicht summiert werden, wie beim Profilierungsbereich, erfolgt momentan manuell über die YAML-Datei - nett wäre, wenn dies automatisiert via mehrfach-Tag geschehen würde (Christian)
+176. Momentan ist es so, dass Module mit Vorbedingungen, die aus Teilmodulen bestehen, schon dann erfüllt sind, wenn man eines der Teilmodule vorher hat, eigentlich reicht das natürlich noch nicht. Ein Beispiel ist CwR und Mehrbenutzer I in der neuen PO (Christian)
 
 
 Restliches Feedback:
@@ -221,6 +221,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 169. Mail von AG vom 07.05.10: Während im Header eine utf-8-Kodierung der Seite angekündigt wird, weist der Quelltext via meta-Tag (content-type) eine iso-8859-1-Kodierung aus, was aber falsch ist (es ist utf-8). Das kann von den Browsern unterschiedlich interpretiert werden, was zu Anzeigefehler führen kann. (Olav)
 139. Mail von SK vom 28.03.10: Startseite, dann sofort "ok" sage und dann recht schnell (noch während des Ladens) die Zurück-Funktion des Browsers (Firefox 3.5) verwende, kommt weiterhin ein Ajax-Fehler (Olav)
 147. Hinweis, wenn die Credit-Zahlen im Überblick nicht summiert werden, wie beim Profilierungsbereich (Olav)
+174. Erklärung der 'Warnung deaktivieren'-AO in die Hilfe, besonders im Hinblick auf Bug #173 (Olav)
 
 
 Nicht behoben:
