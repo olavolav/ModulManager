@@ -1143,7 +1143,7 @@ var ajax_serverupdate_set_category = function(module_id, category_id) {
             url: "main/set_category",
             dataType: "text",
             cache: false,
-            async: true,
+            async: false,
             data: "mod_id="+module_id+"&cat_id="+category_id+"&"+authenticityTokenParameter(),
             contentType: "application/x-www-form-urlencoded",
 						success: function() {
@@ -1171,12 +1171,12 @@ var ajax_serverupdate_on_AJAX_warning = function(text){
 					alert("AJAX-Warnung: Die letzte Aktion konnte nicht gespeichert werden. "+
 						"Das ModulManager-Team wurde unterrichtet, und wir werden uns so schnell "+
 						"wie möglich um das Problem kümmern.");
-					alert("debug="+text);
+					// alert("debug="+text);
 				},
         error: function(XMLHttpRequest, textStatus, errorThrown){
             alert ("AJAX-Fehler: Die Verbindung mit dem Server ist fehl geschlagen. "+
 							"Bitte überprüfen Sie Ihre Netzwerk-Verbindung.");
-						alert("debug="+text+", textStatus="+textStatus);	
+						// alert("debug="+text+", textStatus="+textStatus);	
         }
     });
 };
