@@ -10,7 +10,12 @@ class PermissionRule < Rule
 
   def evaluate selected_semesters, my_semester
     selected_semesters.each do |semester|
-      if my_semester.to_i >= semester.count && semester.count > 0
+      # Abfrage für den Fall, dass die Vorbedingung auch im selben Semester
+      # stattfinden kann
+      #      if my_semester.to_i >= semester.count && semester.count > 0
+      # Abfrage für den Fall, dass die Vorbedingung mindestens im vorhergehenden
+      # Semester oder früher erfüllt sein muss
+      if my_semester.to_i > semester.count && semester.count > 0
         semester.studmodules.each do |m|
           #          if m.short == self.condition.short
           puts "Checking conditions..."
