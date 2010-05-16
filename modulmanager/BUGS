@@ -11,7 +11,7 @@ Niedrige Priorität:
 11. Name ist bei unbenoteten Modulen zu nah an dem Info-Icon (Olav)
 35. Tooltips zu best. Begriffen in irgendeiner Form einbauen (Olav)
 84. Modul-Vorbedingungen werden in der Pool-Info-Box nicht angezeigt (Christian & Olav)
-105. In den Text bei Dummy-Modul das Beispiel "Informatik I" einbauen (Olav)
+105. In den Text bei Dummy-Modul das Beispiel 'Informatik I' einbauen (Olav)
 109. Bei der Noten-Ausgabe im PDF mindestens eine Nachkomma-Stelle angeben (Christian)
 120. Hinweis auf noch benötigte Module ist unklar, s. Mail von AS vom 12.03.10 (Olav)
 129. Mail von SK vom 24.03.10: Wünschenswert wäre ein Hinweis, bei der Note-steichen-AO, ob man das überhaupt darf (Christian & Olav)
@@ -222,6 +222,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 147. Hinweis, wenn die Credit-Zahlen im Überblick nicht summiert werden, wie beim Profilierungsbereich (Olav)
 174. Erklärung der 'Warnung deaktivieren'-AO in die Hilfe, besonders im Hinblick auf Bug #173 (Olav)
 173. Modul-Vorbedingungungs-Auswertung so verändern, dass die Vorbedingungen in vorangegangenen Semstern eingebracht werden müssen - im Moment geht das gleiche Semester auch noch (Christian)
+177. 'Freiwillige Zusatzeistungen' kommen im PDF auch ohne weiteren Hinweis vor, wenn man darin keine Module einbringt (Olav)
 
 
 Nicht behoben:

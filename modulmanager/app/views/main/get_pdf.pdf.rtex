@@ -64,7 +64,7 @@ Zunächst eine Auflistung der gewählten Module, so wie sie im ModulManager ausg
 
 <% end %>
 
-<% unless zusatz == nil %>
+<% unless zusatz == nil || zusatz.modules.length == 0 %>
     \subsubsection*{Freiwillige Zusatzleistungen}
     \begin{compactitemize}
         <% zusatz.modules.each do |modul| %>
