@@ -20,7 +20,6 @@ Niedrige Priorität:
 176. Momentan ist es so, dass Module mit Vorbedingungen, die aus Teilmodulen bestehen, schon dann erfüllt sind, wenn man eines der Teilmodule vorher hat, eigentlich reicht das natürlich noch nicht. Ein Beispiel ist CwR und Mehrbenutzer I in der neuen PO (Christian)
 178. Mail von AS vom 17.05.10, 13:10: Wenn man z.B. 'Einführung in AstroGeo' in die Auswahl zieht, dann 'Spezielle Themen' wählt, stimmt die Auswertung zwar, aber das Modul wird immer noch in der 'Einführungen'-Info-Box aufgelistet (Christian)
 180. In der Info-Box von SP-Kategorien kommt bei 'nicht erfüllt' keine Auflistung der möglichen Module (Christian)
-181. Im Safari werden in der Info-Box die letzten Zeichen von 'Credits' abgeschnitten, und es kommt eine Fehlermeldung (Olav)
 
 
 Restliches Feedback:
@@ -228,6 +227,7 @@ ich ein sonstiges Modul von einem Semester ins nächste schiebe. Seite neu laden
 173. Modul-Vorbedingungungs-Auswertung so verändern, dass die Vorbedingungen in vorangegangenen Semstern eingebracht werden müssen - im Moment geht das gleiche Semester auch noch (Christian)
 177. 'Freiwillige Zusatzleistungen' kommen im PDF auch ohne weiteren Hinweis vor, wenn man darin keine Module einbringt (Olav)
 179. Mail von AS vom 17.05.10, 13:16: Wenn man ein Semester löscht, in dem sich ein Modul aus Teilmodulen nur teilweise befindet, und dann bei der 2. Lösch-Warnung auf 'Abbrechen' klickt, bleibt ein Teil der Teilmodule in der Auswahl (Olav)
+181. Im Safari werden in der Info-Box die letzten Zeichen von 'Credits' abgeschnitten, und es kommt eine Fehlermeldung (Olav)
 
 
 Nicht behoben:
