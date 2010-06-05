@@ -346,7 +346,7 @@ $(function(){
             var this_pool = $(this);
             $(ui.helper).remove();
             // neuerdings die gleiche Funktion wie wenn man auf den L�schen-Knopf klickt:
-            modul_loeschen(modul_id);
+            modul_loeschen(modul_id,modul_id);
         }
     });
 		
@@ -396,35 +396,6 @@ $(function(){
     // ende drop
     });//ende droppable
 		
-    // hier ist die Note im input________________________NOTEN__________________________________________
-    // bei Focus: die Note eingeben
-    // beim Focus-Verlassen : die Event Change schickt die Note und Modul_ID per Ajax zum Server
-    // Note berechnen
-		
-    var check_change=true;
-    $("input.noten_input").focus(function(e){
-        check_change=true;
-        // da wird der Click bei 'Note berechen' deaktiviert
-        if($(this).val()=="Note"){
-            $(this).attr("value"," ");
-        }
-        $(this).select();
-        $("#note_berechnen").text("Note wird bearbeitet");
-    });
-    //onChange oder Enter dr�cken
-    $("input.noten_input").bind("keypress",function(e){
-        if(e.keyCode == 13){
-            $(this).trigger('change');
-            $("#enter_trick").trigger('focus');
-            check_change=false;
-        }
-    });
-    $("input.noten_input").change(function(e){
-        if (check_change) {
-            e.preventDefault();
-            grade_input_check(this);
-        }
-    });
 });//ende
 
 //////////////////////semesterhinzu////////////////////////////////////////////////
@@ -517,7 +488,7 @@ var sem_loeschen = function(l){
             $(this_semester).hide();
             // Module wieder im Pool anzeigen (keine Ahnung wo das passiert, OS)
             this_modules.each(function(){
-                $(this).css("display","none");
+                $(this).hide();
                 modul_loeschen($(this).attr("id"),all_sem_destroy);
             });
             $(this_semester).remove();

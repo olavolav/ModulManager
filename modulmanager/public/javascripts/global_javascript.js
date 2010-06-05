@@ -466,13 +466,19 @@ var partial_modul_loeschen = function (modul_id,all_sem_destroy){
 };
 
 var modul_loeschen = function (modul_id,all_sem_destroy){
+		// require_confirm_on_multi: Falls true wird eine Bestätigungs-Abfrage angezeigt, wenn das Modul
+		// aus mehreren Teilen besteht. Die Bestätigung sollte nur im Fall des Löschens eines ganzen
+		// Semesters nicht verlangt werden, denn da hat der Benutzer ja schon eine ganz ähnliche Anfrage
+		// bejaht. (OS)
+		var require_confirm_on_multi = (all_sem_destroy!="10000")
+		
     // Die Schleife hier sollte eigentlich unnoetig sein, wenn jedes Modul nur 1x in der
     // Auswahl sein kann, ausser bei Drop in den Pool, dann 2x: (OS)
     // Letzteres sollte man vielleicht nochmal anschauen irgendwann. (OS)
     // if ($("#semester-content div.semester").find("div#"+modul_id).length > 1)
     //alert("Warnung: Dieses Modul (ID "+modul_id+") ist in der Auswahl: "+$("#semester-content div.semester").find("div#"+modul_id).length+"-mal enthalten!");
 	
-    //alert("sem_detroy="+all_sem_destroy);
+    // alert("sem_detroy="+all_sem_destroy);
     //$("#semester-content div.semester").find("div#"+modul_id).each(function(){
     $("#middle div.semester").find("div#"+modul_id).each(function(){
 		
@@ -480,13 +486,14 @@ var modul_loeschen = function (modul_id,all_sem_destroy){
         var this_mod_parent_id = modProp(modul_id,"id_of_parent_modul");
         //check nach Teil-Modul
         if((this_mod_parts != "0") || (this_mod_parent_id !="false")){
-            var check = confirm("Dieses Modul besteht aus mehreren Teilmodulen - wenn Sie es entfernen, werden alle weiteren Teile ebenfalls entfernt.");
-            if(check == true){
+						if(require_confirm_on_multi) {
+            	var check = confirm("Dieses Modul besteht aus mehreren Teilmodulen - wenn Sie es entfernen, werden alle weiteren Teile ebenfalls entfernt.");
+						}
+            if(!require_confirm_on_multi || check){
 				
                 if(this_mod_parent_id != "false"){
 										// alert ("modul_loeschen: Modul mit mehreren Teilmodulen - dies ist einer der untergeordneten Teile.");
-                    //hier ist Teil-modul
-                    //such nach head-modul-->l�schen
+                    //such nach head-modul-->loeschen
                     var head_modul = $("#middle div.semester").find("div#"+this_mod_parent_id);
                     change_credit_and_remove_name_in_pool(this_mod_parent_id,head_modul);
 										
@@ -496,8 +503,6 @@ var modul_loeschen = function (modul_id,all_sem_destroy){
                 }
                 else{
 										// alert ("modul_loeschen: Modul mit mehreren Teilmodulen - dies ist der Kopf.");
-                    //hier ist head-Modul
-                    // setzen "true" beim span.head_modul_in_pool (wegen AJAX)
 										modPropChange(modul_id,"head_modul_in_pool","true");
                     change_credit_and_remove_name_in_pool(modul_id,this);
                     sub_modul_loeschen(this,modul_id,all_sem_destroy);
@@ -1697,6 +1702,7 @@ var poolrekursiv = function(XMLhandle){
                 pool_modul_class+"' id='" + modul_id + "' >" +
                 "<div class='icon_loeschen' style='display:none;' onclick='modul_loeschen(" +
                 modul_id +","+modul_id+")'>" +loeschenbild +"</div>" +
+                // modul_id +",false)'>" +loeschenbild +"</div>" +
                 "<span class='modul_id' style='display:none'>"+modul_id+"</span>"+
 				
                 "<table cellspacing='0' cellpadding='0' style='width:100%; border:1px;'>" +
@@ -1867,6 +1873,44 @@ var change_module_style_to_auswahl = function(modul_id,handle){
         }
         flip_module_infoicon_on_event("init",modul_id,handle);
     });
+
+		// Hack, damit Firefox nicht mehr bei ungültiger Note und Enter-Taste die Warnung doppelt zeigt (OS)
+		// $(handle).find(".noten-input").submit(function(event) {
+		// 	event.preventDefault();
+		// 	alert("Nein, kein Submit!");
+		// 	// return false;
+		// });
+		// $(handle).find("#noten-input").keypress(function(event) {
+			// event.preventDefault();
+			// alert("keyevent");
+			// return false;
+		// });
+
+    $(handle).find(".noten_input").focus(function(e){
+        // check_change=true;
+        // da wird der Click bei 'Note berechen' deaktiviert
+        if($(this).val()=="Note"){
+            $(this).attr("value"," ");
+        }
+        $(this).select();
+        $("#note_berechnen").text("Note wird bearbeitet");
+    });
+    //onChange oder Enter dr�cken
+    $(handle).find(".noten_input").bind("keypress",function(e){
+        if(e.keyCode == 13){
+            $(this).trigger('change');
+						$(this).blur();
+						e.preventDefault();
+        }
+    });
+    $(handle).find(".noten_input").change(function(e){
+	    grade_input_check(this);
+    });
+    $(handle).find(".noten_input").bind("submit",function(e){
+			alert("Firefox-Fehler: submit");
+			return false;
+    });
+
     return 0;
 };
 
