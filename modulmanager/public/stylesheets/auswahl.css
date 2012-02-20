@@ -17,6 +17,7 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 	padding: 0px;
 	text-align: center;
 	cursor: auto;
+	color: #444;
 }
 
 select {
@@ -34,9 +35,14 @@ select {
 	width:100%;
 	border: 1px #F0F0F0 solid;
 	background: #F7F7F7;
+	color: #716f6d;
 	
 	padding: 8px;
 	margin-bottom: 10px;
+
+	/* Newer browsers support this: (OS) */
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 /*--------Modul löschen*/
