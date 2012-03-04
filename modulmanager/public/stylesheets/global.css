@@ -108,6 +108,8 @@ a:visited {
 	color: #444;
 	text-decoration: none;
 	display: block;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 #navimoveup, #navimovedown, #semesterhinzu, .semesterloeschen, #helpmovedown {
@@ -121,6 +123,8 @@ a:visited {
 	background-position: top left;
 	cursor: pointer;
 	padding: 4px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 #semesterhinzu, .semesterloeschen {

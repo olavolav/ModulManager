@@ -77,6 +77,8 @@ a {
 	background-repeat: repeat;
 	background-position: top left;
 	display: block;	
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .linkbuttonleft {
