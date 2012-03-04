@@ -20,6 +20,10 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 	color: #444;
 }
 
+.noten_input:hover {
+	background-color: #F2F2FF;
+}
+
 select {
 	background-color: #F8F8F8;
 	border: 1px #AAA solid;
@@ -46,6 +50,10 @@ select {
 	/*-moz-box-shadow:    0 0 5px #aaa;
 	  -webkit-box-shadow: 0 0 5px #aaa;
 	  box-shadow:         0 0 5px #aaa;*/
+}
+
+.semester h5 {
+  font-weight: bold;
 }
 
 /*--------Modul löschen*/
