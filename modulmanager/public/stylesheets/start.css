@@ -62,12 +62,16 @@ select {
 	background: #d8eef7 url("../images/Button-Hintergrund-Aktiv.png");
 	background-repeat: repeat;
 	background-position: top left;		
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 .passive {
 	border : 1px #AAA outset;
 	background: #d8eef7 url("../images/Button-Hintergrund.png");
 	background-repeat: repeat;
 	background-position: top left;		
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 #bestaetigen {
@@ -88,6 +92,8 @@ select {
 	background-repeat: repeat;
 	background-position: top left;
 	display: block;	
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 #javascriptdoesnotwork, .additionalnotes {

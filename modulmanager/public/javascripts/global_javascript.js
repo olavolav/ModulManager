@@ -27,7 +27,8 @@ var gruener_ipunkt = "<img width='20' height='20' src='images/iPunkt.png'>";
 var gelber_ipunkt = "<img width='20' height='20' src='images/iPunktGelb.png'>";
 var roter_ipunkt = "<img width='20' height='20' src='images/Ausrufezeichen.png'>";
 	
-var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-4px; left:8px;'>";
+// var loeschenbild = "<img src='images/Loeschen.png' style='position:relative; top:-4px; left:8px;'>";
+var loeschenbild = "<img src='images/Reset-Form.png' style='position:relative; top:-4px; left:8px;'>";
 var formresetbild = "<img id='search_form_reset' alt='reset' src='images/Reset-Form.png'>";
 var pfeil_rechts = "<img src='images/Pfeil-Rechts.png' style='padding-right:3px;'>";
 var pfeil_unten = "<img src='images/Pfeil-Unten.png' style='padding-right:3px;'>";
@@ -1708,8 +1709,8 @@ var poolrekursiv = function(XMLhandle){
                 "<table cellspacing='0' cellpadding='0' style='width:100%; border:1px;'>" +
                 "<tbody>" +
                 "<tr>" +
-                "<td style=' width:22px;padding:1px 2px 0px 2px; '>"+bild+"</td>"+
-                "<td class='modul_name' >"+modul_name+partial_mod_name+"</td>"+
+                "<td style='width:22px;padding:1px 2px 0px 2px;'>"+bild+"</td>"+
+                "<td class='modul_name' style='padding-right:6px;'>"+modul_name+partial_mod_name+"</td>"+
 					
                 "<td style=' width:22px;display:table-cell' class='fragebild_td'>" +
                 "<a style='cursor:pointer' onclick='javascript:info_box("+modul_id+");'>"+
@@ -1729,7 +1730,7 @@ var poolrekursiv = function(XMLhandle){
                 "</a>"+
                 "</td>" +
 
-                "<td class='modul_credit' style='width:29px;text-align:right;font-weight:bold'>" +
+                "<td class='modul_credit' style='width:29px;text-align:right;font-weight:bold;padding:1px 4px 0px 0px;'>" +
                 credits +" C" +
                 "</td>" +
                 "</tr>" + "</tbody>" + "</table>" +

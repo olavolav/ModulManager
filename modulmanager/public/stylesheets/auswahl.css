@@ -17,6 +17,11 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 	padding: 0px;
 	text-align: center;
 	cursor: auto;
+	color: #444;
+}
+
+.noten_input:hover {
+	background-color: #F2F2FF;
 }
 
 select {
@@ -29,14 +34,26 @@ select {
 	margin: 3px;
 }
 
-/*.semester, #vorratbox {*/
 .semester {
 	width:100%;
-	border: 1px #F0F0F0 solid;
-	background: #F7F7F7;
+  border: 1px #F0F0F0 solid;
+/*  background: #F7F7F7;*/
+/*  color: #716f6d;*/
 	
 	padding: 8px;
 	margin-bottom: 10px;
+
+	/* Newer browsers support this: (OS) */
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+	/*-moz-box-shadow:    0 0 5px #aaa;
+	  -webkit-box-shadow: 0 0 5px #aaa;
+	  box-shadow:         0 0 5px #aaa;*/
+}
+
+.semester h5 {
+  font-weight: bold;
 }
 
 /*--------Modul löschen*/
