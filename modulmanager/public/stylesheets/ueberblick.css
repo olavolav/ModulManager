@@ -22,10 +22,22 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 	border-left: 1px #F7F7F7 dotted;	
 }
 
+#ueberblick_baum ul:hover table td {
+  color: #aaa;
+}
+
 #ueberblick_baum li:hover {
-	border-left: 1px #AAA dotted;
+  font-weight: bold;
+  border-left: 5px #DDD solid;
+  border-radius: 5px;
 	/* Darauf achten, dass dieser margin + border das margin von #ueberblick li ergeben (OS) */
-	margin-left: 4px;
+	margin-left: 0px;
+}
+
+/* Hiermit kann man erkennen, has die Parent-Regeln sind (OS) */
+#ueberblick_baum li:hover > div > table > tbody > tr > td {
+/*  font-weight: bold;*/
+  color: black;
 }
 
 #ueberblick_baum > ul {
