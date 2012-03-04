@@ -101,3 +101,10 @@ select {
 	padding: 5px;
 	margin: 5px;
 }
+
+#serverwait {
+  float: right;
+  padding: 5px;
+  margin: 5px;
+  display: none;  
+}
