@@ -32,8 +32,8 @@ select {
 
 .semester {
 	width:100%;
-	border: 1px #F0F0F0 solid;
-	background: #F7F7F7;
+  border: 1px #F0F0F0 solid;
+/*  background: #F7F7F7;*/
 /*  color: #716f6d;*/
 	
 	padding: 8px;
