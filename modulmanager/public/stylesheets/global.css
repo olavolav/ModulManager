@@ -59,7 +59,8 @@ a:visited {
 #subnavi {
 	border-bottom: 1px #AAA solid;
 	padding: 0.5em;
-	background: #F4F4FF url("../images/Subnavi-Hintergrund.png");
+/*	background: #F4F4FF url("../images/Subnavi-Hintergrund.png");*/
+	background: #F7F7F7;
 	background-repeat: no-repeat;
 	background-position: top left;
 }
@@ -108,11 +109,6 @@ a:visited {
 	text-decoration: none;
 	display: block;
 }
-
-/*#subnavi-ul a:hover {
-	color: black;
-	text-decoration: underline;
-}*/
 
 #navimoveup, #navimovedown, #semesterhinzu, .semesterloeschen, #helpmovedown {
 	width: 150px;
@@ -235,9 +231,10 @@ a:visited {
 	border: 1px black solid;
 	list-style-type:none;
 	margin-right:5px;
-	
-	
-	
+
+	/* Newer browsers support this: (OS) */
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 #subright-content {
@@ -246,6 +243,10 @@ a:visited {
 		padding:2px;
 		height:100%;
 		background: #F7F7F7;
+
+		/* Newer browsers support this: (OS) */
+		-moz-border-radius: 5px;
+		border-radius: 5px;
 }
 
 #subright-content ul{
@@ -269,12 +270,17 @@ a:visited {
 		padding          : 1px 1px 0px 1px;
 		cursor			 : move;
 		min-width        : 200px;
-		background: #e7f1fb url("../images/Modul-Hintergrund.png");
-		background-repeat: no-repeat;
+		background: #b4b0ab url("../images/Modul-Hintergrund.png");
+		background-repeat: repeat;
 		background-position: top left;
-		border: 1px #c8dee7 solid;
+		border: 1px #b4b0ab solid;
+		text-shadow: white 0px 1px;
+		
+		/* Newer browsers support this: (OS) */
+/*    box-shadow:1px 1px 1px #a6a3af;*/
+		-moz-border-radius: 5px;
+		border-radius: 5px;
 }
-
 
 #footer{
 	background-color:green;
