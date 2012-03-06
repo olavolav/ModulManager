@@ -28,10 +28,10 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 #ueberblick_baum li:hover {
   font-weight: bold;
-  border-left: 5px #DDD solid;
-  border-radius: 5px;
+  /*border-left: 5px #DDD solid;
+    border-radius: 5px;*/
 	/* Darauf achten, dass dieser margin + border das margin von #ueberblick li ergeben (OS) */
-	margin-left: 0px;
+	margin-left: 5px;
 }
 
 /* Hiermit kann man erkennen, has die Parent-Regeln sind (OS) */

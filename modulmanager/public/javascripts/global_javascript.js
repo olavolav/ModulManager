@@ -178,7 +178,7 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
             if (modProp(modul_id,"error") != "false") {
                 // Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
 								var icon = $(handle).find(".ipunkt");
-                if ((modProp(modul_id,"modul_has_grade")=="true")&&($(handle).find(".noten_input").val()=="Note"))
+                if ((modProp(modul_id,"modul_has_grade")=="true")&&($(handle).find(".noten_input").val()==""))
                     icon.html(gelber_ipunkt);
                 else icon.html(gruener_ipunkt);
 
@@ -240,7 +240,8 @@ var grade_input_check = function(input_noten){
 	
     if((this_grade=="") || isNaN(this_float)){
         alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
-        $(input_noten).attr("value","Note");
+        // $(input_noten).attr("value","Note");
+        $(input_noten).attr("value","");
         ajax_serverupdate_grade_reset(modul_id);
         flip_module_infoicon_on_event("invalid_grade",modul_id,module_handle);
         $("#note_berechnen").text("");
@@ -251,14 +252,16 @@ var grade_input_check = function(input_noten){
 
         if(new_float == 0) {
             ajax_serverupdate_grade_reset(modul_id);
-            $(input_noten).attr("value", "Note");
+            // $(input_noten).attr("value", "Note");
+            $(input_noten).attr("value", "");
             flip_module_infoicon_on_event("invalid_grade",modul_id,module_handle);
             ajax_request_grade();
         }
         else if(new_float < 1 || new_float > 4 ){
             alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
             flip_module_infoicon_on_event("invalid_grade",modul_id,module_handle);
-            $(input_noten).attr("value","Note");
+            // $(input_noten).attr("value","Note");
+            $(input_noten).attr("value","");
             ajax_serverupdate_grade_reset(modul_id);
             $("#note_berechnen").text("");
         } else {
@@ -1720,7 +1723,8 @@ var poolrekursiv = function(XMLhandle){
 
                 "<td style='width:25px;display:none;margin-right:0px;' class='noten_input_td' >" +
                 "<span class='noten'>" +
-                "<input class='noten_input' type='text' size='5' style='margin-right:5px;' rel='"+modul_id+"' value='Note' />"+
+                // "<input class='noten_input' type='text' size='5' style='margin-right:5px;' rel='"+modul_id+"' placeholder='Note' />"+
+                "<input class='noten_input' type='text' rel='"+modul_id+"' placeholder='Note' />"+
                 "</span>" +
                 "</td>" +
 
@@ -1890,9 +1894,9 @@ var change_module_style_to_auswahl = function(modul_id,handle){
     $(handle).find(".noten_input").focus(function(e){
         // check_change=true;
         // da wird der Click bei 'Note berechen' deaktiviert
-        if($(this).val()=="Note"){
-            $(this).attr("value"," ");
-        }
+        // if($(this).val()=="Note"){
+        //             $(this).attr("value"," ");
+        // }
         $(this).select();
         $("#note_berechnen").text("Note wird bearbeitet");
     });
