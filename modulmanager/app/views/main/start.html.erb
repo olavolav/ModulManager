@@ -3,7 +3,7 @@
   <img id="unilogo" src="/images/uni-logo.png" alt="Universität">
   <h3>ModulManager der Fakultät für Physik</h3>
 
-  <div id="javascriptdoesnotwork">
+  <div id="javascriptdoesnotwork" class="alert alert-error">
     <img src="images/Ausrufezeichen.png" style="float:right;padding:5px;">
 		Achtung: Diese Seite benötigt JavaScript. Bitte aktivieren Sie JavaScript in Ihrem Browser, um den ModulManager benutzen zu können.
   </div>
@@ -12,15 +12,15 @@
   <% selection = current_selection %>
 
 	<% unless @new_session===true %>
-		<p class="backtomain additionalnotes">Bitte beachten Sie, dass Sie bei einer Veränderung der Einstellungen unten wieder mit der Standard-Auswahl der Studienordnung beginnen - evtl. vorgenommene Modifikationen gehen also verloren.</p>
+		<p class="alert alert-info">Bitte beachten Sie, dass Sie bei einer Veränderung der Einstellungen unten wieder mit der Standard-Auswahl der Studienordnung beginnen - evtl. vorgenommene Modifikationen gehen also verloren.</p>
 	<% end %>
 
   <div id="pruefungsordnung">
 	<strong>1.</strong> Bitte wählen Sie zunächst die für Sie gültige Prüfungsordnung aus:<br>
 
     <% Version.all.each do |po| %>
-      <% (selection.version.id == po.id) ? class_tag = "active" : class_tag = "passive" %>
-      <a onClick='javascript:update_pordnung(<%= po.id %>);'class='pruefungsordnung <%= class_tag %>' id='<%= po.id %>'>
+      <% (selection.version.id == po.id) ? class_tag = "btn-info" : class_tag = "" %>
+      <a onClick='javascript:update_pordnung(<%= po.id %>);'class='btn <%= class_tag %>' id='<%= po.id %>'>
         <%= po.name %>
       </a>
     <% end %>
@@ -31,15 +31,15 @@
 		(Bitte beachten Sie dabei: Die Schwerpunkte <i>Nanostrukturphysik</i> und <i>Physikinformatik</i> sind als berufsqualifizierende Bachelor-Abschlüsse konzipiert. Es wird dringend empfohlen, sich bei Wahl einer dieser Schwerpunkte direkt an die Studienberatung der Fakultät für Physik zu wenden.)<br>
 
     <% Version.find(:all).each do |po| %>
-		<div class="SPsubclass" id="<%= "belongstoPOid"+po.id.to_s %>" <% unless po.id==selection.version.id %>style="display:none;"<%end%> >
-	    <% (@mein_schwerpunkt == nil) ? class_tag = "active" : class_tag = "passive" %>
-	    <a onClick='javascript:update_schwerpunkt(-1);' class='schwerpunkt_oben <%= class_tag %>' id="-1">
+		<div class="SPsubclass" id="<%= "belongstoPOid"+po.id.to_s %>" <% unless po.id==selection.version.id %>style="display:none;"<% end %> >
+	    <% (@mein_schwerpunkt == nil) ? class_tag = "btn-info" : class_tag = "" %>
+	    <a onClick='javascript:update_schwerpunkt(-1);' class='btn <%= class_tag %>' id="-1">
 	      Kein Schwerpunkt
 	    </a>
         <% po.foci.each do |s| %>
-		      <% class_tag = "passive" %>
-		      <% ((@mein_schwerpunkt.id == s.id) ? class_tag = "active" : class_tag = "passive") unless @mein_schwerpunkt == nil %>
-		  <a onClick='javascript:update_schwerpunkt(<%= s.id %>);' class='schwerpunkt_oben <%= class_tag %>' id='<%= s.id %>'>
+		      <% class_tag = "btn" %>
+		      <% ((@mein_schwerpunkt.id == s.id) ? class_tag = "btn-info" : class_tag = "") unless @mein_schwerpunkt == nil %>
+		  <a onClick='javascript:update_schwerpunkt(<%= s.id %>);' class='btn <%= class_tag %>' id='<%= s.id %>'>
 		      <%= s.name %>
 		  </a>
         <% end %>
@@ -48,20 +48,9 @@
 
   </div>
 
-  <div id ="bestaetigen">
-	<!-- <%# if @new_session===true %>
-	    	<%#= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
-		<%# else %>
-			<p class="backtomain additionalnotes" style="display:none;">Bitte beachten Sie, dass Sie bei einer Veränderung der Einstellungen oben wieder mit der Standard-Auswahl der Studienordnung beginnen - evtl. vorgenommene Modifikationen gehen also verloren.
-			Falls Sie das nicht möchten, wählen Sie bitte "Abbrechen", um direkt wieder zur Hauptseite des ModulManagers zu gelangen.</p>
-			<%#= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
-			<%#= link_to "Abbrechen", {:action => "index"}, :class => "linkbutton backtomain", :style => "display:none;" %>
-		<%# end %> -->
-
-	<%#= link_to "OK", {:action => "create_selection"}, :class => "linkbutton" %>
-	<%= link_to "OK", {:action => "index"}, :class => "linkbutton" %>
-	<img id="serverwait" src="images/Warten-HintergrundGrau.gif">
-	
+  <div id="bestaetigen">
+  	<%= link_to "OK", {:action => "index"}, :class => "btn btn-large btn-success" %>
+  	<%= image_tag "/images/Warten-HintergrundGrau.gif", :id => "serverwait", :alt => "warten..." %>
   </div>
 
   <div class="clear">&nbsp;</div>
