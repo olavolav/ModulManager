@@ -28,7 +28,7 @@ var authenticityTokenParameter = function(){
 };
 var update_schwerpunkt = function(s_id){
 	
-	if (!$("#schwerpunkt a[id="+s_id+"]").hasClass("btn-info")) {
+	if ($("#schwerpunkt input[id="+s_id+"]").val() != "checked") {
     // alert("hallo schwerpunkt "+s_id);
     $("#serverwait").show();
 		$("#schwerpunkt a").removeClass("btn-info");
@@ -44,10 +44,6 @@ var update_schwerpunkt = function(s_id){
 					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_schwerpunkt");
 				}
     });
-
-		// $(".backtomain").slideDown();
-    // $(".schwerpunkt_oben[id="+s_id+"]").attr("class","schwerpunkt_oben btn-info");
-    $("#schwerpunkt a[id="+s_id+"]").addClass("btn-info");
     $("#serverwait").fadeOut();
 	}
 };
@@ -55,11 +51,8 @@ var update_schwerpunkt = function(s_id){
 var update_pordnung = function(po_id){
 	
 	if ($("#pruefungsordnung input[id="+po_id+"]").val() != "checked") {
-    // alert($("#pruefungsordnung input[id="+po_id+"]").attr("checked"));
     // alert("hallo pruefungsordnung "+po_id);
 		$("#serverwait").show();
-    // $("#schwerpunkt").fadeTo(0.5);
-    // $("#pruefungsordnung a").removeClass("btn-info");
     $.ajax({
         type:"POST",
         url :"main/version_selection",
@@ -72,13 +65,10 @@ var update_pordnung = function(po_id){
 					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_pordnung");
 				}
     });
-	
-    // $(".pruefungsordnung").attr("class","pruefungsordnung btn");
-    // $("#pruefungsordnung a[id="+po_id+"]").addClass("btn-info");
-		// $(".backtomain").slideDown();
 		$("#schwerpunkt .SPsubclass").hide();
+    // Schwerpunkt-Radio-Button zurück setzen
+		$("#schwerpunkt .SPsubclass[id=belongstoPOid"+po_id+"] input[id=-1]").attr("checked","checked");
 		$("#schwerpunkt .SPsubclass[id=belongstoPOid"+po_id+"]").show();
-    // $("#schwerpunkt").fadeTo(0.1,500);
 		$("#serverwait").fadeOut();
 	}
 };
