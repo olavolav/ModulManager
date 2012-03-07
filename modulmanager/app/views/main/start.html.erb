@@ -1,62 +1,77 @@
 
 <div id="content">
   <img id="unilogo" src="/images/uni-logo.png" alt="Universität">
-  <h3>ModulManager der Fakultät für Physik</h3>
+  <h1>ModulManager</h1>
 
   <div id="javascriptdoesnotwork" class="alert alert-error">
     <img src="images/Ausrufezeichen.png" style="float:right;padding:5px;">
 		Achtung: Diese Seite benötigt JavaScript. Bitte aktivieren Sie JavaScript in Ihrem Browser, um den ModulManager benutzen zu können.
   </div>
 
-  <p>Herzlich Willkommen!</p>
+  <p>Herzlich Willkommen zum ModulManager der Fakultät Physik der Universität Göttingen!
+    Wir hoffen, er kann Ihnen behilflich sein.</p>
+  <p>Wir bemühen uns, die im ModulManager dargestellten Informationen ständig auf dem neuesten Stand zu halten. Bitte beachten Sie dennoch, dass die Prüfungsordnung selbst das einzig rechtsverbindliche Dokument ist.</p>
+  
   <% selection = current_selection %>
 
+  <h2>Bitte wählen Sie aus</h2>
+  <p>Die Schwerpunkte <i>Nanostrukturphysik</i> und <i>Physikinformatik</i> sind als berufsqualifizierende Bachelor-Abschlüsse konzipiert. Es wird dringend empfohlen, sich bei Wahl einer dieser Schwerpunkte direkt an die Studienberatung der Fakultät für Physik zu wenden.</p>
+  
 	<% unless @new_session===true %>
 		<p class="alert alert-info">Bitte beachten Sie, dass Sie bei einer Veränderung der Einstellungen unten wieder mit der Standard-Auswahl der Studienordnung beginnen - evtl. vorgenommene Modifikationen gehen also verloren.</p>
 	<% end %>
-
   <div id="pruefungsordnung">
-	<strong>1.</strong> Bitte wählen Sie zunächst die für Sie gültige Prüfungsordnung aus:<br>
+  <!-- <strong>1.</strong> Bitte wählen Sie zunächst die für Sie gültige Prüfungsordnung aus:<br> -->
 
-    <% Version.all.each do |po| %>
-      <% (selection.version.id == po.id) ? class_tag = "btn-info" : class_tag = "" %>
-      <a onClick='javascript:update_pordnung(<%= po.id %>);'class='btn <%= class_tag %>' id='<%= po.id %>'>
-        <%= po.name %>
-      </a>
-    <% end %>
-  </div>
-
+  <form class="form-horizontal">
+    <div class="control-group">
+      <label class="control-label">Prüfungsordnung</label>
+      <div class="controls">
+        <% Version.all.each do |po| %>
+          <label class="radio">
+            <input type="radio" name="PORadios" id='<%= po.id %>' value="option1" <%= "checked" if selection.version.id == po.id %> >
+            <%= po.name %>
+          </label>
+        <% end %>
+      </div>
+    </div>
+  </form>
+  
+  
   <div id="schwerpunkt">
-		<strong>2.</strong> Bitte wählen Sie den gewünschten Schwerpunkt:<br/>
-		(Bitte beachten Sie dabei: Die Schwerpunkte <i>Nanostrukturphysik</i> und <i>Physikinformatik</i> sind als berufsqualifizierende Bachelor-Abschlüsse konzipiert. Es wird dringend empfohlen, sich bei Wahl einer dieser Schwerpunkte direkt an die Studienberatung der Fakultät für Physik zu wenden.)<br>
-
     <% Version.find(:all).each do |po| %>
 		<div class="SPsubclass" id="<%= "belongstoPOid"+po.id.to_s %>" <% unless po.id==selection.version.id %>style="display:none;"<% end %> >
-	    <% (@mein_schwerpunkt == nil) ? class_tag = "btn-info" : class_tag = "" %>
-	    <a onClick='javascript:update_schwerpunkt(-1);' class='btn <%= class_tag %>' id="-1">
-	      Kein Schwerpunkt
-	    </a>
-        <% po.foci.each do |s| %>
-		      <% class_tag = "btn" %>
-		      <% ((@mein_schwerpunkt.id == s.id) ? class_tag = "btn-info" : class_tag = "") unless @mein_schwerpunkt == nil %>
-		  <a onClick='javascript:update_schwerpunkt(<%= s.id %>);' class='btn <%= class_tag %>' id='<%= s.id %>'>
-		      <%= s.name %>
-		  </a>
-        <% end %>
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label">Schwerpunkt</label>
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="SPRadios" id="-1" value="option1" <%= "checked" if @mein_schwerpunkt == nil %> >
+              Kein Schwerpunkt
+            </label>
+            <% po.foci.each do |s| %>
+              <label class="radio">
+                <input type="radio" name="SPRadios" id='<%= s.id %>' value="option1" <%= "checked" if @mein_schwerpunkt and @mein_schwerpunkt.id == s.id %> >
+                <%= s.name %>
+              </label>
+            <% end %>
+          </div>
+        </div>
+      </form>
 		</div>
     <% end %>
-
   </div>
 
   <div id="bestaetigen">
-  	<%= link_to "OK", {:action => "index"}, :class => "btn btn-large btn-success" %>
+  	<%= link_to "ModulManager starten", {:action => "index"}, :class => "btn btn-large btn-success" %>
   	<%= image_tag "/images/Warten-HintergrundGrau.gif", :id => "serverwait", :alt => "warten..." %>
   </div>
 
-  <div class="clear">&nbsp;</div>
-  <p>Alternativ können Sie eine von Ihnen 
+  <!-- <div class="clear">&nbsp;</div> -->
+  <legend>&nbsp;</legend>
+  <p>Alternativ dazu können Sie eine von Ihnen 
 <%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.</p>
-  <p>Wir bemühen uns, die im ModulManager dargestellten Information ständig auf dem neuesten Stand zu halten. Bitte beachten Sie dennoch, dass die Prüfungsordnung selbst das einzig rechtsverbindliche Dokument ist.</p>
   <p><%= link_to "Impressum und unsere Erklärung zum Datenschutz", :action => "impressum" %></p>
-
+  
+  </div>
 </div>

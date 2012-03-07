@@ -95,36 +95,35 @@ a:visited {
 }
 
 #subnavi-ul a{
-	list-style-type: none;
-	/* border : 1px #3b809d outset; */
-	border : 1px #AAA solid;
-	background: white url("../images/Button-Hintergrund-Link.gif");
-	background-repeat: repeat;
-	background-position: top left;	
-	text-align: center;
-	margin-bottom: 0.5em;
-	padding: 0.5em;
+	/*list-style-type: none;
+	 border : 1px #AAA solid;
+	 background: white url("../images/Button-Hintergrund-Link.gif");
+	 background-repeat: repeat;
+	 background-position: top left;  
+	 text-align: center;
+	 margin-bottom: 0.5em;
+	 padding: 0.5em;*/
 	width: 40%;
-	color: #444;
-	text-decoration: none;
-	display: block;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+	/*color: #444;
+	 text-decoration: none;
+	 display: block;
+	 -moz-border-radius: 5px;
+	 border-radius: 5px;*/
 }
 
 #navimoveup, #navimovedown, #semesterhinzu, .semesterloeschen, #helpmovedown {
 	width: 150px;
 	min-height: 18px;
-	margin : 4px;
-	text-align : center;
-	border : 1px #AAA solid;
-	background: white url("../images/Button-Hintergrund-Link.gif");
-	background-repeat: repeat;
-	background-position: top left;
+	/*margin : 4px;
+	 text-align : center;
+	 border : 1px #AAA solid;
+	 background: white url("../images/Button-Hintergrund-Link.gif");
+	 background-repeat: repeat;
+	 background-position: top left;*/
 	cursor: pointer;
-	padding: 4px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+/*  padding: 4px;*/
+/*  -moz-border-radius: 5px;*/
+/*  border-radius: 5px;*/
 }
 
 #semesterhinzu, .semesterloeschen {

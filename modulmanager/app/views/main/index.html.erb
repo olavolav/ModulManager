@@ -9,11 +9,11 @@
     <img src="images/Logo-beta.png" width="252" height="30" alt="ModulManager">
 	<!-- <img id="unilogo" src="images/uni-logo.png" alt="Universität"> -->
 
-    <a id="navimovedown" onClick="javascript:show_navi();" style="display:none;"><img width='20' height='20' src="images/Eject.png" style="margin-right:4px;">Navigation anzeigen</a>
-	<a id="navimoveup" onClick="javascript:hide_navi();"><img width='20' height='20' src="images/Eject.png" style="margin-right:4px;">Navigation ausblenden</a>
+    <a id="navimovedown" onClick="javascript:show_navi();" style="display:none;" class="btn"><img width='20' height='20' src="images/Eject.png" style="margin-right:4px;">Navigation anzeigen</a>
+	<a id="navimoveup" onClick="javascript:hide_navi();" class="btn"><img width='20' height='20' src="images/Eject.png" style="margin-right:4px;">Navigation ausblenden</a>
 	
     <div id="navi_optional">
-	  <a id="helpmovedown" onClick="javascript:show_minihelp();"><img width='20' height='20' id="GetStartedImage" src="images/GetStarted.png" style="margin-right:4px;">Kurze Einführung gefällig?</a>
+	  <a id="helpmovedown" onClick="javascript:show_minihelp();"><img width='20' height='20' id="GetStartedImage" src="images/GetStarted.png" style="margin-right:4px;" class="btn">Kurze Einführung gefällig?</a>
 	<div id="help_optional" style="display:none;">
 	<!-- <p>Herzlich Willkommen zum ModulManager!
 	<br>
@@ -95,7 +95,7 @@
       <p>Navigation zu anderen ModulManager-Seiten:</p>
 
       <div id="subnavi-ul">
-        <%= link_to "Zurück zur Schwerpunkt- und Prüfungsordnungs-Auswahl", :action => "start" %>
+        <%= link_to "Zurück zur Schwerpunkt- und Prüfungsordnungs-Auswahl", :action => "start", :class => "btn" %><br/>
         <%= link_to "Oft gestellte Fragen (FAQ)", :action => "help" %>
         <%= link_to "Impressum &amp; Datenschutz", :action => "impressum" %>
         <%= link_to "Speichern &amp; Drucken", :action => "export" %>

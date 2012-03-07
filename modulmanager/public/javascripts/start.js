@@ -6,10 +6,21 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 // Falls JavaScript funktioniert, die entspr. Warnung verstecken (OS)
 $(document).ready(function(){
 	$("#javascriptdoesnotwork").css("display","none");
+	
+	$("#pruefungsordnung input").change( function() {
+    // alert($("#pruefungsordnung input:checked").attr("id"));
+	  update_pordnung( $("#pruefungsordnung input:checked").attr("id") );
+	});
+
+	$("#schwerpunkt input").change( function() {
+    // alert($("#pruefungsordnung input:checked").attr("id"));
+	  update_schwerpunkt( $("#schwerpunkt input:checked").attr("id") );
+	});
+
 });
 
 var authenticityToken = function() {
-    return $('#token').attr("content");
+  return $('#token').attr("content");
 };
 
 var authenticityTokenParameter = function(){
@@ -43,10 +54,12 @@ var update_schwerpunkt = function(s_id){
 
 var update_pordnung = function(po_id){
 	
-	if (!$("#pruefungsordnung a[id="+po_id+"]").hasClass("btn-info")) {
+	if ($("#pruefungsordnung input[id="+po_id+"]").val() != "checked") {
+    // alert($("#pruefungsordnung input[id="+po_id+"]").attr("checked"));
     // alert("hallo pruefungsordnung "+po_id);
 		$("#serverwait").show();
-		$("#pruefungsordnung a").removeClass("btn-info");
+    // $("#schwerpunkt").fadeTo(0.5);
+    // $("#pruefungsordnung a").removeClass("btn-info");
     $.ajax({
         type:"POST",
         url :"main/version_selection",
@@ -61,10 +74,11 @@ var update_pordnung = function(po_id){
     });
 	
     // $(".pruefungsordnung").attr("class","pruefungsordnung btn");
-		$("#pruefungsordnung a[id="+po_id+"]").addClass("btn-info");
+    // $("#pruefungsordnung a[id="+po_id+"]").addClass("btn-info");
 		// $(".backtomain").slideDown();
 		$("#schwerpunkt .SPsubclass").hide();
 		$("#schwerpunkt .SPsubclass[id=belongstoPOid"+po_id+"]").show();
+    // $("#schwerpunkt").fadeTo(0.1,500);
 		$("#serverwait").fadeOut();
 	}
 };
