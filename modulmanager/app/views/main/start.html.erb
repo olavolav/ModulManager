@@ -1,4 +1,3 @@
-
 <div id="content">
   <img id="unilogo" src="/images/uni-logo.png" alt="Universität">
   <h1>ModulManager</h1>
@@ -20,27 +19,26 @@
 	<% unless @new_session===true %>
 		<p class="alert alert-info">Bitte beachten Sie, dass Sie bei einer Veränderung der Einstellungen unten wieder mit der Standard-Auswahl der Studienordnung beginnen - evtl. vorgenommene Modifikationen gehen also verloren.</p>
 	<% end %>
-  <div id="pruefungsordnung">
-  <!-- <strong>1.</strong> Bitte wählen Sie zunächst die für Sie gültige Prüfungsordnung aus:<br> -->
 
-  <form class="form-horizontal">
-    <div class="control-group">
-      <label class="control-label">Prüfungsordnung</label>
-      <div class="controls">
-        <% Version.all.each do |po| %>
-          <label class="radio">
-            <input type="radio" name="PORadios" id='<%= po.id %>' value="option1" <%= "checked" if selection.version.id == po.id %> >
-            <%= po.name %>
-          </label>
-        <% end %>
+  <div id="pruefungsordnung">
+    <form class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label">Prüfungsordnung</label>
+        <div class="controls">
+          <% Version.all.each do |po| %>
+            <label class="radio">
+              <input type="radio" name="PORadios" id='<%= po.id %>' value="option1" <%= "checked" if selection.version.id == po.id %> >
+              <%= po.name %>
+            </label>
+          <% end %>
+        </div>
       </div>
-    </div>
-  </form>
-  
+    </form>
+  </div>
   
   <div id="schwerpunkt">
     <% Version.find(:all).each do |po| %>
-		<div class="SPsubclass" id="<%= "belongstoPOid"+po.id.to_s %>" <% unless po.id==selection.version.id %>style="display:none;"<% end %> >
+		<div class="SPsubclass" id="<%= "belongstoPOid"+po.id.to_s %>" <%= "style='display:none;'" unless po.id==selection.version.id %> >
       <form class="form-horizontal">
         <div class="control-group">
           <label class="control-label">Schwerpunkt</label>
@@ -73,5 +71,4 @@
 <%= link_to "gespeicherte Modul-Kombination importieren", :action => "import" %>.</p>
   <p><%= link_to "Impressum und unsere Erklärung zum Datenschutz", :action => "impressum" %></p>
   
-  </div>
 </div>
