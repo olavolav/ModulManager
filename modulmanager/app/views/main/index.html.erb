@@ -17,61 +17,9 @@
 	
     <div id="navi_optional" style="display:none;">
 	  
-	<div id="help_optional" style="display:none;">
-      <div id="minihelp" title="Kurzhilfe">
-		<p>Herzlich Willkommen zum ModulManager!
-		<br>
-		Der ModulManager soll Ihnen dabei helfen, Ihre Module zu wählen und die beste Kombination im Sinne der Prüfungsordnung zu finden.
-		</p>
-        <h2>Kurzanleitung</h2>
-		<p>Sie beginnen mit der Standard-Auswahl, die die Studienordnung für den von Ihnen gewählte Schwerpunkt vorschlägt.</p>
-        <p>Ziehen Sie nun Module von der rechten Spalte in die momentane Auswahl in der Mitte. In der linken Spalte oder an Modulen selbst wird angezeigt, ob die entspr. Bedingungen erfüllt sind.
-		Über diese Ampel-Icons gelangen Sie auch zu ausführlicheren Informationen über den Bereich oder das Modul, und können Ausnahme-Regelungen vornehmen.</p>
-		<p>In Kategorien, die das Einbringen von Modulen aus beliebigen Fakultäten der Universität erlauben, finden sich Module mit dem Titel "(Sonstiges Modul)". Wenn sie ein solches Modul in die Auswahl ziehen, können sie Titel, Credit-Anzahl usw. selbst eintragen.</p>
-        <!-- <h2>Icons</h2> -->
-        <table border="0" cellspacing="4" width="100%">
-          <tr>
-            <td cellspan="2"><strong>Modul-Typen:</strong></td>
-          </tr>
-          <tr>
-            <td><img width='20' height='20' src='images/Pflicht.png'></td>
-            <td>Pflicht-Modul</td>
-          </tr>
-          <tr class="table_line_highlight">
-            <td><img width='20' height='20' src='images/Wahlpflicht.png'></td>
-            <td>Wahlpflicht-Modul</td>
-          </tr>
-          <!-- <tr>
-          	<td><img width='20' height='20' src='images/Pflicht.png'></td>
-          	<td>Wahl-Modul</td>
-          </tr> -->
-          <tr>
-            <td cellspan="2"><strong>Schaltflächen:</strong></td>
-          </tr>
-          <tr>
-            <td><img width='20' height='20' src='images/Fragezeichen.png'></td>
-            <td>Informationen zu dem jeweiligen Modul</td>
-          </tr>
-          <tr class="table_line_highlight">
-            <td><img width='20' height='20' src='images/iPunkt.png'></td>
-            <td>Informationen und ggf. Optionen, Bedingungen erfüllt</td>
-          </tr>
-          <tr>
-            <td><img width='20' height='20' src='images/iPunktGelb.png'></td>
-            <td>Informationen und ggf. Optionen, Bedingungen erfüllt aber Note noch nicht eingetragen</td>
-          </tr>
-          <tr class="table_line_highlight">
-            <td><img width='20' height='20' src='images/Ausrufezeichen.png'></td>
-            <td>Informationen und ggf. Optionen, Bedingungen nicht erfüllt</td>
-          </tr>
-          <tr>
-            <td><img width='20' height='20' src='images/Pin-Passiv.png'></td>
-            <td>Entsprechende Spalte fixieren, damit wichtige Informationen immer sichtbar bleiben</td>
-          </tr>
-        </table>
-      </div>
-
-	</div>
+  <!-- <div id="help_optional" style="display:none;"> -->
+	  
+  <!-- </div> -->
 
       <p>Momentan gewählte Einstellungen:
       <ul>
@@ -207,71 +155,139 @@
 
 <!--content-->
 
-<div id="info_box" title="Info-Box">
-  <div id="box_info"></div>
-  <div id="box_info_pool" style="color:gray;" >Erweiterte Optionen: Nur bei Modulen in der Auswahl verfügbar.</div>
-  <div id="box_info_exception">
-    Erweiterte Optionen:
-  	<p id="validateCredits"></p>
-    <table>
-      <tbody>
-        <tr id="credits_aendern_checkbox">
-			<td><label for="exception_credit">Credit-Zahl:</label></td>
-			<td><input type="text" name="exception_credit" id="exception_credit" size="6" maxlength="7" rel="modul_id" value="Credits" class="ui-widget-content ui-corner-all" style="padding:2px;"></td>
-		<td><a onClick="javascript:$('#exception_credit').val('Credits');">
-			<img id="AO_credit_reset" alt="reset" src="images/Reset-Form.png"></a>
-		</td></tr>
-        <tr><td>Warnung deaktivieren:</td><td><input type="checkbox" id="exception_warn" name="exception_warn" value="checkbox" /></td><td></td></tr>
-        <tr id="note_streichen_checkbox"><td>Note streichen:</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox" /></td><td></td></tr>
-      </tbody>
-    </table>
+<div id="custom_dialog" class="modal hide">
+  <div class="modal-header">
+    <a onClick="javascript:cancel_custombox()" class="close">&times;</a>
+    <h3>Eigenes Modul</h3>
   </div>
-  <div id="box_info_overview"></div>
-  <div id="box_info_combobox"></div>
+  <div class="modal-body">
+    <p>Dieses Modul dient dazu, auch Module aus anderen Fakultäten im ModulManager behandeln zu können. Bitte tragen Sie die entsprechenden Daten ein.</p>
+    <p id="validateTips"></p>
+    <form>
+      <fieldset>
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
+        <label for="credit">Anzahl der ETCS Punkte:</label>
+        <input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all">
+        <div id="hat_note">
+  	      <p>Bitte wählen Sie aus, welche Eigenschaften dieses Modul hat:<br>
+  	      <input type="checkbox" name="note_checkbox" id="hat_note_checkbox" value="checkbox" style='display:inline'> Modul ist unbenotet</p>
+        </div>
+        <p><label for="category_id">Bitte wählen Sie aus, in welche Kategorien dieses Modul einzubringen ist. Falls Sie nichts auswählen, wird automatisch die nur die Kategorie gewählt, aus der Sie das Modul gezogen haben.</label>
+        <div id="dummy_checkbox"></div>
+  	</p>
 
+        <input type="hidden" name="custom_semester" id="custom_semester" value=""  />
+        <input type="hidden" name="custom_id" id="custom_id" value=""  />
+        <input type="hidden" name="custom_cat_id" id="custom_cat_id" value=""  />
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a onClick="javascript:confirm_changes_custombox();" class="btn btn-primary">OK</a>
+    <!-- <a onClick="javascript:cancel_custombox()" class="btn">Zurück</a> -->
+  </div>
 </div>
 
 
-<div id="custom_dialog" title="Eigenes Modul">
-  <p>Dieses Modul dient dazu, auch Module aus anderen Fakultäten im ModulManager behandeln zu können. Bitte tragen Sie die entsprechenden Daten ein.</p>
-  <p id="validateTips"></p>
-  <form>
-    <fieldset>
-      <label for="name">Name:</label>
-      <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
-      <label for="credit">Anzahl der ETCS Punkte:</label>
-      <input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all">
-      <!-- <div id="note_streichen">
-      	      <p>Bitte wählen Sie aus, welche Eigenschaften dieses Modul hat:<br>
-      	      <input type="checkbox" name="note_checkbox" id="note_checkbox" value="checkbox" style='display:inline'> Modul ist unbenotet</p>
-            </div> -->
-      <div id="hat_note">
-	      <p>Bitte wählen Sie aus, welche Eigenschaften dieses Modul hat:<br>
-	      <input type="checkbox" name="note_checkbox" id="hat_note_checkbox" value="checkbox" style='display:inline'> Modul ist unbenotet</p>
-      </div>
-      <p><label for="category_id">Bitte wählen Sie aus, in welche Kategorien dieses Modul einzubringen ist. Falls Sie nichts auswählen, wird automatisch die nur die Kategorie gewählt, aus der Sie das Modul gezogen haben.</label>
-      <div id="dummy_checkbox"></div>
-	</p>
 
-     <!-- <select id="category_id" name="category_id">
-        <%#= options_from_collection_for_select(@categories, :id, :option_name, nil) %>
-      </select>
-        -->
-      <input type="hidden" name="custom_semester" id="custom_semester" value=""  />
-      <input type="hidden" name="custom_id" id="custom_id" value=""  />
-      <input type="hidden" name="custom_cat_id" id="custom_cat_id" value=""  />
-      <!-- <input type="hidden" name="custom_exception_change" id="custom_cat_id" value="false"  /> -->
-
-    </fieldset>
-  </form>
+<div id="info_box" class="modal hide">
+  <div class="modal-header">
+    <a onClick="javascript:close_infobox()" class="close">&times;</a>
+    <h3>Weitere Informationen</h3>
+  </div>
+  <div class="modal-body">
+    <div id="box_info"></div>
+    <div id="box_info_pool" style="color:gray;" >Erweiterte Optionen: Nur bei Modulen in der Auswahl verfügbar.</div>
+    <div id="box_info_exception">
+      Erweiterte Optionen:
+    	<p id="validateCredits"></p>
+      <table>
+        <tbody>
+          <tr id="credits_aendern_checkbox">
+  			<td><label for="exception_credit">Credit-Zahl:</label></td>
+  			<td><input type="text" name="exception_credit" id="exception_credit" size="6" maxlength="7" rel="modul_id" value="Credits" class="ui-widget-content ui-corner-all" style="padding:2px;"></td>
+  		<td><a onClick="javascript:$('#exception_credit').val('Credits');">
+  			<img id="AO_credit_reset" alt="reset" src="images/Reset-Form.png"></a>
+  		</td></tr>
+          <tr><td>Warnung deaktivieren:</td><td><input type="checkbox" id="exception_warn" name="exception_warn" value="checkbox" /></td><td></td></tr>
+          <tr id="note_streichen_checkbox"><td>Note streichen:</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox" /></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="box_info_overview"></div>
+    <div id="box_info_combobox"></div>
+  </div>
+  <div class="modal-footer">
+    <a onClick="javascript:confirm_changes_infobox();" class="btn btn-primary">OK</a>
+    <!-- <a onClick="javascript:close_infobox()" class="btn">Zurück</a> -->
+  </div>
 </div>
-
 
 
 <!--END container-->
 <div class="clear"></div>
 <div id="error_table" style="display:none"></div>
 <br/><br/>
+
+<div id="minihelp" class="modal hide">
+  <div class="modal-header">
+    <a onClick="javascript:close_minihelp()" class="close">&times;</a>
+    <h3>Kurzanleitung</h3>
+  </div>
+  <div class="modal-body">
+		<p>Sie beginnen mit der Standard-Auswahl, die die Studienordnung für den von Ihnen gewählte Schwerpunkt vorschlägt.</p>
+        <p>Ziehen Sie nun Module von der rechten Spalte in die momentane Auswahl in der Mitte. In der linken Spalte oder an Modulen selbst wird angezeigt, ob die entspr. Bedingungen erfüllt sind.
+		Über diese Ampel-Icons gelangen Sie auch zu ausführlicheren Informationen über den Bereich oder das Modul, und können Ausnahme-Regelungen vornehmen.</p>
+		<p>In Kategorien, die das Einbringen von Modulen aus beliebigen Fakultäten der Universität erlauben, finden sich Module mit dem Titel "(Sonstiges Modul)". Wenn sie ein solches Modul in die Auswahl ziehen, können sie Titel, Credit-Anzahl usw. selbst eintragen.</p>
+        <!-- <h2>Icons</h2> -->
+        <table border="0" cellspacing="4" width="100%">
+          <tr>
+            <td cellspan="2"><strong>Modul-Typen:</strong></td>
+          </tr>
+          <tr>
+            <td><img width='20' height='20' src='images/Pflicht.png'></td>
+            <td>Pflicht-Modul</td>
+          </tr>
+          <tr class="table_line_highlight">
+            <td><img width='20' height='20' src='images/Wahlpflicht.png'></td>
+            <td>Wahlpflicht-Modul</td>
+          </tr>
+          <!-- <tr>
+          	<td><img width='20' height='20' src='images/Pflicht.png'></td>
+          	<td>Wahl-Modul</td>
+          </tr> -->
+          <tr>
+            <td cellspan="2"><strong>Schaltflächen:</strong></td>
+          </tr>
+          <tr>
+            <td><img width='20' height='20' src='images/Fragezeichen.png'></td>
+            <td>Informationen zu dem jeweiligen Modul</td>
+          </tr>
+          <tr class="table_line_highlight">
+            <td><img width='20' height='20' src='images/iPunkt.png'></td>
+            <td>Informationen und ggf. Optionen, Bedingungen erfüllt</td>
+          </tr>
+          <tr>
+            <td><img width='20' height='20' src='images/iPunktGelb.png'></td>
+            <td>Informationen und ggf. Optionen, Bedingungen erfüllt aber Note noch nicht eingetragen</td>
+          </tr>
+          <tr class="table_line_highlight">
+            <td><img width='20' height='20' src='images/Ausrufezeichen.png'></td>
+            <td>Informationen und ggf. Optionen, Bedingungen nicht erfüllt</td>
+          </tr>
+          <tr>
+            <td><img width='20' height='20' src='images/Pin-Passiv.png'></td>
+            <td>Entsprechende Spalte fixieren, damit wichtige Informationen immer sichtbar bleiben</td>
+          </tr>
+        </table>
+  </div>
+  <div class="modal-footer">
+    <!-- <a onClick="javascript:confirm_unknown_adjective_dialog()" class="btn secondary">OK</a> -->
+    <a onClick="javascript:close_minihelp();" class="btn btn-primary">OK</a>
+  </div>
+</div>
+
 
 <!--<div id="footer">
                 footer

@@ -130,7 +130,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
 
 
 $(function(){
-    // teil Form -Check bei dummy Modul
+    // teil Form-Check bei dummy Modul
     var name=$("#name");
     var credit=$("#credit");
     var category = $("#custom_cat_id");
@@ -142,100 +142,7 @@ $(function(){
     var allFields = $([]).add(name).add(credit);
 		
 		var AOCbox = $("#exception_credit");
-            
-    $("#custom_dialog").dialog({
-        modal:true,
-        height:300,
-        width:500,
-        autoOpen:false,
-        open : function(event,ui){
-            name.attr("value","");
-            credit.attr("value","");
-            allFields.removeClass('ui-state-error');
-						tips.empty();
-            ajax_request_custom_checkbox($(custom_id).attr("value"));
-								
-        },
-        buttons:{
-            "OK":function(){
-					
-                allFields.removeClass('ui-state-error');
-
-                if (custom_check(name,credit,category,custom_semester,custom_id,tips,1,4)) {
-						
-                    var na = "Sonstiges Modul: "+name.attr("value");
-                    var cre = credit.attr("value");
-                    var cat = category.attr("value");
-                    var cus_sem = custom_semester.attr("value");
-                    var cus_id = custom_id.attr("value");
-						
-                    var cus_modul = $("#semester-content #"+cus_id);
-                    // custom_modul soll auch in VorratBox sein
-						
-                    var this_exist = modProp(cus_id,"custom_exist");
-                    var cus_cat_id = modProp(cus_id,"custom_category");
-                    if(this_exist=="false"){
-                        // $(cus_modul).find("span.custom_exist").text("true");
-												// War das hier etwa ein Bug? (OS)
-												// modPropChange(cus_id,"custom_exist","true");
-                        show_next_custom_modul_in_pool(cus_cat_id,cus_id);
-                        //show_next_custom_modul_in_pool_in_the_search_table();
-                        update_search_table_on_adding_custom_module_into_selection(cus_id,na,cus_cat_id);
-							
-                    }
-						
-                    $(this).dialog('close');
-						
-                }
-					
-					
-            }
-        }
-			
-			
-    });
-			
-		 			
-    // info_box------------------------------------------------------------		 
-		 
-    $("#info_box").dialog({
-        modal:true,
-        height:400,
-        width:550,
-        position:'center',
-        autoOpen:false,
-				
-        open:function(event,ui){
-	
-						// Neuerdings werden sämtliche AO schon vorher, in der Funktion
-						// ajax_request_module_info behandelt. (OS)
-						
-						// AOCbox.removeClass('ui-state-error');
-						$("#validateCredits").empty();
-						AOCbox.focus(function(){
-							AOCbox.val("");
-						});
-        },
-        buttons:{
-            "OK":function(){
-								var invalidInput = false;
-                if($("#box_info_exception").css("display") == "block") {
-										// Zunächst Testen, ob die Credits-Eingabe gültig ist.
-										var AOC = AOCbox.val();
-										if((AOC!="Credits")&&(!isUnsignedInteger(AOC))) {
-											// AOCbox.addClass("ui-state-error");
-											invalidInput = true;
-											updateTips("Bitte geben Sie als Credits eine eine ganze, positive Zahl ein oder setzen Sie die Credits zurück.",$("#validateCredits"));
-										}
-                    else update_modul_in_selection();
-                }
-                if(!invalidInput) $("#info_box").dialog('close');
-							
-            }
-        }
-    });
-
-
+            			
     $("#CacheDump").dialog({
         modal:true,
         height:400,
@@ -254,20 +161,6 @@ $(function(){
             }
         }
     });
-
-    $("#help_optional").dialog({
-        modal:true,
-        height:400,
-        width:550,
-        position:'center',
-        autoOpen:false,
-        buttons:{
-            "OK":function(){
-                $("#help_optional").dialog('close');							
-            }
-        }
-    });
-
 
     $("#CacheDump").dialog({
         modal:true,
@@ -288,8 +181,6 @@ $(function(){
         }
     });
 		
-		
-    // pool();
 		
     $(".auswahl_modul,.auswahl_modul_clone,.auswahl_modul.ui-draggable,.partial_modul,.auswahl_modul.partial_modul.ui-draggable").draggable({
 			

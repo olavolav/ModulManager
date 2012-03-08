@@ -70,6 +70,12 @@ $(document).ready(function(){
 		$(".auswahl_modul,.auswahl_modul_clone,.pool_modul,.custom_modul,.pool_modul_copy").mouseleave(function(){
 			$(this).find(".icon_loeschen").hide();
 		}); */
+
+    $("#minihelp, #info_box").modal({
+      keyboard: false,
+      backdrop: "static",
+      show: false
+    });
 		
 });
 
@@ -336,11 +342,12 @@ var hide_navi = function(){
     $("#navi_optional").slideUp();
 };
 var show_minihelp = function(){
-	$('#help_optional').dialog('open');
-	// $("#help_optional").slideDown();
-	// $("#helpmovedown").slideUp();
+  // $('#help_optional').dialog('open');
+  $("#minihelp").modal('show');
 };
-
+function close_minihelp() {
+  $("#minihelp").modal('hide');
+};
 
 // Fixieren bzw. 
 
@@ -655,31 +662,65 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
 
 
 var info_box_selection = function(modul_id){
-    //schreib modul_id in attr "rel", um sp�ter wieder
-    //Modul in Auswahl zu finden		
-		
-    $("#exception_credit").attr("rel",modul_id);
-    $("#box_info").empty().append(warten_weiss);
-    $("#box_info_exception").show();
-    $("#box_info_pool").hide();
-    $("#box_info_combobox").hide();
-    $("#box_info_overview").hide();
-		
-    ajax_request_module_info(modul_id);
-    $('#info_box').dialog('open');
-		
+  reset_info_box();
+  // modul_id in attr "rel" schreiben, um das Modul später in der Auswahl
+  // wieder zu finden   
+  $("#exception_credit").attr("rel",modul_id);
+
+  $("#box_info_exception").show();
+  $("#box_info_pool").hide();
+  
+  ajax_request_module_info(modul_id);
+  $("#info_box").modal('show');
 };
 
 var info_box = function(modul_id){
-    $("#box_info").empty().append(warten_weiss);
-    $("#box_info_exception").hide();
-    $("#box_info_combobox").hide();
-    $("#box_info_overview").hide();
-    $("#box_info_pool").show();
-        
-    ajax_request_pool_module_info(modul_id);
-    $("#info_box").dialog('open');
+  reset_info_box();
+  $("#box_info_exception").hide();
+  $("#box_info_pool").show();
+    
+  ajax_request_pool_module_info(modul_id);
+  $("#info_box").modal('show');
 };
+
+// Vor dem Eintragen der aktuellen Informationen und dem anschließenden Öffnen der Info-Box
+// erstmal alles zurück setzen.
+// Diese Funktion wird von allen drei Funktionen aufgerufen, die die Info-Box öffnen - besser
+// wäre eigentlich, dies an das Modal-Event "show" zu koppeln.
+function reset_info_box() {
+  $("#box_info").empty().append(warten_weiss);
+  $("#box_info_combobox").hide();
+  $("#box_info_overview").hide(); // glaube das Feld wird gar nicht mehr benutzt... (OS)
+
+  $("#validateCredits").empty();
+	$("#exception_credit").focus(function(){
+		$(this).val("");
+	});
+	
+};
+
+function confirm_changes_infobox() {
+	var invalidInput = false;
+	var AOCbox = $("#exception_credit");
+  if($("#box_info_exception").css("display") == "block") {
+    // Zunächst Testen, ob die Credits-Eingabe gültig ist.
+    var AOC = AOCbox.val();
+    if((AOC!="Credits")&&(!isUnsignedInteger(AOC))) {
+    	// AOCbox.addClass("ui-state-error");
+    	invalidInput = true;
+    	updateTips("Bitte geben Sie als Credits eine eine ganze, positive Zahl ein oder setzen Sie die Credits zurück.",$("#validateCredits"));
+    }
+    else update_modul_in_selection();
+  }
+  if(!invalidInput) {
+    // $("#info_box").dialog('close');
+    $("#info_box").modal('hide');
+  }
+};
+
+function close_infobox() {
+  $("#info_box").modal('hide');
+}
 
 // Diese Funktion wird nach der Auswahl-Info-Box aufgerufen und enthält die entspr. Auswirkungen (OS)
 var update_modul_in_selection = function (){
@@ -1505,16 +1546,63 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 //implement :   custom_modul_drop_in_auswahl---------------------------------------------
 
 var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
+  var name=$("#name");
+  var credit=$("#credit");
+  var category = $("#custom_cat_id");
+  var custom_semester=$("#custom_semester");
+  var custom_id=$("#custom_id");
+  var tips =$("#validateTips");
+  var allFields = $([]).add(name).add(credit);
 	
-    var check_open=false;
-    var cat_id = modProp(modul_id,"cat_id");
-    $("#custom_semester").attr("value",semester);
-    $("#custom_id").attr("value",modul_id);
-    $("#custom_cat_id").attr("value",cat_id);
-	
-    $('#custom_dialog').dialog('open');
+  var check_open=false;
+  var cat_id = modProp(modul_id,"cat_id");
+  $("#custom_semester").attr("value",semester);
+  $("#custom_id").attr("value",modul_id);
+  $("#custom_cat_id").attr("value",cat_id);
+
+  name.attr("value","");
+  credit.attr("value","");
+  allFields.removeClass('ui-state-error');
+  tips.empty();
+  ajax_request_custom_checkbox($(custom_id).attr("value"));
+  $('#custom_dialog').modal('show');
 };
 
+function confirm_changes_custombox() {
+  var name=$("#name");
+  var credit=$("#credit");
+  var category = $("#custom_cat_id");
+  var custom_semester=$("#custom_semester");
+  var custom_id=$("#custom_id");
+  var tips =$("#validateTips");
+  var allFields = $([]).add(name).add(credit);
+  allFields.removeClass('ui-state-error');
+
+  if(custom_check(name,credit,category,custom_semester,custom_id,tips,1,4)) {
+    var na = "Sonstiges Modul: "+name.attr("value");
+    var cre = credit.attr("value");
+    var cat = category.attr("value");
+    var cus_sem = custom_semester.attr("value");
+    var cus_id = custom_id.attr("value");
+
+    var cus_modul = $("#semester-content #"+cus_id);
+    // custom_modul soll auch in VorratBox sein
+
+    var this_exist = modProp(cus_id,"custom_exist");
+    var cus_cat_id = modProp(cus_id,"custom_category");
+    if(this_exist=="false") {
+        show_next_custom_modul_in_pool(cus_cat_id,cus_id);
+        //show_next_custom_modul_in_pool_in_the_search_table();
+        update_search_table_on_adding_custom_module_into_selection(cus_id,na,cus_cat_id);
+    }
+
+    $("#custom_dialog").modal('hide');
+  }  
+};
+
+function cancel_custombox() {
+  $("#custom_dialog").modal('hide');
+};
 var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
     //parts_exit  aus "true" setzen
     modPropChange(modul_id,"modul_parts_exist","true");

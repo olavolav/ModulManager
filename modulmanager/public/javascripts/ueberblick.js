@@ -3,33 +3,31 @@ for licensing questions please refer to the README
 Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-//  diese Funktion ueberblickrekursiv() gibt den �berblick in der linken Spalten.-//
+//  diese Funktion ueberblickrekursiv() gibt den Überblick in der linken Spalten.-//
 //  die gibt alle Fehlern und Warnungen aus.                                      //
 //  Und die Funktion ueberblick() ruft ueberblick-XML per AJAX auf                //
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-var info_box_overview =  function(modul_id){
-    $("#box_info").empty().append(warten_weiss);
-    $("#box_info_exception").hide();
-    $("#box_info_pool").show();
-    $("#box_info_combobox").hide();
-    $("#info_box").dialog('open');
-    var html = $.ajax({
-        type : 'POST',
-        url  : '/abfragen/info/'+modul_id,
-        data: authenticityTokenParameter(),
-        async: false,
-				cache: false,
-        contentType: 'application/x-www-form-urlencoded',
-        success : function(html){
-            $("#box_info").empty();
-            $("#box_info").append(html);
-            $("#box_info_overview").hide();
-        },
-				error: function(XMLHttpRequest, textStatus, errorThrown){
-					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=info_box_overview");
-				}
-    }).responseText;
+var info_box_overview = function(modul_id){
+  reset_info_box();
+  $("#box_info_exception").hide();
+  $("#box_info_pool").show();
+  $("#info_box").modal('show');
+
+  var html = $.ajax({
+    type : 'POST',
+    url  : '/abfragen/info/'+modul_id,
+    data: authenticityTokenParameter(),
+    async: false,
+    cache: false,
+    contentType: 'application/x-www-form-urlencoded',
+    success : function(html){
+      $("#box_info").append(html);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown){
+     ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=info_box_overview");
+    }
+  }).responseText;
 };
 
 var ueberblick = function(){
