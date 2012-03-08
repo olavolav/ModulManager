@@ -5,21 +5,19 @@
 
 
   <div id="subnavi">
+    <div id="header">
     <!-- so lange noch getestet wird (OS) <img src="images/Logo.png" width="215" height="30" alt="ModulManager"> -->
     <img src="images/Logo-beta.png" width="252" height="30" alt="ModulManager">
-	<!-- <img id="unilogo" src="images/uni-logo.png" alt="Universität"> -->
+  <img id="unilogo" src="images/uni-logo.png" alt="Universität">
 
-    <a id="navimovedown" onClick="javascript:show_navi();" style="display:none;" class="btn"><img width='20' height='20' src="images/Eject.png" style="margin-right:4px;">Navigation anzeigen</a>
-	<a id="navimoveup" onClick="javascript:hide_navi();" class="btn"><img width='20' height='20' src="images/Eject.png" style="margin-right:4px;">Navigation ausblenden</a>
+    <a id="navimovedown" onClick="javascript:show_navi();" class="btn"><img width='14' height='10' src="images/Eject.png" style="margin-right:4px">Navigation anzeigen</a>
+	<a id="navimoveup" onClick="javascript:hide_navi();" style="display:none;" class="btn"><img width='14' height='10' src="images/Eject.png" style="margin-right:4px;">Navigation ausblenden</a>
+	<a id="helpmovedown" onClick="javascript:show_minihelp();" class="btn btn-info">Kurze Einführung gefällig?</a>
+	</div>
 	
-    <div id="navi_optional">
-	  <a id="helpmovedown" onClick="javascript:show_minihelp();"><img width='20' height='20' id="GetStartedImage" src="images/GetStarted.png" style="margin-right:4px;" class="btn">Kurze Einführung gefällig?</a>
+    <div id="navi_optional" style="display:none;">
+	  
 	<div id="help_optional" style="display:none;">
-	<!-- <p>Herzlich Willkommen zum ModulManager!
-	<br>
-	Der ModulManager soll Ihnen dabei helfen, Ihre Module zu wählen und die beste Kombination im Sinne der Prüfungsordnung zu finden.
-	</p> -->
-
       <div id="minihelp" title="Kurzhilfe">
 		<p>Herzlich Willkommen zum ModulManager!
 		<br>
@@ -89,20 +87,16 @@
 		<p>Debug: <a onClick="javascript:display_cache();" style="cursor:pointer;text-decoration:underline;">Modul-Cache anzeigen</a></p>
 <% end %>
 
-	  <!-- Zum Testen (OS) -->
-	  <!-- <p>Liebe ModulManager-Tester: Bitte senden Sie ihre Meinung über den ModulManager und evtl. Fehlerberichte per <a href="mailto:olav.stetter@adiungi.com" style="cursor:pointer;text-decoration:underline;">e-Mail an uns</a>. Vielen Dank!</p> -->
-		
-      <p>Navigation zu anderen ModulManager-Seiten:</p>
+		<div id="subnavi-ul">
+      <p>Navigation zu anderen ModulManager-Seiten:<br/>
+        <%= link_to "Zurück zur Schwerpunkt- und Prüfungsordnungs-Auswahl", {:action => "help"}, :class => "btn" %><br/>
+        <%= link_to "Oft gestellte Fragen (FAQ)", {:action => "help"}, :class => "btn" %><br/>
+        <%= link_to "Impressum &amp; Datenschutz", {:action => "impressum"}, :class => "btn" %><br/>
+        <%= link_to "Speichern &amp; Drucken", {:action => "export"}, :class => "btn" %><br/>
+      </p>
+    </div>
 
-      <div id="subnavi-ul">
-        <%= link_to "Zurück zur Schwerpunkt- und Prüfungsordnungs-Auswahl", :action => "start", :class => "btn" %><br/>
-        <%= link_to "Oft gestellte Fragen (FAQ)", :action => "help" %>
-        <%= link_to "Impressum &amp; Datenschutz", :action => "impressum" %>
-        <%= link_to "Speichern &amp; Drucken", :action => "export" %>
-      </div>
-
-
-        <div class="clear"></div>
+    <div class="clear"></div>
 	</div>
 	</div>
       <!-- <p>Unten können Sie Module per Drag&amp;Drop von den zur Verfügung stehenden Modulen in das gewünschte Semester ziehen.</p> -->
@@ -150,7 +144,7 @@
         <!-- Wird beim Starten der Seite automatisch via JS mit Semestern und Modulen gefüllt -->
       </div>
       
-     <a id="semesterhinzu" onClick="javascript:sem_hinzu();"> Semester hinzuf&uuml;gen</a>
+     <a id="semesterhinzu" onClick="javascript:sem_hinzu();" class="btn"> Semester hinzuf&uuml;gen</a>
 
          <div id="semesterBOX" >
 

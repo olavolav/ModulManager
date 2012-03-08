@@ -11,7 +11,7 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 }
 
 .grade {
-    margin: 10px;
+  margin: 10px;
 }
 
 #ueberblick_baum ul {
@@ -27,16 +27,12 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 }
 
 #ueberblick_baum li:hover {
-  font-weight: bold;
-  /*border-left: 5px #DDD solid;
-    border-radius: 5px;*/
 	/* Darauf achten, dass dieser margin + border das margin von #ueberblick li ergeben (OS) */
 	margin-left: 5px;
 }
 
-/* Hiermit kann man erkennen, has die Parent-Regeln sind (OS) */
+/* Hiermit kann man erkennen, welches die Parent-Regeln sind (OS) */
 #ueberblick_baum li:hover > div > table > tbody > tr > td {
-/*  font-weight: bold;*/
   color: black;
 }
 

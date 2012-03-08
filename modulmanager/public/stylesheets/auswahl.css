@@ -110,6 +110,10 @@ fieldset {
 .credit-option, .warnung-option, .note-option, .drop_down_menu {
 	padding-left: 30px;
 	color: #3b809d;
+	margin-bottom: 3px;
 }
 
+#middle .drop_down_menu p {
+	margin-bottom: 3px;
+}
 
