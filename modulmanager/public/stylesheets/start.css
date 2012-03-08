@@ -6,9 +6,6 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
   margin: 0px 20px 20px 0px;
 	border : 1px #AAA solid;
 	background-color: #FAFAFD;
-	/*background-image: url("../images/Semester-Hintergrund.gif");
-	 background-repeat: no-repeat;
-	 background-position: top left;*/
   padding: 2em;
 }
 
@@ -20,21 +17,8 @@ p {
 	clear:both;
 }
 
-/*#pruefungsordnung, #schwerpunkt {
-  padding-top: 10px;
-  clear: both;
-}*/
-
-/*#pruefungsordnung a, #schwerpunkt a {
-  margin: 5px;
-  width: 25%;
-  min-height: 35px;
-}*/
-
 #bestaetigen {
 	clear: both;
-/*  margin-top : 30px;*/
-/*  float: right;*/
 }
 
 #javascriptdoesnotwork {
@@ -43,8 +27,5 @@ p {
 }
 
 #serverwait {
-/* float: left;*/
-/*  padding: 5px;
-  margin: 5px;
-*/  display: none;  
+  display: none;  
 }
