@@ -410,7 +410,7 @@ var sem_hinzu = function(){
         +n+" .Semester"+
         "</h5>"+
         "</div>"+
-        "<a class='semesterloeschen' onClick='sem_loeschen("+n+");'>Semester entfernen</a>"+
+        "<a class='semesterloeschen btn' onClick='sem_loeschen("+n+");'>Semester entfernen</a>"+
         "</div>";
 			
         $("#semester-content").append(neu);
