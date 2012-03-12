@@ -117,3 +117,6 @@ fieldset {
 	margin-bottom: 3px;
 }
 
+input#exception_credit {
+  margin-bottom: 2px;
+}
