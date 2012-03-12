@@ -120,3 +120,8 @@ fieldset {
 input#exception_credit {
   margin-bottom: 2px;
 }
+
+#info_box h2, #info_box h3 {
+  line-height: 1.2em;
+  margin-bottom: 4px;
+}

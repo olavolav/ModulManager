@@ -1,14 +1,14 @@
 <div class='modul-info'>
-  <h1>Bereich: <%= @regel.name %></h1>
+  <h2>Bereich: <%= @regel.name %></h2>
   <p class='description'><%= @regel.description %></p>
 
-  <h2>Anforderungen dieses Bereiches</h2>
+  <h3>Anforderungen dieses Bereiches</h3>
   <p>
     <%= @regel.get_status_description_string_for_printing(@mods, @errors) %>
   </p>
 
   <% if !@fullfilled %>
-    <h2>Problematik</h2>
+    <h3>Problematik</h3>
 
     <% if @regel.removed_too_many_grades? @mods %>
       <p>
@@ -63,7 +63,7 @@
   </ul>
   </p>
 <% end %>
-<h2>Anmerkungen zur Auswertung</h2>
+<h3>Anmerkungen zur Auswertung</h3>
 <p>Bitte beachten Sie:
 <ul>
   <li>Module werden für diese Kategorie nicht mehr angezeigt, wenn sie bereits in eine andere Kategorie eingebracht werden.</li>
