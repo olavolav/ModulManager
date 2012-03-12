@@ -217,7 +217,7 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
 						// laden), und also alle anderen Event-Arten möglich sind
             // if ((modProp(modul_id,"error")=="false")||(modProp(modul_id,"AO_disable_warning") != "true")) {
                 // Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
-                if ((modProp(modul_id,"modul_has_grade")=="true") && (($(handle).find(".noten_input").val()!="Note")||($(handle).find(".noten_input").val()!="")))
+                if ((modProp(modul_id,"modul_has_grade")=="true") && ($(handle).find(".noten_input").val()!=""))
                     $(handle).find(".ipunkt").html(gelber_ipunkt);
                 else $(handle).find(".ipunkt").html(gruener_ipunkt);
             // }
@@ -705,7 +705,7 @@ function confirm_changes_infobox() {
   if($("#box_info_exception").css("display") == "block") {
     // Zunächst Testen, ob die Credits-Eingabe gültig ist.
     var AOC = AOCbox.val();
-    if((AOC!="Credits")&&(!isUnsignedInteger(AOC))) {
+    if((AOC!="")&&(!isUnsignedInteger(AOC))) {
     	// AOCbox.addClass("ui-state-error");
     	invalidInput = true;
     	updateTips("Bitte geben Sie als Credits eine eine ganze, positive Zahl ein oder setzen Sie die Credits zurück.",$("#validateCredits"));
@@ -779,7 +779,7 @@ var update_modul_in_selection = function (){
 		var v=$("#exception_credit").val();
 		// alert("update_modul_in_selection: Inhalt von #exception_credit: "+v);
 		var entered_a_number = isUnsignedInteger(v); // (v!="")&&(!isNaN(v))&&(parseInt(v)>=0);
-		var credits_input_is_valid = (v=="Credits")||(v=="")||entered_a_number;
+		var credits_input_is_valid = (v=="")||entered_a_number;
 		// alert("update_modul_in_selection: credits_input_is_valid="+credits_input_is_valid+", entered_a_number="+entered_a_number+", parseInt(v)="+parseInt(v));
 		
 		if ((modProp(modul_id,"custom")=="non-custom") && credits_input_is_valid) {
@@ -1001,8 +1001,7 @@ var ajax_request_module_info = function (modul_id){
 						// alert("ajax_request_module_info: html="+html);
 
             // alle Ausnahme-Option ersmal auf Null setzen
-            // $("#exception_credit").attr("checked", "");
-            $("#exception_credit").attr("value", "Credits");
+            $("#exception_credit").attr("value", "");
             $("#exception_warn").attr("checked", "");
             $("#exception_note").attr("checked", "");
             $("#info_box #box_info").empty().append(html);
