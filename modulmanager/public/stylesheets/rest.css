@@ -9,26 +9,8 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 	padding: 1em;
 }
 
-p {
-	margin-top: 12px;
-}
-
-a {
-	color: black;
-}
-
 .clear {
 	clear:both;
-}
-
-select {
-	margin: 1em;
-	
-}
-
-input {
-	padding: 4px;
-	margin: 4px;	
 }
 
 #bestaetigen {
@@ -40,25 +22,7 @@ a {
 	text-decoration: none;
 }
 
-#bestaetigen .linkbutton, .linkbuttonleft {
-	width: 100px;
-	min-height: 18px;
-	padding: 4px;
-	margin: 4px;
-	text-align : center;
-	float: right;
-	color: black;
-	border : 1px #AAA solid;
-	background: white url("../images/Button-Hintergrund-Link.gif");
-	background-repeat: repeat;
-	background-position: top left;
-	display: block;	
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
 .linkbuttonleft {
-	float: left;
 	min-height: 35px;
-	width: 30%;
+	width: 29%;
 }
