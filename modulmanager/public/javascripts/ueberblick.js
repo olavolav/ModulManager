@@ -21,8 +21,8 @@ var info_box_overview = function(modul_id){
     async: false,
     cache: false,
     contentType: 'application/x-www-form-urlencoded',
-    success : function(html){
-      $("#box_info").append(html);
+    success : function(htmlString){
+      $("#info_box #box_info").html(htmlString);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown){
      ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=info_box_overview");

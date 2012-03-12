@@ -997,44 +997,36 @@ var ajax_request_module_info = function (modul_id){
         dataType:'text',
         contentType: 'application/x-www-form-urlencoded',
         data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
-        success : function(html){
-						// alert("ajax_request_module_info: html="+html);
-
+        success : function(htmlString){
             // alle Ausnahme-Option ersmal auf Null setzen
             $("#exception_credit").attr("value", "");
             $("#exception_warn").attr("checked", "");
             $("#exception_note").attr("checked", "");
-            $("#info_box #box_info").empty().append(html);
+            $("#info_box #box_info").html(htmlString);
 
 						// alert("ajax_request_module_info: AO im Cache: AO_ignore_grade="+modProp(modul_id,"AO_disable_warning")+", AO_custom_credits="+modProp(modul_id,"AO_custom_credits")+", AO_ignore_grade="+modProp(modul_id,"AO_ignore_grade"));
             // Mein Versuch, die Checkboxen zu selektieren, wenn die entsprechenden Optionen gesetzt sind...
-            // if(($("#has_grade").text() == '0')&&(modProp(modul_id,"modul_has_grade") == "true")) {
             if(modProp(modul_id,"AO_ignore_grade") == "true") {
 	 							if (modProp(modul_id,"modul_has_grade") != "true")
 									alert("ajax_request_module_info: Warnung: Unbenotetes Modul hat \"Note streichen\"-Option gesetzt");
                 $("#exception_note").attr("checked", "checked");
             }
-            // if($("#has_warning").text() == '0') {
+
             if(modProp(modul_id,"AO_disable_warning") == "true") {
                 $("#exception_warn").attr("checked", "checked");
             }
-            // if($("#custom_credits").text() != -1) {
-            //     var this_credits =$("#custom_credits").text();
-            //     $("#exception_credit").attr("value",this_credits);
-            // }
+
             if(modProp(modul_id,"AO_custom_credits") != "false") {
-                // var this_credits =$("#custom_credits").text();
-                // $("#exception_credit").attr("value",this_credits);
                 $("#exception_credit").attr("value",modProp(modul_id,"AO_custom_credits"));
             }
-            // if($("#has_general_grade").text() == 0) {
+
 						if(modProp(modul_id,"modul_has_grade") != "true") {
                 $("#note_streichen_checkbox").hide();
             } else {
                 $("#note_streichen_checkbox").show();
             }
+            
 						// Vorläufig kann man Dummy-Modul-Credits nur beim Erstellen ändern (OS)
-            // if($("#semester-content").find("#"+modul_id+" span.custom").text() == "custom") {
 						if (modProp(modul_id,"custom") == "custom") {
                 $("#credits_aendern_checkbox").hide();
             } else {
@@ -1057,10 +1049,8 @@ var ajax_request_pool_module_info = function (modul_id){
         dataType:'text',
         contentType: 'application/x-www-form-urlencoded',
         data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
-        success : function(html){
-	
-						// alert("ajax_request_pool_module_info: html="+html);
-            $("#info_box #box_info").empty().append(html);
+        success : function(htmlString){
+            $("#info_box #box_info").html(htmlString);
         },
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_request_pool_module_info");
