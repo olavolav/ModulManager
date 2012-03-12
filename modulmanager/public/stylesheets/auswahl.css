@@ -9,20 +9,20 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 	border-spacing:0px;
 }
 
-.noten_input {
-	border: 1px solid #bdc7d8;
-	background-color: #F8F8F8;
+input.noten_input {
+  background-color: #F8F8F8;
 	height: 15px;
-	margin: 0px;
+  margin: 0px 5px 0px 0px;
 	padding: 0px;
 	text-align: center;
 	cursor: auto;
-	color: #444;
+	width: 60px;
+  font-size: 90%;
 }
 
-.noten_input:hover {
-	background-color: #F2F2FF;
-}
+/*input:hover {
+  background-color: #F2F2FF;
+}*/
 
 select {
 	background-color: #F8F8F8;
@@ -37,19 +37,11 @@ select {
 .semester {
 	width:100%;
   border: 1px #F0F0F0 solid;
-/*  background: #F7F7F7;*/
-/*  color: #716f6d;*/
-	
 	padding: 8px;
 	margin-bottom: 10px;
 
-	/* Newer browsers support this: (OS) */
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	
-	/*-moz-box-shadow:    0 0 5px #aaa;
-	  -webkit-box-shadow: 0 0 5px #aaa;
-	  box-shadow:         0 0 5px #aaa;*/
 }
 
 .semester h5 {
@@ -118,6 +110,18 @@ fieldset {
 .credit-option, .warnung-option, .note-option, .drop_down_menu {
 	padding-left: 30px;
 	color: #3b809d;
+	margin-bottom: 3px;
 }
 
+#middle .drop_down_menu p {
+	margin-bottom: 3px;
+}
 
+input#exception_credit {
+  margin-bottom: 2px;
+}
+
+#info_box h2, #info_box h3 {
+  line-height: 1.2em;
+  margin-bottom: 4px;
+}

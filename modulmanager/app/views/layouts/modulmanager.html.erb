@@ -12,6 +12,7 @@
     <%= stylesheet_link_tag 'auswahl' %>
     <%= stylesheet_link_tag 'ueberblick' %>
     <%= stylesheet_link_tag 'ui-lightness/jquery-ui-1.7.2.custom' %>
+    <%= stylesheet_link_tag 'bootstrap.min' %>
 
 
     <script type="text/javascript" src="javascripts/jquery-1.4.2.min.js"> </script>
@@ -20,11 +21,12 @@
 <% if $JavaScriptFilesCompiled %>
 	<script type="text/javascript" src="javascripts/modulmanager.js"></script>
 <% else %>
-    <script type="text/javascript" src="javascripts/global_javascript.js"></script>
-    <script type="text/javascript" src="javascripts/ueberblick.js"></script>
-    <script type="text/javascript" src="javascripts/pooleffect.js"></script>
-    <script type="text/javascript" src="javascripts/jquery.quicksearch.js"></script>
-	<script type="text/javascript" src="javascripts/jquery.jcache.js"></script>
+  <script type="text/javascript" src="javascripts/global_javascript.js"></script>
+  <script type="text/javascript" src="javascripts/ueberblick.js"></script>
+  <script type="text/javascript" src="javascripts/pooleffect.js"></script>
+  <script type="text/javascript" src="javascripts/jquery.quicksearch.js"></script>
+  <script type="text/javascript" src="javascripts/jquery.jcache.js"></script>
+  <script type="text/javascript" src="javascripts/bootstrap-modal.js"></script>
 <% end %>
 	  
 	<script type="text/javascript" charset="utf-8">
@@ -37,7 +39,7 @@
           attached: '#suche',
           inputText: '',
           labelText: 'Suche:',
-          loaderText: '...',
+          loaderText: 'Suche...',
           loaderImg: 'images/Warten-HintergrundWeiss.gif',
           delay:1300
         });

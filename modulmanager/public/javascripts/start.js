@@ -2,71 +2,68 @@
 for licensing questions please refer to the README
 Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
-
-// Falls JavaScript funktioniert, die entspr. Warnung verstecken (OS)
 $(document).ready(function(){
+  // Falls JavaScript funktioniert, die entspr. Warnung verstecken (OS)
 	$("#javascriptdoesnotwork").css("display","none");
+	
+  // An die PO- und SP-Auswahl-Radiobuttons die jew. Aktualisierungs-Funktionen knüpfen
+	$("#pruefungsordnung input:radio").change( function() {
+	  update_pordnung( $(this).attr("id") );
+	});
+	$("#schwerpunkt input:radio").change( function() {
+    update_schwerpunkt( $(this).attr("id") );
+	});
+
 });
 
 var authenticityToken = function() {
-    return $('#token').attr("content");
+  return $('#token').attr("content");
 };
 
 var authenticityTokenParameter = function(){
    return 'authenticity_token=' + encodeURIComponent(authenticityToken());
 };
-var update_schwerpunkt = function(s_id){
-	
-	if (!$(".schwerpunkt_oben[id="+s_id+"]").hasClass("active")) {
-    // alert("hallo schwerpunkt "+s_id);
-		$("#serverwait").show();
 
-    $.ajax({
-        type:"POST",
-        url :"main/focus_selection",
-        dataType:"text",
-        cache:false,
-        async:false,
-        data:"id="+s_id+"&"+authenticityTokenParameter(),
-        contentType:'application/x-www-form-urlencoded',
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_schwerpunkt");
-				}
-    });
-
-		$(".schwerpunkt_oben").attr("class","schwerpunkt_oben passive");
-		// $(".backtomain").slideDown();
-		$(".schwerpunkt_oben[id="+s_id+"]").attr("class","schwerpunkt_oben active");
-		$("#serverwait").fadeOut();
-	}
+function update_schwerpunkt(s_id) {
+  // alert("hallo schwerpunkt "+s_id);
+  $("#serverwait").show();
+  $.ajax({
+    type:"POST",
+    url :"main/focus_selection",
+    dataType:"text",
+    cache:false,
+    async:false,
+    data:"id="+s_id+"&"+authenticityTokenParameter(),
+    contentType:'application/x-www-form-urlencoded',
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    	ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_schwerpunkt");
+    }
+  });
+  $("#serverwait").fadeOut();
 };
 
-var update_pordnung = function(po_id){
-	
-	if (!$(".pruefungsordnung[id="+po_id+"]").hasClass("active")) {
-    // alert("hallo pruefungsordnung "+po_id);
-		$("#serverwait").show();
+function update_pordnung(po_id) {
+  // alert("hallo pruefungsordnung "+po_id);
+  $("#serverwait").show();
+  $.ajax({
+    type:"POST",
+    url :"main/version_selection",
+    dataType:"text",
+    cache:false,
+    async:false,
+    data:"version="+po_id+"&"+authenticityTokenParameter(),
+    contentType:'application/x-www-form-urlencoded',
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_pordnung");
+		}
+  });
+  $("#schwerpunkt .SPsubclass").hide();
 
-    $.ajax({
-        type:"POST",
-        url :"main/version_selection",
-        dataType:"text",
-        cache:false,
-        async:false,
-        data:"version="+po_id+"&"+authenticityTokenParameter(),
-        contentType:'application/x-www-form-urlencoded',
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_pordnung");
-				}
-    });
-	
-		$(".pruefungsordnung").attr("class","pruefungsordnung passive");
-		$(".pruefungsordnung[id="+po_id+"]").attr("class","pruefungsordnung active");
-		// $(".backtomain").slideDown();
-		$(".SPsubclass").hide();
-		$(".SPsubclass[id=belongstoPOid"+po_id+"]").show();
-		$("#serverwait").fadeOut();
-	}
+  // Schwerpunkt-Radio-Button zurück setzen
+  $("#schwerpunkt .SPsubclass[id=belongstoPOid"+po_id+"] input[id=-1]").attr("checked","checked");
+
+  $("#schwerpunkt .SPsubclass[id=belongstoPOid"+po_id+"]").show();
+  $("#serverwait").fadeOut();
 };
 
 var ajax_serverupdate_on_AJAX_warning = function(text){

@@ -4,7 +4,7 @@
 
 class MainController < ApplicationController
   
-  $MMversion = "1 (RC1)"
+  $MMversion = "1.1"
   $DebugMode = false
   $JavaScriptFilesCompiled = false
   

@@ -5,27 +5,237 @@
 
 
   <div id="subnavi">
+    <div id="header">
     <!-- so lange noch getestet wird (OS) <img src="images/Logo.png" width="215" height="30" alt="ModulManager"> -->
     <img src="images/Logo-beta.png" width="252" height="30" alt="ModulManager">
-	<!-- <img id="unilogo" src="images/uni-logo.png" alt="Universität"> -->
+  <img id="unilogo" src="images/uni-logo.png" alt="Universität">
 
-    <a id="navimovedown" onClick="javascript:show_navi();" style="display:none;"><img width='20' height='20' src="images/Eject.png" style="margin-right:4px;">Navigation anzeigen</a>
-	<a id="navimoveup" onClick="javascript:hide_navi();"><img width='20' height='20' src="images/Eject.png" style="margin-right:4px;">Navigation ausblenden</a>
+    <a id="navimovedown" onClick="javascript:show_navi();" class="btn"><img width='14' height='10' src="images/Eject.png" style="margin-right:4px">Navigation anzeigen</a>
+	<a id="navimoveup" onClick="javascript:hide_navi();" style="display:none;" class="btn"><img width='14' height='10' src="images/Eject.png" style="margin-right:4px;">Navigation ausblenden</a>
+	<a id="helpmovedown" onClick="javascript:show_minihelp();" class="btn btn-info">Kurze Einführung gefällig?</a>
+	</div>
 	
-    <div id="navi_optional">
-	  <a id="helpmovedown" onClick="javascript:show_minihelp();"><img width='20' height='20' id="GetStartedImage" src="images/GetStarted.png" style="margin-right:4px;">Kurze Einführung gefällig?</a>
-	<div id="help_optional" style="display:none;">
-	<!-- <p>Herzlich Willkommen zum ModulManager!
-	<br>
-	Der ModulManager soll Ihnen dabei helfen, Ihre Module zu wählen und die beste Kombination im Sinne der Prüfungsordnung zu finden.
-	</p> -->
+    <div id="navi_optional" style="display:none;">
+	  
+  <!-- <div id="help_optional" style="display:none;"> -->
+	  
+  <!-- </div> -->
 
-      <div id="minihelp" title="Kurzhilfe">
-		<p>Herzlich Willkommen zum ModulManager!
-		<br>
-		Der ModulManager soll Ihnen dabei helfen, Ihre Module zu wählen und die beste Kombination im Sinne der Prüfungsordnung zu finden.
-		</p>
-        <h2>Kurzanleitung</h2>
+      <p>Momentan gewählte Einstellungen:
+      <ul>
+        <li>Schwerpunkt: <strong><%= @schwerpunkt %></strong></li>
+        <li>Prüfungsordnungs-Version: <strong><%= @version.name %></strong></li>
+      </ul>
+	<p>Schriftgrösse ändern:<br>
+		<a onClick="javascript:font_size(10);"><img width='20' height='20' alt="10px" style="cursor:pointer;" src="images/FontSize-Small.png"></a>
+		<a onClick="javascript:font_size(12);"><img width='20' height='20' alt="12px" style="cursor:pointer;" src="images/FontSize-Medium.png"></a>
+		<a onClick="javascript:font_size(14);"><img width='20' height='20' alt="14px" style="cursor:pointer;" src="images/FontSize-Large.png"></a>
+
+<% if $DebugMode %>		
+		<p>Debug: <a onClick="javascript:display_cache();" style="cursor:pointer;text-decoration:underline;">Modul-Cache anzeigen</a></p>
+<% end %>
+
+		<div id="subnavi-ul">
+      <p>Navigation zu anderen ModulManager-Seiten:<br/>
+        <%= link_to "Zurück zur Schwerpunkt- und Prüfungsordnungs-Auswahl", {:action => "start"}, :class => "btn" %><br/>
+        <%= link_to "Oft gestellte Fragen (FAQ)", {:action => "help"}, :class => "btn" %><br/>
+        <%= link_to "Impressum &amp; Datenschutz", {:action => "impressum"}, :class => "btn" %><br/>
+        <%= link_to "Speichern &amp; Drucken", {:action => "export"}, :class => "btn" %><br/>
+      </p>
+    </div>
+
+    <div class="clear"></div>
+	</div>
+	</div>
+      <!-- <p>Unten können Sie Module per Drag&amp;Drop von den zur Verfügung stehenden Modulen in das gewünschte Semester ziehen.</p> -->
+  <div id="pleasewait">
+        <img width='16' height='16' src="images/Warten-HintergrundGrau.gif">
+        Bitte warten, der ModulManager wird geladen...
+  </div>
+  <div id="shadowbar">
+        &nbsp;
+  </div>
+
+
+  <!-- CONTENT -->
+
+  <div id="content">
+    <div id="left">
+      <%#*<h2>&Uuml;berblick:</h2>%>
+
+
+      <div id="ueberblick">
+        <div id="ueberblick_baum">
+			<img id="ueberblick-wird-aktualisiert" src="images/Warten-HintergrundWeiss.gif" style="float:right;" alt="Lade...">
+			<h3>&Uuml;berblick:</h3>
+        </div>
+        <p>
+        <table>
+          <tbody>
+            <tr>
+              <td><strong>Note (hochgerechnet):</strong></td>
+              <td id="die_note">?</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p id='note_berechnen'></p>
+      </div>
+
+    </div>
+
+
+    <div id="middle">
+      <h3>Momentane Auswahl:</h3>
+
+      <div id="semester-content">
+        <!-- Wird beim Starten der Seite automatisch via JS mit Semestern und Modulen gefüllt -->
+      </div>
+      
+     <a id="semesterhinzu" onClick="javascript:sem_hinzu();" class="btn"> Semester hinzuf&uuml;gen</a>
+
+         <div id="semesterBOX" >
+
+              <div id="0" class="semester" style="margin-top:10px;">
+               <h5>Freiwillige Zusatzleistungen (Module werden nicht einberechnet)</h5>
+               <div class="subsemester">
+
+                   </div>
+              </div>
+         </div>
+
+          <div id="error_table" style="display:none"></div>
+    </div><!--End middle-->
+
+
+    <!--RIGHT****************************************************-->
+
+    <div id="right">
+
+
+      <!--hier ist POOL und SUCHEN************************************-->
+
+
+      <h3>Zur Verf&uuml;gung stehende Module:
+		<img width='20' height='20' id="pool-pin-passiv" src="images/Pin-Passiv.png" alt="Modul-Pool fixieren" onClick="javascript:change_fixation('pool an');">
+		<img width='20' height='20' id="pool-pin-aktiv" src="images/Pin-Aktiv.png" alt="Modul-Pool nicht mehr fixieren" style="display:none;" onClick="javascript:change_fixation('pool aus');">
+	  </h3>
+
+      <div id="suche_bereich">
+        <table id="suche" style="border:2px red solid; display:none">
+          <tbody></tbody>
+        </table>
+        <!--<button id="click_to_find2" onClick="javascript:modul_search()">Los!</button>-->
+      </div>
+
+
+
+      <div id="subright-content">
+
+        <div id="pool" class="pool_category">
+
+
+        </div>
+
+
+        <script type="text/javascript">
+          pool();
+        </script>
+
+      </div><!--subright-->
+
+    </div><!--right-->
+
+
+
+  </div><!--END content-->
+
+  <div class="clear"></div>
+
+
+<!--content-->
+
+<div id="custom_dialog" class="modal hide">
+  <div class="modal-header">
+    <a onClick="javascript:cancel_custombox()" class="close">&times;</a>
+    <h3>Eigenes Modul</h3>
+  </div>
+  <div class="modal-body">
+    <p>Dieses Modul dient dazu, auch Module aus anderen Fakultäten im ModulManager behandeln zu können. Bitte tragen Sie die entsprechenden Daten ein.</p>
+    <p id="validateTips"></p>
+    <form>
+      <fieldset>
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
+        <label for="credit">Anzahl der ETCS Punkte:</label>
+        <input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all">
+        <div id="hat_note">
+  	      <p>Bitte wählen Sie aus, welche Eigenschaften dieses Modul hat:<br>
+  	      <input type="checkbox" name="note_checkbox" id="hat_note_checkbox" value="checkbox" style='display:inline'> Modul ist unbenotet</p>
+        </div>
+        <p><label for="category_id">Bitte wählen Sie aus, in welche Kategorien dieses Modul einzubringen ist. Falls Sie nichts auswählen, wird automatisch die nur die Kategorie gewählt, aus der Sie das Modul gezogen haben.</label>
+        <div id="dummy_checkbox"></div>
+  	</p>
+
+        <input type="hidden" name="custom_semester" id="custom_semester" value=""  />
+        <input type="hidden" name="custom_id" id="custom_id" value=""  />
+        <input type="hidden" name="custom_cat_id" id="custom_cat_id" value=""  />
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a onClick="javascript:confirm_changes_custombox();" class="btn btn-primary">OK</a>
+    <!-- <a onClick="javascript:cancel_custombox()" class="btn">Zurück</a> -->
+  </div>
+</div>
+
+
+
+<div id="info_box" class="modal hide">
+  <div class="modal-header">
+    <a onClick="javascript:close_infobox()" class="close">&times;</a>
+    <h3>Weitere Informationen</h3>
+  </div>
+  <div class="modal-body">
+    <div id="box_info"></div>
+    <div id="box_info_pool" style="color:gray;" >Erweiterte Optionen: Nur bei Modulen in der Auswahl verfügbar.</div>
+    <div id="box_info_exception">
+      Erweiterte Optionen:
+    	<p id="validateCredits"></p>
+      <table>
+        <tbody>
+          <tr id="credits_aendern_checkbox">
+  			<td><label for="exception_credit">Credit-Zahl</label></td>
+  			<td><input type="text" name="exception_credit" id="exception_credit" size="6" maxlength="7" rel="modul_id" value="" placeholder="Standard"></td>
+  		<td><a onClick="javascript:$('#exception_credit').val('');">
+  			<img id="AO_credit_reset" alt="reset" src="images/Reset-Form.png"></a>
+  		</td></tr>
+          <tr><td>Warnung deaktivieren</td><td><input type="checkbox" id="exception_warn" name="exception_warn" value="checkbox" /></td><td></td></tr>
+          <tr id="note_streichen_checkbox"><td>Note streichen</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox" /></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="box_info_overview"></div>
+    <div id="box_info_combobox"></div>
+  </div>
+  <div class="modal-footer">
+    <a onClick="javascript:confirm_changes_infobox();" class="btn btn-primary">OK</a>
+    <!-- <a onClick="javascript:close_infobox()" class="btn">Zurück</a> -->
+  </div>
+</div>
+
+
+<!--END container-->
+<div class="clear"></div>
+<div id="error_table" style="display:none"></div>
+<br/><br/>
+
+<div id="minihelp" class="modal hide">
+  <div class="modal-header">
+    <a onClick="javascript:close_minihelp()" class="close">&times;</a>
+    <h3>Kurzanleitung</h3>
+  </div>
+  <div class="modal-body">
 		<p>Sie beginnen mit der Standard-Auswahl, die die Studienordnung für den von Ihnen gewählte Schwerpunkt vorschlägt.</p>
         <p>Ziehen Sie nun Module von der rechten Spalte in die momentane Auswahl in der Mitte. In der linken Spalte oder an Modulen selbst wird angezeigt, ob die entspr. Bedingungen erfüllt sind.
 		Über diese Ampel-Icons gelangen Sie auch zu ausführlicheren Informationen über den Bereich oder das Modul, und können Ausnahme-Regelungen vornehmen.</p>
@@ -71,224 +281,13 @@
             <td>Entsprechende Spalte fixieren, damit wichtige Informationen immer sichtbar bleiben</td>
           </tr>
         </table>
-      </div>
-
-	</div>
-
-      <p>Momentan gewählte Einstellungen:
-      <ul>
-        <li>Schwerpunkt: <strong><%= @schwerpunkt %></strong></li>
-        <li>Prüfungsordnungs-Version: <strong><%= @version.name %></strong></li>
-      </ul>
-	<p>Schriftgrösse ändern:<br>
-		<a onClick="javascript:font_size(10);"><img width='20' height='20' alt="10px" style="cursor:pointer;" src="images/FontSize-Small.png"></a>
-		<a onClick="javascript:font_size(12);"><img width='20' height='20' alt="12px" style="cursor:pointer;" src="images/FontSize-Medium.png"></a>
-		<a onClick="javascript:font_size(14);"><img width='20' height='20' alt="14px" style="cursor:pointer;" src="images/FontSize-Large.png"></a>
-
-<% if $DebugMode %>		
-		<p>Debug: <a onClick="javascript:display_cache();" style="cursor:pointer;text-decoration:underline;">Modul-Cache anzeigen</a></p>
-<% end %>
-
-	  <!-- Zum Testen (OS) -->
-	  <!-- <p>Liebe ModulManager-Tester: Bitte senden Sie ihre Meinung über den ModulManager und evtl. Fehlerberichte per <a href="mailto:olav.stetter@adiungi.com" style="cursor:pointer;text-decoration:underline;">e-Mail an uns</a>. Vielen Dank!</p> -->
-		
-      <p>Navigation zu anderen ModulManager-Seiten:</p>
-
-      <div id="subnavi-ul">
-        <%= link_to "Zurück zur Schwerpunkt- und Prüfungsordnungs-Auswahl", :action => "start" %>
-        <%= link_to "Oft gestellte Fragen (FAQ)", :action => "help" %>
-        <%= link_to "Impressum &amp; Datenschutz", :action => "impressum" %>
-        <%= link_to "Speichern &amp; Drucken", :action => "export" %>
-      </div>
-
-
-        <div class="clear"></div>
-	</div>
-	</div>
-      <!-- <p>Unten können Sie Module per Drag&amp;Drop von den zur Verfügung stehenden Modulen in das gewünschte Semester ziehen.</p> -->
-  <div id="pleasewait">
-        <img width='16' height='16' src="images/Warten-HintergrundGrau.gif">
-        Bitte warten, der ModulManager wird geladen...
   </div>
-  <div id="shadowbar">
-        &nbsp;
+  <div class="modal-footer">
+    <!-- <a onClick="javascript:confirm_unknown_adjective_dialog()" class="btn secondary">OK</a> -->
+    <a onClick="javascript:close_minihelp();" class="btn btn-primary">OK</a>
   </div>
-
-
-  <!-- CONTENT -->
-
-  <div id="content">
-    <div id="left">
-      <%#*<h2>&Uuml;berblick:</h2>%>
-
-
-      <div id="ueberblick">
-        <div id="ueberblick_baum">
-			<img id="ueberblick-wird-aktualisiert" src="images/Warten-HintergrundWeiss.gif" style="float:right;" alt="Lade...">
-			<h2>&Uuml;berblick:</h2>
-        </div>
-        <p>
-        <table>
-          <tbody>
-            <tr>
-              <td><strong>Note (hochgerechnet):</strong></td>
-              <td id="die_note">?</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <p id='note_berechnen'></p>
-      </div>
-
-    </div>
-
-    <!--middle-->
-
-    <div id="middle">
-
-      <h2>Momentane Auswahl:</h2>
-
-
-      <div id="semester-content">
-
-
-        <!--<div class="semester" id="1">
-                                                  <h5>1.Semester</h5>
-                                                  <span class="leer" style="display:none">(leer)</span>
-                                          </div>-->
-
-
-
-
-      </div>
-     <a id="semesterhinzu" onClick="javascript:sem_hinzu();"> Semester hinzuf&uuml;gen</a>
-
-         <div id="semesterBOX" >
-
-              <div id="0" class="semester" style="margin-top:10px;">
-               <h5>Freiwillige Zusatzleistungen (Module werden nicht einberechnet)</h5>
-               <div class="subsemester">
-
-                   </div>
-              </div>
-         </div>
-
-          <div id="error_table" style="display:none"></div>
-    </div><!--End middle-->
-
-
-    <!--RIGHT****************************************************-->
-
-    <div id="right">
-
-
-      <!--hier ist POOL und SUCHEN************************************-->
-
-
-      <h2>Zur Verf&uuml;gung stehende Module:
-		<img width='20' height='20' id="pool-pin-passiv" src="images/Pin-Passiv.png" alt="Modul-Pool fixieren" onClick="javascript:change_fixation('pool an');">
-		<img width='20' height='20' id="pool-pin-aktiv" src="images/Pin-Aktiv.png" alt="Modul-Pool nicht mehr fixieren" style="display:none;" onClick="javascript:change_fixation('pool aus');">
-	  </h2>
-
-      <div id="suche_bereich">
-        <table id="suche" style="border:2px red solid; display:none">
-          <tbody></tbody>
-        </table>
-        <!--<button id="click_to_find2" onClick="javascript:modul_search()">Los!</button>-->
-      </div>
-
-
-
-      <div id="subright-content">
-
-        <div id="pool" class="pool_category">
-
-
-        </div>
-
-
-        <script type="text/javascript">
-          pool();
-        </script>
-
-      </div><!--subright-->
-
-    </div><!--right-->
-
-
-
-  </div><!--END content-->
-
-  <div class="clear"></div>
-
-
-<!--content-->
-
-<div id="info_box" title="Info-Box">
-  <div id="box_info"></div>
-  <div id="box_info_pool" style="color:gray;" >Erweiterte Optionen: Nur bei Modulen in der Auswahl verfügbar.</div>
-  <div id="box_info_exception">
-    Erweiterte Optionen:
-  	<p id="validateCredits"></p>
-    <table>
-      <tbody>
-        <tr id="credits_aendern_checkbox">
-			<td><label for="exception_credit">Credit-Zahl:</label></td>
-			<td><input type="text" name="exception_credit" id="exception_credit" size="6" maxlength="7" rel="modul_id" value="Credits" class="ui-widget-content ui-corner-all" style="padding:2px;"></td>
-		<td><a onClick="javascript:$('#exception_credit').val('Credits');">
-			<img id="AO_credit_reset" alt="reset" src="images/Reset-Form.png"></a>
-		</td></tr>
-        <tr><td>Warnung deaktivieren:</td><td><input type="checkbox" id="exception_warn" name="exception_warn" value="checkbox" /></td><td></td></tr>
-        <tr id="note_streichen_checkbox"><td>Note streichen:</td><td><input type="checkbox" id="exception_note" name="exception_note" value="checkbox" /></td><td></td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div id="box_info_overview"></div>
-  <div id="box_info_combobox"></div>
-
 </div>
 
-
-<div id="custom_dialog" title="Eigenes Modul">
-  <p>Dieses Modul dient dazu, auch Module aus anderen Fakultäten im ModulManager behandeln zu können. Bitte tragen Sie die entsprechenden Daten ein.</p>
-  <p id="validateTips"></p>
-  <form>
-    <fieldset>
-      <label for="name">Name:</label>
-      <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
-      <label for="credit">Anzahl der ETCS Punkte:</label>
-      <input type="text" name="credit" id="credit" value="" class="text ui-widget-content ui-corner-all">
-      <!-- <div id="note_streichen">
-      	      <p>Bitte wählen Sie aus, welche Eigenschaften dieses Modul hat:<br>
-      	      <input type="checkbox" name="note_checkbox" id="note_checkbox" value="checkbox" style='display:inline'> Modul ist unbenotet</p>
-            </div> -->
-      <div id="hat_note">
-	      <p>Bitte wählen Sie aus, welche Eigenschaften dieses Modul hat:<br>
-	      <input type="checkbox" name="note_checkbox" id="hat_note_checkbox" value="checkbox" style='display:inline'> Modul ist unbenotet</p>
-      </div>
-      <p><label for="category_id">Bitte wählen Sie aus, in welche Kategorien dieses Modul einzubringen ist. Falls Sie nichts auswählen, wird automatisch die nur die Kategorie gewählt, aus der Sie das Modul gezogen haben.</label>
-      <div id="dummy_checkbox"></div>
-	</p>
-
-     <!-- <select id="category_id" name="category_id">
-        <%#= options_from_collection_for_select(@categories, :id, :option_name, nil) %>
-      </select>
-        -->
-      <input type="hidden" name="custom_semester" id="custom_semester" value=""  />
-      <input type="hidden" name="custom_id" id="custom_id" value=""  />
-      <input type="hidden" name="custom_cat_id" id="custom_cat_id" value=""  />
-      <!-- <input type="hidden" name="custom_exception_change" id="custom_cat_id" value="false"  /> -->
-
-    </fieldset>
-  </form>
-</div>
-
-
-
-<!--END container-->
-<div class="clear"></div>
-<div id="error_table" style="display:none"></div>
-<br/><br/>
 
 <!--<div id="footer">
                 footer

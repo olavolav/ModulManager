@@ -9,60 +9,17 @@ html {
 	min-width: 1000px;
 }
 
-*{padding: 0; margin: 0;}
-
-body, table, select {
-	font-family: Arial, sans-serif;
-	font-size: 12px;
-	font-weight: 400;
-	line-height: 16px;
-	color: #444;
-}
-
-h1{
-	font-size: 18px;
-	font-weight: bold;
-	margin: 5px;
-	/*float:left;*/
-}
-
-h2{
-	font-size: 15px;
-	font-weight: bold;
-	margin: 5px;
-}
-
-/*a:link {	
-	color:blue;
-	text-decoration:underline; 
-}*/
-
-a:visited {	
-	color: blue;
-	text-decoration: none; 
-}
-
-#container{
-/*	background-color: white;*/
-	/*height:3000px;*/
-	/*width: 100%;*/
-	
-}
-
-#header{
-	
-	background-color:blue;
-	height: 105px;
-	border: 1px black solid;
+#container {
+  font-size: 0.9em;
 }
 
 #subnavi {
 	border-bottom: 1px #AAA solid;
 	padding: 0.5em;
-/*	background: #F4F4FF url("../images/Subnavi-Hintergrund.png");*/
 	background: #F7F7F7;
-	background-repeat: no-repeat;
-	background-position: top left;
+}
+
+#navi_optional {
 }
 
 #unilogo {
@@ -95,73 +52,35 @@ a:visited {
 }
 
 #subnavi-ul a{
-	list-style-type: none;
-	/* border : 1px #3b809d outset; */
-	border : 1px #AAA solid;
-	background: white url("../images/Button-Hintergrund-Link.gif");
-	background-repeat: repeat;
-	background-position: top left;	
-	text-align: center;
-	margin-bottom: 0.5em;
-	padding: 0.5em;
-	width: 40%;
-	color: #444;
-	text-decoration: none;
-	display: block;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
-#navimoveup, #navimovedown, #semesterhinzu, .semesterloeschen, #helpmovedown {
-	width: 150px;
-	min-height: 18px;
-	margin : 4px;
-	text-align : center;
-	border : 1px #AAA solid;
-	background: white url("../images/Button-Hintergrund-Link.gif");
-	background-repeat: repeat;
-	background-position: top left;
-	cursor: pointer;
-	padding: 4px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  width: 40%;
 }
 
 #semesterhinzu, .semesterloeschen {
-	display: block;
 }
 
-#navimoveup {
-	margin-top: 1em;
-	clear: both;
-}
-
-#navimovedown {
-	margin-left: 1em;
+#navimoveup, #navimovedown {
+  min-width: 175px;
+  margin-left: 1em;
 }
 
 #helpmovedown {
 	width: 250px;
 }
 
-/*#minihelp{
-	clear: right;
-	float: right;
-	border: 1px #F0F0F0 solid;
-	background: #FAFAFD;
-	width: 50%;
-	padding: 4px;
-	margin: 4px;
-}*/
-
 #minihelp .table_line_highlight {
 	background: #F7F7F7;
 }
 
 #content {
-	/*background: #FAFAFD url("../images/Semester-Hintergrund.gif");
-		background-repeat: no-repeat;
-		background-position: top left;*/
+}
+
+#content select {
+  height: 18px;
+  font-size: 0.9em;
+  margin-bottom: 3px;
+  padding-bottom: 2px;
 }
 
 #left {

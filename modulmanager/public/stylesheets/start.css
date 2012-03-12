@@ -3,108 +3,29 @@ for licensing questions please refer to the README
 Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 #content {
-	margin: 0px 20px 20px 0px;
+  margin: 0px 20px 20px 0px;
 	border : 1px #AAA solid;
-	background: #FAFAFD url("../images/Semester-Hintergrund.gif");
-	background-repeat: no-repeat;
-	background-position: top left;
-	padding: 1em;
+	background-color: #FAFAFD;
+  padding: 2em;
 }
 
 p {
 	margin-top: 12px;
 }
 
-#schwerpunkt a, #pruefungsordnung a {
-	width: 30%;
-	min-height: 35px;
-	list-style-type:none;
-	text-align:center;
-	text-decoration: none;
-	margin: 0.5em;
-	padding: 0.5em;
-	float: left;
-}
-
-#schwerpunkt a, #pruefungsordnung a {
-	display: block;
-	cursor: pointer;
-}
-
-ul a:link, ul a:visited {
-	color: black;
-	text-decoration: none;
-}
-
-ul a:hover {
-	color: black;
-	/*text-decoration: underline;*/
-	background-color: #d8eef7;
-}
-
 .clear {
 	clear:both;
 }
 
-select {
-	margin: 1em;
-	
-}
-
-
-#pruefungsordnung, #schwerpunkt {
-	padding-top: 10px;
-	clear: both;
-}
-
-.active {
-	border : 1px #AAA inset;
-	background: #d8eef7 url("../images/Button-Hintergrund-Aktiv.png");
-	background-repeat: repeat;
-	background-position: top left;		
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-.passive {
-	border : 1px #AAA outset;
-	background: #d8eef7 url("../images/Button-Hintergrund.png");
-	background-repeat: repeat;
-	background-position: top left;		
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
 #bestaetigen {
 	clear: both;
-	margin-top : 30px;
 }
 
-#bestaetigen .linkbutton {
-	width: 100px;
-	min-height: 18px;
-	padding: 4px;
-	margin: 4px;
-	text-align : center;
-	float: right;
-	color: black;
-	border : 1px #AAA solid;
-	background: white url("../images/Button-Hintergrund-Link.gif");
-	background-repeat: repeat;
-	background-position: top left;
-	display: block;	
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
-#javascriptdoesnotwork, .additionalnotes {
-	border: 1px #999 solid;
+#javascriptdoesnotwork {
 	padding: 5px;
 	margin: 5px;
 }
 
 #serverwait {
-  float: right;
-  padding: 5px;
-  margin: 5px;
   display: none;  
 }

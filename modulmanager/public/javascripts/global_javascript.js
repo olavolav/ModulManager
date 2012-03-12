@@ -70,6 +70,12 @@ $(document).ready(function(){
 		$(".auswahl_modul,.auswahl_modul_clone,.pool_modul,.custom_modul,.pool_modul_copy").mouseleave(function(){
 			$(this).find(".icon_loeschen").hide();
 		}); */
+
+    $("#minihelp, #info_box").modal({
+      keyboard: false,
+      backdrop: "static",
+      show: false
+    });
 		
 });
 
@@ -178,7 +184,7 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
             if (modProp(modul_id,"error") != "false") {
                 // Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
 								var icon = $(handle).find(".ipunkt");
-                if ((modProp(modul_id,"modul_has_grade")=="true")&&($(handle).find(".noten_input").val()=="Note"))
+                if ((modProp(modul_id,"modul_has_grade")=="true")&&($(handle).find(".noten_input").val()==""))
                     icon.html(gelber_ipunkt);
                 else icon.html(gruener_ipunkt);
 
@@ -211,7 +217,7 @@ var flip_module_infoicon_on_event = function(type,modul_id,handle){
 						// laden), und also alle anderen Event-Arten möglich sind
             // if ((modProp(modul_id,"error")=="false")||(modProp(modul_id,"AO_disable_warning") != "true")) {
                 // Abhängig davon, ob das Modul benotet ist, wird das Icon auf gelb oder grün gesetzt
-                if ((modProp(modul_id,"modul_has_grade")=="true") && (($(handle).find(".noten_input").val()!="Note")||($(handle).find(".noten_input").val()!="")))
+                if ((modProp(modul_id,"modul_has_grade")=="true") && ($(handle).find(".noten_input").val()!=""))
                     $(handle).find(".ipunkt").html(gelber_ipunkt);
                 else $(handle).find(".ipunkt").html(gruener_ipunkt);
             // }
@@ -240,7 +246,8 @@ var grade_input_check = function(input_noten){
 	
     if((this_grade=="") || isNaN(this_float)){
         alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
-        $(input_noten).attr("value","Note");
+        // $(input_noten).attr("value","Note");
+        $(input_noten).attr("value","");
         ajax_serverupdate_grade_reset(modul_id);
         flip_module_infoicon_on_event("invalid_grade",modul_id,module_handle);
         $("#note_berechnen").text("");
@@ -251,14 +258,16 @@ var grade_input_check = function(input_noten){
 
         if(new_float == 0) {
             ajax_serverupdate_grade_reset(modul_id);
-            $(input_noten).attr("value", "Note");
+            // $(input_noten).attr("value", "Note");
+            $(input_noten).attr("value", "");
             flip_module_infoicon_on_event("invalid_grade",modul_id,module_handle);
             ajax_request_grade();
         }
         else if(new_float < 1 || new_float > 4 ){
             alert("Bitte geben Sie eine Zahl zwischen 1,0 und 4,0 ein.");
             flip_module_infoicon_on_event("invalid_grade",modul_id,module_handle);
-            $(input_noten).attr("value","Note");
+            // $(input_noten).attr("value","Note");
+            $(input_noten).attr("value","");
             ajax_serverupdate_grade_reset(modul_id);
             $("#note_berechnen").text("");
         } else {
@@ -333,11 +342,12 @@ var hide_navi = function(){
     $("#navi_optional").slideUp();
 };
 var show_minihelp = function(){
-	$('#help_optional').dialog('open');
-	// $("#help_optional").slideDown();
-	// $("#helpmovedown").slideUp();
+  // $('#help_optional').dialog('open');
+  $("#minihelp").modal('show');
 };
-
+function close_minihelp() {
+  $("#minihelp").modal('hide');
+};
 
 // Fixieren bzw. 
 
@@ -652,31 +662,65 @@ var sub_modul_loeschen = function (this_mod,modul_id,all_sem_destroy){
 
 
 var info_box_selection = function(modul_id){
-    //schreib modul_id in attr "rel", um sp�ter wieder
-    //Modul in Auswahl zu finden		
-		
-    $("#exception_credit").attr("rel",modul_id);
-    $("#box_info").empty().append(warten_weiss);
-    $("#box_info_exception").show();
-    $("#box_info_pool").hide();
-    $("#box_info_combobox").hide();
-    $("#box_info_overview").hide();
-		
-    ajax_request_module_info(modul_id);
-    $('#info_box').dialog('open');
-		
+  reset_info_box();
+  // modul_id in attr "rel" schreiben, um das Modul später in der Auswahl
+  // wieder zu finden   
+  $("#exception_credit").attr("rel",modul_id);
+
+  $("#box_info_exception").show();
+  $("#box_info_pool").hide();
+  
+  ajax_request_module_info(modul_id);
+  $("#info_box").modal('show');
 };
 
 var info_box = function(modul_id){
-    $("#box_info").empty().append(warten_weiss);
-    $("#box_info_exception").hide();
-    $("#box_info_combobox").hide();
-    $("#box_info_overview").hide();
-    $("#box_info_pool").show();
-        
-    ajax_request_pool_module_info(modul_id);
-    $("#info_box").dialog('open');
+  reset_info_box();
+  $("#box_info_exception").hide();
+  $("#box_info_pool").show();
+    
+  ajax_request_pool_module_info(modul_id);
+  $("#info_box").modal('show');
 };
+
+// Vor dem Eintragen der aktuellen Informationen und dem anschließenden Öffnen der Info-Box
+// erstmal alles zurück setzen.
+// Diese Funktion wird von allen drei Funktionen aufgerufen, die die Info-Box öffnen - besser
+// wäre eigentlich, dies an das Modal-Event "show" zu koppeln.
+function reset_info_box() {
+  $("#box_info").empty().append(warten_weiss);
+  $("#box_info_combobox").hide();
+  $("#box_info_overview").hide(); // glaube das Feld wird gar nicht mehr benutzt... (OS)
+
+  $("#validateCredits").empty();
+	$("#exception_credit").focus(function(){
+		$(this).val("");
+	});
+	
+};
+
+function confirm_changes_infobox() {
+	var invalidInput = false;
+	var AOCbox = $("#exception_credit");
+  if($("#box_info_exception").css("display") == "block") {
+    // Zunächst Testen, ob die Credits-Eingabe gültig ist.
+    var AOC = AOCbox.val();
+    if((AOC!="")&&(!isUnsignedInteger(AOC))) {
+    	// AOCbox.addClass("ui-state-error");
+    	invalidInput = true;
+    	updateTips("Bitte geben Sie als Credits eine eine ganze, positive Zahl ein oder setzen Sie die Credits zurück.",$("#validateCredits"));
+    }
+    else update_modul_in_selection();
+  }
+  if(!invalidInput) {
+    // $("#info_box").dialog('close');
+    $("#info_box").modal('hide');
+  }
+};
+
+function close_infobox() {
+  $("#info_box").modal('hide');
+}
 
 // Diese Funktion wird nach der Auswahl-Info-Box aufgerufen und enthält die entspr. Auswirkungen (OS)
 var update_modul_in_selection = function (){
@@ -735,7 +779,7 @@ var update_modul_in_selection = function (){
 		var v=$("#exception_credit").val();
 		// alert("update_modul_in_selection: Inhalt von #exception_credit: "+v);
 		var entered_a_number = isUnsignedInteger(v); // (v!="")&&(!isNaN(v))&&(parseInt(v)>=0);
-		var credits_input_is_valid = (v=="Credits")||(v=="")||entered_a_number;
+		var credits_input_is_valid = (v=="")||entered_a_number;
 		// alert("update_modul_in_selection: credits_input_is_valid="+credits_input_is_valid+", entered_a_number="+entered_a_number+", parseInt(v)="+parseInt(v));
 		
 		if ((modProp(modul_id,"custom")=="non-custom") && credits_input_is_valid) {
@@ -909,7 +953,7 @@ var session_auswahl_rekursiv = function(root){
                     ". Semester" +
                     "</h5>" +
                     "</div>" +
-                    "<a style='display:none;' class='semesterloeschen' onClick='sem_loeschen(" +
+                    "<a style='display:none;' class='semesterloeschen btn' onClick='sem_loeschen(" +
                     sem_id +
                     ");'>Semester entfernen</a>" +
                     "</div>");
@@ -939,7 +983,7 @@ var session_auswahl = function (){
     session_auswahl_rekursiv(root);
     // Loeschen anzeigen.Wir suchen das letzten Semester.
     var last_semester = $("#semester-content div.semester:last");
-    $(last_semester).find("a.semesterloeschen").css("display","block");
+    $(last_semester).find("a.semesterloeschen").css("display","inline");
 };//ende 
 
 //   AJAX zum Server---------------------------------------------------------------------	
@@ -953,45 +997,36 @@ var ajax_request_module_info = function (modul_id){
         dataType:'text',
         contentType: 'application/x-www-form-urlencoded',
         data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
-        success : function(html){
-						// alert("ajax_request_module_info: html="+html);
-
+        success : function(htmlString){
             // alle Ausnahme-Option ersmal auf Null setzen
-            // $("#exception_credit").attr("checked", "");
-            $("#exception_credit").attr("value", "Credits");
+            $("#exception_credit").attr("value", "");
             $("#exception_warn").attr("checked", "");
             $("#exception_note").attr("checked", "");
-            $("#info_box #box_info").empty().append(html);
+            $("#info_box #box_info").html(htmlString);
 
 						// alert("ajax_request_module_info: AO im Cache: AO_ignore_grade="+modProp(modul_id,"AO_disable_warning")+", AO_custom_credits="+modProp(modul_id,"AO_custom_credits")+", AO_ignore_grade="+modProp(modul_id,"AO_ignore_grade"));
             // Mein Versuch, die Checkboxen zu selektieren, wenn die entsprechenden Optionen gesetzt sind...
-            // if(($("#has_grade").text() == '0')&&(modProp(modul_id,"modul_has_grade") == "true")) {
             if(modProp(modul_id,"AO_ignore_grade") == "true") {
 	 							if (modProp(modul_id,"modul_has_grade") != "true")
 									alert("ajax_request_module_info: Warnung: Unbenotetes Modul hat \"Note streichen\"-Option gesetzt");
                 $("#exception_note").attr("checked", "checked");
             }
-            // if($("#has_warning").text() == '0') {
+
             if(modProp(modul_id,"AO_disable_warning") == "true") {
                 $("#exception_warn").attr("checked", "checked");
             }
-            // if($("#custom_credits").text() != -1) {
-            //     var this_credits =$("#custom_credits").text();
-            //     $("#exception_credit").attr("value",this_credits);
-            // }
+
             if(modProp(modul_id,"AO_custom_credits") != "false") {
-                // var this_credits =$("#custom_credits").text();
-                // $("#exception_credit").attr("value",this_credits);
                 $("#exception_credit").attr("value",modProp(modul_id,"AO_custom_credits"));
             }
-            // if($("#has_general_grade").text() == 0) {
+
 						if(modProp(modul_id,"modul_has_grade") != "true") {
                 $("#note_streichen_checkbox").hide();
             } else {
                 $("#note_streichen_checkbox").show();
             }
+            
 						// Vorläufig kann man Dummy-Modul-Credits nur beim Erstellen ändern (OS)
-            // if($("#semester-content").find("#"+modul_id+" span.custom").text() == "custom") {
 						if (modProp(modul_id,"custom") == "custom") {
                 $("#credits_aendern_checkbox").hide();
             } else {
@@ -1014,10 +1049,8 @@ var ajax_request_pool_module_info = function (modul_id){
         dataType:'text',
         contentType: 'application/x-www-form-urlencoded',
         data :"module_id="+modul_id+"&"+authenticityTokenParameter(),
-        success : function(html){
-	
-						// alert("ajax_request_pool_module_info: html="+html);
-            $("#info_box #box_info").empty().append(html);
+        success : function(htmlString){
+            $("#info_box #box_info").html(htmlString);
         },
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=ajax_request_pool_module_info");
@@ -1502,16 +1535,63 @@ var drop_in_auswahl = function(modul_id, modul_class, semester, ui_draggable, th
 //implement :   custom_modul_drop_in_auswahl---------------------------------------------
 
 var custom_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
+  var name=$("#name");
+  var credit=$("#credit");
+  var category = $("#custom_cat_id");
+  var custom_semester=$("#custom_semester");
+  var custom_id=$("#custom_id");
+  var tips =$("#validateTips");
+  var allFields = $([]).add(name).add(credit);
 	
-    var check_open=false;
-    var cat_id = modProp(modul_id,"cat_id");
-    $("#custom_semester").attr("value",semester);
-    $("#custom_id").attr("value",modul_id);
-    $("#custom_cat_id").attr("value",cat_id);
-	
-    $('#custom_dialog').dialog('open');
+  var check_open=false;
+  var cat_id = modProp(modul_id,"cat_id");
+  $("#custom_semester").attr("value",semester);
+  $("#custom_id").attr("value",modul_id);
+  $("#custom_cat_id").attr("value",cat_id);
+
+  name.attr("value","");
+  credit.attr("value","");
+  allFields.removeClass('ui-state-error');
+  tips.empty();
+  ajax_request_custom_checkbox($(custom_id).attr("value"));
+  $('#custom_dialog').modal('show');
 };
 
+function confirm_changes_custombox() {
+  var name=$("#name");
+  var credit=$("#credit");
+  var category = $("#custom_cat_id");
+  var custom_semester=$("#custom_semester");
+  var custom_id=$("#custom_id");
+  var tips =$("#validateTips");
+  var allFields = $([]).add(name).add(credit);
+  allFields.removeClass('ui-state-error');
+
+  if(custom_check(name,credit,category,custom_semester,custom_id,tips,1,4)) {
+    var na = "Sonstiges Modul: "+name.attr("value");
+    var cre = credit.attr("value");
+    var cat = category.attr("value");
+    var cus_sem = custom_semester.attr("value");
+    var cus_id = custom_id.attr("value");
+
+    var cus_modul = $("#semester-content #"+cus_id);
+    // custom_modul soll auch in VorratBox sein
+
+    var this_exist = modProp(cus_id,"custom_exist");
+    var cus_cat_id = modProp(cus_id,"custom_category");
+    if(this_exist=="false") {
+        show_next_custom_modul_in_pool(cus_cat_id,cus_id);
+        //show_next_custom_modul_in_pool_in_the_search_table();
+        update_search_table_on_adding_custom_module_into_selection(cus_id,na,cus_cat_id);
+    }
+
+    $("#custom_dialog").modal('hide');
+  }  
+};
+
+function cancel_custombox() {
+  $("#custom_dialog").modal('hide');
+};
 var partial_modul_drop_in_auswahl = function(modul_id,modul_class,semester,ui_draggable,this_semester,ui_helper){
     //parts_exit  aus "true" setzen
     modPropChange(modul_id,"modul_parts_exist","true");
@@ -1720,7 +1800,8 @@ var poolrekursiv = function(XMLhandle){
 
                 "<td style='width:25px;display:none;margin-right:0px;' class='noten_input_td' >" +
                 "<span class='noten'>" +
-                "<input class='noten_input' type='text' size='5' style='margin-right:5px;' rel='"+modul_id+"' value='Note' />"+
+                // "<input class='noten_input' type='text' size='5' style='margin-right:5px;' rel='"+modul_id+"' placeholder='Note' />"+
+                "<input class='noten_input' type='text' rel='"+modul_id+"' placeholder='Note' />"+
                 "</span>" +
                 "</td>" +
 
@@ -1890,9 +1971,9 @@ var change_module_style_to_auswahl = function(modul_id,handle){
     $(handle).find(".noten_input").focus(function(e){
         // check_change=true;
         // da wird der Click bei 'Note berechen' deaktiviert
-        if($(this).val()=="Note"){
-            $(this).attr("value"," ");
-        }
+        // if($(this).val()=="Note"){
+        //             $(this).attr("value"," ");
+        // }
         $(this).select();
         $("#note_berechnen").text("Note wird bearbeitet");
     });

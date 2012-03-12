@@ -5,12 +5,12 @@
 	
 	<p>Hier können Sie diese entweder zum Ausdrucken als PDF-Dokument exportieren, beispielsweise für den Studienberater - oder aber im ModulManager-Format, welches Sie speichern und zu einem späteren Zeitpunkt wieder in den ModulManager laden können.</p>
 
-    <p><%= link_to "Modul-Auswahl als PDF", {:action => "get_pdf", :grades => "true", :format => "pdf"}, {:class => "linkbuttonleft", :popup => true} %>
-    <%= link_to "Modul-Auswahl als PDF (ohne Note)", {:action => "get_pdf", :grades => "false", :format => "pdf"}, {:class => "linkbuttonleft", :popup => true} %>
-    <%= link_to "Modul-Auswahl im ModulManager-Format speichern", {:action => "get_file"}, {:class => "linkbuttonleft", :popup => true} %></p>
+    <p><%= link_to "Modul-Auswahl als PDF", {:action => "get_pdf", :grades => "true", :format => "pdf"}, {:class => "linkbuttonleft btn btn-large", :popup => true} %>
+    <%= link_to "Modul-Auswahl als PDF (ohne Note)", {:action => "get_pdf", :grades => "false", :format => "pdf"}, {:class => "linkbuttonleft btn btn-large", :popup => true} %>
+    <%= link_to "Modul-Auswahl im ModulManager-Format speichern", {:action => "get_file"}, {:class => "linkbuttonleft btn btn-large", :popup => true} %></p>
 	
   <div id="bestaetigen">
-    <%= link_to "Zurück", {:action => "index"}, :class => "linkbutton" %>
+    <%= link_to "Zurück", {:action => "index"}, :class => "btn" %>
   </div>
   <div class="clear">&nbsp;</div>
 
