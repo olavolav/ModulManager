@@ -4,49 +4,44 @@
 
 module AbfragenHelper
 
-  def select_image fullfillment_status
-    if fullfillment_status == 1
+  def select_image fulfillment_status
+    if fulfillment_status == 1
       return "iPunkt.png"
-    elsif fullfillment_status == -1
+    elsif fulfillment_status == -1
       return "Ausrufezeichen.png"
-    elsif fullfillment_status == 0
+    elsif fulfillment_status == 0
       return "Fragezeichen.png"
     end
   end
 
 
   def build_html_rules_recursive r, non_permitted_modules
-    image = ""
     name = r.name
     id = r.id
     selection = current_selection
-    fullfilled = r.evaluate selection.selection_modules, non_permitted_modules
+    fulfilled = r.evaluate selection.selection_modules, non_permitted_modules
     credits_needed = r.credits_needed
     credits_earned = r.collected_credits selection.selection_modules, non_permitted_modules
 
-    image = select_image fullfilled
-    if @is_odd_line
-      class_tag = "odd"
+    image = select_image fulfilled
+    
+    if fulfilled == 1
+      class_tag = "category fulfilled"
     else
-      class_tag = "even"
+      class_tag = "category non-fulfilled"
     end
-    @is_odd_line = !@is_odd_line
 
     element = <<EOF
   <div class='#{class_tag}'>
-    <table cellspacing='0'>
-      <tr>
-        <td class='ueberblick_name' style='padding-left:3px'>#{name}</td>
-        <td class='ueberblick_image'>
-          <div class='ueberblick_info_box' id='box##{id}' >
-            <a  alt='Weitere Informationen' onClick='javascript:info_box_overview(#{id});'>
-              #{image_tag image}
-            </a>
-         </div>
-        </td>
-        <td class='ueberblick_credits'style='padding-right:3px'>#{credits_earned} / #{credits_needed} C</td>
-      </tr>
-    </table>
+    <span class='ueberblick_name' style='padding-left:3px'>#{name}</span>
+    <span class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</span>
+    <span class='ueberblick_image'>
+      <span class='ueberblick_info_box' id='box##{id}' >
+        <a  alt='Weitere Informationen' onClick='javascript:info_box_overview(#{id});'>
+          #{image_tag image}
+        </a>
+      </span>
+    </span>
   </div>
 EOF
 
