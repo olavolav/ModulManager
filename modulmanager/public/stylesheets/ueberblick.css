@@ -3,11 +3,11 @@ for licensing questions please refer to the README
 Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 #ueberblick {
-	margin: 3px;
-    /* Das Folgende wird dynamisch gesetzt, wenn man das Navigationsmenue ausblendet,
-	   siehe global_javascript.js (OS)
-	position: fixed;
-    width: 100%; */
+  margin: 3px;
+  /* Das Folgende wird dynamisch gesetzt, wenn man das Navigationsmenue ausblendet,
+  siehe global_javascript.js (OS)
+  position: fixed;
+  width: 100%; */
 }
 
 .grade {
@@ -45,32 +45,29 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 }
 
 #ueberblick div.category span.ueberblick_credits {
-    width: 60px;
-    text-align: right;
-    font-size: smaller;
+  width: 60px;
+  text-align: right;
+  font-size: smaller;
 }
 
 #ueberblick div.category span.ueberblick_image {
   float: right;
   width: 20px;
-	padding: 0px;
+  padding: 0px;
   position: absolute;
   right: 0px;
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .ueberblick_info_box:hover .ueberblick_info_text {
-    display: block;
+  display: block;
 }
 
 .ueberblick_category {
-    margin-bottom: 0px;
-    background-color: #e6e6fa;
+  margin-bottom: 0px;
+  background-color: #e6e6fa;
 }
 
-/*Note knopf*/
 #note_berechnen{
-    text-align:center;
+  text-align:center;
 }
-
-
