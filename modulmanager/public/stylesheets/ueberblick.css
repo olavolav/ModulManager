@@ -32,22 +32,23 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
   border-radius: 4px;
   margin-bottom: 3px;
   clear: both;
-  padding-right: 22px;
+  padding-right: 3px 22px 3px 3px;
 }
 
-#ueberblick div.fulfilled {
-  background-color: white; /*#e9f9ea;*/
-  border: 1px solid #e9f9ea; /*#d0f2d3;*/
-}
+/*#ueberblick div.fulfilled {
+  background-color: white;
+}*/
+
 #ueberblick div.non-fulfilled {
-  background-color: #f9eae9;
-  border: 1px solid #f2d2d0;
+  background-color: #F2DEDE;
+  border: 1px solid #EED3D7;
+  color: #B94A48;
+  font-weight: bold;
 }
 
 #ueberblick div.category span.ueberblick_credits {
-  width: 60px;
-  text-align: right;
-  font-size: smaller;
+  font-size: 80%;
+  padding: 0px 2px 0px 2px;
 }
 
 #ueberblick div.category span.ueberblick_image {

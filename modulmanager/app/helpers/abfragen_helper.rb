@@ -33,8 +33,8 @@ module AbfragenHelper
 
     element = <<EOF
   <div class='#{class_tag}'>
-    <span class='ueberblick_name' style='padding-left:3px'>#{name}</span>
-    <span class='ueberblick_credits'>#{credits_earned} / #{credits_needed} C</span>
+    <span class='ueberblick_name'>#{name}</span>
+    <span class='ueberblick_credits'>#{credits_earned}&nbsp;/&nbsp;#{credits_needed}&nbsp;C</span>
     <span class='ueberblick_image'>
       <span class='ueberblick_info_box' id='box##{id}' >
         <a  alt='Weitere Informationen' onClick='javascript:info_box_overview(#{id});'>
