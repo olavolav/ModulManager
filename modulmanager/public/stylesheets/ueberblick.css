@@ -44,6 +44,7 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
   border: 1px solid #EED3D7;
   color: #B94A48;
   font-weight: bold;
+	text-shadow: white 0px 1px;
 }
 
 #ueberblick div.category span.ueberblick_credits {
