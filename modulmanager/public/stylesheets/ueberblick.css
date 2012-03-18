@@ -35,9 +35,10 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
   padding-right: 3px 22px 3px 3px;
 }
 
-/*#ueberblick div.fulfilled {
+#ueberblick div.fulfilled {
   background-color: white;
-}*/
+  border: 1px solid white;
+}
 
 #ueberblick div.non-fulfilled {
   background-color: #F2DEDE;
