@@ -9,48 +9,46 @@
 
   <% if !@fullfilled %>
     <div class="alert alert-error">
-    <!-- <b>Problematik</b> -->
+      <!-- <b>Problematik</b> -->
 
-    <% if @regel.removed_too_many_grades? @mods %>
-      <p>
-        Es sind zu viele Noten gestrichen worden!
-      </p>
-    <% end %>
-
-    <% if @child_rules != nil && @child_rules.length > 0 %>
-
-      <p>
-        In diesem Bereich müssen noch folgende Unterbereiche erfüllt werden:</p>
-      <ul>
-        <% @child_rules.each do |child| %>
-          <li><%= child %></li>
-        <% end %>
-      </ul>
-
-    <% end %>
-
-    <% if (@child_rules == nil || @child_rules.length == 0) %>
-
-      <p>
-        Um die Anforderungen in diesem Bereich zu erfüllen, müssen Sie noch
-
-        <%= [@regel.modules_needed - @regel.collected_modules(@mods), 0].max %> Module sowie
-        <%= [@regel.credits_needed - @credits_earned, 0].max %> Credits erbringen.</p>
-
-      <% if @available_modules.length > 0 %>
+      <% if @regel.removed_too_many_grades? @mods %>
         <p>
-          Zur Erfüllung dieser Bedingungen kann aus den folgenden Modulen gewählt werden:
+          Es sind zu viele Noten gestrichen worden!
+        </p>
+      <% end %>
+
+      <% if @child_rules != nil && @child_rules.length > 0 %>
+
+        <p>
+          In diesem Bereich müssen noch folgende Unterbereiche erfüllt werden:</p>
         <ul>
-          <% @available_modules.each do |m| %>
-            <li>
-              <%= m.name %> (<%= m.short %>)
-            </li>
+          <% @child_rules.each do |child| %>
+            <li><%= child %></li>
           <% end %>
         </ul>
-      </p>
+
+      <% end %>
+
+      <% if (@child_rules == nil || @child_rules.length == 0) %>
+        <p>
+          Um die Anforderungen in diesem Bereich zu erfüllen, müssen Sie noch
+
+          <%= [@regel.modules_needed - @regel.collected_modules(@mods), 0].max %> Module sowie
+          <%= [@regel.credits_needed - @credits_earned, 0].max %> Credits erbringen.</p>
+
+        <% if @available_modules.length > 0 %>
+          <p>
+            Zur Erfüllung dieser Bedingungen kann aus den folgenden Modulen gewählt werden:
+          <ul>
+            <% @available_modules.each do |m| %>
+              <li><%= m.name %> (<%= m.short %>)</li>
+            <% end %>
+          </ul>
+        </p>
+      <% end %>
     <% end %>
-    </div>
-  <% end %>
+  
+  </div>
 <% end %>
 <% if @relevant_modules_in_selection.length > 0 %>
   <p>
