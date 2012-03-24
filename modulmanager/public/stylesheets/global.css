@@ -189,18 +189,16 @@ html {
 }
 
 .auswahl_modul,.auswahl_modul_clone, .pool_modul ,.custom_modul, .pool_modul_copy {
-		margin-bottom    : 3px;
-		padding          : 1px 1px 0px 1px;
-		cursor			 : move;
-		min-width        : 200px;
+		margin-bottom: 3px;
+		padding: 1px 1px 0px 1px;
+		cursor: move;
+		min-width: 200px;
 		background: #b4b0ab url("../images/Modul-Hintergrund.png");
 		background-repeat: repeat;
 		background-position: top left;
 		border: 1px #b4b0ab solid;
 		text-shadow: white 0px 1px;
 		
-		/* Newer browsers support this: (OS) */
-/*    box-shadow:1px 1px 1px #a6a3af;*/
 		-moz-border-radius: 5px;
 		border-radius: 5px;
 }
@@ -212,13 +210,9 @@ html {
 }
 
 /* Formatierung der Ausnahme-Optionen in den Info-Boxen (OS) */
-#box_info_pool {
-	color: #aaa;
-}
-#box_info_pool, #box_info_exception {
-	border-top: 1px #aaa solid;
-	margin-top: 12px;
-	padding-top: 6px;
+#box_info_pool, #box_info_exception, #box_info_auswertungs_anmerkungen, #box_module_info_requirements {
+  margin-top: 12px;
+  padding: 5px;
 }
 
 #search_form_reset, #AO_credit_reset {

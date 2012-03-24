@@ -253,17 +253,17 @@ class AndConnection < Connection
       end
       text += " "
     else
-      text += "<strong>"
+      text += "<b>"
       if self.evaluate(modules, errors) != 1
-        text += "<span style='color: red;'>nicht erfüllt.</span>"
+        text += "nicht erfüllt."
       else
-        text += "<span style='color: green;'>erfüllt"
+        text += "erfüllt"
         if self.removed_too_many_grades? modules
           text += ", da zu viele Noten entfernt wurden"
         end
-        text += ".</span>"
+        text += "."
       end
-      text += "</strong><br>"
+      text += "</b><br>"
     end
     text += "Es werden momentan " +
       self.collected_credits(modules, errors).to_s +

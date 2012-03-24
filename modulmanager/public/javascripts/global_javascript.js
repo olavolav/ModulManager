@@ -72,7 +72,7 @@ $(document).ready(function(){
 		}); */
 
     $("#minihelp, #info_box").modal({
-      keyboard: false,
+      keyboard: true,
       backdrop: "static",
       show: false
     });

@@ -1,11 +1,8 @@
 <div class='modul-info'>
-  <h2><%= @name %></h2>
+  <h3><%= @name %></h3>
   <p class='description'><%= @description %></p>
-  <p class='short'>Kurzbezeichnung: <%= @short %></p>
-  <p class='credits'>Credits: <%= @credits %></p>
-  <% if @univzid != nil %>
-    <p class="univz">Externe Links: <a href="<%#= @univz_link %><%= univz_url(@univzid,@short) %>" target="_blank">Suche nach Modul in UniVZ</a></p>
-  <% end %>
+  <!-- <p class='short'>Kurzbezeichnung: <%= @short %></p>
+    <p class='credits'>Credits: <%= @credits %></p> -->
 
   <!-- Der folgene Teil ist natürlich noch nicht fertig, Dummy-Module fehlen (OS) -->
   <% if @custom %>
@@ -21,21 +18,38 @@
   <%#*<div id="custom_credits" style="display: none;">%>
   <%#= @custom_credits %>
   <%#*</div>%>
-<% else %>
-  <% if @categories.length == 1 %>
-    <p>Dieses Modul wird in folgendem Bereich eingebracht: <%= @categories.collect {|p| p.name+" "} %></p>
-  <% elsif @categories.length > 1%>
-    <p>Dieses Modul kann in mehrere Bereiche eingebracht werden - die entsprechende Auswahl können sie direkt unter dem Modul-Titel vornehmen.</p>
+  <% else %>
+    <% if @categories.length == 1 %>
+      <p>Dieses Modul wird in folgendem Bereich eingebracht: <b><%= @categories.collect {|p| p.name+" "} %></b></p>
+    <% elsif @categories.length > 1%>
+      <p>Dieses Modul <b>kann in mehrere Bereiche eingebracht werden</b>. Die entsprechende Auswahl können sie direkt unter dem Modul-Titel vornehmen.</p>
+    <% end %>
   <% end %>
-<% end %>
 
-<% if @focus != nil && @focus.contains_module?(@module) %>
-    <p>Dieses Modul ist auch Teil des von Ihnen gewählten Schwerpunktes.</p>
-<% end %>
-<% unless @permission == nil %>
-  <p>Voraussetzungen:
-  <ul>
-    <%= permission_tree @permission %>
-  </ul></p>
-<% end %>
+  <% if @focus != nil && @focus.contains_module?(@module) %>
+      <p>Dieses Modul ist auch Teil des von Ihnen gewählten <b>Schwerpunktes</b>.</p>
+  <% end %>
+  <% unless @permission == nil %>
+    <div class="alert alert-info" id="box_module_info_requirements">
+      Dieses Modul hat folgende <b>Voraussetzungen</b>:
+      <ul><%= permission_tree @permission %></ul>
+    </div>
+  <% end %>
+
+  <table>
+    <tbody>
+      <tr><td colspan="2"><b>Modul-Daten</b></td></tr>
+      <td>Kurzbezeichnung</td><td><%= @short %></td>
+      </tr><tr>
+        <td>ETCS-Credits</td><td><%= @credits %></td>
+      </tr>
+      <% if @univzid != nil %>
+        <tr>
+          <td>UniVZ-Link</td>
+          <td><%= link_to "Suche nach Modul in UniVZ", univz_url(@univzid,@short), :target => "_blank" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
 </div>

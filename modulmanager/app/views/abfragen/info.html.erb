@@ -1,14 +1,15 @@
 <div class='modul-info'>
-  <h2>Bereich: <%= @regel.name %></h2>
+  <h3>Bereich: <%= @regel.name %></h3>
   <p class='description'><%= @regel.description %></p>
 
-  <h3>Anforderungen dieses Bereiches</h3>
+  <b>Anforderungen dieses Bereiches</b>
   <p>
     <%= @regel.get_status_description_string_for_printing(@mods, @errors) %>
   </p>
 
   <% if !@fullfilled %>
-    <h3>Problematik</h3>
+    <div class="alert alert-error">
+    <!-- <b>Problematik</b> -->
 
     <% if @regel.removed_too_many_grades? @mods %>
       <p>
@@ -48,7 +49,7 @@
         </ul>
       </p>
     <% end %>
-
+    </div>
   <% end %>
 <% end %>
 <% if @relevant_modules_in_selection.length > 0 %>
@@ -63,11 +64,15 @@
   </ul>
   </p>
 <% end %>
-<h3>Anmerkungen zur Auswertung</h3>
-<p>Bitte beachten Sie:
-<ul>
-  <li>Module werden für diese Kategorie nicht mehr angezeigt, wenn sie bereits in eine andere Kategorie eingebracht werden.</li>
-  <li>Module werden nur für die Auswertung dieser Kategorie einbrechnet, falls ihre Voraussetzungen erfüllt sind (d.h. günes oder gelbes Modul-Info-Symbol)</li>
-</ul>
-</p>
+
+<div class="well" id="box_info_auswertungs_anmerkungen">
+  <b>Anmerkungen zur Auswertung</b>
+  <p>Bitte beachten Sie:
+    <ul>
+      <li>Module werden für diese Kategorie nicht mehr angezeigt, wenn sie bereits in eine andere Kategorie eingebracht werden.</li>
+      <li>Module werden nur für die Auswertung dieser Kategorie einbrechnet, falls ihre Voraussetzungen erfüllt sind (d.h. günes oder gelbes Modul-Info-Symbol)</li>
+    </ul>
+  </p>
+</div>
+
 </div>
