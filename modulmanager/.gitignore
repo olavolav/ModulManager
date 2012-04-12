@@ -1,0 +1,8 @@
+.bundle
+Gemfile.remote
+config/*.remote
+
+log
+tmp
+db/*.sqlite3
+*/.DS_Store

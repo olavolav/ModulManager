@@ -1,27 +1,7 @@
-one:
-  name: Module1
-  credits: 1
-  short: MyString
-  description: MyText
-  category_id: 1
-
-two:
-  name: Module2
-  credits: 1
-  short: MyString
-  description: MyText
-  category_id: 1
-
-three:
-  name: Module3
-  credits: 1
-  short: MyString
-  description: MyText
-  category_id: 1
-
-four:
-  name: Module4
-  credits: 1
-  short: MyString
-  description: MyText
-  category_id: 1
+Physik1:
+  name: "Physik I"
+  credits: 8
+  short: "Pshort"
+  description: "Lorem ipsum askjhfjashvdf."
+  version_id: 1
+  univzid: "Automatisch"

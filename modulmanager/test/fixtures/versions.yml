@@ -1,11 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  name: MyString
-  short: MyString
-  description: MyString
-
-two:
-  name: MyString
-  short: MyString
-  description: MyString
+PO1:
+  name: "Aktuelle PO"
+  short: "PO now"
+  description: "PO (Prüfungsordnung) zum Testen."
+  path: "po_ss_2009"
