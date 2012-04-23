@@ -22,7 +22,7 @@ Der ModulManager ist freie, quelloffene Software und wurde unter der GNU Affero 
 
 ## Demo
 
-Der ModulManager wurde in Zusammenarbeit mit der [Fakultät Physik der Universität Göttingen](http://www.physik.uni-goettingen.de/) entwickelt. Dort ist er zur Zeit auch im Einsatz.
+Der ModulManager wurde in Zusammenarbeit mit der [Fakultät Physik der Universität Göttingen](http://www.physik.uni-goettingen.de/) entwickelt. Dort ist er zur Zeit (in einer etwas älteren Version) auch im Einsatz.
 [Starten!](http://ugoe-physik.modulmanager.de)
 
 
@@ -172,4 +172,4 @@ ModulManager is free software: you can redistribute it and/or modify it under th
 
 ModulManger is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.
 
-You should have received a copy of the GNU Affero General Public License along with ModulManger.  If not, see [this page](http://www.gnu.org/licenses/)
+You should have received a copy of the GNU Affero General Public License along with ModulManger.  If not, see [this page](http://www.gnu.org/licenses/).
