@@ -96,9 +96,11 @@ class ApplicationController < ActionController::Base
           s = Semester.new :count => i
           shorts.each do |short|
             m = Studmodule.find(:first, :conditions => "short = '#{short}' AND version_id = #{version.id}")
-            sm = SelectedModule.new :moduledata => m, :category => m.categories[0]
-            #            s.studmodules << m
-            s.modules << sm
+            if m # this should always be found, so not nil
+              sm = SelectedModule.new :moduledata => m, :category => m.categories[0] if m
+              # s.studmodules << m
+              s.modules << sm
+            end
           end
           s.save
           return_array.push s
@@ -110,14 +112,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_latest_po
-    po = Version.all
-    latest_po = po[0]
-
-    po.each do |p|
-      latest_po = p if p.date > latest_po.date
-    end
-    
-    return latest_po
+    return Version.find(:first, :order => "date DESC")
   end
 
 
