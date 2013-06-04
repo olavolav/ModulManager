@@ -73,7 +73,7 @@ class RegelParserController < ApplicationController
     puts "beschreibung.yml"
     y = extract_yaml("#{dir_name}/beschreibung.yml")
     y.each do |key, value|
-      puts "wrong syntax in 'beschreibung.yml' -> #{key} : #{value}" unless key_word? key
+      puts "wrong syntax in 'beschreibung.yml' -> #{key} : #{value}" unless valid_key_word? key
     end
 
     puts "------------------------------------"
@@ -81,7 +81,7 @@ class RegelParserController < ApplicationController
     y = extract_yaml("#{dir_name}/gruppen.yml")
     y.each do |element|
       element.each do |key, value|
-        puts "wrong syntax in 'gruppen.yml' -> #{key} : #{value}" unless key_word? key
+        puts "wrong syntax in 'gruppen.yml' -> #{key} : #{value}" unless valid_key_word? key
       end
     end
 
@@ -90,7 +90,7 @@ class RegelParserController < ApplicationController
     y = extract_yaml("#{dir_name}/module.yml")
     y.each do |element|
       element.each do |key, value|
-        puts "wrong syntax in 'module.yml' -> #{key} : #{value}" unless key_word? key
+        puts "wrong syntax in 'module.yml' -> #{key} : #{value}" unless valid_key_word? key
       end
     end
 
@@ -99,7 +99,7 @@ class RegelParserController < ApplicationController
     y = extract_yaml("#{dir_name}/schwerpunkte.yml")
     y.each do |element|
       element.each do |key, value|
-        puts "wrong syntax in 'schwerpunkte.yml' -> #{key} : #{value}" unless key_word? key
+        puts "wrong syntax in 'schwerpunkte.yml' -> #{key} : #{value}" unless valid_key_word? key
       end
     end
 
@@ -108,72 +108,13 @@ class RegelParserController < ApplicationController
     y = extract_yaml("#{dir_name}/vorauswahl.yml")
     y.each do |element|
       element.each do |key, value|
-        puts "wrong syntax in 'vorauswahl.yml' -> #{key} : #{value}" unless key_word? key
+        puts "wrong syntax in 'vorauswahl.yml' -> #{key} : #{value}" unless valid_key_word? key
       end
     end
   end
 
-  def key_word? word
-    case word
-    when "name"
-      return true
-    when "kurz"
-      return true
-    when "pfad"
-      return true
-    when "datum"
-      return true
-    when "beschreibung"
-      return true
-    when "name"
-      return true
-    when "untergruppen"
-      return true
-    when "modus"
-      return true
-    when "anzahl"
-      return true
-    when "credits"
-      return true
-    when "note-streichen"
-      return true
-    when "überschneidung"
-      return true
-    when "dummies"
-      return true
-    when "auswahl-name"
-      return true
-    when "module"
-      return true
-    when "id"
-      return true
-    when "univzid"
-      return true
-    when "semester1"
-      return true
-    when "semester2"
-      return true
-    when "semester3"
-      return true
-    when "semester4"
-      return true
-    when "semester5"
-      return true
-    when "semester6"
-      return true
-    when "sub-name"
-      return true
-    when "sub-module"
-      return true
-    when "note"
-      return true
-    when "zulassung"
-      return true
-    when "kategorien"
-      return true
-    else
-      return false
-    end
+  def valid_key_word? word
+    return REGEL_PARSER_KEY_WORDS.include? word
   end
 
   def initialize_po dir_name

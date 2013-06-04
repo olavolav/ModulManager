@@ -1,0 +1,2 @@
+# This is a list of key words that the rule parser understands
+REGEL_PARSER_KEY_WORDS = ["name", "kurz", "pfad", "datum", "beschreibung", "name", "untergruppen", "modus", "anzahl", "credits", "note-streichen", "überschneidung", "dummies", "auswahl-name", "module", "id", "univzid", "semester1", "semester2", "semester3", "semester4", "semester5", "semester6", "sub-name", "sub-module", "note", "zulassung", "kategorien"]
