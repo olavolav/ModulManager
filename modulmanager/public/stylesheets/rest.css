@@ -3,26 +3,26 @@ for licensing questions please refer to the README
 Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 #content {
-	margin: 0px 20px 20px 0px;
-	border : 1px #AAA solid;
-	background-color: #FAFAFD;
-	padding: 1em;
+  margin: 0px 20px 20px 0px;
+  border : 1px #AAA solid;
+  background-color: #FAFAFD;
+  padding: 1em;
 }
 
 .clear {
-	clear:both;
+  clear:both;
 }
 
 #bestaetigen {
-	clear: both;
-	margin-top : 30px;
+  clear: both;
+  margin-top : 30px;
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 .linkbuttonleft {
-	min-height: 35px;
-	width: 29%;
+  min-height: 35px;
+  width: 29%;
 }

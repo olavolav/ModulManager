@@ -4,15 +4,15 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 $(document).ready(function(){
   // Falls JavaScript funktioniert, die entspr. Warnung verstecken (OS)
-	$("#javascriptdoesnotwork").css("display","none");
-	
+  $("#javascriptdoesnotwork").css("display","none");
+  
   // An die PO- und SP-Auswahl-Radiobuttons die jew. Aktualisierungs-Funktionen knüpfen
-	$("#pruefungsordnung input:radio").change( function() {
-	  update_pordnung( $(this).attr("id") );
-	});
-	$("#schwerpunkt input:radio").change( function() {
+  $("#pruefungsordnung input:radio").change( function() {
+    update_pordnung( $(this).attr("id") );
+  });
+  $("#schwerpunkt input:radio").change( function() {
     update_schwerpunkt( $(this).attr("id") );
-	});
+  });
 
 });
 
@@ -36,7 +36,7 @@ function update_schwerpunkt(s_id) {
     data:"id="+s_id+"&"+authenticityTokenParameter(),
     contentType:'application/x-www-form-urlencoded',
     error: function(XMLHttpRequest, textStatus, errorThrown) {
-    	ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_schwerpunkt");
+      ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_schwerpunkt");
     }
   });
   $("#serverwait").fadeOut();
@@ -53,9 +53,9 @@ function update_pordnung(po_id) {
     async:false,
     data:"version="+po_id+"&"+authenticityTokenParameter(),
     contentType:'application/x-www-form-urlencoded',
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_pordnung");
-		}
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      ajax_serverupdate_on_AJAX_warning("textStatus="+textStatus+",fn=update_pordnung");
+    }
   });
   $("#schwerpunkt .SPsubclass").hide();
 
@@ -67,26 +67,26 @@ function update_pordnung(po_id) {
 };
 
 var ajax_serverupdate_on_AJAX_warning = function(text){
-		// alert("ajax_serverupdate_on_AJAX_warning: start, text="+text);
+    // alert("ajax_serverupdate_on_AJAX_warning: start, text="+text);
     $.ajax({
         type: "POST",
         url : "abfragen/submit_AJAX_warning_to_log",
         dataType: "text",
         cache: false,
         async: true,
-				timeout: 2500,
+        timeout: 2500,
         data:"text="+text+"&"+authenticityTokenParameter(),
         contentType:'application/x-www-form-urlencoded',
-				success: function() {
-					alert("AJAX-Warnung: Die letzte Aktion konnte nicht gespeichert werden. "+
-						"Das ModulManager-Team wurde unterrichtet, und wir werden uns so schnell "+
-						"wie möglich um das Problem kümmern.");
-					alert("debug="+text);
-				},
+        success: function() {
+          alert("AJAX-Warnung: Die letzte Aktion konnte nicht gespeichert werden. "+
+            "Das ModulManager-Team wurde unterrichtet, und wir werden uns so schnell "+
+            "wie möglich um das Problem kümmern.");
+          alert("debug="+text);
+        },
         error: function(XMLHttpRequest, textStatus, errorThrown){
             alert ("AJAX-Fehler: Die Verbindung mit dem Server ist fehl geschlagen. "+
-						"Bitte überprüfen Sie Ihre Netzwerk-Verbindung.");
-						alert("debug="+text+", textStatus2="+textStatus);	
+            "Bitte überprüfen Sie Ihre Netzwerk-Verbindung.");
+            alert("debug="+text+", textStatus2="+textStatus); 
         }
     });
 };

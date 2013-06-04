@@ -3,30 +3,30 @@ for licensing questions please refer to the README
 Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 .pool_category {
-		padding: 2px;
-		margin-bottom : 2px;
-		margin-right: 0px;
-		padding-right: 0px;
+    padding: 2px;
+    margin-bottom : 2px;
+    margin-right: 0px;
+    padding-right: 0px;
 }
 
 .pool_category a, .search_category a {
-	color: #444;
-	text-decoration: none;
+  color: #444;
+  text-decoration: none;
 }
 
 .pool_category a:hover, .search_category a:hover {
-	color: #444;
-	text-decoration: underline;
+  color: #444;
+  text-decoration: underline;
 }
 
 .loader {
-	float: right;
-	position: relative;
-	left: -8px;
+  float: right;
+  position: relative;
+  left: -8px;
 }
 
 #validateTips, #validateCredits {
-	color: #cd0a0a;
+  color: #cd0a0a;
 }
 
 img{border:0;} 
@@ -34,27 +34,18 @@ img{border:0;}
 /* CSS für abgedunkelte Background*/
 #screenoverlay
 {
-	background-color: #CCCCFF; /* The color to display*/
+  background-color: #CCCCFF; /* The color to display*/
 
-	/* The transparency of the background */
-	opacity: .75;
-	filter: alpha(opacity=75);
+  /* The transparency of the background */
+  opacity: .75;
+  filter: alpha(opacity=75);
 
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
 
-	/* Set the overlay so it appears above the page content */
-	z-index: 1000;
+  /* Set the overlay so it appears above the page content */
+  z-index: 1000;
 }
-
-
-
-
-
-
-
-
- 

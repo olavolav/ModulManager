@@ -4,26 +4,26 @@ Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 #content {
   margin: 0px 20px 20px 0px;
-	border : 1px #AAA solid;
-	background-color: #FAFAFD;
+  border : 1px #AAA solid;
+  background-color: #FAFAFD;
   padding: 2em;
 }
 
 p {
-	margin-top: 12px;
+  margin-top: 12px;
 }
 
 .clear {
-	clear:both;
+  clear:both;
 }
 
 #bestaetigen {
-	clear: both;
+  clear: both;
 }
 
 #javascriptdoesnotwork {
-	padding: 5px;
-	margin: 5px;
+  padding: 5px;
+  margin: 5px;
 }
 
 #serverwait {

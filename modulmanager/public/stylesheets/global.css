@@ -3,10 +3,10 @@ for licensing questions please refer to the README
 Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 html {
-	background: white;
-	position: absolute;
-	width: 100%;
-	min-width: 1000px;
+  background: white;
+  position: absolute;
+  width: 100%;
+  min-width: 1000px;
 }
 
 #container {
@@ -14,41 +14,41 @@ html {
 }
 
 #subnavi {
-	border-bottom: 1px #AAA solid;
-	padding: 0.5em;
-	background: #F7F7F7;
+  border-bottom: 1px #AAA solid;
+  padding: 0.5em;
+  background: #F7F7F7;
 }
 
 #navi_optional {
 }
 
 #unilogo {
-	float: right;
+  float: right;
 }
 
 /* Angaben zu den Pin-Icons (OS)*/
 #ueberblick-pin-passiv, #ueberblick-pin-aktiv, #pool-pin-passiv, #pool-pin-aktiv {
-	float: right;
-	cursor: pointer;
+  float: right;
+  cursor: pointer;
 }
 
 #pleasewait {
-	background-color: #EAEAEA;
-	border-bottom: 1px #AAA solid;
-	padding: 0.5em;
-	text-align: center;
+  background-color: #EAEAEA;
+  border-bottom: 1px #AAA solid;
+  padding: 0.5em;
+  text-align: center;
 }
 
 #shadowbar {
-	height: 7px;
-	background: white url("../images/schatten.gif");
-	background-repeat: repeat-x;
-	background-position: top left;	
+  height: 7px;
+  background: white url("../images/schatten.gif");
+  background-repeat: repeat-x;
+  background-position: top left;  
 }
 
 #subnavi p{
-	padding-top: 1em;
-	padding-bottom: 0.3em;
+  padding-top: 1em;
+  padding-bottom: 0.3em;
 }
 
 #subnavi-ul a{
@@ -66,11 +66,11 @@ html {
 }
 
 #helpmovedown {
-	width: 250px;
+  width: 250px;
 }
 
 #minihelp .table_line_highlight {
-	background: #F7F7F7;
+  background: #F7F7F7;
 }
 
 #content {
@@ -84,129 +84,129 @@ html {
 }
 
 #left {
-	position: absolute;
-	width: 24%;
+  position: absolute;
+  width: 24%;
 }
 
 #middle{
-	position: absolute;
-	left: 25%;
-	width: 47%;
+  position: absolute;
+  left: 25%;
+  width: 47%;
 }
 
 #middle li{
-	list-style-type: none;
-	background-color: #CCFFCC;
-	margin-bottom: 3px;
-	height: 50px;
-	margin-left: 5px;
-	margin-right: 5px;
-	
-	
+  list-style-type: none;
+  background-color: #CCFFCC;
+  margin-bottom: 3px;
+  height: 50px;
+  margin-left: 5px;
+  margin-right: 5px;
+  
+  
 }
 .ajaxmodulausgeben{
-	width:50%;
-	height:50px;
-	background-color:red;
-	margin-top: 15px;
+  width:50%;
+  height:50px;
+  background-color:red;
+  margin-top: 15px;
 }
 
 
 
 #right{
-	
-	position: absolute;
-	left: 75%;
-	width: 25%;
+  
+  position: absolute;
+  left: 75%;
+  width: 25%;
 }
 
 #subright{
-/*	background-color:white;*/
-	padding:2px 20px 2px 20px;
-	
-	
+/*  background-color:white;*/
+  padding:2px 20px 2px 20px;
+  
+  
 }
 
 #subright-navi{
-	/*border: 1px black solid;*/
-	margin: 0px;
-	padding: 2px;
-	
+  /*border: 1px black solid;*/
+  margin: 0px;
+  padding: 2px;
+  
 }
 
 
 #livesearch{
-	border: 1px black solid;
-	float:right;
-	
-	
+  border: 1px black solid;
+  float:right;
+  
+  
 }
 
 #subright-ul{
-	margin:0px;
-	
-	
+  margin:0px;
+  
+  
 }
 
 
 #subright-ul li {
-	float: left;
-	border: 1px black solid;
-	list-style-type:none;
-	margin-right:5px;
+  float: left;
+  border: 1px black solid;
+  list-style-type:none;
+  margin-right:5px;
 
-	/* Newer browsers support this: (OS) */
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+  /* Newer browsers support this: (OS) */
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 #subright-content {
-		border: 1px #F0F0F0 solid;
-		margin: 3px;
-		padding:2px;
-		height:100%;
-		background: #F7F7F7;
+    border: 1px #F0F0F0 solid;
+    margin: 3px;
+    padding:2px;
+    height:100%;
+    background: #F7F7F7;
 
-		/* Newer browsers support this: (OS) */
-		-moz-border-radius: 5px;
-		border-radius: 5px;
+    /* Newer browsers support this: (OS) */
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 #subright-content ul{
-	padding-right: 20px;
-	
+  padding-right: 20px;
+  
 }
 #subright-content ul .modul {
-	list-style-type:none;
-	background-color: #CCFFCC;
-	margin-bottom:3px;
-	height: 30px;
+  list-style-type:none;
+  background-color: #CCFFCC;
+  margin-bottom:3px;
+  height: 30px;
 }
 .clear {
-	clear:both; 	
-	
+  clear:both;   
+  
 
 }
 
 .auswahl_modul,.auswahl_modul_clone, .pool_modul ,.custom_modul, .pool_modul_copy {
-		margin-bottom: 3px;
-		padding: 1px 1px 0px 1px;
-		cursor: move;
-		min-width: 200px;
-		background: #b4b0ab url("../images/Modul-Hintergrund.png");
-		background-repeat: repeat;
-		background-position: top left;
-		border: 1px #b4b0ab solid;
-		text-shadow: white 0px 1px;
-		
-		-moz-border-radius: 5px;
-		border-radius: 5px;
+    margin-bottom: 3px;
+    padding: 1px 1px 0px 1px;
+    cursor: move;
+    min-width: 200px;
+    background: #b4b0ab url("../images/Modul-Hintergrund.png");
+    background-repeat: repeat;
+    background-position: top left;
+    border: 1px #b4b0ab solid;
+    text-shadow: white 0px 1px;
+    
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 #footer{
-	background-color:green;
-	border: 1px black solid;
-	
+  background-color:green;
+  border: 1px black solid;
+  
 }
 
 /* Formatierung der Ausnahme-Optionen in den Info-Boxen (OS) */
@@ -216,5 +216,5 @@ html {
 }
 
 #search_form_reset, #AO_credit_reset {
-	cursor: pointer;
+  cursor: pointer;
 }

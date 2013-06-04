@@ -3,26 +3,24 @@ for licensing questions please refer to the README
 Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 /*--------------------------------------------------------------------------------------
- *	     diese Datei macht den POOL beweglich mit slideDown und slideUP    				
- *		 und schickt die Daten modulID und entsprechenem Semester zum Server 			
- *       nachdem das gezogene Modul in Auswahl reingetan wurde                          	
- *								semesterhinzu,custom_check
- *								Ergreinis bei DROP in Auswahl
- *								"L�schen" bei SEMESTER wird geklick 
- *								mach unseres POOL droppable	
- *								mach ein pool_modul bei POOL draggable--		
- *								Noten eingeben und schicken bei (".semester").droppable
+ *       diese Datei macht den POOL beweglich mit slideDown und slideUP           
+ *     und schickt die Daten modulID und entsprechenem Semester zum Server      
+ *       nachdem das gezogene Modul in Auswahl reingetan wurde                            
+ *                semesterhinzu,custom_check
+ *                Ergreinis bei DROP in Auswahl
+ *                "Loeschen" bei SEMESTER wird geklick 
+ *                mach unseres POOL droppable 
+ *                mach ein pool_modul bei POOL draggable--    
+ *                Noten eingeben und schicken bei (".semester").droppable
  *-------------------------------------------------------------------------------------*/
 
 
 
 
-
-
-//function f�r Form-Check bei Custom-Moul
+//function fuer Form-Check bei Custom-Moul
 function updateTips(t,tips) {
     tips.text(t).effect("highlight",{},1500);
-			
+      
 }
 
 //---------------------------------------------------------
@@ -35,11 +33,11 @@ function isUnsignedInteger(s) {
 }
 var custom_check = function(name,credit,category,custom_semester,custom_id,tips,min,max){
     var cat_check=false;
-		// Wir fangen mit einem Array-Element an, weil JavaScript bei nur einem Eintrag keinen
-		// Array übergibt (OS)
+    // Wir fangen mit einem Array-Element an, weil JavaScript bei nur einem Eintrag keinen
+    // Array übergibt (OS)
     var cat_id_array= new Array(1);
-		cat_id_array[0] = -1;
-		
+    cat_id_array[0] = -1;
+    
     $("#dummy_checkbox input[type='checkbox']").each(function(){
         if($(this).is(":checked")){
             //alert("ja, checked");
@@ -48,48 +46,48 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
             cat_id_array.push($(this).attr("value"));
         }
     });
-	
+  
     custom_semester=custom_semester.attr("value");
     custom_id=custom_id.attr("value");
     var category_id = category.attr("value");
-	
-		// Wenn keine Checkbox ausgewählt wird, wird die Kategorie übergeben, aus der das
-		// Dummy-Modul kommt (OS)
-		if (!cat_check) cat_id_array.push(category_id.split("_")[1]);
+  
+    // Wenn keine Checkbox ausgewählt wird, wird die Kategorie übergeben, aus der das
+    // Dummy-Modul kommt (OS)
+    if (!cat_check) cat_id_array.push(category_id.split("_")[1]);
 
-		// Ist das Modul benotet? (OS)
-		var has_grade = "true";
-		if ($("#hat_note input[type='checkbox']").is(":checked")) has_grade = "false";
-		modPropChange(custom_id,"modul_has_grade",has_grade);
-		
+    // Ist das Modul benotet? (OS)
+    var has_grade = "true";
+    if ($("#hat_note input[type='checkbox']").is(":checked")) has_grade = "false";
+    modPropChange(custom_id,"modul_has_grade",has_grade);
+    
     var this_credit = credit.val();
     var this_name = name.val();
     var this_credit_float = parseFloat(this_credit);
-	
-	
-    if (name.val().length < min){		
+  
+  
+    if (name.val().length < min){   
         name.addClass('ui-state-error');
         updateTips("Bitte geben Sie hier den Namen des Moduls ein.",tips);
         return false;
     }
-		else this_name = "Sonstiges Modul: "+this_name;
-	
+    else this_name = "Sonstiges Modul: "+this_name;
+  
     // if(this_credit.length < min || isNaN(this_credit_float) || this_credit_float < 0){
-	  if(!isUnsignedInteger(this_credit)){
+    if(!isUnsignedInteger(this_credit)){
         credit.addClass('ui-state-error');
         updateTips("Bitte geben Sie als Credits eine eine ganze, positive Zahl ein.",tips);
         return false;
     }
     else{
-		
+    
         var check_komma = this_credit.search(/,/);
         var this_credit_point=this_credit;
-		
+    
         if(check_komma != -1){
             this_credit_point = this_credit.replace(/\,/,".");
         }
         var this_credit_point_float = parseFloat(this_credit_point);
-		
+    
         //Das dummy in Auswahl stecken. Name und Credit anpassen
         // check das Note_streichen von Anfang an
         var cus_modul = $("#pool #"+custom_id);
@@ -99,7 +97,7 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
         $(cus_modul).attr("class","auswahl_modul ui-draggable");
         $(cus_modul).find(".modul_name").text(this_name);
         $(cus_modul).find(".modul_credit").text(cre+" C");
-				modPropChange(custom_id,"credits_in_selection",cre);
+        modPropChange(custom_id,"credits_in_selection",cre);
         modPropChange(custom_id,"inAuswahl","true");
         $("#middle").find(".semester").each(function(){
             var this_id = $(this).attr("id");
@@ -109,11 +107,11 @@ var custom_check = function(name,credit,category,custom_semester,custom_id,tips,
                 //check Noten streichen
                 // update_dummy_modul_in_selection(cus_modul);
             }
-				
+        
         })
         change_module_style_to_auswahl(custom_id,cus_modul);
         ajax_serverupdate_add_custom(this_name,this_credit_point_float,cat_id_array,custom_semester,custom_id,has_grade);
-				ajax_serverupdate_grade_reset(custom_id);
+        ajax_serverupdate_grade_reset(custom_id);
         return true;
     }
 };
@@ -134,15 +132,15 @@ $(function(){
     var name=$("#name");
     var credit=$("#credit");
     var category = $("#custom_cat_id");
-		
+    
     var custom_semester=$("#custom_semester");
     var custom_id=$("#custom_id");
-		
+    
     var tips =$("#validateTips");
     var allFields = $([]).add(name).add(credit);
-		
-		var AOCbox = $("#exception_credit");
-            			
+    
+    var AOCbox = $("#exception_credit");
+                  
     $("#CacheDump").dialog({
         modal:true,
         height:400,
@@ -151,13 +149,13 @@ $(function(){
         autoOpen:false,
                 
         open:function(event,ui){
-	
-            $("#CacheDump").show();					
+  
+            $("#CacheDump").show();         
         },
         buttons:{
             "OK":function(){
                 $("#CacheDump").dialog('close');
-							
+              
             }
         }
     });
@@ -170,63 +168,63 @@ $(function(){
         autoOpen:false,
                 
         open:function(event,ui){
-	
-            $("#CacheDump").show();					
+  
+            $("#CacheDump").show();         
         },
         buttons:{
             "OK":function(){
                 $("#CacheDump").dialog('close');
-							
+              
             }
         }
     });
-		
-		
+    
+    
     $(".auswahl_modul,.auswahl_modul_clone,.auswahl_modul.ui-draggable,.partial_modul,.auswahl_modul.partial_modul.ui-draggable").draggable({
-			
+      
         revert : "invalid",
         helper : "clone",
         cursorAt:{
             right:125,
             top:13
         }
-			
+      
     });
-		
-		
-		
-		
-		
-		
+    
+    
+    
+    
+    
+    
     $(".pool_modul,.custom_modul").draggable({
-							
+              
         revert : "invalid",
         helper : "clone",
         cursorAt:{
             left:120,
             top:13
         }
-				
+        
     });
-		
-		
-	   
-		
+    
+    
+     
+    
     // am Anfang beim Seite-Laden alle Pool-modul verstecken.
     // danach dynamisch auf- und zu machen.
 
-	
+  
     $("#pool .pool_modul").hide();
-	
+  
     // $("#vorratbox").droppable({
-    // 		
+    //    
     //         hoverClass:'drophover',
     //         drop : function(event,ui){
     //             $(this).append(ui.draggable);
-    // 			
+    //      
     //         }
     //     });
-	
+  
     // zur�ck in POOL , also mach #pool droppable
     $("#pool").droppable({
         accept     : '.auswahl_modul,.auswahl_modul_clone',// momentan gibt es nicht
@@ -240,11 +238,11 @@ $(function(){
             modul_loeschen(modul_id,modul_id);
         }
     });
-		
+    
     //-------------semester-Droppable--------------------------------------//
-    //																	   //
+    //                                     //
     /////////////////////////////////////////////////////////////////////////
-		
+    
     $(".semester").droppable({
         hoverClass : 'drophover',
         accept     : '.pool_modul ,.auswahl_modul,.auswahl_modul_clone,.custom_modul',
@@ -256,11 +254,11 @@ $(function(){
             var semester = $(this).attr("id");
             var modul_id = $(ui.draggable).attr("id");
             var modul_class = $(ui.draggable).attr("class");
-				 
+         
             var custom_text = modProp(modul_id,"custom");
-            var parts_text  = modProp(modul_id,"modul_parts");				 
+            var parts_text  = modProp(modul_id,"modul_parts");         
             var parts_exist  = modProp(modul_id,"modul_parts_exist");
-				
+        
             if(custom_text == "non-custom") {
                 //check nach Teil_modul
                 if((parts_text!="0") && (parts_exist=="false")){
@@ -279,14 +277,14 @@ $(function(){
                     custom_modul_drop_in_auswahl(modul_id, modul_class, semester, ui_draggable, this_semester, ui_helper);
                 }
             }
-				
+        
         //hier check nach dummy modul und normales Modul
         //und check nach gesuchtes Modul.D.h: check modul_id_parent im Pool und
         //guck ob das class search_modul hat. Wenn Ja dann aktualisiere Live Pool
         }
     // ende drop
     });//ende droppable
-		
+    
 });//ende
 
 //////////////////////semesterhinzu////////////////////////////////////////////////
@@ -303,14 +301,14 @@ var sem_hinzu = function(){
         "</div>"+
         "<a class='semesterloeschen btn' onClick='sem_loeschen("+n+");'>Semester entfernen</a>"+
         "</div>";
-			
+      
         $("#semester-content").append(neu);
-		
+    
         // "L�schen" wird immer in dem letzen Semester hinzuf�gen
         // d.h: andere ""L�schen" werden weggemacht.
         $(".semester[id="+(n-1)+"] .semesterloeschen").css("display","none");
         $(".semester[id="+n+"] .semesterloeschen").css("display","inline");
-			
+      
         // ein Modul reinziehn
         $(".semester").droppable({
             hoverClass:'drophover',
@@ -322,7 +320,7 @@ var sem_hinzu = function(){
                 var semester = $(this).attr("id");
                 var modul_id = $(ui.draggable).attr("id");
                 var modul_class = $(ui.draggable).attr("class");
-				 
+         
                 var custom_text = modProp(modul_id,"custom");
                 var parts_text  = modProp(modul_id,"modul_parts");
                 var parts_exist  = modProp(modul_id,"modul_parts_exist");
@@ -355,16 +353,16 @@ var sem_hinzu = function(){
 ///////////////////////////////////////////////////////////////////////////////////
 
 var sem_loeschen = function(l){
-	
+  
     lint = parseInt(l);
     var all_sem_destroy="10000";// das sorgt daf�r,dass nur ein Ajax-Aufruf beim Semester-L�schen mit meheren Module auftritt
 
     // confirm nur beim Semester >=2
     if (parseInt(l) != "1") {
-			
+      
         var this_semester = $(".semester[id="+lint+"]");
         var this_modules = $(this_semester).find(".auswahl_modul,.auswahl_modul_clone");
-			
+      
         // Abfrage erfolgt nur falls sich mind. ein Modul im Semster befindet
         var bestaetigen = false
         if (this_modules.length == 0) {
@@ -399,7 +397,7 @@ var sem_loeschen = function(l){
 var toggle_category = function(category_id){
     var handle = $("#pool").find("#"+category_id);
     var temparrow = which_arrow_is_visible(handle);
-	
+  
     switch (temparrow) {
         case "rechts":
             // Kategorie �ffnen
@@ -423,9 +421,9 @@ var toggle_category = function(category_id){
                     }
                 }
                 else {
-										// Folglich sind hier keine Kategorien, sondern Module (OS)
+                    // Folglich sind hier keine Kategorien, sondern Module (OS)
                     $(this).children().each(function(){
-												var modul_id = $(this).parent().attr("class").split("_")[0];
+                        var modul_id = $(this).parent().attr("class").split("_")[0];
                         if (modProp(modul_id,"inAuswahl") == "false") {
                             if (search_is_active()) {
                                 if ($(this).parent().is(".search_modul")) {
@@ -474,7 +472,7 @@ var toggle_category = function(category_id){
             break;
         default:
             alert("Fehler: Ungueltiger Pfeil-Wert in toggle_category().");
-		
+    
     }
 };
 
@@ -484,7 +482,7 @@ var number_of_visible_items_in_category = function(handle){
     if(!((this_class=="pool_category")||(this_class=="search_category"))) {
         alert("Fehler: Handle in number_of_visible_items_in_category() ist keine Kategorie!");
     }
-		
+    
     var count = 0;
     $(handle).children().not("a, .nichtleer").each(function(){
         this_class = $(this).attr("class");
@@ -499,7 +497,7 @@ var number_of_visible_items_in_category = function(handle){
             else count++;
         } else { // also geht es um Module
             $(this).children().not(".auswahl_modul_moving").each(function(){
- 								// Leider ein wenig unschön, aber geht (OS)
+                // Leider ein wenig unschön, aber geht (OS)
                 if ((modProp($(this).parent().attr("class").split("_")[0],"inAuswahl")=="false")&&($(this).is(".pool_modul"))) {
                     if (search_is_active()) {
                         if ($(this).parent().is(".search_modul")) {
@@ -513,14 +511,14 @@ var number_of_visible_items_in_category = function(handle){
             });
         }
     });
-		// alert("number_of_visible_items_in_category: count="+count);
+    // alert("number_of_visible_items_in_category: count="+count);
     return (count);
 };
 
 var flip_arrow_of_category = function(type,handle){
     // gefragt is handle zur Kategorie
     var this_class = $(handle).attr("class");
-	
+  
     switch(type){
         case "rechts":
             $(handle).find(">a .pfeil_unten").css("display","none");

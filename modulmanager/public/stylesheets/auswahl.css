@@ -3,20 +3,20 @@ for licensing questions please refer to the README
 Created by Christian Beulke, Van Quan Nguyen and Olav Stetter */
 
 .auswahl_modul td {
-	padding:0px;
-	margin:0px;
-	border:0px;
-	border-spacing:0px;
+  padding:0px;
+  margin:0px;
+  border:0px;
+  border-spacing:0px;
 }
 
 input.noten_input {
   background-color: #F8F8F8;
-	height: 15px;
+  height: 15px;
   margin: 0px 5px 0px 0px;
-	padding: 0px;
-	text-align: center;
-	cursor: auto;
-	width: 60px;
+  padding: 0px;
+  text-align: center;
+  cursor: auto;
+  width: 60px;
   font-size: 90%;
 }
 
@@ -25,23 +25,23 @@ input.noten_input {
 }*/
 
 select {
-	background-color: #F8F8F8;
-	border: 1px #AAA solid;
+  background-color: #F8F8F8;
+  border: 1px #AAA solid;
 }
 
 .semester_content {
-	width: 100%;
-	margin: 3px;
+  width: 100%;
+  margin: 3px;
 }
 
 .semester {
-	width:100%;
+  width:100%;
   border: 1px #F0F0F0 solid;
-	padding: 8px;
-	margin-bottom: 10px;
+  padding: 8px;
+  margin-bottom: 10px;
 
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .semester h5 {
@@ -50,40 +50,40 @@ select {
 
 /*--------Modul löschen*/
 .modulloeschen {
-	cursor:pointer;	
+  cursor:pointer; 
 }
 #middle .icon_loeschen {
-	display: none;
-	cursor: pointer;
-	float: right;
-	width: 12px;
-	height: 0px;
-	overflow: visible;
+  display: none;
+  cursor: pointer;
+  float: right;
+  width: 12px;
+  height: 0px;
+  overflow: visible;
 }
 
 
 
 /*   Ajax warte.......*/  
 .quick-alert {
-	width: 100%;
-	margin: 1em 0;
-	padding: .5em;
-	display: block;
-	text-align: center;
+  width: 100%;
+  margin: 1em 0;
+  padding: .5em;
+  display: block;
+  text-align: center;
 }
 
 h3,h4,h5 {
-	/*color: #444;*/
-	font-size: 12px;
-	margin-bottom: 5px;
-	font-weight: normal;
+  /*color: #444;*/
+  font-size: 12px;
+  margin-bottom: 5px;
+  font-weight: normal;
 }
 
 /*---- Farbe bei Over auf einem Semester------------*/
 /* Nicht hier weg bewegen, weil diese CSS-Datei nach global und pool geladen
    wird und deswegen dieser Style die anderen "überschreibt" (OS) */
 .drophover {
-	background-color: #EEE;
+  background-color: #EEE;
 }
 
 
@@ -93,28 +93,28 @@ h3,h4,h5 {
 
 label, input { display:block; }
 input.text {
-	 margin-bottom:12px; width:95%; padding: .4em;
+   margin-bottom:12px; width:95%; padding: .4em;
 }
 fieldset { 
-	padding:0; border:0; margin-top:25px; 
+  padding:0; border:0; margin-top:25px; 
 }
 .ui-button { 
-	outline: 0; margin:0; padding: .4em 1em .5em; text-decoration:none; /* !important;*/
-	cursor:pointer; position: relative; text-align: center; 
+  outline: 0; margin:0; padding: .4em 1em .5em; text-decoration:none; /* !important;*/
+  cursor:pointer; position: relative; text-align: center; 
 }
 .ui-dialog .ui-state-highlight, .ui-dialog .ui-state-error { 
-	padding: .3em;  
+  padding: .3em;  
 }
-		
+    
 /* Ausnahme-Optionen (OS) */
 .credit-option, .warnung-option, .note-option, .drop_down_menu {
-	padding-left: 30px;
-	color: #3b809d;
-	margin-bottom: 3px;
+  padding-left: 30px;
+  color: #3b809d;
+  margin-bottom: 3px;
 }
 
 #middle .drop_down_menu p {
-	margin-bottom: 3px;
+  margin-bottom: 3px;
 }
 
 input#exception_credit {
