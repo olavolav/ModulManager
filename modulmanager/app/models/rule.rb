@@ -90,12 +90,8 @@ class Rule < ActiveRecord::Base
     return counter
   end
 
-  def removed_too_many_grades? selected_modules
-    if removed_grades(selected_modules) > removeable_grades
-      return true
-    else
-      return false
-    end
+  def removed_too_many_grades?(selected_modules)
+    return (removed_grades(selected_modules) > removeable_grades)
   end
 
   def parent_focus
@@ -103,11 +99,7 @@ class Rule < ActiveRecord::Base
   end
 
   def is_part_of_focus?
-    if self.parent_connection.is_part_of_focus?
-      return true
-    else
-      return false
-    end
+    return self.parent_connection.is_part_of_focus?
   end
 
 end

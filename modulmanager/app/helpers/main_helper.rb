@@ -41,7 +41,7 @@ module MainHelper
     # if selected_module.has_removed_grade?
     #   messages.push "Note gestrichen"
     # end
-    if selected_module.has_changed_credits?
+    if selected_module.has_custom_credits?
       messages.push "die Credits verändert"
     end
     if selected_module.has_removed_permission?

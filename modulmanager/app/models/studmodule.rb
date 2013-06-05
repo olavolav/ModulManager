@@ -59,29 +59,19 @@ class Studmodule < ActiveRecord::Base
   end
 
   def has_grade
-    if read_attribute("has_grade") == nil
-      return true
-    elsif read_attribute("has_grade") == ""
-      return true
-    else
-      return read_attribute("has_grade")
-    end
+    return read_attribute("has_grade").to_s.blank? ? true : read_attribute("has_grade")
   end
 
   def is_partial_module
-    result = false
-    self.children.length > 0 ? result = true : result = false
-    return result
+    return !(self.children.empty?)
   end
 
   def parent_id
-    self.parent == nil ? result = "" : result = self.parent.id
-    return result
+    return (self.parent.nil? ? "" : self.parent.id)
   end
 
   def classification
-    self.short.include?("custom") ? result = "custom" : result = "non-custom"
-    return result
+    return (self.short.include?("custom") ? "custom" : "non-custom")
   end
 
   def total_credits
@@ -93,21 +83,15 @@ class Studmodule < ActiveRecord::Base
   end
 
   def parts
-    result = 0
-    self.children.length > 0 ? result = self.children.length + 1 : result = 0
-    return result
+    return self.children.length > 0 ? self.children.length + 1 : 0
   end
 
   def displayable_subname
-    result = ""
-    self.subname == nil ? result = "" : result = self.subname
-    return result
+    return self.subname.to_s
   end
 
   def has_multiple_categories
-    result = false
-    self.categories.length > 1 ? result = true : result = false
-    return result
+    return self.categories.length > 1
   end
   
 end

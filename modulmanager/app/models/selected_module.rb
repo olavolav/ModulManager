@@ -25,27 +25,15 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def is_head_module?
-    if self.moduledata.children != nil && self.moduledata.children != []
-      return true
-    else
-      return false
-    end
+    return (!(self.moduledata.children.nil?) && !(self.moduledata.children.empty?))
   end
 
   def is_child_module?
-    if self.moduledata.parent != nil
-      return true
-    else
-      return false
-    end
+    return !self.moduledata.parent.nil?
   end
 
   def is_custom_module?
-    if self.class == CustomModule
-      return true
-    else
-      return false
-    end
+    return self.class == CustomModule
   end
 
   def is_allowed? auswahl, semester_count
@@ -144,19 +132,11 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def has_custom_credits?
-    if self[:credits] == nil
-      return false
-    else
-      return true
-    end
+    return !(self[:credits].nil?)
   end
 
   def grade
-    if self[:grade] == nil
-      return 0
-    else
-      return self[:grade].to_f
-    end
+    return (self[:grade].nil? ? 0 : self[:grade].to_f)
   end
 
   # Credits zur Berechnung der Gesamtnote
@@ -178,19 +158,11 @@ class SelectedModule < ActiveRecord::Base
   end
 
   def name
-    if self[:name] == nil
-      return self.moduledata.name
-    else
-      return self[:name]
-    end
+    return (self[:name].nil? ? self.moduledata.name : self[:name])
   end
 
   def subname
-    unless self.moduledata.subname == nil
-      return self.moduledata.subname
-    else
-      return ""
-    end
+    return self.moduledata.subname.to_s
   end
 
   def short
@@ -426,26 +398,12 @@ class SelectedModule < ActiveRecord::Base
     end
   end
 
-  def has_changed_credits?
-    unless self[:credits] == nil
-      return true
-    end
-    return false
-  end
-
   def has_removed_permission?
-    if self[:permission_removed] == true
-      return true
-    end
-    return false
+    return self[:permission_removed] == true
   end
 
   def has_removed_grade?
-    if self.is_custom_module?
-      return false
-    else
-      return !self.has_grade
-    end
+    return self.is_custom_module? ? false : !(self.has_grade)
   end
 
   def category

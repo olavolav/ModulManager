@@ -49,12 +49,8 @@ class Focus < ActiveRecord::Base
     return connection
   end
 
-  def contains_module? mod
-    my_modules = self.category_modules
-    if my_modules.include? mod
-      return true
-    end
-    return false
+  def contains_module?(mod)
+    return self.category_modules.include?(mod)
   end
 
 end
