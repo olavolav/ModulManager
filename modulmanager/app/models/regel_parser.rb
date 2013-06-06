@@ -4,40 +4,16 @@
 
 class RegelParser
   
-  def init
-    # bla
-  end
-  
   def self.clear
-    puts "clearing..."
-    connections = 0
-    rules = 0
-    groups = 0
-    foci = 0
-    modules = 0
-    sessions = 0
-    versions = 0
-    
-    Connection.all.each { |c| c.destroy; connections += 1 }
-    Rule.all.each { |r| r.destroy; rules += 1 }
-    Category.all.each { |c| c.destroy; groups += 1 }
-    Focus.all.each { |f| f.destroy; foci += 1 }
-    Studmodule.all.each { |m| m.destroy; modules += 1 }
-    ModuleSelection.all.each { |m| m.destroy; sessions += 1 }
+    Connection.all.each { |c| c.destroy }
+    Rule.all.each { |r| r.destroy }
+    Category.all.each { |c| c.destroy }
+    Focus.all.each { |f| f.destroy }
+    Studmodule.all.each { |m| m.destroy }
+    ModuleSelection.all.each { |m| m.destroy }
     SelectedModule.all.each { |sm| sm.destroy }
-    Version.all.each { |v| v.destroy; versions += 1 }
+    Version.all.each { |v| v.destroy }
     Semester.all.each { |s| s.destroy }
-    # Connection.all.each { |c| c.destroy }
-    # Rule.all.each { |r| r.destroy }
-    # Category.all.each { |c| c.destroy }
-    # Focus.all.each { |f| f.destroy }
-    # Studmodule.all.each { |m| m.destroy }
-    # ModuleSelection.all.each { |m| m.destroy }
-    # SelectedModule.all.each { |sm| sm.destroy }
-    # Version.all.each { |v| v.destroy }
-    # Semester.all.each { |s| s.destroy }
-    
-    return [connections, rules, groups, foci, modules, sessions, versions]
   end
   
   def self.any_rules_currently_in_database?

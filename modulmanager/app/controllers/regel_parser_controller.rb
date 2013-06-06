@@ -23,17 +23,17 @@ class RegelParserController < ApplicationController
       po_entries.delete(".svn")
       po_entries.delete("README.txt")
       
-      
       po_entries.each do |entry|
         RegelParser.check_syntax "config/basedata/#{entry}"
         version = RegelParser.initialize_po "config/basedata/#{entry}"
       end
       
-      @modules = Studmodule.all
-      @groups = Category.all
-      @foci = Focus.all
-      @rules = Rule.all
-      @connections = Connection.all
+      @modules = Studmodule.count
+      @groups = Category.count
+      @foci = Focus.count
+      @rules = Rule.count
+      @connections = Connection.count
+      
       respond_to do |format|
         format.html
       end
@@ -41,7 +41,16 @@ class RegelParserController < ApplicationController
   end
 
   def clear
-    @connections, @rules, @groups, @foci, @modules, @sessions, @versions = RegelParser.clear
+    @modules = Studmodule.count
+    @groups = Category.count
+    @foci = Focus.count
+    @rules = Rule.count
+    @connections = Connection.count
+
+    RegelParser.clear
+    respond_to do |format|
+      format.html
+    end
   end
 
 

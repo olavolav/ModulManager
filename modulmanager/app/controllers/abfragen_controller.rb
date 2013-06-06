@@ -320,11 +320,11 @@ class AbfragenController < ApplicationController
     @regel = Connection.find(:first, :conditions => "id = '#{id}'")
     @mods = selection.selection_modules
     @errors = get_errors(selection)
-    ff = @regel.evaluate @mods, get_errors(selection)
-    ff == 1 ? @fullfilled = true : @fullfilled = false
-    @credits_earned     = @regel.collected_credits @mods, get_errors(selection)
 
-    @available_modules  = Array.new
+    @fullfilled = ( @regel.evaluate(@mods, get_errors(selection)) == 1 )
+    @credits_earned = @regel.collected_credits @mods, get_errors(selection)
+
+    @available_modules = Array.new
     @relevant_modules_in_selection = Array.new
 
     if @regel.child_connections.length > 0
